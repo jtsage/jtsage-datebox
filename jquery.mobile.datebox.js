@@ -148,63 +148,6 @@
 				$('#datebox_'+name).find('[name='+name+'_y]').val(thisDate.getFullYear());
 			});
 			      
-			      /*
-			      
-			      var shortMon_todo_add_form_date = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		var datepop_todo_add_form_date_cd = new Date();
-		function update_todo_add_form_date() {
-		   $('#datepop_todo_add_form_date_dStr').html(datepop_todo_add_form_date_cd.toLocaleDateString());
-			$('#datepop_todo_add_form_date_Imon').val(shortMon_todo_add_form_date[datepop_todo_add_form_date_cd.getMonth()]);
-			$('#datepop_todo_add_form_date_Iday').val(datepop_todo_add_form_date_cd.getDate());
-			$('#datepop_todo_add_form_date_Iyar').val(datepop_todo_add_form_date_cd.getFullYear());
-		};
-		$(document).ready(function () {
-			update_todo_add_form_date(datepop_todo_add_form_date_cd);
-			$('#datepop_todo_add_form_date_pyar').click(function () {
-				datepop_todo_add_form_date_cd.setYear(datepop_todo_add_form_date_cd.getFullYear() + 1);
-				update_todo_add_form_date(datepop_todo_add_form_date_cd);
-			});
-			$('#datepop_todo_add_form_date_pmon').click(function () {
-				datepop_todo_add_form_date_cd.setMonth(datepop_todo_add_form_date_cd.getMonth() + 1);
-				update_todo_add_form_date(datepop_todo_add_form_date_cd);
-			});
-			$('#datepop_todo_add_form_date_pday').click(function () {
-				datepop_todo_add_form_date_cd.setDate(datepop_todo_add_form_date_cd.getDate() + 1);
-				update_todo_add_form_date(datepop_todo_add_form_date_cd);
-			});
-			$('#datepop_todo_add_form_date_myar').click(function () {
-				datepop_todo_add_form_date_cd.setYear(datepop_todo_add_form_date_cd.getFullYear() - 1);
-				update_todo_add_form_date(datepop_todo_add_form_date_cd);
-			});
-			$('#datepop_todo_add_form_date_mmon').click(function () {
-				datepop_todo_add_form_date_cd.setMonth(datepop_todo_add_form_date_cd.getMonth() - 1);
-				update_todo_add_form_date(datepop_todo_add_form_date_cd);
-			});
-			$('#datepop_todo_add_form_date_mday').click(function () {
-				datepop_todo_add_form_date_cd.setDate(datepop_todo_add_form_date_cd.getDate() - 1);
-				update_todo_add_form_date(datepop_todo_add_form_date_cd);
-			});
-			$('#datepop_todo_add_form_date_Iyar').change(function() {
-				datepop_todo_add_form_date_cd.setYear($(this).val());
-				$('#datepop_todo_add_form_date_dStr').html(dateFormat(datepop_todo_add_form_date_cd, "fullDate")); });
-			$('#datepop_todo_add_form_date_Imon').change(function() {
-				datepop_todo_add_form_date_cd.setMonth($(this).val());
-				$('#datepop_todo_add_form_date_dStr').html(dateFormat(datepop_todo_add_form_date_cd, "fullDate")); });
-			$('#datepop_todo_add_form_date_Iday').change(function() {
-				datepop_todo_add_form_date_cd.setDate($(this).val());
-				$('#datepop_todo_add_form_date_dStr').html(dateFormat(datepop_todo_add_form_date_cd, "fullDate")); });
-			$('#datepop_todo_add_form_date_Cnl').click(function() {
-				$('#datepop_todo_add_form_date').slideUp('slow'); });
-			$('#datepop_todo_add_form_date_Set').click(function() {
-				$('#todo_add_form_date').val( datepop_todo_add_form_date_cd.getFullYear() + '-' + datepop_todo_add_form_date_cd.getMonth() + '-' + datepop_todo_add_form_date_cd.getDate() );
-				$('#datepop_todo_add_form_date').slideUp('slow'); });
-			$('#todo_add_form_date').live('focus', function() { 
-				$('#datepop_todo_add_form_date').slideDown('slow'); });
-		});
-			      
-			      
-			
-			$(this).after( $( "<div />" ).datepicker({ altField: "#" + $(this).attr( "id" ), showOtherMonths: true }) );*/
 		});
 	});
 })( jQuery );
