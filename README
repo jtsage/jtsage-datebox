@@ -1,0 +1,14 @@
+The datebox extension is simple to use.
+
+Include both the .js and the .css, then for field you
+wish to activte it for, set type="datebox" or date-type="datebox".
+
+To-Do: 
+
+  learn the standard ui classes to put the style names more inline
+  with other extensions.
+
+  learn the mobile plugin framework, make this conform to it.
+
+  figure out how the behavior of the base jquerymobile select plugin works - 
+  specifically, the 'no new window' behavior on wider screens.
