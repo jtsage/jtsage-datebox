@@ -7,14 +7,16 @@
 	<link type="text/css" href="jquery.mobile-1.0a3.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="jquery.mobile.datebox.css" rel="stylesheet" /> 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script> 
+	<script type="text/javascript">
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
+		});	
+	</script>
 	<script type="text/javascript" src="jquery.mobile-1.0a3.min.js"></script> 
 	<script type="text/javascript" src="jquery.mobile.datebox.js"></script>
 	<script type="text/javascript">
-		$( document ).bind( "mobileinit", function(){
-			$.mobile.page.prototype.options.degradeInputs.date = true;
-		});
 		$(document).ready(function() {
-			$('input[data-type="datebox"]').datebox();
+			$('input[data-role="datebox"]').datebox();
 		});
 	</script>
 </head>
@@ -25,7 +27,7 @@
 	</div>
 	<div data-role="content" data-theme="c">
 		<form method="post" action="#">
-			<label for="date">Some Date with Default</label><input value="01/01/2011" name="date" type="date" data-type="datebox" id="date" />	
+			<label for="date">Some Date with Default</label><input value="01/01/2011" name="date" type="date" data-role="datebox" id="date" />	
 		</form>	
 		<p>DateBox is a small, android-esk date picker, using as many of the native jQueryMobile controls as possible.</p>
 		<p>This is based in part on the work of Todd M. Horst, and his <a href="http://toddmhorst.wordpress.com/2010/12/30/android-like-date-picker-with-jquery-mobile-2/">Android Like Date Picker 2</a></p>
@@ -37,6 +39,7 @@
 			<li>Attempts to position itself centered over the input, however, the top will never be less than 45px from the top boundry of the document.</li>
 			<li>Click outside to close, configurable with option 'clickOutsideClose' (default: true)</li>
 			<li>Press ESC to close, configurable with option 'closeEscape' (default: true)</li>
+			<li>.datebox('disable') and .datebox('enable') now fully work.</li>
 		</ul></p>
 		<p>To-Do:
 		<ul>
@@ -45,17 +48,17 @@
 		</ul></p>
 		<p>Suggested Use:
 		<pre>
-		$( document ).bind( "mobileinit", function(){
+		$( document ).bind( "mobileinit", function(){ // Note, this must happen before loading jQM!
 			$.mobile.page.prototype.options.degradeInputs.date = true;
 		});
-		$(document).ready(function() {
-			$('input[data-type="datebox"]').datebox();
+		$(document).ready(function() { // Conversely, this needs to happen after loading jQM and jQM-DateBox
+			$('input[data-role="datebox"]').datebox();
 		});
 		
-		&lt;input type="date" data-type="datebox" name="some_date" /&gt;
+		&lt;input type="date" data-role="datebox" name="some_date" /&gt;
 		</pre></p>
 		<form method="post" action="#">
-			<label for="date2">Some Other Date Here</label><input name="date2" type="date" data-type="datebox" id="date2" />
+			<label for="date2">Some Other Date Here</label><input name="date2" type="date" data-role="datebox" id="date2" />
 		</form>
 	</div>
 	<div data-role="footer">

@@ -19,6 +19,8 @@ DateBox Features:
  * Click outside to close, configurable with option 'clickOutsideClose'
 
  * Press ESC to close, configurable with option 'closeEscape' 
+ 
+ * .datebox('enable') and .datebox('disable') now fully functional.
 
 To-Do:
 
@@ -29,13 +31,16 @@ To-Do:
 
 Suggested Use:
 
+		// BEFORE loading jQM
 		$( document ).bind( "mobileinit", function(){
 			$.mobile.page.prototype.options.degradeInputs.date = true;
 		});
+		
+		// AFTER loading jQM and jQM-DateBox
 		$(document).ready(function() {
-			$('input[data-type="datebox"]').datebox();
+			$('input[data-role="datebox"]').datebox();
 		});
 		
-		<input type="date" data-type="datebox" name="some_date" />
+		<input type="date" data-role="datebox" name="some_date" />
 		
 
