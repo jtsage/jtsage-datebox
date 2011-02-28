@@ -33,7 +33,7 @@ Suggested Use:
 
 		// BEFORE loading jQM
 		$( document ).bind( "mobileinit", function(){
-			$.mobile.page.prototype.options.degradeInputs.date = true;
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
 		});
 		
 		// AFTER loading jQM and jQM-DateBox

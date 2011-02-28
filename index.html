@@ -49,7 +49,7 @@
 		<p>Suggested Use:
 		<pre>
 		$( document ).bind( "mobileinit", function(){ // Note, this must happen before loading jQM!
-			$.mobile.page.prototype.options.degradeInputs.date = true;
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
 		});
 		$(document).ready(function() { // Conversely, this needs to happen after loading jQM and jQM-DateBox
 			$('input[data-role="datebox"]').datebox();
