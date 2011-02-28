@@ -59,6 +59,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 							if ( e.keyCode == 27 ) {
 								pickPage.fadeOut('slow');
 								$(document).unbind('keyup');
+								$(document).unbind('click');
 								input.focus();
 							}
 						});
@@ -68,6 +69,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 						$(document).bind('click', function() { // Click outside to close.
 							pickPage.fadeOut('slow');
 							$(document).unbind('click');
+							$(document).unbind('keyup');
 							input.focus();
 						});
 						clearbtn.click(function(evt){ evt.stopPropagation(); });
