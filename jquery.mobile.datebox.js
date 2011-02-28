@@ -60,6 +60,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 						$(document).bind('click', function() { // Click outside to close.
 							pickPage.fadeOut('slow');
 							$(document).unbind('click');
+							input.focus();
 						});
 						clearbtn.click(function(evt){ evt.stopPropagation(); });
 						pickPage.click(function(evt){ evt.stopPropagation(); });
