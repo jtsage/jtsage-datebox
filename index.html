@@ -25,7 +25,7 @@
 		<form method="post" action="#">
 			<label for="date">Some Date Here</label><input name="date" type="datebox" id="date" />	
 		</form>	
-		<p>The date picker also parses what you have already entered into the form field for it's starting point.  It will update each time it is re-opened.  The three input fields in the picker are editable, they will cause the date to automatically update - even if the value entered is out of bounds (i.e. try entering Feb 31st for instance).  A second instance of the picker is below, to show the prefered positioning of the popup (however, the top will be automatically set to 0 if it were to otherwise be in an un-scrollable location.</p>
+		<p>The date picker also parses what you have already entered into the form field for it's starting point.  It will update each time it is re-opened.  The three input fields in the picker are editable, they will cause the date to automatically update - even if the value entered is out of bounds (i.e. try entering Feb 31st for instance).  A second instance of the picker is below, to show the prefered positioning of the popup (however, the top will be automatically set to 45 (below standard header) if it were to otherwise be in an un-scrollable location.)  Also closes on a click outside of the popup and a press of the ESC key.</p>
 		<p>fwiw, I'm using a fake input type - if someone has some time to fork the code and show me how I can override the 'date' type *without* jQuery working it's magic first (or the browser), I will update the plugin.  Even more-so if someone can point out how to make this auto-fire without the need to specifically call it.</p>
 		<form method="post" action="#">
 			<label for="date2">Some Other Date Here</label><input name="date2" type="datebox" id="date2" />

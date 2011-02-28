@@ -10,6 +10,8 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 		disabled: false,
 		pickPageTheme: 'b',
 		buttonTheme: 'a',
+		escapeClose: true,
+		clickOutsideClose: true,
 	},
 	_create: function(){
 
@@ -36,14 +38,33 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 					inputOffset = focusedEl.offset()
 					pickWinHeight = pickPage.outerHeight();
 					pickWinWidth = pickPage.innerWidth();
-					pickWinTop = inputOffset.top - ( pickWinHeight / 2);
-					if ( pickWinTop < 1 ) {
-						pickWinTop = 0;
+					pickWinTop = inputOffset.top + ( input.outerHeight() / 2 )- ( pickWinHeight / 2);
+					if ( pickWinTop < 45 ) { // Fix for popup ending up under header
+						pickWinTop = 45;
 					}
 					pickWinLeft = inputOffset.left + ( focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
 					pickPage.css('position', 'absolute').css('top', pickWinTop).css('left', pickWinLeft).fadeIn('slow');
-					input.focus();
-					input.trigger('change'); 
+					input.trigger('change');
+					
+					if ( o.escapeClose ) {
+						$(document).keyup(function(e) { // Close on ESC key.
+							if ( e.keyCode == 27 ) {
+								pickPage.fadeOut('slow');
+								$(document).unbind('keyup');
+								input.focus();
+							}
+						});
+					}
+						
+					if ( o.clickOutsideClose ) {
+						$(document).bind('click', function() { // Click outside to close.
+							pickPage.fadeOut('slow');
+							$(document).unbind('click');
+						});
+						clearbtn.click(function(evt){ evt.stopPropagation(); });
+						pickPage.click(function(evt){ evt.stopPropagation(); });
+					}
+
 					e.preventDefault();
 				})
 				.appendTo(focusedEl)
@@ -95,8 +116,10 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 				pickPageClose = pickPage.find( ".ui-header a");
 				
 			pickPageClose.click(function(e) {
-				pickPage.fadeOut('fast');
+				pickPage.fadeOut('slow');
 				input.focus();
+				if ( o.clickOutsideClose ) { $(document).unbind('click'); }
+				if ( o.escapeClose ) { $(document).unbind('keyup'); }
 			});
 			
 			pickPage.width('300px');
@@ -183,6 +206,8 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 					input.val($(self).data("date").toLocaleDateString());
 					pickPage.fadeOut('fast');
 					input.blur();
+					if ( o.clickOutsideClose ) { $(document).unbind('click'); }
+					if ( o.escapeClose ) { $(document).unbind('keyup'); }
 				});
 					
 			pickPage.css('minHeight', '0px');
