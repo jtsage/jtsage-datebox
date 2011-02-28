@@ -1,8 +1,17 @@
 /*
-* jQuery Mobile Framework : plugin to provide an android-like datepicker.
-* Copyright (c) JTSage
-* CC 3.0 Attribution.  May be relicensed without permission or notifcation.
-*/
+ * jQuery Mobile Framework : plugin to provide an android-like datepicker.
+ * Copyright (c) JTSage
+ * CC 3.0 Attribution.  May be relicensed without permission/notifcation.
+ * 
+ * Suggested use:  (input elements of type="text" & data-type="datebox")
+ * 
+ * $( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = true;
+		});
+ * $(document).ready(function() {
+			$('input[data-type="datebox"]').datebox();
+		});
+ */
 (function($, undefined ) {
 $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
@@ -22,11 +31,11 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			
 		themeclass = " ui-body-" + theme;
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text');
-		input.addClass('ui-body-'+ o.theme);
+		input.addClass('ui-datebox-baseinput ui-body-'+ o.theme);
 		
 		var focusedEl = input;
 
-		if( input.is('[type="datebox"],[data-type="datebox"]') ){
+		if( input.is('[data-type="datebox"]') ){
 			
 			$(this).data('date', new Date());
 			
@@ -131,21 +140,21 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			
 			$("<div class='ui-datebox-button' title='Next Month'><a href='#'></a></div>")
 				.appendTo(pickPagePlus).buttonMarkup({theme: o.buttonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-				.click(function() {
+				.tap(function() {
 					$(self).data("date").setMonth($(self).data("date").getMonth() + 1);
 					updateMe();
 				});
 			
 			$("<div class='ui-datebox-button' title='Next Day'><a href='#'></a></div>")
 				.appendTo(pickPagePlus).buttonMarkup({theme: o.buttonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-				.click(function() {
+				.tap(function() {
 					$(self).data("date").setDate($(self).data("date").getDate() + 1);
 					updateMe();
 				});
 			
 			$("<div class='ui-datebox-button' title='Next Year'><a href='#'></a></div>")
 				.appendTo(pickPagePlus).buttonMarkup({theme: o.buttonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-				.click(function() {
+				.tap(function() {
 					$(self).data("date").setYear($(self).data("date").getFullYear() + 1);
 					updateMe();
 				});
@@ -180,21 +189,21 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			
 			$("<div class='ui-datebox-button' title='Previous Month'><a href='#'></a></div>")
 				.appendTo(pickPageMinus).buttonMarkup({theme: o.buttonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-				.click(function() {
+				.tap(function() {
 					$(self).data("date").setMonth($(self).data("date").getMonth() - 1);
 					updateMe();
 				});
 			
 			$("<div class='ui-datebox-button' title='Previous Day'><a href='#'></a></div>")
 				.appendTo(pickPageMinus).buttonMarkup({theme: o.buttonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-				.click(function() {
+				.tap(function() {
 					$(self).data("date").setDate($(self).data("date").getDate() - 1);
 					updateMe();
 				});
 			
 			$("<div class='ui-datebox-button' title='Previous Year'><a href='#'></a></div>")
 				.appendTo(pickPageMinus).buttonMarkup({theme: o.buttonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-				.click(function() {
+				.tap(function() {
 					$(self).data("date").setYear($(self).data("date").getFullYear() - 1);
 					updateMe();
 				});
@@ -203,7 +212,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			
 			$("<a href='#'>Set Date</a>")
 				.appendTo(pickPageSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-				.click(function() {
+				.tap(function() {
 					input.val($(self).data("date").toLocaleDateString());
 					pickPage.fadeOut('fast');
 					input.blur();
@@ -217,11 +226,11 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 	},
 	    
 	disable: function(){
-		( this.element.attr("disabled",true).is('[type="datebox"],[data-type="datebox"]') ? this.element.parent() : this.element ).addClass("ui-disabled");
+		( this.element.attr("disabled",true).is('[data-type="datebox"]') ? this.element.parent() : this.element ).addClass("ui-disabled");
 	},
 	
 	enable: function(){
-		( this.element.attr("disabled", false).is('[type="datebox"],[data-type="datebox"]') ? this.element.parent() : this.element ).removeClass("ui-disabled");
+		( this.element.attr("disabled", false).is('[data-type="datebox"]') ? this.element.parent() : this.element ).removeClass("ui-disabled");
 	}
 
 	

@@ -5,6 +5,9 @@
 
 }
 
+.ui-datebox-baseinput {
+	width: 98% !important;
+}
 .ui-datebox-date h4 {
 	margin-top: 0px;
 	margin-bottom: 0px;
