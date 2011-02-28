@@ -3,12 +3,15 @@ The datebox extension is simple to use.
 Include both the .js and the .css, then for field you
 wish to activte it for, set type="datebox" or date-type="datebox".
 
+Then call the method on each. i.e. $('#date').datebox();
+
 To-Do: 
 
-  learn the standard ui classes to put the style names more inline
-  with other extensions.
+  auto-attach to 'date' form elements? maybe those with data-type="datebox" only?
 
-  learn the mobile plugin framework, make this conform to it.
+  still not using the same method that the select plugin does.  Fades rather
+  than uses a page transition.  That would be nicer.
 
-  figure out how the behavior of the base jquerymobile select plugin works - 
-  specifically, the 'no new window' behavior on wider screens.
+  need to alter the display classes to look a little nicer on android (conform
+  to screen size better)
+
