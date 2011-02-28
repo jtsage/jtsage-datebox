@@ -35,7 +35,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 		
 		var focusedEl = input;
 
-		if( input.is('[data-type="datebox"]') ){
+		//if( input.is('[data-role="datebox"]') ){
 			
 			$(this).data('date', new Date());
 			
@@ -44,35 +44,37 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			
 			var clearbtn = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
 				.tap(function( e ){ /* clicked the button! */
-					inputOffset = focusedEl.offset()
-					pickWinHeight = pickPage.outerHeight();
-					pickWinWidth = pickPage.innerWidth();
-					pickWinTop = inputOffset.top + ( input.outerHeight() / 2 )- ( pickWinHeight / 2);
-					if ( pickWinTop < 45 ) { // Fix for popup ending up under header
-						pickWinTop = 45;
-					}
-					pickWinLeft = inputOffset.left + ( focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
-					pickPage.css('position', 'absolute').css('top', pickWinTop).css('left', pickWinLeft).fadeIn('slow');
-					input.trigger('change');
-					
-					if ( o.escapeClose ) {
-						$(document).keyup(function(e) { // Close on ESC key.
-							if ( e.keyCode == 27 ) {
-								pickPage.fadeOut('slow');
-								$(document).unbind('keyup');
-								input.focus();
-							}
-						});
-					}
+					if ( !o.disabled ) {
+						inputOffset = focusedEl.offset()
+						pickWinHeight = pickPage.outerHeight();
+						pickWinWidth = pickPage.innerWidth();
+						pickWinTop = inputOffset.top + ( input.outerHeight() / 2 )- ( pickWinHeight / 2);
+						if ( pickWinTop < 45 ) { // Fix for popup ending up under header
+							pickWinTop = 45;
+						}
+						pickWinLeft = inputOffset.left + ( focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
+						pickPage.css('position', 'absolute').css('top', pickWinTop).css('left', pickWinLeft).fadeIn('slow');
+						input.trigger('change');
 						
-					if ( o.clickOutsideClose ) {
-						$(document).bind('click', function() { // Click outside to close.
-							pickPage.fadeOut('slow');
-							$(document).unbind('click');
-							input.focus();
-						});
-						clearbtn.click(function(evt){ evt.stopPropagation(); });
-						pickPage.click(function(evt){ evt.stopPropagation(); });
+						if ( o.escapeClose ) {
+							$(document).keyup(function(e) { // Close on ESC key.
+								if ( e.keyCode == 27 ) {
+									pickPage.fadeOut('slow');
+									$(document).unbind('keyup');
+									input.focus();
+								}
+							});
+						}
+							
+						if ( o.clickOutsideClose ) {
+							$(document).bind('click', function() { // Click outside to close.
+								pickPage.fadeOut('slow');
+								$(document).unbind('click');
+								input.focus();
+							});
+							clearbtn.click(function(evt){ evt.stopPropagation(); });
+							pickPage.click(function(evt){ evt.stopPropagation(); });
+						}
 					}
 
 					e.preventDefault();
@@ -85,7 +87,9 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			});
 			input
 				.focus(function(){
-					focusedEl.addClass('ui-focus');
+					if ( ! o.disabled ) {
+						focusedEl.addClass('ui-focus');
+					}
 					input.removeClass('ui-focus');
 				})
 				.blur(function(){
@@ -222,15 +226,20 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 					
 			pickPage.css('minHeight', '0px');
 			
-		}
+		//}
 	},
 	    
 	disable: function(){
-		( this.element.attr("disabled",true).is('[data-type="datebox"]') ? this.element.parent() : this.element ).addClass("ui-disabled");
+		this.element.attr("disabled",true);
+		this.element.parent().addClass("ui-disabled");
+		this.options.disabled = true;
+		this.element.blur();
 	},
 	
 	enable: function(){
-		( this.element.attr("disabled", false).is('[data-type="datebox"]') ? this.element.parent() : this.element ).removeClass("ui-disabled");
+		this.element.attr("disabled", false);
+		this.element.parent().removeClass("ui-disabled");
+		this.options.disabled = false;
 	}
 
 	
