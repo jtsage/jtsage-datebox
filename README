@@ -1,17 +1,41 @@
-The datebox extension is simple to use.
+DateBox is a small, android-esk date picker, using as many of the native 
+jQueryMobile controls as possible.
 
-Include both the .js and the .css, then for field you
-wish to activte it for, set type="datebox" or date-type="datebox".
+This is based in part on the work of Todd M. Horst, and his Android Like Date Picker 2
 
-Then call the method on each. i.e. $('#date').datebox();
+DateBox Features:
 
-To-Do: 
+ * Auto-parses text entered into form element on open [any valid date string in
+	 your browsers locale, uses javascript:Date()]
 
-  auto-attach to 'date' form elements? maybe those with data-type="datebox" only?
+ * Input items on DateBox are directly editable, allowing for quick date change.
 
-  still not using the same method that the select plugin does.  Fades rather
-  than uses a page transition.  That would be nicer.
+ * Auto-corrects out of bounds (calendar invalid) dates into the closest real 
+	date [e.g. Feb 31st becomes March 2nd or 3rd depending on the year]
 
-  need to alter the display classes to look a little nicer on android (conform
-  to screen size better)
+ * Attempts to position itself centered over the input, however, the top will 
+	never be less than 45px from the top boundry of the document.
+
+ * Click outside to close, configurable with option 'clickOutsideClose'
+
+ * Press ESC to close, configurable with option 'closeEscape' 
+
+To-Do:
+
+ * Create it's own class for the input - currently it is bastardizing the search class.
+
+ * Figure out how to hook into base jQueryMobile plugins to avoid needing any
+	 per-page jQuery to fire DateBox.
+
+Suggested Use:
+
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = true;
+		});
+		$(document).ready(function() {
+			$('input[data-type="datebox"]').datebox();
+		});
+		
+		<input type="date" data-type="datebox" name="some_date" />
+		
 
