@@ -1,13 +1,28 @@
+.ui-input-datebox {
+	width: 95%;
+	background-image: none;
+	padding: .4em;
+	line-height: 1.4;
+	font-size: 16px;
+	display: block;
+	width: 95%;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
 .min-width-480px .ui-input-datebox {
-	width: 55%;
-	background-color: #f0f0f0;
-	border: 1px solid #b3b3b3;
-
+	width: 60%; display: inline-block;
 }
 
-.ui-datebox-baseinput {
-	width: 98% !important;
+.ui-input-datebox input {
+	width: 90% !important;
+	border: 1px solid transparent !important;
+	vertical-align: middle;
 }
+
+.ui-input-datebox input:focus { outline: none;}
+
+
 .ui-datebox-date h4 {
 	margin-top: 0px;
 	margin-bottom: 0px;

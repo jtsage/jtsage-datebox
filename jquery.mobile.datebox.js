@@ -21,6 +21,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 		buttonTheme: 'a',
 		escapeClose: true,
 		clickOutsideClose: true,
+		pickPageWidth: '300px',
 	},
 	_create: function(){
 
@@ -29,16 +30,12 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			input = this.element,
 			theme = o.theme;
 			
-		themeclass = " ui-body-" + theme;
-		$('label[for='+input.attr('id')+']').addClass('ui-input-text');
-		input.addClass('ui-datebox-baseinput ui-body-'+ o.theme);
-		
-		var focusedEl = input;
-
 		$(this).data('date', new Date());
+		$('label[for='+input.attr('id')+']').addClass('ui-input-text');
 		
-		focusedEl = input.wrap('<div class="ui-input-search ui-input-datebox ui-shadow-inset ui-btn-corner-all ui-btn-shadow'+ themeclass +'"></div>').parent();
-		input.removeClass('ui-corner-all ui-shadow-inset ' + themeclass)
+		input.removeClass('ui-corner-all ui-shadow-inset');
+		
+		var focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-body-'+ o.theme +'"></div>').parent();
 		
 		var clearbtn = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
 			.click(function( e ){ /* clicked the button! */
@@ -85,7 +82,9 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 				e.preventDefault();
 			})
 			.appendTo(focusedEl)
-			.buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true});
+			.buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
+			.css('vertical-align', 'middle')
+			.css('float', 'right');
 
 		focusedEl.parent().tap(function() {
 			input.focus();
