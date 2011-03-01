@@ -224,7 +224,8 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 		
 		$("<a href='#'>Set Date</a>")
 			.appendTo(pickPageSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-			.click(function() {
+			.click(function(e) {
+				e.preventDefault();
 				input.val($(self).data("date").toLocaleDateString());
 				pickPage.fadeOut('fast');
 				input.blur();
