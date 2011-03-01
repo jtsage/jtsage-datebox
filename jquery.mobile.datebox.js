@@ -41,8 +41,11 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 		input.removeClass('ui-corner-all ui-shadow-inset ' + themeclass)
 		
 		var clearbtn = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
-			.tap(function( e ){ /* clicked the button! */
+			.click(function( e ){ /* clicked the button! */
 				if ( !o.disabled ) {
+					self.noClose = true;
+					// Disable outside click for half a second on display.
+					setTimeout(function() { self.noClose = false; }, 600); 
 					inputOffset = focusedEl.offset()
 					pickWinHeight = pickPage.outerHeight();
 					pickWinWidth = pickPage.innerWidth();
@@ -67,10 +70,12 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 						
 					if ( o.clickOutsideClose ) {
 						$(document).bind('click', function() { // Click outside to close.
-							pickPage.fadeOut('slow');
-							$(document).unbind('click');
-							$(document).unbind('keyup');
-							input.focus();
+							if ( ! self.noClose ) {
+								pickPage.fadeOut('slow');
+								$(document).unbind('click');
+								$(document).unbind('keyup');
+								input.focus();
+							}
 						});
 						clearbtn.click(function(evt){ evt.stopPropagation(); });
 						pickPage.click(function(evt){ evt.stopPropagation(); });
