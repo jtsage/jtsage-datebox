@@ -27,7 +27,8 @@
 	</div>
 	<div data-role="content" data-theme="c">
 		<form method="post" action="#">
-			<label for="date">Some Date with Default</label><input value="01/01/2011" name="date" type="date" data-role="datebox" id="date" />	
+			<div data-role="fieldcontain"><label for="date">Some Date with Default</label><input value="01/01/2011" name="date" type="date" data-role="datebox" id="date" />	</div>
+			<div data-role="fieldcontain"><label for="txt">Some Text</label><input id="txt" value="Plain text input for comparison" type="text" /></div>
 		</form>	
 		<p>DateBox is a small, android-esk date picker, using as many of the native jQueryMobile controls as possible. For a calendar-like date picker, take a look at <a href="http://dev.jtsage.com/jQM-CalendarBox/">jQM-CalendarBox</a>.</p>
 		<p>This is based in part on the work of Todd M. Horst, and his <a href="http://toddmhorst.wordpress.com/2010/12/30/android-like-date-picker-with-jquery-mobile-2/">Android Like Date Picker 2</a></p>
