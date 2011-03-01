@@ -50,6 +50,10 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 					pickWinTop = inputOffset.top + ( input.outerHeight() / 2 )- ( pickWinHeight / 2);
 					if ( pickWinTop < 45 ) { // Fix for popup ending up under header
 						pickWinTop = 45;
+					} else { // If this popup would extend the window, don't - move it up.
+						if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
+							pickWinTop = $(document).height() - (pickWinHeight + 2);
+						}
 					}
 					pickWinLeft = inputOffset.left + ( focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
 					pickPage.css('position', 'absolute').css('top', pickWinTop).css('left', pickWinLeft).fadeIn('slow');
