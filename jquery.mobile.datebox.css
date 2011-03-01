@@ -8,6 +8,7 @@
 	width: 95%;
 	padding-top: 0px;
 	padding-bottom: 0px;
+	padding-right: .4em;
 }
 
 .min-width-480px .ui-input-datebox {
@@ -15,13 +16,14 @@
 }
 
 .ui-input-datebox input {
-	width: 90% !important;
+	width: 85% !important;
 	border: 1px solid transparent !important;
 	vertical-align: middle;
+	display: inline-block !important;
+	background-color: transparent;
 }
 
 .ui-input-datebox input:focus { outline: none;}
-
 
 .ui-datebox-date h4 {
 	margin-top: 0px;
@@ -29,38 +31,17 @@
 	text-align: center;
 }
 
-.ui-datebox-controls {
-	text-align: center;
-}
-.ui-datebox-button {
-	width: 78px;
+.ui-datebox-controls { text-align: center; }
+.ui-datebox-controls div {
+	width: 77px;
 	text-align: center;
 	display: inline-block;
 }
 
 .ui-datebox-input {
-	display: inline-block;
-	margin: 0px;
-	padding: 0px;
-}
-.ui-datebox-input input {
-	background-color: #EEEEA9;
-	font-size: 20px;
-	width: 70px;
-	margin-left: 4px;
-	margin-right: 4px;
-	border: 1px solid black;
-	text-align: center;
-	padding-left: 5px;
-	padding-right: 5px;
-	padding-top: .4em;
-	padding-bottom: .4em;
-	border-radius: 25px;
-	-moz-border-radius: 25px;
-	-webkit-border-radius: 25px;
-	box-shadow: 2px 4px 4px #888;
-	-moz-box-shadow: 2px 4px 4px #888;
-	-webkit-box-shadow: 2px 4px 4px #888;
+	width: 28% !important;
+	text-align: center !important;
+	display: inline-block !important;
 }
 
 .ui-datebox-container {

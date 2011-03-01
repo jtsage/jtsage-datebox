@@ -19,6 +19,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 		disabled: false,
 		pickPageTheme: 'b',
 		buttonTheme: 'a',
+		pickInputTheme: 'e',
 		escapeClose: true,
 		clickOutsideClose: true,
 		pickPageWidth: '300px',
@@ -128,7 +129,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 						"<div data-role='content'></div>"+
 					"</div>")
 					.appendTo( $.mobile.pageContainer )
-					.page(),
+					.page().width(o.pickPageWidth).css('minHeight', '0px'),
 					
 			pickPageContent = pickPage.find( ".ui-content" ),
 			pickPageClose = pickPage.find( ".ui-header a");
@@ -140,34 +141,33 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			if ( o.escapeClose ) { $(document).unbind('keyup'); }
 		});
 		
-		pickPage.width('300px');
 		
 		var pickPageDate = $("<div class='ui-datebox-date'><h4>"+$(this).data("date").toLocaleDateString()+"</h4></div>").appendTo(pickPageContent);
 		
 		var pickPagePlus = $("<div class='ui-datebox-controls'></div>").appendTo(pickPageContent);
 		
-		$("<div class='ui-datebox-button' title='Next Month'><a href='#'></a></div>")
+		$("<div title='Next Month'><a href='#'></a></div>")
 			.appendTo(pickPagePlus).buttonMarkup({theme: o.buttonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 			.click(function() {
 				$(self).data("date").setMonth($(self).data("date").getMonth() + 1);
 				updateMe();
 			});
 		
-		$("<div class='ui-datebox-button' title='Next Day'><a href='#'></a></div>")
+		$("<div title='Next Day'><a href='#'></a></div>")
 			.appendTo(pickPagePlus).buttonMarkup({theme: o.buttonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 			.click(function() {
 				$(self).data("date").setDate($(self).data("date").getDate() + 1);
 				updateMe();
 			});
 		
-		$("<div class='ui-datebox-button' title='Next Year'><a href='#'></a></div>")
+		$("<div title='Next Year'><a href='#'></a></div>")
 			.appendTo(pickPagePlus).buttonMarkup({theme: o.buttonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 			.click(function() {
 				$(self).data("date").setYear($(self).data("date").getFullYear() + 1);
 				updateMe();
 			});
 			
-		var pickPageInput = $("<div class='ui-datebox-input'></div>").appendTo(pickPageContent);
+		var pickPageInput = $("<div></div>").appendTo(pickPageContent);
 		
 		var pickMonth = 	$("<input type='text' />").appendTo(pickPageInput)
 			.keyup(function() {
@@ -175,7 +175,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 					$(self).data("date").setMonth(parseInt($(this).val())-1);
 					updateMe();
 				}
-			});
+			}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickInputTheme);
 			
 		var pickDay = 		$("<input type='text' />").appendTo(pickPageInput)
 			.keyup(function() {
@@ -183,7 +183,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 					$(self).data("date").setDate(parseInt($(this).val()));
 					updateMe();
 				}
-			});
+			}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickInputTheme);
 			
 		var pickYear = 		$("<input type='text' />").appendTo(pickPageInput)
 			.keyup(function() {
@@ -191,25 +191,25 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 					$(self).data("date").setYear(parseInt($(this).val()));
 					updateMe();
 				}
-			});
+			}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickInputTheme);
 		
 		var pickPageMinus = $("<div class='ui-datebox-controls'></div>").appendTo(pickPageContent);
 		
-		$("<div class='ui-datebox-button' title='Previous Month'><a href='#'></a></div>")
+		$("<div title='Previous Month'><a href='#'></a></div>")
 			.appendTo(pickPageMinus).buttonMarkup({theme: o.buttonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 			.click(function() {
 				$(self).data("date").setMonth($(self).data("date").getMonth() - 1);
 				updateMe();
 			});
 		
-		$("<div class='ui-datebox-button' title='Previous Day'><a href='#'></a></div>")
+		$("<div title='Previous Day'><a href='#'></a></div>")
 			.appendTo(pickPageMinus).buttonMarkup({theme: o.buttonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 			.click(function() {
 				$(self).data("date").setDate($(self).data("date").getDate() - 1);
 				updateMe();
 			});
 		
-		$("<div class='ui-datebox-button' title='Previous Year'><a href='#'></a></div>")
+		$("<div title='Previous Year'><a href='#'></a></div>")
 			.appendTo(pickPageMinus).buttonMarkup({theme: o.buttonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 			.click(function() {
 				$(self).data("date").setYear($(self).data("date").getFullYear() - 1);
@@ -228,7 +228,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 				if ( o.escapeClose ) { $(document).unbind('keyup'); }
 			});
 				
-		pickPage.css('minHeight', '0px');
+		
 			
 	},
 	    
