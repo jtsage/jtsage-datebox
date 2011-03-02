@@ -24,6 +24,8 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 		escapeClose: true,
 		clickOutsideClose: true,
 		pickPageWidth: '300px',
+		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
 	},
 	_create: function(){
 
@@ -42,6 +44,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 		var clearbtn = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
 			.click(function( e ){ /* clicked the button! */
 				if ( !o.disabled ) {
+					input.trigger('change');
 					self.noClose = true;
 					// Disable outside click for half a second on display.
 					setTimeout(function() { self.noClose = false; }, 600); 
@@ -59,7 +62,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 					}
 					pickWinLeft = inputOffset.left + ( focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
 					pickPage.css('position', 'absolute').css('top', pickWinTop).css('left', pickWinLeft).fadeIn('slow');
-					input.trigger('change');
+					
 					
 					if ( o.escapeClose ) {
 						$(document).keyup(function(e) { // Close on ESC key.
@@ -110,6 +113,9 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			.change(function() {
 				if ( input.val() != '' ) {
 					$(self).data("date", new Date(input.val()));
+					if ( ! $(self).data("date").getDate() ) {
+						$(self).data("date", new Date());
+					}
 				} else {
 					$(self).data("date", new Date());
 				}
@@ -118,7 +124,11 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			
 			
 		function updateMe() {
-			pickPageDate.find('h4').html($(self).data("date").toLocaleDateString());
+			var datestr = o.daysOfWeek[$(self).data("date").getDay()] + ", " +
+				o.monthsOfYear[$(self).data("date").getMonth()] + " " +
+				$(self).data("date").getDate() + ", " +
+				$(self).data("date").getFullYear();
+			pickPageDate.find('h4').html(datestr);
 			pickMonth.val($(self).data("date").getMonth() + 1);
 			pickDay.val($(self).data("date").getDate());
 			pickYear.val($(self).data("date").getFullYear());
@@ -228,7 +238,9 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 			.appendTo(pickPageSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 			.click(function(e) {
 				e.preventDefault();
-				input.val($(self).data("date").toLocaleDateString());
+				input.val($(self).data("date").getFullYear() + "-" +
+					(( $(self).data("date").getMonth() < 9 ) ? "0" : "") + ( $(self).data("date").getMonth() + 1 ) + "-" +
+					(( $(self).data("date").getDate() < 10 ) ? "0" : "") + $(self).data("date").getDate());
 				pickPage.fadeOut('fast');
 				input.blur();
 				if ( o.clickOutsideClose ) { $(document).unbind('click'); }

@@ -38,17 +38,24 @@
 			<li>.datebox('disable') and .datebox('enable') now fully work.</li>
 			<li>Auto-bind's to data-type='datebox' input elements</li>
 			<li>Set data-options to override default widget options</li>
+			<li>Outputs ISO 8601 Dates (YYYY-MM-DD)</li>
+			<li>Localization possible with daysOfWeek and monthsOfYear options</li>
 		</ul></p>
 		<p>Suggested Use:
 		<pre>
-		$( document ).bind( "mobileinit", function(){ // Note, this must happen before loading jQM!
-			$.mobile.page.prototype.options.degradeInputs.date = 'text';
-		});
+$( document ).bind( "mobileinit", function(){ // Note, this must happen before loading jQM!
+	$.mobile.page.prototype.options.degradeInputs.date = 'text';
+});
 		
-		&lt;input type="date" data-role="datebox" name="some_date" /&gt;
+&lt;input type="date" data-role="datebox" name="some_date" /&gt;
+
+&lt;input 
+   name="date2" type="date" 
+   data-options='{"buttonTheme": "b", "daysOfWeek" : ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"]}' 
+   data-role="datebox" id="date2" /&gt;
 		</pre></p>
 		<form method="post" action="#">
-			<label for="date2">Some Other Date Here</label><input name="date2" type="date" data-options='{"buttonTheme": "b"}' data-role="datebox" id="date2" />
+			<label for="date2">Some Other Date Here</label><input name="date2" type="date" data-options='{"buttonTheme": "b", "daysOfWeek" : ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"]}' data-role="datebox" id="date2" />
 		</form>
 	</div>
 	<div data-role="footer">
