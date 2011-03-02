@@ -233,9 +233,6 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 				if ( o.clickOutsideClose ) { $(document).unbind('click'); }
 				if ( o.escapeClose ) { $(document).unbind('keyup'); }
 			});
-				
-		
-			
 	},
 	    
 	disable: function(){
@@ -250,7 +247,6 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 		this.element.parent().removeClass("ui-disabled");
 		this.options.disabled = false;
 	}
-
 	
 	});
 })( jQuery );
