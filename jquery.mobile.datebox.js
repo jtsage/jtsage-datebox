@@ -12,6 +12,7 @@
 			$('input[data-type="datebox"]').datebox();
 		});
  */
+
 (function($, undefined ) {
 $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
@@ -27,7 +28,7 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 	_create: function(){
 
 		var self = this,
-			o = this.options,
+			o = $.extend(this.options, this.element.data('options')),
 			input = this.element,
 			theme = o.theme;
 			
@@ -249,4 +250,12 @@ $.widget( "mobile.datebox", $.mobile.widget, {
 	}
 	
 	});
+	
+	$( ".ui-page" ).live( "pagecreate", function(){ // Auto-attach to "datebox" items.
+		$( 'input[data-role="datebox"]', this ).each(function() {
+			$(this).datebox();
+		});
+	});
+	
+	
 })( jQuery );
