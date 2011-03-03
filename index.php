@@ -4,16 +4,16 @@
 <head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
 	<title>jQueryMobile - DateBox Demo</title>
-	<link type="text/css" href="jquery.mobile-1.0a3.min.css" rel="stylesheet" /> 
-	<link type="text/css" href="jquery.mobile.datebox.css" rel="stylesheet" /> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a3/jquery.mobile-1.0a3.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.css" rel="stylesheet" /> 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script> 
 	<script type="text/javascript">
 		$( document ).bind( "mobileinit", function(){
 			$.mobile.page.prototype.options.degradeInputs.date = 'text';
 		});	
 	</script>
-	<script type="text/javascript" src="jquery.mobile-1.0a3.min.js"></script> 
-	<script type="text/javascript" src="jquery.mobile.datebox.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0a3/jquery.mobile-1.0a3.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
 </head>
 <body>
 <div data-role="page" data-theme="a" id="main"> 

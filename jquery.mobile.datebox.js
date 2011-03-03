@@ -30,7 +30,7 @@
 		
 		input.removeClass('ui-corner-all ui-shadow-inset');
 		
-		var focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-body-'+ o.theme +'"></div>').parent();
+		var focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ o.theme +'"></div>').parent();
 		
 		var clearbtn = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
 			.click(function( e ){ /* clicked the button! */
