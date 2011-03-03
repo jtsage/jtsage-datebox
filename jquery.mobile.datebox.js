@@ -4,7 +4,6 @@
  * CC 3.0 Attribution.  May be relicensed without permission/notifcation.
  * 
  */
-
 (function($, undefined ) {
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
@@ -17,14 +16,13 @@
 		clickOutsideClose: true,
 		pickPageWidth: '300px',
 		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
+		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December']
 	},
 	_create: function(){
 
 		var self = this,
 			o = $.extend(this.options, this.element.data('options')),
-			input = this.element,
-			theme = o.theme;
+			input = this.element;
 			
 		$(this).data('date', new Date());
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text');
@@ -41,10 +39,10 @@
 					self.noClose = true;
 					// Disable outside click for half a second on display.
 					setTimeout(function() { self.noClose = false; }, 600); 
-					inputOffset = focusedEl.offset()
-					pickWinHeight = pickPage.outerHeight();
-					pickWinWidth = pickPage.innerWidth();
-					pickWinTop = inputOffset.top + ( input.outerHeight() / 2 )- ( pickWinHeight / 2);
+					var inputOffset = focusedEl.offset();
+					var pickWinHeight = pickPage.outerHeight();
+					var pickWinWidth = pickPage.innerWidth();
+					var pickWinTop = inputOffset.top + ( input.outerHeight() / 2 )- ( pickWinHeight / 2);
 					
 					// If this popup would extend the window, don't - move it up.
 					if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
@@ -53,12 +51,12 @@
 					if ( pickWinTop < 45 ) { // Fix for popup ending up under header
 						pickWinTop = 45;
 					}
-					pickWinLeft = inputOffset.left + ( focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
+					var pickWinLeft = inputOffset.left + ( focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
 					pickPage.css('position', 'absolute').css('top', pickWinTop).css('left', pickWinLeft).fadeIn('slow');
 					
 					if ( o.escapeClose ) {
 						$(document).keyup(function(e) { // Close on ESC key.
-							if ( e.keyCode == 27 ) {
+							if ( e.keyCode === 27 ) {
 								pickPage.fadeOut('slow');
 								$(document).unbind('keyup');
 								$(document).unbind('click');
@@ -102,7 +100,7 @@
 				input.removeClass('ui-focus');
 			})
 			.change(function() {
-				if ( input.val() != '' ) {
+				if ( input.val() !== '' ) {
 					$(self).data("date", new Date(input.val()));
 					if ( ! $(self).data("date").getDate() ) {
 						$(self).data("date", new Date());
@@ -124,10 +122,10 @@
 			pickMonth.val($(self).data("date").getMonth() + 1);
 			pickDay.val($(self).data("date").getDate());
 			pickYear.val($(self).data("date").getFullYear());
-		};
+		}
 		
 		function isInt(s) {
-			return (s.toString().search(/^[0-9]+$/) == 0);
+			return (s.toString().search(/^[0-9]+$/) === 0);
 		}
 
 		var pickPage = $("<div data-role='page' data-theme='" + o.pickPageTheme + "' class='ui-datebox-container'>" +
@@ -172,26 +170,26 @@
 			
 		var pickPageInput = $("<div></div>").appendTo(pickPageContent);
 		
-		var pickMonth = 	$("<input type='text' />").appendTo(pickPageInput)
+		var pickMonth = $("<input type='text' />").appendTo(pickPageInput)
 			.keyup(function() {
-				if ( $(this).val() != '' && isInt($(this).val()) ) {
-					$(self).data("date").setMonth(parseInt($(this).val())-1);
+				if ( $(this).val() !== '' && isInt($(this).val()) ) {
+					$(self).data("date").setMonth(parseInt($(this).val(),10)-1);
 					updateMe();
 				}
 			}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickInputTheme);
 			
-		var pickDay = 		$("<input type='text' />").appendTo(pickPageInput)
+		var pickDay = $("<input type='text' />").appendTo(pickPageInput)
 			.keyup(function() {
-				if ( $(this).val() != '' && isInt($(this).val()) ) {
-					$(self).data("date").setDate(parseInt($(this).val()));
+				if ( $(this).val() !== '' && isInt($(this).val()) ) {
+					$(self).data("date").setDate(parseInt($(this).val(),10));
 					updateMe();
 				}
 			}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickInputTheme);
 			
-		var pickYear = 		$("<input type='text' />").appendTo(pickPageInput)
+		var pickYear = $("<input type='text' />").appendTo(pickPageInput)
 			.keyup(function() {
-				if ( $(this).val() != '' && isInt($(this).val()) ) {
-					$(self).data("date").setYear(parseInt($(this).val()));
+				if ( $(this).val() !== '' && isInt($(this).val()) ) {
+					$(self).data("date").setYear(parseInt($(this).val(),10));
 					updateMe();
 				}
 			}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickInputTheme);
@@ -231,7 +229,7 @@
 			});
 			
 		if ( input.is(':disabled') ) {
-			this.disable()
+			this.disable();
 		}
 	},
 	    
