@@ -15,6 +15,7 @@
 		escapeClose: true,
 		clickOutsideClose: true,
 		pickPageWidth: '300px',
+		zindex: '500',
 		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December']
 	},
@@ -135,7 +136,7 @@
 						"<div data-role='content'></div>"+
 					"</div>")
 					.appendTo( $.mobile.pageContainer )
-					.page().width(o.pickPageWidth).css('minHeight', '0px');
+					.page().width(o.pickPageWidth).css('minHeight', '0px').css('zIndex', o.zindex);
 					
 		var pickPageContent = pickPage.find( ".ui-content" );
 
