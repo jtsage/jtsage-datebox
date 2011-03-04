@@ -61,17 +61,19 @@
 								pickPage.fadeOut('slow');
 								$(document).unbind('keyup');
 								$(document).unbind('click');
+								e.preventDefault();
 								input.focus();
 							}
 						});
 					}
 
 					if ( o.clickOutsideClose ) {
-						$(document).bind('click', function() { // Click outside to close.
+						$(document).bind('click', function(e) { // Click outside to close.
 							if ( ! self.noClose ) {
 								pickPage.fadeOut('slow');
 								$(document).unbind('click');
 								$(document).unbind('keyup');
+								e.preventDefault();
 								input.focus();
 							}
 						});
@@ -225,6 +227,7 @@
 					(( $(self).data("date").getDate() < 10 ) ? "0" : "") + $(self).data("date").getDate());
 				pickPage.fadeOut('fast');
 				input.blur();
+				e.preventDefault();
 				if ( o.clickOutsideClose ) { $(document).unbind('click'); }
 				if ( o.escapeClose ) { $(document).unbind('keyup'); }
 			});
