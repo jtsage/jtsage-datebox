@@ -26,7 +26,7 @@
 			input = this.element;
 			
 		$(this).data('date', new Date());
-		$('label[for='+input.attr('id')+']').addClass('ui-input-text');
+		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
 		
 		input.removeClass('ui-corner-all ui-shadow-inset');
 		
