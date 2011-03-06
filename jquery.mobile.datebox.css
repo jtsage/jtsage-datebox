@@ -39,7 +39,9 @@
 }
 
 .ui-datebox-input {
-	width: 28% !important;
+	width: 74px !important;
+	margin-left: 1px;
+	margin-right: 1px;
 	text-align: center !important;
 	display: inline-block !important;
 }

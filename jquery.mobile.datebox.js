@@ -12,8 +12,6 @@
 		pickPageTheme: 'b',
 		buttonTheme: 'a',
 		pickInputTheme: 'e',
-		escapeClose: true,
-		clickOutsideClose: true,
 		pickPageWidth: '300px',
 		zindex: '500',
 		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -35,11 +33,10 @@
 		var clearbtn = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
 			.click(function( e ){ /* clicked the button! */
 				if ( !o.disabled ) {
-					input.trigger('change');
-					input.blur();
-					self.noClose = true;
-					// Disable outside click for half a second on display.
-					setTimeout(function() { self.noClose = false; }, 600); 
+					e.preventDefault();
+					e.stopPropagation();
+					screen.show();
+					input.trigger('change').blur();
 					var inputOffset = focusedEl.offset();
 					var pickWinHeight = pickPage.outerHeight();
 					var pickWinWidth = pickPage.innerWidth();
@@ -53,35 +50,9 @@
 						pickWinTop = 45;
 					}
 					var pickWinLeft = inputOffset.left + ( focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
-					pickPage.css('position', 'absolute').css('top', pickWinTop).css('left', pickWinLeft).fadeIn('slow');
-					
-					if ( o.escapeClose ) {
-						$(document).keyup(function(e) { // Close on ESC key.
-							if ( e.keyCode === 27 ) {
-								pickPage.fadeOut('slow');
-								$(document).unbind('keyup');
-								$(document).unbind('click');
-								e.preventDefault();
-								input.focus();
-							}
-						});
-					}
+					pickPage.css('position', 'absolute').css('top', pickWinTop).css('left', pickWinLeft).addClass('in').show(); //fadeIn('slow');
 
-					if ( o.clickOutsideClose ) {
-						$(document).bind('click', function(e) { // Click outside to close.
-							if ( ! self.noClose ) {
-								pickPage.fadeOut('slow');
-								$(document).unbind('click');
-								$(document).unbind('keyup');
-								e.preventDefault();
-								input.focus();
-							}
-						});
-						clearbtn.click(function(evt){ evt.stopPropagation(); });
-						pickPage.click(function(evt){ evt.stopPropagation(); });
-					}
-				}
-				e.preventDefault();
+				}				
 			})
 			.appendTo(focusedEl)
 			.buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
@@ -130,7 +101,17 @@
 		function isInt(s) {
 			return (s.toString().search(/^[0-9]+$/) === 0);
 		}
-
+		
+		var thisPage = input.closest('.ui-page'),
+			screen = $("<div></div>")
+				.css({'position': 'absolute', 'top': '0px', 'left': '0px', 'display': 'none', 'width' : '100%', 'height': '100%', 'z-index': o.zindex-1})
+				.appendTo(thisPage)
+				.bind("click", function(event){
+					pickPage.removeClass('in').hide();
+					screen.hide();
+					event.preventDefault();
+				});
+					
 		var pickPage = $("<div data-role='page' data-theme='" + o.pickPageTheme + "' class='ui-datebox-container'>" +
 						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
 							"<a href=\"#\" data-icon='delete' data-iconpos='notext'>Cancel</a> <div class='ui-title'>Choose Date</div>"+
@@ -138,16 +119,18 @@
 						"<div data-role='content'></div>"+
 					"</div>")
 					.appendTo( $.mobile.pageContainer )
-					.page().width(o.pickPageWidth).css('minHeight', '0px').css('zIndex', o.zindex);
+					.page().width(o.pickPageWidth).css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop');
 					
 		var pickPageContent = pickPage.find( ".ui-content" );
 
 		pickPage.find( ".ui-header a").click(function(e) {
-			pickPage.fadeOut('slow');
-			input.focus();
-			if ( o.clickOutsideClose ) { $(document).unbind('click'); }
-			if ( o.escapeClose ) { $(document).unbind('keyup'); }
 			e.preventDefault();
+			pickPage.removeClass('in').hide();
+			screen.hide();
+		});
+		
+		pickPage.blur(function() {
+			console.log('called');
 		});
 		
 		var pickPageDate = $("<div class='ui-datebox-date'><h4>Unitialized</h4></div>").appendTo(pickPageContent).find("h4");
@@ -156,17 +139,20 @@
 		
 		$("<div><a href='#'></a></div>")
 			.appendTo(pickPagePlus).buttonMarkup({theme: o.buttonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-			.click(function() {
+			.click(function(e) {
+				e.preventDefault();
 				$(self).data("date").setMonth($(self).data("date").getMonth() + 1);
 				updateMe();
 			})
 			.clone(false).appendTo(pickPagePlus)
-			.click(function() {
+			.click(function(e) {
+				e.preventDefault();
 				$(self).data("date").setDate($(self).data("date").getDate() + 1);
 				updateMe();
 			})
 			.clone(false).appendTo(pickPagePlus)
-			.click(function() {
+			.click(function(e) {
+				e.preventDefault();
 				$(self).data("date").setYear($(self).data("date").getFullYear() + 1);
 				updateMe();
 			});
@@ -201,17 +187,20 @@
 		
 		$("<div><a href='#'></a></div>")
 			.appendTo(pickPageMinus).buttonMarkup({theme: o.buttonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-			.click(function() {
+			.click(function(e) {
+				e.preventDefault();
 				$(self).data("date").setMonth($(self).data("date").getMonth() - 1);
 				updateMe();
 			})
 			.clone(false).appendTo(pickPageMinus)
-			.click(function() {
+			.click(function(e) {
+				e.preventDefault();
 				$(self).data("date").setDate($(self).data("date").getDate() - 1);
 				updateMe();
 			})
 			.clone(false).appendTo(pickPageMinus)
-			.click(function() {
+			.click(function(e) {
+				e.preventDefault();
 				$(self).data("date").setYear($(self).data("date").getFullYear() - 1);
 				updateMe();
 			});
@@ -222,12 +211,12 @@
 			.appendTo(pickPageSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 			.click(function(e) {
 				e.preventDefault();
+				screen.hide();
 				input.val($(self).data("date").getFullYear() + "-" +
 					(( $(self).data("date").getMonth() < 9 ) ? "0" : "") + ( $(self).data("date").getMonth() + 1 ) + "-" +
 					(( $(self).data("date").getDate() < 10 ) ? "0" : "") + $(self).data("date").getDate());
-				pickPage.fadeOut('fast');
+				pickPage.removeClass('in').hide();
 				input.blur();
-				e.preventDefault();
 				if ( o.clickOutsideClose ) { $(document).unbind('click'); }
 				if ( o.escapeClose ) { $(document).unbind('keyup'); }
 			});
