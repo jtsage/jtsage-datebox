@@ -21,7 +21,7 @@ DateBox Features
 * Set data-options to override default widget options
 * Outputs ISO 8601 Dates (YYYY-MM-DD)
 * Localization possible with daysOfWeek and monthsOfYear options
-
+* Supported Date Format Strings { YYYY : Full Year, MM : 2 Digit Zero Padded Month, DD : 2 Digit Zero Padded Date, mm : 1 or 2 Digit Month, dd : 1 or 2 Digit Date }
 
 Suggested Use
 -------------
@@ -37,4 +37,4 @@ Suggested Use
 		
 ### With Option Overrides:
 	
-	<input type="date" data-role="datebox" name="some_date" data-options='{"buttonTheme": "b", "daysOfWeek" : ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"]}' />
+	<input type="date" data-role="datebox" name="some_date" data-options='{"buttonTheme": "b", "dateFormat": "mm/dd/YYYY", "daysOfWeek" : ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"]}' />

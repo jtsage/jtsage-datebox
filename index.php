@@ -33,7 +33,7 @@
 		?>
 		</div>
 		<form method="post" action="#">
-			<label for="date2">Some Other Date Here</label><input name="date2" type="date" data-options='{"buttonTheme": "b", "daysOfWeek" : ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"]}' data-role="datebox" id="date2" />
+			<label for="date2">Some Other Date Here</label><input name="date2" type="date" data-options='{"buttonTheme": "b", "dateFormat": "mm/dd/YYYY", "daysOfWeek" : ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"]}' data-role="datebox" id="date2" />
 		</form>
 	</div>
 	<div data-role="footer">

@@ -15,7 +15,21 @@
 		pickPageWidth: '300px',
 		zindex: '500',
 		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December']
+		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
+		dateFormat: 'YYYY-MM-DD'
+	},
+	_formatDate: function(date) {
+		var dateStr = this.options.dateFormat,
+			padMonth = (( date.getMonth() < 9 ) ? "0" : "") + ( date.getMonth() + 1 ),
+			padDay = (( date.getDate() < 10 ) ? "0" : "") + date.getDate();
+			
+		dateStr = dateStr.replace('YYYY', date.getFullYear());
+		dateStr = dateStr.replace('MM', padMonth);
+		dateStr = dateStr.replace('mm', (date.getMonth() + 1));
+		dateStr = dateStr.replace('DD', padDay);
+		dateStr = dateStr.replace('dd', date.getDate());
+		
+		return dateStr;
 	},
 	_create: function(){
 
@@ -23,6 +37,7 @@
 			o = $.extend(this.options, this.element.data('options')),
 			input = this.element;
 			
+		//console.log(this.element.data('options'));
 		$(this).data('date', new Date());
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
 		
@@ -212,13 +227,9 @@
 			.click(function(e) {
 				e.preventDefault();
 				screen.hide();
-				input.val($(self).data("date").getFullYear() + "-" +
-					(( $(self).data("date").getMonth() < 9 ) ? "0" : "") + ( $(self).data("date").getMonth() + 1 ) + "-" +
-					(( $(self).data("date").getDate() < 10 ) ? "0" : "") + $(self).data("date").getDate());
+				input.val(self._formatDate($(self).data("date")));
 				pickPage.removeClass('in').hide();
 				input.blur();
-				if ( o.clickOutsideClose ) { $(document).unbind('click'); }
-				if ( o.escapeClose ) { $(document).unbind('keyup'); }
 			});
 			
 		if ( input.is(':disabled') ) {
