@@ -1,63 +1,35 @@
-.ui-input-datebox {
-	width: 95%;
-	background-image: none;
-	padding: .4em;
-	line-height: 1.4;
-	font-size: 16px;
-	display: block;
-	width: 95%;
-	padding-top: 0px;
-	padding-bottom: 0px;
-	padding-right: .4em;
-}
+/* jQuery-Mobile-DateBox Plugin
+ * contains all plugin styles
+ */
+ 
+/* Base input element Styles */
 
-.min-width-480px .ui-input-datebox {
-	width: 60%; display: inline-block;
-}
-
-.ui-input-datebox input {
-	width: 80% !important;
-	border: 1px solid transparent !important;
-	vertical-align: middle;
-	display: inline-block !important;
-	background-color: transparent;
-}
-
+.ui-input-datebox { width: 95%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; width: 95%; padding-top: 0px; padding-bottom: 0px; padding-right: .4em; }
+.ui-input-datebox input { width: 80% !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; }
 .ui-input-datebox input:focus { outline: none;}
+.min-width-480px .ui-input-datebox { width: 60%; display: inline-block; }
 
-.ui-datebox-header h4 {
-	margin-top: 5px;
-	margin-bottom: 5px;
-	text-align: center;
-}
+/* Calendar Mode Styles */
 
+.ui-datebox-gridheader { text-align: center; }
+.ui-datebox-gridheader h4 { text-align: center; display: inline-block; margin-top: 10px; margin-bottom: 10px; }
+.ui-datebox-gridplus { float: right; }
+.ui-datebox-gridminus { float: left; }
+.ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; }
+.ui-datebox-grid { clear: both; margin-bottom: 5px; }
+.ui-datebox-griddate { width: 36px; height: 30px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; }
+.ui-datebox-griddate-empty { border: 1px solid transparent; }
+.ui-datebox-griddate-label { height: 15px !important; line-height: 15px !important; }
+
+/* Android Mode Styles */
+
+.ui-datebox-header h4 { margin-top: 5px; margin-bottom: 5px; text-align: center; }
 .ui-datebox-controls { text-align: center; }
-.ui-datebox-controls div {
-	width: 77px;
-	text-align: center;
-	display: inline-block;
-}
+.ui-datebox-controls div { width: 77px; text-align: center; display: inline-block; }
+.ui-datebox-input { width: 74px !important; margin-left: 1px; margin-right: 1px; text-align: center !important; display: inline-block !important; }
 
-.ui-datebox-input {
-	width: 74px !important;
-	margin-left: 1px;
-	margin-right: 1px;
-	text-align: center !important;
-	display: inline-block !important;
-}
+/* Shared Styles */
 
-.ui-datebox-container {
-	border: 5px solid #111 !important;
-	width: 280px;
-}
-
-.ui-datebox-screen {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
-}
-.ui-datebox-hidden {
-	display: none;
-}
+.ui-datebox-container { border: 5px solid #111 !important; width: 280px; }
+.ui-datebox-screen { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; }
+.ui-datebox-hidden { display: none; }

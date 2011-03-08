@@ -28,6 +28,17 @@
 		
 		dateFormat: 'YYYY-MM-DD'
 	},
+	_dstAdjust: function(date) {
+		if (!date) { return null; }
+		date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
+		return date;
+	},
+	_getFirstDay: function(date) {
+		return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+	},
+	_getLastDate: function(date) {
+		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth(), 32)).getDate();
+	},
 	_formatDate: function(date) {
 		var dateStr = this.options.dateFormat,
 			padMonth = (( date.getMonth() < 9 ) ? "0" : "") + ( date.getMonth() + 1 ),
@@ -56,11 +67,75 @@
 			self.pickerDay.val(self.theDate.getDate());
 			self.pickerYar.val(self.theDate.getFullYear());
 		}
+		if ( o.mode == 'calbox' ) { // Meat and potatos - make the calendar grid.
+			self.pickerDate.text(
+				o.monthsOfYear[self.theDate.getMonth()] + " " 
+				+ self.theDate.getFullYear()
+			);
+			self.pickerGrid.html('');
+			
+			var start = self._getFirstDay(self.theDate),
+				end = self._getLastDate(self.theDate),
+				today = -1,
+				thisDate = new Date(),
+				presetDate = new Date(),
+				highlightDay = -1,
+				presetDay = -1;
+			
+			if ( self.input.val() !== '' ) {
+				presetDate = new Date(self.input.val());
+				if ( ! presetDate.getDate() ) {
+					presetDate = new Date();
+				}
+			} 
+				
+			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { highlightDay = thisDate.getDate(); } 
+			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); } 
+			
+			if ( o.calShowDays ) {
+				var weekDays = $("<div>", {'class':'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
+				for ( i = 0; i<=6;i++ ) {
+					$("<div>"+o.daysOfWeekShort[i]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(weekDays);
+				}
+			}
+			
+			for ( i=0;i<=5;i++ ) {
+				if ( i === 0 || ( i > 0 && (today > 0 && today < end) ) ) {
+					var thisRow = $("<div>", {'class': 'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
+					for ( j=0;j<=6;j++) {
+						if ( j === start && i === 0 ) { today = 1; }
+						if ( today > end ) { today = -1; }
+						if ( today < 1 ) {
+							$("<div>", {'class':'ui-datebox-griddate ui-datebox-griddate-empty'}).appendTo(thisRow);
+						} else {
+							var thisTheme = o.pickPageButtonTheme;
+							if ( ( today === highlightDay || today === presetDay ) ) { thisTheme = o.pickPageHighButtonTheme; }
+							$("<div>"+today+"</div>")
+								.addClass('ui-datebox-griddate ui-corner-all ui-btn-up-'+thisTheme)
+								.attr('data-date', today)
+								.appendTo(thisRow)
+								.click(function(e) {
+									e.preventDefault();
+									self.theDate.setDate($(this).attr('data-date'));
+									self.input.val(self._formatDate(self.theDate));
+									self.close();
+								}).hover(
+									function() { $(this).addClass('ui-btn-down-'+thisTheme).removeClass('ui-btn-up-'+thisTheme); },
+									function() { $(this).addClass('ui-btn-up-'+thisTheme).removeClass('ui-btn-down-'+thisTheme); }
+								);
+							today++;
+						}
+					}
+				}
+			}
+		}
 	},
 	_isInt: function (s) {
 			return (s.toString().search(/^[0-9]+$/) === 0);
 	},
 	open: function() {
+		this.input.trigger('change').blur();
+		
 		var self = this,
 			o = this.options,
 			inputOffset = self.focusedEl.offset(),
@@ -80,11 +155,9 @@
 		if ( ( windowWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
 			self.options.useDialog = false;
 			self.screen.removeClass('ui-datebox-hidden');
-			self.input.trigger('change').blur();
 			self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('in').removeClass('ui-datebox-hidden');
 		} else {
 			self.options.useDialog = true;
-			self.input.trigger('change').blur();
 			self.pickPageContent.append(self.pickerContent);
 			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'});
 			self.pickerContent.removeClass('ui-datebox-hidden');
@@ -270,6 +343,32 @@
 				pickerDay: pickerDay,
 				pickerMon: pickerMon,
 				pickerYar: pickerYar,
+			});
+			
+			pickerContent.appendTo(self.thisPage);
+		}
+		if ( o.mode == 'calbox' ) {
+			var pickerHeader = $("<div>", {"class": 'ui-datebox-gridheader'}).appendTo(pickerContent);
+				pickerGrid  = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(pickerContent);
+				pickerNextMon = $("<div class='ui-datebox-gridminus'><a href='#'>Prev Month</a></div>")
+					.appendTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
+					.click( function(e) {
+						e.preventDefault();
+						self.theDate.setMonth(self.theDate.getMonth() - 1);
+						self._update();
+					}),
+				pickerLastMon = $("<div class='ui-datebox-gridplus'><a href='#'>Next Month</a></div>")
+					.appendTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
+					.click( function(e) {
+						e.preventDefault();
+						self.theDate.setMonth(self.theDate.getMonth() + 1);
+						self._update();
+					}),
+				pickerDate = $("<div class='ui-datebox-gridlabel'><h4>Uninitialized</h4></div>").appendTo(pickerHeader).find('h4'),
+					
+			$.extend(self, {
+				pickerDate: pickerDate,
+				pickerGrid: pickerGrid
 			});
 			
 			pickerContent.appendTo(self.thisPage);

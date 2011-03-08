@@ -10,18 +10,24 @@ This is based in part on the work of Todd M. Horst, and his [Android Like Date P
 DateBox Features
 ----------------
 
-* Auto-parses text entered into form element on open [any valid date string in your browsers locale, uses javascript:Date()]
-* Input items on DateBox are directly editable, allowing for quick date change.
-* Auto-corrects out of bounds (calendar invalid) dates into the closest real date *(e.g. Feb 31st becomes March 2nd or 3rd depending on the year)*
-* Attempts to position itself centered over the input, however, the top will never be less than 45px from the top boundry of the document, nor will the popup unessasarily extend the document.
-* Click outside to close, configurable with option 'clickOutsideClose'
-* Press ESC to close, configurable with option 'closeEscape' 
-* .datebox('enable') and .datebox('disable') now fully functional.
-* Auto-bind's to data-type='datebox' input elements
-* Set data-options to override default widget options
-* Outputs ISO 8601 Dates (YYYY-MM-DD)
-* Localization possible with daysOfWeek and monthsOfYear options
-* Supported Date Format Strings { YYYY : Full Year, MM : 2 Digit Zero Padded Month, DD : 2 Digit Zero Padded Date, mm : 1 or 2 Digit Month, dd : 1 or 2 Digit Date }
+* Two display modes, Android style datepicker and a Calendar style.
+
+* Auto-parses text entered into form element on open.
+	*(any valid date string in your browsers locale, uses javascript:Date())*
+
+* Attempts to position itself centered over the input, however, for small screens, it will open a dialog window instead.
+
+* Click outside the widget to close.
+
+* Auto-bind's to data-type='datebox', options are configurable via data-options.
+
+* Configurable date format output.
+
+* Configurable Month and Day names for localization.
+	
+* Android Mode: Input items on DateBox are directly editable, allowing for quick date change.
+
+* Android Mode: Auto-corrects out of bounds (calendar invalid) dates into the closest real date *(e.g. Feb 31st becomes March 2nd or 3rd depending on the year)*
 
 Suggested Use
 -------------
@@ -31,10 +37,37 @@ Suggested Use
 		$.mobile.page.prototype.options.degradeInputs.date = 'text';
 	});
 
-### No Option Overrides:
+#### No Option Overrides:
 		
-	<input type="date" data-role="datebox" name="some_date" />
+	<input type="date" data-role="datebox" name="somedate" />
 		
-### With Option Overrides:
+#### With Option Overrides:
 	
-	<input type="date" data-role="datebox" name="some_date" data-options='{"buttonTheme": "b", "dateFormat": "mm/dd/YYYY", "daysOfWeek" : ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"]}' />
+	<input type="date" data-role="datebox" name="somedate" data-options='{"buttonTheme": "b", "dateFormat": "mm/dd/YYYY"}' />
+
+Available Options
+-----------------
+
+_These can be passed to datebox via an object set at the data-options attribute, or in the standard method_
+
+### Themeing:
+* __theme__ : Theme for original input element
+* __pickPageTheme__ : Theme for popup window or dialog
+* __pickPageInputTheme__ : Android Mode - Month/Date/Year Input Elements
+* __pickPageButtonTheme__ : Both Modes - Widget buttons
+* __pickPageHighButtonTheme__ : Calendar Mode - "Today" and "Selected" Day highlighting
+* __zindex__ : Z-Index for popup window (default: 500)
+
+### Internationalization:
+* __daysOfWeek__ : Android Mode - An array of the days of the week, Sunday -> Saturday
+* __daysOfWeekShort__ : Calendar Mode - An Array of abreviations for days of the week, Sunday -> Saturday
+* __monthsOfYear__ : Both Modes - An Array of months of the year, January -> December
+* __dateFormat__ : Both Modes - Return date format - (YYYY = Year, MM = Zero Padded Month, mm = Month, DD = Zero Padded Day, dd = Day)
+
+### Customization:
+* __mode__ : Mode of operation - either 'datebox' (android) or 'calbox' (calendar)
+* __calShowDays__ : Calendar mode - Boolean show day names in grid
+* __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size
+* __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size
+
+_To disable the element, use the standard disabled='disabled' in your markup._
