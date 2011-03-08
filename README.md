@@ -67,6 +67,7 @@ _These can be passed to datebox via an object set at the data-options attribute,
 ### Customization:
 * __mode__ : Mode of operation - either 'datebox' (android) or 'calbox' (calendar)
 * __calShowDays__ : Calendar mode - Boolean show day names in grid
+* __calShowOnlyMonth__ : Calendar mode - show *only* this month, do not fill in empty boxes (default: false)
 * __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size
 * __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size
 

@@ -22,6 +22,7 @@
 		
 		mode: 'datebox',
 		calShowDays: true,
+		calShowOnlyMonth: false,
 		useDialogForceTrue: false,
 		useDialogForceFalse: false,
 		useDialog: false,
@@ -38,6 +39,9 @@
 	},
 	_getLastDate: function(date) {
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth(), 32)).getDate();
+	},
+	_getLastDateBefore: function(date) {
+		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth()-1, 32)).getDate();
 	},
 	_formatDate: function(date) {
 		var dateStr = this.options.dateFormat,
@@ -76,11 +80,14 @@
 			
 			var start = self._getFirstDay(self.theDate),
 				end = self._getLastDate(self.theDate),
+				lastend = self._getLastDateBefore(self.theDate),
 				today = -1,
 				thisDate = new Date(),
 				presetDate = new Date(),
 				highlightDay = -1,
 				presetDay = -1;
+				prevtoday = lastend - (start - 1);
+				nexttoday = 1;
 			
 			if ( self.input.val() !== '' ) {
 				presetDate = new Date(self.input.val());
@@ -100,13 +107,41 @@
 			}
 			
 			for ( i=0;i<=5;i++ ) {
-				if ( i === 0 || ( i > 0 && (today > 0 && today < end) ) ) {
+				if ( i === 0 || ( i > 0 && (today > 0 && today <= end) ) ) {
 					var thisRow = $("<div>", {'class': 'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
 					for ( j=0;j<=6;j++) {
 						if ( j === start && i === 0 ) { today = 1; }
 						if ( today > end ) { today = -1; }
 						if ( today < 1 ) {
-							$("<div>", {'class':'ui-datebox-griddate ui-datebox-griddate-empty'}).appendTo(thisRow);
+							if ( o.calShowOnlyMonth ) {
+								$("<div>", {'class': 'ui-datebox-griddate ui-datebox-griddate-empty'}).appendTo(thisRow);
+							} else {
+								if ( i === 0 ) {
+									$("<div>"+prevtoday+"</div>")
+										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
+										.attr('data-date', prevtoday)
+										.click(function(e) {
+											e.preventDefault();
+											self.theDate.setMonth(self.theDate.getMonth() - 1);
+											self.theDate.setDate($(this).attr('data-date'));
+											self.input.val(self._formatDate(self.theDate));
+											self.close();
+										});
+									prevtoday++;
+								} else {
+									$("<div>"+nexttoday+"</div>")
+										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
+										.attr('data-date', nexttoday)
+										.click(function(e) {
+											e.preventDefault();
+											self.theDate.setMonth(self.theDate.getMonth() + 1);
+											self.theDate.setDate($(this).attr('data-date'));
+											self.input.val(self._formatDate(self.theDate));
+											self.close();
+										});
+									nexttoday++;
+								}
+							}
 						} else {
 							var thisTheme = o.pickPageButtonTheme;
 							if ( ( today === highlightDay || today === presetDay ) ) { thisTheme = o.pickPageHighButtonTheme; }

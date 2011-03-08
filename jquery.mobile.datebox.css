@@ -18,8 +18,8 @@
 .ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; }
 .ui-datebox-grid { clear: both; margin-bottom: 5px; }
 .ui-datebox-griddate { width: 36px; height: 30px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; }
-.ui-datebox-griddate-empty { border: 1px solid transparent; }
-.ui-datebox-griddate-label { height: 15px !important; line-height: 15px !important; }
+.ui-datebox-griddate-empty { border: 1px solid transparent; color: #888; }
+.ui-datebox-griddate-label { height: 15px !important; line-height: 15px !important; color: black;}
 
 /* Android Mode Styles */
 
