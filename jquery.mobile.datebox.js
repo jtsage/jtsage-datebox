@@ -155,10 +155,12 @@
 		if ( ( windowWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
 			self.options.useDialog = false;
 			self.screen.removeClass('ui-datebox-hidden');
+			self.pickerContent.addClass('ui-overlay-shadow');
 			self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('in').removeClass('ui-datebox-hidden');
 		} else {
 			self.options.useDialog = true;
 			self.pickPageContent.append(self.pickerContent);
+			self.pickerContent.removeClass('ui-overlay-shadow');
 			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'});
 			self.pickerContent.removeClass('ui-datebox-hidden');
 			$.mobile.changePage(self.pickPage, 'pop', false, false);
@@ -224,7 +226,7 @@
 			});
 			
 		var thisPage = input.closest('.ui-page'),
-			pickPage = $("<div data-role='dialog' data-theme='" + o.pickPageTheme + "' >" +
+			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + o.pickPageTheme + "' >" +
 						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
 							"<div class='ui-title'>Choose Date</div>"+
 						"</div>"+

@@ -33,3 +33,5 @@
 .ui-datebox-container { border: 5px solid #111 !important; width: 280px; }
 .ui-datebox-screen { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; }
 .ui-datebox-hidden { display: none; }
+.ui-dialog .ui-datebox-container { border: none !important; }
+.ui-dialog-datebox .ui-content { padding: 5px !important;}
