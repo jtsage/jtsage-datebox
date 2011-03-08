@@ -26,6 +26,7 @@
 		useDialogForceTrue: false,
 		useDialogForceFalse: false,
 		useDialog: false,
+		useModal: false,
 		
 		dateFormat: 'YYYY-MM-DD'
 	},
@@ -189,7 +190,11 @@
 		
 		if ( ( windowWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
 			self.options.useDialog = false;
-			self.screen.removeClass('ui-datebox-hidden');
+			if ( o.useModal ) {
+				self.screen.fadeIn('slow');
+			} else {
+				self.screen.removeClass('ui-datebox-hidden');
+			}
 			self.pickerContent.addClass('ui-overlay-shadow');
 			self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('in').removeClass('ui-datebox-hidden');
 		} else {
@@ -207,8 +212,12 @@
 		if ( self.options.useDialog ) {
 			$.mobile.changePage([self.pickPage,self.thisPage], 'pop', true, false);
 		} else {
-			self.screen.addClass('ui-datebox-hidden');
-			self.pickerContent.addClass('ui-datebox-hidden').removeClass('in');
+			if ( self.options.useModal ) {
+				self.screen.fadeOut('slow');
+			} else {
+				self.screen.addClass('ui-datebox-hidden');
+			}
+			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex).removeClass('in');
 			self.thisPage.append(self.pickerContent);
 		}
 	},
@@ -281,7 +290,6 @@
 			thisPage: thisPage,
 			pickPageClose: pickPageClose,
 			pickPageContent: pickPageContent,
-			screen: screen,
 			input: input,
 			theDate: theDate,
 			focusedEl: focusedEl
@@ -418,6 +426,10 @@
 				self.close();
 				event.preventDefault();
 			});
+			
+		if ( o.useModal ) {
+			screen.addClass('ui-datebox-screen-modal');
+		}
 			
 		$.extend(self, {
 			pickerContent: pickerContent,
