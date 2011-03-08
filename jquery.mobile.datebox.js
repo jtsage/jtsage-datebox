@@ -8,14 +8,24 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		theme: 'c',
-		disabled: false,
 		pickPageTheme: 'b',
-		buttonTheme: 'a',
-		pickInputTheme: 'e',
-		pickPageWidth: '300px',
+		pickPageInputTheme: 'e',
+		pickPageButtonTheme: 'a',
+		pickPageHighButtonTheme: 'e',
+		
+		disabled: false,
 		zindex: '500',
+		
 		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+		daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
+		
+		mode: 'datebox',
+		calShowDays: true,
+		useDialogForceTrue: false,
+		useDialogForceFalse: false,
+		useDialog: false,
+		
 		dateFormat: 'YYYY-MM-DD'
 	},
 	_formatDate: function(date) {
@@ -31,49 +41,89 @@
 		
 		return dateStr;
 	},
+	_update: function() {
+		var self = this,
+			o = self.options;
+			
+		if ( o.mode == 'datebox' ) {
+			self.pickerHeader.html(
+				o.daysOfWeek[self.theDate.getDay()] + ", " +
+				o.monthsOfYear[self.theDate.getMonth()] + " " +
+				self.theDate.getDate() + ", " +
+				self.theDate.getFullYear()
+			);
+			self.pickerMon.val(self.theDate.getMonth() + 1);
+			self.pickerDay.val(self.theDate.getDate());
+			self.pickerYar.val(self.theDate.getFullYear());
+		}
+	},
+	_isInt: function (s) {
+			return (s.toString().search(/^[0-9]+$/) === 0);
+	},
+	open: function() {
+		var self = this,
+			o = this.options,
+			inputOffset = self.focusedEl.offset(),
+			pickWinHeight = self.pickerContent.outerHeight(),
+			pickWinWidth = self.pickerContent.innerWidth(),
+			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
+			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
+			windowWidth = $(document).width();
+					
+		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
+			pickWinTop = $(document).height() - (pickWinHeight + 2);
+		}
+		if ( pickWinTop < 45 ) { // Fix for popup ending up under header
+			pickWinTop = 45;
+		}
+		
+		if ( ( windowWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
+			self.options.useDialog = false;
+			self.screen.removeClass('ui-datebox-hidden');
+			self.input.trigger('change').blur();
+			self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('in').removeClass('ui-datebox-hidden');
+		} else {
+			self.options.useDialog = true;
+			self.input.trigger('change').blur();
+			self.pickPageContent.append(self.pickerContent);
+			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'});
+			self.pickerContent.removeClass('ui-datebox-hidden');
+			$.mobile.changePage(self.pickPage, 'pop', false, false);
+		}
+	},
+	close: function() {
+		var self = this;
+		
+		if ( self.options.useDialog ) {
+			$.mobile.changePage([self.pickPage,self.thisPage], 'pop', true, false);
+		} else {
+			self.screen.addClass('ui-datebox-hidden');
+			self.pickerContent.addClass('ui-datebox-hidden').removeClass('in');
+			self.thisPage.append(self.pickerContent);
+		}
+	},
 	_create: function(){
 
 		var self = this,
 			o = $.extend(this.options, this.element.data('options')),
-			input = this.element;
-			
-		//console.log(this.element.data('options'));
-		$(this).data('date', new Date());
+			input = this.element,
+			focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ o.theme +'"></div>').parent(),
+			theDate = new Date();
+		
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
 		
 		input.removeClass('ui-corner-all ui-shadow-inset');
 		
-		var focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ o.theme +'"></div>').parent();
-		
-		var clearbtn = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
-			.click(function( e ){ /* clicked the button! */
+		$('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
+			.click(function (e) {
+				e.preventDefault();
 				if ( !o.disabled ) {
-					e.preventDefault();
-					e.stopPropagation();
-					screen.show();
-					input.trigger('change').blur();
-					var inputOffset = focusedEl.offset();
-					var pickWinHeight = pickPage.outerHeight();
-					var pickWinWidth = pickPage.innerWidth();
-					var pickWinTop = inputOffset.top + ( input.outerHeight() / 2 )- ( pickWinHeight / 2);
-					
-					// If this popup would extend the window, don't - move it up.
-					if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
-						pickWinTop = $(document).height() - (pickWinHeight + 2);
-					}
-					if ( pickWinTop < 45 ) { // Fix for popup ending up under header
-						pickWinTop = 45;
-					}
-					var pickWinLeft = inputOffset.left + ( focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
-					pickPage.css('position', 'absolute').css('top', pickWinTop).css('left', pickWinLeft).addClass('in').show(); //fadeIn('slow');
-
-				}				
+					self.open();					
+				}
 			})
-			.appendTo(focusedEl)
-			.buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
-			.css('vertical-align', 'middle')
-			.css('float', 'right');
-
+			.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
+			.css({'vertical-align': 'middle', 'float': 'right'});
+		
 		focusedEl.parent().tap(function() {
 			input.focus();
 		});
@@ -90,151 +140,153 @@
 			})
 			.change(function() {
 				if ( input.val() !== '' ) {
-					$(self).data("date", new Date(input.val()));
-					if ( ! $(self).data("date").getDate() ) {
-						$(self).data("date", new Date());
+					self.theDate = new Date(input.val());
+					if ( ! self.theDate.getDate() ) {
+						self.theDate = new Date();
 					}
 				} else {
-					$(self).data("date", new Date());
+					self.theDate = new Date();
 				}
-				updateMe();
+				self._update();
 			});
 			
-			
-		function updateMe() {
-			pickPageDate.html(
-				o.daysOfWeek[$(self).data("date").getDay()] + ", " +
-				o.monthsOfYear[$(self).data("date").getMonth()] + " " +
-				$(self).data("date").getDate() + ", " +
-				$(self).data("date").getFullYear()
-			);
-			pickMonth.val($(self).data("date").getMonth() + 1);
-			pickDay.val($(self).data("date").getDate());
-			pickYear.val($(self).data("date").getFullYear());
-		}
-		
-		function isInt(s) {
-			return (s.toString().search(/^[0-9]+$/) === 0);
-		}
-		
 		var thisPage = input.closest('.ui-page'),
-			screen = $("<div></div>")
-				.css({'position': 'absolute', 'top': '0px', 'left': '0px', 'display': 'none', 'width' : '100%', 'height': '100%', 'z-index': o.zindex-1})
-				.appendTo(thisPage)
-				.bind("click", function(event){
-					pickPage.removeClass('in').hide();
-					screen.hide();
-					event.preventDefault();
-				});
-					
-		var pickPage = $("<div data-role='page' data-theme='" + o.pickPageTheme + "' class='ui-datebox-container'>" +
+			pickPage = $("<div data-role='dialog' data-theme='" + o.pickPageTheme + "' >" +
 						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
-							"<a href=\"#\" data-icon='delete' data-iconpos='notext'>Cancel</a> <div class='ui-title'>Choose Date</div>"+
+							"<div class='ui-title'>Choose Date</div>"+
 						"</div>"+
 						"<div data-role='content'></div>"+
 					"</div>")
 					.appendTo( $.mobile.pageContainer )
-					.page().width(o.pickPageWidth).css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop');
-					
-		var pickPageContent = pickPage.find( ".ui-content" );
-
-		pickPage.find( ".ui-header a").click(function(e) {
-			e.preventDefault();
-			pickPage.removeClass('in').hide();
-			screen.hide();
+					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
+			pickPageContent = pickPage.find( ".ui-content" ),
+			pickPageClose = pickPage.find( ".ui-header a").click(function(e) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+				self.close();
+			});
+		
+		$.extend(self, {
+			pickPage: pickPage,
+			thisPage: thisPage,
+			pickPageClose: pickPageClose,
+			pickPageContent: pickPageContent,
+			screen: screen,
+			input: input,
+			theDate: theDate,
+			focusedEl: focusedEl
 		});
 		
-		pickPage.blur(function() {
-			console.log('called');
-		});
+		self._buildPage();
 		
-		var pickPageDate = $("<div class='ui-datebox-date'><h4>Unitialized</h4></div>").appendTo(pickPageContent).find("h4");
-		
-		var pickPagePlus = $("<div class='ui-datebox-controls'></div>").appendTo(pickPageContent);
-		
-		$("<div><a href='#'></a></div>")
-			.appendTo(pickPagePlus).buttonMarkup({theme: o.buttonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-			.click(function(e) {
-				e.preventDefault();
-				$(self).data("date").setMonth($(self).data("date").getMonth() + 1);
-				updateMe();
-			})
-			.clone(false).appendTo(pickPagePlus)
-			.click(function(e) {
-				e.preventDefault();
-				$(self).data("date").setDate($(self).data("date").getDate() + 1);
-				updateMe();
-			})
-			.clone(false).appendTo(pickPagePlus)
-			.click(function(e) {
-				e.preventDefault();
-				$(self).data("date").setYear($(self).data("date").getFullYear() + 1);
-				updateMe();
-			});
-			
-		var pickPageInput = $("<div></div>").appendTo(pickPageContent);
-		
-		var pickMonth = $("<input type='text' />").appendTo(pickPageInput)
-			.keyup(function() {
-				if ( $(this).val() !== '' && isInt($(this).val()) ) {
-					$(self).data("date").setMonth(parseInt($(this).val(),10)-1);
-					updateMe();
-				}
-			}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickInputTheme);
-			
-		var pickDay = $("<input type='text' />").appendTo(pickPageInput)
-			.keyup(function() {
-				if ( $(this).val() !== '' && isInt($(this).val()) ) {
-					$(self).data("date").setDate(parseInt($(this).val(),10));
-					updateMe();
-				}
-			}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickInputTheme);
-			
-		var pickYear = $("<input type='text' />").appendTo(pickPageInput)
-			.keyup(function() {
-				if ( $(this).val() !== '' && isInt($(this).val()) ) {
-					$(self).data("date").setYear(parseInt($(this).val(),10));
-					updateMe();
-				}
-			}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickInputTheme);
-		
-		var pickPageMinus = $("<div class='ui-datebox-controls'></div>").appendTo(pickPageContent);
-		
-		$("<div><a href='#'></a></div>")
-			.appendTo(pickPageMinus).buttonMarkup({theme: o.buttonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-			.click(function(e) {
-				e.preventDefault();
-				$(self).data("date").setMonth($(self).data("date").getMonth() - 1);
-				updateMe();
-			})
-			.clone(false).appendTo(pickPageMinus)
-			.click(function(e) {
-				e.preventDefault();
-				$(self).data("date").setDate($(self).data("date").getDate() - 1);
-				updateMe();
-			})
-			.clone(false).appendTo(pickPageMinus)
-			.click(function(e) {
-				e.preventDefault();
-				$(self).data("date").setYear($(self).data("date").getFullYear() - 1);
-				updateMe();
-			});
-			
-		var pickPageSet = $("<div class='ui-datebox-controls'></div>").appendTo(pickPageContent);
-		
-		$("<a href='#'>Set Date</a>")
-			.appendTo(pickPageSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-			.click(function(e) {
-				e.preventDefault();
-				screen.hide();
-				input.val(self._formatDate($(self).data("date")));
-				pickPage.removeClass('in').hide();
-				input.blur();
-			});
-			
 		if ( input.is(':disabled') ) {
-			this.disable();
+			self.disable();
 		}
+	},
+	_buildPage: function () {
+		var self = this,
+			o = self.options,
+			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex);
+		
+		if ( o.mode == 'datebox' ) {
+			var pickerHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4"),
+				pickerPlus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
+				pickerInput = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
+				pickerMinus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
+				pickerSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent),
+				
+				pickerMon = $("<input type='text' />").appendTo(pickerInput)
+				.keyup(function() {
+					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
+						self.theDate.setMonth(parseInt($(this).val(),10)-1);
+						self._update();
+					}
+				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+				pickerDay = $("<input type='text' />").appendTo(pickerInput)
+				.keyup(function() {
+					if ( $(this).val() !== '' && isInt($(this).val()) ) {
+						self.theDate.setDate(parseInt($(this).val(),10));
+						self._update();
+					}
+				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+				pickerYar = $("<input type='text' />").appendTo(pickerInput)
+				.keyup(function() {
+					if ( $(this).val() !== '' && isInt($(this).val()) ) {
+						self.theDate.setYear(parseInt($(this).val(),10));
+						self._update();
+					}
+				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
+		
+			$("<a href='#'>Set Date</a>")
+				.appendTo(pickerSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+				.click(function(e) {
+					e.preventDefault();
+					self.input.val(self._formatDate(self.theDate));
+					self.close();
+				});
+			
+			$("<div><a href='#'></a></div>")
+				.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
+				.click(function(e) {
+					e.preventDefault();
+					self.theDate.setMonth(self.theDate.getMonth() + 1);
+					self._update();
+				})
+				.clone(false).appendTo(pickerPlus)
+				.click(function(e) {
+					e.preventDefault();
+					self.theDate.setDate(self.theDate.getDate() + 1);
+					self._update();
+				})
+				.clone(false).appendTo(pickerPlus)
+				.click(function(e) {
+					e.preventDefault();
+					self.theDate.setYear(self.theDate.getFullYear() + 1);
+					self._update();
+				});
+			
+			$("<div><a href='#'></a></div>")
+				.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
+				.click(function(e) {
+					e.preventDefault();
+					self.theDate.setMonth(self.theDate.getMonth() - 1);
+					self._update();
+				})
+				.clone(false).appendTo(pickerMinus)
+				.click(function(e) {
+					e.preventDefault();
+					self.theDate.setDate(self.theDate.getDate() - 1);
+					self._update();
+				})
+				.clone(false).appendTo(pickerMinus)
+				.click(function(e) {
+					e.preventDefault();
+					self.theDate.setYear(self.theDate.getFullYear() - 1);
+					self._update();
+				});
+				
+			$.extend(self, {
+				pickerHeader: pickerHeader,
+				pickerDay: pickerDay,
+				pickerMon: pickerMon,
+				pickerYar: pickerYar,
+			});
+			
+			pickerContent.appendTo(self.thisPage);
+		}
+		
+		var screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'})
+			.css({'z-index': o.zindex-1})
+			.appendTo(self.thisPage)
+			.bind("click", function(event){
+				self.close();
+				event.preventDefault();
+			});
+			
+		$.extend(self, {
+			pickerContent: pickerContent,
+			screen: screen
+		});
 	},
 	    
 	disable: function(){
