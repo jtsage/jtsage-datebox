@@ -70,5 +70,6 @@ _These can be passed to datebox via an object set at the data-options attribute,
 * __calShowOnlyMonth__ : Calendar mode - show *only* this month, do not fill in empty boxes (default: false)
 * __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size
 * __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size
+* __useModal__ : Use modal styling (background fades out) on popup (default: false)
 
 _To disable the element, use the standard disabled='disabled' in your markup._

@@ -195,14 +195,11 @@
 			} else {
 				self.screen.removeClass('ui-datebox-hidden');
 			}
-			self.pickerContent.addClass('ui-overlay-shadow');
-			self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('in').removeClass('ui-datebox-hidden');
+			self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).removeClass('ui-datebox-hidden');
 		} else {
 			self.options.useDialog = true;
 			self.pickPageContent.append(self.pickerContent);
-			self.pickerContent.removeClass('ui-overlay-shadow');
-			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'});
-			self.pickerContent.removeClass('ui-datebox-hidden');
+			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'}).removeClass('ui-overlay-shadow ui-datebox-hidden');
 			$.mobile.changePage(self.pickPage, 'pop', false, false);
 		}
 	},
@@ -211,6 +208,7 @@
 		
 		if ( self.options.useDialog ) {
 			$.mobile.changePage([self.pickPage,self.thisPage], 'pop', true, false);
+			self.thisPage.append(self.pickerContent);
 		} else {
 			if ( self.options.useModal ) {
 				self.screen.fadeOut('slow');
@@ -218,7 +216,6 @@
 				self.screen.addClass('ui-datebox-hidden');
 			}
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex).removeClass('in');
-			self.thisPage.append(self.pickerContent);
 		}
 	},
 	_create: function(){
