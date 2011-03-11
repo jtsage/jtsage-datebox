@@ -29,6 +29,7 @@
 		useDialog: false,
 		useModal: false,
 		
+		fieldsOrder: ['m', 'd', 'y'],
 		headerFormat: 'ddd, mmm dd, YYYY',
 		dateFormat: 'YYYY-MM-DD'
 	},
@@ -311,6 +312,20 @@
 			self.disable();
 		}
 	},
+	_incrementField: function(fieldOrder) {
+	  if (this.options.fieldsOrder[fieldOrder] == 'y') { this.theDate.setYear(this.theDate.getFullYear() + 1); }
+	  if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() + 1); }
+	  if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() + 1); }
+	  
+	  this._update();
+	},
+	_decrementField: function(fieldOrder) {
+	  if (this.options.fieldsOrder[fieldOrder] == 'y') { this.theDate.setYear(this.theDate.getFullYear() - 1); }
+	  if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() - 1); }
+	  if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() - 1); }
+	  
+	  this._update();
+	},
 	_buildPage: function () {
 		var self = this,
 			o = self.options,
@@ -323,7 +338,7 @@
 				pickerMinus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
 				pickerSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent),
 				
-				pickerMon = $("<input type='text' />").appendTo(pickerInput)
+				pickerMon = $("<input type='text' />")
 				.keyup(function() {
 					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						self.theDate.setMonth(parseInt($(this).val(),10)-1);
@@ -331,7 +346,7 @@
 					}
 				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 				
-				pickerDay = $("<input type='text' />").appendTo(pickerInput)
+				pickerDay = $("<input type='text' />")
 				.keyup(function() {
 					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						self.theDate.setDate(parseInt($(this).val(),10));
@@ -339,13 +354,19 @@
 					}
 				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 				
-				pickerYar = $("<input type='text' />").appendTo(pickerInput)
+				pickerYar = $("<input type='text' />")
 				.keyup(function() {
 					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						self.theDate.setYear(parseInt($(this).val(),10));
 						self._update();
 					}
 				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
+				
+				for(i=0; i<=2; i++) {
+				  if (self.options.fieldsOrder[i] == 'y') { pickerYar.appendTo(pickerInput); }
+				  if (self.options.fieldsOrder[i] == 'm') { pickerMon.appendTo(pickerInput); }
+				  if (self.options.fieldsOrder[i] == 'd') { pickerDay.appendTo(pickerInput); }
+				}
 		
 			$("<a href='#'>" + o.setDateButtonLabel + "</a>")
 				.appendTo(pickerSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
@@ -358,41 +379,35 @@
 			$("<div><a href='#'></a></div>")
 				.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 				.click(function(e) {
-					e.preventDefault();
-					self.theDate.setMonth(self.theDate.getMonth() + 1);
-					self._update();
+				  e.preventDefault();
+					self._incrementField(e, 0);
 				})
 				.clone(false).appendTo(pickerPlus)
 				.click(function(e) {
-					e.preventDefault();
-					self.theDate.setDate(self.theDate.getDate() + 1);
-					self._update();
+				  e.preventDefault();
+					self._incrementField(e, 1);
 				})
 				.clone(false).appendTo(pickerPlus)
 				.click(function(e) {
-					e.preventDefault();
-					self.theDate.setYear(self.theDate.getFullYear() + 1);
-					self._update();
+				  e.preventDefault();
+					self._incrementField(e, 2);
 				});
 			
 			$("<div><a href='#'></a></div>")
 				.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 				.click(function(e) {
-					e.preventDefault();
-					self.theDate.setMonth(self.theDate.getMonth() - 1);
-					self._update();
+				  e.preventDefault();
+					self._decrementField(e, 0);
 				})
 				.clone(false).appendTo(pickerMinus)
 				.click(function(e) {
-					e.preventDefault();
-					self.theDate.setDate(self.theDate.getDate() - 1);
-					self._update();
+				  e.preventDefault();
+					self._decrementField(e, 1);
 				})
 				.clone(false).appendTo(pickerMinus)
 				.click(function(e) {
-					e.preventDefault();
-					self.theDate.setYear(self.theDate.getFullYear() - 1);
-					self._update();
+				  e.preventDefault();
+					self._decrementField(e, 2);
 				});
 				
 			$.extend(self, {
