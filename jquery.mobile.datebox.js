@@ -330,16 +330,18 @@
 						self._update();
 					}
 				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+				
 				pickerDay = $("<input type='text' />").appendTo(pickerInput)
 				.keyup(function() {
-					if ( $(this).val() !== '' && isInt($(this).val()) ) {
+					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						self.theDate.setDate(parseInt($(this).val(),10));
 						self._update();
 					}
 				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+				
 				pickerYar = $("<input type='text' />").appendTo(pickerInput)
 				.keyup(function() {
-					if ( $(this).val() !== '' && isInt($(this).val()) ) {
+					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						self.theDate.setYear(parseInt($(this).val(),10));
 						self._update();
 					}
