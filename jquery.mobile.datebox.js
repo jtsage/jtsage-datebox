@@ -29,6 +29,7 @@
 		useDialog: false,
 		useModal: false,
 		
+		headerFormat: 'ddd, mmm dd, YYYY',
 		dateFormat: 'YYYY-MM-DD'
 	},
 	_dstAdjust: function(date) {
@@ -44,6 +45,21 @@
 	},
 	_getLastDateBefore: function(date) {
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth()-1, 32)).getDate();
+	},
+	_formatHeader: function(date) {
+	  var header = this.options.headerFormat,
+			padMonth = (( date.getMonth() < 9 ) ? "0" : "") + ( date.getMonth() + 1 ),
+			padDay = (( date.getDate() < 10 ) ? "0" : "") + date.getDate();
+	  
+	  header = header.replace('YYYY', date.getFullYear());
+	  header = header.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
+		header = header.replace('MM',   padMonth);
+		header = header.replace('mm',   date.getMonth() + 1);
+		header = header.replace('ddd',  this.options.daysOfWeek[date.getDay()] );
+		header = header.replace('DD',   padDay);
+		header = header.replace('dd',   date.getDate());
+	  
+	  return header;
 	},
 	_formatDate: function(date) {
 		var dateStr = this.options.dateFormat,
@@ -63,12 +79,7 @@
 			o = self.options;
 			
 		if ( o.mode == 'datebox' ) {
-			self.pickerHeader.html(
-				o.daysOfWeek[self.theDate.getDay()] + ", " +
-				o.monthsOfYear[self.theDate.getMonth()] + " " +
-				self.theDate.getDate() + ", " +
-				self.theDate.getFullYear()
-			);
+			self.pickerHeader.html( self._formatHeader(self.theDate) );
 			self.pickerMon.val(self.theDate.getMonth() + 1);
 			self.pickerDay.val(self.theDate.getDate());
 			self.pickerYar.val(self.theDate.getFullYear());
