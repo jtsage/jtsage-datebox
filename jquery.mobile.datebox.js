@@ -16,6 +16,7 @@
 		disabled: false,
 		zindex: '500',
 		
+		setDateButtonLabel: 'Set date',
 		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 		daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
@@ -333,7 +334,7 @@
 					}
 				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
 		
-			$("<a href='#'>Set Date</a>")
+			$("<a href='#'>" + o.setDateButtonLabel + "</a>")
 				.appendTo(pickerSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 				.click(function(e) {
 					e.preventDefault();
