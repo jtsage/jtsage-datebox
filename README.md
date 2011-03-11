@@ -59,9 +59,11 @@ _These can be passed to datebox via an object set at the data-options attribute,
 * __zindex__ : Z-Index for popup window (default: 500)
 
 ### Internationalization:
+* __setDateButtonLabel__ : Android Mode - The label displayed in the set date button, default is "Set date"
 * __daysOfWeek__ : Android Mode - An array of the days of the week, Sunday -> Saturday
 * __daysOfWeekShort__ : Calendar Mode - An Array of abreviations for days of the week, Sunday -> Saturday
 * __monthsOfYear__ : Both Modes - An Array of months of the year, January -> December
+* __headerFormat__ : Both Modes - Return header format - (YYYY = Year, MM = Zero Padded Month, mm = Month, mmm = Month of year, DD = Zero Padded Day, dd = Day, ddd = day of week)
 * __dateFormat__ : Both Modes - Return date format - (YYYY = Year, MM = Zero Padded Month, mm = Month, DD = Zero Padded Day, dd = Day)
 
 ### Customization:
