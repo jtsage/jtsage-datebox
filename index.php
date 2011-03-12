@@ -28,7 +28,8 @@
 			<div data-role="fieldcontain"><label for="date4">Calendar Style, Forced Dialog</label><input value="01/01/2011" name="date4" type="date" data-role="datebox" id="date4" data-options='{"mode": "calbox", "useDialogForceTrue": true}'/>	</div>
 			<div data-role="fieldcontain"><label for="date5">Android Style, Forced Popup</label><input value="01/01/2011" name="date5" type="date" data-role="datebox" id="date5" data-options='{"useDialogForceFalse": true}'/>	</div>
 			<div data-role="fieldcontain"><label for="date6">Calendar Style, Forced Popup</label><input value="01/01/2011" name="date6" type="date" data-role="datebox" id="date6" data-options='{"mode": "calbox", "useDialogForceFalse": true}'/>	</div>
-			<div data-role="fieldcontain"><label for="date7">Calendar Style, This Month Only, Modal Style</label><input value="01/01/2011" name="date7" type="date" data-role="datebox" id="date6" data-options='{"mode": "calbox", "calShowOnlyMonth": true, "useModal": true}'/>	</div>
+			<div data-role="fieldcontain"><label for="date7">Calendar Style, This Month Only, Modal Style</label><input value="01/01/2011" name="date7" type="date" data-role="datebox" id="date7" data-options='{"mode": "calbox", "calShowOnlyMonth": true, "useModal": true}'/>	</div>
+			<div data-role="fieldcontain"><label for="date9">Calendar Style, No Button, Focus Open</label><input value="01/01/2011" name="date7" type="date" data-role="datebox" id="date9" data-options='{"mode": "calbox", "noButtonFocusMode": "true"}'/>	</div>
 			<div data-role="fieldcontain"><label for="txt">Some Text</label><input id="txt" value="Plain text input for comparison" type="text" /></div>
 		</form>	
 		<div>

@@ -27,6 +27,7 @@
 		useDialogForceFalse: false,
 		useDialog: false,
 		useModal: false,
+		noButtonFocusMode: false,
 		
 		dateFormat: 'YYYY-MM-DD'
 	},
@@ -231,7 +232,7 @@
 		
 		input.removeClass('ui-corner-all ui-shadow-inset');
 		
-		$('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
+		var openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
 			.click(function (e) {
 				e.preventDefault();
 				if ( !o.disabled ) {
@@ -240,14 +241,18 @@
 			})
 			.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
 			.css({'vertical-align': 'middle', 'float': 'right'});
+			
+		if ( o.noButtonFocusMode ) { openbutton.hide(); }
 		
 		focusedEl.parent().tap(function() {
 			input.focus();
+			if ( !o.disabled && o.noButtonFocusMode ) { self.open(); }
 		});
 		input
 			.focus(function(){
 				if ( ! o.disabled ) {
 					focusedEl.addClass('ui-focus');
+					if ( o.noButtonFocusMode ) { self.open(); }
 				}
 				input.removeClass('ui-focus');
 			})
@@ -454,6 +459,12 @@
 	$( 'input[data-role="datebox"]', this ).each(function() {
 		$(this).datebox();
 	});
+	
+	/* Next is for compat with old CalendarBox */
+	$( 'input[data-role="calendarbox"]', this ).each(function() {
+		$(this).datebox({'mode': 'calbox'});
+	});
+
   });
 	
 	
