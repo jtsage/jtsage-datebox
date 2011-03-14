@@ -49,19 +49,19 @@
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth()-1, 32)).getDate();
 	},
 	_formatHeader: function(date) {
-	  var header = this.options.headerFormat,
+		var header = this.options.headerFormat,
 			padMonth = (( date.getMonth() < 9 ) ? "0" : "") + ( date.getMonth() + 1 ),
 			padDay = (( date.getDate() < 10 ) ? "0" : "") + date.getDate();
 	  
-	  header = header.replace('YYYY', date.getFullYear());
-	  header = header.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
+		header = header.replace('YYYY', date.getFullYear());
+		header = header.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
 		header = header.replace('MM',   padMonth);
 		header = header.replace('mm',   date.getMonth() + 1);
 		header = header.replace('ddd',  this.options.daysOfWeek[date.getDay()] );
 		header = header.replace('DD',   padDay);
 		header = header.replace('dd',   date.getDate());
-	  
-	  return header;
+	
+		return header;
 	},
 	_formatDate: function(date) {
 		var dateStr = this.options.dateFormat,
@@ -318,18 +318,18 @@
 		}
 	},
 	_incrementField: function(fieldOrder) {
-	  if (this.options.fieldsOrder[fieldOrder] == 'y') { this.theDate.setYear(this.theDate.getFullYear() + 1); }
-	  if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() + 1); }
-	  if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() + 1); }
-	  
-	  this._update();
+		if (this.options.fieldsOrder[fieldOrder] == 'y') { this.theDate.setYear(this.theDate.getFullYear() + 1); }
+		if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() + 1); }
+		if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() + 1); }
+	
+		this._update();
 	},
 	_decrementField: function(fieldOrder) {
-	  if (this.options.fieldsOrder[fieldOrder] == 'y') { this.theDate.setYear(this.theDate.getFullYear() - 1); }
-	  if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() - 1); }
-	  if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() - 1); }
-	  
-	  this._update();
+		if (this.options.fieldsOrder[fieldOrder] == 'y') { this.theDate.setYear(this.theDate.getFullYear() - 1); }
+		if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() - 1); }
+		if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() - 1); }
+	
+		this._update();
 	},
 	_buildPage: function () {
 		var self = this,
@@ -368,9 +368,9 @@
 				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
 				
 				for(i=0; i<=2; i++) {
-				  if (self.options.fieldsOrder[i] == 'y') { pickerYar.appendTo(pickerInput); }
-				  if (self.options.fieldsOrder[i] == 'm') { pickerMon.appendTo(pickerInput); }
-				  if (self.options.fieldsOrder[i] == 'd') { pickerDay.appendTo(pickerInput); }
+					if (self.options.fieldsOrder[i] == 'y') { pickerYar.appendTo(pickerInput); }
+					if (self.options.fieldsOrder[i] == 'm') { pickerMon.appendTo(pickerInput); }
+					if (self.options.fieldsOrder[i] == 'd') { pickerDay.appendTo(pickerInput); }
 				}
 		
 			$("<a href='#'>" + o.setDateButtonLabel + "</a>")
@@ -384,34 +384,34 @@
 			$("<div><a href='#'></a></div>")
 				.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 				.click(function(e) {
-				  e.preventDefault();
+					e.preventDefault();
 					self._incrementField(e, 0);
 				})
 				.clone(false).appendTo(pickerPlus)
 				.click(function(e) {
-				  e.preventDefault();
+					e.preventDefault();
 					self._incrementField(e, 1);
 				})
 				.clone(false).appendTo(pickerPlus)
 				.click(function(e) {
-				  e.preventDefault();
+					e.preventDefault();
 					self._incrementField(e, 2);
 				});
 			
 			$("<div><a href='#'></a></div>")
 				.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 				.click(function(e) {
-				  e.preventDefault();
+					e.preventDefault();
 					self._decrementField(e, 0);
 				})
 				.clone(false).appendTo(pickerMinus)
 				.click(function(e) {
-				  e.preventDefault();
+					e.preventDefault();
 					self._decrementField(e, 1);
 				})
 				.clone(false).appendTo(pickerMinus)
 				.click(function(e) {
-				  e.preventDefault();
+					e.preventDefault();
 					self._decrementField(e, 2);
 				});
 				
@@ -426,7 +426,7 @@
 		}
 		if ( o.mode == 'calbox' ) {
 			var pickerHeader = $("<div>", {"class": 'ui-datebox-gridheader'}).appendTo(pickerContent);
-				pickerGrid  = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(pickerContent);
+				pickerGrid = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(pickerContent);
 				pickerNextMon = $("<div class='ui-datebox-gridminus'><a href='#'>Prev Month</a></div>")
 					.appendTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
 					.click( function(e) {
