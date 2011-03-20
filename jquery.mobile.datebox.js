@@ -76,6 +76,35 @@
 		
 		return dateStr;
 	},
+	_makeDate: function (str) {
+		var o = this.options,
+			self = this,
+			seperator = o.dateFormat.replace(/[myd ]/gi, "").substr(0,1),
+			parts = o.dateFormat.split(seperator),
+			data = str.split(seperator),
+			date = new Date();
+			
+		if ( parts.length != data.length ) {
+			date = new Date(str);
+			if ( ! date.getDate() ) {
+				return new Date();
+			} else {
+				return date;
+			}
+		} else {
+			for ( i=0; i<3; i++ ) {
+				if ( parts[i].match(/d/i) ) { d_day = data[i]; }
+				if ( parts[i].match(/m/i) ) { d_mon = data[i]; }
+				if ( parts[i].match(/y/i) ) { d_yar = data[i]; }
+			}
+			date = new Date(d_yar + "-" + d_mon + "-" + d_day);
+			if ( ! date.getDate() ) {
+				return new Date();
+			} else {
+				return date;
+			}
+		}
+	},
 	_update: function() {
 		var self = this,
 			o = self.options;
@@ -98,18 +127,11 @@
 				lastend = self._getLastDateBefore(self.theDate),
 				today = -1,
 				thisDate = new Date(),
-				presetDate = new Date(),
+				presetDate = self._makeDate(self.input.val()),
 				highlightDay = -1,
 				presetDay = -1;
 				prevtoday = lastend - (start - 1);
 				nexttoday = 1;
-			
-			if ( self.input.val() !== '' ) {
-				presetDate = new Date(self.input.val());
-				if ( ! presetDate.getDate() ) {
-					presetDate = new Date();
-				}
-			} 
 				
 			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { highlightDay = thisDate.getDate(); } 
 			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); } 
@@ -274,14 +296,7 @@
 				input.removeClass('ui-focus');
 			})
 			.change(function() {
-				if ( input.val() !== '' ) {
-					self.theDate = new Date(input.val());
-					if ( ! self.theDate.getDate() ) {
-						self.theDate = new Date();
-					}
-				} else {
-					self.theDate = new Date();
-				}
+				self.theDate = self._makeDate(self.input.val());
 				self._update();
 			});
 			
