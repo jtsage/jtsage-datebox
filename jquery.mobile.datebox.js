@@ -33,7 +33,8 @@
 		
 		fieldsOrder: ['m', 'd', 'y'],
 		headerFormat: 'ddd, mmm dd, YYYY',
-		dateFormat: 'YYYY-MM-DD'
+		dateFormat: 'YYYY-MM-DD',
+		defaultDate: false,
 	},
 	_dstAdjust: function(date) {
 		if (!date) { return null; }
@@ -85,14 +86,23 @@
 			data = str.split(seperator),
 			date = new Date();
 			
-		if ( parts.length != data.length ) {
+		if ( parts.length != data.length ) { // Unrecognized string in input
 			date = new Date(str);
 			if ( ! date.getDate() ) {
-				return new Date();
+				if ( o.defaultDate !== false ) {
+					date = new Date(o.defaultDate);
+					if ( ! date.getDate() ) {
+						return new Date();
+					} else {
+						return date;
+					}
+				} else {
+					return new Date();
+				}
 			} else {
 				return date;
 			}
-		} else {
+		} else { // Good string in input
 			for ( i=0; i<3; i++ ) {
 				if ( parts[i].match(/d/i) ) { d_day = data[i]; }
 				if ( parts[i].match(/m/i) ) { d_mon = data[i]; }
