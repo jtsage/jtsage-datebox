@@ -12,6 +12,7 @@
 		pickPageInputTheme: 'e',
 		pickPageButtonTheme: 'a',
 		pickPageHighButtonTheme: 'e',
+		noAnimation: false,
 		
 		disabled: false,
 		zindex: '500',
@@ -350,6 +351,10 @@
 		var self = this,
 			o = self.options,
 			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex);
+		
+		if ( o.noAnimation ) { 
+			pickerContent.removeClass('pop');
+		}
 		
 		if ( o.mode == 'datebox' ) {
 			var pickerHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4"),
