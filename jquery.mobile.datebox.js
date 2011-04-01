@@ -35,6 +35,8 @@
 		headerFormat: 'ddd, mmm dd, YYYY',
 		dateFormat: 'YYYY-MM-DD',
 		defaultDate: false,
+		minYear: false,
+		maxYear: false,
 	},
 	_dstAdjust: function(date) {
 		if (!date) { return null; }
@@ -344,14 +346,30 @@
 		}
 	},
 	_incrementField: function(event, fieldOrder) {
-		if (this.options.fieldsOrder[fieldOrder] == 'y') { this.theDate.setYear(this.theDate.getFullYear() + 1); }
+		if (this.options.fieldsOrder[fieldOrder] == 'y') { 
+			if ( this.options.maxYear !== false ) { 
+				if ( this.theDate.getFullYear() + 1 <= this.options.maxYear ) {
+					this.theDate.setYear(this.theDate.getFullYear() + 1); 
+				}
+			} else {
+				this.theDate.setYear(this.theDate.getFullYear() + 1); 
+			}
+		}
 		if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() + 1); }
 		if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() + 1); }
 	
 		this._update();
 	},
 	_decrementField: function(event, fieldOrder) {
-		if (this.options.fieldsOrder[fieldOrder] == 'y') { this.theDate.setYear(this.theDate.getFullYear() - 1); }
+		if (this.options.fieldsOrder[fieldOrder] == 'y') {
+			if ( this.options.minYear !== false ) { 
+				if ( this.theDate.getFullYear() - 1 >= this.options.minYear ) {
+					this.theDate.setYear(this.theDate.getFullYear() - 1); 
+				}
+			} else {
+				this.theDate.setYear(this.theDate.getFullYear() - 1); 
+			}
+		}
 		if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() - 1); }
 		if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() - 1); }
 	
