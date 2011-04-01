@@ -57,6 +57,7 @@ _These can be passed to datebox via an object set at the data-options attribute,
 * __pickPageButtonTheme__ : Both Modes - Widget buttons
 * __pickPageHighButtonTheme__ : Calendar Mode - "Today" and "Selected" Day highlighting
 * __zindex__ : Z-Index for popup window (default: 500)
+* __noAnimation__ : Disable popup window animations.
 
 ### Internationalization:
 * __setDateButtonLabel__ : Android Mode - The label displayed in the set date button, default is "Set date"
@@ -69,6 +70,9 @@ _These can be passed to datebox via an object set at the data-options attribute,
 
 ### Customization:
 * __mode__ : Mode of operation - either 'datebox' (android) or 'calbox' (calendar)
+* __defaultDate__ : Default date when nothing entered into input box
+* __maxYear__ : Maximum year allowed in controls (non-constrained in text box)
+* __minYear__ : Minimum year allowed in controls (non-constrained in text box)
 * __calShowDays__ : Calendar mode - Boolean show day names in grid
 * __calShowOnlyMonth__ : Calendar mode - show *only* this month, do not fill in empty boxes (default: false)
 * __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size
