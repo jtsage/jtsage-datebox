@@ -267,6 +267,7 @@
 			}
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex).removeClass('in');
 		}
+		self.input.trigger('change');
 	},
 	_create: function(){
 
