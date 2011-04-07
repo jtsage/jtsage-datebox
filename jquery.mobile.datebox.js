@@ -176,6 +176,7 @@
 											self.theDate.setDate($(this).attr('data-date'));
 											self.input.val(self._formatDate(self.theDate));
 											self.close();
+											self.input.trigger('change');
 										});
 									prevtoday++;
 								} else {
@@ -188,6 +189,7 @@
 											self.theDate.setDate($(this).attr('data-date'));
 											self.input.val(self._formatDate(self.theDate));
 											self.close();
+											self.input.trigger('change');
 										});
 									nexttoday++;
 								}
@@ -204,6 +206,7 @@
 									self.theDate.setDate($(this).attr('data-date'));
 									self.input.val(self._formatDate(self.theDate));
 									self.close();
+									self.input.trigger('change');
 								}).hover(
 									function() { $(this).addClass('ui-btn-down-'+thisTheme).removeClass('ui-btn-up-'+thisTheme); },
 									function() { $(this).addClass('ui-btn-up-'+thisTheme).removeClass('ui-btn-down-'+thisTheme); }
@@ -267,7 +270,6 @@
 			}
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex).removeClass('in');
 		}
-		self.input.trigger('change');
 	},
 	_create: function(){
 
@@ -428,6 +430,7 @@
 					e.preventDefault();
 					self.input.val(self._formatDate(self.theDate));
 					self.close();
+					self.input.trigger('change');
 				});
 			
 			$("<div><a href='#'></a></div>")
