@@ -42,6 +42,7 @@
 		<form method="post" action="#">
 			<label for="date7">Altering Theme / DateFormat / Day Names</label><input name="date8" type="date" value="25/04/1963" data-options='{"buttonTheme": "b", "dateFormat": "DD/MM/YYYY", "daysOfWeek" : ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"]}' data-role="datebox" id="date8" />
 		</form>
+		<a href="range.php" data-role="button">Auto-generating a range of dates.</a>
 	</div>
 	<div data-role="footer">
 		<a href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a href="mailto:jtsage+datebox@gmail.com">Contact</a>
