@@ -296,6 +296,9 @@
 		if ( o.noButtonFocusMode ) { openbutton.hide(); }
 		
 		focusedEl.parent().tap(function() {
+			if ( !o.disabled ) {
+				focusedEl.addClass('ui-focus');
+			}	
 			//input.focus();
 			if ( !o.disabled && o.noButtonFocusMode ) { self.open(); }
 		});
