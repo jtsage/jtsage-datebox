@@ -296,7 +296,7 @@
 		if ( o.noButtonFocusMode ) { openbutton.hide(); }
 		
 		focusedEl.parent().tap(function() {
-			input.focus();
+			//input.focus();
 			if ( !o.disabled && o.noButtonFocusMode ) { self.open(); }
 		});
 		input
