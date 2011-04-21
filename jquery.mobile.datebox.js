@@ -252,14 +252,15 @@
 			self.options.useDialog = true;
 			self.pickPageContent.append(self.pickerContent);
 			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'}).removeClass('ui-overlay-shadow ui-datebox-hidden');
-			$.mobile.changePage(self.pickPage, 'pop', false, false);
+			$.mobile.changePage(self.pickPage, 'pop', false, true);
 		}
 	},
 	close: function() {
 		var self = this;
 		
 		if ( self.options.useDialog ) {
-			$.mobile.changePage([self.pickPage,self.thisPage], 'pop', true, false);
+			$(self.pickPage).dialog('close');
+			//$.mobile.changePage([self.pickPage,self.thisPage], 'pop', true, false);
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex);
 			self.thisPage.append(self.pickerContent);
 		} else {
