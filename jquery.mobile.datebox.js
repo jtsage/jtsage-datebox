@@ -270,6 +270,7 @@
 			}
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex).removeClass('in');
 		}
+		self.focusedEl.removeClass('ui-focus');
 	},
 	_create: function(){
 
@@ -306,7 +307,7 @@
 			.focus(function(){
 				if ( ! o.disabled ) {
 					focusedEl.addClass('ui-focus');
-					if ( o.noButtonFocusMode ) { self.open(); }
+					if ( o.noButtonFocusMode ) { focusedEl.addClass('ui-focus'); self.open(); }
 				}
 				input.removeClass('ui-focus');
 			})
