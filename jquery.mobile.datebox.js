@@ -457,12 +457,12 @@
 		if (this.options.mode == 'timebox' ) {
 			if ( fieldOrder == 0 ) { this.theDate.setHours(this.theDate.getHours() + 1); }
 			if ( fieldOrder == 1 ) {
-				var newMin = this.theDate.getMinutes() + this.options.minuteStep;
+				var newMin = this.theDate.getMinutes();
 				var rem = newMin % this.options.minuteStep;
-				if(rem > this.options.minuteStep/2) {
-					newMin = newMin + (this.options.minuteStep-rem);
+				if(rem == 0) {
+					newMin = newMin + this.options.minuteStep;
 				} else {
-					newMin = newMin - rem;
+					newMin = newMin + (this.options.minuteStep-rem);
 				}
 				this.theDate.setMinutes(newMin);
 			}
@@ -497,10 +497,10 @@
 		if (this.options.mode == 'timebox' ) {
 			if ( fieldOrder == 0 ) { this.theDate.setHours(this.theDate.getHours() - 1); }
 			if ( fieldOrder == 1 ) {
-				var newMin = this.theDate.getMinutes() - this.options.minuteStep;
+				var newMin = this.theDate.getMinutes();
 				var rem = newMin % this.options.minuteStep;
-				if(rem > this.options.minuteStep/2) {
-					newMin = newMin + (this.options.minuteStep-rem);
+				if(rem == 0) {
+					newMin = newMin - this.options.minuteStep;
 				} else {
 					newMin = newMin - rem;
 				}
