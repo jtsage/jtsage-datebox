@@ -24,6 +24,7 @@
 		daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
 		timeFormat: 24,
+		minuteStep: 1,
 		
 		mode: 'datebox',
 		calShowDays: true,
@@ -414,11 +415,16 @@
 				self.theDate = self._makeDate(self.input.val());
 				self._update();
 			});
-			
+		
+		if (this.options.mode == 'timebox' ) {
+			var title = "Choose Time";
+		} else {
+			var title = "Choose Date";
+		}
 		var thisPage = input.closest('.ui-page'),
 			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + o.pickPageTheme + "' >" +
 						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
-							"<div class='ui-title'>Choose Date</div>"+
+							"<div class='ui-title'>" + title + "</div>"+
 						"</div>"+
 						"<div data-role='content'></div>"+
 					"</div>")
@@ -450,7 +456,16 @@
 	_incrementField: function(event, fieldOrder) {
 		if (this.options.mode == 'timebox' ) {
 			if ( fieldOrder == 0 ) { this.theDate.setHours(this.theDate.getHours() + 1); }
-			if ( fieldOrder == 1 ) { this.theDate.setMinutes(this.theDate.getMinutes() + 1); }
+			if ( fieldOrder == 1 ) {
+				var newMin = this.theDate.getMinutes() + this.options.minuteStep;
+				var rem = newMin % this.options.minuteStep;
+				if(rem > this.options.minuteStep/2) {
+					newMin = newMin + (this.options.minuteStep-rem);
+				} else {
+					newMin = newMin - rem;
+				}
+				this.theDate.setMinutes(newMin);
+			}
 			if ( fieldOrder == 2 ) { 
 				if ( this.options.timeFormat == 12 ) {
 					if ( this.pickerMeri.val() == this.options.meridiemLetters[0] ) { 
@@ -481,7 +496,16 @@
 	_decrementField: function(event, fieldOrder) {
 		if (this.options.mode == 'timebox' ) {
 			if ( fieldOrder == 0 ) { this.theDate.setHours(this.theDate.getHours() - 1); }
-			if ( fieldOrder == 1 ) { this.theDate.setMinutes(this.theDate.getMinutes() - 1); }
+			if ( fieldOrder == 1 ) {
+				var newMin = this.theDate.getMinutes() - this.options.minuteStep;
+				var rem = newMin % this.options.minuteStep;
+				if(rem > this.options.minuteStep/2) {
+					newMin = newMin + (this.options.minuteStep-rem);
+				} else {
+					newMin = newMin - rem;
+				}
+				this.theDate.setMinutes(newMin);
+			}
 		} else {
 			if (this.options.fieldsOrder[fieldOrder] == 'y') {
 				if ( this.options.minYear !== false ) { 
