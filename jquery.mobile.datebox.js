@@ -161,20 +161,15 @@
 			return date;
 		} else {
 			if ( parts.length != data.length ) { // Unrecognized string in input
-				date = new Date(str);
-				if ( ! date.getDate() ) {
-					if ( o.defaultDate !== false ) {
-						date = new Date(o.defaultDate);
-						if ( ! date.getDate() ) {
-							return new Date();
-						} else {
-							return date;
-						}
-					} else {
+				if ( o.defaultDate !== false ) {
+					date = new Date(o.defaultDate);
+					if ( ! date.getDate() ) {
 						return new Date();
+					} else {
+						return date;
 					}
 				} else {
-					return date;
+					return new Date();
 				}
 			} else { // Good string in input
 				for ( i=0; i<3; i++ ) {
