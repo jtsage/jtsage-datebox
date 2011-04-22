@@ -174,7 +174,7 @@
 					if ( parts[i].match(/m/i) ) { d_mon = data[i]; }
 					if ( parts[i].match(/y/i) ) { d_yar = data[i]; }
 				}
-				date = new Date(d_yar + "-" + d_mon + "-" + d_day);
+				date = new Date(d_yar, d_mon-1, d_day);
 				if ( ! date.getDate() ) {
 					return new Date();
 				} else {
