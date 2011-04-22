@@ -18,9 +18,12 @@
 		zindex: '500',
 		
 		setDateButtonLabel: 'Set date',
+		setTimeButtonLabel: 'Set time',
+		meridiemLetters: ['AM', 'PM'],
 		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 		daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
+		timeFormat: 24,
 		
 		mode: 'datebox',
 		calShowDays: true,
@@ -80,6 +83,38 @@
 		
 		return dateStr;
 	},
+	_formatTime: function(date) {
+		var hours = 0,
+			meri = '',
+			padMin = (( date.getMinutes() < 9 ) ? "0" : "") + ( date.getMinutes() );
+			
+		console.log(date);
+		if ( this.options.timeFormat == 12 ) {
+			if ( date.getHours() > 11 ) {
+				meri = 1;
+				if ( date.getHours() < 22 ) { 
+					hours = '0' + ( date.getHours() - 12 ); 
+				} else {
+					hours = '' + ( date.getHours() - 12 );
+				}
+			} else {
+				meri = 0;
+				if ( date.getHours() > 9 ) {
+					hours = '' + date.getHours();
+				} else {
+					if ( date.getHours() == 0 ) {
+						hours = '' + 12;
+					} else {
+						hours = '0' + date.getHours();
+					}
+				}
+			}
+			if ( date.getHours() == 12 ) { meri = 1; hours = '12'; }
+			return hours + ":" + padMin + ' ' + this.options.meridiemLetters[meri];
+		} else {
+			return (( date.getHours() < 9 ) ? "0" : "") + date.getHours() + ":" + padMin;
+		}
+	},
 	_makeDate: function (str) {
 		var o = this.options,
 			self = this,
@@ -88,33 +123,63 @@
 			data = str.split(seperator),
 			date = new Date();
 			
-		if ( parts.length != data.length ) { // Unrecognized string in input
-			date = new Date(str);
-			if ( ! date.getDate() ) {
-				if ( o.defaultDate !== false ) {
-					date = new Date(o.defaultDate);
-					if ( ! date.getDate() ) {
-						return new Date();
+		if ( o.mode == 'timebox' ) {
+			time = new Date('01-01-2001');
+			
+			if ( str == '' ) { // EMPTY FIELD
+				now = new Date();
+				time.setHours(now.getHours());
+				time.setMinutes(now.getMinutes());
+				return time;
+			}
+			
+			if ( o.timeFormat == 12 ) {
+				meri = str.split(' ');
+				console.log(meri);
+				data = meri[0].split(':');
+				console.log(data);
+				time.setMinutes(data[1]);
+				if ( meri[1] == o.meridiemLetters[0] ) {
+					if ( data[0] == 12 ) { time.setHours(0); }
+					else { time.setHours(data[0]); }
+				} else {
+					time.setHours(parseInt(data[0],10) + 12);
+				}
+			} else { // 24 HOUR
+				data = str.split(':');
+				time.setHours(data[0]);
+				time.setMinutes(data[1]);
+			}
+			return time;
+		} else {
+			if ( parts.length != data.length ) { // Unrecognized string in input
+				date = new Date(str);
+				if ( ! date.getDate() ) {
+					if ( o.defaultDate !== false ) {
+						date = new Date(o.defaultDate);
+						if ( ! date.getDate() ) {
+							return new Date();
+						} else {
+							return date;
+						}
 					} else {
-						return date;
+						return new Date();
 					}
 				} else {
-					return new Date();
+					return date;
 				}
-			} else {
-				return date;
-			}
-		} else { // Good string in input
-			for ( i=0; i<3; i++ ) {
-				if ( parts[i].match(/d/i) ) { d_day = data[i]; }
-				if ( parts[i].match(/m/i) ) { d_mon = data[i]; }
-				if ( parts[i].match(/y/i) ) { d_yar = data[i]; }
-			}
-			date = new Date(d_yar + "-" + d_mon + "-" + d_day);
-			if ( ! date.getDate() ) {
-				return new Date();
-			} else {
-				return date;
+			} else { // Good string in input
+				for ( i=0; i<3; i++ ) {
+					if ( parts[i].match(/d/i) ) { d_day = data[i]; }
+					if ( parts[i].match(/m/i) ) { d_mon = data[i]; }
+					if ( parts[i].match(/y/i) ) { d_yar = data[i]; }
+				}
+				date = new Date(d_yar + "-" + d_mon + "-" + d_day);
+				if ( ! date.getDate() ) {
+					return new Date();
+				} else {
+					return date;
+				}
 			}
 		}
 	},
@@ -122,6 +187,28 @@
 		var self = this,
 			o = self.options;
 			
+		if ( o.mode == 'timebox' ) {
+			self.pickerMins.val(self.theDate.getMinutes());
+			if ( o.timeFormat == 12 ) {
+				if ( self.theDate.getHours() > 11 ) {
+					self.pickerMeri.val(o.meridiemLetters[1]);
+					if ( self.theDate.getHours() == 12 ) {
+						self.pickerHour.val(12);
+					} else {
+						self.pickerHour.val(self.theDate.getHours() - 12);
+					}
+				} else {
+					self.pickerMeri.val(o.meridiemLetters[0]);
+					if ( self.theDate.getHours() == 0 ) {
+						self.pickerHour.val(12);
+					} else {
+						self.pickerHour.val(self.theDate.getHours());
+					}
+				}
+			} else {
+				self.pickerHour.val(self.theDate.getHours());
+			}
+		}
 		if ( o.mode == 'datebox' ) {
 			self.pickerHeader.html( self._formatHeader(self.theDate) );
 			self.pickerMon.val(self.theDate.getMonth() + 1);
@@ -354,33 +441,53 @@
 		}
 	},
 	_incrementField: function(event, fieldOrder) {
-		if (this.options.fieldsOrder[fieldOrder] == 'y') { 
-			if ( this.options.maxYear !== false ) { 
-				if ( this.theDate.getFullYear() + 1 <= this.options.maxYear ) {
+		if (this.options.mode == 'timebox' ) {
+			if ( fieldOrder == 0 ) { this.theDate.setHours(this.theDate.getHours() + 1); }
+			if ( fieldOrder == 1 ) { this.theDate.setMinutes(this.theDate.getMinutes() + 1); }
+			if ( fieldOrder == 2 ) { 
+				if ( this.options.timeFormat == 12 ) {
+					if ( this.pickerMeri.val() == this.options.meridiemLetters[0] ) { 
+						this.pickerMeri.val(this.options.meridiemLetters[1]);
+						this.theDate.setHours(this.theDate.getHours() + 12);
+					} else {
+						this.pickerMeri.val(this.options.meridiemLetters[0]);
+						this.theDate.setHours(this.theDate.getHours() - 12);
+					}
+				}
+			}
+		} else {
+			if (this.options.fieldsOrder[fieldOrder] == 'y') { 
+				if ( this.options.maxYear !== false ) { 
+					if ( this.theDate.getFullYear() + 1 <= this.options.maxYear ) {
+						this.theDate.setYear(this.theDate.getFullYear() + 1); 
+					}
+				} else {
 					this.theDate.setYear(this.theDate.getFullYear() + 1); 
 				}
-			} else {
-				this.theDate.setYear(this.theDate.getFullYear() + 1); 
 			}
+			if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() + 1); }
+			if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() + 1); }
 		}
-		if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() + 1); }
-		if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() + 1); }
 	
 		this._update();
 	},
 	_decrementField: function(event, fieldOrder) {
-		if (this.options.fieldsOrder[fieldOrder] == 'y') {
-			if ( this.options.minYear !== false ) { 
-				if ( this.theDate.getFullYear() - 1 >= this.options.minYear ) {
+		if (this.options.mode == 'timebox' ) {
+			if ( fieldOrder == 0 ) { this.theDate.setHours(this.theDate.getHours() - 1); }
+			if ( fieldOrder == 1 ) { this.theDate.setMinutes(this.theDate.getMinutes() - 1); }
+		} else {
+			if (this.options.fieldsOrder[fieldOrder] == 'y') {
+				if ( this.options.minYear !== false ) { 
+					if ( this.theDate.getFullYear() - 1 >= this.options.minYear ) {
+						this.theDate.setYear(this.theDate.getFullYear() - 1); 
+					}
+				} else {
 					this.theDate.setYear(this.theDate.getFullYear() - 1); 
 				}
-			} else {
-				this.theDate.setYear(this.theDate.getFullYear() - 1); 
 			}
+			if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() - 1); }
+			if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() - 1); }
 		}
-		if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() - 1); }
-		if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() - 1); }
-	
 		this._update();
 	},
 	_buildPage: function () {
@@ -390,6 +497,103 @@
 		
 		if ( o.noAnimation ) { 
 			pickerContent.removeClass('pop');
+		}
+		
+		if ( o.mode == 'timebox' ) {
+			var pickerPlus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
+				pickerInput = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
+				pickerMinus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
+				pickerSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent),
+				
+				pickerHour = $("<input type='text' />")
+				.keyup(function() {
+					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
+						newHour = parseInt($(this).val(),10);
+						if ( newHour == 12 ) {
+							if ( o.timeFormat == 12 && pickerMeri.val() == o.meridiemLetters[0] ) { newHour = 0; }
+						}
+						self.theDate.setHours(newHour);
+						self._update();
+					}
+				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+				
+				pickerMins = $("<input type='text' />")
+				.keyup(function() {
+					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
+						self.theDate.setMinutes(parseInt($(this).val(),10));
+						self._update();
+					}
+				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+				
+				pickerMeri = $("<input type='text' />")
+				.keyup(function() {
+					if ( $(this).val() !== '' ) {
+						self._update();
+					}
+				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
+			
+			pickerHour.appendTo(pickerInput);
+			pickerMins.appendTo(pickerInput);
+			if ( o.timeFormat == 12 ) { pickerMeri.appendTo(pickerInput); }
+			
+			$("<a href='#'>" + o.setTimeButtonLabel + "</a>")
+				.appendTo(pickerSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+				.click(function(e) {
+					e.preventDefault();
+					self.input.val(self._formatTime(self.theDate));
+					self.close();
+					self.input.trigger('change');
+				});
+			
+			$("<div><a href='#'></a></div>")
+				.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
+				.click(function(e) {
+					e.preventDefault();
+					self._incrementField(e, 0);
+				})
+				.clone(false).appendTo(pickerPlus)
+				.click(function(e) {
+					e.preventDefault();
+					self._incrementField(e, 1);
+				});
+			
+			$("<div><a href='#'></a></div>")
+				.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
+				.click(function(e) {
+					e.preventDefault();
+					self._decrementField(e, 0);
+				})
+				.clone(false).appendTo(pickerMinus)
+				.click(function(e) {
+					e.preventDefault();
+					self._decrementField(e, 1);
+				});
+				
+			if ( o.timeFormat == 12 ) { 
+				$("<div><a href='#'></a></div>")	
+					.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
+					.click(function(e) {
+						e.preventDefault();
+						self._incrementField(e, 2);
+					});
+				$("<div><a href='#'></a></div>")
+					.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
+					.click(function(e) {
+						e.preventDefault();
+						self._incrementField(e, 2);
+					});
+			}
+				
+			
+			$.extend(self, {
+				pickerHeader: pickerHeader,
+				pickerHour: pickerHour,
+				pickerMins: pickerMins,
+				pickerMeri: pickerMeri,
+			});
+			
+			pickerContent.appendTo(self.thisPage);
+				
 		}
 		
 		if ( o.mode == 'datebox' ) {

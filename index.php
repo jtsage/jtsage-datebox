@@ -4,7 +4,7 @@
 <head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
 	<title>jQueryMobile - DateBox Demo</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4/jquery.mobile-1.0a4.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
 	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.css" rel="stylesheet" /> 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script> 
 	<script type="text/javascript">
@@ -12,16 +12,19 @@
 			$.mobile.page.prototype.options.degradeInputs.date = 'text';
 		});	
 	</script>
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4/jquery.mobile-1.0a4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
 </head>
 <body>
 <div data-role="page" data-theme="a" id="main"> 
 	<div data-role="header"> 
-		<h1>jQueryMobile - DateBox Demo (1.0a4 base)</h1>
+		<h1>jQueryMobile - DateBox Demo (1.0a4.1 base)</h1>
 	</div>
 	<div data-role="content" data-theme="c">
 		<form method="post" action="#">
+			<div data-role="fieldcontain"><label for="time1">Time Picker (24)</label><input value="10:22" name="time1" type="date" data-options='{"mode": "timebox"}' data-role="datebox" id="time1" />	</div>
+			<div data-role="fieldcontain"><label for="time2">Time Picker (12)</label><input name="time2" type="date" data-options='{"mode": "timebox", "timeFormat": 12}' data-role="datebox" id="time2" />	</div>
+			
 			<div data-role="fieldcontain"><label for="date1">Android Style Default</label><input value="2011-01-01" name="date1" type="date" data-role="datebox" id="date1" />	</div>
 			<div data-role="fieldcontain"><label for="date2">Calendar Style Default</label><input value="2011-01-01" name="date2" type="date" data-role="datebox" id="date2" data-options='{"mode": "calbox"}'/>	</div>
 			<div data-role="fieldcontain"><label for="date3">Android Style, Forced Dialog</label><input value="2011-01-01" name="date3" type="date" data-role="datebox" id="date3" data-options='{"useDialogForceTrue": true}'/>	</div>

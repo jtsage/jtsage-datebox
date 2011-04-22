@@ -12,6 +12,8 @@ DateBox Features
 
 * Two display modes, Android style datepicker and a Calendar style.
 
+* Additionally, now sports a time picker mode.
+
 * Auto-parses text entered into form element on open.
 	*(any valid date string in your browsers locale, uses javascript:Date())*
 
@@ -67,9 +69,11 @@ _These can be passed to datebox via an object set at the data-options attribute,
 * __fieldsOrder__ : Android Mode - Define the order of the fields, default is m-d-y
 * __headerFormat__ : Both Modes - Return header format - (YYYY = Year, MM = Zero Padded Month, mm = Month, mmm = Month of year, DD = Zero Padded Day, dd = Day, ddd = day of week)
 * __dateFormat__ : Both Modes - Return date format - (YYYY = Year, MM = Zero Padded Month, mm = Month, DD = Zero Padded Day, dd = Day)
+* __timeFormat__ : Either '12' or '24' - The clock mode, 12hr or 24hr.
+* __meridiemLetters__ : Meridiem notation - Default is ['AM', 'PM']
 
 ### Customization:
-* __mode__ : Mode of operation - either 'datebox' (android) or 'calbox' (calendar)
+* __mode__ : Mode of operation - either 'datebox' (android), 'calbox' (calendar), or 'timebox' (android time)
 * __defaultDate__ : Default date when nothing entered into input box
 * __maxYear__ : Maximum year allowed in controls (non-constrained in text box)
 * __minYear__ : Minimum year allowed in controls (non-constrained in text box)
