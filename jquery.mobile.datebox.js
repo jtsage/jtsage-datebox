@@ -137,10 +137,10 @@
 				if(match === null) { //use current time if no match
 					return date;
 				}
-				if(match[1] <= 12 && match[3] && match[3].charAt(0) == 'p') { //ignore pm if hour >12
+				if(match[1] <= 12 && match[3] && match[3].toLowerCase().charAt(0) == 'p') { //ignore pm if hour >12
 					match[1] = parseInt(match[1],10) + 12;
 				}
-				if(match[1] == 12 && match[3] && match[3].charAt(0) == 'a') { //12am is the 0 hour
+				if(match[1] == 12 && match[3] && match[3].toLowerCase().charAt(0) == 'a') { //12am is the 0 hour
 					match[1] = 0;
 				}
 			} else {
