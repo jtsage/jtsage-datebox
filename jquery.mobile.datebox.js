@@ -24,6 +24,7 @@
 		daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
 		timeFormat: 24,
+		minuteStep: 1,
 		
 		mode: 'datebox',
 		calShowDays: true,
@@ -116,6 +117,7 @@
 		}
 	},
 	_makeDate: function (str) {
+		str = str.trim();
 		var o = this.options,
 			self = this,
 			seperator = o.dateFormat.replace(/[myd ]/gi, "").substr(0,1),
@@ -124,49 +126,50 @@
 			date = new Date();
 			
 		if ( o.mode == 'timebox' ) {
-			time = new Date('01-01-2001');
 			
 			if ( str == '' ) { // EMPTY FIELD
-				now = new Date();
-				time.setHours(now.getHours());
-				time.setMinutes(now.getMinutes());
-				return time;
+				return date;
 			}
 			
 			if ( o.timeFormat == 12 ) {
-				meri = str.split(' ');
-				console.log(meri);
-				data = meri[0].split(':');
-				console.log(data);
-				time.setMinutes(data[1]);
-				if ( meri[1] == o.meridiemLetters[0] ) {
-					if ( data[0] == 12 ) { time.setHours(0); }
-					else { time.setHours(data[0]); }
-				} else {
-					time.setHours(parseInt(data[0],10) + 12);
+				var timeRegex = /^([012]?[0-9]):([0-5][0-9])\s*(am?|pm?)?$/i;
+				var match = timeRegex.exec(str);
+				if(match === null) { //use current time if no match
+					return date;
 				}
-			} else { // 24 HOUR
-				data = str.split(':');
-				time.setHours(data[0]);
-				time.setMinutes(data[1]);
+				if(match[1] <= 12 && match[3] && match[3].toLowerCase().charAt(0) == 'p') { //ignore pm if hour >12
+					match[1] = parseInt(match[1],10) + 12;
+				}
+				if(match[1] == 12 && match[3] && match[3].toLowerCase().charAt(0) == 'a') { //12am is the 0 hour
+					match[1] = 0;
+				}
+			} else {
+				var timeRegex = /^([012]?[0-9]):([0-5][0-9])$/i;
+				var match = timeRegex.exec(str);
+				if(match === null) { //use current time if no match
+					return date;
+				}
 			}
-			return time;
+			
+			if(match[1] > 24) { //use current time if hour out of range
+				return date;
+			}
+			
+			date.setMinutes(match[2]);
+			date.setHours(match[1]);
+			
+			return date;
 		} else {
 			if ( parts.length != data.length ) { // Unrecognized string in input
-				date = new Date(str);
-				if ( ! date.getDate() ) {
-					if ( o.defaultDate !== false ) {
-						date = new Date(o.defaultDate);
-						if ( ! date.getDate() ) {
-							return new Date();
-						} else {
-							return date;
-						}
-					} else {
+				if ( o.defaultDate !== false ) {
+					date = new Date(o.defaultDate);
+					if ( ! date.getDate() ) {
 						return new Date();
+					} else {
+						return date;
 					}
 				} else {
-					return date;
+					return new Date();
 				}
 			} else { // Good string in input
 				for ( i=0; i<3; i++ ) {
@@ -174,7 +177,7 @@
 					if ( parts[i].match(/m/i) ) { d_mon = data[i]; }
 					if ( parts[i].match(/y/i) ) { d_yar = data[i]; }
 				}
-				date = new Date(d_yar + "-" + d_mon + "-" + d_day);
+				date = new Date(d_yar, d_mon-1, d_day);
 				if ( ! date.getDate() ) {
 					return new Date();
 				} else {
@@ -407,11 +410,16 @@
 				self.theDate = self._makeDate(self.input.val());
 				self._update();
 			});
-			
+		
+		if (this.options.mode == 'timebox' ) {
+			var title = "Choose Time";
+		} else {
+			var title = "Choose Date";
+		}
 		var thisPage = input.closest('.ui-page'),
 			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + o.pickPageTheme + "' >" +
 						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
-							"<div class='ui-title'>Choose Date</div>"+
+							"<div class='ui-title'>" + title + "</div>"+
 						"</div>"+
 						"<div data-role='content'></div>"+
 					"</div>")
@@ -443,7 +451,16 @@
 	_incrementField: function(event, fieldOrder) {
 		if (this.options.mode == 'timebox' ) {
 			if ( fieldOrder == 0 ) { this.theDate.setHours(this.theDate.getHours() + 1); }
-			if ( fieldOrder == 1 ) { this.theDate.setMinutes(this.theDate.getMinutes() + 1); }
+			if ( fieldOrder == 1 ) {
+				var newMin = this.theDate.getMinutes();
+				var rem = newMin % this.options.minuteStep;
+				if(rem == 0) {
+					newMin = newMin + this.options.minuteStep;
+				} else {
+					newMin = newMin + (this.options.minuteStep-rem);
+				}
+				this.theDate.setMinutes(newMin);
+			}
 			if ( fieldOrder == 2 ) { 
 				if ( this.options.timeFormat == 12 ) {
 					if ( this.pickerMeri.val() == this.options.meridiemLetters[0] ) { 
@@ -474,7 +491,16 @@
 	_decrementField: function(event, fieldOrder) {
 		if (this.options.mode == 'timebox' ) {
 			if ( fieldOrder == 0 ) { this.theDate.setHours(this.theDate.getHours() - 1); }
-			if ( fieldOrder == 1 ) { this.theDate.setMinutes(this.theDate.getMinutes() - 1); }
+			if ( fieldOrder == 1 ) {
+				var newMin = this.theDate.getMinutes();
+				var rem = newMin % this.options.minuteStep;
+				if(rem == 0) {
+					newMin = newMin - this.options.minuteStep;
+				} else {
+					newMin = newMin - rem;
+				}
+				this.theDate.setMinutes(newMin);
+			}
 		} else {
 			if (this.options.fieldsOrder[fieldOrder] == 'y') {
 				if ( this.options.minYear !== false ) { 
