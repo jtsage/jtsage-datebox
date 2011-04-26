@@ -79,12 +79,16 @@ _These can be passed to datebox via an object set at the data-options attribute,
 * __dateFormat__ : Both Modes - Return date format - (YYYY = Year, MM = Zero Padded Month, mm = Month, DD = Zero Padded Day, dd = Day)
 * __timeFormat__ : Either '12' or '24' - The clock mode, 12hr or 24hr.
 * __meridiemLetters__ : Meridiem notation - Default is ['AM', 'PM']
+* __titleDateDialogLabel__: Dialog label for date mode, default is 'Set Date'.
+* __titleTimeDialogLabel__: Dialog label for time mode, default is 'Set Time'.
+* __titleDialogLabel__: Dialog label override, if not false, will always be set to this.
 
 ### Customization:
 * __mode__ : Mode of operation - either 'datebox' (android), 'calbox' (calendar), or 'timebox' (android time)
 * __defaultDate__ : Default date when nothing entered into input box
 * __maxYear__ : Maximum year allowed in controls (non-constrained in text box)
 * __minYear__ : Minimum year allowed in controls (non-constrained in text box)
+* __minuteStep__ : Number of minutes to step per button press in timebox mode. (default 1)
 * __calShowDays__ : Calendar mode - Boolean show day names in grid
 * __calShowOnlyMonth__ : Calendar mode - show *only* this month, do not fill in empty boxes (default: false)
 * __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size

@@ -19,12 +19,14 @@
 		
 		setDateButtonLabel: 'Set date',
 		setTimeButtonLabel: 'Set time',
+		titleDateDialogLabel: 'Set Date',
+		titleTimeDialogLabel: 'Set Time',
+		titleDialogLabel: false,
 		meridiemLetters: ['AM', 'PM'],
 		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 		daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
 		timeFormat: 24,
-		minuteStep: 1,
 		
 		mode: 'datebox',
 		calShowDays: true,
@@ -38,6 +40,7 @@
 		fieldsOrder: ['m', 'd', 'y'],
 		headerFormat: 'ddd, mmm dd, YYYY',
 		dateFormat: 'YYYY-MM-DD',
+		minuteStep: 1,
 		defaultDate: false,
 		minYear: false,
 		maxYear: false,
@@ -132,8 +135,9 @@
 			}
 			
 			if ( o.timeFormat == 12 ) {
-				var timeRegex = /^([012]?[0-9]):([0-5][0-9])\s*(am?|pm?)?$/i;
-				var match = timeRegex.exec(str);
+				var timeRegex = /^([012]?[0-9]):([0-5][0-9])\s*(am?|pm?)?$/i,
+					match = timeRegex.exec(str);
+					
 				if(match === null) { //use current time if no match
 					return date;
 				}
@@ -144,8 +148,9 @@
 					match[1] = 0;
 				}
 			} else {
-				var timeRegex = /^([012]?[0-9]):([0-5][0-9])$/i;
-				var match = timeRegex.exec(str);
+				var timeRegex = /^([012]?[0-9]):([0-5][0-9])$/i,
+					match = timeRegex.exec(str);
+					
 				if(match === null) { //use current time if no match
 					return date;
 				}
@@ -411,15 +416,19 @@
 				self._update();
 			});
 		
-		if (this.options.mode == 'timebox' ) {
-			var title = "Choose Time";
-		} else {
-			var title = "Choose Date";
+		var dialogTitle = this.options.titleDialogLabel;
+		if ( dialogTitle === false ) {
+			if ( this.options.mode == 'timebox' ) {
+				var dialogTitle = this.options.titleTimeDialogLabel;
+			} else {
+				var dialogTitle = this.options.titleDateDialogLabel;
+			}
 		}
+		
 		var thisPage = input.closest('.ui-page'),
 			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + o.pickPageTheme + "' >" +
 						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
-							"<div class='ui-title'>" + title + "</div>"+
+							"<div class='ui-title'>" + dialogTitle + "</div>"+
 						"</div>"+
 						"<div data-role='content'></div>"+
 					"</div>")
