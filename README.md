@@ -46,6 +46,14 @@ Suggested Use
 #### With Option Overrides:
 	
 	<input type="date" data-role="datebox" name="somedate" data-options='{"buttonTheme": "b", "dateFormat": "mm/dd/YYYY"}' />
+		
+#### Global Option Overrides:
+	
+	// AFTER loading jQM
+	jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+		'dateFormat': 'dd.mm.yyyy',
+		'headerFormat': 'dd.mm.yyyy'
+	});
 
 Available Options
 -----------------
