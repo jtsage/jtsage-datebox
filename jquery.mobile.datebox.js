@@ -120,7 +120,7 @@
 		}
 	},
 	_makeDate: function (str) {
-		str = str.trim();
+		str = $.trim(str);
 		var o = this.options,
 			self = this,
 			seperator = o.dateFormat.replace(/[myd ]/gi, "").substr(0,1),
