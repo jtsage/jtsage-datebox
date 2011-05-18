@@ -2,7 +2,7 @@
  * jQuery Mobile Framework : plugin to provide an android-like datepicker.
  * Copyright (c) JTSage
  * CC 3.0 Attribution.  May be relicensed without permission/notifcation.
- * 
+ * https://github.com/jtsage/jquery-mobile-datebox
  */
 (function($, undefined ) {
   $.widget( "mobile.datebox", $.mobile.widget, {
@@ -386,13 +386,16 @@
 				if ( !o.disabled ) {
 					self.open();					
 				}
+				setTimeout(function(){
+					$(e.target).closest("a").removeClass($.mobile.activeBtnClass);
+				}, 300);
 			})
 			.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
 			.css({'vertical-align': 'middle', 'float': 'right'});
 			
 		if ( o.noButtonFocusMode ) { openbutton.hide(); }
 		
-		focusedEl.parent().tap(function() {
+		focusedEl.tap(function() {
 			if ( !o.disabled ) {
 				focusedEl.addClass('ui-focus');
 			}	

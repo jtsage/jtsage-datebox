@@ -5,7 +5,7 @@
 /* Base input element Styles */
 
 .ui-input-datebox { width: 95%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; width: 95%; padding-top: 0px; padding-bottom: 0px; padding-right: .4em; }
-.ui-input-datebox input { width: 80% !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; }
+.ui-input-datebox input { width: 70% !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; }
 .ui-input-datebox input:focus { outline: none;}
 .min-width-480px .ui-input-datebox { width: 60%; display: inline-block; }
 
