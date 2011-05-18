@@ -290,10 +290,8 @@
 								}
 							}
 						} else {
-							var thisTheme = o.pickPageButtonTheme;
-							if ( ( today === highlightDay || today === presetDay ) ) { thisTheme = o.pickPageHighButtonTheme; }
-							$("<div>"+today+"</div>")
-								.addClass('ui-datebox-griddate ui-corner-all ui-btn-up-'+thisTheme)
+							var boxxy = $("<div>"+today+"</div>")
+								.addClass('ui-datebox-griddate ui-corner-all')
 								.attr('data-date', today)
 								.appendTo(thisRow)
 								.click(function(e) {
@@ -302,10 +300,21 @@
 									self.input.val(self._formatDate(self.theDate));
 									self.close();
 									self.input.trigger('change');
-								}).hover(
-									function() { $(this).addClass('ui-btn-down-'+thisTheme).removeClass('ui-btn-up-'+thisTheme); },
-									function() { $(this).addClass('ui-btn-up-'+thisTheme).removeClass('ui-btn-down-'+thisTheme); }
-								);
+								});
+							if ( today === highlightDay || today === presetDay ) {
+								boxxy.addClass('ui-btn-up-'+o.pickPageHighButtonTheme)
+									.hover(
+										function() { $(this).addClass('ui-btn-down-'+o.pickPageHighButtonTheme).removeClass('ui-btn-up-'+o.pickPageHighButtonTheme); },
+										function() { $(this).addClass('ui-btn-up-'+o.pickPageHighButtonTheme).removeClass('ui-btn-down-'+o.pickPageHighButtonTheme); }
+									);
+							} else {
+								boxxy.addClass('ui-btn-up-'+o.pickPageButtonTheme)
+									.hover(
+										function() { $(this).addClass('ui-btn-down-'+o.pickPageButtonTheme).removeClass('ui-btn-up-'+o.pickPageButtonTheme); },
+										function() { $(this).addClass('ui-btn-up-'+o.pickPageButtonTheme).removeClass('ui-btn-down-'+o.pickPageButtonTheme); }
+									);
+							}
+							
 							today++;
 						}
 					}
