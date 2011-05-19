@@ -92,7 +92,6 @@
 			meri = '',
 			padMin = (( date.getMinutes() < 9 ) ? "0" : "") + ( date.getMinutes() );
 			
-		console.log(date);
 		if ( this.options.timeFormat == 12 ) {
 			if ( date.getHours() > 11 ) {
 				meri = 1;
@@ -177,7 +176,8 @@
 					return new Date();
 				}
 			} else { // Good string in input
-				for ( i=0; i<3; i++ ) {
+				if ( parts.length < 3 ) { d_day = 1; } //Probably a CC Expiration Field 
+				for ( i=0; i<parts.length; i++ ) {
 					if ( parts[i].match(/d/i) ) { d_day = data[i]; }
 					if ( parts[i].match(/m/i) ) { d_mon = data[i]; }
 					if ( parts[i].match(/y/i) ) { d_yar = data[i]; }
@@ -673,8 +673,8 @@
 						self._update();
 					}
 				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
-				
-				for(i=0; i<=2; i++) {
+		
+				for(i=0; i<=self.options.fieldsOrder.length; i++) {
 					if (self.options.fieldsOrder[i] == 'y') { pickerYar.appendTo(pickerInput); }
 					if (self.options.fieldsOrder[i] == 'm') { pickerMon.appendTo(pickerInput); }
 					if (self.options.fieldsOrder[i] == 'd') { pickerDay.appendTo(pickerInput); }
@@ -689,39 +689,22 @@
 					self.input.trigger('change');
 				});
 			
-			$("<div><a href='#'></a></div>")
-				.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-				.click(function(e) {
-					e.preventDefault();
-					self._incrementField(e, 0);
-				})
-				.clone(false).appendTo(pickerPlus)
-				.click(function(e) {
-					e.preventDefault();
-					self._incrementField(e, 1);
-				})
-				.clone(false).appendTo(pickerPlus)
-				.click(function(e) {
-					e.preventDefault();
-					self._incrementField(e, 2);
+			for(var x=0; x<self.options.fieldsOrder.length; x++) {
+				$("<div><a href='#'></a></div>")
+					.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
+					.attr('data-field', x)
+					.click(function(e) {
+						e.preventDefault();
+						self._incrementField(e, $(this).attr('data-field'));
 				});
-			
-			$("<div><a href='#'></a></div>")
-				.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-				.click(function(e) {
-					e.preventDefault();
-					self._decrementField(e, 0);
-				})
-				.clone(false).appendTo(pickerMinus)
-				.click(function(e) {
-					e.preventDefault();
-					self._decrementField(e, 1);
-				})
-				.clone(false).appendTo(pickerMinus)
-				.click(function(e) {
-					e.preventDefault();
-					self._decrementField(e, 2);
+				$("<div><a href='#'></a></div>")
+					.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
+					.attr('data-field', x)
+					.click(function(e) {
+						e.preventDefault();
+						self._decrementField(e, $(this).attr('data-field'));
 				});
+			}
 				
 			$.extend(self, {
 				pickerHeader: pickerHeader,
