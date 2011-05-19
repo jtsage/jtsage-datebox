@@ -90,7 +90,7 @@
 	_formatTime: function(date) {
 		var hours = 0,
 			meri = '',
-			padMin = (( date.getMinutes() < 9 ) ? "0" : "") + ( date.getMinutes() );
+			padMin = (( date.getMinutes() < 10 ) ? "0" : "") + ( date.getMinutes() );
 			
 		if ( this.options.timeFormat == 12 ) {
 			if ( date.getHours() > 11 ) {
