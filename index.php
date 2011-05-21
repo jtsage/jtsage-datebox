@@ -180,10 +180,11 @@
 			
 			<div data-role="collapsible" data-collapsed="true">
 				<h3>Hidden Input, Link Open (src line: 182)</h3>
-				<p>Demonstrates opening a hidden date picker (value: <span id="hiddendateval"></span>) with a <a href="#" id="hiddenlink">link</a>. Only works with forced dialog mode.</p>
-				<p>Note: this seems to act oddly on chrome right now</p>
+				<p>Demonstrates opening a hidden date picker (value: <span id="hiddendateval"></span>) with a <a href="#" id="hlink">link</a>. Only works with forced dialog mode.</p>
 				<script type="text/javascript">
-					$('#hiddenlink').live('click', function() {
+					// NOTE: The event seemed to be attaching multiple times - threw a die in there to prevent 
+					$('#hlink').die('click');
+					$('#hlink').live('click', function(e) {
 						$('#hiddenlinkdate').datebox('open');
 					});
 					$('#hiddenlinkdate').live('change', function() {
@@ -191,7 +192,9 @@
 					});
 				</script>
 				<div data-role="fieldcontain" style="display: none !important;">
-					<input value="2011-01-01" disabled="disabled" name="hiddenlinkdate" type="date" data-role="datebox" id="hiddenlinkdate" data-options='{"mode": "calbox", "useDialogForceTrue": true, "dateFormat": "MM/DD/YYYY"}' />
+					<form>
+					<input value="2011-01-01" name="hiddenlinkdate" type="date" data-role="datebox" id="hiddenlinkdate" data-options='{"mode": "calbox", "useDialogForceTrue": true, "dateFormat": "MM/DD/YYYY"}' />
+					</form>
 				</div>
 				
 			</div>
