@@ -192,9 +192,7 @@
 					});
 				</script>
 				<div data-role="fieldcontain" style="display: none !important;">
-					<form>
 					<input value="2011-01-01" name="hiddenlinkdate" type="date" data-role="datebox" id="hiddenlinkdate" data-options='{"mode": "calbox", "useDialogForceTrue": true, "dateFormat": "MM/DD/YYYY"}' />
-					</form>
 				</div>
 				
 			</div>
