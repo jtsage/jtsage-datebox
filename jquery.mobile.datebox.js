@@ -44,6 +44,8 @@
 		defaultDate: false,
 		minYear: false,
 		maxYear: false,
+		afterToday: false,
+		maxDays: false,
 	},
 	_dstAdjust: function(date) {
 		if (!date) { return null; }
@@ -218,6 +220,10 @@
 			}
 		}
 		if ( o.mode == 'datebox' ) {
+			if ( o.afterToday ) {
+				var today = new Date();
+				if ( self.theDate < today ) { self.theDate = today; }
+			}
 			self.pickerHeader.html( self._formatHeader(self.theDate) );
 			self.pickerMon.val(self.theDate.getMonth() + 1);
 			self.pickerDay.val(self.theDate.getDate());
