@@ -46,6 +46,7 @@
 		maxYear: false,
 		afterToday: false,
 		maxDays: false,
+		minDays: false,
 	},
 	_dstAdjust: function(date) {
 		if (!date) { return null; }
@@ -223,6 +224,16 @@
 			if ( o.afterToday ) {
 				var today = new Date();
 				if ( self.theDate < today ) { self.theDate = today; }
+			}
+			if ( o.maxDays !== false ) {
+				var maxday = new Date();
+				maxday.setDate(maxday.getDate() + o.maxDays);
+				if ( self.theDate > maxday ) { self.theDate = maxday; }
+			}
+			if ( o.minDays !== false ) {
+				var minday = new Date();
+				minday.setDate(minday.getDate() - o.minDays);
+				if ( self.theDate < minday ) { self.theDate = minday; }
 			}
 			self.pickerHeader.html( self._formatHeader(self.theDate) );
 			self.pickerMon.val(self.theDate.getMonth() + 1);
