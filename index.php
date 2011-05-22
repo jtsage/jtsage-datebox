@@ -194,7 +194,15 @@
 				<div data-role="fieldcontain" style="display: none !important;">
 					<input value="2011-01-01" name="hiddenlinkdate" type="date" data-role="datebox" id="hiddenlinkdate" data-options='{"mode": "calbox", "useDialogForceTrue": true, "dateFormat": "MM/DD/YYYY"}' />
 				</div>
-				
+			</div>
+			
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Limit to today + 60 days (src line: 200)</h3>
+				<p>Limit the allowed dates to at minimum today, and at maximum 60 days in the future. (android only)</p>
+				<div data-role="fieldcontain">
+					<label for="limit">Testing</label>
+					<input name="limit" type="date" data-role="datebox" id="limit" data-options='{"afterToday": true, "maxDays": 60}'/>
+				</div>
 			</div>
 			
 		</div>
