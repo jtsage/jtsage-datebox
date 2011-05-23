@@ -267,15 +267,18 @@
 			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { currentMonth = true; highlightDay = thisDate.getDate(); } 
 			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); } 
 			
-			if ( o.afterToday && currentMonth ) { skipPrev = true; }
-			if ( thisDate.getMonth() > self.theDate.getMonth() && o.afterToday ) { skipPrev = true; }
+			self.calNoPrev = false;
+			self.calNoNext = false;
+			
+			if ( o.afterToday && currentMonth ) { skipPrev = true; self.calNoPrev = true; }
+			if ( thisDate.getMonth() > self.theDate.getMonth() && o.afterToday ) { skipPrev = true; self.calNoPrev = true; }
 			if ( o.minDays !== false ) {
 				minDate.setDate(minDate.getDate() - o.minDays);
-				if ( self.theDate.getMonth() <= minDate.getMonth() ) { skipPrev = true; }
+				if ( self.theDate.getMonth() <= minDate.getMonth() ) { skipPrev = true; self.calNoPrev = true;}
 			}
 			if ( o.maxDays !== false ) {
 				maxDate.setDate(maxDate.getDate() + o.maxDays);
-				if ( self.theDate.getMonth() >= maxDate.getMonth() ) { skipNext = true; }
+				if ( self.theDate.getMonth() >= maxDate.getMonth() ) { skipNext = true; self.calNoNext = true;}
 			}
 			
 			if ( o.calShowDays ) {
@@ -774,27 +777,35 @@
 			pickerContent.appendTo(self.thisPage);
 		}
 		if ( o.mode == 'calbox' ) {
-			var pickerHeader = $("<div>", {"class": 'ui-datebox-gridheader'}).appendTo(pickerContent);
-				pickerGrid = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(pickerContent);
+			var pickerHeader = $("<div>", {"class": 'ui-datebox-gridheader'}).appendTo(pickerContent),
+				pickerGrid = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(pickerContent),
+				calNoNext = false,
+				calNoPrev = false,
 				pickerNextMon = $("<div class='ui-datebox-gridminus'><a href='#'>Prev Month</a></div>")
 					.appendTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
 					.click( function(e) {
 						e.preventDefault();
-						self.theDate.setMonth(self.theDate.getMonth() - 1);
+						if ( ! self.calNoPrev ) {
+							self.theDate.setMonth(self.theDate.getMonth() - 1);
+						}
 						self._update();
 					}),
 				pickerLastMon = $("<div class='ui-datebox-gridplus'><a href='#'>Next Month</a></div>")
 					.appendTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
 					.click( function(e) {
 						e.preventDefault();
-						self.theDate.setMonth(self.theDate.getMonth() + 1);
+						if ( ! self.calNoNext ) {
+							self.theDate.setMonth(self.theDate.getMonth() + 1);
+						}
 						self._update();
 					}),
-				pickerDate = $("<div class='ui-datebox-gridlabel'><h4>Uninitialized</h4></div>").appendTo(pickerHeader).find('h4'),
+				pickerDate = $("<div class='ui-datebox-gridlabel'><h4>Uninitialized</h4></div>").appendTo(pickerHeader).find('h4');
 					
 			$.extend(self, {
 				pickerDate: pickerDate,
-				pickerGrid: pickerGrid
+				pickerGrid: pickerGrid,
+				calNoNext: calNoNext,
+				calNoPrev: calNoPrev
 			});
 			
 			pickerContent.appendTo(self.thisPage);

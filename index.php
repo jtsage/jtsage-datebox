@@ -199,7 +199,7 @@
 			<div data-role="collapsible" data-collapsed="true">
 				<h3>Limit to today + 60 days (src line: 200)</h3>
 				<p>Limit the allowed dates to at minimum today, and at maximum 60 days in the future. (both date modes)</p>
-				<p>Note: the calendar mode will allow users to browse to months that they can not choose any date in.</p>
+				<p>Note: the calendar mode limits users to viewing months with valid dates.</p>
 				<div data-role="fieldcontain">
 					<label for="limit">Android Style</label>
 					<input name="limit" type="date" data-role="datebox" id="limit" data-options='{"afterToday": true, "maxDays": 60}'/>
