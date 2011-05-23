@@ -47,6 +47,7 @@
 		afterToday: false,
 		maxDays: false,
 		minDays: false,
+		disabledDayColor: '#888',
 	},
 	_dstAdjust: function(date) {
 		if (!date) { return null; }
@@ -254,12 +255,28 @@
 				thisDate = new Date(),
 				presetDate = self._makeDate(self.input.val()),
 				highlightDay = -1,
-				presetDay = -1;
-				prevtoday = lastend - (start - 1);
-				nexttoday = 1;
+				presetDay = -1,
+				prevtoday = lastend - (start - 1),
+				nexttoday = 1,
+				currentMonth = false,
+				maxDate = new Date(),
+				minDate = new Date(),
+				skipPrev = false,
+				skipNext = false;
 				
-			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { highlightDay = thisDate.getDate(); } 
+			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { currentMonth = true; highlightDay = thisDate.getDate(); } 
 			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); } 
+			
+			if ( o.afterToday && currentMonth ) { skipPrev = true; }
+			if ( thisDate.getMonth() > self.theDate.getMonth() && o.afterToday ) { skipPrev = true; }
+			if ( o.minDays !== false ) {
+				minDate.setDate(minDate.getDate() - o.minDays);
+				if ( self.theDate.getMonth() <= minDate.getMonth() ) { skipPrev = true; }
+			}
+			if ( o.maxDays !== false ) {
+				maxDate.setDate(maxDate.getDate() + o.maxDays);
+				if ( self.theDate.getMonth() >= maxDate.getMonth() ) { skipNext = true; }
+			}
 			
 			if ( o.calShowDays ) {
 				var weekDays = $("<div>", {'class':'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
@@ -284,11 +301,13 @@
 										.attr('data-date', prevtoday)
 										.click(function(e) {
 											e.preventDefault();
-											self.theDate.setMonth(self.theDate.getMonth() - 1);
-											self.theDate.setDate($(this).attr('data-date'));
-											self.input.val(self._formatDate(self.theDate));
-											self.close();
-											self.input.trigger('change');
+											if ( !skipPrev ) {
+												self.theDate.setMonth(self.theDate.getMonth() - 1);
+												self.theDate.setDate($(this).attr('data-date'));
+												self.input.val(self._formatDate(self.theDate));
+												self.close();
+												self.input.trigger('change');
+											}
 										});
 									prevtoday++;
 								} else {
@@ -297,11 +316,13 @@
 										.attr('data-date', nexttoday)
 										.click(function(e) {
 											e.preventDefault();
-											self.theDate.setMonth(self.theDate.getMonth() + 1);
-											self.theDate.setDate($(this).attr('data-date'));
-											self.input.val(self._formatDate(self.theDate));
-											self.close();
-											self.input.trigger('change');
+											if ( !skipNext ) {
+												self.theDate.setMonth(self.theDate.getMonth() + 1);
+												self.theDate.setDate($(this).attr('data-date'));
+												self.input.val(self._formatDate(self.theDate));
+												self.close();
+												self.input.trigger('change');
+											}
 										});
 									nexttoday++;
 								}
@@ -310,14 +331,34 @@
 							var boxxy = $("<div>"+today+"</div>")
 								.addClass('ui-datebox-griddate ui-corner-all')
 								.attr('data-date', today)
-								.appendTo(thisRow)
-								.click(function(e) {
+								.appendTo(thisRow);
+							if ( !o.afterToday && !o.maxDays ) {
+								boxxy.click(function(e) {
 									e.preventDefault();
 									self.theDate.setDate($(this).attr('data-date'));
 									self.input.val(self._formatDate(self.theDate));
 									self.close();
 									self.input.trigger('change');
 								});
+							} else {
+								if ( ! (
+									( o.afterToday && self.theDate.getMonth() == thisDate.getMonth() && today < thisDate.getDate() ) ||
+									( o.maxDays !== false && self.theDate.getMonth() > maxDate.getMonth() ) ||
+									( o.maxDays !== false && self.theDate.getMonth() == maxDate.getMonth() && today > maxDate.getDate() )  ||
+									( o.minDays !== false && self.theDate.getMonth() < minDate.getMonth() ) ||
+									( o.minDays !== false && self.theDate.getMonth() == minDate.getMonth() && today < minDate.getDate() ) 
+									) ) {
+										boxxy.click(function(e) {
+											e.preventDefault();
+											self.theDate.setDate($(this).attr('data-date'));
+											self.input.val(self._formatDate(self.theDate));
+											self.close();
+											self.input.trigger('change');
+										});
+								} else {
+									boxxy.css('color', o.disabledDayColor);
+								}
+							}
 							if ( today === highlightDay || today === presetDay ) {
 								boxxy.addClass('ui-btn-up-'+o.pickPageHighButtonTheme)
 									.hover(

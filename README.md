@@ -68,6 +68,7 @@ _These can be passed to datebox via an object set at the data-options attribute,
 * __pickPageHighButtonTheme__ : Calendar Mode - "Today" and "Selected" Day highlighting
 * __zindex__ : Z-Index for popup window (default: 500)
 * __noAnimation__ : Disable popup window animations.
+* __disabledDayColor__ : Text color for disabled days on calendar when using minDays, maxDays, or afterToday.
 
 ### Internationalization:
 * __setDateButtonLabel__ : Android Mode - The label displayed in the set date button, default is "Set date"
