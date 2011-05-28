@@ -206,7 +206,7 @@
 				</div>
 				<div data-role="fieldcontain">
 					<label for="limit2">Calendar Style</label>
-					<input name="limit2" type="date" data-role="datebox" data-options='{"minDays": 30, "maxDays": 30, "mode": "calbox"}' id="limit2" />
+					<input name="limit2" type="date" data-role="datebox" data-options='{"minDays": 200, "maxDays": 30, "mode": "calbox"}' id="limit2" />
 				</div>
 			</div>
 

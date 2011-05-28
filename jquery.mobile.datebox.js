@@ -272,14 +272,14 @@
 			self.calNoNext = false;
 			
 			if ( o.afterToday && currentMonth ) { skipPrev = true; self.calNoPrev = true; }
-			if ( thisDate.getMonth() > self.theDate.getMonth() && o.afterToday ) { skipPrev = true; self.calNoPrev = true; }
+			if ( thisDate.getMonth() > self.theDate.getMonth() && self.theDate.getFullYear() == thisDate.getFullYear() && o.afterToday ) { skipPrev = true; self.calNoPrev = true; }
 			if ( o.minDays !== false ) {
 				minDate.setDate(minDate.getDate() - o.minDays);
-				if ( self.theDate.getMonth() <= minDate.getMonth() ) { skipPrev = true; self.calNoPrev = true;}
+				if ( self.theDate.getFullYear() == minDate.getFullYear() && self.theDate.getMonth() <= minDate.getMonth() ) { skipPrev = true; self.calNoPrev = true;}
 			}
 			if ( o.maxDays !== false ) {
 				maxDate.setDate(maxDate.getDate() + o.maxDays);
-				if ( self.theDate.getMonth() >= maxDate.getMonth() ) { skipNext = true; self.calNoNext = true;}
+				if ( self.theDate.getFullYear() == maxDate.getFullYear() && self.theDate.getMonth() >= maxDate.getMonth() ) { skipNext = true; self.calNoNext = true;}
 			}
 			
 			if ( o.calShowDays ) {
@@ -345,20 +345,44 @@
 									self.input.trigger('change');
 								});
 							} else {
-								if ( ! (
-									( o.afterToday && self.theDate.getMonth() == thisDate.getMonth() && today < thisDate.getDate() ) ||
-									( o.maxDays !== false && self.theDate.getMonth() > maxDate.getMonth() ) ||
-									( o.maxDays !== false && self.theDate.getMonth() == maxDate.getMonth() && today > maxDate.getDate() )  ||
-									( o.minDays !== false && self.theDate.getMonth() < minDate.getMonth() ) ||
-									( o.minDays !== false && self.theDate.getMonth() == minDate.getMonth() && today < minDate.getDate() ) 
-									) ) {
-										boxxy.click(function(e) {
-											e.preventDefault();
-											self.theDate.setDate($(this).attr('data-date'));
-											self.input.val(self._formatDate(self.theDate));
-											self.close();
-											self.input.trigger('change');
-										});
+
+								var skipit = false;
+								if ( o.afterToday ) {
+									if ( 
+										( self.theDate.getFullYear() == thisDate.getFullYear() && self.theDate.getMonth() == thisDate.getMonth() && today < thisDate.getDate() ) ||
+										( self.theDate.getFullYear() < thisDate.getFullYear() ) ) {
+											skipit = true;
+									}
+								} 
+								if ( o.maxDays !== false ) {
+									if (
+										( self.theDate.getFullYear() > maxDate.getFullYear() ) ||
+										( self.theDate.getFullYear() == maxDate.getFullYear() && self.theDate.getMonth() > maxDate.getMonth() ) ||
+										( self.theDate.getFullYear() == maxDate.getFullYear() && self.theDate.getMonth() == maxDate.getMonth() && today > maxDate.getDate() ) ) {
+											skipit = true;
+									}
+								} 
+								if ( o.minDays !== false ) {
+									if (
+										( self.theDate.getFullYear() < minDate.getFullYear() ) ||
+										( self.theDate.getFullYear() == minDate.getFullYear() && self.theDate.getMonth() < minDate.getMonth() ) ||
+										( self.theDate.getFullYear() == minDate.getFullYear() && self.theDate.getMonth() == minDate.getMonth() && today < minDate.getDate() ) ) {
+											
+											skipit = true;
+									}
+								} else if ( o.blackDays !== false ) {
+									// do some stuff //
+								}
+
+
+								if ( ! ( skipit ) ) {
+									boxxy.click(function(e) {
+										e.preventDefault();
+										self.theDate.setDate($(this).attr('data-date'));
+										self.input.val(self._formatDate(self.theDate));
+										self.close();
+										self.input.trigger('change');
+									});
 								} else {
 									boxxy.css('color', o.disabledDayColor);
 								}
