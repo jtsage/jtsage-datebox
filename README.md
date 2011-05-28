@@ -99,5 +99,7 @@ _These can be passed to datebox via an object set at the data-options attribute,
 * __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size
 * __useModal__ : Use modal styling (background fades out) on popup (default: false)
 * __noButtonFocusMode__ : Suppress button, open on element focus instead
+* __useInline__ : Show datebox inline on page, no dialog or popup (always takes precedence over dialog, modal, and popup mode)
+* __useInlineHideInput__ : When using inline mode, do not show the input box
 
 _To disable the element, use the standard disabled='disabled' in your markup._
