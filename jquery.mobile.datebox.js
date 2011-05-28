@@ -48,6 +48,8 @@
 		afterToday: false,
 		maxDays: false,
 		minDays: false,
+		blackDays: false,
+		blackDates: false,
 		disabledDayColor: '#888',
 	},
 	_dstAdjust: function(date) {
@@ -263,10 +265,21 @@
 				maxDate = new Date(),
 				minDate = new Date(),
 				skipPrev = false,
-				skipNext = false;
+				skipNext = false,
+				curBlackYear = false,
+				curBlackMonth = false;
 				
 			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { currentMonth = true; highlightDay = thisDate.getDate(); } 
 			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); } 
+
+			if ( o.blackDates !== false ) { // DATES Blacklist
+				if ( ! ( o.blackDates['y'+self.theDate.getFullYear()] == undefined ) ) {
+					curBlackYear = o.blackDates['y'+self.theDate.getFullYear()];
+					if ( ! ( curBlackYear['m'+(self.theDate.getMonth()+1)] == undefined ) ) {
+						curBlackMonth = curBlackYear['m'+(self.theDate.getMonth()+1)];
+					}
+				}
+			}
 			
 			self.calNoPrev = false;
 			self.calNoNext = false;
@@ -336,7 +349,7 @@
 								.addClass('ui-datebox-griddate ui-corner-all')
 								.attr('data-date', today)
 								.appendTo(thisRow);
-							if ( !o.afterToday && !o.maxDays ) {
+							if ( !o.afterToday && !o.maxDays && !o.minDays && !o.blackDates && !o.blackDays ) {
 								boxxy.click(function(e) {
 									e.preventDefault();
 									self.theDate.setDate($(this).attr('data-date'));
@@ -354,7 +367,7 @@
 											skipit = true;
 									}
 								} 
-								if ( o.maxDays !== false ) {
+								if ( !skipit && o.maxDays !== false ) {
 									if (
 										( self.theDate.getFullYear() > maxDate.getFullYear() ) ||
 										( self.theDate.getFullYear() == maxDate.getFullYear() && self.theDate.getMonth() > maxDate.getMonth() ) ||
@@ -362,18 +375,24 @@
 											skipit = true;
 									}
 								} 
-								if ( o.minDays !== false ) {
+								if ( !skipit && o.minDays !== false ) {
 									if (
 										( self.theDate.getFullYear() < minDate.getFullYear() ) ||
 										( self.theDate.getFullYear() == minDate.getFullYear() && self.theDate.getMonth() < minDate.getMonth() ) ||
 										( self.theDate.getFullYear() == minDate.getFullYear() && self.theDate.getMonth() == minDate.getMonth() && today < minDate.getDate() ) ) {
-											
 											skipit = true;
 									}
-								} else if ( o.blackDays !== false ) {
-									// do some stuff //
+								} 
+								if ( !skipit && o.blackDays !== false ) { // Individual DAY Blacklist
+									if ( $.inArray(j, o.blackDays) > -1 ) {
+										skipit = true;
+									}
 								}
-
+								if ( !skipit && o.blackDates !== false && curBlackMonth != false ) { // DATES Blacklist
+									if ( $.inArray(today, curBlackMonth) > -1 ) {
+										skipit = true;
+									}
+								}
 
 								if ( ! ( skipit ) ) {
 									boxxy.click(function(e) {

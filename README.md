@@ -89,9 +89,11 @@ _These can be passed to datebox via an object set at the data-options attribute,
 * __defaultDate__ : Default date when nothing entered into input box
 * __maxYear__ : Maximum year allowed in controls (non-constrained in text box)
 * __minYear__ : Minimum year allowed in controls (non-constrained in text box)
-* __afterToday__ : Limit date to "today" or after (android)
-* __maxDays__ : Set the upper limit to this # of days after today (android)
-* __minDays__ : Set the lower limit to this # of days before today (android)
+* __afterToday__ : Limit date to "today" or after
+* __maxDays__ : Set the upper limit to this # of days after today
+* __minDays__ : Set the lower limit to this # of days before today
+* __blackDays__ : An array of days of the week to blacklist (numeric) (calendar only)
+* __blackDates__ : A complex object of individual dates to blacklist (calendar only, see demos)
 * __minuteStep__ : Number of minutes to step per button press in timebox mode. (default 1)
 * __calShowDays__ : Calendar mode - Boolean show day names in grid
 * __calShowOnlyMonth__ : Calendar mode - show *only* this month, do not fill in empty boxes (default: false)
