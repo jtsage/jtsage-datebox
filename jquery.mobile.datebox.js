@@ -273,7 +273,7 @@
 			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); } 
 
 			if ( o.blackDates !== false ) { // DATES Blacklist
-				if ( ! ( o.blackDates['y'+self.theDate.getFullYear()] == undefined ) ) {
+				if ( ! ( $.isArray(o.blackDates) && ( o.blackDates['y'+self.theDate.getFullYear()] == undefined ) ) ) {
 					curBlackYear = o.blackDates['y'+self.theDate.getFullYear()];
 					if ( ! ( curBlackYear['m'+(self.theDate.getMonth()+1)] == undefined ) ) {
 						curBlackMonth = curBlackYear['m'+(self.theDate.getMonth()+1)];
@@ -388,11 +388,23 @@
 										skipit = true;
 									}
 								}
-								if ( !skipit && o.blackDates !== false && curBlackMonth != false ) { // DATES Blacklist
-									if ( $.inArray(today, curBlackMonth) > -1 ) {
-										skipit = true;
+								if ( !skipit && o.blackDates !== false ) { // DATES Blacklist
+									if ( curBlackMonth != false ) {
+										if ( $.inArray(today, curBlackMonth) > -1 ) {
+											skipit = true;
+										}
+									} else if ( $.isArray(o.blackDates) ) {
+										var tester = self.theDate.getFullYear() + '-';
+										if ( self.theDate.getMonth() < 9 ) { tester = tester + "0"; }
+										tester = tester + (self.theDate.getMonth()+1) + '-';
+										if ( today < 10 ) { tester = tester + "0"; }
+										tester = tester + today;
+										if ( $.inArray(tester, o.blackDates) > -1 ) {
+											skipit = true;
+										}
 									}
 								}
+								
 
 								if ( ! ( skipit ) ) {
 									boxxy.click(function(e) {

@@ -228,12 +228,16 @@
 			<div data-role="collapsible" data-collapsed="true">
 				<h3>Blacklisted Days and Dates</h3>
 				<p>Blacklist days (day of week), or dates (yyyy/mm/dd) - Calendar mode only</p>
-				<p>Date Format:  { 'y2001': { 'm5' : [ 1, 2, 3 ] } } :: This will black-out the 1st, 2nd, and 3rd of the 5th Month (May) of 2001</p>
+				<p>Date Format:  { 'y2001': { 'm5' : [ 1, 2, 3 ] } } :: This will black-out the 1st, 2nd, and 3rd of the 5th Month (May) of 2001.  Or, if you prefer, you may use a simple array, i.e.: ["2011-01-01", "2011-01-02"] etc.</p>
 				<p>Example shows No Tuesdays or Fridays, and some ART!</p>
 
 				<div data-role="fieldcontain">
 					<label for="blacklist">Some Date</label>
 					<input value="2011-05-01" name="blacklist" type="date" data-role="datebox" id="blacklist" data-options='{"mode": "calbox", "blackDays": [2,5], "blackDates": {"y2011": {"m5": [2,4,22,29,30,5,7]}}}'/>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="blacklist2">Some ISO Date</label>
+					<input value="2011-05-01" name="blacklist2" type="date" data-role="datebox" id="blacklist2" data-options='{"mode": "calbox", "blackDates": ["2011-05-03","2011-05-04","2011-05-05"]}'/>
 				</div>
 			</div>
 			
