@@ -209,6 +209,21 @@
 					<input name="limit2" type="date" data-role="datebox" data-options='{"minDays": 30, "maxDays": 30, "mode": "calbox"}' id="limit2" />
 				</div>
 			</div>
+
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Inline, hidden input display</h3>
+				<p>Display the date picker (any mode) inline.  Note that inline display will always take precendence.</p>
+				<p>The current date is <span id="inlinedateval"></span></p>
+				<script type="text/javascript">
+					$('#inline').live('change', function() {
+						$('#inlinedateval').text($('#inline').val());
+					});
+				</script>
+				<div data-role="fieldcontain">
+					<label for="inline">Some Date</label>
+					<input name="inline" type="date" data-role="datebox" data-options='{"useInline": true, "useInlineHideInput": true, "mode": "calbox"}' id="inline" />
+				</div>
+			</div>
 			
 		</div>
 		<div data-role="collapsible">

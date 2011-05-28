@@ -35,6 +35,7 @@
 		useDialogForceFalse: false,
 		useDialog: false,
 		useModal: false,
+		useInline: false,
 		noButtonFocusMode: false,
 		
 		fieldsOrder: ['m', 'd', 'y'],
@@ -397,6 +398,8 @@
 			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
 			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
 			windowWidth = $(document).width();
+
+		if ( o.useInline ) { return false; }
 					
 		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
 			pickWinTop = $(document).height() - (pickWinHeight + 2);
@@ -422,7 +425,11 @@
 	},
 	close: function() {
 		var self = this;
-		
+
+		if ( self.options.useInline ) {
+				return true;
+		}
+
 		if ( self.options.useDialog ) {
 			$(self.pickPage).dialog('close');
 			//$.mobile.changePage([self.pickPage,self.thisPage], 'pop', true, false);
@@ -463,7 +470,7 @@
 			.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
 			.css({'vertical-align': 'middle', 'float': 'right'});
 			
-		if ( o.noButtonFocusMode ) { openbutton.hide(); }
+		if ( o.noButtonFocusMode || o.useInline ) { openbutton.hide(); }
 		
 		focusedEl.tap(function() {
 			if ( !o.disabled ) {
@@ -513,7 +520,7 @@
 				e.stopImmediatePropagation();
 				self.close();
 			});
-		
+
 		$.extend(self, {
 			pickPage: pickPage,
 			thisPage: thisPage,
@@ -822,11 +829,19 @@
 		if ( o.useModal ) {
 			screen.addClass('ui-datebox-screen-modal');
 		}
-			
+
 		$.extend(self, {
 			pickerContent: pickerContent,
 			screen: screen
 		});
+		
+		if ( o.useInline ) { 
+			self.input.parent().parent().append(self.pickerContent);
+			if ( o.useInlineHideInput ) { self.input.parent().hide(); }
+			self.input.trigger('change');
+			self.pickerContent.removeClass('ui-datebox-hidden');
+		}
+			
 	},
 	    
 	disable: function(){
