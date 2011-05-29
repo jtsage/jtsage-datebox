@@ -1,7 +1,7 @@
 jQuery-Mobile-DateBox
 =====================
 
-DateBox is a small, android-esk date picker, using as many of the native jQueryMobile controls as possible.
+DateBox is a jQuery-mobile based date and time picker.
 
 This is based in part on the work of Todd M. Horst, and his [Android Like Date Picker 2](http://toddmhorst.wordpress.com/2010/12/30/android-like-date-picker-with-jquery-mobile-2/)
 
