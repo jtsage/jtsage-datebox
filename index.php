@@ -211,7 +211,7 @@
 			</div>
 
 			<div data-role="collapsible" data-collapsed="true">
-				<h3>Inline, hidden input display</h3>
+				<h3>Inline, hidden input display (src line: 214)</h3>
 				<p>Display the date picker (any mode) inline.  Note that inline display will always take precendence.</p>
 				<p>The current date is <span id="inlinedateval"></span></p>
 				<script type="text/javascript">
@@ -226,7 +226,7 @@
 			</div>
 
 			<div data-role="collapsible" data-collapsed="true">
-				<h3>Blacklisted Days and Dates</h3>
+				<h3>Blacklisted Days and Dates (src line: 229)</h3>
 				<p>Blacklist days (day of week), or dates (yyyy/mm/dd) - Calendar mode only</p>
 				<p>Date Format:  { 'y2001': { 'm5' : [ 1, 2, 3 ] } } :: This will black-out the 1st, 2nd, and 3rd of the 5th Month (May) of 2001.  Or, if you prefer, you may use a simple array, i.e.: ["2011-01-01", "2011-01-02"] etc.</p>
 				<p>Example shows No Tuesdays or Fridays, and some ART!</p>
@@ -238,6 +238,34 @@
 				<div data-role="fieldcontain">
 					<label for="blacklist2">Some ISO Date</label>
 					<input value="2011-05-01" name="blacklist2" type="date" data-role="datebox" id="blacklist2" data-options='{"mode": "calbox", "blackDates": ["2011-05-03","2011-05-04","2011-05-05"]}'/>
+				</div>
+			</div>
+
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Limit to today + 60 days, then based on start. (src line: 245)</h3>
+				<p>The first date is limited from "today" to 60 days in the future.</p>
+				<p>The second date is limited from the first date, to 90 days after the first date</p>
+				<p>Note: yes, apparently some of the options can be changed dynamicly.  cool</p>
+				<p>Note #2: minDays will take a negative number.   *very* cool.</p>
+				<script type="text/javascript">
+					$('#rlimit').live('change', function() {
+						$('#rlimit2').val($('#rlimit').val());
+						var temp = new Date(),
+							diff = parseInt(($('#rlimit').data('datebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
+							diffstrt = (diff * -1)-1; // If you want a minimum of 1 day between, make this -2 instead of -1
+							diffend = diff + 91; // Why 91 instead of 90?  No idea...
+					
+						$('#rlimit2').data('datebox').options.minDays = diffstrt;
+						$('#rlimit2').data('datebox').options.maxDays = diffend;
+					});
+				</script>
+				<div data-role="fieldcontain">
+					<label for="rlimit">Beginning Date</label>
+					<input name="rlimit" type="date" data-role="datebox" id="rlimit" data-options='{"mode": "calbox", "afterToday": true, "maxDays": 60}'/>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="rlimit2">Ending Date</label>
+					<input name="rlimit2" type="date" data-role="datebox" data-options='{"minDays": -60, "maxDays": 90, "mode": "calbox"}' id="rlimit2" />
 				</div>
 			</div>
 			
