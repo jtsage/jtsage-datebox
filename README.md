@@ -1,35 +1,37 @@
 jQuery-Mobile-DateBox
 =====================
 
-DateBox is a small, android-esk date picker, using as many of the native 
-jQueryMobile controls as possible.
+DateBox is a small, android-esk date picker, using as many of the native jQueryMobile controls as possible.
 
 This is based in part on the work of Todd M. Horst, and his [Android Like Date Picker 2](http://toddmhorst.wordpress.com/2010/12/30/android-like-date-picker-with-jquery-mobile-2/)
-
 
 DateBox Features
 ----------------
 
-* Two display modes, Android style datepicker and a Calendar style.
+* Multiple Data-Entry Modes:
+  * Android style date picker
+  * Calendar style date picker
+  * 12 and 24 hour time picker
 
-* Additionally, now sports a time picker mode.
+* 4 Different display modes:
+  * Standard, click-outside-to-close popup mode
+  * Forced input modal popup mode
+  * Unique page dialog mode
+  * Inline mode
 
-* Auto-parses text entered into form element on open.
-	*(any valid date string in your browsers locale, uses javascript:Date())*
+* Fully localized:
+  * Configurable Month names
+  * Configurable Day Names
+  * All labels and buttons configuratble
 
-* Attempts to position itself centered over the input, however, for small screens, it will open a dialog window instead.
+* Supports data-limiting of input:
+  * Configurable maximum and minimum years (android mode)
+  * Configurable maximum and minimum number of days from "today" (both date modes)
+  * Allows blacklisting of days of the week or specific dates (calendar mode) 
 
-* Click outside the widget to close.
+* Automatically parses hand-entered or pre-entered dates on open
 
 * Auto-bind's to data-type='datebox', options are configurable via data-options.
-
-* Configurable date format output.
-
-* Configurable Month and Day names for localization.
-	
-* Android Mode: Input items on DateBox are directly editable, allowing for quick date change.
-
-* Android Mode: Auto-corrects out of bounds (calendar invalid) dates into the closest real date *(e.g. Feb 31st becomes March 2nd or 3rd depending on the year)*
 
 Suggested Use
 -------------
@@ -58,50 +60,73 @@ Suggested Use
 Available Options
 -----------------
 
-_These can be passed to datebox via an object set at the data-options attribute, or in the standard method_
+These can be passed to datebox via an object set at the data-options attribute, or in the standard method.
+
+* _(operation mode)_ __option__ : Description _(default value)_
 
 ### Themeing:
-* __theme__ : Theme for original input element
-* __pickPageTheme__ : Theme for popup window or dialog
-* __pickPageInputTheme__ : Android Mode - Month/Date/Year Input Elements
-* __pickPageButtonTheme__ : Both Modes - Widget buttons
-* __pickPageHighButtonTheme__ : Calendar Mode - "Today" and "Selected" Day highlighting
-* __zindex__ : Z-Index for popup window (default: 500)
-* __noAnimation__ : Disable popup window animations.
-* __disabledDayColor__ : Text color for disabled days on calendar when using minDays, maxDays, or afterToday.
+* _(all)_ __theme__ : Theme for original input element. _(c)_
+* _(all)_ __pickPageTheme__ : Theme for popup window or dialog. _(b)_
+* _(all)_ __pickPageButtonTheme__ : Widget buttons. _(a)_
+* _(all)_ __zindex__ : Z-Index for popup window. _(500)_
+* _(all)_ __noAnimation__ : Disable popup window animations. _(false)_
+* _(android)_ __pickPageInputTheme__ : Month/Date/Year Input Elements. _(e)_
+* _(calendar)_ __pickPageHighButtonTheme__ : "Today" and "Selected" Day highlighting. _(e)_
+* _(calendar)_ __disabledDayColor__ : Text color for disabled days with date limiting. _(#888)_
 
-### Internationalization:
-* __setDateButtonLabel__ : Android Mode - The label displayed in the set date button, default is "Set date"
-* __daysOfWeek__ : Android Mode - An array of the days of the week, Sunday -> Saturday
-* __daysOfWeekShort__ : Calendar Mode - An Array of abreviations for days of the week, Sunday -> Saturday
-* __monthsOfYear__ : Both Modes - An Array of months of the year, January -> December
-* __fieldsOrder__ : Android Mode - Define the order of the fields, default is m-d-y
-* __headerFormat__ : Both Modes - Return header format - (YYYY = Year, MM = Zero Padded Month, mm = Month, mmm = Month of year, DD = Zero Padded Day, dd = Day, ddd = day of week)
-* __dateFormat__ : Both Modes - Return date format - (YYYY = Year, MM = Zero Padded Month, mm = Month, DD = Zero Padded Day, dd = Day)
-* __timeFormat__ : Either '12' or '24' - The clock mode, 12hr or 24hr.
-* __meridiemLetters__ : Meridiem notation - Default is ['AM', 'PM']
-* __titleDateDialogLabel__: Dialog label for date mode, default is 'Set Date'.
-* __titleTimeDialogLabel__: Dialog label for time mode, default is 'Set Time'.
-* __titleDialogLabel__: Dialog label override, if not false, will always be set to this.
+### Date Formats and Text Internationalization
+* _(android)_ __daysOfWeek__ : An array of the days of the week. _(['Sunday', 'Monday', ... 'Saturday'])_
+* _(android)_ __fieldsOrder__ : Define the order of the fields. _(['m', 'd', 'y'])_
+* _(calendar)_ __daysOfWeekShort__ : An Array of abreviations for days of the week. _(['Su', 'Mo', ... 'Sa'])_
+* _(both date)_ __monthsOfYear__ : An Array of months of the year. _(['January', 'February', ... 'December'])_
+* _(both date)_ __headerFormat__ : Return header format. _(ddd, mmm dd, YYYY)_
+  * __YYYY__ : 4 Digit Year
+  * __MM__ : 2 Digit Month (zero pad)
+  * __mm__ : 1 or 2 Digit Month
+  * __mmm__ : Text Month
+  * __DD__ : 2 Digit Day (zero pad)
+  * __dd__ : 1 or 2 Digit Day
+  * __ddd__ : Day of week
+* _(both date)_ __dateFormat__ : Return date format. _(YYYY-MM-DD)_
+  * __YYYY__ : 4 Digit Year
+  * __MM__ : 2 Digit Month (zero pad)
+  * __mm__ : 1 or 2 Digit Month
+  * __DD__ : 2 Digit Day (zero pad)
+  * __dd__ : 1 or 2 Digit Day
+* _(time)_ __timeFormat__ : Either '12' or '24' - The clock mode, 12hr or 24hr. _(24)_
+* _(time)_ __meridiemLetters__ : Meridiem notation _(['AM', 'PM'])_
 
-### Customization:
-* __mode__ : Mode of operation - either 'datebox' (android), 'calbox' (calendar), or 'timebox' (android time)
-* __defaultDate__ : Default date when nothing entered into input box
-* __maxYear__ : Maximum year allowed in controls (non-constrained in text box)
-* __minYear__ : Minimum year allowed in controls (non-constrained in text box)
-* __afterToday__ : Limit date to "today" or after
-* __maxDays__ : Set the upper limit to this # of days after today
-* __minDays__ : Set the lower limit to this # of days before today
-* __blackDays__ : An array of days of the week to blacklist (numeric) (calendar only)
-* __blackDates__ : A complex object tree or simple array of individual dates to blacklist (calendar only, see demos)
-* __minuteStep__ : Number of minutes to step per button press in timebox mode. (default 1)
-* __calShowDays__ : Calendar mode - Boolean show day names in grid
-* __calShowOnlyMonth__ : Calendar mode - show *only* this month, do not fill in empty boxes (default: false)
-* __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size
-* __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size
-* __useModal__ : Use modal styling (background fades out) on popup (default: false)
-* __noButtonFocusMode__ : Suppress button, open on element focus instead
-* __useInline__ : Show datebox inline on page, no dialog or popup (always takes precedence over dialog, modal, and popup mode)
-* __useInlineHideInput__ : When using inline mode, do not show the input box
+### Data Limits:
+* _(both date)_ __defaultDate__ : Default date when nothing entered into input box. _(null)_
+* _(both date)_ __afterToday__ : Limit date to "today" or after. _(false)_
+* _(both date)_ __maxDays__ : Set the upper limit to this # of days after today. _(false)_
+* _(both date)_ __minDays__ : Set the lower limit to this # of days before today. _(false)_
+* _(android)_ __maxYear__ : Maximum year allowed in controls (non-constrained in text box). _(false)_
+* _(android)_ __minYear__ : Minimum year allowed in controls (non-constrained in text box). _(false)_
+* _(calendar)_ __blackDays__ : An array of days of the week to blacklist. _(false)_
+  * ___example___ : [0,2] : Blacklist sunday and tuesday.
+* _(calendar)_ __blackDates__ : A complex object tree or simple array of individual dates to blacklist. _(false)_
+  * ___example___ : {"y2001": {'m12': [24,25] } } : Blacklist December 24th &amp; 25th, 2001.
+  * ___example___ : [ '2010-12-24', '2010-12-25' ] : Blacklist December 24th &amp; 25th, 2010.
+* _(time)_ __minuteStep__ : Number of minutes to step per button press in timebox mode. _(1)_
 
-_To disable the element, use the standard disabled='disabled' in your markup._
+### User Interface:
+* __mode__ : Mode of operation. _(datebox)_
+  * __datebox__ : Android Style Datepicker
+  * __calbox__ : Calendar Datepicker
+  * __timebox__ : Android Style Time Picker
+* _(all)_ __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size. _(false)_
+* _(all)_ __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size. _(false)_
+* _(all)_ __useModal__ : Use modal styling (background fades out) on popup. _(false)_
+* _(all)_ __noButtonFocusMode__ : Suppress button, open on element focus instead. _(false)_
+* _(all)_ __useInline__ : Show datebox inline on page, no dialog or popup. _(false)_
+* _(all)_ __useInlineHideInput__ : When using inline mode, do not show the input box. _(false)_
+* _(all)_ __titleDialogLabel__: Dialog label override. _(false)_
+* _(android)_ __setDateButtonLabel__ : The label displayed in the set date button. _(Set Date)_
+* _(calendar)_ __calShowDays__ : Boolean show day names in grid. _(true)_
+* _(calendar)_ __calShowOnlyMonth__ : show *only* this month, do not fill in empty boxes. _(false)_
+* _(both date)_ __titleDateDialogLabel__: Dialog label for date mode. _(Set Date)_
+* _(time)_ __setTimeButtonLabel__ : The label displayed in the set time button. _(Set Time)_
+* _(time)_ __titleTimeDialogLabel__: Dialog label for time mode. _(Set Time)_
+
+To disable the element, use the standard disabled='disabled' in your markup.
