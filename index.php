@@ -219,10 +219,10 @@
 						$('#inlinedateval').text($('#inline').val());
 					});
 				</script>
-				<div data-role="fieldcontain">
+				<div data-role="fieldcontain"><div id="isodiv"><style type="text/css">#isodiv>.ui-datebox-container { margin-right: auto; margin-left: auto; }</style>
 					<label for="inline">Some Date</label>
 					<input name="inline" type="date" data-role="datebox" data-options='{"useInline": true, "useInlineHideInput": true, "mode": "calbox"}' id="inline" />
-				</div>
+				</div></div>
 			</div>
 
 			<div data-role="collapsible" data-collapsed="true">
