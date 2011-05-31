@@ -334,8 +334,8 @@
 										.click(function(e) {
 											e.preventDefault();
 											if ( !skipNext ) {
-												self.theDate.setMonth(self.theDate.getMonth() + 1);
 												self.theDate.setDate($(this).attr('data-date'));
+												self.theDate.setMonth(self.theDate.getMonth() + 1);
 												self.input.val(self._formatDate(self.theDate));
 												self.close();
 												self.input.trigger('change');
@@ -848,6 +848,7 @@
 					.click( function(e) {
 						e.preventDefault();
 						if ( ! self.calNoPrev ) {
+							if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
 							self.theDate.setMonth(self.theDate.getMonth() - 1);
 						}
 						self._update();
@@ -857,6 +858,7 @@
 					.click( function(e) {
 						e.preventDefault();
 						if ( ! self.calNoNext ) {
+							if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
 							self.theDate.setMonth(self.theDate.getMonth() + 1);
 						}
 						self._update();
