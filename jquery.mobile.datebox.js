@@ -198,6 +198,9 @@
 			}
 		}
 	},
+	refresh: function() {
+		this._update();
+	},
 	_update: function() {
 		var self = this,
 			o = self.options;
