@@ -96,6 +96,9 @@
 		
 		return dateStr;
 	},
+	_isoDate: function(y,m,d) {
+		return y + '-' + (( m < 10 ) ? "0" : "") + m + '-' + ((d < 10 ) ? "0" : "") + d;
+	},
 	_formatTime: function(date) {
 		var hours = 0,
 			meri = '',
@@ -276,16 +279,7 @@
 				weekMode = false;
 				
 			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { currentMonth = true; highlightDay = thisDate.getDate(); } 
-			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); } 
-
-			if ( o.blackDates !== false ) { // DATES Blacklist
-				if ( ! ( $.isArray(o.blackDates) && ( o.blackDates['y'+self.theDate.getFullYear()] == undefined ) ) ) {
-					curBlackYear = o.blackDates['y'+self.theDate.getFullYear()];
-					if ( ! ( curBlackYear['m'+(self.theDate.getMonth()+1)] == undefined ) ) {
-						curBlackMonth = curBlackYear['m'+(self.theDate.getMonth()+1)];
-					}
-				}
-			}
+			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); }
 			
 			self.calNoPrev = false;
 			self.calNoNext = false;
@@ -336,6 +330,11 @@
 											}
 										});
 									if ( o.calWeekMode ) { iboxxy.attr('data-date', weekMode+lastend); }
+									if (
+										( o.blackDays !== false && $.inArray(j, o.blackDays) > -1 ) ||
+										( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth(), prevtoday), o.blackDates) > -1 ) ) {
+											iboxxy.unbind('click'); 
+									}
 									prevtoday++;
 								} else {
 									var iboxxy = $("<div>"+nexttoday+"</div>")
@@ -352,6 +351,11 @@
 											}
 										});
 									if ( o.calWeekMode ) { iboxxy.attr('data-date', weekMode); }
+									if (
+										( o.blackDays !== false && $.inArray(j, o.blackDays) > -1 ) ||
+										( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+2, nexttoday), o.blackDates) > -1 ) ) {
+											iboxxy.unbind('click'); 
+									}
 									nexttoday++;
 								}
 							}
@@ -397,28 +401,13 @@
 											skipit = true;
 									}
 								} 
-								if ( !skipit && o.blackDays !== false ) { // Individual DAY Blacklist
-									if ( $.inArray(j, o.blackDays) > -1 ) {
-										skipit = true;
+								if ( !skipit && ( o.blackDays !== false || o.blackDates !== false ) ) { // Blacklists
+									if ( 
+										( $.inArray(j, o.blackDays) > -1 ) ||
+										( $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, today), o.blackDates) > -1 ) ) { 
+											skipit = true;
 									}
 								}
-								if ( !skipit && o.blackDates !== false ) { // DATES Blacklist
-									if ( curBlackMonth != false ) {
-										if ( $.inArray(today, curBlackMonth) > -1 ) {
-											skipit = true;
-										}
-									} else if ( $.isArray(o.blackDates) ) {
-										var tester = self.theDate.getFullYear() + '-';
-										if ( self.theDate.getMonth() < 9 ) { tester = tester + "0"; }
-										tester = tester + (self.theDate.getMonth()+1) + '-';
-										if ( today < 10 ) { tester = tester + "0"; }
-										tester = tester + today;
-										if ( $.inArray(tester, o.blackDates) > -1 ) {
-											skipit = true;
-										}
-									}
-								}
-								
 
 								if ( ! ( skipit ) ) {
 									boxxy.click(function(e) {
