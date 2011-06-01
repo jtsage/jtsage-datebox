@@ -55,7 +55,7 @@
 			</div>
 		</div>
 		<div data-role="collapsible" data-collapsed="true">
-			<h3>Advanced Option Demos</h3>
+			<h3>Advanced Option Demos</h3><div data-role="collapsible-set">
 			
 			<div data-role="collapsible" data-collapsed="true">
 				<h3>Forced Dialog Mode (src line: 61)</h3>
@@ -275,7 +275,7 @@
 				</div>
 			</div>
 			
-		</div>
+		</div></div>
 		<div data-role="collapsible">
 			<!-- NOTE: When running locally, just nuke this section, or go grab PHP Markdown -->
 			<h3>Readme File</h3>

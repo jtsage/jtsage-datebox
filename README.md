@@ -109,7 +109,6 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(calendar)_ __blackDays__ : An array of days of the week to blacklist. _(false)_
   * ___example___ : [0,2] : Blacklist sunday and tuesday.
 * _(calendar)_ __blackDates__ : A complex object tree or simple array of individual dates to blacklist. _(false)_
-  * ___example___ : {"y2001": {'m12': [24,25] } } : Blacklist December 24th &amp; 25th, 2001.
   * ___example___ : [ '2010-12-24', '2010-12-25' ] : Blacklist December 24th &amp; 25th, 2010.
 * _(time)_ __minuteStep__ : Number of minutes to step per button press in timebox mode. _(1)_
 
