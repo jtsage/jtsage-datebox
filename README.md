@@ -28,6 +28,7 @@ DateBox Features
   * Configurable maximum and minimum years (android mode)
   * Configurable maximum and minimum number of days from "today" (both date modes)
   * Allows blacklisting of days of the week or specific dates (calendar mode) 
+  * Allows selecting specific day from any week selection (calendar mode)
 
 * Automatically parses hand-entered or pre-entered dates on open
 
@@ -103,6 +104,8 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(both date)_ __minDays__ : Set the lower limit to this # of days before today. _(false)_
 * _(android)_ __maxYear__ : Maximum year allowed in controls (non-constrained in text box). _(false)_
 * _(android)_ __minYear__ : Minimum year allowed in controls (non-constrained in text box). _(false)_
+* _(calendar)_ __calWeekMode__ : Boolean, week mode on or off (choose only a specific DAY). _(false)_
+* _(calendar)_ __calWeekModeFirstDay__ : Day of week to choose with week mode (numeric, 0=sun ... 6=sat). _(1)_
 * _(calendar)_ __blackDays__ : An array of days of the week to blacklist. _(false)_
   * ___example___ : [0,2] : Blacklist sunday and tuesday.
 * _(calendar)_ __blackDates__ : A complex object tree or simple array of individual dates to blacklist. _(false)_

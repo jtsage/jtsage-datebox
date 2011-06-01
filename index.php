@@ -269,6 +269,16 @@
 				</div>
 			</div>
 			
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Week Mode (src line: 273)</h3>
+				<p>Use the first day of week (configurable day, set to monday [1] in demo) mode.  Calendar only.</p>
+				
+				<div data-role="fieldcontain">
+					<label for="week">Some Monday</label>
+					<input value="2011-01-01" name="week" type="date" data-role="datebox" id="week" data-options='{"mode": "calbox", "calWeekModeFirstDay": 1, "calWeekMode": true}' />
+				</div>
+			</div>
+			
 		</div>
 		<div data-role="collapsible">
 			<!-- NOTE: When running locally, just nuke this section, or go grab PHP Markdown -->

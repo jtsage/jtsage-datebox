@@ -42,6 +42,8 @@
 		headerFormat: 'ddd, mmm dd, YYYY',
 		dateFormat: 'YYYY-MM-DD',
 		minuteStep: 1,
+		calWeekMode: false,
+		calWeekModeFirstDay: 1, 
 		defaultDate: false,
 		minYear: false,
 		maxYear: false,
@@ -271,6 +273,7 @@
 				skipNext = false,
 				curBlackYear = false,
 				curBlackMonth = false;
+				weekMode = false;
 				
 			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { currentMonth = true; highlightDay = thisDate.getDate(); } 
 			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); } 
@@ -309,6 +312,9 @@
 				if ( i === 0 || ( i > 0 && (today > 0 && today <= end) ) ) {
 					var thisRow = $("<div>", {'class': 'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
 					for ( j=0;j<=6;j++) {
+						if ( j === 0 ) { 
+							if ( today < 1 ) { weekMode = prevtoday - lastend + o.calWeekModeFirstDay; } else { weekMode = today + o.calWeekModeFirstDay; }
+						}
 						if ( j === start && i === 0 ) { today = 1; }
 						if ( today > end ) { today = -1; }
 						if ( today < 1 ) {
@@ -316,7 +322,7 @@
 								$("<div>", {'class': 'ui-datebox-griddate ui-datebox-griddate-empty'}).appendTo(thisRow);
 							} else {
 								if ( i === 0 ) {
-									$("<div>"+prevtoday+"</div>")
+									var iboxxy = $("<div>"+prevtoday+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
 										.attr('data-date', prevtoday)
 										.click(function(e) {
@@ -329,21 +335,23 @@
 												self.input.trigger('change');
 											}
 										});
+									if ( o.calWeekMode ) { iboxxy.attr('data-date', weekMode+lastend); }
 									prevtoday++;
 								} else {
-									$("<div>"+nexttoday+"</div>")
+									var iboxxy = $("<div>"+nexttoday+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
 										.attr('data-date', nexttoday)
 										.click(function(e) {
 											e.preventDefault();
 											if ( !skipNext ) {
 												self.theDate.setDate($(this).attr('data-date'));
-												self.theDate.setMonth(self.theDate.getMonth() + 1);
+												if ( !o.calWeekMode ) { self.theDate.setMonth(self.theDate.getMonth() + 1); }
 												self.input.val(self._formatDate(self.theDate));
 												self.close();
 												self.input.trigger('change');
 											}
 										});
+									if ( o.calWeekMode ) { iboxxy.attr('data-date', weekMode); }
 									nexttoday++;
 								}
 							}
@@ -352,6 +360,9 @@
 								.addClass('ui-datebox-griddate ui-corner-all')
 								.attr('data-date', today)
 								.appendTo(thisRow);
+							if ( o.calWeekMode ) {
+								boxxy.attr('data-date', weekMode);
+							}
 							if ( !o.afterToday && !o.maxDays && !o.minDays && !o.blackDates && !o.blackDays ) {
 								boxxy.click(function(e) {
 									e.preventDefault();
