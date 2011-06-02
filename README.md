@@ -72,7 +72,8 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(all)_ __zindex__ : Z-Index for popup window. _(500)_
 * _(all)_ __noAnimation__ : Disable popup window animations. _(false)_
 * _(android)_ __pickPageInputTheme__ : Month/Date/Year Input Elements. _(e)_
-* _(calendar)_ __pickPageHighButtonTheme__ : "Today" and "Selected" Day highlighting. _(e)_
+* _(calendar)_ __pickPageHighButtonTheme__ : "Selected" Day highlighting. _(e)_
+* _(calendar)_ __pickPageTodayButtonTheme__ : "Today" Day highlighting. _(e)_
 * _(calendar)_ __disabledDayColor__ : Text color for disabled days with date limiting. _(#888)_
 
 ### Date Formats and Text Internationalization
