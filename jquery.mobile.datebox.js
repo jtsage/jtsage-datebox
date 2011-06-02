@@ -12,6 +12,7 @@
 		pickPageInputTheme: 'e',
 		pickPageButtonTheme: 'a',
 		pickPageHighButtonTheme: 'e',
+		pickPageTodayButtonTheme: 'e',
 		noAnimation: false,
 		
 		disabled: false,
@@ -173,7 +174,7 @@
 				}
 			} else { // Good string in input
 				if ( parts.length < 3 ) { d_day = 1; } //Probably a CC Expiration Field 
-				for ( i=0; i<parts.length; i++ ) {
+				for ( var i=0; i<parts.length; i++ ) {
 					if ( parts[i].match(/d/i) ) { d_day = data[i]; }
 					if ( parts[i].match(/m/i) ) { d_mon = data[i]; }
 					if ( parts[i].match(/y/i) ) { d_yar = data[i]; }
@@ -195,7 +196,7 @@
 			o = self.options;
 			
 		if ( o.mode == 'timebox' ) {
-			self.pickerMins.val(self.theDate.getMinutes());
+			self.pickerMins.val(self._zeroPad(self.theDate.getMinutes()));
 			if ( o.timeFormat == 12 ) {
 				if ( self.theDate.getHours() > 11 ) {
 					self.pickerMeri.val(o.meridiemLetters[1]);
@@ -217,7 +218,7 @@
 			}
 		}
 		if ( o.mode == 'datebox' ) {
-			if ( o.afterToday ) {
+			if ( o.afterToday !== false ) {
 				var today = new Date();
 				if ( self.theDate < today ) { self.theDate = today; }
 			}
@@ -237,39 +238,36 @@
 			self.pickerYar.val(self.theDate.getFullYear());
 		}
 		if ( o.mode == 'calbox' ) { // Meat and potatos - make the calendar grid.
-			self.pickerDate.text(
-				o.monthsOfYear[self.theDate.getMonth()] + " " 
-				+ self.theDate.getFullYear()
-			);
+			self.pickerDate.text( o.monthsOfYear[self.theDate.getMonth()] + " " + self.theDate.getFullYear() );
 			self.pickerGrid.html('');
 			
 			var start = self._getFirstDay(self.theDate),
 				end = self._getLastDate(self.theDate),
 				lastend = self._getLastDateBefore(self.theDate),
-				today = -1,
-				thisDate = new Date(),
 				presetDate = self._makeDate(self.input.val()),
+				today = -1,
 				highlightDay = -1,
 				presetDay = -1,
 				prevtoday = lastend - (start - 1),
 				nexttoday = 1,
 				currentMonth = false,
+				thisDate = new Date(),
 				maxDate = new Date(),
 				minDate = new Date(),
 				skipPrev = false,
 				skipNext = false,
-				curBlackYear = false,
-				curBlackMonth = false;
+				skipThis = false,
 				weekMode = false;
 				
 			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { currentMonth = true; highlightDay = thisDate.getDate(); } 
 			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); }
 			
-			self.calNoPrev = false;
-			self.calNoNext = false;
+			self.calNoPrev = false; self.calNoNext = false;
 			
-			if ( o.afterToday && currentMonth ) { skipPrev = true; self.calNoPrev = true; }
-			if ( thisDate.getMonth() > self.theDate.getMonth() && self.theDate.getFullYear() == thisDate.getFullYear() && o.afterToday ) { skipPrev = true; self.calNoPrev = true; }
+			if ( o.afterToday === true && 
+				( currentMonth === true || ( thisDate.getMonth() > self.theDate.getMonth() && self.theDate.getFullYear() == thisDate.getFullYear() ) ) ) { 
+				skipPrev = true; self.calNoPrev = true; }
+
 			if ( o.minDays !== false ) {
 				minDate.setDate(minDate.getDate() - o.minDays);
 				if ( self.theDate.getFullYear() == minDate.getFullYear() && self.theDate.getMonth() <= minDate.getMonth() ) { skipPrev = true; self.calNoPrev = true;}
@@ -281,143 +279,113 @@
 			
 			if ( o.calShowDays ) {
 				var weekDays = $("<div>", {'class':'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
-				for ( i = 0; i<=6;i++ ) {
+				for ( var i=0; i<=6;i++ ) {
 					$("<div>"+o.daysOfWeekShort[i]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(weekDays);
 				}
 			}
 			
-			for ( i=0;i<=5;i++ ) {
-				if ( i === 0 || ( i > 0 && (today > 0 && today <= end) ) ) {
+			for ( var gridWeek=0; gridWeek<=5; gridWeek++ ) {
+				if ( gridWeek === 0 || ( gridWeek > 0 && (today > 0 && today <= end) ) ) {
 					var thisRow = $("<div>", {'class': 'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
-					for ( j=0;j<=6;j++) {
-						if ( j === 0 ) { 
-							if ( today < 1 ) { weekMode = prevtoday - lastend + o.calWeekModeFirstDay; } else { weekMode = today + o.calWeekModeFirstDay; }
-						}
-						if ( j === start && i === 0 ) { today = 1; }
+					for ( var gridDay=0; gridDay<=6; gridDay++) {
+						if ( gridDay === 0 ) { weekMode = ( today < 1 ) ? (prevtoday - lastend + o.calWeekModeFirstDay) : (today + o.calWeekModeFirstDay); }
+						if ( gridDay === start && gridWeek === 0 ) { today = 1; }
 						if ( today > end ) { today = -1; }
 						if ( today < 1 ) {
 							if ( o.calShowOnlyMonth ) {
 								$("<div>", {'class': 'ui-datebox-griddate ui-datebox-griddate-empty'}).appendTo(thisRow);
 							} else {
-								if ( i === 0 ) {
-									var iboxxy = $("<div>"+prevtoday+"</div>")
+								if (
+									( o.blackDays !== false && $.inArray(gridDay, o.blackDays) > -1 ) ||
+									( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth(), prevtoday), o.blackDates) > -1 ) ) {
+										skipThis = true;
+								} else { skipThis = false; }
+									
+								if ( gridWeek === 0 ) {
+									$("<div>"+prevtoday+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
-										.attr('data-date', prevtoday)
-										.click(function(e) {
+										.attr('data-date', ((o.calWeekMode)?(weekMode+lastend):prevtoday))
+										.bind((!skipThis)?'click':'error', function(e) {
 											e.preventDefault();
 											if ( !skipPrev ) {
 												self.theDate.setMonth(self.theDate.getMonth() - 1);
 												self.theDate.setDate($(this).attr('data-date'));
-												self.input.val(self._formatDate(self.theDate));
+												self.input.val(self._formatDate(self.theDate)).trigger('change');
 												self.close();
-												self.input.trigger('change');
 											}
 										});
-									if ( o.calWeekMode ) { iboxxy.attr('data-date', weekMode+lastend); }
-									if (
-										( o.blackDays !== false && $.inArray(j, o.blackDays) > -1 ) ||
-										( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth(), prevtoday), o.blackDates) > -1 ) ) {
-											iboxxy.unbind('click'); 
-									}
 									prevtoday++;
 								} else {
-									var iboxxy = $("<div>"+nexttoday+"</div>")
+									$("<div>"+nexttoday+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
-										.attr('data-date', nexttoday)
-										.click(function(e) {
+										.attr('data-date', ((o.calWeekMode)?weekMode:nexttoday))
+										.bind((!skipThis)?'click':'error', function(e) {
 											e.preventDefault();
 											if ( !skipNext ) {
 												self.theDate.setDate($(this).attr('data-date'));
 												if ( !o.calWeekMode ) { self.theDate.setMonth(self.theDate.getMonth() + 1); }
-												self.input.val(self._formatDate(self.theDate));
+												self.input.val(self._formatDate(self.theDate)).trigger('change');
 												self.close();
-												self.input.trigger('change');
 											}
 										});
-									if ( o.calWeekMode ) { iboxxy.attr('data-date', weekMode); }
-									if (
-										( o.blackDays !== false && $.inArray(j, o.blackDays) > -1 ) ||
-										( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+2, nexttoday), o.blackDates) > -1 ) ) {
-											iboxxy.unbind('click'); 
-									}
 									nexttoday++;
 								}
 							}
 						} else {
-							var boxxy = $("<div>"+today+"</div>")
-								.addClass('ui-datebox-griddate ui-corner-all')
-								.attr('data-date', today)
-								.appendTo(thisRow);
-							if ( o.calWeekMode ) {
-								boxxy.attr('data-date', weekMode);
-							}
 							if ( !o.afterToday && !o.maxDays && !o.minDays && !o.blackDates && !o.blackDays ) {
-								boxxy.click(function(e) {
-									e.preventDefault();
-									self.theDate.setDate($(this).attr('data-date'));
-									self.input.val(self._formatDate(self.theDate));
-									self.close();
-									self.input.trigger('change');
-								});
+								skipThis = false;
 							} else {
-
-								var skipit = false;
+								skipThis = false;
 								if ( o.afterToday ) {
 									if ( 
 										( self.theDate.getFullYear() == thisDate.getFullYear() && self.theDate.getMonth() == thisDate.getMonth() && today < thisDate.getDate() ) ||
 										( self.theDate.getFullYear() < thisDate.getFullYear() ) ) {
-											skipit = true;
+											skipThis = true;
 									}
 								} 
-								if ( !skipit && o.maxDays !== false ) {
+								if ( !skipThis && o.maxDays !== false ) {
 									if (
 										( self.theDate.getFullYear() > maxDate.getFullYear() ) ||
 										( self.theDate.getFullYear() == maxDate.getFullYear() && self.theDate.getMonth() > maxDate.getMonth() ) ||
 										( self.theDate.getFullYear() == maxDate.getFullYear() && self.theDate.getMonth() == maxDate.getMonth() && today > maxDate.getDate() ) ) {
-											skipit = true;
+											skipThis = true;
 									}
 								} 
-								if ( !skipit && o.minDays !== false ) {
+								if ( !skipThis && o.minDays !== false ) {
 									if (
 										( self.theDate.getFullYear() < minDate.getFullYear() ) ||
 										( self.theDate.getFullYear() == minDate.getFullYear() && self.theDate.getMonth() < minDate.getMonth() ) ||
 										( self.theDate.getFullYear() == minDate.getFullYear() && self.theDate.getMonth() == minDate.getMonth() && today < minDate.getDate() ) ) {
-											skipit = true;
+											skipThis = true;
 									}
 								} 
-								if ( !skipit && ( o.blackDays !== false || o.blackDates !== false ) ) { // Blacklists
+								if ( !skipThis && ( o.blackDays !== false || o.blackDates !== false ) ) { // Blacklists
 									if ( 
-										( $.inArray(j, o.blackDays) > -1 ) ||
+										( $.inArray(gridDay, o.blackDays) > -1 ) ||
 										( $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, today), o.blackDates) > -1 ) ) { 
-											skipit = true;
+											skipThis = true;
 									}
 								}
-
-								if ( ! ( skipit ) ) {
-									boxxy.click(function(e) {
+							}
+							
+							$("<div>"+today+"</div>")
+								.addClass('ui-datebox-griddate ui-corner-all')
+								.attr('data-date', ((o.calWeekMode)?weekMode:today))
+								.attr('data-theme', ((today===highlightDay)?o.pickPageTodayButtonTheme:((today===presetDay)?o.pickPageHighButtonTheme:o.pickPageButtonTheme)))
+								.appendTo(thisRow)
+								.addClass('ui-btn-up-'+((today===highlightDay)?o.pickPageTodayButtonTheme:((today===presetDay)?o.pickPageHighButtonTheme:o.pickPageButtonTheme)))
+								.hover(
+									function() { $(this).addClass('ui-btn-down-'+$(this).attr('data-theme')).removeClass('ui-btn-up-'+$(this).attr('data-theme')); },
+									function() { $(this).addClass('ui-btn-up-'+$(this).attr('data-theme')).removeClass('ui-btn-down-'+$(this).attr('data-theme')); }
+								)
+								.bind((!skipThis)?'click':'error', function(e) {
 										e.preventDefault();
 										self.theDate.setDate($(this).attr('data-date'));
 										self.input.val(self._formatDate(self.theDate));
 										self.close();
 										self.input.trigger('change');
-									});
-								} else {
-									boxxy.css('color', o.disabledDayColor);
-								}
-							}
-							if ( today === highlightDay || today === presetDay ) {
-								boxxy.addClass('ui-btn-up-'+o.pickPageHighButtonTheme)
-									.hover(
-										function() { $(this).addClass('ui-btn-down-'+o.pickPageHighButtonTheme).removeClass('ui-btn-up-'+o.pickPageHighButtonTheme); },
-										function() { $(this).addClass('ui-btn-up-'+o.pickPageHighButtonTheme).removeClass('ui-btn-down-'+o.pickPageHighButtonTheme); }
-									);
-							} else {
-								boxxy.addClass('ui-btn-up-'+o.pickPageButtonTheme)
-									.hover(
-										function() { $(this).addClass('ui-btn-down-'+o.pickPageButtonTheme).removeClass('ui-btn-up-'+o.pickPageButtonTheme); },
-										function() { $(this).addClass('ui-btn-up-'+o.pickPageButtonTheme).removeClass('ui-btn-down-'+o.pickPageButtonTheme); }
-									);
-							}
+								})
+								.css((skipThis)?'color':'nocolor', o.disabledDayColor);
 							
 							today++;
 						}
