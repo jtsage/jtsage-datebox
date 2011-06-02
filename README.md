@@ -106,7 +106,8 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(android)_ __maxYear__ : Maximum year allowed in controls (non-constrained in text box). _(false)_
 * _(android)_ __minYear__ : Minimum year allowed in controls (non-constrained in text box). _(false)_
 * _(calendar)_ __calWeekMode__ : Boolean, week mode on or off (choose only a specific DAY). _(false)_
-* _(calendar)_ __calWeekModeFirstDay__ : Day of week to choose with week mode (numeric, 0=sun ... 6=sat). _(1)_
+* _(calendar)_ __calWeekModeFirstDay__ : Day of week to choose with week mode (numeric, 0-6, relative to calendar display). _(1)_
+* _(calendar)_ __calStartDay__ : Day of week to start calendar on (numeric - 0=Sun, 1=Mon,... 6=Sat). _(0)_
 * _(calendar)_ __blackDays__ : An array of days of the week to blacklist. _(false)_
   * ___example___ : [0,2] : Blacklist sunday and tuesday.
 * _(calendar)_ __blackDates__ : A complex object tree or simple array of individual dates to blacklist. _(false)_

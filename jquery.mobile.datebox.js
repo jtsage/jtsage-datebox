@@ -44,7 +44,8 @@
 		dateFormat: 'YYYY-MM-DD',
 		minuteStep: 1,
 		calWeekMode: false,
-		calWeekModeFirstDay: 1, 
+		calWeekModeFirstDay: 1,
+		calStartDay: 0,
 		defaultDate: false,
 		minYear: false,
 		maxYear: false,
@@ -261,6 +262,11 @@
 				weekDays = null,
 				thisRow = null;
 				
+			if ( o.calStartDay > 0 ) {
+				start = start - o.calStartDay;
+				if ( start < 0 ) { start = start + 7; }
+			}
+				
 			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { currentMonth = true; highlightDay = thisDate.getDate(); } 
 			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); }
 			
@@ -280,9 +286,10 @@
 			}
 			
 			if ( o.calShowDays ) {
+				if ( o.daysOfWeekShort.length < 8 ) { o.daysOfWeekShort = o.daysOfWeekShort.concat(o.daysOfWeekShort); }
 				weekDays = $("<div>", {'class':'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
 				for ( var i=0; i<=6;i++ ) {
-					$("<div>"+o.daysOfWeekShort[i]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(weekDays);
+					$("<div>"+o.daysOfWeekShort[i+o.calStartDay]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(weekDays);
 				}
 			}
 			

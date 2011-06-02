@@ -275,6 +275,16 @@
 				</div>
 			</div>
 			
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Different Start Day (src line: 279)</h3>
+				<p>Start the calendar on a day other than sunday (monday shown). Calendar only.</p>
+				
+				<div data-role="fieldcontain">
+					<label for="shiftday">Some Date</label>
+					<input name="shiftday" type="date" data-role="datebox" data-options='{"mode": "calbox", "calStartDay": 1}' id="shiftday" />
+				</div>
+			</div>
+			
 		</div></div>
 		<div data-role="collapsible">
 			<!-- NOTE: When running locally, just nuke this section, or go grab PHP Markdown -->
