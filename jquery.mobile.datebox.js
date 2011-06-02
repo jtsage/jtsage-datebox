@@ -123,20 +123,20 @@
 		}
 	},
 	_makeDate: function (str) {
+		str = $.trim(str);
 		var o = this.options,
-			self = this,
-			str = $.trim(str),
 			seperator = o.dateFormat.replace(/[myd ]/gi, "").substr(0,1),
 			parts = o.dateFormat.split(seperator),
 			data = str.split(seperator),
-			date = new Date();
+			date = new Date(),
+			timeRegex = { '12': /^([012]?[0-9]):([0-5][0-9])\s*(am?|pm?)?$/i, '24': /^([012]?[0-9]):([0-5][0-9])$/i },
+			match = null;
 			
 		if ( o.mode == 'timebox' ) {
 			
 			if ( o.timeFormat == 12 ) {
-				var timeRegex = /^([012]?[0-9]):([0-5][0-9])\s*(am?|pm?)?$/i,
-					match = timeRegex.exec(str);
-					
+				match = timeRegex[o.timeFormat].exec(str);
+				
 				if( match === null || match.length < 3 ) { 
 					return new Date();
 				} else if ( match[1] < 12 && match[3].toLowerCase().charAt(0) == 'p' ) {  
@@ -148,9 +148,8 @@
 					match[1] = parseInt(match[1],10);
 				}
 			} else {
-				var timeRegex = /^([012]?[0-9]):([0-5][0-9])$/i,
-					match = timeRegex.exec(str);
-					
+				match = timeRegex[o.timeFormat].exec(str);
+				
 				if( match === null || match.length < 2 || match[1] > 24 ) { 
 					return new Date();
 				}
@@ -193,7 +192,8 @@
 	},
 	_update: function() {
 		var self = this,
-			o = self.options;
+			o = self.options,
+			testDate = null;
 			
 		if ( o.mode == 'timebox' ) {
 			self.pickerMins.val(self._zeroPad(self.theDate.getMinutes()));
@@ -219,18 +219,18 @@
 		}
 		if ( o.mode == 'datebox' ) {
 			if ( o.afterToday !== false ) {
-				var today = new Date();
-				if ( self.theDate < today ) { self.theDate = today; }
+				testDate = new Date();
+				if ( self.theDate < testDate ) { self.theDate = testDate; }
 			}
 			if ( o.maxDays !== false ) {
-				var maxday = new Date();
-				maxday.setDate(maxday.getDate() + o.maxDays);
-				if ( self.theDate > maxday ) { self.theDate = maxday; }
+				testDate = new Date();
+				maxday.setDate(testDate.getDate() + o.maxDays);
+				if ( self.theDate > testDate ) { self.theDate = testDate; }
 			}
 			if ( o.minDays !== false ) {
-				var minday = new Date();
-				minday.setDate(minday.getDate() - o.minDays);
-				if ( self.theDate < minday ) { self.theDate = minday; }
+				testDate = new Date();
+				testDate.setDate(minday.getDate() - o.minDays);
+				if ( self.theDate < testDate ) { self.theDate = testDate; }
 			}
 			self.pickerHeader.html( self._formatHeader(self.theDate) );
 			self.pickerMon.val(self.theDate.getMonth() + 1);
@@ -257,7 +257,9 @@
 				skipPrev = false,
 				skipNext = false,
 				skipThis = false,
-				weekMode = false;
+				weekMode = false,
+				weekDays = null,
+				thisRow = null;
 				
 			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { currentMonth = true; highlightDay = thisDate.getDate(); } 
 			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); }
@@ -278,7 +280,7 @@
 			}
 			
 			if ( o.calShowDays ) {
-				var weekDays = $("<div>", {'class':'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
+				weekDays = $("<div>", {'class':'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
 				for ( var i=0; i<=6;i++ ) {
 					$("<div>"+o.daysOfWeekShort[i]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(weekDays);
 				}
@@ -286,7 +288,7 @@
 			
 			for ( var gridWeek=0; gridWeek<=5; gridWeek++ ) {
 				if ( gridWeek === 0 || ( gridWeek > 0 && (today > 0 && today <= end) ) ) {
-					var thisRow = $("<div>", {'class': 'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
+					thisRow = $("<div>", {'class': 'ui-datebox-gridrow'}).appendTo(self.pickerGrid);
 					for ( var gridDay=0; gridDay<=6; gridDay++) {
 						if ( gridDay === 0 ) { weekMode = ( today < 1 ) ? (prevtoday - lastend + o.calWeekModeFirstDay) : (today + o.calWeekModeFirstDay); }
 						if ( gridDay === start && gridWeek === 0 ) { today = 1; }
@@ -455,18 +457,27 @@
 			input = this.element,
 			focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ o.theme +'"></div>').parent(),
 			theDate = new Date(),
-			dialogTitle;
-		
+			dialogTitle = ((o.titleDialogLabel === false)?((o.mode=='timebox')?o.titleTimeDialogLabel:o.titleDateDialogLabel):o.titleDialogLabel),
+			openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
+				.click(function (e) {
+					e.preventDefault();
+					if ( !o.disabled ) { self.open(); }
+					setTimeout( function() { $(e.target).closest("a").removeClass($.mobile.activeBtnClass); }, 300);
+				})
+				.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
+				.css({'vertical-align': 'middle', 'float': 'right'}),
+			thisPage = input.closest('.ui-page'),
+			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + o.pickPageTheme + "' >" +
+						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
+							"<div class='ui-title'>" + dialogTitle + "</div>"+
+						"</div>"+
+						"<div data-role='content'></div>"+
+					"</div>")
+					.appendTo( $.mobile.pageContainer )
+					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
+			pickPageContent = pickPage.find( ".ui-content" );
+			
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
-		
-		var openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
-			.click(function (e) {
-				e.preventDefault();
-				if ( !o.disabled ) { self.open(); }
-				setTimeout( function() { $(e.target).closest("a").removeClass($.mobile.activeBtnClass); }, 300);
-			})
-			.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
-			.css({'vertical-align': 'middle', 'float': 'right'});
 			
 		if ( o.noButtonFocusMode || o.useInline ) { openbutton.hide(); }
 		
@@ -492,31 +503,11 @@
 				self._update();
 			});
 		
-		if ( o.titleDialogLabel === false ) {
-			if ( o.mode == 'timebox' ) {
-				dialogTitle = o.titleTimeDialogLabel;
-			} else {
-				dialogTitle = o.titleDateDialogLabel;
-			}
-		} else {
-			dialogTitle = o.titleDialogLabel;
-		}
-		
-		var thisPage = input.closest('.ui-page'),
-			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + o.pickPageTheme + "' >" +
-						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
-							"<div class='ui-title'>" + dialogTitle + "</div>"+
-						"</div>"+
-						"<div data-role='content'></div>"+
-					"</div>")
-					.appendTo( $.mobile.pageContainer )
-					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
-			pickPageContent = pickPage.find( ".ui-content" ),
-			pickPageClose = pickPage.find( ".ui-header a").click(function(e) {
-				e.preventDefault();
-				e.stopImmediatePropagation();
-				self.close();
-			});
+		pickPage.find( ".ui-header a").click(function(e) {
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			self.close();
+		});
 
 		$.extend(self, {
 			pickPage: pickPage,
@@ -603,15 +594,22 @@
 	_buildPage: function () {
 		var self = this,
 			o = self.options,
-			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex);
+			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
+			screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
+				.css({'z-index': o.zindex-1})
+				.appendTo(self.thisPage)
+				.bind("click", function(event) {
+					self.close();
+					event.preventDefault();
+				});
 		
 		if ( o.noAnimation ) { pickerContent.removeClass('pop');	}
 		
 		if ( o.mode == 'timebox' ) {
-			var pickerPlus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
-				pickerInput = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
-				pickerMinus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
-				pickerSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent),
+			var pickerTPlus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
+				pickerTInput = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
+				pickerTMinus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
+				pickerTSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent),
 				
 				pickerHour = $("<input type='text' />")
 					.keyup(function() {
@@ -640,12 +638,12 @@
 						}
 					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
 			
-			pickerHour.appendTo(pickerInput);
-			pickerMins.appendTo(pickerInput);
-			if ( o.timeFormat == 12 ) { pickerMeri.appendTo(pickerInput); }
+			pickerHour.appendTo(pickerTInput);
+			pickerMins.appendTo(pickerTInput);
+			if ( o.timeFormat == 12 ) { pickerMeri.appendTo(pickerTInput); }
 			
 			$("<a href='#'>" + o.setTimeButtonLabel + "</a>")
-				.appendTo(pickerSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+				.appendTo(pickerTSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 				.click(function(e) {
 					e.preventDefault();
 					self.input.val(self._formatTime(self.theDate));
@@ -655,7 +653,7 @@
 				
 			for ( var x=0; x<((o.timeFormat == 12)?3:2); x++ ) {
 				$("<div><a href='#'></a></div>")
-					.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
+					.appendTo(pickerTPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 					.attr('data-field', x)
 					.click(function(e) {
 						e.preventDefault();
@@ -663,7 +661,7 @@
 					});
 					
 				$("<div><a href='#'></a></div>")
-					.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
+					.appendTo(pickerTMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 					.attr('data-field', x)
 					.click(function(e) {
 						e.preventDefault();
@@ -672,7 +670,6 @@
 			}
 			
 			$.extend(self, {
-				pickerHeader: pickerHeader,
 				pickerHour: pickerHour,
 				pickerMins: pickerMins,
 				pickerMeri: pickerMeri,
@@ -759,27 +756,29 @@
 				pickerGrid = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(pickerContent),
 				calNoNext = false,
 				calNoPrev = false,
-				pickerNextMon = $("<div class='ui-datebox-gridminus'><a href='#'>Prev Month</a></div>")
-					.appendTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
-					.click( function(e) {
-						e.preventDefault();
-						if ( ! self.calNoPrev ) {
-							if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
-							self.theDate.setMonth(self.theDate.getMonth() - 1);
-						}
-						self._update();
-					}),
-				pickerLastMon = $("<div class='ui-datebox-gridplus'><a href='#'>Next Month</a></div>")
-					.appendTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
-					.click( function(e) {
-						e.preventDefault();
-						if ( ! self.calNoNext ) {
-							if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
-							self.theDate.setMonth(self.theDate.getMonth() + 1);
-						}
-						self._update();
-					}),
 				pickerDate = $("<div class='ui-datebox-gridlabel'><h4>Uninitialized</h4></div>").appendTo(pickerHeader).find('h4');
+				
+			$("<div class='ui-datebox-gridplus'><a href='#'>Next Month</a></div>")
+				.prependTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
+				.click( function(e) {
+					e.preventDefault();
+					if ( ! self.calNoNext ) {
+						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
+						self.theDate.setMonth(self.theDate.getMonth() + 1);
+					}
+					self._update();
+				});
+			$("<div class='ui-datebox-gridminus'><a href='#'>Prev Month</a></div>")
+				.prependTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
+				.click( function(e) {
+					e.preventDefault();
+					if ( ! self.calNoPrev ) {
+						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
+						self.theDate.setMonth(self.theDate.getMonth() - 1);
+					}
+					self._update();
+				});
+				
 					
 			$.extend(self, {
 				pickerDate: pickerDate,
@@ -790,16 +789,6 @@
 			
 			pickerContent.appendTo(self.thisPage);
 		}
-		
-		var screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'})
-			.css({'z-index': o.zindex-1})
-			.appendTo(self.thisPage)
-			.bind("click", function(event) {
-				self.close();
-				event.preventDefault();
-			});
-			
-		if ( o.useModal ) { screen.addClass('ui-datebox-screen-modal'); }
 
 		$.extend(self, {
 			pickerContent: pickerContent,
@@ -839,6 +828,5 @@
 	});
 
   });
-	
 	
 })( jQuery );
