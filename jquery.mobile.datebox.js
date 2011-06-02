@@ -45,6 +45,7 @@
 		minuteStep: 1,
 		calWeekMode: false,
 		calWeekModeFirstDay: 1,
+		calWeekModeHighlight: true,
 		calStartDay: 0,
 		defaultDate: false,
 		minYear: false,
@@ -384,8 +385,22 @@
 								.appendTo(thisRow)
 								.addClass('ui-btn-up-'+((today===highlightDay)?o.pickPageTodayButtonTheme:((today===presetDay)?o.pickPageHighButtonTheme:o.pickPageButtonTheme)))
 								.hover(
-									function() { $(this).addClass('ui-btn-down-'+$(this).attr('data-theme')).removeClass('ui-btn-up-'+$(this).attr('data-theme')); },
-									function() { $(this).addClass('ui-btn-up-'+$(this).attr('data-theme')).removeClass('ui-btn-down-'+$(this).attr('data-theme')); }
+									function() { 
+										if ( o.calWeekMode !== false && o.calWeekModeHighlight === true ) {
+											$(this).parent().find('div').each(function() {
+												$(this).addClass('ui-btn-down-'+$(this).attr('data-theme')).removeClass('ui-btn-up-'+$(this).attr('data-theme')); });
+										} else {
+											$(this).addClass('ui-btn-down-'+$(this).attr('data-theme')).removeClass('ui-btn-up-'+$(this).attr('data-theme')); 
+										}
+									},
+									function() { 
+										if ( o.calWeekMode !== false && o.calWeekModeHighlight === true ) {
+											$(this).parent().find('div').each(function() {
+												$(this).addClass('ui-btn-up-'+$(this).attr('data-theme')).removeClass('ui-btn-down-'+$(this).attr('data-theme')); });
+										} else {
+											$(this).addClass('ui-btn-up-'+$(this).attr('data-theme')).removeClass('ui-btn-down-'+$(this).attr('data-theme')); 
+										}
+									}
 								)
 								.bind((!skipThis)?'click':'error', function(e) {
 										e.preventDefault();

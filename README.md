@@ -74,6 +74,7 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(android)_ __pickPageInputTheme__ : Month/Date/Year Input Elements. _(e)_
 * _(calendar)_ __pickPageHighButtonTheme__ : "Selected" Day highlighting. _(e)_
 * _(calendar)_ __pickPageTodayButtonTheme__ : "Today" Day highlighting. _(e)_
+* _(calendar)_ __calWeekModeHighlight__ : Toggle all buttons on week mode. _(true)_
 * _(calendar)_ __disabledDayColor__ : Text color for disabled days with date limiting. _(#888)_
 
 ### Date Formats and Text Internationalization
