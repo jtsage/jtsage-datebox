@@ -466,12 +466,11 @@
 		var self = this;
 
 		if ( self.options.useInline ) {
-				return true;
+			return true;
 		}
 
 		if ( self.options.useDialog ) {
 			$(self.pickPage).dialog('close');
-			//$.mobile.changePage([self.pickPage,self.thisPage], 'pop', true, false);
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex);
 			self.thisPage.append(self.pickerContent);
 		} else {
@@ -484,27 +483,21 @@
 		}
 		self.focusedEl.removeClass('ui-focus');
 	},
-	_create: function(){
-
+	_create: function() {
 		var self = this,
 			o = $.extend(this.options, this.element.data('options')),
 			input = this.element,
 			focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ o.theme +'"></div>').parent(),
-			theDate = new Date();
+			theDate = new Date(),
+			dialogTitle;
 		
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
-		
-		input.removeClass('ui-corner-all ui-shadow-inset');
 		
 		var openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
 			.click(function (e) {
 				e.preventDefault();
-				if ( !o.disabled ) {
-					self.open();					
-				}
-				setTimeout(function(){
-					$(e.target).closest("a").removeClass($.mobile.activeBtnClass);
-				}, 300);
+				if ( !o.disabled ) { self.open(); }
+				setTimeout( function() { $(e.target).closest("a").removeClass($.mobile.activeBtnClass); }, 300);
 			})
 			.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
 			.css({'vertical-align': 'middle', 'float': 'right'});
@@ -512,13 +505,12 @@
 		if ( o.noButtonFocusMode || o.useInline ) { openbutton.hide(); }
 		
 		focusedEl.tap(function() {
-			if ( !o.disabled ) {
-				focusedEl.addClass('ui-focus');
-			}	
-			//input.focus();
+			if ( !o.disabled ) { focusedEl.addClass('ui-focus');	}	
 			if ( !o.disabled && o.noButtonFocusMode ) { self.open(); }
 		});
+		
 		input
+			.removeClass('ui-corner-all ui-shadow-inset')
 			.focus(function(){
 				if ( ! o.disabled ) {
 					focusedEl.addClass('ui-focus');
@@ -535,13 +527,14 @@
 				self._update();
 			});
 		
-		var dialogTitle = this.options.titleDialogLabel;
-		if ( dialogTitle === false ) {
-			if ( this.options.mode == 'timebox' ) {
-				var dialogTitle = this.options.titleTimeDialogLabel;
+		if ( o.titleDialogLabel === false ) {
+			if ( o.mode == 'timebox' ) {
+				dialogTitle = o.titleTimeDialogLabel;
 			} else {
-				var dialogTitle = this.options.titleDateDialogLabel;
+				dialogTitle = o.titleDateDialogLabel;
 			}
+		} else {
+			dialogTitle = o.titleDialogLabel;
 		}
 		
 		var thisPage = input.closest('.ui-page'),
@@ -563,7 +556,6 @@
 		$.extend(self, {
 			pickPage: pickPage,
 			thisPage: thisPage,
-			pickPageClose: pickPageClose,
 			pickPageContent: pickPageContent,
 			input: input,
 			theDate: theDate,
