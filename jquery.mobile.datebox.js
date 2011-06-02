@@ -1,5 +1,5 @@
 /*
- * jQuery Mobile Framework : plugin to provide an android-like datepicker.
+ * jQuery Mobile Framework : plugin to provide a date and time picker.
  * Copyright (c) JTSage
  * CC 3.0 Attribution.  May be relicensed without permission/notifcation.
  * https://github.com/jtsage/jquery-mobile-datebox
@@ -443,9 +443,7 @@
 		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
 			pickWinTop = $(document).height() - (pickWinHeight + 2);
 		}
-		if ( pickWinTop < 45 ) { // Fix for popup ending up under header
-			pickWinTop = 45;
-		}
+		if ( pickWinTop < 45 ) { pickWinTop = 45; }
 		
 		if ( ( windowWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
 			self.options.useDialog = false;
@@ -505,7 +503,6 @@
 		if ( o.noButtonFocusMode || o.useInline ) { openbutton.hide(); }
 		
 		focusedEl.tap(function() {
-			if ( !o.disabled ) { focusedEl.addClass('ui-focus');	}	
 			if ( !o.disabled && o.noButtonFocusMode ) { self.open(); }
 		});
 		
@@ -568,71 +565,70 @@
 			self.disable();
 		}
 	},
-	_incrementField: function(event, fieldOrder) {
-		if (this.options.mode == 'timebox' ) {
-			if ( fieldOrder == 0 ) { this.theDate.setHours(this.theDate.getHours() + 1); }
+	_incrementField: function(fieldOrder) {
+		var o = this.options,
+			self = this;
+		
+		if ( o.mode == 'timebox' ) {
+			if ( fieldOrder == 0 ) { self.theDate.setHours(self.theDate.getHours() + 1); }
 			if ( fieldOrder == 1 ) {
-				var newMin = this.theDate.getMinutes();
-				var rem = newMin % this.options.minuteStep;
-				if(rem == 0) {
-					newMin = newMin + this.options.minuteStep;
-				} else {
-					newMin = newMin + (this.options.minuteStep-rem);
+				if ( ( self.theDate.getMinutes() % o.minuteStep ) == 0 ) { 
+					self.theDate.setMinutes(self.theDate.getMinutes() + o.minuteStep);
+				} else { 
+					self.theDate.setMinutes(self.theDate.getMinutes() + ( o.minuteStep - ( self.theDate.getMinutes() % o.minuteStep ) ));
 				}
-				this.theDate.setMinutes(newMin);
 			}
-			if ( fieldOrder == 2 ) { 
-				if ( this.options.timeFormat == 12 ) {
-					if ( this.pickerMeri.val() == this.options.meridiemLetters[0] ) { 
-						this.pickerMeri.val(this.options.meridiemLetters[1]);
-						this.theDate.setHours(this.theDate.getHours() + 12);
-					} else {
-						this.pickerMeri.val(this.options.meridiemLetters[0]);
-						this.theDate.setHours(this.theDate.getHours() - 12);
-					}
+			if ( fieldOrder == 2 && o.timeFormat == 12 ) { 
+				if ( self.pickerMeri.val() == o.meridiemLetters[0] ) { 
+					self.pickerMeri.val(o.meridiemLetters[1]);
+					self.theDate.setHours(self.theDate.getHours() + 12);
+				} else {
+					self.pickerMeri.val(o.meridiemLetters[0]);
+					self.theDate.setHours(self.theDate.getHours() - 12);
 				}
 			}
 		} else {
-			if (this.options.fieldsOrder[fieldOrder] == 'y') { 
-				if ( this.options.maxYear !== false ) { 
-					if ( this.theDate.getFullYear() + 1 <= this.options.maxYear ) {
-						this.theDate.setYear(this.theDate.getFullYear() + 1); 
-					}
-				} else {
-					this.theDate.setYear(this.theDate.getFullYear() + 1); 
+			if ( o.fieldsOrder[fieldOrder] == 'y' ) { 
+				if ( o.maxYear === false || (self.theDate.getFullYear() + 1 <= o.maxYear) ) { 
+					self.theDate.setYear(self.theDate.getFullYear() + 1); 
 				}
 			}
-			if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() + 1); }
-			if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() + 1); }
+			if ( o.fieldsOrder[fieldOrder] == 'm' ) { self.theDate.setMonth(self.theDate.getMonth() + 1); }
+			if ( o.fieldsOrder[fieldOrder] == 'd' ) { self.theDate.setDate(self.theDate.getDate() + 1); }
 		}
 	
-		this._update();
+		self._update();
 	},
-	_decrementField: function(event, fieldOrder) {
-		if (this.options.mode == 'timebox' ) {
-			if ( fieldOrder == 0 ) { this.theDate.setHours(this.theDate.getHours() - 1); }
+	_decrementField: function(fieldOrder) {
+		var o = this.options,
+			self = this;
+			
+		if ( o.mode == 'timebox' ) {
+			if ( fieldOrder == 0 ) { self.theDate.setHours(self.theDate.getHours() - 1); }
 			if ( fieldOrder == 1 ) {
-				var newMin = this.theDate.getMinutes();
-				var rem = newMin % this.options.minuteStep;
-				if(rem == 0) {
-					newMin = newMin - this.options.minuteStep;
+				if ( (self.theDate.getMinutes() % o.minuteStep) == 0 ) {
+					self.theDate.setMinutes(self.theDate.getMinutes() - o.minuteStep);
 				} else {
-					newMin = newMin - rem;
+					self.theDate.setMinutes(self.theDate.getMinutes() - (self.theDate.getMinutes() % o.minuteStep));
 				}
-				this.theDate.setMinutes(newMin);
+			}
+			if ( fieldOrder == 2 && o.timeFormat == 12 ) { 
+				if ( self.pickerMeri.val() == o.meridiemLetters[0] ) { 
+					self.pickerMeri.val(o.meridiemLetters[1]);
+					self.theDate.setHours(self.theDate.getHours() + 12);
+				} else {
+					self.pickerMeri.val(o.meridiemLetters[0]);
+					self.theDate.setHours(self.theDate.getHours() - 12);
+				}
 			}
 		} else {
-			if (this.options.fieldsOrder[fieldOrder] == 'y') {
-				if ( this.options.minYear !== false ) { 
-					if ( this.theDate.getFullYear() - 1 >= this.options.minYear ) {
-						this.theDate.setYear(this.theDate.getFullYear() - 1); 
-					}
-				} else {
-					this.theDate.setYear(this.theDate.getFullYear() - 1); 
+			if ( o.fieldsOrder[fieldOrder] == 'y' ) {
+				if ( o.minYear === false || ( self.theDate.getFullYear() - 1 >= o.minYear ) ) { 
+					self.theDate.setYear(self.theDate.getFullYear() - 1); 
 				}
 			}
-			if (this.options.fieldsOrder[fieldOrder] == 'm') { this.theDate.setMonth(this.theDate.getMonth() - 1); }
-			if (this.options.fieldsOrder[fieldOrder] == 'd') { this.theDate.setDate(this.theDate.getDate() - 1); }
+			if ( o.fieldsOrder[fieldOrder] == 'm' ) { self.theDate.setMonth(self.theDate.getMonth() - 1); }
+			if ( o.fieldsOrder[fieldOrder] == 'd' ) { self.theDate.setDate(self.theDate.getDate() - 1); }
 		}
 		this._update();
 	},
@@ -641,9 +637,7 @@
 			o = self.options,
 			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex);
 		
-		if ( o.noAnimation ) { 
-			pickerContent.removeClass('pop');
-		}
+		if ( o.noAnimation ) { pickerContent.removeClass('pop');	}
 		
 		if ( o.mode == 'timebox' ) {
 			var pickerPlus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
@@ -652,31 +646,31 @@
 				pickerSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent),
 				
 				pickerHour = $("<input type='text' />")
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						newHour = parseInt($(this).val(),10);
-						if ( newHour == 12 ) {
-							if ( o.timeFormat == 12 && pickerMeri.val() == o.meridiemLetters[0] ) { newHour = 0; }
+					.keyup(function() {
+						if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
+							newHour = parseInt($(this).val(),10);
+							if ( newHour == 12 ) {
+								if ( o.timeFormat == 12 && pickerMeri.val() == o.meridiemLetters[0] ) { newHour = 0; }
+							}
+							self.theDate.setHours(newHour);
+							self._update();
 						}
-						self.theDate.setHours(newHour);
-						self._update();
-					}
-				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 				
 				pickerMins = $("<input type='text' />")
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						self.theDate.setMinutes(parseInt($(this).val(),10));
-						self._update();
-					}
-				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+					.keyup(function() {
+						if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
+							self.theDate.setMinutes(parseInt($(this).val(),10));
+							self._update();
+						}
+					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 				
 				pickerMeri = $("<input type='text' />")
-				.keyup(function() {
-					if ( $(this).val() !== '' ) {
-						self._update();
-					}
-				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
+					.keyup(function() {
+						if ( $(this).val() !== '' ) {
+							self._update();
+						}
+					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
 			
 			pickerHour.appendTo(pickerInput);
 			pickerMins.appendTo(pickerInput);
@@ -690,46 +684,24 @@
 					self.close();
 					self.input.trigger('change');
 				});
-			
-			$("<div><a href='#'></a></div>")
-				.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-				.click(function(e) {
-					e.preventDefault();
-					self._incrementField(e, 0);
-				})
-				.clone(false).appendTo(pickerPlus)
-				.click(function(e) {
-					e.preventDefault();
-					self._incrementField(e, 1);
-				});
-			
-			$("<div><a href='#'></a></div>")
-				.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-				.click(function(e) {
-					e.preventDefault();
-					self._decrementField(e, 0);
-				})
-				.clone(false).appendTo(pickerMinus)
-				.click(function(e) {
-					e.preventDefault();
-					self._decrementField(e, 1);
-				});
 				
-			if ( o.timeFormat == 12 ) { 
-				$("<div><a href='#'></a></div>")	
+			for ( var x=0; x<((o.timeFormat == 12)?3:2); x++ ) {
+				$("<div><a href='#'></a></div>")
 					.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
+					.attr('data-field', x)
 					.click(function(e) {
 						e.preventDefault();
-						self._incrementField(e, 2);
+						self._incrementField($(this).attr('data-field'));
 					});
+					
 				$("<div><a href='#'></a></div>")
 					.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
+					.attr('data-field', x)
 					.click(function(e) {
 						e.preventDefault();
-						self._incrementField(e, 2);
+						self._decrementField($(this).attr('data-field'));
 					});
 			}
-				
 			
 			$.extend(self, {
 				pickerHeader: pickerHeader,
@@ -739,7 +711,6 @@
 			});
 			
 			pickerContent.appendTo(self.thisPage);
-				
 		}
 		
 		if ( o.mode == 'datebox' ) {
@@ -750,30 +721,30 @@
 				pickerSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent),
 				
 				pickerMon = $("<input type='text' />")
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						self.theDate.setMonth(parseInt($(this).val(),10)-1);
-						self._update();
-					}
-				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+					.keyup(function() {
+						if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
+							self.theDate.setMonth(parseInt($(this).val(),10)-1);
+							self._update();
+						}
+					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 				
 				pickerDay = $("<input type='text' />")
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						self.theDate.setDate(parseInt($(this).val(),10));
-						self._update();
-					}
-				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+					.keyup(function() {
+						if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
+							self.theDate.setDate(parseInt($(this).val(),10));
+							self._update();
+						}
+					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 				
 				pickerYar = $("<input type='text' />")
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						self.theDate.setYear(parseInt($(this).val(),10));
-						self._update();
-					}
-				}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
+					.keyup(function() {
+						if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
+							self.theDate.setYear(parseInt($(this).val(),10));
+							self._update();
+						}
+					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
 		
-				for(i=0; i<=self.options.fieldsOrder.length; i++) {
+				for(var i=0; i<=o.fieldsOrder.length; i++) {
 					if (self.options.fieldsOrder[i] == 'y') { pickerYar.appendTo(pickerInput); }
 					if (self.options.fieldsOrder[i] == 'm') { pickerMon.appendTo(pickerInput); }
 					if (self.options.fieldsOrder[i] == 'd') { pickerDay.appendTo(pickerInput); }
@@ -788,20 +759,20 @@
 					self.input.trigger('change');
 				});
 			
-			for(var x=0; x<self.options.fieldsOrder.length; x++) {
+			for( var x=0; x<self.options.fieldsOrder.length; x++ ) {
 				$("<div><a href='#'></a></div>")
 					.appendTo(pickerPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 					.attr('data-field', x)
 					.click(function(e) {
 						e.preventDefault();
-						self._incrementField(e, $(this).attr('data-field'));
+						self._incrementField($(this).attr('data-field'));
 				});
 				$("<div><a href='#'></a></div>")
 					.appendTo(pickerMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 					.attr('data-field', x)
 					.click(function(e) {
 						e.preventDefault();
-						self._decrementField(e, $(this).attr('data-field'));
+						self._decrementField($(this).attr('data-field'));
 				});
 			}
 				
@@ -814,6 +785,7 @@
 			
 			pickerContent.appendTo(self.thisPage);
 		}
+		
 		if ( o.mode == 'calbox' ) {
 			var pickerHeader = $("<div>", {"class": 'ui-datebox-gridheader'}).appendTo(pickerContent),
 				pickerGrid = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(pickerContent),
@@ -854,14 +826,12 @@
 		var screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'})
 			.css({'z-index': o.zindex-1})
 			.appendTo(self.thisPage)
-			.bind("click", function(event){
+			.bind("click", function(event) {
 				self.close();
 				event.preventDefault();
 			});
 			
-		if ( o.useModal ) {
-			screen.addClass('ui-datebox-screen-modal');
-		}
+		if ( o.useModal ) { screen.addClass('ui-datebox-screen-modal'); }
 
 		$.extend(self, {
 			pickerContent: pickerContent,
@@ -876,14 +846,12 @@
 		}
 			
 	},
-	    
 	disable: function(){
 		this.element.attr("disabled",true);
 		this.element.parent().addClass("ui-disabled");
 		this.options.disabled = true;
 		this.element.blur();
 	},
-	
 	enable: function(){
 		this.element.attr("disabled", false);
 		this.element.parent().removeClass("ui-disabled");
