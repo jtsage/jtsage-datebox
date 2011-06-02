@@ -285,6 +285,18 @@
 				</div>
 			</div>
 			
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Linked Inputs [callbacks] (src line: 289)</h3>
+				<p>While it is almost always enough to listen for the 'change' event on the datebox input, occasionly you may need to trigger an event only when DateBox is done.  For this purpose, DateBox provides a very simple callback mechanism.  The following date and time inputs are linked so that a user might need to supply both.</p>
+				
+				<div data-role="fieldcontain">
+					<label for="linkdate">Some Date</label>
+					<input name="linkdate" type="date" data-role="datebox" data-options='{"closeCallback": "$(\"#linktime\").datebox(\"open\");"}' id="linkdate" />
+					<label for="linktime">Some Time</label>
+					<input name="linktime" type="text" data-role="datebox" data-options='{"mode": "timebox", "timeFormat": 12, "noButton": true}' id="linktime" />
+				</div>
+			</div>
+			
 		</div></div>
 		<div data-role="collapsible">
 			<!-- NOTE: When running locally, just nuke this section, or go grab PHP Markdown -->

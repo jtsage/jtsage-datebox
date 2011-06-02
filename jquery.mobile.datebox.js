@@ -38,6 +38,8 @@
 		useModal: false,
 		useInline: false,
 		noButtonFocusMode: false,
+		noButton: false,
+		closeCallback: false,
 		
 		fieldsOrder: ['m', 'd', 'y'],
 		headerFormat: 'ddd, mmm dd, YYYY',
@@ -453,7 +455,8 @@
 		}
 	},
 	close: function() {
-		var self = this;
+		var self = this,
+			callback = null;
 
 		if ( self.options.useInline ) {
 			return true;
@@ -472,6 +475,8 @@
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex).removeClass('in');
 		}
 		self.focusedEl.removeClass('ui-focus');
+		
+		if ( self.options.closeCallback !== false ) { callback = new Function(self.options.closeCallback); callback(); }
 	},
 	_create: function() {
 		var self = this,
@@ -501,7 +506,7 @@
 			
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
 			
-		if ( o.noButtonFocusMode || o.useInline ) { openbutton.hide(); }
+		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
 		focusedEl.tap(function() {
 			if ( !o.disabled && o.noButtonFocusMode ) { self.open(); }

@@ -124,9 +124,11 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(all)_ __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size. _(false)_
 * _(all)_ __useModal__ : Use modal styling (background fades out) on popup. _(false)_
 * _(all)_ __noButtonFocusMode__ : Suppress button, open on element focus instead. _(false)_
+* _(all)_ __noButton__ : Suppress button. _(false)_
 * _(all)_ __useInline__ : Show datebox inline on page, no dialog or popup. _(false)_
 * _(all)_ __useInlineHideInput__ : When using inline mode, do not show the input box. _(false)_
 * _(all)_ __titleDialogLabel__: Dialog label override. _(false)_
+* _(all)_ __closeCallback__ : A function to run on DateBox close. _(false)_
 * _(android)_ __setDateButtonLabel__ : The label displayed in the set date button. _(Set Date)_
 * _(calendar)_ __calShowDays__ : Boolean show day names in grid. _(true)_
 * _(calendar)_ __calShowOnlyMonth__ : show *only* this month, do not fill in empty boxes. _(false)_
