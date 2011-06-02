@@ -54,6 +54,12 @@
 		blackDates: false,
 		disabledDayColor: '#888',
 	},
+	_zeroPad: function(number) {
+		return ( ( number < 10 ) ? "0" : "" ) + number;
+	},
+	_isInt: function (s) {
+			return (s.toString().search(/^[0-9]+$/) === 0);
+	},
 	_dstAdjust: function(date) {
 		if (!date) { return null; }
 		date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
@@ -69,71 +75,56 @@
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth()-1, 32)).getDate();
 	},
 	_formatHeader: function(date) {
-		var header = this.options.headerFormat,
-			padMonth = (( date.getMonth() < 9 ) ? "0" : "") + ( date.getMonth() + 1 ),
-			padDay = (( date.getDate() < 10 ) ? "0" : "") + date.getDate();
-	  
+		var header = this.options.headerFormat;
 		header = header.replace('YYYY', date.getFullYear());
 		header = header.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
-		header = header.replace('MM',   padMonth);
+		header = header.replace('MM',   this._zeroPad(date.getMonth() + 1));
 		header = header.replace('mm',   date.getMonth() + 1);
 		header = header.replace('ddd',  this.options.daysOfWeek[date.getDay()] );
-		header = header.replace('DD',   padDay);
+		header = header.replace('DD',   this._zeroPad(date.getDate()));
 		header = header.replace('dd',   date.getDate());
-	
 		return header;
 	},
 	_formatDate: function(date) {
-		var dateStr = this.options.dateFormat,
-			padMonth = (( date.getMonth() < 9 ) ? "0" : "") + ( date.getMonth() + 1 ),
-			padDay = (( date.getDate() < 10 ) ? "0" : "") + date.getDate();
-			
+		var dateStr = this.options.dateFormat;
 		dateStr = dateStr.replace('YYYY', date.getFullYear());
-		dateStr = dateStr.replace('MM', padMonth);
+		dateStr = dateStr.replace('MM', this._zeroPad(date.getMonth() + 1));
 		dateStr = dateStr.replace('mm', (date.getMonth() + 1));
-		dateStr = dateStr.replace('DD', padDay);
+		dateStr = dateStr.replace('DD', this._zeroPad(date.getDate()));
 		dateStr = dateStr.replace('dd', date.getDate());
-		
 		return dateStr;
 	},
 	_isoDate: function(y,m,d) {
 		return y + '-' + (( m < 10 ) ? "0" : "") + m + '-' + ((d < 10 ) ? "0" : "") + d;
 	},
 	_formatTime: function(date) {
-		var hours = 0,
-			meri = '',
-			padMin = (( date.getMinutes() < 10 ) ? "0" : "") + ( date.getMinutes() );
+		var self = this,
+			hours = 0,
+			meri = 0;
 			
 		if ( this.options.timeFormat == 12 ) {
-			if ( date.getHours() > 11 ) {
+			if ( date.getHours() > 12 ) {
 				meri = 1;
-				if ( date.getHours() < 22 ) { 
-					hours = '0' + ( date.getHours() - 12 ); 
-				} else {
-					hours = '' + ( date.getHours() - 12 );
-				}
+				hours = self._zeroPad(date.getHours() - 12);
+			} else if ( date.getHours() == 12 ) {
+				meri = 1;
+				hours = 12;
+			} else if ( date.getHours() == 0 ) {
+				meri = 0;
+				hours = 12;
 			} else {
 				meri = 0;
-				if ( date.getHours() > 9 ) {
-					hours = '' + date.getHours();
-				} else {
-					if ( date.getHours() == 0 ) {
-						hours = '' + 12;
-					} else {
-						hours = '0' + date.getHours();
-					}
-				}
+				hours = self._zeroPad(date.getHours());
 			}
-			if ( date.getHours() == 12 ) { meri = 1; hours = '12'; }
-			return hours + ":" + padMin + ' ' + this.options.meridiemLetters[meri];
+			return hours + ":" + self._zeroPad(date.getMinutes()) + ' ' + this.options.meridiemLetters[meri];
 		} else {
-			return (( date.getHours() < 9 ) ? "0" : "") + date.getHours() + ":" + padMin;
+			return self._zeroPad(date.getHours()) + ":" + self._zeroPad(date.getMinutes());
 		}
 	},
 	_makeDate: function (str) {
-		str = $.trim(str);
 		var o = this.options,
 			self = this,
+			str = $.trim(str),
 			seperator = o.dateFormat.replace(/[myd ]/gi, "").substr(0,1),
 			parts = o.dateFormat.split(seperator),
 			data = str.split(seperator),
@@ -141,34 +132,27 @@
 			
 		if ( o.mode == 'timebox' ) {
 			
-			if ( str == '' ) { // EMPTY FIELD
-				return date;
-			}
-			
 			if ( o.timeFormat == 12 ) {
 				var timeRegex = /^([012]?[0-9]):([0-5][0-9])\s*(am?|pm?)?$/i,
 					match = timeRegex.exec(str);
 					
-				if(match === null) { //use current time if no match
-					return date;
-				}
-				if(match[1] <= 12 && match[3] && match[3].toLowerCase().charAt(0) == 'p') { //ignore pm if hour >12
+				if( match === null || match.length < 3 ) { 
+					return new Date();
+				} else if ( match[1] < 12 && match[3].toLowerCase().charAt(0) == 'p' ) {  
 					match[1] = parseInt(match[1],10) + 12;
-				}
-				if(match[1] == 12 && match[3] && match[3].toLowerCase().charAt(0) == 'a') { //12am is the 0 hour
-					match[1] = 0;
+				} else if ( match[1] == 12 ) {
+					if ( match[3].toLowerCase().charAt(0) == 'a' ) { match[1] = 0; }
+					else { match[1] = 12; }
+				} else {
+					match[1] = parseInt(match[1],10);
 				}
 			} else {
 				var timeRegex = /^([012]?[0-9]):([0-5][0-9])$/i,
 					match = timeRegex.exec(str);
 					
-				if(match === null) { //use current time if no match
-					return date;
+				if( match === null || match.length < 2 || match[1] > 24 ) { 
+					return new Date();
 				}
-			}
-			
-			if(match[1] > 24) { //use current time if hour out of range
-				return date;
 			}
 			
 			date.setMinutes(match[2]);
@@ -441,9 +425,6 @@
 				}
 			}
 		}
-	},
-	_isInt: function (s) {
-			return (s.toString().search(/^[0-9]+$/) === 0);
 	},
 	open: function() {
 		this.input.trigger('change').blur();
