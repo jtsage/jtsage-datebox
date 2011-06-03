@@ -239,6 +239,16 @@
 				testDate.setDate(testDate.getDate() - o.minDays);
 				if ( self.theDate < testDate ) { self.theDate = testDate; }
 			}
+			if ( o.maxYear !== false ) {
+				testDate = new Date(o.maxYear, 0, 1);
+				testDate.setDate(testDate.getDate() - 1);
+				if ( self.theDate > testDate ) { self.theDate = testDate; }
+			}
+			if ( o.minYear !== false ) {
+				testDate = new Date(o.minYear, 0, 1);
+				if ( self.theDate < testDate ) { self.theDate = testDate; }
+			}
+			
 			self.pickerDHeader.html( self._formatHeader(self.theDate) );
 			self.pickerMon.val(self.theDate.getMonth() + 1);
 			self.pickerDay.val(self.theDate.getDate());
