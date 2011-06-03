@@ -526,24 +526,11 @@
 								.attr('data-theme', ((today===highlightDay)?o.pickPageTodayButtonTheme:((today===presetDay)?o.pickPageHighButtonTheme:o.pickPageButtonTheme)))
 								.appendTo(thisRow)
 								.addClass('ui-btn-up-'+((today===highlightDay)?o.pickPageTodayButtonTheme:((today===presetDay)?o.pickPageHighButtonTheme:o.pickPageButtonTheme)))
-								.hover(
-									function() { 
-										if ( o.calWeekMode !== false && o.calWeekModeHighlight === true ) {
-											$(this).parent().find('div').each(function() {
-												$(this).addClass('ui-btn-down-'+$(this).attr('data-theme')).removeClass('ui-btn-up-'+$(this).attr('data-theme')); });
-										} else {
-											$(this).addClass('ui-btn-down-'+$(this).attr('data-theme')).removeClass('ui-btn-up-'+$(this).attr('data-theme')); 
-										}
-									},
-									function() { 
-										if ( o.calWeekMode !== false && o.calWeekModeHighlight === true ) {
-											$(this).parent().find('div').each(function() {
-												$(this).addClass('ui-btn-up-'+$(this).attr('data-theme')).removeClass('ui-btn-down-'+$(this).attr('data-theme')); });
-										} else {
-											$(this).addClass('ui-btn-up-'+$(this).attr('data-theme')).removeClass('ui-btn-down-'+$(this).attr('data-theme')); 
-										}
-									}
-								)
+								.bind('vmouseover vmouseout', function() { 
+									if ( o.calWeekMode !== false && o.calWeekModeHighlight === true ) {
+										$(this).parent().find('div').each(function() { self._hoover(this); });
+									} else { self._hoover(this); }
+								})
 								.bind((!skipThis)?'vclick':'error', function(e) {
 										e.preventDefault();
 										self.theDate.setDate($(this).attr('data-date'));
@@ -1010,11 +997,6 @@
   $( ".ui-page" ).live( "pagecreate", function() { 
 	$( 'input[data-role="datebox"]', this ).each(function() {
 		$(this).datebox();
-	});
-	
-	/* Next is for compat with old CalendarBox */
-	$( 'input[data-role="calendarbox"]', this ).each(function() {
-		$(this).datebox({'mode': 'calbox'});
 	});
 
   });
