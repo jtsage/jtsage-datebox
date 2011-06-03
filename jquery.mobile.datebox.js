@@ -321,7 +321,7 @@
 									$("<div>"+String(prevtoday)+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
 										.attr('data-date', ((o.calWeekMode)?(weekMode+lastend):prevtoday))
-										.bind((!skipThis)?'click':'error', function(e) {
+										.bind((!skipThis)?'vclick':'error', function(e) {
 											e.preventDefault();
 											if ( !skipPrev ) {
 												self.theDate.setMonth(self.theDate.getMonth() - 1);
@@ -335,7 +335,7 @@
 									$("<div>"+String(nexttoday)+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
 										.attr('data-date', ((o.calWeekMode)?weekMode:nexttoday))
-										.bind((!skipThis)?'click':'error', function(e) {
+										.bind((!skipThis)?'vclick':'error', function(e) {
 											e.preventDefault();
 											if ( !skipNext ) {
 												self.theDate.setDate($(this).attr('data-date'));
@@ -408,7 +408,7 @@
 										}
 									}
 								)
-								.bind((!skipThis)?'click':'error', function(e) {
+								.bind((!skipThis)?'vclick':'error', function(e) {
 										e.preventDefault();
 										self.theDate.setDate($(this).attr('data-date'));
 										self.input.val(self._formatDate(self.theDate));
@@ -490,7 +490,7 @@
 			theDate = new Date(),
 			dialogTitle = ((o.titleDialogLabel === false)?((o.mode==='timebox')?o.titleTimeDialogLabel:o.titleDateDialogLabel):o.titleDialogLabel),
 			openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
-				.click(function (e) {
+				.bind('vclick', function (e) {
 					e.preventDefault();
 					if ( !o.disabled ) { self.open(); }
 					setTimeout( function() { $(e.target).closest("a").removeClass($.mobile.activeBtnClass); }, 300);
@@ -534,7 +534,7 @@
 				self._update();
 			});
 		
-		pickPage.find( ".ui-header a").click(function(e) {
+		pickPage.find( ".ui-header a").bind('vclick', function(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
 			self.close();
@@ -631,7 +631,7 @@
 			screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
 				.css({'z-index': o.zindex-1})
 				.appendTo(self.thisPage)
-				.bind("click", function(event) {
+				.bind("vclick", function(event) {
 					self.close();
 					event.preventDefault();
 				});
@@ -688,7 +688,7 @@
 				$("<div><a href='#'></a></div>")
 					.appendTo(pickerTPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 					.attr('data-field', x)
-					.click(function(e) {
+					.bind('vclick', function(e) {
 						e.preventDefault();
 						self._incrementField($(this).attr('data-field'));
 					});
@@ -696,7 +696,7 @@
 				$("<div><a href='#'></a></div>")
 					.appendTo(pickerTMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 					.attr('data-field', x)
-					.click(function(e) {
+					.bind('vclick', function(e) {
 						e.preventDefault();
 						self._decrementField($(this).attr('data-field'));
 					});
@@ -750,7 +750,7 @@
 		
 			$("<a href='#'>" + o.setDateButtonLabel + "</a>")
 				.appendTo(pickerDSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-				.click(function(e) {
+				.bind('vclick', function(e) {
 					e.preventDefault();
 					self.input.val(self._formatDate(self.theDate));
 					self.close();
@@ -761,14 +761,14 @@
 				$("<div><a href='#'></a></div>")
 					.appendTo(pickerDPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 					.attr('data-field', x)
-					.click(function(e) {
+					.bind('vclick', function(e) {
 						e.preventDefault();
 						self._incrementField($(this).attr('data-field'));
 				});
 				$("<div><a href='#'></a></div>")
 					.appendTo(pickerDMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 					.attr('data-field', x)
-					.click(function(e) {
+					.bind('vclick', function(e) {
 						e.preventDefault();
 						self._decrementField($(this).attr('data-field'));
 				});
@@ -793,7 +793,7 @@
 				
 			$("<div class='ui-datebox-gridplus'><a href='#'>Next Month</a></div>")
 				.prependTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.click( function(e) {
+				.bind('vclick', function(e) {
 					e.preventDefault();
 					if ( ! self.calNoNext ) {
 						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
@@ -803,7 +803,7 @@
 				});
 			$("<div class='ui-datebox-gridminus'><a href='#'>Prev Month</a></div>")
 				.prependTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.click( function(e) {
+				.bind('vclick', function(e) {
 					e.preventDefault();
 					if ( ! self.calNoPrev ) {
 						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
