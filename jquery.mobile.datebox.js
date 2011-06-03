@@ -13,6 +13,7 @@
 		pickPageButtonTheme: 'a',
 		pickPageHighButtonTheme: 'e',
 		pickPageTodayButtonTheme: 'e',
+		pickPageSlideButtonTheme: 'd',
 		noAnimation: false,
 		
 		disabled: false,
@@ -27,6 +28,7 @@
 		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 		daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
+		monthsOfYearShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 		timeFormat: 24,
 		
 		mode: 'datebox',
@@ -197,6 +199,35 @@
 	refresh: function() {
 		this._update();
 	},
+	_hoover: function(item) {
+		if ( $(item).hasClass('ui-btn-up-'+$(item).attr('data-theme')) )  {
+			$(item).removeClass('ui-btn-up-'+$(item).attr('data-theme')).addClass('ui-btn-down-'+$(item).attr('data-theme'));
+		} else {
+			$(item).removeClass('ui-btn-down-'+$(item).attr('data-theme')).addClass('ui-btn-up-'+$(item).attr('data-theme'));
+		}
+	},
+	_offset: function(mode, amount, update) {
+		var self = this;
+		if ( typeof(update) === "undefined" ) { update = true; }
+		switch(mode) {
+			case 'y':
+				self.theDate.setYear(self.theDate.getFullYear() + amount);
+				break;
+			case 'm':
+				self.theDate.setMonth(self.theDate.getMonth() + amount);
+				break;
+			case 'd':
+				self.theDate.setDate(self.theDate.getDate() + amount);
+				break;
+			case 'h':
+				self.theDate.setHours(self.theDate.getHours() + amount);
+				break;
+			case 'i':
+				self.theDate.setMinutes(self.theDate.getMinutes() + amount);
+				break;
+		}
+		if ( update === true ) { self._update(); }
+	},
 	_update: function() {
 		var self = this,
 			o = self.options,
@@ -222,6 +253,101 @@
 				}
 			} else {
 				self.pickerHour.val(self.theDate.getHours());
+			}
+		}
+		if ( o.mode === 'slidebox' ) {
+			var sLine, x, operand, y, cTheme,
+				inheritDate = self._makeDate(self.input.val());
+				
+			if ( o.afterToday !== false ) {
+				testDate = new Date();
+				if ( self.theDate < testDate ) { self.theDate = testDate; }
+			}
+			if ( o.maxDays !== false ) {
+				testDate = new Date();
+				testDate.setDate(testDate.getDate() + o.maxDays);
+				if ( self.theDate > testDate ) { self.theDate = testDate; }
+			}
+			if ( o.minDays !== false ) {
+				testDate = new Date();
+				testDate.setDate(testDate.getDate() - o.minDays);
+				if ( self.theDate < testDate ) { self.theDate = testDate; }
+			}
+			if ( o.maxYear !== false ) {
+				testDate = new Date(o.maxYear, 0, 1);
+				testDate.setDate(testDate.getDate() - 1);
+				if ( self.theDate > testDate ) { self.theDate = testDate; }
+			}
+			if ( o.minYear !== false ) {
+				testDate = new Date(o.minYear, 0, 1);
+				if ( self.theDate < testDate ) { self.theDate = testDate; }
+			}
+			
+			self.pickerSHeader.html( self._formatHeader(self.theDate) );
+			self.pickerSLines.html('');
+			
+			for ( y=0; y<3; y++ ) {
+				sLine = $("<div>", {'class': 'ui-datebox-sliderow'});
+				switch (y) {
+					case 0:
+						for ( x=-1; x<2; x++ ) {
+							operand = self.theDate.getFullYear() + x;
+							cTheme = ((inheritDate.getFullYear()===operand)?o.pickPageHighButtonTheme:o.pickPageSlideButtonTheme);
+							if ( x === 0 ) { cTheme = o.pickPageButtonTheme; }
+							$("<div>", { 'class' : 'ui-datebox-slideyear ui-corner-all ui-btn-up-'+cTheme })
+								.text(operand)
+								.attr('data-offset', x)
+								.attr('data-theme', cTheme)
+								.bind('vmouseover vmouseout', function() { self._hoover(this); })
+								.bind('vclick', function() { self._offset('y', parseInt($(this).attr('data-offset'),10)) })
+								.appendTo(sLine);
+						}
+						break;
+					case 1:
+						for ( x=-2; x<3; x++ ) {
+							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
+							testDate.setMonth(testDate.getMonth()+x);
+							cTheme = ( inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageSlideButtonTheme;
+							if ( x === 0 ) { cTheme = o.pickPageButtonTheme; }
+							$("<div>", { 'class' : 'ui-datebox-slidemonth ui-corner-all ui-btn-up-'+cTheme })
+								.attr('data-offset', x)
+								.attr('data-theme', cTheme)
+								.text(o.monthsOfYearShort[testDate.getMonth()])
+								.bind('vmouseover vmouseout', function() { self._hoover(this); })
+								.bind('vclick', function() { self._offset('m', parseInt($(this).attr('data-offset'),10)) })
+								.appendTo(sLine);
+						}
+						break;
+					case 2:
+						$("<div>", {'class' : 'ui-datebox-slidearrow ui-corner-all ui-btn-up-'+o.pickPageButtonTheme})
+							.attr('data-theme', o.pickPageButtonTheme)
+							.text('<')
+							.bind('vmouseover vmouseout', function() { self._hoover(this); })
+							.bind('vclick', function() { self._offset('d', -7) })
+							.appendTo(sLine);
+						for ( x=-3; x<4; x++ ) {
+							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
+							testDate.setDate(testDate.getDate()+x);
+							cTheme = ( inheritDate.getDate() === testDate.getDate() && inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageSlideButtonTheme;
+							if ( x === 0 ) { cTheme = o.pickPageButtonTheme; }
+							
+							$("<div>", { 'class' : 'ui-datebox-slideday ui-corner-all ui-btn-up-'+cTheme })
+								.attr('data-offset', x)
+								.attr('data-theme', cTheme)
+								.html(testDate.getDate() + '<br /><span class="ui-datebox-slidewday">' + o.daysOfWeekShort[testDate.getDay()] + '</span>')
+								.bind('vmouseover vmouseout', function() { self._hoover(this); })
+								.bind('vclick', function() { self._offset('d', parseInt($(this).attr('data-offset'),10)) })
+								.appendTo(sLine);
+						}
+						$("<div>", {'class' : 'ui-datebox-slidearrow ui-corner-all ui-btn-up-'+o.pickPageButtonTheme})
+							.attr('data-theme', o.pickPageButtonTheme)
+							.text('>')
+							.bind('vmouseover vmouseout', function() { self._hoover(this); })
+							.bind('vclick', function() { self._offset('d', 7) })
+							.appendTo(sLine);
+						break;
+				}
+				sLine.appendTo(self.pickerSLines);
 			}
 		}
 		if ( o.mode === 'datebox' ) {
@@ -566,36 +692,35 @@
 		}
 	},
 	_incrementField: function(fieldOrder) {
+		fieldOrder = parseInt(fieldOrder, 10);
 		var o = this.options,
 			self = this;
-		fieldOrder = parseInt(fieldOrder, 10);
-
+		
 		if ( o.mode === 'timebox' ) {
-			if ( fieldOrder === 0 ) { self.theDate.setHours(self.theDate.getHours() + 1); }
+			if ( fieldOrder === 0 ) { self._offset('h',1,false); }
 			if ( fieldOrder === 1 ) {
 				if ( ( self.theDate.getMinutes() % o.minuteStep ) === 0 ) { 
-					self.theDate.setMinutes(self.theDate.getMinutes() + o.minuteStep);
+					self._offset('i',o.minuteStep,false);
 				} else { 
-					self.theDate.setMinutes(self.theDate.getMinutes() + ( o.minuteStep - ( self.theDate.getMinutes() % o.minuteStep ) ));
+					self._offset('i',(o.minuteStep - ( self.theDate.getMinutes() % o.minuteStep )),false);
 				}
 			}
 			if ( fieldOrder === 2 && o.timeFormat === 12 ) { 
 				if ( self.pickerMeri.val() === o.meridiemLetters[0] ) { 
 					self.pickerMeri.val(o.meridiemLetters[1]);
-					self.theDate.setHours(self.theDate.getHours() + 12);
+					self._offset('h',12,false);
 				} else {
 					self.pickerMeri.val(o.meridiemLetters[0]);
-					self.theDate.setHours(self.theDate.getHours() - 12);
+					self._offset('h',-12,false);
 				}
 			}
 		} else {
 			if ( o.fieldsOrder[fieldOrder] === 'y' ) { 
 				if ( o.maxYear === false || (self.theDate.getFullYear() + 1 <= o.maxYear) ) { 
-					self.theDate.setYear(self.theDate.getFullYear() + 1); 
+					self._offset('y',1,false);
 				}
 			}
-			if ( o.fieldsOrder[fieldOrder] === 'm' ) { self.theDate.setMonth(self.theDate.getMonth() + 1); }
-			if ( o.fieldsOrder[fieldOrder] === 'd' ) { self.theDate.setDate(self.theDate.getDate() + 1); }
+			else { self._offset(o.fieldsOrder[fieldOrder],1,false); }
 		}
 	
 		self._update();
@@ -606,37 +731,37 @@
 		fieldOrder = parseInt(fieldOrder, 10);
 			
 		if ( o.mode === 'timebox' ) {
-			if ( fieldOrder === 0 ) { self.theDate.setHours(self.theDate.getHours() - 1); }
+			if ( fieldOrder === 0 ) { self._offset('h',-1,false); }
 			if ( fieldOrder === 1 ) {
 				if ( (self.theDate.getMinutes() % o.minuteStep) === 0 ) {
-					self.theDate.setMinutes(self.theDate.getMinutes() - o.minuteStep);
+					self._offset('i', -1 * o.minuteStep, false);
 				} else {
-					self.theDate.setMinutes(self.theDate.getMinutes() - (self.theDate.getMinutes() % o.minuteStep));
+					self._offset('i', -1 * (self.theDate.getMinutes() % o.minuteStep), false);
 				}
 			}
 			if ( fieldOrder === 2 && o.timeFormat === 12 ) { 
 				if ( self.pickerMeri.val() === o.meridiemLetters[0] ) { 
 					self.pickerMeri.val(o.meridiemLetters[1]);
-					self.theDate.setHours(self.theDate.getHours() + 12);
+					self._offset('h',12,false);
 				} else {
 					self.pickerMeri.val(o.meridiemLetters[0]);
-					self.theDate.setHours(self.theDate.getHours() - 12);
+					self._offset('h',-12,false);
 				}
 			}
 		} else {
 			if ( o.fieldsOrder[fieldOrder] === 'y' ) {
 				if ( o.minYear === false || ( self.theDate.getFullYear() - 1 >= o.minYear ) ) { 
-					self.theDate.setYear(self.theDate.getFullYear() - 1); 
+					self._offset('y',-1,false);
 				}
 			}
-			if ( o.fieldsOrder[fieldOrder] === 'm' ) { self.theDate.setMonth(self.theDate.getMonth() - 1); }
-			if ( o.fieldsOrder[fieldOrder] === 'd' ) { self.theDate.setDate(self.theDate.getDate() - 1); }
+			else { self._offset(o.fieldsOrder[fieldOrder],-1,false); }
 		}
 		this._update();
 	},
 	_buildPage: function () {
 		var self = this,
 			o = self.options, x, newHour,
+			linkdiv =$("<div><a href='#'></a></div>"),
 			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
 			screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
 				.css({'z-index': o.zindex-1})
@@ -650,9 +775,9 @@
 		
 		if ( o.mode === 'timebox' ) {
 			var pickerTPlus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
-				pickerTInput = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
-				pickerTMinus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
-				pickerTSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent),
+				pickerTInput = pickerTPlus.clone().appendTo(pickerContent),
+				pickerTMinus = pickerTPlus.clone().appendTo(pickerContent),
+				pickerTSet = pickerTPlus.clone().appendTo(pickerContent),
 				
 				pickerHour = $("<input type='text' />")
 					.keyup(function() {
@@ -666,20 +791,20 @@
 						}
 					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 				
-				pickerMins = $("<input type='text' />")
+				pickerMins = pickerHour.clone()
 					.keyup(function() {
 						if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 							self.theDate.setMinutes(parseInt($(this).val(),10));
 							self._update();
 						}
-					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+					}),
 				
-				pickerMeri = $("<input type='text' />")
+				pickerMeri = pickerHour.clone()
 					.keyup(function() {
 						if ( $(this).val() !== '' ) {
 							self._update();
 						}
-					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
+					});
 			
 			pickerHour.appendTo(pickerTInput);
 			pickerMins.appendTo(pickerTInput);
@@ -695,7 +820,7 @@
 				});
 				
 			for ( x=0; x<((o.timeFormat === 12)?3:2); x++ ) {
-				$("<div><a href='#'></a></div>")
+				linkdiv.clone()
 					.appendTo(pickerTPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 					.attr('data-field', x)
 					.bind('vclick', function(e) {
@@ -703,7 +828,7 @@
 						self._incrementField($(this).attr('data-field'));
 					});
 					
-				$("<div><a href='#'></a></div>")
+				linkdiv.clone()
 					.appendTo(pickerTMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 					.attr('data-field', x)
 					.bind('vclick', function(e) {
@@ -724,9 +849,9 @@
 		if ( o.mode === 'datebox' ) {
 			var pickerDHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4"),
 				pickerDPlus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
-				pickerDInput = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
-				pickerDMinus = $("<div>", { "class":'ui-datebox-controls' }).appendTo(pickerContent),
-				pickerDSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent),
+				pickerDInput = pickerDPlus.clone().appendTo(pickerContent),
+				pickerDMinus = pickerDPlus.clone().appendTo(pickerContent),
+				pickerDSet = pickerDPlus.clone().appendTo(pickerContent),
 				
 				pickerMon = $("<input type='text' />")
 					.keyup(function() {
@@ -736,21 +861,21 @@
 						}
 					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 				
-				pickerDay = $("<input type='text' />")
+				pickerDay = pickerMon.clone()
 					.keyup(function() {
 						if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 							self.theDate.setDate(parseInt($(this).val(),10));
 							self._update();
 						}
-					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+					}),
 				
-				pickerYar = $("<input type='text' />")
+				pickerYar = pickerMon.clone()
 					.keyup(function() {
 						if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 							self.theDate.setYear(parseInt($(this).val(),10));
 							self._update();
 						}
-					}).addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme);
+					});
 		
 				for(x=0; x<=o.fieldsOrder.length; x++) {
 					if (self.options.fieldsOrder[x] === 'y') { pickerYar.appendTo(pickerDInput); }
@@ -768,14 +893,14 @@
 				});
 			
 			for( x=0; x<self.options.fieldsOrder.length; x++ ) {
-				$("<div><a href='#'></a></div>")
+				linkdiv.clone()
 					.appendTo(pickerDPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 					.attr('data-field', x)
 					.bind('vclick', function(e) {
 						e.preventDefault();
 						self._incrementField($(this).attr('data-field'));
 				});
-				$("<div><a href='#'></a></div>")
+				linkdiv.clone()
 					.appendTo(pickerDMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 					.attr('data-field', x)
 					.bind('vclick', function(e) {
@@ -828,6 +953,28 @@
 				pickerGrid: pickerGrid,
 				calNoNext: calNoNext,
 				calNoPrev: calNoPrev
+			});
+			
+			pickerContent.appendTo(self.thisPage);
+		}
+		
+		if ( o.mode === 'slidebox' ) {
+			var pickerSHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4"),
+				pickerSLines = $('<div>').addClass('ui-datebox-slide').appendTo(pickerContent),
+				pickerSSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent);
+				
+			$("<a href='#'>" + o.setDateButtonLabel + "</a>")
+				.appendTo(pickerSSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+				.bind('vclick', function(e) {
+					e.preventDefault();
+					self.input.val(self._formatDate(self.theDate));
+					self.close();
+					self.input.trigger('change');
+				});
+				
+			$.extend(self, {
+				pickerSHeader: pickerSHeader,
+				pickerSLines: pickerSLines
 			});
 			
 			pickerContent.appendTo(self.thisPage);

@@ -33,22 +33,22 @@
 		</div>
 		<div data-role="collapsible" data-collapsed="true">
 			<h3>Available Modes (src line: 35)</h3>
-			
 			<div data-role="fieldcontain"><!-- Date Picker, Android Styling -->
 				<label for="defandroid">Date Picker, Android Style</label>
 				<input value="2011-01-01" name="defandroid" type="date" data-role="datebox" id="defandroid" />
 			</div>
-			
 			<div data-role="fieldcontain"><!-- Date Picker, Calendar Display -->
 				<label for="defcal">Date Picker, Calendar Style</label>
 				<input value="2011-01-01" name="defcal" type="date" data-role="datebox" id="defcal" data-options='{"mode": "calbox"}'/>
 			</div>
-			
+			<div data-role="fieldcontain"><!-- Date Picker, Slide Display -->
+				<label for="slide">Date Picker, Slide Style</label>
+				<input value="2012-04-25" name="slide" type="date" data-options='{"mode": "slidebox"}' data-role="datebox" id="slide" />
+			</div>
 			<div data-role="fieldcontain"><!-- Time Picker, 12 Hour Clock -->
 				<label for="time12">Time Picker, 12 Hour Clock</label>
 				<input value="8:03 AM" name="time12" type="text" data-options='{"mode": "timebox", "timeFormat": 12}' data-role="datebox" id="time12" />
 			</div>
-			
 			<div data-role="fieldcontain"><!-- Time Picker, 24 Hour Clock -->
 				<label for="time24">Time Picker, 24 Hour Clock</label>
 				<input value="10:22" name="time24" type="text" data-options='{"mode": "timebox"}' data-role="datebox" id="time24" />

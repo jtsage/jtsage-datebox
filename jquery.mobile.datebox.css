@@ -28,6 +28,15 @@
 .ui-datebox-controls div { width: 77px; text-align: center; display: inline-block; }
 .ui-datebox-input { width: 74px !important; margin-left: 1px; margin-right: 1px; text-align: center !important; display: inline-block !important; }
 
+/* Slide Mode Styles */
+
+.ui-datebox-sliderow { margin-left: 5px; margin-right: 5px; margin-bottom: 5px; text-align: center; }
+.ui-datebox-slideyear { text-align: center; display: inline-block; width: 88px; vertical-align: middle; line-height: 30px; height: 30px; font-size: 14px; font-weight: bold; }
+.ui-datebox-slidemonth { text-align: center; display: inline-block; width: 51px; vertical-align: middle; line-height: 30px; height: 30px; font-size: 12px; font-weight: bold; }
+.ui-datebox-slideday { text-align: center; display: inline-block; width: 32px; vertical-align: middle; line-height: 20px; height: 38px; font-size: 14px; font-weight: bold; }
+.ui-datebox-slidearrow { text-align: center; display: inline-block; width: 10px; vertical-align: middle; line-height: 38px; height: 38px; font-size: 10px; font-weight: bold; }
+.ui-datebox-slidewday { font-size: 10px; font-weight: normal; }
+
 /* Shared Styles */
 
 .ui-datebox-container { border: 5px solid #111 !important; width: 280px; }
