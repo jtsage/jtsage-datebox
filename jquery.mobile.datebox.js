@@ -187,7 +187,7 @@
 					if ( parts[i].match(/m/i) ) { d_mon = data[i]; }
 					if ( parts[i].match(/y/i) ) { d_yar = data[i]; }
 				}
-				date = new Date(d_yar, d_mon-1, d_day);
+				date = new Date(d_yar, d_mon-1, d_day,0,0,0,0);
 				if ( ! date.getDate() ) {
 					return new Date();
 				} else {
@@ -198,6 +198,9 @@
 	},
 	refresh: function() {
 		this._update();
+	},
+	_checker: function(date) {
+		return parseInt(String(date.getFullYear()) + (( date.getMonth()+1 < 10 ) ? "0" : "") + String(date.getMonth()+1) + ((date.getDate() < 10 ) ? "0" : "") + String(date.getDate()));
 	},
 	_hoover: function(item) {
 		if ( $(item).hasClass('ui-btn-up-'+$(item).attr('data-theme')) )  {
@@ -403,6 +406,7 @@
 				weekMode = 0,
 				weekDays = null,
 				thisRow = null,
+				checkDates = ( o.afterToday !== false || o.maxDays !== false || o.minDays !== false || o.blackDates !== false || o.blackDays !== false ),
 				i, gridWeek, gridDay;
 				
 			if ( o.calStartDay > 0 ) {
@@ -411,7 +415,7 @@
 			}
 				
 			if ( thisDate.getMonth() === self.theDate.getMonth() && thisDate.getFullYear() === self.theDate.getFullYear() ) { currentMonth = true; highlightDay = thisDate.getDate(); } 
-			if ( presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); }
+			if ( self._checker(presetDate) === self._checker(self.theDate) ) { presetDay = presetDate.getDate(); }//presetDate.getMonth() === self.theDate.getMonth() && presetDate.getFullYear() === self.theDate.getFullYear() ) { presetDay = presetDate.getDate(); }
 			
 			self.calNoPrev = false; self.calNoNext = false;
 			
@@ -484,32 +488,16 @@
 								}
 							}
 						} else {
-							if ( !o.afterToday && !o.maxDays && !o.minDays && !o.blackDates && !o.blackDays ) {
-								skipThis = false;
-							} else {
-								skipThis = false;
-								if ( o.afterToday ) {
-									if ( 
-										( self.theDate.getFullYear() === thisDate.getFullYear() && self.theDate.getMonth() === thisDate.getMonth() && today < thisDate.getDate() ) ||
-										( self.theDate.getFullYear() < thisDate.getFullYear() ) ) {
-											skipThis = true;
-									}
+							skipThis = false;
+							if ( checkDates ) {
+								if ( o.afterToday && self._checker(thisDate) > (self._checker(self.theDate)+today-self.theDate.getDate()) ) {
+									skipThis = true;
 								} 
-								if ( !skipThis && o.maxDays !== false ) {
-									if (
-										( self.theDate.getFullYear() > maxDate.getFullYear() ) ||
-										( self.theDate.getFullYear() === maxDate.getFullYear() && self.theDate.getMonth() > maxDate.getMonth() ) ||
-										( self.theDate.getFullYear() === maxDate.getFullYear() && self.theDate.getMonth() === maxDate.getMonth() && today > maxDate.getDate() ) ) {
-											skipThis = true;
-									}
+								if ( !skipThis && o.maxDays !== false && self._checker(maxDate) < (self._checker(self.theDate)+today-self.theDate.getDate()) ) {
+									skipThis = true;
 								} 
-								if ( !skipThis && o.minDays !== false ) {
-									if (
-										( self.theDate.getFullYear() < minDate.getFullYear() ) ||
-										( self.theDate.getFullYear() === minDate.getFullYear() && self.theDate.getMonth() < minDate.getMonth() ) ||
-										( self.theDate.getFullYear() === minDate.getFullYear() && self.theDate.getMonth() === minDate.getMonth() && today < minDate.getDate() ) ) {
-											skipThis = true;
-									}
+								if ( !skipThis && o.minDays !== false && self._checker(minDate) > (self._checker(self.theDate)+today-self.theDate.getDate()) ) {
+									skipThis = true;
 								} 
 								if ( !skipThis && ( o.blackDays !== false || o.blackDates !== false ) ) { // Blacklists
 									if ( 

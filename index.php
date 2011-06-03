@@ -39,7 +39,7 @@
 			</div>
 			<div data-role="fieldcontain"><!-- Date Picker, Calendar Display -->
 				<label for="defcal">Date Picker, Calendar Style</label>
-				<input value="2011-01-01" name="defcal" type="date" data-role="datebox" id="defcal" data-options='{"mode": "calbox"}'/>
+				<input name="defcal" type="date" data-role="datebox" id="defcal" data-options='{"mode": "calbox", "minDays": 3, "maxDays": 10}'/>
 			</div>
 			<div data-role="fieldcontain"><!-- Date Picker, Slide Display -->
 				<label for="slide">Date Picker, Slide Style</label>
