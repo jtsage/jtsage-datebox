@@ -39,7 +39,7 @@
 			</div>
 			<div data-role="fieldcontain"><!-- Date Picker, Calendar Display -->
 				<label for="defcal">Date Picker, Calendar Style</label>
-				<input name="defcal" type="date" data-role="datebox" id="defcal" data-options='{"mode": "calbox", "minDays": 3, "maxDays": 10}'/>
+				<input name="defcal" type="date" data-role="datebox" id="defcal" data-options='{"mode": "calbox"}'/>
 			</div>
 			<div data-role="fieldcontain"><!-- Date Picker, Slide Display -->
 				<label for="slide">Date Picker, Slide Style</label>
@@ -206,7 +206,7 @@
 				</div>
 				<div data-role="fieldcontain">
 					<label for="limit2">Calendar Style</label>
-					<input name="limit2" type="date" data-role="datebox" data-options='{"minDays": 200, "maxDays": 30, "mode": "calbox"}' id="limit2" />
+					<input name="limit2" type="date" data-role="datebox" data-options='{"minDays": 2, "maxDays": 60, "mode": "calbox"}' id="limit2" />
 				</div>
 			</div>
 
@@ -229,18 +229,18 @@
 				<h3>Blacklisted Days and Dates (src line: 229)</h3>
 				<p>Blacklist days (day of week), or dates (yyyy/mm/dd) - Calendar mode only</p>
 				<p>Date Format:  must be a simple array of ISO style dates, i.e.: ["2011-01-01", "2011-01-02"] etc.</p>
-				<p>Example shows No Tuesdays or Fridays, and some ART!</p>
+				<p>Example shows No Tuesdays and a few days in May and June 2011 disabled.</p>
 
 				<div data-role="fieldcontain">
 					<label for="blacklist2">Some ISO Date</label>
-					<input value="2011-05-01" name="blacklist2" type="date" data-role="datebox" id="blacklist2" data-options='{"mode": "calbox", "blackDates": ["2011-05-31", "2011-07-01", "2011-05-03","2011-05-04","2011-05-05"]}'/>
+					<input value="2011-05-01" name="blacklist2" type="date" data-role="datebox" id="blacklist2" data-options='{"mode": "calbox", "blackDays": [2], "blackDates": ["2011-05-31", "2011-06-01", "2011-05-03","2011-05-04","2011-05-05"]}'/>
 				</div>
 			</div>
 
 			<div data-role="collapsible" data-collapsed="true">
-				<h3>Limit to today + 60 days, then based on start. (src line: 245)</h3>
-				<p>The first date is limited from "today" to 60 days in the future.</p>
-				<p>The second date is limited from the first date, to 90 days after the first date</p>
+				<h3>Limit to today + 10 days, then based on start. (src line: 245)</h3>
+				<p>The first date is limited from "today" to 10 days in the future.</p>
+				<p>The second date is limited from the first date, to 10 days after the first date</p>
 				<p>Note: yes, apparently some of the options can be changed dynamicly.  cool</p>
 				<p>Note #2: minDays will take a negative number.   *very* cool.</p>
 				<script type="text/javascript">
@@ -249,7 +249,7 @@
 						var temp = new Date(),
 							diff = parseInt(($('#rlimit').data('datebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
 							diffstrt = (diff * -1)-1; // If you want a minimum of 1 day between, make this -2 instead of -1
-							diffend = diff + 91; // Why 91 instead of 90?  No idea...
+							diffend = diff + 11; // Why 11 instead of 10?  No idea...
 					
 						$('#rlimit2').data('datebox').options.minDays = diffstrt;
 						$('#rlimit2').data('datebox').options.maxDays = diffend;
@@ -257,11 +257,11 @@
 				</script>
 				<div data-role="fieldcontain">
 					<label for="rlimit">Beginning Date</label>
-					<input name="rlimit" type="date" data-role="datebox" id="rlimit" data-options='{"mode": "calbox", "afterToday": true, "maxDays": 60}'/>
+					<input name="rlimit" type="date" data-role="datebox" id="rlimit" data-options='{"mode": "calbox", "afterToday": true, "maxDays": 10}'/>
 				</div>
 				<div data-role="fieldcontain">
 					<label for="rlimit2">Ending Date</label>
-					<input name="rlimit2" type="date" data-role="datebox" data-options='{"minDays": -60, "maxDays": 90, "mode": "calbox"}' id="rlimit2" />
+					<input name="rlimit2" type="date" data-role="datebox" data-options='{"minDays": -10, "maxDays": 10, "mode": "calbox"}' id="rlimit2" />
 				</div>
 			</div>
 			

@@ -453,7 +453,8 @@
 							} else {
 								if (
 									( o.blackDays !== false && $.inArray(gridDay, o.blackDays) > -1 ) ||
-									( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth(), prevtoday), o.blackDates) > -1 ) ) {
+									( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), (self.theDate.getMonth()), prevtoday), o.blackDates) > -1 ) ||
+									( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), (self.theDate.getMonth()+2), nexttoday), o.blackDates) > -1 ) ) {
 										skipThis = true;
 								} else { skipThis = false; }
 									
