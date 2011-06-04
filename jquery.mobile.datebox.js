@@ -302,7 +302,7 @@
 								.attr('data-offset', x)
 								.attr('data-theme', cTheme)
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function() { self._offset('y', parseInt($(this).attr('data-offset'),10)) })
+								.bind('vclick', function(e) { e.preventDefault(); self._offset('y', parseInt($(this).attr('data-offset'),10)) })
 								.appendTo(sLine);
 						}
 						break;
@@ -317,7 +317,7 @@
 								.attr('data-theme', cTheme)
 								.text(o.monthsOfYearShort[testDate.getMonth()])
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function() { self._offset('m', parseInt($(this).attr('data-offset'),10)) })
+								.bind('vclick', function(e) { e.preventDefault(); self._offset('m', parseInt($(this).attr('data-offset'),10)) })
 								.appendTo(sLine);
 						}
 						break;
@@ -326,7 +326,7 @@
 							.attr('data-theme', o.pickPageButtonTheme)
 							.text('<')
 							.bind('vmouseover vmouseout', function() { self._hoover(this); })
-							.bind('vclick', function() { self._offset('d', -7) })
+							.bind('vclick', function(e) { e.preventDefault(); self._offset('d', -7) })
 							.appendTo(sLine);
 						for ( x=-3; x<4; x++ ) {
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
@@ -339,14 +339,14 @@
 								.attr('data-theme', cTheme)
 								.html(testDate.getDate() + '<br /><span class="ui-datebox-slidewday">' + o.daysOfWeekShort[testDate.getDay()] + '</span>')
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function() { self._offset('d', parseInt($(this).attr('data-offset'),10)) })
+								.bind('vclick', function(e) { e.preventDefault(); self._offset('d', parseInt($(this).attr('data-offset'),10)) })
 								.appendTo(sLine);
 						}
 						$("<div>", {'class' : 'ui-datebox-slidearrow ui-corner-all ui-btn-up-'+o.pickPageButtonTheme})
 							.attr('data-theme', o.pickPageButtonTheme)
 							.text('>')
 							.bind('vmouseover vmouseout', function() { self._hoover(this); })
-							.bind('vclick', function() { self._offset('d', 7) })
+							.bind('vclick', function(e) { e.preventDefault(); self._offset('d', 7) })
 							.appendTo(sLine);
 						break;
 				}
