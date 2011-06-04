@@ -17,6 +17,8 @@
 		noAnimation: false,
 		
 		disabled: false,
+		wheelExists: false,
+		swipeEnabled: true,
 		zindex: '500',
 		
 		setDateButtonLabel: 'Set date',
@@ -290,7 +292,18 @@
 			self.pickerSLines.html('');
 			
 			for ( y=0; y<3; y++ ) {
-				sLine = $("<div>", {'class': 'ui-datebox-sliderow'});
+				sLine = $("<div>", {'class': 'ui-datebox-sliderow', 'data-rowtype': y});
+				if ( o.wheelExists ) {
+					sLine.bind('mousewheel', function(e,d) {
+						e.preventDefault();
+						self._offset(['y','m','d'][$(this).attr('data-rowtype')], ((d>0)?1:-1));
+					});
+				}
+				if ( o.swipeEnabled ) {
+					sLine
+						.bind('swipeleft', function() { self._offset(['y','m','d'][$(this).attr('data-rowtype')], [3,5,7][$(this).attr('data-rowtype')]);  })
+						.bind('swiperight', function() { self._offset(['y','m','d'][$(this).attr('data-rowtype')], -1*[3,5,7][$(this).attr('data-rowtype')]); });
+				}
 				switch (y) {
 					case 0:
 						for ( x=-1; x<2; x++ ) {
@@ -661,6 +674,8 @@
 			focusedEl: focusedEl
 		});
 		
+		if ( typeof $.event.special.mousewheel !== 'undefined' ) { o.wheelExists = true; }
+		
 		self._buildPage();
 		
 		if ( input.is(':disabled') ) {
@@ -782,6 +797,11 @@
 						}
 					});
 			
+			if ( o.wheelExists ) {
+					pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', (d<0)?-1:1); });
+					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', (d<0)?-1:1); });
+				}
+			
 			pickerHour.appendTo(pickerTInput);
 			pickerMins.appendTo(pickerTInput);
 			if ( o.timeFormat === 12 ) { pickerMeri.appendTo(pickerTInput); }
@@ -852,6 +872,12 @@
 							self._update();
 						}
 					});
+					
+				if ( o.wheelExists ) {
+					pickerYar.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('y', (d<0)?-1:1); });
+					pickerMon.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('m', (d<0)?-1:1); });
+					pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', (d<0)?-1:1); });
+				}
 		
 				for(x=0; x<=o.fieldsOrder.length; x++) {
 					if (self.options.fieldsOrder[x] === 'y') { pickerYar.appendTo(pickerDInput); }
@@ -901,7 +927,29 @@
 				calNoNext = false,
 				calNoPrev = false,
 				pickerDate = $("<div class='ui-datebox-gridlabel'><h4>Uninitialized</h4></div>").appendTo(pickerHeader).find('h4');
-				
+			
+			if ( o.swipeEnabled ) {
+				pickerContent
+					.bind('swipeleft', function(e) { if ( !self.calNoNext ) { self._offset('m', 1); } })
+					.bind('swiperight', function(e) { if ( !self.calNoPrev ) { self._offset('m', -1); } });
+			}
+			
+			if ( o.wheelExists) {
+				pickerContent.bind('mousewheel', function(e,d) {
+					e.preventDefault();
+					if ( d < 0 && !self.calNoNext ) { 
+						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
+						self.theDate.setMonth(self.theDate.getMonth() + 1);
+						self._update(); 
+					}
+					if ( d > 0 && !self.calNoPrev ) {
+						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
+						self.theDate.setMonth(self.theDate.getMonth() - 1);
+						self._update();
+					}
+				});
+			}
+						
 			$("<div class='ui-datebox-gridplus'><a href='#'>Next Month</a></div>")
 				.prependTo(pickerHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
 				.bind('vclick', function(e) {
