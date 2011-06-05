@@ -111,7 +111,7 @@
 			if ( date.getHours() > 11 ) {
 				meri = 1;
 				hours = self._zeroPad(date.getHours() - 12);
-				if ( hours == '00' ) { hours = '12'; }
+				if ( hours === '00' ) { hours = '12'; }
 			} else {
 				meri = 0;
 				hours = self._zeroPad(date.getHours());
@@ -191,7 +191,7 @@
 		}
 	},
 	_checker: function(date) {
-		return parseInt(String(date.getFullYear()) + this._zeroPad(date.getMonth()+1) + this._zeroPad(date.getDate()));
+		return parseInt(String(date.getFullYear()) + this._zeroPad(date.getMonth()+1) + this._zeroPad(date.getDate()),10);
 	},
 	_hoover: function(item) {
 		$(item).toggleClass('ui-btn-up-'+$(item).attr('data-theme')+' ui-btn-down-'+$(item).attr('data-theme'));
@@ -309,7 +309,7 @@
 								.attr('data-offset', i)
 								.attr('data-theme', cTheme)
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function(e) { e.preventDefault(); self._offset('y', parseInt($(this).attr('data-offset'),10)) })
+								.bind('vclick', function(e) { e.preventDefault(); self._offset('y', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -324,7 +324,7 @@
 								.attr('data-theme', cTheme)
 								.text(o.monthsOfYearShort[testDate.getMonth()])
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function(e) { e.preventDefault(); self._offset('m', parseInt($(this).attr('data-offset'),10)) })
+								.bind('vclick', function(e) { e.preventDefault(); self._offset('m', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -333,7 +333,7 @@
 							.attr('data-theme', o.pickPageButtonTheme)
 							.text('<')
 							.bind('vmouseover vmouseout', function() { self._hoover(this); })
-							.bind('vclick', function(e) { e.preventDefault(); self._offset('d', -7) })
+							.bind('vclick', function(e) { e.preventDefault(); self._offset('d', -7); })
 							.appendTo(thisRow);
 						for ( i=-3; i<4; i++ ) {
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
@@ -346,14 +346,14 @@
 								.attr('data-theme', cTheme)
 								.html(testDate.getDate() + '<br /><span class="ui-datebox-slidewday">' + o.daysOfWeekShort[testDate.getDay()] + '</span>')
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function(e) { e.preventDefault(); self._offset('d', parseInt($(this).attr('data-offset'),10)) })
+								.bind('vclick', function(e) { e.preventDefault(); self._offset('d', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
 						}
 						$("<div>", {'class' : 'ui-datebox-slidearrow ui-corner-all ui-btn-up-'+o.pickPageButtonTheme})
 							.attr('data-theme', o.pickPageButtonTheme)
 							.text('>')
 							.bind('vmouseover vmouseout', function() { self._hoover(this); })
-							.bind('vclick', function(e) { e.preventDefault(); self._offset('d', 7) })
+							.bind('vclick', function(e) { e.preventDefault(); self._offset('d', 7); })
 							.appendTo(thisRow);
 						break;
 				}
@@ -405,11 +405,11 @@
 			calmode.checkDates = ( o.afterToday !== false || o.maxDays !== false || o.minDays !== false || o.blackDates !== false || o.blackDays !== false );
 			
 			if ( o.calStartDay > 0 ) {
-				start = start - o.calStartDay;
-				if ( start < 0 ) { start = start + 7; }
+				calmode.start = calmode.start - o.calStartDay;
+				if ( calmode.start < 0 ) { calmode.start = calmode.start + 7; }
 			}
 				
-			if ( calmode.thisDate.getMonth() === self.theDate.getMonth() && calmode.thisDate.getFullYear() === self.theDate.getFullYear() ) { currentMonth = true; highlightDay = calmode.thisDate.getDate(); } 
+			if ( calmode.thisDate.getMonth() === self.theDate.getMonth() && calmode.thisDate.getFullYear() === self.theDate.getFullYear() ) { calmode.currentMonth = true; calmode.highlightDay = calmode.thisDate.getDate(); } 
 			if ( self._checker(calmode.presetDate) === self._checker(self.theDate) ) { calmode.presetDay = calmode.presetDate.getDate(); }
 			
 			self.calNoPrev = false; self.calNoNext = false;
@@ -459,7 +459,6 @@
 										.attr('data-date', ((o.calWeekMode)?(calmode.weekMode+calmode.lastend):calmode.prevtoday))
 										.bind((!skipThis)?'vclick':'error', function(e) {
 											e.preventDefault();
-											console.log(self.calNoPrev);
 											if ( !self.calNoPrev ) {
 												self.theDate.setMonth(self.theDate.getMonth() - 1);
 												self.theDate.setDate($(this).attr('data-date'));
@@ -499,7 +498,7 @@
 								if ( !skipThis && ( o.blackDays !== false || o.blackDates !== false ) ) { // Blacklists
 									if ( 
 										( $.inArray(gridDay, o.blackDays) > -1 ) ||
-										( $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, today), o.blackDates) > -1 ) ) { 
+										( $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, calmode.today), o.blackDates) > -1 ) ) { 
 											skipThis = true;
 									}
 								}
@@ -508,9 +507,9 @@
 							$("<div>"+String(calmode.today)+"</div>")
 								.addClass('ui-datebox-griddate ui-corner-all')
 								.attr('data-date', ((o.calWeekMode)?calmode.weekMode:calmode.today))
-								.attr('data-theme', ((calmode.today===calmode.highlightDay)?o.pickPageTodayButtonTheme:((calmode.today===calmode.presetDay)?o.pickPageHighButtonTheme:o.pickPageButtonTheme)))
+								.attr('data-theme', ((calmode.today===calmode.presetDay)?o.pickPageHighButtonTheme:((calmode.today===calmode.highlightDay)?o.pickPageTodayButtonTheme:o.pickPageButtonTheme)))
 								.appendTo(thisRow)
-								.addClass('ui-btn-up-'+((calmode.today===calmode.highlightDay)?o.pickPageTodayButtonTheme:((calmode.today===calmode.presetDay)?o.pickPageHighButtonTheme:o.pickPageButtonTheme)))
+								.addClass('ui-btn-up-'+((calmode.today===calmode.presetDay)?o.pickPageHighButtonTheme:((calmode.today===calmode.highlightDay)?o.pickPageTodayButtonTheme:o.pickPageButtonTheme)))
 								.bind('vmouseover vmouseout', function() { 
 									if ( o.calWeekMode !== false && o.calWeekModeHighlight === true ) {
 										$(this).parent().find('div').each(function() { self._hoover(this); });
@@ -663,7 +662,7 @@
 			if ( o.wheelExists ) {
 					pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', (d<0)?-1:1); });
 					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', (d<0)?-1:1); });
-					pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', 1); });
+					pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', d); });
 				}
 			
 			pickerHour.appendTo(controlsInput);
@@ -788,8 +787,8 @@
 			
 			if ( o.swipeEnabled ) {
 				pickerContent
-					.bind('swipeleft', function(e) { if ( !self.calNoNext ) { self._offset('m', 1); } })
-					.bind('swiperight', function(e) { if ( !self.calNoPrev ) { self._offset('m', -1); } });
+					.bind('swipeleft', function() { if ( !self.calNoNext ) { self._offset('m', 1); } })
+					.bind('swiperight', function() { if ( !self.calNoPrev ) { self._offset('m', -1); } });
 			}
 			
 			if ( o.wheelExists) {
