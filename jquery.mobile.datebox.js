@@ -198,9 +198,6 @@
 			}
 		}
 	},
-	refresh: function() {
-		this._update();
-	},
 	_checker: function(date) {
 		return parseInt(String(date.getFullYear()) + (( date.getMonth()+1 < 10 ) ? "0" : "") + String(date.getMonth()+1) + ((date.getDate() < 10 ) ? "0" : "") + String(date.getDate()));
 	},
@@ -230,8 +227,84 @@
 			case 'i':
 				self.theDate.setMinutes(self.theDate.getMinutes() + amount);
 				break;
+			case 'a':
+				if ( self.pickerMeri.val() === o.meridiemLetters[0] ) { 
+					self.pickerMeri.val(o.meridiemLetters[1]);
+					self._offset('h',12,false);
+				} else {
+					self.pickerMeri.val(o.meridiemLetters[0]);
+					self._offset('h',-12,false);
+				}
+				break;
 		}
 		if ( update === true ) { self._update(); }
+	},
+	_incrementField: function(fieldOrder) {
+		fieldOrder = parseInt(fieldOrder, 10);
+		var o = this.options,
+			self = this;
+		
+		if ( o.mode === 'timebox' ) {
+			if ( fieldOrder === 0 ) { self._offset('h',1,false); }
+			if ( fieldOrder === 1 ) {
+				if ( ( self.theDate.getMinutes() % o.minuteStep ) === 0 ) { 
+					self._offset('i',o.minuteStep,false);
+				} else { 
+					self._offset('i',(o.minuteStep - ( self.theDate.getMinutes() % o.minuteStep )),false);
+				}
+			}
+			if ( fieldOrder === 2 && o.timeFormat === 12 ) { 
+				if ( self.pickerMeri.val() === o.meridiemLetters[0] ) { 
+					self.pickerMeri.val(o.meridiemLetters[1]);
+					self._offset('h',12,false);
+				} else {
+					self.pickerMeri.val(o.meridiemLetters[0]);
+					self._offset('h',-12,false);
+				}
+			}
+		} else {
+			if ( o.fieldsOrder[fieldOrder] === 'y' ) { 
+				if ( o.maxYear === false || (self.theDate.getFullYear() + 1 <= o.maxYear) ) { 
+					self._offset('y',1,false);
+				}
+			}
+			else { self._offset(o.fieldsOrder[fieldOrder],1,false); }
+		}
+	
+		self._update();
+	},
+	_decrementField: function(fieldOrder) {
+		var o = this.options,
+			self = this;
+		fieldOrder = parseInt(fieldOrder, 10);
+			
+		if ( o.mode === 'timebox' ) {
+			if ( fieldOrder === 0 ) { self._offset('h',-1,false); }
+			if ( fieldOrder === 1 ) {
+				if ( (self.theDate.getMinutes() % o.minuteStep) === 0 ) {
+					self._offset('i', -1 * o.minuteStep, false);
+				} else {
+					self._offset('i', -1 * (self.theDate.getMinutes() % o.minuteStep), false);
+				}
+			}
+			if ( fieldOrder === 2 && o.timeFormat === 12 ) { 
+				if ( self.pickerMeri.val() === o.meridiemLetters[0] ) { 
+					self.pickerMeri.val(o.meridiemLetters[1]);
+					self._offset('h',12,false);
+				} else {
+					self.pickerMeri.val(o.meridiemLetters[0]);
+					self._offset('h',-12,false);
+				}
+			}
+		} else {
+			if ( o.fieldsOrder[fieldOrder] === 'y' ) {
+				if ( o.minYear === false || ( self.theDate.getFullYear() - 1 >= o.minYear ) ) { 
+					self._offset('y',-1,false);
+				}
+			}
+			else { self._offset(o.fieldsOrder[fieldOrder],-1,false); }
+		}
+		this._update();
 	},
 	_update: function() {
 		var self = this,
@@ -549,64 +622,6 @@
 			}
 		}
 	},
-	open: function() {
-		this.input.trigger('change').blur();
-		
-		var self = this,
-			o = this.options,
-			inputOffset = self.focusedEl.offset(),
-			pickWinHeight = self.pickerContent.outerHeight(),
-			pickWinWidth = self.pickerContent.innerWidth(),
-			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
-			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2),
-			windowWidth = $(document).width();
-
-		if ( o.useInline ) { return false; }
-					
-		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
-			pickWinTop = $(document).height() - (pickWinHeight + 2);
-		}
-		if ( pickWinTop < 45 ) { pickWinTop = 45; }
-		
-		if ( ( windowWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
-			self.options.useDialog = false;
-			if ( o.useModal ) {
-				self.screen.fadeIn('slow');
-			} else {
-				self.screen.removeClass('ui-datebox-hidden');
-			}
-			self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).removeClass('ui-datebox-hidden');
-		} else {
-			self.options.useDialog = true;
-			self.pickPageContent.append(self.pickerContent);
-			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'}).removeClass('ui-overlay-shadow ui-datebox-hidden');
-			$.mobile.changePage(self.pickPage, 'pop', false, true);
-		}
-	},
-	close: function() {
-		var self = this,
-			callback;
-
-		if ( self.options.useInline ) {
-			return true;
-		}
-
-		if ( self.options.useDialog ) {
-			$(self.pickPage).dialog('close');
-			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex);
-			self.thisPage.append(self.pickerContent);
-		} else {
-			if ( self.options.useModal ) {
-				self.screen.fadeOut('slow');
-			} else {
-				self.screen.addClass('ui-datebox-hidden');
-			}
-			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex).removeClass('in');
-		}
-		self.focusedEl.removeClass('ui-focus');
-		
-		if ( self.options.closeCallback !== false ) { callback = new Function(self.options.closeCallback); callback(); }
-	},
 	_create: function() {
 		var self = this,
 			o = $.extend(this.options, this.element.data('options')),
@@ -681,73 +696,6 @@
 		if ( input.is(':disabled') ) {
 			self.disable();
 		}
-	},
-	_incrementField: function(fieldOrder) {
-		fieldOrder = parseInt(fieldOrder, 10);
-		var o = this.options,
-			self = this;
-		
-		if ( o.mode === 'timebox' ) {
-			if ( fieldOrder === 0 ) { self._offset('h',1,false); }
-			if ( fieldOrder === 1 ) {
-				if ( ( self.theDate.getMinutes() % o.minuteStep ) === 0 ) { 
-					self._offset('i',o.minuteStep,false);
-				} else { 
-					self._offset('i',(o.minuteStep - ( self.theDate.getMinutes() % o.minuteStep )),false);
-				}
-			}
-			if ( fieldOrder === 2 && o.timeFormat === 12 ) { 
-				if ( self.pickerMeri.val() === o.meridiemLetters[0] ) { 
-					self.pickerMeri.val(o.meridiemLetters[1]);
-					self._offset('h',12,false);
-				} else {
-					self.pickerMeri.val(o.meridiemLetters[0]);
-					self._offset('h',-12,false);
-				}
-			}
-		} else {
-			if ( o.fieldsOrder[fieldOrder] === 'y' ) { 
-				if ( o.maxYear === false || (self.theDate.getFullYear() + 1 <= o.maxYear) ) { 
-					self._offset('y',1,false);
-				}
-			}
-			else { self._offset(o.fieldsOrder[fieldOrder],1,false); }
-		}
-	
-		self._update();
-	},
-	_decrementField: function(fieldOrder) {
-		var o = this.options,
-			self = this;
-		fieldOrder = parseInt(fieldOrder, 10);
-			
-		if ( o.mode === 'timebox' ) {
-			if ( fieldOrder === 0 ) { self._offset('h',-1,false); }
-			if ( fieldOrder === 1 ) {
-				if ( (self.theDate.getMinutes() % o.minuteStep) === 0 ) {
-					self._offset('i', -1 * o.minuteStep, false);
-				} else {
-					self._offset('i', -1 * (self.theDate.getMinutes() % o.minuteStep), false);
-				}
-			}
-			if ( fieldOrder === 2 && o.timeFormat === 12 ) { 
-				if ( self.pickerMeri.val() === o.meridiemLetters[0] ) { 
-					self.pickerMeri.val(o.meridiemLetters[1]);
-					self._offset('h',12,false);
-				} else {
-					self.pickerMeri.val(o.meridiemLetters[0]);
-					self._offset('h',-12,false);
-				}
-			}
-		} else {
-			if ( o.fieldsOrder[fieldOrder] === 'y' ) {
-				if ( o.minYear === false || ( self.theDate.getFullYear() - 1 >= o.minYear ) ) { 
-					self._offset('y',-1,false);
-				}
-			}
-			else { self._offset(o.fieldsOrder[fieldOrder],-1,false); }
-		}
-		this._update();
 	},
 	_buildPage: function () {
 		var self = this,
@@ -1016,6 +964,67 @@
 			self.pickerContent.removeClass('ui-datebox-hidden');
 		}
 			
+	},
+	refresh: function() {
+		this._update();
+	},
+	open: function() {
+		this.input.trigger('change').blur();
+		
+		var self = this,
+			o = this.options,
+			inputOffset = self.focusedEl.offset(),
+			pickWinHeight = self.pickerContent.outerHeight(),
+			pickWinWidth = self.pickerContent.innerWidth(),
+			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
+			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2),
+			windowWidth = $(document).width();
+
+		if ( o.useInline ) { return false; }
+					
+		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
+			pickWinTop = $(document).height() - (pickWinHeight + 2);
+		}
+		if ( pickWinTop < 45 ) { pickWinTop = 45; }
+		
+		if ( ( windowWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
+			self.options.useDialog = false;
+			if ( o.useModal ) {
+				self.screen.fadeIn('slow');
+			} else {
+				self.screen.removeClass('ui-datebox-hidden');
+			}
+			self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).removeClass('ui-datebox-hidden');
+		} else {
+			self.options.useDialog = true;
+			self.pickPageContent.append(self.pickerContent);
+			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'}).removeClass('ui-overlay-shadow ui-datebox-hidden');
+			$.mobile.changePage(self.pickPage, 'pop', false, true);
+		}
+	},
+	close: function() {
+		var self = this,
+			callback;
+
+		if ( self.options.useInline ) {
+			return true;
+		}
+
+		if ( self.options.useDialog ) {
+			$(self.pickPage).dialog('close');
+			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex);
+			self.thisPage.append(self.pickerContent);
+		} else {
+			if ( self.options.useModal ) {
+				self.screen.fadeOut('slow');
+			} else {
+				self.screen.addClass('ui-datebox-hidden');
+			}
+			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex).removeClass('in');
+		}
+		self.focusedEl.removeClass('ui-focus');
+		
+		if ( self.options.closeCallback !== false ) { callback = new Function(self.options.closeCallback); callback(); }
 	},
 	disable: function(){
 		this.element.attr("disabled",true);
