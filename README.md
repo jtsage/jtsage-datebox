@@ -133,6 +133,7 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(all)_ __useInlineHideInput__ : When using inline mode, do not show the input box. _(false)_
 * _(all)_ __titleDialogLabel__: Dialog label override. _(false)_
 * _(all)_ __closeCallback__ : A function to run on DateBox close. _(false)_
+* _(all)_ __swipeEnabled__ : Swipe gestures active (only cal / slide for now). _(true)_
 * _(android)_ __setDateButtonLabel__ : The label displayed in the set date button. _(Set Date)_
 * _(calendar)_ __calShowDays__ : Boolean show day names in grid. _(true)_
 * _(calendar)_ __calShowOnlyMonth__ : show *only* this month, do not fill in empty boxes. _(false)_
@@ -141,3 +142,45 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(time)_ __titleTimeDialogLabel__: Dialog label for time mode. _(Set Time)_
 
 To disable the element, use the standard disabled='disabled' in your markup.
+
+Runtime Operation (Scripting / Extending)
+-----------------------------------------
+
+The plugin supports a number of public functions:
+
+* $('element').datebox('open'); _// Open the DateBox control_
+
+* $('element').datebox('close'); _// Close the DateBox control_
+
+* $('element').datebox('disable'); _// Disable the DateBox control_
+
+* $('element').datebox('enable'); _// Enable the DateBox control_
+
+* $('element').datebox('refresh'); _// Force the DateBox control to refresh it's display (see below)_
+
+The following options **can** be changed after initialization (i.e. in per-page scripts after load). Almost all will require you to refresh the control.
+
+* Data limiting:
+  * minDays & maxDays & afterToday
+  * minYear & maxYear
+  * blackDays & blackDates
+  * calWeekMode & calWeekModeFirstDay
+  * minuteStep
+* Display / Internationalization:
+  * calStartDay
+  * daysOfWeek, daysOfWeekShort, monthsOfYear, monthsOfYearShort, headerFormat
+  * dateFormat _(probably - it will throw off reopens though)_
+  * Dialog mode forcing (either on or off)
+* Any of the calendar of slide mode themes (except the base theme) & disabledDayColor & calWeekModeHighLight
+* closeCallback
+  
+The following options happen to early, and cannot be changed post-initialization by script events.
+
+* Operation mode
+* Any of the labels on buttons / window titles.
+* Any of the themes on the datebox or time modes.
+* Any of the options related to inline display
+* noButtonFocusMode, useModal, zindex, noAnimation, timeFormat, fieldsOrder
+
+
+  
