@@ -3,7 +3,7 @@ jQuery-Mobile-DateBox
 
 DateBox is a jQuery-mobile based date and time picker.
 
-This folder contains the build scripts for DateBox.  
+This folder contains the pre-built scripts for DateBox, and the build script (make.pl)
 
 **NOTE:** Up-to-date versions are always available to link to,
 at http://dev.jtsage.com/cdb/datebox/latest/
