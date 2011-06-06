@@ -234,6 +234,7 @@
 			i, gridWeek, gridDay, skipThis, thisRow, y, cTheme, inheritDate,
 			calmode = {};
 			
+		/* BEGIN:TIMEBOX */
 		if ( o.mode === 'timebox' ) {
 			self.pickerMins.val(self._zeroPad(self.theDate.getMinutes()));
 			if ( o.timeFormat === 12 ) {
@@ -256,6 +257,8 @@
 				self.pickerHour.val(self.theDate.getHours());
 			}
 		}
+		/* END:TIMEBOX */
+		/* BEGIN:SLIDEBOX */
 		if ( o.mode === 'slidebox' ) {
 			if ( o.afterToday !== false ) {
 				testDate = new Date();
@@ -360,6 +363,8 @@
 				thisRow.appendTo(self.controlsInput);
 			}
 		}
+		/* END:SLIDEBOX */
+		/* BEGIN:DATEBOX */
 		if ( o.mode === 'datebox' ) {
 			if ( o.afterToday !== false ) {
 				testDate = new Date();
@@ -390,6 +395,8 @@
 			self.pickerDay.val(self.theDate.getDate());
 			self.pickerYar.val(self.theDate.getFullYear());
 		}
+		/* END:DATEBOX */
+		/* BEGIN:CALBOX */
 		if ( o.mode === 'calbox' ) { // Meat and potatos - make the calendar grid.
 			self.controlsInput.text( o.monthsOfYear[self.theDate.getMonth()] + " " + self.theDate.getFullYear() );
 			self.controlsSet.html('');
@@ -529,6 +536,7 @@
 				}
 			}
 		}
+		/* END:CALBOX */
 	},
 	_create: function() {
 		var self = this,
@@ -557,6 +565,8 @@
 			pickPageContent = pickPage.find( ".ui-content" );
 			
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
+		
+		/* BUILD:MODE */
 			
 		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
@@ -626,6 +636,7 @@
 		
 		if ( o.noAnimation ) { pickerContent.removeClass('pop');	}
 		
+		/* BEGIN:TIMEBOX */
 		if ( o.mode === 'timebox' ) {
 			controlsPlus = templControls.clone().appendTo(pickerContent);
 			controlsInput = templControls.clone().appendTo(pickerContent);
@@ -703,6 +714,8 @@
 			
 			pickerContent.appendTo(self.thisPage);
 		}
+		/* END:TIMEBOX */
+		/* BEGIN:DATEBOX */
 		if ( o.mode === 'datebox' ) {
 			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4");
 			controlsPlus = templControls.clone().appendTo(pickerContent);
@@ -780,6 +793,8 @@
 			
 			pickerContent.appendTo(self.thisPage);
 		}
+		/* END:DATEBOX */
+		/* BEGIN:CALBOX */
 		if ( o.mode === 'calbox' ) {
 			controlsHeader = $("<div>", {"class": 'ui-datebox-gridheader'}).appendTo(pickerContent);
 			controlsSet = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(pickerContent);
@@ -836,6 +851,8 @@
 			
 			pickerContent.appendTo(self.thisPage);
 		}
+		/* END:CALBOX */
+		/* BEGIN:SLIDEBOX */
 		if ( o.mode === 'slidebox' ) {
 			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4");
 			controlsInput = $('<div>').addClass('ui-datebox-slide').appendTo(pickerContent);
@@ -856,6 +873,7 @@
 			
 			pickerContent.appendTo(self.thisPage);
 		}
+		/* END:SLIDEBOX */
 
 		$.extend(self, {
 			pickerContent: pickerContent,
