@@ -889,6 +889,9 @@
 			
 	},
 	refresh: function() {
+		if ( this.options.useInline === true ) {
+			this.input.trigger('change');
+		}
 		this._update();
 	},
 	open: function() {
