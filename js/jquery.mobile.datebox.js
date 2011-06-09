@@ -296,6 +296,10 @@
 		/* END:DURATIONBOX */
 		/* BEGIN:TIMEBOX */
 		if ( o.mode === 'timebox' ) {
+			if ( o.minuteStep !== 1 ) {
+				i = self.theDate.getMinutes() % o.minuteStep;
+				if ( i !== 0 ) { self.theDate.setMinutes(self.theDate.getMinutes() - i); }
+			}
 			self.pickerMins.val(self._zeroPad(self.theDate.getMinutes()));
 			if ( o.timeFormat === 12 ) {
 				if ( self.theDate.getHours() > 11 ) {
@@ -797,7 +801,7 @@
 			
 			if ( o.wheelExists ) {
 					pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', (d<0)?-1:1); });
-					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', (d<0)?-1:1); });
+					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.minuteStep); });
 					pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', d); });
 				}
 			
@@ -819,7 +823,7 @@
 					.attr('data-field', ['h','i','a'][x])
 					.bind('vclick', function(e) {
 						e.preventDefault();
-						self._offset($(this).attr('data-field'),1);
+						self._offset($(this).attr('data-field'),1*($(this).attr('data-field')==='i'?o.minuteStep:1));
 					});
 					
 				linkdiv.clone()
@@ -827,7 +831,7 @@
 					.attr('data-field', ['h','i','a'][x])
 					.bind('vclick', function(e) {
 						e.preventDefault();
-						self._offset($(this).attr('data-field'),-1);
+						self._offset($(this).attr('data-field'),-1*($(this).attr('data-field')==='i'?o.minuteStep:1));
 					});
 			}
 			
