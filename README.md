@@ -13,6 +13,7 @@ DateBox Features
   * Calendar style date picker
   * Slide style date picker
   * 12 and 24 hour time picker
+  * Duration time picker
 
 * 4 Different display modes:
   * Standard, click-outside-to-close popup mode
@@ -84,6 +85,11 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(android)_ __fieldsOrder__ : Define the order of the fields. _(['m', 'd', 'y'])_
 * _(cal/slide)_ __daysOfWeekShort__ : An Array of abreviations for days of the week. _(['Su', 'Mo', ... 'Sa'])_
 * _(slide)_ __monthsOfYearShort__ : An Array of abbreviations for the months. _(['Jan', 'Feb', ... 'Dec'])_
+* _(duration)_ __durationLabel__ : An Array of the parts of the duration. _('Days', 'Hours', 'Minutes', 'Seconds')_
+* _(duration)_ __durationDays__ : An Array of the singular and plural name for days. _('Day', 'Days')_
+* _(duration)_ __durationShort__ : Use the shortest mode possible to display duration. _(true)_
+* _(duration)_ __durationNoDays__ : Do not break off days from duration, only h:i:s. _(false)_
+* _(duration)_ __durationSteppers__ : An object of the amount to step each part of the duration. _({'d':1, 'h':1, 'i':1, 's':1})_
 * _(all date)_ __monthsOfYear__ : An Array of months of the year. _(['January', 'February', ... 'December'])_
 * _(all date)_ __headerFormat__ : Return header format. _(ddd, mmm dd, YYYY)_
   * __YYYY__ : 4 Digit Year
@@ -124,6 +130,7 @@ These can be passed to datebox via an object set at the data-options attribute, 
   * __calbox__ : Calendar Datepicker
   * __timebox__ : Android Style Time Picker
   * __slidebox__ : Slide Style Datepicker
+  * __durationbox__: Duration Style Time Picker
 * _(all)_ __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size. _(false)_
 * _(all)_ __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size. _(false)_
 * _(all)_ __useModal__ : Use modal styling (background fades out) on popup. _(false)_
@@ -137,12 +144,20 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(android)_ __setDateButtonLabel__ : The label displayed in the set date button. _(Set Date)_
 * _(calendar)_ __calShowDays__ : Boolean show day names in grid. _(true)_
 * _(calendar)_ __calShowOnlyMonth__ : show *only* this month, do not fill in empty boxes. _(false)_
+* _(duration)_ __setDurationButtonLabel__ : The label displayed in the set duration button. _(Set Duration)_
 * _(all date)_ __titleDateDialogLabel__: Dialog label for date mode. _(Set Date)_
 * _(time)_ __setTimeButtonLabel__ : The label displayed in the set time button. _(Set Time)_
 * _(time)_ __titleTimeDialogLabel__: Dialog label for time mode. _(Set Time)_
 
 To disable the element, use the standard disabled='disabled' in your markup.
 
+**Value Notes (durationbox) - Supported initial strings**:
+
+* _seconds_ : 140
+* _minutes:seconds_ : 121:10
+* _hours:minutes:seconds_ : 34:12:10
+* _days string, hours:minutes:seconds_ : 3 ignored, 03:12:10
+ 
 Runtime Operation (Scripting / Extending)
 -----------------------------------------
 

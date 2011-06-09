@@ -26,6 +26,10 @@
 .ui-datebox-header h4 { margin-top: 5px; margin-bottom: 5px; text-align: center; }
 .ui-datebox-controls { text-align: center; }
 .ui-datebox-controls div { width: 77px; text-align: center; display: inline-block; }
+.ui-datebox-scontrols { text-align: center; }
+.ui-datebox-scontrols div { width: 55px; text-align: center; display: inline-block; }
+.ui-datebox-scontrols .ui-datebox-sinput { width: 68px; }
+.ui-datebox-scontrols .ui-datebox-sinput input { width: 48px; text-align: center; }
 .ui-datebox-input { width: 74px !important; margin-left: 1px; margin-right: 1px; text-align: center !important; display: inline-block !important; }
 
 /* Slide Mode Styles */

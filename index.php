@@ -35,26 +35,25 @@
 		<div data-role="collapsible" data-collapsed="true">
 			<h3>Available Modes (src line: 35)</h3>
 			<div data-role="fieldcontain"><!-- Date Picker, Android Styling -->
-				<label for="defandroid">Date Picker, Android Style</label>
-				<input value="2011-01-01" name="defandroid" type="date" data-role="datebox" id="defandroid" />
+				<label for="defandroid">Date Picker, Android Style</label><input value="2011-01-01" name="defandroid" type="date" data-role="datebox" id="defandroid" />
 			</div>
 			<div data-role="fieldcontain"><!-- Date Picker, Calendar Display -->
-				<label for="defcal">Date Picker, Calendar Style</label>
-				<input name="defcal" type="date" data-role="datebox" id="defcal" data-options='{"mode": "calbox"}'/>
+				<label for="defcal">Date Picker, Calendar Style</label><input name="defcal" type="date" data-role="datebox" id="defcal" data-options='{"mode": "calbox"}'/>
 			</div>
 			<div data-role="fieldcontain"><!-- Date Picker, Slide Display -->
-				<label for="slide">Date Picker, Slide Style</label>
-				<input value="2012-04-25" name="slide" type="date" data-options='{"mode": "slidebox"}' data-role="datebox" id="slide" />
+				<label for="slide">Date Picker, Slide Style</label><input value="2012-04-25" name="slide" type="date" data-options='{"mode": "slidebox"}' data-role="datebox" id="slide" />
 			</div>
 			<div data-role="fieldcontain"><!-- Time Picker, 12 Hour Clock -->
-				<label for="time12">Time Picker, 12 Hour Clock</label>
-				<input value="8:03 AM" name="time12" type="text" data-options='{"mode": "timebox", "timeFormat": 12}' data-role="datebox" id="time12" />
+				<label for="time12">Time Picker, 12 Hour Clock</label><input value="8:03 AM" name="time12" type="text" data-options='{"mode": "timebox", "timeFormat": 12}' data-role="datebox" id="time12" />
 			</div>
 			<div data-role="fieldcontain"><!-- Time Picker, 24 Hour Clock -->
-				<label for="time24">Time Picker, 24 Hour Clock</label>
-				<input value="10:22" name="time24" type="text" data-options='{"mode": "timebox"}' data-role="datebox" id="time24" />
+				<label for="time24">Time Picker, 24 Hour Clock</label><input value="10:22" name="time24" type="text" data-options='{"mode": "timebox"}' data-role="datebox" id="time24" />
+			</div>
+			<div data-role="fieldcontain"><!-- Duration Picker -->
+				<label for="dur">Duration Picker</label><input value="5 Days, 04:03:02" name="dur" type="text" data-role="datebox" data-options='{"mode": "durationbox"}' id="dur" />
 			</div>
 		</div>
+		
 		<div data-role="collapsible" data-collapsed="true">
 			<h3>Advanced Option Demos</h3><div data-role="collapsible-set">
 			
@@ -295,6 +294,15 @@
 					<input name="linkdate" type="date" data-role="datebox" data-options='{"closeCallback": "$(\"#linktime\").datebox(\"open\");"}' id="linkdate" />
 					<label for="linktime">Some Time</label>
 					<input name="linktime" type="text" data-role="datebox" data-options='{"mode": "timebox", "timeFormat": 12, "noButton": true}' id="linktime" />
+				</div>
+			</div>
+			
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Duration Picker with options (src line: 301)</h3>
+				<p>A duration picker with 15 minute stepping, and no DAY display</p>
+				<div data-role="fieldcontain">
+					<label for="dur2">Some Duration</label>
+					<input name="dur2" type="text" data-role="datebox" data-options='{"mode": "durationbox", "durationNoDays":true, "durationSteppers":{"d":1,"h":1,"i":15,"s":1}}' id="dur2" />
 				</div>
 			</div>
 			

@@ -14,6 +14,7 @@ Varients built
  * calbox Mode Only version
  * slidebox Mode Only version
  * timebox Mode Only version
+ * durationbox Mode Only version
  * Minimized version of the combined script
  
 Usage
