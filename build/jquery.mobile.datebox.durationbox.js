@@ -281,31 +281,20 @@
 			i, gridWeek, gridDay, skipThis, thisRow, y, cTheme, inheritDate,
 			calmode = {};
 			
-		/* CLIP:DURATIONBOX */
-		/* BEGIN:TIMEBOX */
-		if ( o.mode === 'timebox' ) {
-			self.pickerMins.val(self._zeroPad(self.theDate.getMinutes()));
-			if ( o.timeFormat === 12 ) {
-				if ( self.theDate.getHours() > 11 ) {
-					self.pickerMeri.val(o.meridiemLetters[1]);
-					if ( self.theDate.getHours() === 12 ) {
-						self.pickerHour.val(12);
-					} else {
-						self.pickerHour.val(self.theDate.getHours() - 12);
-					}
-				} else {
-					self.pickerMeri.val(o.meridiemLetters[0]);
-					if ( self.theDate.getHours() === 0 ) {
-						self.pickerHour.val(12);
-					} else {
-						self.pickerHour.val(self.theDate.getHours());
-					}
-				}
-			} else {
-				self.pickerHour.val(self.theDate.getHours());
-			}
+		/* BEGIN:DURATIONBOX */
+		if ( o.mode === 'durationbox' ) {
+			i = ((self.theDate.getTime() - self.theDate.getMilliseconds()) / 1000) - ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000);
+			if ( i<0 ) { i = 0; self.theDate.setTime(self.initDate.getTime()); }
+			y = parseInt( i / (60*60*24),10); i = i-(y*60*60*24); // Days
+			self.pickerDay.val(y);
+			y = parseInt( i / (60*60), 10); i = i-(y*60*60); // Hours
+			self.pickerHour.val(y);
+			y = parseInt( i / (60), 10); i = i-(y*60); // Mins
+			self.pickerMins.val(y);
+			self.pickerSecs.val(parseInt(i,10));
 		}
-		/* END:TIMEBOX */
+		/* END:DURATIONBOX */
+		/* CLIP:TIMEBOX */
 		/* CLIP:SLIDEBOX */
 		/* CLIP:DATEBOX */
 		/* CLIP:CALBOX */
@@ -339,7 +328,7 @@
 			
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
 		
-		o.mode = 'timebox'
+		o.mode = 'durationbox'
 			
 		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
@@ -410,52 +399,34 @@
 		
 		if ( o.noAnimation ) { pickerContent.removeClass('pop');	}
 		
-		/* CLIP:DURATIONBOX */
-		/* BEGIN:TIMEBOX */
-		if ( o.mode === 'timebox' ) {
-			controlsPlus = templControls.clone().appendTo(pickerContent);
-			controlsInput = templControls.clone().appendTo(pickerContent);
-			controlsMinus = templControls.clone().appendTo(pickerContent);
+		/* BEGIN:DURATIONBOX */
+		if ( o.mode === 'durationbox' ) {
+			controlsPlus = templControls.clone().removeClass('ui-datebox-controls').addClass('ui-datebox-scontrols').appendTo(pickerContent);
+			controlsInput = controlsPlus.clone().appendTo(pickerContent);
+			controlsMinus = controlsPlus.clone().appendTo(pickerContent);
 			controlsSet = templControls.clone().appendTo(pickerContent);
+			
+			pickerDay = templInput.removeClass('ui-datebox-input').clone()
+				.keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
 				
-			pickerHour = templInput.clone()
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						newHour = parseInt($(this).val(),10);
-						if ( newHour === 12 ) {
-							if ( o.timeFormat === 12 && pickerMeri.val() === o.meridiemLetters[0] ) { newHour = 0; }
-						}
-						self.theDate.setHours(newHour);
-						self._update();
-					}
-				});
-				
-			pickerMins = templInput.clone()
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						self.theDate.setMinutes(parseInt($(this).val(),10));
-						self._update();
-					}
-				});
-				
-			pickerMeri = templInput.clone()
-				.keyup(function() {
-					if ( $(this).val() !== '' ) {
-						self._update();
-					}
-				});
+			pickerHour = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
+			pickerMins = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
+			pickerSecs = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
 			
 			if ( o.wheelExists ) {
+					pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', (d<0)?-1:1); });
 					pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', (d<0)?-1:1); });
 					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', (d<0)?-1:1); });
-					pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', d); });
+					pickerSecs.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('s', (d<0)?-1:1); });
 				}
 			
-			pickerHour.appendTo(controlsInput);
-			pickerMins.appendTo(controlsInput);
-			if ( o.timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
+			$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.durationLabel[0]+'</label>');
+			$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.durationLabel[1]+'</label>');
+			$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.durationLabel[2]+'</label>');
+			$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.durationLabel[3]+'</label>');
 			
-			$("<a href='#'>" + o.setTimeButtonLabel + "</a>")
+			
+			$("<a href='#'>" + o.setDurationButtonLabel + "</a>")
 				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 				.click(function(e) {
 					e.preventDefault();
@@ -463,18 +434,18 @@
 					self.close();
 				});
 				
-			for ( x=0; x<((o.timeFormat === 12)?3:2); x++ ) {
+			for ( x=0; x<4; x++ ) {
 				linkdiv.clone()
 					.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-					.attr('data-field', ['h','i','a'][x])
+					.attr('data-field', ['d','h','i','s'][x])
 					.bind('vclick', function(e) {
 						e.preventDefault();
-						self._offset($(this).attr('data-field'),1);
+						self._offset($(this).attr('data-field'),o.durationSteppers[$(this).attr('data-field')]);
 					});
 					
 				linkdiv.clone()
 					.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-					.attr('data-field', ['h','i','a'][x])
+					.attr('data-field', ['d','h','i','s'][x])
 					.bind('vclick', function(e) {
 						e.preventDefault();
 						self._offset($(this).attr('data-field'),-1);
@@ -484,12 +455,14 @@
 			$.extend(self, {
 				pickerHour: pickerHour,
 				pickerMins: pickerMins,
-				pickerMeri: pickerMeri
+				pickerDay: pickerDay,
+				pickerSecs: pickerSecs
 			});
 			
 			pickerContent.appendTo(self.thisPage);
 		}
-		/* END:TIMEBOX */
+		/* END:DURATIONBOX */
+		/* CLIP:TIMEBOX */
 		/* CLIP:DATEBOX */
 		/* CLIP:CALBOX */
 		/* CLIP:SLIDEBOX */

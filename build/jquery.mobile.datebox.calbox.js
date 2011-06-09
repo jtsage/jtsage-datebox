@@ -21,8 +21,9 @@
 		swipeEnabled: true,
 		zindex: '500',
 		
-		setDateButtonLabel: 'Set date',
-		setTimeButtonLabel: 'Set time',
+		setDateButtonLabel: 'Set Date',
+		setTimeButtonLabel: 'Set Time',
+		setDurationButtonLabel: 'Set Duration',
 		titleDateDialogLabel: 'Set Date',
 		titleTimeDialogLabel: 'Set Time',
 		titleDialogLabel: false,
@@ -31,6 +32,8 @@
 		daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
 		monthsOfYearShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+		durationLabel: ['Days', 'Hours', 'Minutes', 'Seconds'],
+		durationDays: ['Day', 'Days'],
 		timeFormat: 24,
 		
 		mode: 'datebox',
@@ -61,6 +64,9 @@
 		minDays: false,
 		blackDays: false,
 		blackDates: false,
+		durationNoDays: false,
+		durationShort: true,
+		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1},
 		disabledDayColor: '#888'
 	},
 	_zeroPad: function(number) {
@@ -104,9 +110,25 @@
 	},
 	_formatTime: function(date) {
 		var self = this,
-			hours = '0',
+			hours = '0', h,
+			i, y, days = '',
 			meri = 0;
 			
+		if ( this.options.mode === 'durationbox' ) {
+			i = ((self.theDate.getTime() - self.theDate.getMilliseconds()) / 1000) - ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000);
+			y = parseInt( i / (60*60*24),10); // Days
+			if ( !self.options.durationNoDays ) {
+				days = (y===0) ? '' : String(y) + ' ' + ((y>1) ? this.options.durationDays[1]:this.options.durationDays[0]) + ', ';
+				i = i-(y*60*60*24);
+			}
+			h = parseInt( i / (60*60), 10); i = i-(h*60*60); // Hours
+			y = parseInt( i / (60), 10); i = i-(y*60); // Mins
+			if ( self.options.durationShort ) {
+				return days + ((h>0||days!=='')?self._zeroPad(h) + ':':'') + ((y>0||h>0||days!=='')?self._zeroPad(y) + ':':'') + ((y>0||h>0||days!=='')?self._zeroPad(parseInt(i, 10)):String(i));
+			} else {
+				return days + self._zeroPad(h) + ':' + self._zeroPad(y) + ':' + self._zeroPad(parseInt(i, 10));
+			}
+		}
 		if ( this.options.timeFormat === 12 ) {
 			if ( date.getHours() > 11 ) {
 				meri = 1;
@@ -125,6 +147,7 @@
 	_makeDate: function (str) {
 		str = $.trim(str);
 		var o = this.options,
+			self = this,
 			seperator = o.dateFormat.replace(/[myd ]/gi, "").substr(0,1),
 			parts = o.dateFormat.split(seperator),
 			data = str.split(seperator),
@@ -132,10 +155,31 @@
 			d_day = 1,
 			d_mon = 0,
 			d_yar = 2000,
+			seconds = 0,
 			timeRegex = { '12': /^([012]?[0-9]):([0-5][0-9])\s*(am?|pm?)?$/i, '24': /^([012]?[0-9]):([0-5][0-9])$/i },
+			durationRegex = /^(?:([0-9]+) .+, )?(?:([0-9]+):)?(?:([0-9]+):)?([0-9]+)$/i,
 			match = null,
 			i;
-			
+		
+		if ( o.mode === 'durationbox' ) {
+			match = durationRegex.exec(str);
+			if ( match === null ) {
+				return new Date(self.initDate.getTime());
+			} else {
+				seconds = ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000) + parseInt(match[4],10);
+				if ( typeof match[3] !== 'undefined' ) { seconds = seconds + (parseInt(match[3],10)*60); }
+				if ( typeof match[2] !== 'undefined' ) { 
+					if ( typeof match[3] === 'undefined' ) {
+						seconds = seconds + (parseInt(match[2],10)*60); 
+					} else {
+						seconds = seconds + (parseInt(match[2],10)*60*60); 
+					}
+				}
+				if ( typeof match[1] !== 'undefined' ) { seconds = seconds + (parseInt(match[1],10)*60*60*24); }
+				seconds = seconds * 1000;
+				return new Date(seconds);
+			}
+		}
 		if ( o.mode === 'timebox' ) {
 			
 			if ( o.timeFormat === 12 ) {
@@ -217,6 +261,9 @@
 			case 'i':
 				self.theDate.setMinutes(self.theDate.getMinutes() + amount);
 				break;
+			case 's':
+				self.theDate.setSeconds(self.theDate.getSeconds() + amount);
+				break;
 			case 'a':
 				if ( self.pickerMeri.val() === o.meridiemLetters[0] ) { 
 					self._offset('h',12,false);
@@ -234,6 +281,7 @@
 			i, gridWeek, gridDay, skipThis, thisRow, y, cTheme, inheritDate,
 			calmode = {};
 			
+		/* CLIP:DURATIONBOX */
 		/* CLIP:TIMEBOX */
 		/* CLIP:SLIDEBOX */
 		/* CLIP:DATEBOX */
@@ -385,6 +433,7 @@
 			input = this.element,
 			focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ o.theme +'"></div>').parent(),
 			theDate = new Date(),
+			initDate = new Date(theDate.getTime()),
 			dialogTitle = ((o.titleDialogLabel === false)?((o.mode==='timebox')?o.titleTimeDialogLabel:o.titleDateDialogLabel):o.titleDialogLabel),
 			openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
 				.bind('vclick', function (e) {
@@ -445,6 +494,7 @@
 			pickPageContent: pickPageContent,
 			input: input,
 			theDate: theDate,
+			initDate: initDate,
 			focusedEl: focusedEl
 		});
 		
@@ -464,7 +514,7 @@
 			templInput = $("<input type='text' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 			templControls = $("<div>", { "class":'ui-datebox-controls' }),
 			controlsPlus, controlsInput, controlsMinus, controlsSet, controlsHeader,
-			pickerHour, pickerMins, pickerMeri, pickerMon, pickerDay, pickerYar,
+			pickerHour, pickerMins, pickerMeri, pickerMon, pickerDay, pickerYar, pickerSecs,
 			calNoNext = false,
 			calNoPrev = false,
 			screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
@@ -477,6 +527,7 @@
 		
 		if ( o.noAnimation ) { pickerContent.removeClass('pop');	}
 		
+		/* CLIP:DURATIONBOX */
 		/* CLIP:TIMEBOX */
 		/* CLIP:DATEBOX */
 		/* BEGIN:CALBOX */
@@ -553,6 +604,9 @@
 			
 	},
 	refresh: function() {
+		if ( this.options.useInline === true ) {
+			this.input.trigger('change');
+		}
 		this._update();
 	},
 	open: function() {
