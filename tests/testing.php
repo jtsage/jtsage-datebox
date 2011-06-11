@@ -3,18 +3,18 @@
 <head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
 	<title>jQueryMobile - DateBox Demo</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
+	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" rel="stylesheet" type="text/css" />
 	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script> 
+	<script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
 	<script type="text/javascript">
 		$( document ).bind( "mobileinit", function(){
 			$.mobile.page.prototype.options.degradeInputs.date = 'text';
 		});	
 	</script>
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
 	
@@ -22,9 +22,10 @@
 <body>
 <div data-role="page" data-theme="a" id="main"> 
 	<div data-role="header"> 
-		<h1>jQueryMobile - DateBox Demo (1.0a4.1 base)</h1>
+		<h1>jQueryMobile - DateBox Demo (latset[testing] base)</h1>
 	</div>
 	<div data-role="content" data-theme="c">
+		<p>This demo page is using the latest jQueryMobile sources - it will probably break from time to time.</p>
 		<div data-role="collapsible">
 			<h3>All Default Demo (src line: 28)</h3>
 			<div data-role="fieldcontain">
@@ -307,18 +308,12 @@
 			</div>
 			
 		</div></div>
-		<div data-role="collapsible" data-collapsed="true">
-			<h3>Other Demos</h3>
-			<p>These other demos are my working pages - they break often.</p>
-			<p><a data-role="button" rel="external" href="/jQM-DateBox/tests/dev.php">Very simple devel overview.</a></p>
-			<p><a data-role="button" rel="external" href="/jQM-DateBox/tests/testing.php">This page, linked against jQM latest sources instead.</a></p>
-		</div>
 		<div data-role="collapsible">
 			<!-- NOTE: When running locally, just nuke this section, or go grab PHP Markdown -->
 			<h3>Readme File</h3>
 			<?php
-				include_once "../markdown.php";
-				$md_text = file_get_contents("README.md");
+				include_once "../../markdown.php";
+				$md_text = file_get_contents("../README.md");
 				echo Markdown($md_text);
 			?>
 		</div>
