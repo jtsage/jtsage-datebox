@@ -274,22 +274,48 @@
 		}
 		if ( update === true ) { self._update(); }
 	},
+	_updateduration: function() {
+		var self = this,
+			secs = (self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000;
+		
+		if ( !self._isInt(self.pickerDay.val())  ) { self.pickerDay.val(0); }
+		if ( !self._isInt(self.pickerHour.val()) ) { self.pickerHour.val(0); }
+		if ( !self._isInt(self.pickerMins.val()) ) { self.pickerMins.val(0); }
+		if ( !self._isInt(self.pickerSecs.val()) ) { self.pickerSecs.val(0); }
+		
+		secs = secs + (parseInt(self.pickerDay.val(),10) * 60 * 60 * 24);
+		secs = secs + (parseInt(self.pickerHour.val(),10) * 60 * 60);
+		secs = secs + (parseInt(self.pickerMins.val(),10) * 60);
+		secs = secs + (parseInt(self.pickerSecs.val(),10));
+		self.theDate.setTime( secs * 1000 );
+		self._update();
+	},
 	_update: function() {
 		var self = this,
 			o = self.options, 
 			testDate = null,
 			i, gridWeek, gridDay, skipThis, thisRow, y, cTheme, inheritDate,
+			interval = {'d': 60*60*24, 'h': 60*60, 'i': 60, 's':1},
 			calmode = {};
 			
 		/* BEGIN:DURATIONBOX */
 		if ( o.mode === 'durationbox' ) {
 			i = ((self.theDate.getTime() - self.theDate.getMilliseconds()) / 1000) - ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000);
 			if ( i<0 ) { i = 0; self.theDate.setTime(self.initDate.getTime()); }
-			y = parseInt( i / (60*60*24),10); i = i-(y*60*60*24); // Days
+			
+			/* DAYS */
+			y = parseInt( i / interval['d'],10); 
+			i = i - ( y * interval['d'] ); 
 			self.pickerDay.val(y);
-			y = parseInt( i / (60*60), 10); i = i-(y*60*60); // Hours
+			
+			/* HOURS */
+			y = parseInt( i / interval['h'], 10);
+			i = i - ( y * interval['h'] );
 			self.pickerHour.val(y);
-			y = parseInt( i / (60), 10); i = i-(y*60); // Mins
+			
+			/* MINS AND SECS */
+			y = parseInt( i / interval['i'], 10);
+			i = i - ( y * interval['i']); 
 			self.pickerMins.val(y);
 			self.pickerSecs.val(parseInt(i,10));
 		}
@@ -710,11 +736,11 @@
 			controlsSet = templControls.clone().appendTo(pickerContent);
 			
 			pickerDay = templInput.removeClass('ui-datebox-input').clone()
-				.keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
+				.keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
 				
-			pickerHour = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
-			pickerMins = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
-			pickerSecs = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
+			pickerHour = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
+			pickerMins = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
+			pickerSecs = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
 			
 			if ( o.wheelExists ) {
 					pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', ((d<0)?-1:1)*o.durationSteppers['d']); });
