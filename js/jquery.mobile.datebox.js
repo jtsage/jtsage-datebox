@@ -237,7 +237,7 @@
 						if ( exp_format[i].match(/^mm$/i) )   { date.setMonth(parseInt(exp_input[i],10)-1); }
 						if ( exp_format[i].match(/^yyyy$/i) ) { date.setYear(parseInt(exp_input[i],10)); }
 						if ( exp_format[i].match(/^mmm$/i) )  { 
-							exp_temp = o.monthsOfYear.indexOf(exp_input[i]);
+							exp_temp = $.inArray(exp_input[i], o.monthsOfYear);
 							if ( exp_temp > -1 ) {
 								date.setMonth(exp_temp);
 							}
