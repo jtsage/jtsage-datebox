@@ -40,7 +40,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="cc">Droid</label>
-			<input name="cc" type="date" data-role="datebox" data-options='{"mode": "datebox", "dateFormat": "ddd ddo mmm"}' id="cc" />
+			<input name="cc" type="date" data-role="datebox" data-options='{"mode": "datebox", "dateFormat": "ddd the ddSS of mmm in the year YYYY"}' id="cc" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="dd">Time</label>

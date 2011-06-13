@@ -97,8 +97,7 @@
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth()-1, 32)).getDate();
 	},
 	_formatter: function(format, date) {
-		format = format.replace('ddo', 'dd'+this._makeOrd(date.getDate()));
-		format = format.replace('DDo', 'DD'+this._makeOrd(date.getDate()));
+		format = format.replace('SS', this._makeOrd(date.getDate()));
 		format = format.replace('YYYY', date.getFullYear());
 		format = format.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
 		format = format.replace('MM',   this._zeroPad(date.getMonth() + 1));
@@ -222,12 +221,16 @@
 			return date;
 		} else {
 			if ( o.experimentalReg ) {
-				//console.log('EXPERMENTAL REGEX MODE!');
-				adv = adv.replace(/ddd|mmm|o/ig, '(.+?)');
+				console.log('EXPERMENTAL REGEX MODE!');
+				adv = adv.replace(/ddd|SS/g, '.+?');
+				adv = adv.replace(/mmm/g, '(.+?)');
 				adv = adv.replace(/yyyy|dd|mm/ig, '([0-9ydm]+)');
 				adv = RegExp('^' + adv + '$' , 'i');
 				exp_input = adv.exec(str);
 				exp_format = adv.exec(o.dateFormat);
+				console.log(adv);
+				console.log(exp_input);
+				console.log(exp_format);
 				
 				if ( exp_input === null || exp_input.length !== exp_format.length ) {
 					if ( o.defaultDate !== false ) {

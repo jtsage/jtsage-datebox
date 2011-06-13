@@ -99,14 +99,18 @@ These can be passed to datebox via an object set at the data-options attribute, 
   * __DD__ : 2 Digit Day (zero pad)
   * __dd__ : 1 or 2 Digit Day
   * __ddd__ : Day of week
-  * __o__ : Ordinal Suffix (4th, 3rd, 1st, etc)
+  * __SS__ : Ordinal Suffix (4th, 3rd, 1st, etc)
   * **NOTE** experimentalReg must be enabled for ordinals.
 * _(both date)_ __dateFormat__ : Return date format. _(YYYY-MM-DD)_
   * __YYYY__ : 4 Digit Year
   * __MM__ : 2 Digit Month (zero pad)
   * __mm__ : 1 or 2 Digit Month
+  * __mmm__ : Text Month
   * __DD__ : 2 Digit Day (zero pad)
   * __dd__ : 1 or 2 Digit Day
+  * __ddd__ : Day of week
+  * __SS__ : Ordinal Suffix (4th, 3rd, 1st, etc)
+  * **NOTE** experimentalReg must be enabled for ordinals.
 * _(time)_ __timeFormat__ : Either '12' or '24' - The clock mode, 12hr or 24hr. _(24)_
 * _(time)_ __meridiemLetters__ : Meridiem notation _(['AM', 'PM'])_
 
