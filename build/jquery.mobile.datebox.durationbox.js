@@ -20,6 +20,7 @@
 		wheelExists: false,
 		swipeEnabled: true,
 		zindex: '500',
+		experimentReg: false,
 		
 		setDateButtonLabel: 'Set Date',
 		setTimeButtonLabel: 'Set Time',
@@ -72,6 +73,12 @@
 	_zeroPad: function(number) {
 		return ( ( number < 10 ) ? "0" : "" ) + String(number);
 	},
+	_makeOrd: function (num) {
+		var ending = num % 10;
+		if ( num > 9 && num < 21 ) { return 'th'; }
+		if ( ending > 3 ) { return 'th'; }
+		return ['th','st','nd','rd'][ending];
+	},
 	_isInt: function (s) {
 			return (s.toString().search(/^[0-9]+$/) === 0);
 	},
@@ -90,6 +97,7 @@
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth()-1, 32)).getDate();
 	},
 	_formatter: function(format, date) {
+		format = format.replace('o', this._makeOrd(date.getDate()));
 		format = format.replace('YYYY', date.getFullYear());
 		format = format.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
 		format = format.replace('MM',   this._zeroPad(date.getMonth() + 1));
@@ -148,7 +156,11 @@
 		str = $.trim(str);
 		var o = this.options,
 			self = this,
-			seperator = o.dateFormat.replace(/[myd ]/gi, "").substr(0,1),
+			seperator = o.dateFormat.replace(/[mydo ]/gi, "").substr(0,1),
+			adv = o.dateFormat,
+			exp_input = null,
+			exp_format = null,
+			exp_temp = null,
 			parts = o.dateFormat.split(seperator),
 			data = str.split(seperator),
 			date = new Date(),
@@ -208,6 +220,33 @@
 			
 			return date;
 		} else {
+			if ( o.experimentalReg ) {
+				//console.log('EXPERMENTAL REGEX MODE!');
+				adv = adv.replace(/ddd|mmm|o/ig, '(.+?)');
+				adv = adv.replace(/yyyy|dd|mm/ig, '([0-9ydm]+)');
+				adv = RegExp('^' + adv + '$' , 'i');
+				exp_input = adv.exec(str);
+				exp_format = adv.exec(o.dateFormat);
+				
+				if ( exp_input === null || exp_input.length !== exp_format.length ) {
+					return new Date();
+				} else {
+					date = new Date();
+					for ( i=0; i<exp_input.length; i++ ) {
+						if ( exp_format[i].match(/^dd$/i) )   { date.setDate(parseInt(exp_input[i],10)); }
+						if ( exp_format[i].match(/^mm$/i) )   { date.setMonth(parseInt(exp_input[i],10)-1); }
+						if ( exp_format[i].match(/^yyyy$/i) ) { date.setYear(parseInt(exp_input[i],10)); }
+						if ( exp_format[i].match(/^mmm$/i) )  { 
+							exp_temp = o.monthsOfYear.indexOf(exp_input[i]);
+							if ( exp_temp > -1 ) {
+								date.setMonth(exp_temp);
+							}
+						}
+					}
+					return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0); // Normalize time.
+				}
+			}
+			
 			if ( parts.length !== data.length ) { // Unrecognized string in input
 				if ( o.defaultDate !== false ) {
 					date = new Date(o.defaultDate);
@@ -274,22 +313,48 @@
 		}
 		if ( update === true ) { self._update(); }
 	},
+	_updateduration: function() {
+		var self = this,
+			secs = (self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000;
+		
+		if ( !self._isInt(self.pickerDay.val())  ) { self.pickerDay.val(0); }
+		if ( !self._isInt(self.pickerHour.val()) ) { self.pickerHour.val(0); }
+		if ( !self._isInt(self.pickerMins.val()) ) { self.pickerMins.val(0); }
+		if ( !self._isInt(self.pickerSecs.val()) ) { self.pickerSecs.val(0); }
+		
+		secs = secs + (parseInt(self.pickerDay.val(),10) * 60 * 60 * 24);
+		secs = secs + (parseInt(self.pickerHour.val(),10) * 60 * 60);
+		secs = secs + (parseInt(self.pickerMins.val(),10) * 60);
+		secs = secs + (parseInt(self.pickerSecs.val(),10));
+		self.theDate.setTime( secs * 1000 );
+		self._update();
+	},
 	_update: function() {
 		var self = this,
 			o = self.options, 
 			testDate = null,
 			i, gridWeek, gridDay, skipThis, thisRow, y, cTheme, inheritDate,
+			interval = {'d': 60*60*24, 'h': 60*60, 'i': 60, 's':1},
 			calmode = {};
 			
 		/* BEGIN:DURATIONBOX */
 		if ( o.mode === 'durationbox' ) {
 			i = ((self.theDate.getTime() - self.theDate.getMilliseconds()) / 1000) - ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000);
 			if ( i<0 ) { i = 0; self.theDate.setTime(self.initDate.getTime()); }
-			y = parseInt( i / (60*60*24),10); i = i-(y*60*60*24); // Days
+			
+			/* DAYS */
+			y = parseInt( i / interval['d'],10); 
+			i = i - ( y * interval['d'] ); 
 			self.pickerDay.val(y);
-			y = parseInt( i / (60*60), 10); i = i-(y*60*60); // Hours
+			
+			/* HOURS */
+			y = parseInt( i / interval['h'], 10);
+			i = i - ( y * interval['h'] );
 			self.pickerHour.val(y);
-			y = parseInt( i / (60), 10); i = i-(y*60); // Mins
+			
+			/* MINS AND SECS */
+			y = parseInt( i / interval['i'], 10);
+			i = i - ( y * interval['i']); 
 			self.pickerMins.val(y);
 			self.pickerSecs.val(parseInt(i,10));
 		}
@@ -407,11 +472,11 @@
 			controlsSet = templControls.clone().appendTo(pickerContent);
 			
 			pickerDay = templInput.removeClass('ui-datebox-input').clone()
-				.keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
+				.keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
 				
-			pickerHour = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
-			pickerMins = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
-			pickerSecs = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._update(); } });
+			pickerHour = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
+			pickerMins = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
+			pickerSecs = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
 			
 			if ( o.wheelExists ) {
 					pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', ((d<0)?-1:1)*o.durationSteppers['d']); });
