@@ -99,6 +99,8 @@ These can be passed to datebox via an object set at the data-options attribute, 
   * __DD__ : 2 Digit Day (zero pad)
   * __dd__ : 1 or 2 Digit Day
   * __ddd__ : Day of week
+  * __o__ : Ordinal Suffix (4th, 3rd, 1st, etc)
+  * **NOTE** experimentalReg must be enabled for ordinals.
 * _(both date)_ __dateFormat__ : Return date format. _(YYYY-MM-DD)_
   * __YYYY__ : 4 Digit Year
   * __MM__ : 2 Digit Month (zero pad)
@@ -131,6 +133,7 @@ These can be passed to datebox via an object set at the data-options attribute, 
   * __timebox__ : Android Style Time Picker
   * __slidebox__ : Slide Style Datepicker
   * __durationbox__: Duration Style Time Picker
+* _(all date)_ __experimentalReg__ : Use the new experimantal regex input parser.  Please test! _(false)_
 * _(all)_ __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size. _(false)_
 * _(all)_ __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size. _(false)_
 * _(all)_ __useModal__ : Use modal styling (background fades out) on popup. _(false)_

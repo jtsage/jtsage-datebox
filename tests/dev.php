@@ -31,11 +31,11 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="bb">Slide</label>
-			<input name="bb" type="date" data-role="datebox" data-options='{"mode": "slidebox"}' id="bb" />
+			<input name="bb" type="date" data-role="datebox" data-options='{"experimentalReg": true, "mode": "slidebox"}' id="bb" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="cc">Droid</label>
-			<input name="cc" type="date" data-role="datebox" data-options='{"mode": "datebox"}' id="cc" />
+			<input name="cc" type="date" data-role="datebox" data-options='{"mode": "datebox", "experimentalReg": true, "dateFormat": "ddd ddo mmm"}' id="cc" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="dd">Time</label>

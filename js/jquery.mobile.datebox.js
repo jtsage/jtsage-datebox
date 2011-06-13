@@ -20,6 +20,7 @@
 		wheelExists: false,
 		swipeEnabled: true,
 		zindex: '500',
+		experimentReg: false,
 		
 		setDateButtonLabel: 'Set Date',
 		setTimeButtonLabel: 'Set Time',
@@ -72,6 +73,12 @@
 	_zeroPad: function(number) {
 		return ( ( number < 10 ) ? "0" : "" ) + String(number);
 	},
+	_makeOrd: function (num) {
+		var ending = num % 10;
+		if ( num > 9 && num < 21 ) { return 'th'; }
+		if ( ending > 3 ) { return 'th'; }
+		return ['th','st','nd','rd'][ending];
+	},
 	_isInt: function (s) {
 			return (s.toString().search(/^[0-9]+$/) === 0);
 	},
@@ -90,6 +97,7 @@
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth()-1, 32)).getDate();
 	},
 	_formatter: function(format, date) {
+		format = format.replace('o', this._makeOrd(date.getDate()));
 		format = format.replace('YYYY', date.getFullYear());
 		format = format.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
 		format = format.replace('MM',   this._zeroPad(date.getMonth() + 1));
@@ -148,7 +156,11 @@
 		str = $.trim(str);
 		var o = this.options,
 			self = this,
-			seperator = o.dateFormat.replace(/[myd ]/gi, "").substr(0,1),
+			seperator = o.dateFormat.replace(/[mydo ]/gi, "").substr(0,1),
+			adv = o.dateFormat,
+			exp_input = null,
+			exp_format = null,
+			exp_temp = null,
 			parts = o.dateFormat.split(seperator),
 			data = str.split(seperator),
 			date = new Date(),
@@ -208,6 +220,33 @@
 			
 			return date;
 		} else {
+			if ( o.experimentalReg ) {
+				//console.log('EXPERMENTAL REGEX MODE!');
+				adv = adv.replace(/ddd|mmm|o/ig, '(.+?)');
+				adv = adv.replace(/yyyy|dd|mm/ig, '([0-9ydm]+)');
+				adv = RegExp('^' + adv + '$' , 'i');
+				exp_input = adv.exec(str);
+				exp_format = adv.exec(o.dateFormat);
+				
+				if ( exp_input === null || exp_input.length !== exp_format.length ) {
+					return new Date();
+				} else {
+					date = new Date();
+					for ( i=0; i<exp_input.length; i++ ) {
+						if ( exp_format[i].match(/^dd$/i) )   { date.setDate(parseInt(exp_input[i],10)); }
+						if ( exp_format[i].match(/^mm$/i) )   { date.setMonth(parseInt(exp_input[i],10)-1); }
+						if ( exp_format[i].match(/^yyyy$/i) ) { date.setYear(parseInt(exp_input[i],10)); }
+						if ( exp_format[i].match(/^mmm$/i) )  { 
+							exp_temp = o.monthsOfYear.indexOf(exp_input[i]);
+							if ( exp_temp > -1 ) {
+								date.setMonth(exp_temp);
+							}
+						}
+					}
+					return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0); // Normalize time.
+				}
+			}
+			
 			if ( parts.length !== data.length ) { // Unrecognized string in input
 				if ( o.defaultDate !== false ) {
 					date = new Date(o.defaultDate);
