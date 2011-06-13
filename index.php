@@ -17,6 +17,11 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript">
+		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+             'experimentalReg': true
+         });
+	</script>
 	
 </head>
 <body>

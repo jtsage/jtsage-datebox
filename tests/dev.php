@@ -17,6 +17,11 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
+	<script type="text/javascript">
+		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+			'experimentalReg': true
+		});
+	</script>
 	
 </head>
 <body>
@@ -31,11 +36,11 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="bb">Slide</label>
-			<input name="bb" type="date" data-role="datebox" data-options='{"defaultDate": "hello", "experimentalReg": true, "mode": "slidebox"}' id="bb" />
+			<input name="bb" type="date" data-role="datebox" data-options='{"mode": "slidebox"}' id="bb" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="cc">Droid</label>
-			<input name="cc" type="date" data-role="datebox" data-options='{"mode": "datebox", "experimentalReg": true, "dateFormat": "ddd ddo mmm"}' id="cc" />
+			<input name="cc" type="date" data-role="datebox" data-options='{"mode": "datebox", "dateFormat": "ddd ddo mmm"}' id="cc" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="dd">Time</label>

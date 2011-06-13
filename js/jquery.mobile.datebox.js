@@ -20,7 +20,7 @@
 		wheelExists: false,
 		swipeEnabled: true,
 		zindex: '500',
-		experimentReg: false,
+		experimentalReg: false,
 		
 		setDateButtonLabel: 'Set Date',
 		setTimeButtonLabel: 'Set Time',
@@ -97,7 +97,8 @@
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth()-1, 32)).getDate();
 	},
 	_formatter: function(format, date) {
-		format = format.replace('o', this._makeOrd(date.getDate()));
+		format = format.replace('ddo', 'dd'+this._makeOrd(date.getDate()));
+		format = format.replace('DDo', 'DD'+this._makeOrd(date.getDate()));
 		format = format.replace('YYYY', date.getFullYear());
 		format = format.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
 		format = format.replace('MM',   this._zeroPad(date.getMonth() + 1));
