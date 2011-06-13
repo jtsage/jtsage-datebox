@@ -229,9 +229,15 @@
 				exp_format = adv.exec(o.dateFormat);
 				
 				if ( exp_input === null || exp_input.length !== exp_format.length ) {
-					return new Date();
+					if ( o.defaultDate !== false ) {
+						if ( $.isArray(o.defaultDate) && o.defaultDate.length === 3 ) {
+							return new Date(o.defaultDate[0], o.defaultDate[1], o.defaultDate[2], 0, 0, 0, 0);
+						} else {
+							date = new Date(o.defaultDate);
+							if ( isNaN(date.getDate()) ) { date = new Date(); }
+						}
+					}
 				} else {
-					date = new Date();
 					for ( i=0; i<exp_input.length; i++ ) {
 						if ( exp_format[i].match(/^dd$/i) )   { date.setDate(parseInt(exp_input[i],10)); }
 						if ( exp_format[i].match(/^mm$/i) )   { date.setMonth(parseInt(exp_input[i],10)-1); }
@@ -243,8 +249,8 @@
 							}
 						}
 					}
-					return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0); // Normalize time.
 				}
+				return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0); // Normalize time.
 			}
 			
 			if ( parts.length !== data.length ) { // Unrecognized string in input

@@ -31,7 +31,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="bb">Slide</label>
-			<input name="bb" type="date" data-role="datebox" data-options='{"experimentalReg": true, "mode": "slidebox"}' id="bb" />
+			<input name="bb" type="date" data-role="datebox" data-options='{"defaultDate": "hello", "experimentalReg": true, "mode": "slidebox"}' id="bb" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="cc">Droid</label>
