@@ -31,7 +31,7 @@
 		meridiemLetters: ['AM', 'PM'],
 		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 		daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Novemeber', 'December'],
+		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 		monthsOfYearShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 		durationLabel: ['Days', 'Hours', 'Minutes', 'Seconds'],
 		durationDays: ['Day', 'Days'],
@@ -946,7 +946,7 @@
 			pickerYar = pickerMon.clone()
 				.keyup(function() {
 					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						self.theDate.setYear(parseInt($(this).val(),10));
+						self.theDate.setFullYear(parseInt($(this).val(),10));
 						self._update();
 					}
 				});
