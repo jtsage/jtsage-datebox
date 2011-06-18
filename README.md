@@ -73,6 +73,7 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(all)_ __pickPageButtonTheme__ : Widget buttons. _(a)_
 * _(all)_ __zindex__ : Z-Index for popup window. _(500)_
 * _(all)_ __noAnimation__ : Disable popup window animations. _(false)_
+* _(all)_ __centerWindow__ : Center the popup window in the viewport, rather than over the input element. _(false)_
 * _(android)_ __pickPageInputTheme__ : Month/Date/Year Input Elements. _(e)_
 * _(slide)_ __pickPageSlideButtonTheme__ : Non-centered slide buttons. _(d)_
 * _(cal/slide)_ __pickPageHighButtonTheme__ : "Selected" Day highlighting. _(e)_

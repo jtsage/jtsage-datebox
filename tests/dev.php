@@ -56,6 +56,17 @@
 			<input name="ee" type="text" data-role="datebox" data-options='{"mode": "durationbox", "durationSteppers":{"d":2,"h":1,"i":15,"s":20}}' id="ee" />
 		</div>
 		
+		<div data-role="fieldcontain" class="ui-grid-a">
+			<div class="ui-block-a">
+				<label for="f1">Date</label>
+				<input name="f1" type="text" data-role="datebox" data-options='{"mode": "datebox", "centerWindow": true, "closeCallback": "$(\"#f2\").datebox(\"open\");"}' id="f1" />
+			</div>
+			<div class="ui-block-b">
+				<label for="f2">Time</label>
+				<input name="f2" type="text" data-role="datebox" data-options='{"mode": "timebox", "timeFormat":12, "centerWindow": true}' id="f2" />
+			</div>
+		</div>
+		
 		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 	</div>
 	<div data-role="footer">

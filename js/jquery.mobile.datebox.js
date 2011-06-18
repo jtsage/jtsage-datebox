@@ -15,6 +15,7 @@
 		pickPageOHighButtonTheme: 'e',
 		pickPageTodayButtonTheme: 'e',
 		pickPageSlideButtonTheme: 'd',
+		centerWindow: false,
 		calHighToday: true,
 		calHighPicked: true,
 		noAnimation: false,
@@ -1130,6 +1131,9 @@
 			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
 			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
 
+		if ( o.centerWindow ) {
+			pickWinLeft = ( $(document).width() / 2 ) - ( pickWinWidth / 2 );
+		}
 		if ( o.useInline ) { return false; }
 					
 		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
