@@ -32,7 +32,7 @@
 	<div data-role="content" data-theme="c">
 		<div data-role="fieldcontain">
 			<label for="aa">Cal</label>
-			<input name="aa" type="date" data-role="datebox" data-options='{"mode": "calbox", "calWeekMode": "true", "pickPageHighButtonTheme": "a", "pickPageButtonTheme": "d", "afterToday":true}' id="aa" />
+			<input name="aa" type="date" data-role="datebox" data-options='{"mode": "calbox", "pickPageHighButtonTheme": "a", "pickPageButtonTheme": "d", "pickPageOHighButtonTheme": "b", "highDates" : ["2011-06-19", "2011-06-21"], "afterToday":true}' id="aa" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="bb">Slide</label>

@@ -77,8 +77,11 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(slide)_ __pickPageSlideButtonTheme__ : Non-centered slide buttons. _(d)_
 * _(cal/slide)_ __pickPageHighButtonTheme__ : "Selected" Day highlighting. _(e)_
 * _(calendar)_ __pickPageTodayButtonTheme__ : "Today" Day highlighting. _(e)_
+* _(calendar)_ __pickPageOHighButtonTheme__ : highDates Day highlighting. _(e)_
 * _(calendar)_ __calWeekModeHighlight__ : Toggle all buttons on week mode. _(true)_
 * _(calendar)_ __disabledDayColor__ : Text color for disabled days with date limiting. _(#888)_
+* _(calendar)_ __calHighToday__ : Boolean, use theme highlight for calendar "today". _(true)_
+* _(calendar)_ __calHighPicked__ : Boolean, use theme highlight for calendar "picked date". _(true)_
 
 ### Date Formats and Text Internationalization
 * _(android)_ __daysOfWeek__ : An array of the days of the week. _(['Sunday', 'Monday', ... 'Saturday'])_
@@ -126,7 +129,9 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(calendar)_ __calStartDay__ : Day of week to start calendar on (numeric - 0=Sun, 1=Mon,... 6=Sat). _(0)_
 * _(calendar)_ __blackDays__ : An array of days of the week to blacklist. _(false)_
   * ___example___ : [0,2] : Blacklist sunday and tuesday.
-* _(calendar)_ __blackDates__ : A complex object tree or simple array of individual dates to blacklist. _(false)_
+* _(calendar)_ __blackDates__ : A simple array of individual dates to blacklist. _(false)_
+  * ___example___ : [ '2010-12-24', '2010-12-25' ] : Blacklist December 24th &amp; 25th, 2010.
+* _(calendar)_ __highDates__ : A simple array of individual dates to highlight with pickPageOHighTheme. _(false)_
   * ___example___ : [ '2010-12-24', '2010-12-25' ] : Blacklist December 24th &amp; 25th, 2010.
 * _(time)_ __minuteStep__ : Number of minutes to step per button press in timebox mode. _(1)_
 

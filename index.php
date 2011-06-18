@@ -311,6 +311,18 @@
 				</div>
 			</div>
 			
+			<div data-role="collapsible" data-collapsed="true">
+				<h3>Highlighted Dates (src line: 315)</h3>
+				<p>Highlight dates (yyyy/mm/dd) - Calendar mode only</p>
+				<p>Date Format:  must be a simple array of ISO style dates, i.e.: ["2011-01-01", "2011-01-02"] etc.</p>
+				<p>Example shows a few days in June 2011 highlighted, along with "today" highlighting toggeled off.</p>
+
+				<div data-role="fieldcontain">
+					<label for="high1">Some ISO Date</label>
+					<input value="2011-06-05" name="high1" type="date" data-role="datebox" id="high1" data-options='{"mode": "calbox", "highDates": ["2011-06-01", "2011-06-20","2011-06-21"], "calHighToday": false}'/>
+				</div>
+			</div>
+			
 		</div></div>
 		<div data-role="collapsible" data-collapsed="true">
 			<h3>Other Demos</h3>

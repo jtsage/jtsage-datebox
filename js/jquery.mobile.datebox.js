@@ -12,8 +12,11 @@
 		pickPageInputTheme: 'e',
 		pickPageButtonTheme: 'a',
 		pickPageHighButtonTheme: 'e',
+		pickPageOHighButtonTheme: 'e',
 		pickPageTodayButtonTheme: 'e',
 		pickPageSlideButtonTheme: 'd',
+		calHighToday: true,
+		calHighPicked: true,
 		noAnimation: false,
 		
 		disabled: false,
@@ -63,6 +66,7 @@
 		afterToday: false,
 		maxDays: false,
 		minDays: false,
+		highDates: false,
 		blackDays: false,
 		blackDates: false,
 		durationNoDays: false,
@@ -542,7 +546,7 @@
 			
 			calmode = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'nexttoday': 1,
 				'thisDate': new Date(), 'maxDate': new Date(), 'minDate': new Date(),
-				'currentMonth': false, 'weekMode': 0, 'weekDays': null};
+				'currentMonth': false, 'weekMode': 0, 'weekDays': null, 'thisTheme': o.pickPageButtoTheme };
 			calmode.start = self._getFirstDay(self.theDate);
 			calmode.end = self._getLastDate(self.theDate);
 			calmode.lastend = self._getLastDateBefore(self.theDate);
@@ -650,12 +654,22 @@
 								}
 							}
 							
+							if ( o.calHighPicked && calmode.today === calmode.presetDay ) { 
+								calmode.thisTheme = o.pickPageHighButtonTheme;
+							} else if ( o.calHighToday && calmode.today === calmode.highlightDay ) {
+								calmode.thisTheme = o.pickPageTodayButtonTheme;
+							} else if ( $.isArray(o.highDates) && ($.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, calmode.today), o.highDates) > -1 ) ) {
+								calmode.thisTheme = o.pickPageOHighButtonTheme;
+							} else {
+								calmode.thisTheme = o.pickPageButtonTheme;
+							}
+							
 							$("<div>"+String(calmode.today)+"</div>")
 								.addClass('ui-datebox-griddate ui-corner-all')
 								.attr('data-date', ((o.calWeekMode)?calmode.weekMode:calmode.today))
-								.attr('data-theme', ((calmode.today===calmode.presetDay)?o.pickPageHighButtonTheme:((calmode.today===calmode.highlightDay)?o.pickPageTodayButtonTheme:o.pickPageButtonTheme)))
+								.attr('data-theme', calmode.thisTheme)
 								.appendTo(thisRow)
-								.addClass('ui-btn-up-'+((calmode.today===calmode.presetDay)?o.pickPageHighButtonTheme:((calmode.today===calmode.highlightDay)?o.pickPageTodayButtonTheme:o.pickPageButtonTheme)))
+								.addClass('ui-btn-up-'+calmode.thisTheme)
 								.bind('vmouseover vmouseout', function() { 
 									if ( o.calWeekMode !== false && o.calWeekModeHighlight === true ) {
 										$(this).parent().find('div').each(function() { self._hoover(this); });
