@@ -53,6 +53,7 @@
 		noButtonFocusMode: false,
 		noButton: false,
 		closeCallback: false,
+		open: false,
 		
 		fieldsOrder: ['m', 'd', 'y'],
 		headerFormat: 'ddd, mmm dd, YYYY',
@@ -732,7 +733,7 @@
 			
 		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
-		focusedEl.tap(function() {
+		focusedEl.bind('vclick', function() {
 			if ( !o.disabled && o.noButtonFocusMode ) { self.open(); }
 		});
 		
@@ -1121,6 +1122,9 @@
 		this._update();
 	},
 	open: function() {
+		if ( this.options.useInline ) { return false; }
+		if ( this.options.open === true ) { return false; } else { this.options.open = true; }
+		
 		this.input.trigger('change').blur().trigger('datebox', {'method':'open'});
 		
 		var self = this,
@@ -1134,8 +1138,7 @@
 		if ( o.centerWindow ) {
 			pickWinLeft = ( $(document).width() / 2 ) - ( pickWinWidth / 2 );
 		}
-		if ( o.useInline ) { return false; }
-					
+		
 		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
 			pickWinTop = $(document).height() - (pickWinHeight + 2);
 		}
@@ -1163,6 +1166,7 @@
 		if ( self.options.useInline ) {
 			return true;
 		}
+		self.options.open = false;
 
 		if ( self.options.useDialog ) {
 			$(self.pickPage).dialog('close');
