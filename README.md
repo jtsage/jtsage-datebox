@@ -173,6 +173,8 @@ To disable the element, use the standard disabled='disabled' in your markup.
 Runtime Operation (Scripting / Extending)
 -----------------------------------------
 
+### Public Member Functions
+
 The plugin supports a number of public functions:
 
 * $('element').datebox('open'); _// Open the DateBox control_
@@ -184,6 +186,36 @@ The plugin supports a number of public functions:
 * $('element').datebox('enable'); _// Enable the DateBox control_
 
 * $('element').datebox('refresh'); _// Force the DateBox control to refresh it's display (see below)_
+
+### Callback events
+
+jQM-Datebox supports a number of jQuery events.  They all are triggered on:
+
+    $('element').bind('datebox', function (e, passed) { ... });
+
+Where passed is an object conatining:
+
+* __method__ : Method triggered:
+  * __refresh__ : Triggerd on HTML / data refresh (very frequent)
+  * __open__ : Triggerd on DateBox open
+  * __close__ : Triggered on DateBox close
+  * __enable__ : Triggered on DateBox enable
+  * __disable__ : Triggered on DateBox disable
+  * __set__ : Triggered on setting a date (followed by close)
+  * __offset__ : Triggered on internal date change with:
+  
+* __amount__ : _(offset method)_ Amount to add to value (can be negative)
+* __type__ : _(offset method)_ Value updated:
+  * __y__ : Year
+  * __m__ : Month
+  * __d__ : Date
+  * __h__ : Hour
+  * __i__ : Minute
+  * __s__ : Second
+  * __a__ : Meridian
+     
+
+### Just-In-Time options updating
 
 The following options **can** be changed after initialization (i.e. in per-page scripts after load). Almost all will require you to refresh the control.
 

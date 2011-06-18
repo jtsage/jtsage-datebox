@@ -24,6 +24,7 @@
 		swipeEnabled: true,
 		zindex: '500',
 		experimentalReg: false,
+		debug: false,
 		
 		setDateButtonLabel: 'Set Date',
 		setTimeButtonLabel: 'Set Time',
@@ -225,16 +226,20 @@
 			return date;
 		} else {
 			if ( o.experimentalReg ) {
-				console.log('EXPERMENTAL REGEX MODE!');
+				
 				adv = adv.replace(/ddd|SS/g, '.+?');
 				adv = adv.replace(/mmm/g, '(.+?)');
 				adv = adv.replace(/yyyy|dd|mm/ig, '([0-9ydm]+)');
 				adv = RegExp('^' + adv + '$' , 'i');
 				exp_input = adv.exec(str);
 				exp_format = adv.exec(o.dateFormat);
-				console.log(adv);
-				console.log(exp_input);
-				console.log(exp_format);
+				
+				if ( o.debug ) {
+					
+					console.log({'info': 'EXPERIMENTAL REGEX MODE ENABLED', 'regex':adv, 'input':exp_input, 'format':exp_format});
+					//console.log(exp_input);
+					//console.log(exp_format);
+				}
 				
 				if ( exp_input === null || exp_input.length !== exp_format.length ) {
 					if ( o.defaultDate !== false ) {
@@ -298,6 +303,7 @@
 			o = this.options;
 			
 		if ( typeof(update) === "undefined" ) { update = true; }
+		self.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
 		switch(mode) {
 			case 'y':
 				self.theDate.setYear(self.theDate.getFullYear() + amount);
@@ -351,6 +357,7 @@
 			interval = {'d': 60*60*24, 'h': 60*60, 'i': 60, 's':1},
 			calmode = {};
 			
+		self.input.trigger('datebox', {'method':'refresh'});
 		/* BEGIN:DURATIONBOX */
 		if ( o.mode === 'durationbox' ) {
 			i = ((self.theDate.getTime() - self.theDate.getMilliseconds()) / 1000) - ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000);
@@ -612,7 +619,7 @@
 											if ( !self.calNoPrev ) {
 												self.theDate.setMonth(self.theDate.getMonth() - 1);
 												self.theDate.setDate($(this).attr('data-date'));
-												self.input.val(self._formatDate(self.theDate)).trigger('change');
+												self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
 												self.close();
 											}
 										});
@@ -626,7 +633,7 @@
 											if ( !self.calNoNext ) {
 												self.theDate.setDate($(this).attr('data-date'));
 												if ( !o.calWeekMode ) { self.theDate.setMonth(self.theDate.getMonth() + 1); }
-												self.input.val(self._formatDate(self.theDate)).trigger('change');
+												self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
 												self.close();
 											}
 										});
@@ -678,7 +685,7 @@
 								.bind((!skipThis)?'vclick':'error', function(e) {
 										e.preventDefault();
 										self.theDate.setDate($(this).attr('data-date'));
-										self.input.val(self._formatDate(self.theDate)).trigger('change');
+										self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
 										self.close();
 								})
 								.css((skipThis)?'color':'nocolor', o.disabledDayColor);
@@ -822,7 +829,7 @@
 				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 				.click(function(e) {
 					e.preventDefault();
-					self.input.val(self._formatTime(self.theDate)).trigger('change');
+					self.input.val(self._formatTime(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
 					self.close();
 				});
 				
@@ -902,7 +909,7 @@
 				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 				.click(function(e) {
 					e.preventDefault();
-					self.input.val(self._formatTime(self.theDate)).trigger('change');
+					self.input.val(self._formatTime(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
 					self.close();
 				});
 				
@@ -981,7 +988,7 @@
 				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 				.bind('vclick', function(e) {
 					e.preventDefault();
-					self.input.val(self._formatDate(self.theDate)).trigger('change');
+					self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
 					self.close();
 				});
 			
@@ -1080,7 +1087,7 @@
 				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 				.bind('vclick', function(e) {
 					e.preventDefault();
-					self.input.val(self._formatDate(self.theDate)).trigger('change');
+					self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
 					self.close();
 				});
 				
@@ -1113,7 +1120,7 @@
 		this._update();
 	},
 	open: function() {
-		this.input.trigger('change').blur();
+		this.input.trigger('change').blur().trigger('datebox', {'method':'open'});
 		
 		var self = this,
 			o = this.options,
@@ -1168,17 +1175,20 @@
 		self.focusedEl.removeClass('ui-focus');
 		
 		if ( self.options.closeCallback !== false ) { callback = new Function(self.options.closeCallback); callback(); }
+		self.input.trigger('datebox', {'method':'close'});
 	},
 	disable: function(){
 		this.element.attr("disabled",true);
 		this.element.parent().addClass("ui-disabled");
 		this.options.disabled = true;
 		this.element.blur();
+		this.input.trigger('datebox', {'method':'disable'});
 	},
 	enable: function(){
 		this.element.attr("disabled", false);
 		this.element.parent().removeClass("ui-disabled");
 		this.options.disabled = false;
+		this.input.trigger('datebox', {'method':'enable'});
 	}
 	
   });

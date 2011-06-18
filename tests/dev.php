@@ -21,6 +21,11 @@
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			'experimentalReg': true
 		});
+		$(document).ready(function () {
+			$('input').live('datebox', function(e, passed) {
+				console.log(passed);
+			});
+		});
 	</script>
 	
 </head>
