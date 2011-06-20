@@ -120,6 +120,7 @@ These can be passed to datebox via an object set at the data-options attribute, 
 
 ### Data Limits:
 * _(all date)_ __defaultDate__ : Default date when nothing entered into input box, array of [y,m,d] prefered, ISO accepted. _(null)_
+  * **NOTE** ISO date is parsed due to iPad/iPhone limitation, it is (slightly) slower than the array method.
 * _(all date)_ __afterToday__ : Limit date to "today" or after. _(false)_
 * _(all date)_ __maxDays__ : Set the upper limit to this # of days after today. _(false)_
 * _(all date)_ __minDays__ : Set the lower limit to this # of days before today. _(false)_

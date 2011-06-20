@@ -248,8 +248,11 @@
 						if ( $.isArray(o.defaultDate) && o.defaultDate.length === 3 ) {
 							return new Date(o.defaultDate[0], o.defaultDate[1], o.defaultDate[2], 0, 0, 0, 0);
 						} else {
-							date = new Date(o.defaultDate);
-							if ( isNaN(date.getDate()) ) { date = new Date(); }
+							exp_temp = o.defaultDate.split('-');
+							if ( exp_temp.length === 3 ) {
+								date = new Date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
+								if ( isNaN(date.getDate()) ) { date = new Date(); }
+							}
 						}
 					}
 				} else {
