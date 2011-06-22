@@ -1,0 +1,84 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+	<script type="text/javascript">
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
+		});	
+	</script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript">
+		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+             'experimentalReg': true
+         });
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="apiEvent"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="/jQM-DateBox/index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<h2>Public Functions</h2>
+		
+		<p>Datebox has a number of public functions.  They are:</p>
+		
+		<ul data-role="listview" data-inset="true">
+			<li><h3>$('element').datebox('open');</h3><p>Open the DateBox control</p></li>
+			<li><h3>$('element').datebox('close');</h3><p>Close the DateBox control</p></li>
+			<li><h3>$('element').datebox('disable');</h3><p>Disable the DateBox control</p></li>
+			<li><h3>$('element').datebox('enable');</h3><p>Enable the DateBox control</p></li>
+			<li><h3>$('element').datebox('refresh');</h3><p>Refresh the DateBox control</p></li>
+		</ul>
+		
+		<h2>Callbacks</h2>
+		
+		<p>Datebox has a number of callback event types.  They all fire the same master event, with an object payload.  To catch:</p>
+		
+		<pre><code>
+$('element').bind('datebox', function (e, passed) { ... });
+</code></pre>
+
+
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider">Callback Payloads</li>
+			<li><h3>Triggered on every data refresh</h3><p><strong>{'method'}</strong> === refresh</p></li>
+			<li><h3>Triggered on datebox open</h3><p><strong>{'method'}</strong> === open</p></li>
+			<li><h3>Triggered on datebox close</h3><p><strong>{'method'}</strong> === close</p></li>
+			<li><h3>Triggered on datebox enable</h3><p><strong>{'method'}</strong> === enable</p></li>
+			<li><h3>Triggered on datebox disable</h3><p><strong>{'method'}</strong> === disable</p></li>
+			<li><h3>Triggered on user setting date</h3><p><strong>{'method'}</strong> === set</p></li>
+			<li><h3>Triggered on date change</h3><p><strong>{'method'}</strong> === offset<br /><strong>{'amount'}</strong> === Amount of change (usually +/- 1)<br /><strong>{'type'}</strong> === Type of change ( 'y' = Year, 'm' = Month, 'd' = Date, 'h' = Hour, 'i' = Minute, 's' = Second, 'a' = Meridian ) </p></li>
+		</ul>
+		
+		<p>Example code to disable datebox on close:</p>
+		
+				<pre><code>
+$('element').bind('datebox', function (e, passed) { 
+    if ( passed.method === 'close' ) {
+        $('element').datebox('disable');
+    }
+});
+</code></pre>
+		
+	</div>
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+		</div>
+	</div>
+</div>
+</html>

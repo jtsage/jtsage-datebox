@@ -1,0 +1,76 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+	<script type="text/javascript">
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
+		});	
+	</script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript">
+		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+             'experimentalReg': true
+         });
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="apiTheme"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="/jQM-DateBox/index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary">
+			<h3>Visual Theme Placement</h3>
+			<img src="/jQM-DateBox/demos/theme-android.png" /><br />
+			<img src="/jQM-DateBox/demos/theme-slide.png" /><br />
+			<img src="/jQM-DateBox/demos/theme-calendar.png" />
+		</div>
+		<div class="content-primary">
+		<h2>Theming</h2>
+		
+		<p>DateBox is fully jQueryMobile theme-roller compatible (when the theme roller is done!).  The individual elements can be passed a theme via the following options:</p>
+		
+		<dl>
+			<dt>theme</dt>
+				<dd>Original input theme</dd>
+			<dt>pickPageTheme</dt>
+				<dd>Theme for popup / dialog - controls background colors, and the set button (if present)</dd>
+			<dt>pickPageInputTheme</dt>
+				<dd>Theme for input elements in the popup / dialog (android, date &amp; duration modes)</dd>
+			<dt>pickPageButtonTheme</dt>
+				<dd>Buttons (other than the set button) in the popup / dialog</dd>
+			<dt>pickPageSlideButtonTheme</dt>
+				<dd>Non-selected buttons in slide mode</dd>
+			<dt>pickPageTodayButtonTheme</dt>
+				<dd>Today's date button in calendar mode</dd>
+			<dt>pickPageHighButtonTheme</dt>
+				<dd>Currently selected date button in calendar mode</dd>
+			<dt>pickPageOHighButtonTheme</dt>
+				<dd>Highlighted dates (highDates) in calendar mode</dd>
+			<dt>disabledDayColor</dt>
+				<dd>Color for text of disabled calendar days - sorry, this isn't a theme yet</dd>
+		</dl>
+		</div>
+		
+
+	</div>
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+		</div>
+	</div>
+</div>
+</html>

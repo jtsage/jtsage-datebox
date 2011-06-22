@@ -1,0 +1,240 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+	<script type="text/javascript">
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
+		});	
+	</script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript">
+		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+             'experimentalReg': true
+         });
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="droLimit"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="/jQM-DateBox/index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary"> 
+	
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="/jQM-DateBox/demos/jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
+				<p>A Date and Time Picker plugin for jQueryMobile</p> 
+				
+			</div> 
+			
+			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
+				<li data-role="list-divider">Android Demos</li> 
+				<li><a href="/jQM-DateBox/demos/android/index.html">Simple Calendars</a></li> 
+				<li><a href="/jQM-DateBox/demos/android/limit.html">Range Limiting &amp; Picking</a></li>
+			</ul> 
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+			<nav> 
+				<h2>Range Limiting</h2>
+				<p>Range limiting can be accomplished a number of ways, the options available are:</p>
+				<dl>
+					<dt>afterToday</dt>
+					<dd>When set, only dates that are after "today" are selectable</dd>
+					<dt>minDays</dt>
+					<dd>When set, only dates that are after *number* of days <strong>before</strong> today may be selected. Note that minDays can be a negative number.</dd>
+					<dt>maxDays</dt>
+					<dd>When set, only dates that are before *number* of days <strong>after</strong> today may be selected. Note that maxDays can be a negative number.</dd>
+					<dt>maxYear</dt>
+					<dd>When set, the maximum year allowed.</dd>
+					<dt>minYear</dt>
+					<dd>When set, the minimum year allowed.</dd>
+				</dl>
+				
+				<h3>Limit between 2009 and 2019</h3>
+				
+				<div data-role="fieldcontain">
+					<label for="drolimit2">Some Date</label>
+					<input name="drolimit2" type="date" data-role="datebox" data-options='{"minYear": 2009, "maxYear": 2019, "mode": "datebox"}' id="drolimit2" />
+				</div>
+			
+				<p>Limit the allowed dates to at minimum today, and at maximum 60 days in the future. Note that this is also valid in android mode.</p>
+				<p>The calendar mode <strong>does</strong> limit users to viewing months with valid dates.</p>
+				
+				<pre><code>
+&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "datebox", "minYear": 2009, "maxYear": 2019}'&gt;
+				</code></pre>
+				
+				<h3>Limit to today + 60 days</h3>
+				
+				<div data-role="fieldcontain">
+					<label for="drolimit1">Some Date</label>
+					<input name="drolimit1" type="date" data-role="datebox" data-options='{"afterToday": true, "maxDays": 60, "mode": "datebox"}' id="drolimit1" />
+				</div>
+			
+				<p>Limit the allowed dates to at minimum today, and at maximum 60 days in the future. Note that this is also valid in android mode.</p>
+				<p>The calendar mode <strong>does</strong> limit users to viewing months with valid dates.</p>
+				
+				<pre><code>
+&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "datebox", "afterToday": true, "maxDays": 60}'&gt;
+				</code></pre>
+				
+
+				<h3>Limit to today + 10 days, then based on start.</h3>
+				
+				<script type="text/javascript">
+					$('#drorlimit1').live('change', function() {
+						$('#drorlimit2').val($('#drorlimit1').val());
+						var temp = new Date(),
+							diff = parseInt(($('#drorlimit1').data('datebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
+							diffstrt = (diff * -1)-1; // If you want a minimum of 1 day between, make this -2 instead of -1
+							diffend = diff + 11; // Why 11 instead of 10?  No idea...
+					
+						$('#drorlimit2').data('datebox').options.minDays = diffstrt;
+						$('#drorlimit2').data('datebox').options.maxDays = diffend;
+					});
+				</script>
+				
+				<div data-role="fieldcontain">
+					<label for="drorlimit1">Beginning Date</label>
+					<input name="drorlimit1" type="date" data-role="datebox" id="drorlimit1" data-options='{"mode": "datebox", "afterToday": true, "maxDays": 10}'/>
+					<label for="drorlimit2">Ending Date</label>
+					<input name="drorlimit2" type="date" data-role="datebox" data-options='{"minDays": -10, "maxDays": 10, "mode": "datebox"}' id="drorlimit2" />
+				</div>
+				<p>The first date is limited from "today" to 10 days in the future.</p>
+				<p>The second date is limited from the first date, to 10 days after the first date</p>
+				
+				<pre><code><strong>HTML</strong>
+&lt;label for="calrlimit1"&gt;Beginning Date&lt;/label&gt;
+&lt;input name="calrlimit1" type="date" data-role="datebox" id="calrlimit1" 
+    data-options='{"mode": "datebox", "afterToday": true, "maxDays": 10}' /&gt;
+
+&lt;label for="calrlimit2"&gt;Ending Date&lt;/label&gt;
+&lt;input name="calrlimit2" type="date" data-role="datebox" id="calrlimit2"
+    data-options='{"minDays": -10, "maxDays": 10, "mode": "datebox"}' /&gt;
+
+<strong>JQuery</strong>
+$('#calrlimit1').live('change', function() {
+    $('#calrlimit2').val($('#calrlimit1').val());
+    var temp = new Date(),
+        diff = parseInt(($('#calrlimit1').data('datebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
+        diffstrt = (diff * -1)-1; // If you want a minimum of 1 day between, make this -2 instead of -1
+        diffend = diff + 11; // Why 11 instead of 10?  No idea...
+
+    $('#calrlimit2').data('datebox').options.minDays = diffstrt;
+    $('#calrlimit2').data('datebox').options.maxDays = diffend;
+});
+				</code></pre>
+				
+				<h2>Date Range Input</h2>
+				
+				<p>Demonstrates using date picker and a text box to enter a date range (customizable)</p>
+				<script type="text/javascript">
+					function updateEndDate() { 
+						var newdate = new Date($('#drorangestart').data('datebox').theDate);
+						if ( newdate.getDate() ) { 
+							newdate.setDate(newdate.getDate() + parseInt($('#drorangedays').val()));
+							
+							var padMonth = (( newdate.getMonth() < 9 ) ? "0" : "") + ( newdate.getMonth() + 1 ),
+								padDay = (( newdate.getDate() < 10 ) ? "0" : "") + newdate.getDate();
+							
+							$('#drorangeend').val(newdate.getFullYear() + "-" + padMonth + "-" + padDay);
+						}
+					}
+					
+					$('#drorangestart').live('change', function() {
+						updateEndDate();
+					});
+					
+					$('#drorangedays').live('change', function() {
+						updateEndDate();
+					});
+				</script>
+		
+				<div data-role="fieldcontain">
+					<label for="drorangestart">Start Date:</label>
+					<input name="drorangestart" type="date" data-role="datebox" id="drorangestart" />
+					<label for='drorangedays'>Number of Days:</label>
+					<select data-native-menu="false" name='drorangedays' id='drorangedays' >
+						<option value='7' selected="selected">1 Week</option>
+						<option value='6'>6 Days</option>
+						<option value='5'>5 Days</option>
+						<option value='4'>4 Days</option>
+						<option value='3'>3 Days</option>
+						<option value='2'>2 Days</option>
+						<option value='1'>1 Day</option>
+					</select>
+					<label for="drorangeend">End Date:</label>
+					<input id="drorangeend" type="text" />
+				</div>
+				
+				<pre><code><strong>HTML</strong>
+&lt;label for="drorangestart"&gt;Start Date:&lt;/label&gt;
+&lt;input name="drorangestart" type="date" data-role="datebox" id="drorangestart"/&gt;
+    
+&lt;label for='drorangedays'&gt;Number of Days:&lt;/label&gt;
+&lt;select data-native-menu="false" name='drorangedays' id='drorangedays' &gt;
+    &lt;option value='7' selected="selected"&gt;1 Week&lt;/option&gt;
+    &lt;option value='6'&gt;6 Days&lt;/option&gt;
+    &lt;option value='5'&gt;5 Days&lt;/option&gt;
+    &lt;option value='4'&gt;4 Days&lt;/option&gt;
+    &lt;option value='3'&gt;3 Days&lt;/option&gt;
+    &lt;option value='2'&gt;2 Days&lt;/option&gt;
+    &lt;option value='1'&gt;1 Day&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;label for="drorangeend"&gt;End Date:&lt;/label&gt;
+&lt;input id="drorangeend" type="text" /&gt;
+
+<strong>jQuery</strong>
+function updateEndDate() { 
+    var newdate = new Date($('#drorangestart').data('datebox').theDate);
+    if ( newdate.getDate() ) { 
+        newdate.setDate(newdate.getDate() + parseInt($('#drorangedays').val()));
+        
+        var padMonth = (( newdate.getMonth() &lt; 9 ) ? "0" : "") + ( newdate.getMonth() + 1 ),
+            padDay = (( newdate.getDate() &lt; 10 ) ? "0" : "") + newdate.getDate();
+        
+        $('#drorangeend').val(newdate.getFullYear() + "-" + padMonth + "-" + padDay);
+    }
+}
+
+$('#drorangestart').live('change', function() {
+    updateEndDate();
+});
+
+$('#drorangedays').live('change', function() {
+    updateEndDate();
+});
+				</code></pre>
+			</nav> 
+		</div> 
+		
+	</div>
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+		</div>
+	</div>
+</div>
+</html>

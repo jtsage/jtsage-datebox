@@ -1,0 +1,85 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+	<script type="text/javascript">
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
+		});	
+	</script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript">
+		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+             'experimentalReg': true
+         });
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="intro"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="/jQM-DateBox/index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary"> 
+	
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="/jQM-DateBox/demos/jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
+				<p>A Date and Time Picker plugin for jQueryMobile</p> 
+				
+			</div> 
+	
+			<p class="intro">DateBox is a jQueryMobile plugin that aims to make user interaction with dates and times simple and intuitive.  It is a colloborative work, with a full range of features allowing easy implementation, and painless extensibility.<br /><br />Please note that some of the demos make use of pseudo-code, you may have to view the page source to get the whole picture.</p> 
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+			<dl>
+				<dt>Multiple Data-Entry Modes</dt>
+					<dd>Android style date picker</dd>
+					<dd>Calendar style date picker</dd>
+					<dd>Slide style date picker</dd>
+					<dd>12 and 24 hour time picker</dd>
+					<dd>Duration time picker</dd>
+				<dt>4 Different display modes</dt>
+					<dd>Standard, click-outside-to-close popup mode</dd>
+					<dd>Forced input modal popup mode</dd>
+					<dd>Unique page dialog mode</dd>
+					<dd>Inline mode</dd>
+				<dt>Fully localized</dt>
+					<dd>Configurable Month names</dd>
+					<dd>Configurable Day Names</dd>
+					<dd>All labels and buttons configuratble</dd>
+				<dt>Supports data-limiting of input</dt>
+					<dd>Configurable maximum and minimum years (android mode)</dd>
+					<dd>Configurable maximum and minimum number of days from "today" (both date modes)</dd>
+					<dd>Allows blacklisting of days of the week or specific dates (calendar mode) </dd>
+					<dd>Allows selecting specific day from any week selection (calendar mode)</dd>
+				<dt>Automatically parses hand-entered or pre-entered dates on open</dt>
+				<dt>Auto-bind's to data-type='datebox', options are configurable via data-options.</dt>
+			</dl>
+			<h2>Special Thanks</h2>
+			<p>Special thanks to Todd M. Horst, and his <a href="http://toddmhorst.wordpress.com/2010/12/30/android-like-date-picker-with-jquery-mobile-2/">Android Like Date Picker 2</a></p>
+			<p>Special thanks also to all the folks over at jQueryMobile and jQuery for creating the tools that make this possible.</p>
+			<p>And Finally, a very special thank you to all the folks who have taken the time to send in suggestions, bug reports and code contributions - keep em coming! :) </p>
+		</div> 
+		
+	</div>
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+		</div>
+	</div>
+</div>
+</html>

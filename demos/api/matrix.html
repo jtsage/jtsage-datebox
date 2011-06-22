@@ -1,0 +1,143 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+	<script type="text/javascript">
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
+		});	
+	</script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript">
+		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+             'experimentalReg': true
+         });
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="matrix"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="/jQM-DateBox/index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<h2>Available Options</h2>
+		
+		<ul data-role="listview" data-inset="true">
+			<li><h3>mode</h3><p><strong>Purpose:</strong>Mode of operation<br /><strong>Default:</strong> 'datebox'<br /><strong>Options:</strong> 'datebox', 'slidebox', 'calbox', 'timebox', 'durationbox'</p></li>
+			<li><h3>experimentalReg</h3><p><strong>Purpose:</strong>Use the new experimantal regex input parser<br /><strong>Default:</strong> false</p></li>
+			<li><h3>Themeing</h3><ul data-inset="true">
+				<li data-role="list-divider">Named Themes</li>
+				<li><h3>theme</h3><p><strong>Purpose:</strong>Theme for original input elemet<br /><strong>Default:</strong> 'c'<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>pickPageTheme</h3><p><strong>Purpose:</strong>Theme for popup window or dialog<br /><strong>Default:</strong> 'b'<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>pickPageButtonTheme</h3><p><strong>Purpose:</strong>Theme for widget buttons<br /><strong>Default:</strong> 'a'<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>pickPageInputTheme</h3><p><strong>Purpose:</strong>Theme for widget input elemets<br /><strong>Default:</strong> 'e'<br /><strong>Modes:</strong> android, duration, time</p></li>
+				<li><h3>pickPageSlideButtonTheme</h3><p><strong>Purpose:</strong>Theme for non-centered slide buttons<br /><strong>Default:</strong> 'd'<br /><strong>Modes:</strong> slide</p></li>
+				<li><h3>pickPageHighButtonTheme</h3><p><strong>Purpose:</strong>Theme for currently selected date button<br /><strong>Default:</strong> 'e'<br /><strong>Modes:</strong> calendar</p></li>
+				<li><h3>pickPageTodayButtonTheme</h3><p><strong>Purpose:</strong>Theme for current date's button<br /><strong>Default:</strong> 'e'<br /><strong>Modes:</strong> calendar</p></li>
+				<li><h3>pickPageOHighButtonTheme</h3><p><strong>Purpose:</strong>Theme for highlighted buttons<br /><strong>Default:</strong> 'e'<br /><strong>Modes:</strong> calendar</p></li>
+				<li data-role="list-divider">Boolean Display Options</li>
+				<li><h3>noAnimation</h3><p><strong>Purpose:</strong>Disable popup window animations<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>centerWindow</h3><p><strong>Purpose:</strong>Center the popup window in the viewport, rather than over the input element<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>calWeekModeHighlight</h3><p><strong>Purpose:</strong>Toggle all buttons on week mode<br /><strong>Default:</strong> true<br /><strong>Modes:</strong> calendar</p></li>
+				<li><h3>calHighToday</h3><p><strong>Purpose:</strong>Use theme highlight for calendar "today"<br /><strong>Default:</strong> true<br /><strong>Modes:</strong> calendar</p></li>
+				<li><h3>calHighPicked</h3><p><strong>Purpose:</strong>Use theme highlight for calendar "picked date"<br /><strong>Default:</strong> true<br /><strong>Modes:</strong> calendar</p></li>
+				<li data-role="list-divider">Other Display Options</li>
+				<li><h3>zindex</h3><p><strong>Purpose:</strong>Z-Index for popup<br /><strong>Default:</strong> 500<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>disabledDayColor</h3><p><strong>Purpose:</strong>Text color for disabled days<br /><strong>Default:</strong> '#888'<br /><strong>Modes:</strong> calendar</p></li>
+			</ul></li>
+			<li><h3>Date Formats</h3><ul data-inset="true">
+				<li data-role="list-divider">Output Format</li>
+				<li><h3>dateFormat</h3><p><strong>Purpose:</strong>Format the returned date<br /><strong>Default:</strong> 'YYYY-MM-DD'<br /><strong>Modes:</strong> all
+				<pre><code>	YYYY: 4 Digit Year
+	MM : 2 Digit Month (zero pad)
+	mm : 1 or 2 Digit Month
+	mmm : Text Month
+	DD : 2 Digit Day (zero pad)
+	dd : 1 or 2 Digit Day
+	ddd : Day of week
+	SS : Ordinal Suffix (4th, 3rd, 1st, etc)</code></pre></p></li>
+				<li><h3>headerFormat</h3><p><strong>Purpose:</strong>Format the date header<br /><strong>Default:</strong> 'ddd, mmm dd, YYYY'<br /><strong>Modes:</strong> android, slide
+				<pre><code>	YYYY: 4 Digit Year
+	MM : 2 Digit Month (zero pad)
+	mm : 1 or 2 Digit Month
+	mmm : Text Month
+	DD : 2 Digit Day (zero pad)
+	dd : 1 or 2 Digit Day
+	ddd : Day of week
+	SS : Ordinal Suffix (4th, 3rd, 1st, etc)</code></pre></p></li>
+				<li><h3>durationShort</h3><p><strong>Purpose:</strong>Use the shortest mode possible to display duration<br /><strong>Default:</strong> true<br /><strong>Modes:</strong> duration</p></li>
+				<li><h3>durationNoDays</h3><p><strong>Purpose:</strong>Do not break off days from duration, only h:i:s<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> duration</p></li>
+				<li data-role="list-divider">Input Format</li>
+				<li><h3>timeFormat</h3><p><strong>Purpose:</strong>Set either a 12 or 24 hour clock<br /><strong>Default:</strong> 24<br /><strong>Modes:</strong> time</p></li>
+				<li><h3>fieldsOrder</h3><p><strong>Purpose:</strong>Define the order of the fields<br /><strong>Default:</strong> ['m', 'd', 'y']<br /><strong>Modes:</strong> android</p></li>
+				<li><h3>calShowDays</h3><p><strong>Purpose:</strong>Boolean show day names in grid<br /><strong>Default:</strong> true<br /><strong>Modes:</strong> calendar</p></li>
+				<li><h3>calShowOnlyMonth</h3><p><strong>Purpose:</strong>Show *only* this month, do not fill in empty boxes<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> calendar</p></li>
+				<li><h3>calStartDay</h3><p><strong>Purpose:</strong>Day of week to start calendar on (numeric - 0=Sun, 1=Mon,... 6=Sat)<br /><strong>Default:</strong> 0<br /><strong>Modes:</strong> calendar</p></li>
+				<li data-role="list-divider">Steppers</li>
+				<li><h3>minuteStep</h3><p><strong>Purpose:</strong>Number of minutes to step per button press in timebox mode<br /><strong>Default:</strong> 1<br /><strong>Modes:</strong> time</p></li>
+				<li><h3>durationSteppers</h3><p><strong>Purpose:</strong>An object of the amount to step each part of the duration<br /><strong>Default:</strong> {'d':1, 'h':1, 'i':1, 's':1}<br /><strong>Modes:</strong> duration</p></li>
+			</ul></li>
+			<li><h3>Date Defaults and Limits</h3><ul data-inset="true">
+				<li data-role="list-divider">Defaults</li>
+				<li><h3>defaultDate</h3><p><strong>Purpose:</strong>Default date when nothing entered into input box, array of [y,m,d] prefered, ISO accepted<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li data-role="list-divider">Limits</li>
+				<li><h3>afterToday</h3><p><strong>Purpose:</strong>Limit date to "today" or after<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> android, calendar</p></li>
+				<li><h3>maxDays</h3><p><strong>Purpose:</strong>Set the upper limit to this # of days after today<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> android, calendar</p></li>
+				<li><h3>minDays</h3><p><strong>Purpose:</strong>Set the lower limit to this # of days before today<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> android, calendar</p></li>
+				<li><h3>maxYear</h3><p><strong>Purpose:</strong>Maximum year allowed in controls<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> android</p></li>
+				<li><h3>minYear</h3><p><strong>Purpose:</strong>Minimum year allowed in controls<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> android</p></li>
+				<li><h3>calWeekMode</h3><p><strong>Purpose:</strong>Boolean, week mode on or off (choose only a specific DAY)<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> calendar</p></li>
+				<li><h3>calWeekModeFirstDay</h3><p><strong>Purpose:</strong>Day of week to choose with week mode (numeric, 0-6, relative to calendar display)<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> calendar</p></li>
+				<li><h3>blackDays</h3><p><strong>Purpose:</strong>An array of days of the week to blacklist<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> calendar<br /><strong>Example: </strong>[0,2] : Blacklist sunday and tuesday</p></li>
+				<li><h3>blackDates</h3><p><strong>Purpose:</strong>A simple array of individual dates to blacklist<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> calendar<br /><strong>Example: </strong>[ '2010-12-24', '2010-12-25' ] : Blacklist December 24th &amp; 25th, 2010.</p></li>
+				<li><h3>highDates</h3><p><strong>Purpose:</strong>A simple array of individual dates to highlight with pickPageOHighTheme<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> calendar<br /><strong>Example: </strong>[ '2010-12-24', '2010-12-25' ] : Blacklist December 24th &amp; 25th, 2010.</p></li>
+			</ul></li>
+			<li><h3>User Interface</h3><ul data-inset="true">
+				<li><h3>useDialogForceTrue</h3><p><strong>Purpose:</strong>Boolean *Always* use Dialog Window, regardless of screen size<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>useDialogForceFalse</h3><p><strong>Purpose:</strong>Boolean *Never* use Dialog Window, regardless of screen size<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>useModal</h3><p><strong>Purpose:</strong>Use modal styling (background fades out) on popup<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>noButtonFocusMode</h3><p><strong>Purpose:</strong>Suppress button, open on element focus instead<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>noButton</h3><p><strong>Purpose:</strong>Suppress button<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>useInline</h3><p><strong>Purpose:</strong>Show datebox inline on page, no dialog or popup<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>useInlineHideInput</h3><p><strong>Purpose:</strong>When using inline mode, do not show the input box<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>closeCallback</h3><p><strong>Purpose:</strong>A function to run on DateBox close<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>swipeEnabled</h3><p><strong>Purpose:</strong>Swipe gestures active<br /><strong>Default:</strong> true<br /><strong>Modes:</strong> calendar, slide</p></li>
+			</ul></li>
+			<li><h3>Text Internationaliztion</h3><ul data-inset="true">
+				<li data-role="list-divider">Months and Days</li>
+				<li><h3>daysOfWeek</h3><p><strong>Purpose:</strong>An array of the days of the week<br /><strong>Default:</strong> ['Sunday', 'Monday', ... 'Saturday']<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>daysOfWeekShort</h3><p><strong>Purpose:</strong>An array of the short names of the days of the week<br /><strong>Default:</strong> ['Su', 'Mo', ... 'Sa']<br /><strong>Modes:</strong> calendar, slide</p></li>
+				<li><h3>monthsOfYear</h3><p><strong>Purpose:</strong>An array of the months of the year<br /><strong>Default:</strong> ['January', 'February', ... 'December']<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>monthsOfYearShort</h3><p><strong>Purpose:</strong>An array of the short names of the months of the year<br /><strong>Default:</strong> ['Jan', 'Feb', ... 'Dec']<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>durationLabel</h3><p><strong>Purpose:</strong>An array of the parts of a duration<br /><strong>Default:</strong> ['Days', 'Hours', 'Minutes', 'Seconds']<br /><strong>Modes:</strong> duration</p></li>
+				<li><h3>durationDays</h3><p><strong>Purpose:</strong>An array of the single and plural name for 'Day'<br /><strong>Default:</strong> ['Day', 'Days']<br /><strong>Modes:</strong> duration</p></li>
+				<li><h3>meridiemLetters</h3><p><strong>Purpose:</strong>An array of meridiem notation<br /><strong>Default:</strong> ['AM', 'PM']<br /><strong>Modes:</strong> time</p></li>
+				<li data-role="list-divider">Buttons and Headers</li>
+				<li><h3>setDateButtonLabel</h3><p><strong>Purpose:</strong>The 'Set Date' button label<br /><strong>Default:</strong> 'Set Date'<br /><strong>Modes:</strong> android, slide</p></li>
+				<li><h3>setDurationButtonLabel</h3><p><strong>Purpose:</strong>The 'Set Duration' button label<br /><strong>Default:</strong> 'Set Duration'<br /><strong>Modes:</strong> duration</p></li>
+				<li><h3>setTimeButtonLabel</h3><p><strong>Purpose:</strong>The 'Set Time' button label<br /><strong>Default:</strong> 'Set Time'<br /><strong>Modes:</strong> time</p></li>
+				<li><h3>titleDateDialogLabel</h3><p><strong>Purpose:</strong>Dialog label for date modes<br /><strong>Default:</strong> 'Set Date'<br /><strong>Modes:</strong> android, calendar, slide</p></li>
+				<li><h3>titleTimeDialogLabel</h3><p><strong>Purpose:</strong>Dialog label for time modes<br /><strong>Default:</strong> 'Set Time'<br /><strong>Modes:</strong> time</p></li>
+				<li><h3>titleDialogLabel</h3><p><strong>Purpose:</strong>Override for dialog label<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+			</ul></li>
+		</ul>
+	</div>
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+		</div>
+	</div>
+</div>
+</html>

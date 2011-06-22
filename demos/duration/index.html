@@ -1,0 +1,107 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+	<script type="text/javascript">
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
+		});	
+	</script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript">
+		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+             'experimentalReg': true
+         });
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="durIndex"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="/jQM-DateBox/index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary"> 
+	
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="/jQM-DateBox/demos/jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
+				<p>A Date and Time Picker plugin for jQueryMobile</p> 
+				
+			</div> 
+			
+			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
+				<li data-role="list-divider">Duration Demos</li> 
+				<li><a href="/jQM-DateBox/demos/duration/index.html">Simple Options</a></li> 
+			</ul> 
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+			<nav> 
+				<h2>Duration Default</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="defdurate">Some Date</label><input name="defdurate" type="date" data-role="datebox" id="defdurate" data-options='{"mode": "durationbox"}' />
+				</div>
+				
+				<p>Using the duration mode is as simple as setting the 'mode' option to "durationbox".</p>
+				
+				<pre><code>
+&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "durationbox"}'&gt;
+				</code></pre>
+				
+				<h2>Duration Short Mode</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="durshort">Some Date</label><input name="durshort" type="date" data-role="datebox" id="durshort" data-options='{"mode": "durationbox", "durationShort": true}' />
+				</div>
+				
+				<p>Using the duration short mode will use only as many digits as nessasary to completly convey the duration.</p>
+				
+				<pre><code>
+&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "durationbox", "durationShort": true}'&gt;
+				</code></pre>
+				
+				<h2>Duration No Days Mode</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="durnoday">Some Date</label><input name="durnoday" type="date" data-role="datebox" id="durnoday" data-options='{"mode": "durationbox", "durationNoDays": true}' />
+				</div>
+				
+				<p>Using the duration no days mode will calculate the duration in h:i:s, never using the # Day(s) prefix.</p>
+				
+				<pre><code>
+&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "durationbox", "durationNoDays": true}'&gt;
+				</code></pre>
+				
+			</nav> 
+		</div> 
+		
+	</div>
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+		</div>
+	</div>
+</div>
+</html>
