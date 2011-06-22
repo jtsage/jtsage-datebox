@@ -832,7 +832,7 @@
 			
 			$("<a href='#'>" + o.setDurationButtonLabel + "</a>")
 				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-				.click(function(e) {
+				.bind('vclick', function(e) {
 					e.preventDefault();
 					self.input.val(self._formatTime(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
 					self.close();
@@ -912,7 +912,7 @@
 			
 			$("<a href='#'>" + o.setTimeButtonLabel + "</a>")
 				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-				.click(function(e) {
+				.bind('vclick', function(e) {
 					e.preventDefault();
 					self.input.val(self._formatTime(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
 					self.close();
