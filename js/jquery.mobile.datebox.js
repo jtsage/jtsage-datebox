@@ -1137,7 +1137,15 @@
 			pickWinWidth = self.pickerContent.innerWidth(),
 			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
 			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
-
+			
+		// TOO FAR RIGHT TRAP
+		if ( (pickWinLeft + pickWinWidth) > $(document).width() ) {
+			pickWinLeft = $(document).width() - pickWinWidth - 1;
+		}
+		// TOO FAR LEFT TRAP
+		if ( pickWinLeft < 0 ) {
+			pickWinLeft = 0;
+		}
 		if ( o.centerWindow ) {
 			pickWinLeft = ( $(document).width() / 2 ) - ( pickWinWidth / 2 );
 		}
