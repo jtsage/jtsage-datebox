@@ -1167,7 +1167,7 @@
 			o.useDialog = true;
 			self.pickPageContent.append(self.pickerContent);
 			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'}).removeClass('ui-overlay-shadow ui-datebox-hidden');
-			$.mobile.changePage(self.pickPage, 'pop', false, true);
+			$.mobile.changePage(self.pickPage, {'transition': 'pop'});
 		}
 	},
 	close: function() {
