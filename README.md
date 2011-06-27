@@ -89,6 +89,7 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(android)_ __fieldsOrder__ : Define the order of the fields. _(['m', 'd', 'y'])_
 * _(cal/slide)_ __daysOfWeekShort__ : An Array of abreviations for days of the week. _(['Su', 'Mo', ... 'Sa'])_
 * _(slide)_ __monthsOfYearShort__ : An Array of abbreviations for the months. _(['Jan', 'Feb', ... 'Dec'])_
+* _(duration)_ __durationOrder__ : Define the order of the fields. _(['d', 'h', 'i', 's'])_
 * _(duration)_ __durationLabel__ : An Array of the parts of the duration. _('Days', 'Hours', 'Minutes', 'Seconds')_
 * _(duration)_ __durationDays__ : An Array of the singular and plural name for days. _('Day', 'Days')_
 * _(duration)_ __durationShort__ : Use the shortest mode possible to display duration. _(true)_

@@ -54,7 +54,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="ee">Length</label>
-			<input name="ee" type="text" data-role="datebox" data-options='{"mode": "durationbox", "durationSteppers":{"d":2,"h":1,"i":15,"s":20}}' id="ee" />
+			<input name="ee" type="text" data-role="datebox" data-options='{"mode": "durationbox", "durationOrder": ["d", "h", "i"]}' id="ee" />
 		</div>
 		
 		<div data-role="fieldcontain" class="ui-grid-a">

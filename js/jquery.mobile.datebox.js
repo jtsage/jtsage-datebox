@@ -56,6 +56,7 @@
 		open: false,
 		
 		fieldsOrder: ['m', 'd', 'y'],
+		durationOrder: ['d', 'h', 'i', 's'],
 		headerFormat: 'ddd, mmm dd, YYYY',
 		dateFormat: 'YYYY-MM-DD',
 		minuteStep: 1,
@@ -824,11 +825,22 @@
 					pickerSecs.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('s', ((d<0)?-1:1)*o.durationSteppers['s']); });
 				}
 			
-			$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.durationLabel[0]+'</label>');
-			$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.durationLabel[1]+'</label>');
-			$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.durationLabel[2]+'</label>');
-			$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.durationLabel[3]+'</label>');
-			
+			for ( x=0; x<o.durationOrder.length; x++ ) {
+				switch ( o.durationOrder[x] ) {
+					case 'd':
+						$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.durationLabel[0]+'</label>');
+						break;
+					case 'h':
+						$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.durationLabel[1]+'</label>');
+						break;
+					case 'i':
+						$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.durationLabel[2]+'</label>');
+						break;
+					case 's':
+						$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.durationLabel[3]+'</label>');
+						break;
+				}
+			}
 			
 			$("<a href='#'>" + o.setDurationButtonLabel + "</a>")
 				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
@@ -838,10 +850,10 @@
 					self.close();
 				});
 				
-			for ( x=0; x<4; x++ ) {
+			for ( x=0; x<o.durationOrder.length; x++ ) {
 				linkdiv.clone()
 					.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-					.attr('data-field', ['d','h','i','s'][x])
+					.attr('data-field', o.durationOrder[x])
 					.bind('vclick', function(e) {
 						e.preventDefault();
 						self._offset($(this).attr('data-field'),o.durationSteppers[$(this).attr('data-field')]);
@@ -849,7 +861,7 @@
 					
 				linkdiv.clone()
 					.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-					.attr('data-field', ['d','h','i','s'][x])
+					.attr('data-field', o.durationOrder[x])
 					.bind('vclick', function(e) {
 						e.preventDefault();
 						self._offset($(this).attr('data-field'),-1*o.durationSteppers[$(this).attr('data-field')]);
