@@ -207,7 +207,9 @@
 				
 				if( match === null || match.length < 3 ) { 
 					return new Date();
-				} else if ( match[1] < 12 && match[3].toLowerCase().charAt(0) === 'p' ) {  
+				} 
+				match[3] = match[3] || 'AM';
+				if ( match[1] < 12 && match[3].toLowerCase().charAt(0) === 'p' ) {  
 					match[1] = parseInt(match[1],10) + 12;
 				} else if ( match[1] === 12 ) {
 					if ( match[3].toLowerCase().charAt(0) === 'a' ) { match[1] = 0; }
