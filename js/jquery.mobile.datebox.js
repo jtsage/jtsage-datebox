@@ -52,6 +52,7 @@
 		useInline: false,
 		noButtonFocusMode: false,
 		noButton: false,
+		noSetButton: false,
 		closeCallback: false,
 		open: false,
 		
@@ -848,13 +849,15 @@
 				}
 			}
 			
-			$("<a href='#'>" + o.setDurationButtonLabel + "</a>")
-				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-				.bind('vclick', function(e) {
-					e.preventDefault();
-					self.input.val(self._formatTime(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-					self.close();
-				});
+			if ( o.noSetButton === false ) {
+				$("<a href='#'>" + o.setDurationButtonLabel + "</a>")
+					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						self.input.val(self._formatTime(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
+						self.close();
+					});
+			}
 				
 			for ( x=0; x<o.durationOrder.length; x++ ) {
 				linkdiv.clone()
@@ -928,13 +931,15 @@
 			pickerMins.appendTo(controlsInput);
 			if ( o.timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
 			
-			$("<a href='#'>" + o.setTimeButtonLabel + "</a>")
-				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-				.bind('vclick', function(e) {
-					e.preventDefault();
-					self.input.val(self._formatTime(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-					self.close();
-				});
+			if ( o.noSetButton === false ) {
+				$("<a href='#'>" + o.setTimeButtonLabel + "</a>")
+					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						self.input.val(self._formatTime(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
+						self.close();
+					});
+			}
 				
 			for ( x=0; x<((o.timeFormat === 12)?3:2); x++ ) {
 				linkdiv.clone()
@@ -1006,14 +1011,16 @@
 				if (o.fieldsOrder[x] === 'm') { pickerMon.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
 			}
-		
-			$("<a href='#'>" + o.setDateButtonLabel + "</a>")
-				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-				.bind('vclick', function(e) {
-					e.preventDefault();
-					self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-					self.close();
-				});
+			
+			if ( o.noSetButton === false ) {
+				$("<a href='#'>" + o.setDateButtonLabel + "</a>")
+					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
+						self.close();
+					});
+			}
 			
 			for( x=0; x<self.options.fieldsOrder.length; x++ ) {
 				linkdiv.clone()
@@ -1106,14 +1113,16 @@
 			controlsInput = $('<div>').addClass('ui-datebox-slide').appendTo(pickerContent);
 			controlsSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent);
 				
-			$("<a href='#'>" + o.setDateButtonLabel + "</a>")
-				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-				.bind('vclick', function(e) {
-					e.preventDefault();
-					self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-					self.close();
-				});
-				
+			if ( o.noSetButton === false ) {
+				$("<a href='#'>" + o.setDateButtonLabel + "</a>")
+					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
+						self.close();
+					});
+			}
+			
 			$.extend(self, {
 				controlsHeader: controlsHeader,
 				controlsInput: controlsInput

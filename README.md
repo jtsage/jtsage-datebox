@@ -151,6 +151,7 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(all)_ __useModal__ : Use modal styling (background fades out) on popup. _(false)_
 * _(all)_ __noButtonFocusMode__ : Suppress button, open on element focus instead. _(false)_
 * _(all)_ __noButton__ : Suppress button. _(false)_
+* _(all)_ __noSetButton__ : Do not show the set button. Probably only useful for inline mode. _(false)_
 * _(all)_ __useInline__ : Show datebox inline on page, no dialog or popup. _(false)_
 * _(all)_ __useInlineHideInput__ : When using inline mode, do not show the input box. _(false)_
 * _(all)_ __titleDialogLabel__: Dialog label override. _(false)_
