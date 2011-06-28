@@ -24,7 +24,7 @@
 		});
 		$(document).ready(function () {
 			$('input').live('datebox', function(e, passed) {
-				//console.log(passed);
+				console.log(passed);
 			});
 		});
 	</script>
