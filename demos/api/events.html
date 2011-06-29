@@ -45,7 +45,7 @@
 			<li><h3>$('element').datebox('refresh');</h3><p>Refresh the DateBox control</p></li>
 		</ul>
 		
-		<h2>Callbacks</h2>
+		<h2>Events</h2>
 		
 		<p>Datebox has a number of callback event types.  They all fire the same master event, with an object payload.  To catch:</p>
 		
@@ -67,11 +67,14 @@ $('document').bind('pagecreate', function() {
 
 
 		<ul data-role="listview" data-inset="true">
-			<li data-role="list-divider">Callback Payloads - Trigger causes action</li>
-			<li><h3>Triggered to open datebox</h3><p><strong>{'method'}</strong> === open</p></li>
-			<li><h3>Triggered to close datebox</h3><p><strong>{'method'}</strong> === close</p></li>
-			<li><h3>Triggered to set date</h3><p><strong>{'method'}</strong> === set</p></li>
-			<li data-role="list-divider">Callback Payloads - Action causes trigger</li>
+			<li data-role="list-divider">Event Payloads - Trigger causes action</li>
+			<li><h3>Trigger to open datebox</h3><p><strong>{'method'}</strong> === open</p></li>
+			<li><h3>Trigger to close datebox</h3><p><strong>{'method'}</strong> === close</p></li>
+			<li><h3>Trigger to set specified date</h3><p><strong>{'method'}</strong> === set<br /><strong>{'value'}</strong> === value to place in input</p></li>
+			<li><h3>Trigger to refresh input date</h3><p><strong>{'method'}</strong> === doset</p></li>
+			<li><h3>Trigger to refresh</h3><p><strong>Note:</strong> Not used interaly.<br /><strong>{'method'}</strong> === dorefresh</p></li>
+			<li><h3>Trigger to change date</h3><p><strong>Note:</strong> Not used interaly.<br /><strong>{'method'}</strong> === dooffset<br /><strong>{'amount'}</strong> === Amount of change (usually +/- 1)<br /><strong>{'type'}</strong> === Type of change ( 'y' = Year, 'm' = Month, 'd' = Date, 'h' = Hour, 'i' = Minute, 's' = Second, 'a' = Meridian ) </p></li>
+			<li data-role="list-divider">Event Payloads - Action causes trigger</li>
 			<li><h3>Triggered on datebox enable</h3><p><strong>{'method'}</strong> === enable</p></li>
 			<li><h3>Triggered on datebox disable</h3><p><strong>{'method'}</strong> === disable</p></li>
 			<li><h3>Triggered on every data refresh</h3><p><strong>{'method'}</strong> === refresh</p></li>
@@ -87,6 +90,10 @@ $('element').bind('datebox', function (e, passed) {
     }
 });
 </code></pre>
+		<p>Example to modify and set date without open (increment month by 2):</p>
+		<pre><code>
+$('element').trigger('datebox', {'method':'dooffset', 'type':'m', 'amount':2}).trigger('datebox', {'method':'doset'});
+</pre></code>
 		
 	</div>
 	<div data-role="footer">

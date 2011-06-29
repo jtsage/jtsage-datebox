@@ -92,6 +92,18 @@
 					$(this).val(payload.value);
 					$(this).trigger('change');
 					break;
+				case 'doset':
+					if ( $(this).data('datebox').options.mode === 'timebox' || $(this).data('datebox').options.mode === 'durationbox' ) {
+						$(this).trigger('datebox', {'method':'set', 'value':$(this).data('datebox')._formatTime($(this).data('datebox').theDate)});
+					} else {
+						$(this).trigger('datebox', {'method':'set', 'value':$(this).data('datebox')._formatDate($(this).data('datebox').theDate)});
+					}
+				case 'dooffset':
+					$(this).data('datebox')._offset(payload.type, payload.amount, true);
+					break;
+				case 'dorefresh':
+					$(this).data('datebox')._update();
+					break;
 			}
 		} 
 	},
