@@ -14,6 +14,14 @@
 		$( document ).bind( "mobileinit", function(){
 			$.mobile.page.prototype.options.degradeInputs.date = 'text';
 		});	
+		$( document ).bind( "pagebeforecreate", function() {
+			$('#bb').bind('datebox', function (event, payload) {
+				if ( payload.method === 'close' ) {
+					event.stopImmediatePropagation();
+					console.log('stopping');
+				}
+			});
+		});
 	</script>
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
@@ -21,11 +29,6 @@
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			'experimentalReg': true
-		});
-		$(document).ready(function () {
-			$('input').live('datebox', function(e, passed) {
-				console.log(passed);
-			});
 		});
 	</script>
 	

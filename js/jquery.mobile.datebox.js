@@ -79,6 +79,22 @@
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1},
 		disabledDayColor: '#888'
 	},
+	_dateboxHandler: function(event, payload) {
+		if ( ! event.isPropagationStopped() ) {
+			switch (payload.method) {
+				case 'close':
+					$(this).data('datebox').close();
+					break;
+				case 'open':
+					$(this).data('datebox').open();
+					break;
+				case 'set':
+					$(this).val(payload.value);
+					$(this).trigger('change');
+					break;
+			}
+		} 
+	},
 	_zeroPad: function(number) {
 		return ( ( number < 10 ) ? "0" : "" ) + String(number);
 	},
@@ -632,8 +648,8 @@
 											if ( !self.calNoPrev ) {
 												self.theDate.setMonth(self.theDate.getMonth() - 1);
 												self.theDate.setDate($(this).attr('data-date'));
-												self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-												self.close();
+												self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
+												self.input.trigger('datebox', {'method':'close'});
 											}
 										});
 									calmode.prevtoday++;
@@ -646,8 +662,8 @@
 											if ( !self.calNoNext ) {
 												self.theDate.setDate($(this).attr('data-date'));
 												if ( !o.calWeekMode ) { self.theDate.setMonth(self.theDate.getMonth() + 1); }
-												self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-												self.close();
+												self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
+												self.input.trigger('datebox', {'method':'close'});
 											}
 										});
 									calmode.nexttoday++;
@@ -698,8 +714,8 @@
 								.bind((!skipThis)?'vclick':'error', function(e) {
 										e.preventDefault();
 										self.theDate.setDate($(this).attr('data-date'));
-										self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-										self.close();
+										self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
+										self.input.trigger('datebox', {'method':'close'});
 								})
 								.css((skipThis)?'color':'nocolor', o.disabledDayColor);
 							
@@ -722,7 +738,7 @@
 			openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
 				.bind('vclick', function (e) {
 					e.preventDefault();
-					if ( !o.disabled ) { self.open(); }
+					if ( !o.disabled ) { self.input.trigger('datebox', {'method': 'open'}); }
 					setTimeout( function() { $(e.target).closest("a").removeClass($.mobile.activeBtnClass); }, 300);
 				})
 				.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
@@ -745,7 +761,7 @@
 		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
 		focusedEl.bind('vclick', function() {
-			if ( !o.disabled && o.noButtonFocusMode ) { self.open(); }
+			if ( !o.disabled && o.noButtonFocusMode ) { input.trigger('datebox', {'method': 'open'}); }
 		});
 		
 		input
@@ -753,7 +769,7 @@
 			.focus(function(){
 				if ( ! o.disabled ) {
 					focusedEl.addClass('ui-focus');
-					if ( o.noButtonFocusMode ) { focusedEl.addClass('ui-focus'); self.open(); }
+					if ( o.noButtonFocusMode ) { focusedEl.addClass('ui-focus'); input.trigger('datebox', {'method': 'open'}); }
 				}
 				input.removeClass('ui-focus');
 			})
@@ -765,11 +781,14 @@
 				self.theDate = self._makeDate(self.input.val());
 				self._update();
 			});
+			
+		input.bind('datebox', self._dateboxHandler);
+			//function(event, payload)
 		
 		pickPage.find( ".ui-header a").bind('vclick', function(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
-			self.close();
+			self.input.trigger('datebox', {'method':'close'});
 		});
 
 		$.extend(self, {
@@ -805,8 +824,8 @@
 				.css({'z-index': o.zindex-1})
 				.appendTo(self.thisPage)
 				.bind("vclick", function(event) {
-					self.close();
 					event.preventDefault();
+					self.input.trigger('datebox', {'method':'close'});
 				});
 		
 		if ( o.noAnimation ) { pickerContent.removeClass('pop');	}
@@ -854,8 +873,8 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
-						self.input.val(self._formatTime(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-						self.close();
+						self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)});
+						self.input.trigger('datebox', {'method':'close'});
 					});
 			}
 				
@@ -936,8 +955,8 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
-						self.input.val(self._formatTime(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-						self.close();
+						self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)});
+						self.input.trigger('datebox', {'method':'close'});
 					});
 			}
 				
@@ -1017,8 +1036,8 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
-						self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-						self.close();
+						self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
+						self.input.trigger('datebox', {'method':'close'});
 					});
 			}
 			
@@ -1118,8 +1137,8 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
-						self.input.val(self._formatDate(self.theDate)).trigger('change').trigger('datebox', {'method':'set'});
-						self.close();
+						self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
+						self.input.trigger('datebox', {'method':'close'});
 					});
 			}
 			
@@ -1155,7 +1174,7 @@
 		if ( this.options.useInline ) { return false; }
 		if ( this.options.open === true ) { return false; } else { this.options.open = true; }
 		
-		this.input.trigger('change').blur().trigger('datebox', {'method':'open'});
+		this.input.trigger('change').blur();
 		
 		var self = this,
 			o = this.options,
@@ -1221,7 +1240,6 @@
 		self.focusedEl.removeClass('ui-focus');
 		
 		if ( self.options.closeCallback !== false ) { callback = new Function(self.options.closeCallback); callback(); }
-		self.input.trigger('datebox', {'method':'close'});
 	},
 	disable: function(){
 		this.element.attr("disabled",true);
