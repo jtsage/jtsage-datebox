@@ -21,8 +21,15 @@
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
 	<script type="text/javascript">
 		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-             'experimentalReg': true
-         });
+			'experimentalReg': true
+		});
+	</script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
 	</script>
 	
 </head>
@@ -58,12 +65,10 @@
 				
 				<p>Using the time mode is as simple as setting the 'mode' option to "timebox".</p>
 				
-				<pre><code>
-&lt;label for="mydate"&gt;Some Time&lt;/label&gt;
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Time&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "timebox"}'&gt;
-				</code></pre>
+   data-options='{"mode": "timebox"}'&gt;</pre>
 				
 				<h2>12 Hour Clock Mode</h2>
 				
@@ -73,12 +78,10 @@
 				
 				<p>To use a 12 hour clock instead or a 24 hour clock, set 'timeFomat' to 12.</p>
 				
-				<pre><code>
-&lt;label for="mydate"&gt;Some Time&lt;/label&gt;
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Time&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "timebox", "timeFormat": 12}'&gt;
-				</code></pre>
+   data-options='{"mode": "timebox", "timeFormat": 12}'&gt;</pre>
 				
 				
 			</nav> 

@@ -24,6 +24,13 @@
              'experimentalReg': true
          });
 	</script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
 	
 </head>
 <body>
@@ -73,12 +80,10 @@
 				<p>Limit the allowed dates to at minimum today, and at maximum 60 days in the future. Note that this is also valid in android mode.</p>
 				<p>The calendar mode <strong>does</strong> limit users to viewing months with valid dates.</p>
 				
-				<pre><code>
-&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "afterToday": true, "maxDays": 60}'&gt;
-				</code></pre>
+   data-options='{"mode": "calbox", "afterToday": true, "maxDays": 60}'&gt;</pre>
 				
 
 				<h3>Limit to today + 10 days, then based on start.</h3>
@@ -105,17 +110,17 @@
 				<p>The first date is limited from "today" to 10 days in the future.</p>
 				<p>The second date is limited from the first date, to 10 days after the first date</p>
 				
-				<pre><code><strong>HTML</strong>
-&lt;label for="calrlimit1"&gt;Beginning Date&lt;/label&gt;
+				<strong>HTML</strong>
+				<pre class="prettyprint">&lt;label for="calrlimit1"&gt;Beginning Date&lt;/label&gt;
 &lt;input name="calrlimit1" type="date" data-role="datebox" id="calrlimit1" 
     data-options='{"mode": "calbox", "afterToday": true, "maxDays": 10}' /&gt;
 
 &lt;label for="calrlimit2"&gt;Ending Date&lt;/label&gt;
 &lt;input name="calrlimit2" type="date" data-role="datebox" id="calrlimit2"
-    data-options='{"minDays": -10, "maxDays": 10, "mode": "calbox"}' /&gt;
+    data-options='{"minDays": -10, "maxDays": 10, "mode": "calbox"}' /&gt;</pre>
 
-<strong>JQuery</strong>
-$('#calrlimit1').live('change', function() {
+				<strong>JQuery</strong>
+				<pre class="prettyprint">$('#calrlimit1').live('change', function() {
     $('#calrlimit2').val($('#calrlimit1').val());
     var temp = new Date(),
         diff = parseInt(($('#calrlimit1').data('datebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
@@ -124,8 +129,7 @@ $('#calrlimit1').live('change', function() {
 
     $('#calrlimit2').data('datebox').options.minDays = diffstrt;
     $('#calrlimit2').data('datebox').options.maxDays = diffend;
-});
-				</code></pre>
+});</pre>
 			</nav> 
 		</div> 
 		

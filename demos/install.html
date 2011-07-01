@@ -21,8 +21,15 @@
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
 	<script type="text/javascript">
 		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-             'experimentalReg': true
-         });
+			'experimentalReg': true
+		});
+	</script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
 	</script>
 	
 </head>
@@ -51,9 +58,9 @@
 		<dl>
 			<dt>Recommended Use</dt>
 			<dd>It is highly recommended that you degrade date inputs while using datebox.  <strong>Before</strong> loading jQueryMobile:</dd>
-			<dd><pre><code>$( document ).bind( "mobileinit", function(){
-    $.mobile.page.prototype.options.degradeInputs.date = 'text';
-});</code></pre></dd>
+			<dd><pre class="prettyprint">$( document ).bind( "mobileinit", function(){
+  $.mobile.page.prototype.options.degradeInputs.date = 'text';
+});</pre></dd>
 		</dl>
 		<dl>
 			<dt>Stripped Versions</dt>
@@ -64,14 +71,15 @@
 		<dl>
 			<dt>Significant Loading Order</dt>
 			<dd>Loading Order is significant, a typical &lt;head&gt; might look like:</dd>
-			<dd><pre><code>&lt;link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" /&gt;
+			<dd><pre class="prettyprint">&lt;link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" /&gt;
 &lt;link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" /&gt; 
+
 &lt;script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"&gt;&lt;/script&gt; 
 &lt;script type="text/javascript"&gt;
     $( document ).bind( "mobileinit", function(){ $.mobile.page.prototype.options.degradeInputs.date = 'text'; });	
 &lt;/script&gt;
 &lt;script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"&gt;&lt;/script&gt;</code></pre></dd>
+&lt;script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"&gt;&lt;/script&gt;</pre></dd>
 		</dl>
 
 	</div>

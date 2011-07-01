@@ -21,8 +21,15 @@
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
 	<script type="text/javascript">
 		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-             'experimentalReg': true
-         });
+			'experimentalReg': true
+		});
+	</script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
 	</script>
 	
 </head>
@@ -61,12 +68,10 @@
 				
 				<p>You can open on focus, removing the button by using 'noButtonFocusMode' set to 'true'</p>
 				
-				<pre><code>
-&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"noButtonFocusMode": true}'&gt;
-				</code></pre>
+   data-options='{"noButtonFocusMode": true}'&gt;</pre>
 				
 				
 				<h2>Open on Link</h2>
@@ -82,22 +87,20 @@
 				
 				<p>You can force open the dialog by clicking <a href="#" id="linkmodelink">here</a>.  Also shown without a button (noButton : true)</p>
 				
-				<pre><code><strong>HTML</strong>
-&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+				<strong>HTML</strong>
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"noButton": true}'&gt;
    
-&lt;a href="#" id="linkmodelink"&gt;Open Link&lt;/a&gt;
+&lt;a href="#" id="linkmodelink"&gt;Open Link&lt;/a&gt;</pre>
 
-<strong>jQuery</strong>
-$('#linkmodelink').live('click', function() {
-    $('#mydate').datebox('open');
-});
-				</code></pre>
+				<strong>jQuery</strong>
+				<pre class="prettyprint">$('#linkmodelink').live('click', function() {
+  $('#mydate').datebox('open');
+});</pre>
 				
 				
-			</div>
 			</nav> 
 		</div> 
 		

@@ -21,8 +21,15 @@
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
 	<script type="text/javascript">
 		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-             'experimentalReg': true
-         });
+			'experimentalReg': true
+		});
+	</script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
 	</script>
 	
 </head>
@@ -37,12 +44,10 @@
 		
 		<p>Configuration details can be overridden site wide if you wish.  After loading jQueryMobile, run:</p>
 		
-		<pre><code>
-jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+		<pre class="prettyprint">jQuery.extend(jQuery.mobile.datebox.prototype.options, {
     'dateFormat': 'dd.mm.YYYY',
     'headerFormat': 'dd.mm.YYYY'
-});
-</code></pre>
+});</pre>
 		
 	</div>
 	<div data-role="footer">

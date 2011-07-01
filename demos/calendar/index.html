@@ -24,6 +24,13 @@
              'experimentalReg': true
          });
 	</script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
 	
 </head>
 <body>
@@ -59,12 +66,10 @@
 				
 				<p>Using a calendar is as simple as setting the 'mode' option to "calbox".</p>
 				
-				<pre><code>
-&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox"}'&gt;
-				</code></pre>
+   data-options='{"mode": "calbox"}'&gt;</pre>
 				
 				<h2>Changing the start of the week</h2>
 				<div data-role="fieldcontain">
@@ -73,12 +78,10 @@
 				
 				<p>To change the start of the week, set option 'calStartDay' to an integer 0-6, where 0=Sunday, 1=Monday...</p>
 				
-				<pre><code>
-&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", 'calStartDay': 1}'&gt;
-				</code></pre>
+   data-options='{"mode": "calbox", 'calStartDay': 1}'&gt;</pre>
 				
 				<h2>Selecting by week</h2>
 				<div data-role="fieldcontain">
@@ -87,12 +90,10 @@
 				
 				<p>Using a calendar to select a specific day can be accomplished by setting option 'calWeekMode' to 'true' and 'calWeekModeFirstDay' to the day you wish to pick.  For instance, to select by week using monday:</p>
 				
-				<pre><code>
-&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "calWeekMode": true, "calWeekModeFirstDay": 1}'&gt;
-				</code></pre>
+   data-options='{"mode": "calbox", "calWeekMode": true, "calWeekModeFirstDay": 1}'&gt;</pre>
 			</nav> 
 		</div> 
 		
