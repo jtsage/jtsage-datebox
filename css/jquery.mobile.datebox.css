@@ -5,19 +5,19 @@
 /* Base input element Styles */
 
 .ui-input-datebox { width: 95%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; width: 95%; padding-top: 0px; padding-bottom: 0px; padding-right: .4em; }
-.ui-input-datebox input { width: 70% !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; }
+.ui-input-datebox input { width: 70% !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }
 .ui-input-datebox input:focus { outline: none;}
-.min-width-480px .ui-input-datebox { width: 60%; display: inline-block; }
+.min-width-480px .ui-input-datebox { width: 60%; display: inline-block; zoom:1; *display: inline; }
 
 /* Calendar Mode Styles */
 
 .ui-datebox-gridheader { text-align: center; }
-.ui-datebox-gridheader h4 { text-align: center; display: inline-block; margin-top: 10px; margin-bottom: 10px; }
+.ui-datebox-gridheader h4 { text-align: center; display: inline-block; margin-top: 10px; margin-bottom: 10px; zoom:1; *display: inline;}
 .ui-datebox-gridplus { float: right; }
 .ui-datebox-gridminus { float: left; }
 .ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; }
 .ui-datebox-grid { clear: both; margin-bottom: 5px; }
-.ui-datebox-griddate { width: 36px; height: 30px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; }
+.ui-datebox-griddate { width: 36px; height: 30px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; zoom:1; *display: inline;}
 .ui-datebox-griddate-empty { border: 1px solid transparent; color: #888; }
 .ui-datebox-griddate-label { height: 15px !important; line-height: 15px !important; color: black;}
 
@@ -25,20 +25,20 @@
 
 .ui-datebox-header h4 { margin-top: 5px; margin-bottom: 5px; text-align: center; }
 .ui-datebox-controls { text-align: center; }
-.ui-datebox-controls div { width: 77px; text-align: center; display: inline-block; }
+.ui-datebox-controls div { width: 77px; text-align: center; display: inline-block; zoom: 1; *display: inline;}
 .ui-datebox-scontrols { text-align: center; }
-.ui-datebox-scontrols div { width: 55px; text-align: center; display: inline-block; }
+.ui-datebox-scontrols div { width: 55px; text-align: center; display: inline-block; zoom: 1; *display: inline;}
 .ui-datebox-scontrols .ui-datebox-sinput { width: 68px; }
 .ui-datebox-scontrols .ui-datebox-sinput input { width: 48px; text-align: center; }
-.ui-datebox-input { width: 74px !important; margin-left: 1px; margin-right: 1px; text-align: center !important; display: inline-block !important; }
+.ui-datebox-input { width: 74px !important; margin-left: 1px; margin-right: 1px; text-align: center !important; display: inline-block !important; zoom:1; *display: inline; }
 
 /* Slide Mode Styles */
 
 .ui-datebox-sliderow { margin-left: 5px; margin-right: 5px; margin-bottom: 5px; text-align: center; }
-.ui-datebox-slideyear { text-align: center; display: inline-block; width: 88px; vertical-align: middle; line-height: 30px; height: 30px; font-size: 14px; font-weight: bold; }
-.ui-datebox-slidemonth { text-align: center; display: inline-block; width: 51px; vertical-align: middle; line-height: 30px; height: 30px; font-size: 12px; font-weight: bold; }
-.ui-datebox-slideday { text-align: center; display: inline-block; width: 32px; vertical-align: middle; line-height: 20px; height: 38px; font-size: 14px; font-weight: bold; }
-.ui-datebox-slidearrow { text-align: center; display: inline-block; width: 10px; vertical-align: middle; line-height: 38px; height: 38px; font-size: 10px; font-weight: bold; }
+.ui-datebox-slideyear { text-align: center; display: inline-block; zoom:1; *display:inline; width: 88px; vertical-align: middle; line-height: 30px; height: 30px; font-size: 14px; font-weight: bold; }
+.ui-datebox-slidemonth { text-align: center; display: inline-block; zoom:1; *display:inline; width: 51px; vertical-align: middle; line-height: 30px; height: 30px; font-size: 12px; font-weight: bold; }
+.ui-datebox-slideday { text-align: center; display: inline-block; zoom:1; *display:inline; width: 32px; vertical-align: middle; line-height: 20px; height: 38px; font-size: 14px; font-weight: bold; }
+.ui-datebox-slidearrow { text-align: center; display: inline-block; zoom:1; *display:inline; width: 10px; vertical-align: middle; line-height: 38px; height: 38px; font-size: 10px; font-weight: bold; }
 .ui-datebox-slidewday { font-size: 10px; font-weight: normal; }
 
 /* Shared Styles */
