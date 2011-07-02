@@ -25,7 +25,7 @@
 		wheelExists: false,
 		swipeEnabled: true,
 		zindex: '500',
-		experimentalReg: false,
+		experimentalReg: true,
 		debug: false,
 		
 		setDateButtonLabel: 'Set Date',
