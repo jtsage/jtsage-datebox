@@ -14,14 +14,6 @@
 		$( document ).bind( "mobileinit", function(){
 			$.mobile.page.prototype.options.degradeInputs.date = 'text';
 		});	
-		$( document ).bind( "pagebeforecreate", function() {
-			$('#bb').bind('datebox', function (event, payload) {
-				if ( payload.method === 'close' ) {
-					event.stopImmediatePropagation();
-					console.log('stopping');
-				}
-			});
-		});
 	</script>
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
@@ -41,7 +33,7 @@
 	<div data-role="content" data-theme="c">
 		<div data-role="fieldcontain">
 			<label for="aa">Cal</label>
-			<input name="aa" type="date" data-role="datebox" data-options='{"mode": "calbox", "pickPageHighButtonTheme": "a", "pickPageButtonTheme": "d", "pickPageOHighButtonTheme": "b", "highDates" : ["2011-06-19", "2011-06-21"], "afterToday":true}' id="aa" />
+			<input name="aa" type="date" data-role="datebox" data-options='{"mode": "calbox", "pickPageHighButtonTheme": "a", "pickPageButtonTheme": "d", "pickPageOHighButtonTheme": "b", "highDates" : ["2011-06-19", "2011-06-21"], "beforeToday":true, "notToday": true}' id="aa" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="bb">Slide</label>

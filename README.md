@@ -123,6 +123,8 @@ These can be passed to datebox via an object set at the data-options attribute, 
 * _(all date)_ __defaultDate__ : Default date when nothing entered into input box, array of [y,m,d] prefered, ISO accepted. _(null)_
   * **NOTE** ISO date is parsed due to iPad/iPhone limitation, it is (slightly) slower than the array method.
 * _(all date)_ __afterToday__ : Limit date to "today" or after. _(false)_
+* _(all date)_ __beforeToday__ : Limit date to "today" or before. _(false)_
+* _(calendar)_ __notToday__ : Limit date to NOT "today". _(false)_
 * _(all date)_ __maxDays__ : Set the upper limit to this # of days after today. _(false)_
 * _(all date)_ __minDays__ : Set the lower limit to this # of days before today. _(false)_
 * _(android)_ __maxYear__ : Maximum year allowed in controls (non-constrained in text box). _(false)_

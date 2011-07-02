@@ -69,6 +69,7 @@
 		minYear: false,
 		maxYear: false,
 		afterToday: false,
+		beforeToday: false,
 		maxDays: false,
 		minDays: false,
 		highDates: false,
@@ -561,6 +562,10 @@
 				testDate = new Date();
 				if ( self.theDate < testDate ) { self.theDate = testDate; }
 			}
+			if ( o.beforeToday !== false ) {
+				testDate = new Date();
+				if ( self.theDate > testDate ) { self.theDate = testDate; }
+			}
 			if ( o.maxDays !== false ) {
 				testDate = new Date();
 				testDate.setDate(testDate.getDate() + o.maxDays);
@@ -600,7 +605,7 @@
 			calmode.lastend = self._getLastDateBefore(self.theDate);
 			calmode.presetDate = self._makeDate(self.input.val());	
 			calmode.prevtoday = calmode.lastend - (calmode.start - 1);
-			calmode.checkDates = ( o.afterToday !== false || o.maxDays !== false || o.minDays !== false || o.blackDates !== false || o.blackDays !== false );
+			calmode.checkDates = ( o.afterToday !== false || o.beforeToday !== false || o.notToday !== false || o.maxDays !== false || o.minDays !== false || o.blackDates !== false || o.blackDays !== false );
 			
 			if ( o.calStartDay > 0 ) {
 				calmode.start = calmode.start - o.calStartDay;
@@ -615,7 +620,10 @@
 			if ( o.afterToday === true && 
 				( calmode.currentMonth === true || ( calmode.thisDate.getMonth() >= self.theDate.getMonth() && self.theDate.getFullYear() === calmode.thisDate.getFullYear() ) ) ) { 
 				self.calNoPrev = true; }
-
+			if ( o.beforeToday === true &&
+				( calmode.currentMonth === true || ( calmode.thisDate.getMonth() <= self.theDate.getMonth() && self.theDate.getFullYear() === calmode.thisDate.getFullYear() ) ) ) {
+				self.calNoNext = true; }
+			
 			if ( o.minDays !== false ) {
 				calmode.minDate.setDate(calmode.minDate.getDate() - o.minDays);
 				if ( self.theDate.getFullYear() === calmode.minDate.getFullYear() && self.theDate.getMonth() <= calmode.minDate.getMonth() ) { self.calNoPrev = true;}
@@ -687,6 +695,12 @@
 								if ( o.afterToday && self._checker(calmode.thisDate) > (self._checker(self.theDate)+calmode.today-self.theDate.getDate()) ) {
 									skipThis = true;
 								} 
+								if ( !skipThis && o.beforeToday && self._checker(calmode.thisDate) < (self._checker(self.theDate)+calmode.today-self.theDate.getDate()) ) {
+									skipThis = true;
+								}
+								if ( !skipThis && o.notToday && calmode.today === calmode.highlightDay ) {
+									skipThis = true;
+								}
 								if ( !skipThis && o.maxDays !== false && self._checker(calmode.maxDate) < (self._checker(self.theDate)+calmode.today-self.theDate.getDate()) ) {
 									skipThis = true;
 								} 
