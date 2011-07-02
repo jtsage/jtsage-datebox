@@ -66,6 +66,8 @@
 					<dd>An array of days to disable, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2])</dd>
 					<dt>blackDates</dt>
 					<dd>An array of ISO 8601 Dates to disable. (e.g. ["2011-01-01", "2011-12-25"])</dd>
+					<dt>highDays</dt>
+					<dd>An array of days to highlight, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2])</dd>
 					<dt>highDates</dt>
 					<dd>An array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"])</dd>
 				</dl>
@@ -74,15 +76,15 @@
 				
 				<div data-role="fieldcontain">
 					<label for="calblackday">Some Date</label>
-					<input name="calblackday" type="date" data-role="datebox" id="calblackday" data-options='{"mode": "calbox", "blackDays": [2] }'/>
+					<input name="calblackday" type="date" data-role="datebox" id="calblackday" data-options='{"mode": "calbox", "blackDays": [2], "highDays": [2] }'/>
 				</div>
 				
-				<p>Example shows all Tuesdays disabled.</p>
+				<p>Example shows all Tuesdays disabled, Saturdays Highlighted</p>
 				
 				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "calBlackDays": [2] }'&gt;</pre>
+   data-options='{"mode": "calbox", "blackDays": [2], "highDays": [6] }'&gt;</pre>
 				
 				<h3>Blacklisted Dates</h3>
 				
