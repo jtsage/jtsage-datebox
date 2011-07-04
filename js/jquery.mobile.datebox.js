@@ -508,8 +508,6 @@
 								e.preventDefault();
 							}
 						});
-						//.bind('swipeleft', function() { self._offset(['y','m','d'][$(this).attr('data-rowtype')], [3,5,7][$(this).attr('data-rowtype')]);  })
-						//.bind('swiperight', function() { self._offset(['y','m','d'][$(this).attr('data-rowtype')], -1*[3,5,7][$(this).attr('data-rowtype')]); });
 				}
 				switch (y) {
 					case 0:
