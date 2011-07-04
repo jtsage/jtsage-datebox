@@ -397,7 +397,7 @@
 		var self = this,
 			o = self.options, 
 			testDate = null,
-			i, gridWeek, gridDay, skipThis, thisRow, y, cTheme, inheritDate,
+			i, gridWeek, gridDay, skipThis, thisRow, y, cTheme, inheritDate, thisPRow, tmpVal,
 			interval = {'d': 60*60*24, 'h': 60*60, 'i': 60, 's':1},
 			calmode = {};
 			
@@ -484,21 +484,38 @@
 			self.controlsInput.html('');
 			
 			for ( y=0; y<3; y++ ) {
-				thisRow = $("<div>", {'class': 'ui-datebox-sliderow', 'data-rowtype': y});
+				thisPRow = $("<div>", {'data-rowtype': y});
+				
 				if ( o.wheelExists ) {
-					thisRow.bind('mousewheel', function(e,d) {
+					thisPRow.bind('mousewheel', function(e,d) {
 						e.preventDefault();
 						self._offset(['y','m','d'][$(this).attr('data-rowtype')], ((d>0)?1:-1));
 					});
 				}
+				
+				thisRow = $("<div>", {'class': 'ui-datebox-sliderow-int', 'data-rowtype': y}).appendTo(thisPRow);
+				
 				if ( o.swipeEnabled ) {
 					thisRow
-						.bind('swipeleft', function() { self._offset(['y','m','d'][$(this).attr('data-rowtype')], [3,5,7][$(this).attr('data-rowtype')]);  })
-						.bind('swiperight', function() { self._offset(['y','m','d'][$(this).attr('data-rowtype')], -1*[3,5,7][$(this).attr('data-rowtype')]); });
+						.bind(self.START_DRAG, function(e) {
+							if ( !self.dragMove ) {
+								self.dragMove = true;
+								self.dragTarget = $(this);
+								self.dragPos = parseInt(self.dragTarget.css('marginLeft').replace(/px/i, ''),10);
+								self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX;
+								self.dragEnd = false;
+								e.stopPropagation();
+								e.preventDefault();
+							}
+						});
+						//.bind('swipeleft', function() { self._offset(['y','m','d'][$(this).attr('data-rowtype')], [3,5,7][$(this).attr('data-rowtype')]);  })
+						//.bind('swiperight', function() { self._offset(['y','m','d'][$(this).attr('data-rowtype')], -1*[3,5,7][$(this).attr('data-rowtype')]); });
 				}
 				switch (y) {
 					case 0:
-						for ( i=-1; i<2; i++ ) {
+						thisPRow.addClass('ui-datebox-sliderow-ym');
+						thisRow.css('marginLeft', '-333px');
+						for ( i=-5; i<6; i++ ) {
 							cTheme = ((inheritDate.getFullYear()===(self.theDate.getFullYear() + i))?o.pickPageHighButtonTheme:o.pickPageSlideButtonTheme);
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							$("<div>", { 'class' : 'ui-datebox-slideyear ui-corner-all ui-btn-up-'+cTheme })
@@ -511,7 +528,9 @@
 						}
 						break;
 					case 1:
-						for ( i=-2; i<3; i++ ) {
+						thisPRow.addClass('ui-datebox-sliderow-ym');
+						thisRow.css('marginLeft', '-204px');
+						for ( i=-6; i<7; i++ ) {
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
 							testDate.setMonth(testDate.getMonth()+i);
 							cTheme = ( inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageSlideButtonTheme;
@@ -526,13 +545,9 @@
 						}
 						break;
 					case 2:
-						$("<div>", {'class' : 'ui-datebox-slidearrow ui-corner-all ui-btn-up-'+o.pickPageButtonTheme})
-							.attr('data-theme', o.pickPageButtonTheme)
-							.text('<')
-							.bind('vmouseover vmouseout', function() { self._hoover(this); })
-							.bind('vclick', function(e) { e.preventDefault(); self._offset('d', -7); })
-							.appendTo(thisRow);
-						for ( i=-3; i<4; i++ ) {
+						thisPRow.addClass('ui-datebox-sliderow-d');
+						thisRow.css('marginLeft', '-386px');
+						for ( i=-15; i<16; i++ ) {
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
 							testDate.setDate(testDate.getDate()+i);
 							cTheme = ( inheritDate.getDate() === testDate.getDate() && inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageSlideButtonTheme;
@@ -546,15 +561,9 @@
 								.bind('vclick', function(e) { e.preventDefault(); self._offset('d', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
 						}
-						$("<div>", {'class' : 'ui-datebox-slidearrow ui-corner-all ui-btn-up-'+o.pickPageButtonTheme})
-							.attr('data-theme', o.pickPageButtonTheme)
-							.text('>')
-							.bind('vmouseover vmouseout', function() { self._hoover(this); })
-							.bind('vclick', function(e) { e.preventDefault(); self._offset('d', 7); })
-							.appendTo(thisRow);
 						break;
 				}
-				thisRow.appendTo(self.controlsInput);
+				thisPRow.appendTo(self.controlsInput);
 			}
 		}
 		/* END:SLIDEBOX */
@@ -782,7 +791,16 @@
 					"</div>")
 					.appendTo( $.mobile.pageContainer )
 					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
-			pickPageContent = pickPage.find( ".ui-content" );
+			pickPageContent = pickPage.find( ".ui-content" ),
+			touch = ('ontouchstart' in window),
+			START_EVENT = touch ? 'touchstart' : 'mousedown',
+			MOVE_EVENT = touch ? 'touchmove' : 'mousemove',
+			END_EVENT = touch ? 'touchend' : 'mouseup',
+			dragMove = false,
+			dragStart = false,
+			dragEnd = false,
+			dragPos = false,
+			dragTarget = false;
 			
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
 		
@@ -828,12 +846,58 @@
 			input: input,
 			theDate: theDate,
 			initDate: initDate,
-			focusedEl: focusedEl
+			focusedEl: focusedEl,
+			touch: touch,
+			START_DRAG: START_EVENT,
+			MOVE_DRAG: MOVE_EVENT,
+			END_DRAG: END_EVENT,
+			dragMove: dragMove,
+			dragStart: dragStart,
+			dragEnd: dragEnd,
+			dragPos: dragPos
 		});
 		
 		if ( typeof $.event.special.mousewheel !== 'undefined' ) { o.wheelExists = true; }
 		
 		self._buildPage();
+		
+		if ( o.swipeEnabled ) {
+			$(document).bind(self.MOVE_DRAG, function(e) {
+				if ( self.dragMove ) {
+					if ( o.mode === 'slidebox' ) {
+						self.dragEnd = self.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX;
+						self.dragTarget.css('marginLeft', (self.dragPos + self.dragEnd - self.dragStart) + 'px');
+						e.preventDefault();
+						e.stopPropagation();
+						return false;
+					}
+				}
+			});
+			$(document).bind(self.END_DRAG, function(e) {
+				if ( self.dragMove ) {
+					self.dragMove = false;
+					if ( o.mode === 'slidebox' ) {
+						if ( self.dragEnd !== false && Math.abs(self.dragStart - self.dragEnd) > 25 ) {
+							e.preventDefault();
+							e.stopPropagation();
+							switch(self.dragTarget.parent().data('rowtype')) {
+								case 0:
+									self._offset('y', parseInt(( self.dragStart - self.dragEnd ) / 84, 10));
+									break;
+								case 1:
+									self._offset('m', parseInt(( self.dragStart - self.dragEnd ) / 51, 10));
+									break;
+								case 2:
+									self._offset('d', parseInt(( self.dragStart - self.dragEnd ) / 32, 10));
+									break;
+							}
+						}
+					}
+					self.dragStart = false;
+					self.dragEnd = false;
+				}
+			});
+		}
 		
 		if ( input.is(':disabled') ) {
 			self.disable();
