@@ -45,7 +45,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="dd">Time</label>
-			<input name="dd" type="text" data-role="datebox" data-options='{"mode": "timebox", "minuteStep": 15, "timeFormat":12}' id="dd" />
+			<input name="dd" type="text" data-role="datebox" data-options='{"mode": "timebox", "timeFormat":12}' id="dd" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="ee">Length</label>

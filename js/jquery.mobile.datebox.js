@@ -798,7 +798,8 @@
 			dragStart = false,
 			dragEnd = false,
 			dragPos = false,
-			dragTarget = false;
+			dragTarget = false,
+			dragThisDelta = 0;
 			
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
 		
@@ -868,8 +869,22 @@
 						e.preventDefault();
 						e.stopPropagation();
 						return false;
+					} else if ( o.mode === 'durationbox' || o.mode === 'timebox' || o.mode === 'datebox' ) {
+						self.dragEnd = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+						if ( (self.dragEnd - self.dragStart) % 2 === 0 ) {
+							dragThisDelta = (self.dragEnd - self.dragStart) / -2;
+							if ( dragThisDelta < self.dragPos ) {
+								self._offset(self.dragTarget, -1);
+							} else if ( dragThisDelta > self.dragPos ) {
+								self._offset(self.dragTarget, 1);
+							} 
+							self.dragPos = dragThisDelta;
+						}
+						e.preventDefault();
+						e.stopPropagation();
+						return false;
 					}
-				}
+				} 
 			});
 			$(document).bind(self.END_DRAG, function(e) {
 				if ( self.dragMove ) {
@@ -890,7 +905,7 @@
 									break;
 							}
 						}
-					}
+					} 
 					self.dragStart = false;
 					self.dragEnd = false;
 				}
@@ -946,18 +961,32 @@
 			for ( x=0; x<o.durationOrder.length; x++ ) {
 				switch ( o.durationOrder[x] ) {
 					case 'd':
-						$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.durationLabel[0]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'd'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.durationLabel[0]+'</label>');
 						break;
 					case 'h':
-						$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.durationLabel[1]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'h'}).append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.durationLabel[1]+'</label>');
 						break;
 					case 'i':
-						$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.durationLabel[2]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'i'}).append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.durationLabel[2]+'</label>');
 						break;
 					case 's':
-						$('<div>', {'class': 'ui-datebox-sinput'}).append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.durationLabel[3]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 's'}).append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.durationLabel[3]+'</label>');
 						break;
 				}
+			}
+			
+			if ( o.swipeEnabled ) {
+				controlsInput.find('input').bind(self.START_DRAG, function(e) {
+					if ( !self.dragMove ) {
+						self.dragMove = true;
+						self.dragTarget = $(this).parent().data('field');
+						self.dragPos = 0;
+						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+						self.dragEnd = false;
+						e.stopPropagation();
+						//e.preventDefault();
+					}
+				});
 			}
 			
 			if ( o.noSetButton === false ) {
@@ -1006,6 +1035,7 @@
 			controlsSet = templControls.clone().appendTo(pickerContent);
 				
 			pickerHour = templInput.clone()
+				.attr('data-field', 'h')
 				.keyup(function() {
 					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						newHour = parseInt($(this).val(),10);
@@ -1018,6 +1048,7 @@
 				});
 				
 			pickerMins = templInput.clone()
+				.attr('data-field', 'i')
 				.keyup(function() {
 					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						self.theDate.setMinutes(parseInt($(this).val(),10));
@@ -1026,6 +1057,7 @@
 				});
 				
 			pickerMeri = templInput.clone()
+				.attr('data-field', 'a')
 				.keyup(function() {
 					if ( $(this).val() !== '' ) {
 						self._update();
@@ -1041,6 +1073,20 @@
 			pickerHour.appendTo(controlsInput);
 			pickerMins.appendTo(controlsInput);
 			if ( o.timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
+			
+			if ( o.swipeEnabled ) {
+				controlsInput.find('input').bind(self.START_DRAG, function(e) {
+					if ( !self.dragMove ) {
+						self.dragMove = true;
+						self.dragTarget = $(this).data('field');
+						self.dragPos = 0;
+						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+						self.dragEnd = false;
+						e.stopPropagation();
+						//e.preventDefault();
+					}
+				});
+			}
 			
 			if ( o.noSetButton === false ) {
 				$("<a href='#'>" + o.setTimeButtonLabel + "</a>")
@@ -1088,6 +1134,7 @@
 			controlsSet = templControls.clone().appendTo(pickerContent);
 				
 			pickerMon = templInput.clone()
+				.attr('data-field', 'm')
 				.keyup(function() {
 					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						self.theDate.setMonth(parseInt($(this).val(),10)-1);
@@ -1096,6 +1143,7 @@
 				});
 				
 			pickerDay = pickerMon.clone()
+				.attr('data-field', 'd')
 				.keyup(function() {
 					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						self.theDate.setDate(parseInt($(this).val(),10));
@@ -1104,6 +1152,7 @@
 				});
 				
 			pickerYar = pickerMon.clone()
+				.attr('data-field', 'y')
 				.keyup(function() {
 					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						self.theDate.setFullYear(parseInt($(this).val(),10));
@@ -1121,6 +1170,20 @@
 				if (o.fieldsOrder[x] === 'y') { pickerYar.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'm') { pickerMon.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
+			}
+			
+			if ( o.swipeEnabled ) {
+				controlsInput.find('input').bind(self.START_DRAG, function(e) {
+					if ( !self.dragMove ) {
+						self.dragMove = true;
+						self.dragTarget = $(this).data('field');
+						self.dragPos = 0;
+						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+						self.dragEnd = false;
+						e.stopPropagation();
+						//e.preventDefault();
+					}
+				});
 			}
 			
 			if ( o.noSetButton === false ) {
