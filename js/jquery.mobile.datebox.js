@@ -25,7 +25,6 @@
 		wheelExists: false,
 		swipeEnabled: true,
 		zindex: '500',
-		experimentalReg: true,
 		debug: false,
 		
 		setDateButtonLabel: 'Set Date',
@@ -42,6 +41,8 @@
 		durationLabel: ['Days', 'Hours', 'Minutes', 'Seconds'],
 		durationDays: ['Day', 'Days'],
 		timeFormat: 24,
+		timeFormats: { '12': 'GG:ii AA', '24': 'HH:ii' },
+		timeOutput: false,
 		
 		mode: 'datebox',
 		calShowDays: true,
@@ -60,6 +61,7 @@
 		fieldsOrder: false,
 		dateFieldOrder: ['m', 'd', 'y'],
 		timeFieldOrder: ['h', 'i', 's'],
+		slideFieldOrder: ['y', 'm', 'd'],
 		durationOrder: ['d', 'h', 'i', 's'],
 		headerFormat: 'ddd, mmm dd, YYYY',
 		dateFormat: 'YYYY-MM-DD',
@@ -147,6 +149,15 @@
 		format = format.replace('ddd',  this.options.daysOfWeek[date.getDay()] );
 		format = format.replace('DD',   this._zeroPad(date.getDate()));
 		format = format.replace('dd',   date.getDate());
+		
+		format = format.replace('HH',   this._zeroPad(date.getHours()));
+		format = format.replace('GG',   this._zeroPad(((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():date.getHours()-12))));
+		format = format.replace('hh',   ((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():(date.getHours()-12))));
+		format = format.replace('gg',   date.getHours());
+		format = format.replace('ii',   this._zeroPad(date.getMinutes()));
+		format = format.replace('ss',   this._zeroPad(date.getSeconds()));
+		format = format.replace('AA',   ((date.getHours() < 12)?this.options.meridiemLetters[0].toUpperCase():this.options.meridiemLetters[1].toUpperCase()));
+		format = format.replace('aa',   ((date.getHours() < 12)?this.options.meridiemLetters[0].toLowerCase():this.options.meridiemLetters[1].toLowerCase()));
 		return format;
 	},
 	_formatHeader: function(date) {
@@ -160,9 +171,8 @@
 	},
 	_formatTime: function(date) {
 		var self = this,
-			hours = '0', h,
-			i, y, days = '',
-			meri = 0;
+			h, i, y,
+			days = '';
 			
 		if ( this.options.mode === 'durationbox' ) {
 			i = ((self.theDate.getTime() - self.theDate.getMilliseconds()) / 1000) - ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000);
@@ -178,39 +188,20 @@
 			} else {
 				return days + self._zeroPad(h) + ':' + self._zeroPad(y) + ':' + self._zeroPad(parseInt(i, 10));
 			}
-		}
-		if ( this.options.timeFormat === 12 ) {
-			if ( date.getHours() > 11 ) {
-				meri = 1;
-				hours = self._zeroPad(date.getHours() - 12);
-				if ( hours === '00' ) { hours = '12'; }
-			} else {
-				meri = 0;
-				hours = self._zeroPad(date.getHours());
-				if ( hours === '00' ) { hours = '12'; }
-			}
-			return hours + ":" + self._zeroPad(date.getMinutes()) + ' ' + this.options.meridiemLetters[meri];
 		} else {
-			return self._zeroPad(date.getHours()) + ":" + self._zeroPad(date.getMinutes());
+			return this._formatter(self.options.timeOutput, date);
 		}
 	},
 	_makeDate: function (str) {
 		str = $.trim(str);
 		var o = this.options,
 			self = this,
-			seperator = o.dateFormat.replace(/[mydo ]/gi, "").substr(0,1),
-			adv = o.dateFormat,
+			adv = null,
 			exp_input = null,
 			exp_format = null,
 			exp_temp = null,
-			parts = o.dateFormat.split(seperator),
-			data = str.split(seperator),
 			date = new Date(),
-			d_day = 1,
-			d_mon = 0,
-			d_yar = 2000,
 			seconds = 0,
-			timeRegex = { '12': /^([012]?[0-9]):([0-5][0-9])\s*(am?|pm?)?$/i, '24': /^([012]?[0-9]):([0-5][0-9])$/i },
 			durationRegex = /^(?:([0-9]+) .+, )?(?:([0-9]+):)?(?:([0-9]+):)?([0-9]+)$/i,
 			match = null,
 			i;
@@ -233,108 +224,64 @@
 				seconds = seconds * 1000;
 				return new Date(seconds);
 			}
-		}
-		if ( o.mode === 'timebox' ) {
+		} else {
+			if ( o.mode === 'timebox' ) { adv = o.timeOutput; } else { adv = o.dateFormat; }
 			
-			if ( o.timeFormat === 12 ) {
-				match = timeRegex[o.timeFormat].exec(str);
-				
-				if( match === null || match.length < 3 ) { 
-					return new Date();
-				}
-				 
-				if ( typeof match[3] === 'undefined' ) {
-					match[3] = 'AM';
-				}
-				
-				if ( match[1] < 12 && match[3].toLowerCase().charAt(0) === 'p' ) {  
-					match[1] = parseInt(match[1],10) + 12;
-				} else if ( match[1] === 12 ) {
-					if ( match[3].toLowerCase().charAt(0) === 'a' ) { match[1] = 0; }
-					else { match[1] = 12; }
-				} else {
-					match[1] = parseInt(match[1],10);
+			adv = adv.replace(/ddd|SS/g, '.+?');
+			adv = adv.replace(/mmm|AA/g, '(.+?)');
+			adv = adv.replace(/yyyy|dd|mm|gg|hh|ii/ig, '([0-9yYdDmMgGhHis]+)');
+			adv = RegExp('^' + adv + '$');
+			exp_input = adv.exec(str);
+			if ( o.mode === 'timebox' ) {
+				exp_format = adv.exec(o.timeOutput);
+			} else {
+				exp_format = adv.exec(o.dateFormat);
+			}
+			
+			if ( o.debug ) {
+				console.log({'info': 'EXPERIMENTAL REGEX MODE ENABLED', 'string': str, 'regex':adv, 'input':exp_input, 'format':exp_format});
+			}
+			
+			if ( exp_input === null || exp_input.length !== exp_format.length ) {
+				if ( o.defaultDate !== false ) {
+					if ( $.isArray(o.defaultDate) && o.defaultDate.length === 3 ) {
+						return new Date(o.defaultDate[0], o.defaultDate[1], o.defaultDate[2], 0, 0, 0, 0);
+					} else {
+						exp_temp = o.defaultDate.split('-');
+						if ( exp_temp.length === 3 ) {
+							date = new Date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
+							if ( isNaN(date.getDate()) ) { date = new Date(); }
+						}
+					}
 				}
 			} else {
-				match = timeRegex[o.timeFormat].exec(str);
-				
-				if( match === null || match.length < 2 || match[1] > 24 ) { 
-					return new Date();
-				}
-			}
-			
-			date.setMinutes(match[2]);
-			date.setHours(match[1]);
-			
-			return date;
-		} else {
-			if ( o.experimentalReg ) {
-				
-				adv = adv.replace(/ddd|SS/g, '.+?');
-				adv = adv.replace(/mmm/g, '(.+?)');
-				adv = adv.replace(/yyyy|dd|mm/ig, '([0-9ydm]+)');
-				adv = RegExp('^' + adv + '$' , 'i');
-				exp_input = adv.exec(str);
-				exp_format = adv.exec(o.dateFormat);
-				
-				if ( o.debug ) {
-					
-					console.log({'info': 'EXPERIMENTAL REGEX MODE ENABLED', 'regex':adv, 'input':exp_input, 'format':exp_format});
-					//console.log(exp_input);
-					//console.log(exp_format);
-				}
-				
-				if ( exp_input === null || exp_input.length !== exp_format.length ) {
-					if ( o.defaultDate !== false ) {
-						if ( $.isArray(o.defaultDate) && o.defaultDate.length === 3 ) {
-							return new Date(o.defaultDate[0], o.defaultDate[1], o.defaultDate[2], 0, 0, 0, 0);
-						} else {
-							exp_temp = o.defaultDate.split('-');
-							if ( exp_temp.length === 3 ) {
-								date = new Date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
-								if ( isNaN(date.getDate()) ) { date = new Date(); }
-							}
+				for ( i=0; i<exp_input.length; i++ ) {
+					if ( exp_format[i].match(/^gg$/i) )   { date.setHours(parseInt(exp_input[i],10)); }
+					if ( exp_format[i].match(/^hh$/i) )   { date.setHours(parseInt(exp_input[i],10)); }
+					if ( exp_format[i].match(/^ii$/i) )   { date.setMinutes(parseInt(exp_input[i],10)); }
+					if ( exp_format[i].match(/^ss$/ ) )   { date.setSeconds(parseInt(exp_input[i],10)); }
+					if ( exp_format[i].match(/^dd$/i) )   { date.setDate(parseInt(exp_input[i],10)); }
+					if ( exp_format[i].match(/^mm$/i) )   { date.setMonth(parseInt(exp_input[i],10)-1); }
+					if ( exp_format[i].match(/^yyyy$/i) ) { date.setYear(parseInt(exp_input[i],10)); }
+					if ( exp_format[i].match(/^AA$/i) )   { 
+						if ( exp_input[i].toLowerCase().charAt(0) === 'a' && date.getHours() === 12 ) {
+							date.setHours(0);
+						} else if ( exp_input[i].toLowerCase().charAt(0) === 'p' && date.getHours() !== 12 ) {
+							date.setHours(date.getHours() + 12);
 						}
 					}
-				} else {
-					for ( i=0; i<exp_input.length; i++ ) {
-						if ( exp_format[i].match(/^dd$/i) )   { date.setDate(parseInt(exp_input[i],10)); }
-						if ( exp_format[i].match(/^mm$/i) )   { date.setMonth(parseInt(exp_input[i],10)-1); }
-						if ( exp_format[i].match(/^yyyy$/i) ) { date.setYear(parseInt(exp_input[i],10)); }
-						if ( exp_format[i].match(/^mmm$/i) )  { 
-							exp_temp = $.inArray(exp_input[i], o.monthsOfYear);
-							if ( exp_temp > -1 ) {
-								date.setMonth(exp_temp);
-							}
+					if ( exp_format[i].match(/^mmm$/i) )  { 
+						exp_temp = $.inArray(exp_input[i], o.monthsOfYear);
+						if ( exp_temp > -1 ) {
+							date.setMonth(exp_temp);
 						}
 					}
 				}
-				return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0); // Normalize time.
 			}
-			
-			if ( parts.length !== data.length ) { // Unrecognized string in input
-				if ( o.defaultDate !== false ) {
-					date = new Date(o.defaultDate);
-					if ( ! date.getDate() ) {
-						return new Date();
-					} else {
-						return date;
-					}
-				} else {
-					return new Date();
-				}
-			} else { // Good string in input
-				for ( i=0; i<parts.length; i++ ) {
-					if ( parts[i].match(/d/i) ) { d_day = data[i]; }
-					if ( parts[i].match(/m/i) ) { d_mon = data[i]; }
-					if ( parts[i].match(/y/i) ) { d_yar = data[i]; }
-				}
-				date = new Date(d_yar, d_mon-1, d_day,0,0,0,0);
-				if ( ! date.getDate() ) {
-					return new Date();
-				} else {
-					return date;
-				}
+			if ( exp_format[0].match(/G|g|i|s|H|h|A/) ) { 
+				return date;
+			} else {
+				return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0); // Normalize time for raw dates
 			}
 		}
 	},
@@ -485,17 +432,17 @@
 			self.controlsHeader.html( self._formatHeader(self.theDate) );
 			self.controlsInput.html('');
 			
-			for ( y=0; y<3; y++ ) {
-				thisPRow = $("<div>", {'data-rowtype': y});
+			for ( y=0; y<o.fieldsOrder.length; y++ ) {
+				thisPRow = $("<div>", {'data-rowtype': o.fieldsOrder[y]});
 				
 				if ( o.wheelExists ) {
 					thisPRow.bind('mousewheel', function(e,d) {
 						e.preventDefault();
-						self._offset(['y','m','d'][$(this).attr('data-rowtype')], ((d>0)?1:-1));
+						self._offset($(this).attr('data-rowtype'), ((d>0)?1:-1));
 					});
 				}
 				
-				thisRow = $("<div>", {'class': 'ui-datebox-sliderow-int', 'data-rowtype': y}).appendTo(thisPRow);
+				thisRow = $("<div>", {'class': 'ui-datebox-sliderow-int', 'data-rowtype': o.fieldsOrder[y]}).appendTo(thisPRow);
 				
 				if ( o.swipeEnabled ) {
 					thisRow
@@ -511,8 +458,8 @@
 							}
 						});
 				}
-				switch (y) {
-					case 0:
+				switch (o.fieldsOrder[y]) {
+					case 'y':
 						thisPRow.addClass('ui-datebox-sliderow-ym');
 						thisRow.css('marginLeft', '-333px');
 						for ( i=-5; i<6; i++ ) {
@@ -527,7 +474,7 @@
 								.appendTo(thisRow);
 						}
 						break;
-					case 1:
+					case 'm':
 						thisPRow.addClass('ui-datebox-sliderow-ym');
 						thisRow.css('marginLeft', '-204px');
 						for ( i=-6; i<7; i++ ) {
@@ -544,7 +491,7 @@
 								.appendTo(thisRow);
 						}
 						break;
-					case 2:
+					case 'd':
 						thisPRow.addClass('ui-datebox-sliderow-d');
 						thisRow.css('marginLeft', '-386px');
 						for ( i=-15; i<16; i++ ) {
@@ -807,8 +754,21 @@
 		
 		/* BUILD:MODE */
 		
-		if ( o.mode === 'datebox' && o.fieldsOrder === false ) { o.fieldsOrder = o.dateFieldOrder; }
-		if ( o.mode === 'timebox' && o.fieldsOrder === false ) { o.fieldsOrder = o.timeFieldOrder; }
+		if ( o.timeOutput === false ) {
+			o.timeOutput = o.timeFormats[o.timeFormat];
+		}
+		if ( o.fieldsOrder === false ) {
+			switch (o.mode) {
+				case 'timebox':
+					o.fieldsOrder = o.timeFieldOrder; 
+					break;
+				case 'slidebox':
+					o.fieldsOrder = o.slideFieldOrder; 
+					break;
+				default:
+					o.fieldsOrder = o.dateFieldOrder; 
+			}
+		}
 			
 		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
@@ -898,13 +858,13 @@
 							e.preventDefault();
 							e.stopPropagation();
 							switch(self.dragTarget.parent().data('rowtype')) {
-								case 0:
+								case 'y':
 									self._offset('y', parseInt(( self.dragStart - self.dragEnd ) / 84, 10));
 									break;
-								case 1:
+								case 'm':
 									self._offset('m', parseInt(( self.dragStart - self.dragEnd ) / 51, 10));
 									break;
-								case 2:
+								case 'd':
 									self._offset('d', parseInt(( self.dragStart - self.dragEnd ) / 32, 10));
 									break;
 							}
