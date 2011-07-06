@@ -40,8 +40,12 @@
 			<input name="bb" type="date" data-role="datebox" data-options='{"mode": "slidebox"}' id="bb" />
 		</div>
 		<div data-role="fieldcontain">
+			<label for="bb">Slide w/ time</label>
+			<input name="bb" type="date" data-role="datebox" data-options='{"debug": true, "mode": "slidebox", "dateFormat": "MM/DD/YYYY at hh:iiaa", "headerFormat": "MM/DD/YYYY hh:iiaa", "timeFormat": 12, "fieldsOrder": ["y","m","d","h", "i"]}' id="bb" />
+		</div>
+		<div data-role="fieldcontain">
 			<label for="cc">Droid</label>
-			<input name="cc" type="date" data-role="datebox" data-options='{"mode": "datebox", "dateFormat": "ddd the ddSS of mmm in the year YYYY"}' id="cc" />
+			<input name="cc" type="date" data-role="datebox" data-options='{"debug":true,"mode": "datebox", "dateFormat": "ddd the ddSS of mmm in the year YYYY"}' id="cc" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="dd">Time</label>

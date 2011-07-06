@@ -60,7 +60,7 @@
 		
 		fieldsOrder: false,
 		dateFieldOrder: ['m', 'd', 'y'],
-		timeFieldOrder: ['h', 'i', 's'],
+		timeFieldOrder: ['h', 'i', 'a'],
 		slideFieldOrder: ['y', 'm', 'd'],
 		durationOrder: ['d', 'h', 'i', 's'],
 		headerFormat: 'ddd, mmm dd, YYYY',
@@ -509,6 +509,38 @@
 								.appendTo(thisRow);
 						}
 						break;
+					case 'h':
+						thisPRow.addClass('ui-datebox-sliderow-hi');
+						thisRow.css('marginLeft', '-284px');
+						for ( i=-12; i<13; i++ ) {
+							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), self.theDate.getHours());
+							testDate.setHours(testDate.getHours()+i);
+							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageSlideButtonTheme;
+							$("<div>", { 'class' : 'ui-datebox-slidehour ui-corner-all ui-btn-up-'+cTheme })
+								.attr('data-offset',i)
+								.attr('data-theme', cTheme)
+								.html(( ( o.timeFormat === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() + '<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() === 12 ) ? '12<span class="ui-datebox-slidewday">PM</span>' : (testDate.getHours()-12) + '<span class="ui-datebox-slidewday">PM</span>') ) ) : testDate.getHours() ))
+								.bind('vmouseover vmouseout', function() { self._hoover(this); })
+								.bind('vclick', function(e) { e.preventDefault(); self._offset('h', parseInt($(this).attr('data-offset'),10)); })
+								.appendTo(thisRow);
+						}
+						break;
+					case 'i':
+						thisPRow.addClass('ui-datebox-sliderow-hi');
+						thisRow.css('marginLeft', '-896px');
+						for ( i=-30; i<31; i++ ) {
+							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), self.theDate.getHours(), self.theDate.getMinutes());
+							testDate.setMinutes(testDate.getMinutes()+i);
+							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageSlideButtonTheme;
+							$("<div>", { 'class' : 'ui-datebox-slidemins ui-corner-all ui-btn-up-'+cTheme })
+								.attr('data-offset',i)
+								.attr('data-theme', cTheme)
+								.text(self._zeroPad(testDate.getMinutes()))
+								.bind('vmouseover vmouseout', function() { self._hoover(this); })
+								.bind('vclick', function(e) { e.preventDefault(); self._offset('i', parseInt($(this).attr('data-offset'),10)); })
+								.appendTo(thisRow);
+						}
+						break;
 				}
 				thisPRow.appendTo(self.controlsInput);
 			}
@@ -867,6 +899,12 @@
 								case 'd':
 									self._offset('d', parseInt(( self.dragStart - self.dragEnd ) / 32, 10));
 									break;
+								case 'h':
+									self._offset('h', parseInt(( self.dragStart - self.dragEnd ) / 32, 10));
+									break;
+								case 'i':
+									self._offset('i', parseInt(( self.dragStart - self.dragEnd ) / 32, 10));
+									break;
 							}
 						}
 					} 
@@ -1073,7 +1111,7 @@
 				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'h') { pickerHour.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'i') { pickerMins.appendTo(controlsInput); }
-				if (o.fieldsOrder[x] === 's' && o.timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'a' && o.timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
 			}
 			
 			if ( o.swipeEnabled ) {
