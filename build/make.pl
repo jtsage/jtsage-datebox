@@ -113,7 +113,7 @@ sub make_durbox {
 	open OUTFILE, ">", "jquery.mobile.datebox.durationbox.js";
 	my @lines = <INFILE>;
 	my $file = join("", @lines);
-	foreach ( 'TIMEBOX', 'DATEBOX', 'SLIDEBOX', 'CALBOX' ) {
+	foreach ( 'TIMEBOX', 'DATEBOX', 'SLIDEBOX', 'CALBOX', 'DATETIME' ) {
 		$file =~ s#BEGIN:$_ \*/.+?/\* END:$_#CLIP:$_#sg;
 	}
 	$file =~ s#/\* BUILD:MODE \*/#o.mode = 'durationbox'#;
@@ -130,7 +130,7 @@ sub make_slidebox {
 	open OUTFILE, ">", "jquery.mobile.datebox.slidebox.js";
 	my @lines = <INFILE>;
 	my $file = join("", @lines);
-	foreach ( 'TIMEBOX', 'DATEBOX', 'DURATIONBOX', 'CALBOX' ) {
+	foreach ( 'TIMEBOX', 'DATEBOX', 'DURATIONBOX', 'CALBOX', 'DATETIME' ) {
 		$file =~ s#BEGIN:$_ \*/.+?/\* END:$_#CLIP:$_#sg;
 	}
 	$file =~ s#/\* BUILD:MODE \*/#o.mode = 'slidebox'#;
@@ -147,7 +147,7 @@ sub make_calbox {
 	open OUTFILE, ">", "jquery.mobile.datebox.calbox.js";
 	my @lines = <INFILE>;
 	my $file = join("", @lines);
-	foreach ( 'TIMEBOX', 'DATEBOX', 'DURATIONBOX', 'SLIDEBOX' ) {
+	foreach ( 'TIMEBOX', 'DATEBOX', 'DURATIONBOX', 'SLIDEBOX', 'DATETIME' ) {
 		$file =~ s#BEGIN:$_ \*/.+?/\* END:$_#CLIP:$_#sg;
 	}
 	$file =~ s#/\* BUILD:MODE \*/#o.mode = 'calbox'#;
