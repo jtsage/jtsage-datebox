@@ -16,6 +16,7 @@
 		pickPageODHighButtonTheme: 'e',
 		pickPageTodayButtonTheme: 'e',
 		pickPageSlideButtonTheme: 'd',
+		pickPageFlipButtonTheme: 'b',
 		centerWindow: false,
 		calHighToday: true,
 		calHighPicked: true,
@@ -225,14 +226,14 @@
 				return new Date(seconds);
 			}
 		} else {
-			if ( o.mode === 'timebox' ) { adv = o.timeOutput; } else { adv = o.dateFormat; }
+			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) { adv = o.timeOutput; } else { adv = o.dateFormat; }
 			
 			adv = adv.replace(/ddd|SS/g, '.+?');
 			adv = adv.replace(/mmm|AA/g, '(.+?)');
 			adv = adv.replace(/yyyy|dd|mm|gg|hh|ii/ig, '([0-9yYdDmMgGhHis]+)');
 			adv = RegExp('^' + adv + '$');
 			exp_input = adv.exec(str);
-			if ( o.mode === 'timebox' ) {
+			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
 				exp_format = adv.exec(o.timeOutput);
 			} else {
 				exp_format = adv.exec(o.dateFormat);
@@ -401,6 +402,142 @@
 			}
 		}
 		/* END:TIMEBOX */
+		/* BEGIN:FLIPBOX */
+		if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
+			if ( o.afterToday !== false ) {
+				testDate = new Date();
+				if ( self.theDate < testDate ) { self.theDate = testDate; }
+			}
+			if ( o.maxDays !== false ) {
+				testDate = new Date();
+				testDate.setDate(testDate.getDate() + o.maxDays);
+				if ( self.theDate > testDate ) { self.theDate = testDate; }
+			}
+			if ( o.minDays !== false ) {
+				testDate = new Date();
+				testDate.setDate(testDate.getDate() - o.minDays);
+				if ( self.theDate < testDate ) { self.theDate = testDate; }
+			}
+			if ( o.maxYear !== false ) {
+				testDate = new Date(o.maxYear, 0, 1);
+				testDate.setDate(testDate.getDate() - 1);
+				if ( self.theDate > testDate ) { self.theDate = testDate; }
+			}
+			if ( o.minYear !== false ) {
+				testDate = new Date(o.minYear, 0, 1);
+				if ( self.theDate < testDate ) { self.theDate = testDate; }
+			}
+			
+			inheritDate = self._makeDate(self.input.val());
+			
+			self.controlsHeader.html( self._formatHeader(self.theDate) );
+			
+			for ( y=0; y<o.fieldsOrder.length; y++ ) {
+				tmpVal = true;
+				switch (o.fieldsOrder[y]) {
+					case 'y':
+						thisRow = self.pickerYar.find('ul');
+						thisRow.html('');
+						for ( i=-5; i<6; i++ ) {
+							cTheme = ((inheritDate.getFullYear()===(self.theDate.getFullYear() + i))?o.pickPageHighButtonTheme:o.pickPageFlipButtonTheme);
+							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -133px':'') })
+								.html("<span>"+(self.theDate.getFullYear() + i)+"</span>")
+								.attr('data-offset', i)
+								.attr('data-theme', cTheme)
+								.appendTo(thisRow);
+							if ( tmpVal === true ) { tmpVal = false; }
+						}
+						break;
+					case 'm':
+						thisRow = self.pickerMon.find('ul');
+						thisRow.html('');
+						for ( i=-6; i<7; i++ ) {
+							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
+							testDate.setMonth(testDate.getMonth()+i);
+							cTheme = ( inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
+							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -165px':'') })
+								.attr('data-offset',i)
+								.attr('data-theme', cTheme)
+								.html("<span>"+o.monthsOfYearShort[testDate.getMonth()]+"</span>")
+								.appendTo(thisRow);
+							if ( tmpVal === true ) { tmpVal = false; }
+						}
+						break;
+					case 'd':
+						thisRow = self.pickerDay.find('ul');
+						thisRow.html('');
+						for ( i=-15; i<16; i++ ) {
+							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
+							testDate.setDate(testDate.getDate()+i);
+							cTheme = ( inheritDate.getDate() === testDate.getDate() && inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
+							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -453px':'') })
+								.attr('data-offset', i)
+								.attr('data-theme', cTheme)
+								.html("<span>"+testDate.getDate()+"</span>")
+								.appendTo(thisRow);
+							if ( tmpVal === true ) { tmpVal = false; }
+						}
+						break;
+					case 'h':
+						thisRow = self.pickerHour.find('ul');
+						thisRow.html('');
+						for ( i=-12; i<13; i++ ) {
+							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), self.theDate.getHours());
+							testDate.setHours(testDate.getHours()+i);
+							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageFlipButtonTheme;
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -357px':'') })
+								.attr('data-offset',i)
+								.attr('data-theme', cTheme)
+								.html("<span>"+( ( o.timeFormat === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() : ( ( testDate.getHours() === 12 ) ? '12' : (testDate.getHours()-12) ) ) ) : testDate.getHours() )+"</span>")
+								.appendTo(thisRow);
+							if ( tmpVal === true ) { tmpVal = false; }
+						}
+						break;
+					case 'i':
+						thisRow = self.pickerMins.find('ul');
+						thisRow.html('');
+						for ( i=-30; i<31; i++ ) {
+							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), self.theDate.getHours(), self.theDate.getMinutes());
+							testDate.setMinutes(testDate.getMinutes()+i);
+							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageFlipButtonTheme;
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -933px':'') })
+								.attr('data-offset',i)
+								.attr('data-theme', cTheme)
+								.html("<span>"+self._zeroPad(testDate.getMinutes())+"</span>")
+								.appendTo(thisRow);
+							if ( tmpVal === true ) { tmpVal = false; }
+						}
+						break;
+					case 'a':
+						thisRow = self.pickerMeri.find('ul');
+						thisRow.html('');
+						if ( self.theDate.getHours() > 11 ) { 
+							tmpVal = '-65';
+							cTheme = [o.pickPageFlipButtonTheme, o.pickPageButtonTheme]
+						} else {
+							tmpVal = '-33';
+							cTheme = [o.pickPageButtonTheme, o.pickPageFlipButtonTheme]
+						}
+						$("<li>").appendTo(thisRow).clone().appendTo(thisRow);
+						$("<li>", { 'class' : 'ui-body-'+cTheme[0], 'style':'margin-top: '+tmpVal+'px' })
+							.attr('data-offset',1)
+							.attr('data-theme', cTheme[0])
+							.html("<span>"+o.meridiemLetters[0]+"</span>")
+							.appendTo(thisRow);
+						$("<li>", { 'class' : 'ui-body-'+cTheme[1] })
+							.attr('data-offset',1)
+							.attr('data-theme', cTheme[1])
+							.html("<span>"+o.meridiemLetters[1]+"</span>")
+							.appendTo(thisRow);
+						$("<li>").appendTo(thisRow).clone().appendTo(thisRow);
+						break;
+				}
+			}
+		}
+		/* END:FLIPBOX */
 		/* BEGIN:SLIDEBOX */
 		if ( o.mode === 'slidebox' ) {
 			if ( o.afterToday !== false ) {
@@ -786,12 +923,16 @@
 		
 		/* BUILD:MODE */
 		
+		if ( o.mode === "timeflipbox" ) {
+			o.headerFormat = ' ';
+		}
 		if ( o.timeOutput === false ) {
 			o.timeOutput = o.timeFormats[o.timeFormat];
 		}
 		if ( o.fieldsOrder === false ) {
 			switch (o.mode) {
 				case 'timebox':
+				case 'timeflipbox':
 					o.fieldsOrder = o.timeFieldOrder; 
 					break;
 				case 'slidebox':
@@ -865,6 +1006,12 @@
 						e.preventDefault();
 						e.stopPropagation();
 						return false;
+					} else if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
+						self.dragEnd = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+						self.dragTarget.css('marginTop', (self.dragPos + self.dragEnd - self.dragStart) + 'px');
+						e.preventDefault();
+						e.stopPropagation();
+						return false;
 					} else if ( o.mode === 'durationbox' || o.mode === 'timebox' || o.mode === 'datebox' ) {
 						self.dragEnd = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
 						if ( (self.dragEnd - self.dragStart) % 2 === 0 ) {
@@ -907,7 +1054,13 @@
 									break;
 							}
 						}
-					} 
+					} else if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
+						if ( self.dragEnd !== false ) {
+							e.preventDefault();
+							e.stopPropagation();
+							self._offset(self.dragTarget.parent().parent().data('field'), parseInt(( self.dragStart - self.dragEnd ) / 30, 10));
+						}
+					}
 					self.dragStart = false;
 					self.dragEnd = false;
 				}
@@ -925,6 +1078,7 @@
 			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
 			templInput = $("<input type='text' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 			templControls = $("<div>", { "class":'ui-datebox-controls' }),
+			templFlip = $("<div class='ui-overlay-shadow'><ul></ul></div>"),
 			controlsPlus, controlsInput, controlsMinus, controlsSet, controlsHeader,
 			pickerHour, pickerMins, pickerMeri, pickerMon, pickerDay, pickerYar, pickerSecs,
 			calNoNext = false,
@@ -939,6 +1093,79 @@
 		
 		if ( o.noAnimation ) { pickerContent.removeClass('pop'); }
 		
+		/* BEGIN:FLIPBOX */
+		if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
+			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4");
+			controlsInput = $("<div>", {"class":'ui-datebox-flipcontent'}).appendTo(pickerContent);
+			controlsSet = templControls.clone().appendTo(pickerContent);
+			
+			$("<div>", {"class":'ui-datebox-flipcenter ui-overlay-shadow'}).insertBefore(controlsSet);
+			
+			pickerDay = templFlip.clone().attr('data-field', 'd');
+			pickerMon = templFlip.clone().attr('data-field', 'm');
+			pickerYar = templFlip.clone().attr('data-field', 'y');
+			pickerHour = templFlip.clone().attr('data-field', 'h');
+			pickerMins = templFlip.clone().attr('data-field', 'i');
+			pickerMeri = templFlip.clone().attr('data-field', 'a');
+			
+			if ( o.wheelExists ) {
+				pickerYar.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('y', (d<0)?-1:1); });
+				pickerMon.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('m', (d<0)?-1:1); });
+				pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', (d<0)?-1:1); });
+				pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', (d<0)?-1:1); });
+				pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.minuteStep); });
+				pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', d); });
+			}
+			
+			for(x=0; x<=o.fieldsOrder.length; x++) {
+				if (o.fieldsOrder[x] === 'y') { pickerYar.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'm') { pickerMon.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'h') { pickerHour.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'i') { pickerMins.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'a' && o.timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
+			}
+			
+			if ( o.swipeEnabled ) {
+				controlsInput.find('ul').bind(self.START_DRAG, function(e) {
+					if ( !self.dragMove ) {
+						self.dragMove = true;
+						self.dragTarget = $(this).find('li').first();
+						self.dragPos = parseInt(self.dragTarget.css('marginTop').replace(/px/i, ''),10);
+						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+						self.dragEnd = false;
+						e.stopPropagation();
+						e.preventDefault();
+					}
+				});
+			}
+			
+			if ( o.noSetButton === false ) {
+				$("<a href='#'>" + o.setDateButtonLabel + "</a>")
+					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						if ( o.mode === 'timeflipbox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)}); }
+						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)}); }
+						self.input.trigger('datebox', {'method':'close'});
+					});
+			}
+			
+			$.extend(self, {
+				controlsHeader: controlsHeader,
+				controlsInput: controlsInput,
+				pickerDay: pickerDay,
+				pickerMon: pickerMon,
+				pickerYar: pickerYar,
+				pickerHour: pickerHour,
+				pickerMins: pickerMins,
+				pickerMeri: pickerMeri
+			});
+			
+			pickerContent.appendTo(self.thisPage);
+			
+		}
+		/* END:FLIPBOX */
 		/* BEGIN:DURATIONBOX */
 		if ( o.mode === 'durationbox' ) {
 			controlsPlus = templControls.clone().removeClass('ui-datebox-controls').addClass('ui-datebox-scontrols').appendTo(pickerContent);
