@@ -69,6 +69,19 @@
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "slidebox"}'&gt;</pre>
+   
+				<h2>Slide with Time</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="timeslide">Some Date and Time</label><input name="timeslide" type="text" data-role="datebox" id="timeslide" data-options='{"mode": "slidebox", "dateFormat":"YYYY-MM-DDTGG:iiAA", "timeFormat":12, "fieldsOrder":["y","m","d","h","i"]}' />
+				</div>
+				
+				<p>Using the slide mode is as simple as setting the 'mode' option to "slidebox". For time input as well, just add the "h" and "i" field types.  You'll also want to set an appropriate output format.</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date and Time&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "slidebox", "dateFormat":"YYYY-MM-DDTGG:iiAA", "timeFormat":12, "fieldsOrder":["y","m","d","h","i"]}'&gt;</pre>
 				
 			</nav> 
 		</div> 
