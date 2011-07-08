@@ -1377,7 +1377,6 @@
 			
 			for( x=0; x<self.options.fieldsOrder.length; x++ ) {
 				if ( o.fieldsOrder[x] !== 'a' || o.timeFormat === 12 ) {
-					console.log(o.fieldsOrder[x]);
 					linkdiv.clone()
 						.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 						.attr('data-field', o.fieldsOrder[x])
