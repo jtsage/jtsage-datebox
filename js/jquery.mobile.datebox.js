@@ -1115,6 +1115,14 @@
 				pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', (d<0)?-1:1); });
 				pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.minuteStep); });
 				pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', d); });
+				controlsPlus.bind('mousewheel', function(e,d) { 
+					e.preventDefault();
+					if ( o.fieldsOrder.length === 3 ) {
+						self._offset(o.fieldsOrder[parseInt((e.pageX - $(e.currentTarget).offset().left) / 87, 10)], ((d<0)?-1:1));
+					} else if ( o.fieldsOrder.length === 2 ) {
+						self._offset(o.fieldsOrder[parseInt((e.pageX - $(e.currentTarget).offset().left) / 130, 10)], ((d<0)?-1:1));
+					}
+				});
 			}
 			
 			for(x=0; x<=o.fieldsOrder.length; x++) {
