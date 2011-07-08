@@ -230,7 +230,8 @@
 			
 			adv = adv.replace(/ddd|SS/g, '.+?');
 			adv = adv.replace(/mmm|AA/g, '(.+?)');
-			adv = adv.replace(/yyyy|dd|mm|gg|hh|ii/ig, '([0-9yYdDmMgGhHis]+)');
+			adv = adv.replace(/yyyy|dd|mm|gg|hh|ii/ig, '([0-9yYdDmMgGhHi]+)');
+			adv = adv.replace(/ss/g, '([0-9s]+)');
 			adv = RegExp('^' + adv + '$');
 			exp_input = adv.exec(str);
 			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
