@@ -1433,13 +1433,11 @@
 					e.preventDefault();
 					if ( d > 0 && !self.calNoNext ) { 
 						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
-						self.theDate.setMonth(self.theDate.getMonth() + 1);
-						self._update(); 
+						self._offset('m', 1);
 					}
 					if ( d < 0 && !self.calNoPrev ) {
 						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
-						self.theDate.setMonth(self.theDate.getMonth() - 1);
-						self._update();
+						self._offset('m', -1);
 					}
 				});
 			}
