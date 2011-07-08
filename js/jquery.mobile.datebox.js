@@ -732,13 +732,14 @@
 			calmode.end = self._getLastDate(self.theDate);
 			calmode.lastend = self._getLastDateBefore(self.theDate);
 			calmode.presetDate = self._makeDate(self.input.val());	
-			calmode.prevtoday = calmode.lastend - (calmode.start - 1);
-			calmode.checkDates = ( o.afterToday !== false || o.beforeToday !== false || o.notToday !== false || o.maxDays !== false || o.minDays !== false || o.blackDates !== false || o.blackDays !== false );
-			
+						
 			if ( o.calStartDay > 0 ) {
 				calmode.start = calmode.start - o.calStartDay;
 				if ( calmode.start < 0 ) { calmode.start = calmode.start + 7; }
 			}
+			
+			calmode.prevtoday = calmode.lastend - (calmode.start - 1);
+			calmode.checkDates = ( o.afterToday !== false || o.beforeToday !== false || o.notToday !== false || o.maxDays !== false || o.minDays !== false || o.blackDates !== false || o.blackDays !== false );
 				
 			if ( calmode.thisDate.getMonth() === self.theDate.getMonth() && calmode.thisDate.getFullYear() === self.theDate.getFullYear() ) { calmode.currentMonth = true; calmode.highlightDay = calmode.thisDate.getDate(); } 
 			if ( self._checker(calmode.presetDate) === self._checker(self.theDate) ) { calmode.presetDay = calmode.presetDate.getDate(); }
