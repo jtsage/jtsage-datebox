@@ -438,10 +438,10 @@
 					case 'y':
 						thisRow = self.pickerYar.find('ul');
 						thisRow.html('');
-						for ( i=-5; i<6; i++ ) {
+						for ( i=-15; i<16; i++ ) {
 							cTheme = ((inheritDate.getFullYear()===(self.theDate.getFullYear() + i))?o.pickPageHighButtonTheme:o.pickPageFlipButtonTheme);
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
-							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -133px':'') })
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -453px':'') })
 								.html("<span>"+(self.theDate.getFullYear() + i)+"</span>")
 								.attr('data-offset', i)
 								.attr('data-theme', cTheme)
@@ -452,12 +452,12 @@
 					case 'm':
 						thisRow = self.pickerMon.find('ul');
 						thisRow.html('');
-						for ( i=-6; i<7; i++ ) {
+						for ( i=-12; i<13; i++ ) {
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
 							testDate.setMonth(testDate.getMonth()+i);
 							cTheme = ( inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
-							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -165px':'') })
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -357px':'') })
 								.attr('data-offset',i)
 								.attr('data-theme', cTheme)
 								.html("<span>"+o.monthsOfYearShort[testDate.getMonth()]+"</span>")
@@ -1097,9 +1097,8 @@
 		if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
 			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4");
 			controlsInput = $("<div>", {"class":'ui-datebox-flipcontent'}).appendTo(pickerContent);
+			controlsPlus = $("<div>", {"class":'ui-datebox-flipcenter ui-overlay-shadow'}).appendTo(pickerContent);
 			controlsSet = templControls.clone().appendTo(pickerContent);
-			
-			$("<div>", {"class":'ui-datebox-flipcenter ui-overlay-shadow'}).insertBefore(controlsSet);
 			
 			pickerDay = templFlip.clone().attr('data-field', 'd');
 			pickerMon = templFlip.clone().attr('data-field', 'm');
@@ -1127,8 +1126,9 @@
 			}
 			
 			if ( o.swipeEnabled ) {
-				controlsInput.find('ul').bind(self.START_DRAG, function(e) {
+				controlsInput.find('ul').bind(self.START_DRAG, function(e,f) {
 					if ( !self.dragMove ) {
+						if ( typeof f !== "undefined" ) { e = f; }
 						self.dragMove = true;
 						self.dragTarget = $(this).find('li').first();
 						self.dragPos = parseInt(self.dragTarget.css('marginTop').replace(/px/i, ''),10);
@@ -1136,6 +1136,16 @@
 						self.dragEnd = false;
 						e.stopPropagation();
 						e.preventDefault();
+					}
+				});
+				controlsPlus.bind(self.START_DRAG, function(e) {
+					if ( !self.dragMove ) {
+						self.dragTarget = self.touch ? e.originalEvent.changedTouches[0].pageX - $(e.currentTarget).offset().left : e.pageX - $(e.currentTarget).offset().left;
+						if ( o.fieldsOrder.length === 3 ) {
+							$(self.controlsInput.find('ul').get(parseInt(self.dragTarget / 87, 10))).trigger(self.START_DRAG, e);
+						} else if ( o.fieldsOrder.length === 2 ) {
+							$(self.controlsInput.find('ul').get(parseInt(self.dragTarget / 130, 10))).trigger(self.START_DRAG, e);
+						}
 					}
 				});
 			}
