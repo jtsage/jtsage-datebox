@@ -1376,20 +1376,23 @@
 			}
 			
 			for( x=0; x<self.options.fieldsOrder.length; x++ ) {
-				linkdiv.clone()
-					.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-					.attr('data-field', o.fieldsOrder[x])
-					.bind('vclick', function(e) {
-						e.preventDefault();
-						self._offset($(this).attr('data-field'),1*($(this).attr('data-field')==='i'?o.minuteStep:1));
-				});
-				linkdiv.clone()
-					.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-					.attr('data-field', o.fieldsOrder[x])
-					.bind('vclick', function(e) {
-						e.preventDefault();
-						self._offset($(this).attr('data-field'),-1*($(this).attr('data-field')==='i'?o.minuteStep:1));
-				});
+				if ( o.fieldsOrder[x] !== 'a' || o.timeFormat === 12 ) {
+					console.log(o.fieldsOrder[x]);
+					linkdiv.clone()
+						.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
+						.attr('data-field', o.fieldsOrder[x])
+						.bind('vclick', function(e) {
+							e.preventDefault();
+							self._offset($(this).attr('data-field'),1*($(this).attr('data-field')==='i'?o.minuteStep:1));
+					});
+					linkdiv.clone()
+						.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
+						.attr('data-field', o.fieldsOrder[x])
+						.bind('vclick', function(e) {
+							e.preventDefault();
+							self._offset($(this).attr('data-field'),-1*($(this).attr('data-field')==='i'?o.minuteStep:1));
+					});
+				}
 			}
 				
 			$.extend(self, {
