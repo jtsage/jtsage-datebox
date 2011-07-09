@@ -18,11 +18,6 @@
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
-	<script type="text/javascript">
-		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-			'experimentalReg': true
-		});
-	</script>
 	
 </head>
 <body>
@@ -40,8 +35,8 @@
 			<input name="bb" type="date" data-role="datebox" data-options='{"mode": "slidebox"}' id="bb" />
 		</div>
 		<div data-role="fieldcontain">
-			<label for="bb">Slide w/ time</label>
-			<input name="bb" type="date" data-role="datebox" data-options='{"debug": true, "mode": "slidebox", "dateFormat": "MM/DD/YYYY at hh:iiaa", "headerFormat": "MM/DD/YYYY hh:iiaa", "timeFormat": 12, "fieldsOrder": ["y","m","d","h", "i"]}' id="bb" />
+			<label for="bb2">Slide w/ time</label>
+			<input name="bb2" type="date" data-role="datebox" data-options='{"debug": true, "mode": "slidebox", "dateFormat": "MM/DD/YYYY at hh:iiaa", "headerFormat": "MM/DD/YYYY hh:iiaa", "timeFormat": 12, "fieldsOrder": ["y","m","d","h", "i"]}' id="bb2" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="cc">Droid</label>
@@ -55,17 +50,15 @@
 			<label for="ee">Length</label>
 			<input name="ee" type="text" data-role="datebox" data-options='{"mode": "durationbox", "durationOrder": ["d", "h", "i"]}' id="ee" />
 		</div>
-		
-		<div data-role="fieldcontain" class="ui-grid-a">
-			<div class="ui-block-a">
-				<label for="f1">Date</label>
-				<input name="f1" type="text" data-role="datebox" data-options='{"mode": "datebox", "centerWindow": true, "closeCallback": "$(\"#f2\").datebox(\"open\");"}' id="f1" />
-			</div>
-			<div class="ui-block-b">
-				<label for="f2">Time</label>
-				<input name="f2" type="text" data-role="datebox" data-options='{"mode": "timebox", "timeFormat":12, "centerWindow": true}' id="f2" />
-			</div>
+		<div data-role="fieldcontain">
+			<label for="ff">Flip (Date)</label>
+			<input name="ff" type="date" data-role="datebox" data-options='{"mode": "flipbox"}' id="ff" />
 		</div>
+		<div data-role="fieldcontain">
+			<label for="gg">Flip (12hr Time)</label>
+			<input name="gg" type="date" data-role="datebox" data-options='{"mode": "timeflipbox", "timeFormat": 12}' id="gg" />
+		</div>
+		
 		
 		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 	</div>

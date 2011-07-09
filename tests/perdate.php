@@ -1,0 +1,100 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Linked Select Menu Demo</title>
+	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+	<script type="text/javascript">
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
+		});	
+	</script>
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
+	<script type="text/javascript">
+		// You can ignore this, enables the expeimental date parser, which is in testing.
+		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+			'experimentalReg': true
+		});  
+		
+		// Set up an object full of valid dates and times.
+		var timeOptions = {
+			'2001-01-03': ['10:00AM', '10:30AM', '11:00AM', '2:30PM', '3:00PM'],
+			'2001-01-06': ['1:00PM', '1:30PM', '2:00PM', '4:00PM', '4:30PM'],
+		};
+		
+		// Pull just the dates from the previous object
+		var timeOptionDates = [];
+		for ( var key in timeOptions ) {
+			timeOptionDates.push(key);
+		}
+		
+		// Update the datebox object with the highlighted dates
+		function updateHighDates() {
+			$('#datetime').data('datebox').options.highDates = timeOptionDates;
+			$('#datetime').trigger('datebox', {'method':'dorefresh'});
+		}
+		
+		// Bind pageshow to update the highlighted dates - I split it, because if you use
+		// ajax to somehow update the list of valid dates and times, it would need to be 
+		// refreshed.
+		$(document).bind('pageshow', function() {
+			updateHighDates();
+		});
+		
+		// Bind the datebox event, and...
+		$('#datetime').live('datebox', function(event, payload) {
+			// On the 'set' method...
+			if ( payload.method === 'set' ) {
+				// If it is *not* a valid date, reopen the datebox...
+				if ( typeof timeOptions[payload.value] === "undefined" ) {
+					$('#timeselect').html('<option>Please choose a valid date first.</option>');
+					$('#timeselect').selectmenu('refresh');
+					console.log('Reopening datebox in 300ms...');
+					setTimeout("$('#datetime').trigger('datebox', {'method': 'open'});", 300);
+				// OR, populate the select menu with the times, and open that instead.
+				} else {
+					var selectOptions = ['<option>Now, choose a time...</option>'];
+					for ( var val in timeOptions[payload.value] ) {
+						selectOptions.push('<option value="'+timeOptions[payload.value][val]+'">'+timeOptions[payload.value][val]+'</option>');
+					}
+					$('#timeselect').html(selectOptions.join());
+					$('#timeselect').selectmenu('refresh');
+					console.log('Opening time select in 300ms...');
+					setTimeout("$('#timeselect').selectmenu('open');", 300);
+				}
+			}
+		});
+		
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="main"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox Linked Select Menu Demo</h1>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div data-role="fieldcontain">
+			<label for="datetime">Date</label>
+			<input data-options='{"mode":"calbox","calHighPicked":false, "calHighToday":false, "calHighPicked": false}' data-role="datebox" id="datetime" name="datetime" type="date" value="2001-01-01" />
+			<label for="timeselect">Time</label>
+			<select name="timeselect" id="timeselect" data-native-menu="false">
+				<option>Please choose a valid date first.</option>
+			</select>
+		</div>
+		
+		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+	</div>
+	<div data-role="footer">
+		<a href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a href="mailto:jtsage+datebox@gmail.com">Contact</a>
+	</div>
+</div>
+</html>
