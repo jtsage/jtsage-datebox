@@ -1161,7 +1161,7 @@
 			}
 			
 			if ( o.noSetButton === false ) {
-				$("<a href='#'>" + o.setDateButtonLabel + "</a>")
+				$("<a href='#'>" + ((o.mode==='timeflipbox')?o.setTimeButtonLabel:o.setDateButtonLabel) + "</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
@@ -1375,7 +1375,7 @@
 			}
 			
 			if ( o.noSetButton === false ) {
-				$("<a href='#'>" + o.setDateButtonLabel + "</a>")
+				$("<a href='#'>" + ((o.mode==='timebox')?o.setTimeButtonLabel:o.setDateButtonLabel) + "</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
