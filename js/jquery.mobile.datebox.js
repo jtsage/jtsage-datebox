@@ -212,7 +212,11 @@
 		if ( o.mode === 'durationbox' ) {
 			match = durationRegex.exec(str);
 			if ( match === null ) {
-				return new Date(self.initDate.getTime());
+				if ( typeof o.defaultDate === "number" && o.defaultDate > 0 ) {
+					return new Date(self.initDate.getTime() + (parseInt(o.defaultDate,10) * 1000));
+				} else {
+					return new Date(self.initDate.getTime());
+				}
 			} else {
 				seconds = ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000) + parseInt(match[4],10);
 				if ( typeof match[3] !== 'undefined' ) { seconds = seconds + (parseInt(match[3],10)*60); }
