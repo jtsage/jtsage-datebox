@@ -1620,12 +1620,9 @@
 	}
 	
   });
-	
-  $( ".ui-page" ).live( "pagecreate", function() { 
-	$( 'input[data-role="datebox"]', this ).each(function() {
-		$(this).datebox();
-	});
-
+	  
+  $( document ).bind( "pagecreate", function( e ){
+	$( ":jqmData(role='datebox')", e.target ).datebox();
   });
 	
 })( jQuery );
