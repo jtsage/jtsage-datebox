@@ -94,6 +94,18 @@
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox", "calWeekMode": true, "calWeekModeFirstDay": 1}'&gt;</pre>
+   
+				<h2>Showing a "today" button</h2>
+				<div data-role="fieldcontain">
+					<label for="caltodaybut">Some Date</label><input name="caltodaybut" type="date" data-role="datebox" id="caltodaybut" data-options='{"mode": "calbox", "calTodayButton": true}'/>
+				</div>
+				
+				<p>To show a today button, set 'calTodayButton' to true</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", 'calTodayButton': true}'&gt;</pre>
 			</nav> 
 		</div> 
 		

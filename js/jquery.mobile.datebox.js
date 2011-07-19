@@ -31,6 +31,7 @@
 		setDateButtonLabel: 'Set Date',
 		setTimeButtonLabel: 'Set Time',
 		setDurationButtonLabel: 'Set Duration',
+		calTodayButtonLabel: 'Jump to Today',
 		titleDateDialogLabel: 'Set Date',
 		titleTimeDialogLabel: 'Set Time',
 		titleDialogLabel: false,
@@ -67,6 +68,7 @@
 		headerFormat: 'ddd, mmm dd, YYYY',
 		dateFormat: 'YYYY-MM-DD',
 		minuteStep: 1,
+		calTodayButton: false,
 		calWeekMode: false,
 		calWeekModeFirstDay: 1,
 		calWeekModeHighlight: true,
@@ -1463,6 +1465,16 @@
 					}
 				});
 				
+			if ( o.calTodayButton === true ) {
+				$("<a href='#'>" + o.calTodayButtonLabel + "</a>")
+					.appendTo(pickerContent).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						self.theDate = new Date();
+						self.theDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), 0,0,0,0);
+						self.input.trigger('datebox', {'method':'doset'});
+					});
+			}
 					
 			$.extend(self, {
 				controlsInput: controlsInput,
