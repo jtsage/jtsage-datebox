@@ -11,10 +11,12 @@ chomp $javapath;
 	'jquery.mobile.datebox.slidebox.min.js',
 	'jquery.mobile.datebox.timebox.min.js',
 	'jquery.mobile.datebox.durationbox.min.js',
+	'jquery.mobile.datebox.flipbox.min.js',
 	'jquery.mobile.datebox.calbox.js',
 	'jquery.mobile.datebox.datebox.js',
 	'jquery.mobile.datebox.slidebox.js',
 	'jquery.mobile.datebox.timebox.js',
+	'jquery.mobile.datebox.flipbox.js',
 	'jquery.mobile.datebox.durationbox.js');
 
 if ( $javapath eq '' ) {
@@ -41,6 +43,7 @@ if ( $ARGV[0] ) {
 		make_slidebox();
 		make_timebox();
 		make_durbox();
+		make_flipbox();
 		make_master();
 		$last = (stat "../js/jquery.mobile.datebox.js")[9];
 		open OUTFILE, ">current_build.txt";
@@ -113,7 +116,7 @@ sub make_durbox {
 	open OUTFILE, ">", "jquery.mobile.datebox.durationbox.js";
 	my @lines = <INFILE>;
 	my $file = join("", @lines);
-	foreach ( 'TIMEBOX', 'DATEBOX', 'SLIDEBOX', 'CALBOX', 'DATETIME' ) {
+	foreach ( 'TIMEBOX', 'DATEBOX', 'FLIPBOX', 'SLIDEBOX', 'CALBOX', 'DATETIME' ) {
 		$file =~ s#BEGIN:$_ \*/.+?/\* END:$_#CLIP:$_#sg;
 	}
 	$file =~ s#/\* BUILD:MODE \*/#o.mode = 'durationbox'#;
@@ -130,7 +133,7 @@ sub make_slidebox {
 	open OUTFILE, ">", "jquery.mobile.datebox.slidebox.js";
 	my @lines = <INFILE>;
 	my $file = join("", @lines);
-	foreach ( 'TIMEBOX', 'DATEBOX', 'DURATIONBOX', 'CALBOX', 'DATETIME' ) {
+	foreach ( 'TIMEBOX', 'DATEBOX', 'DURATIONBOX', 'CALBOX', 'DATETIME', 'FLIPBOX' ) {
 		$file =~ s#BEGIN:$_ \*/.+?/\* END:$_#CLIP:$_#sg;
 	}
 	$file =~ s#/\* BUILD:MODE \*/#o.mode = 'slidebox'#;
@@ -141,13 +144,29 @@ sub make_slidebox {
 	close INFILE; close OUTFILE;
 }
 
+sub make_flipbox {
+	print "Build :-: FlipBox Only... ";
+	open INFILE, "<", "../js/jquery.mobile.datebox.js";
+	open OUTFILE, ">", "jquery.mobile.datebox.flipbox.js";
+	my @lines = <INFILE>;
+	my $file = join("", @lines);
+	foreach ( 'TIMEBOX', 'DATEBOX', 'DURATIONBOX', 'SLIDEBOX', 'DATETIME', 'CALBOX' ) {
+		$file =~ s#BEGIN:$_ \*/.+?/\* END:$_#CLIP:$_#sg;
+	}
+	print OUTFILE $file;
+	print "compressing... ";
+	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.datebox.flipbox.min.js", "jquery.mobile.datebox.flipbox.js");
+	print "DONE.\n";
+	close INFILE; close OUTFILE;
+}
+
 sub make_calbox {
 	print "Build :-: CalBox Only... ";
 	open INFILE, "<", "../js/jquery.mobile.datebox.js";
 	open OUTFILE, ">", "jquery.mobile.datebox.calbox.js";
 	my @lines = <INFILE>;
 	my $file = join("", @lines);
-	foreach ( 'TIMEBOX', 'DATEBOX', 'DURATIONBOX', 'SLIDEBOX', 'DATETIME' ) {
+	foreach ( 'TIMEBOX', 'DATEBOX', 'DURATIONBOX', 'SLIDEBOX', 'DATETIME', 'FLIPBOX' ) {
 		$file =~ s#BEGIN:$_ \*/.+?/\* END:$_#CLIP:$_#sg;
 	}
 	$file =~ s#/\* BUILD:MODE \*/#o.mode = 'calbox'#;
@@ -164,7 +183,7 @@ sub make_timebox {
 	open OUTFILE, ">", "jquery.mobile.datebox.timebox.js";
 	my @lines = <INFILE>;
 	my $file = join("", @lines);
-	foreach ( 'CALBOX', 'DATEBOX', 'DURATIONBOX', 'SLIDEBOX' ) {
+	foreach ( 'CALBOX', 'DATEBOX', 'DURATIONBOX', 'SLIDEBOX', 'FLIPBOX' ) {
 		$file =~ s#BEGIN:$_ \*/.+?/\* END:$_#CLIP:$_#sg;
 	}
 	$file =~ s#/\* BUILD:MODE \*/#o.mode = 'timebox'#;
@@ -181,7 +200,7 @@ sub make_datebox {
 	open OUTFILE, ">", "jquery.mobile.datebox.datebox.js";
 	my @lines = <INFILE>;
 	my $file = join("", @lines);
-	foreach ( 'TIMEBOX', 'CALBOX', 'DURATIONBOX', 'SLIDEBOX' ) {
+	foreach ( 'TIMEBOX', 'CALBOX', 'DURATIONBOX', 'SLIDEBOX', 'FLIPBOX' ) {
 		$file =~ s#BEGIN:$_ \*/.+?/\* END:$_#CLIP:$_#sg;
 	}
 	$file =~ s#/\* BUILD:MODE \*/#o.mode = 'datebox'#;
