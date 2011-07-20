@@ -7,6 +7,7 @@
 (function($, undefined ) {
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
+		// All widget options, including some internal runtime details
 		theme: 'c',
 		pickPageTheme: 'b',
 		pickPageInputTheme: 'e',
@@ -90,6 +91,7 @@
 		disabledDayColor: '#888'
 	},
 	_dateboxHandler: function(event, payload) {
+		// Handle all event triggers that have an internal effect
 		if ( ! event.isPropagationStopped() ) {
 			switch (payload.method) {
 				case 'close':
@@ -118,32 +120,40 @@
 		} 
 	},
 	_zeroPad: function(number) {
+		// Pad a number with a zero, to make it 2 digits
 		return ( ( number < 10 ) ? "0" : "" ) + String(number);
 	},
 	_makeOrd: function (num) {
+		// Return an ordinal suffix (1st, 2nd, 3rd, etc)
 		var ending = num % 10;
 		if ( num > 9 && num < 21 ) { return 'th'; }
 		if ( ending > 3 ) { return 'th'; }
 		return ['th','st','nd','rd'][ending];
 	},
 	_isInt: function (s) {
-			return (s.toString().search(/^[0-9]+$/) === 0);
+		// Bool, return is a number is an integer
+		return (s.toString().search(/^[0-9]+$/) === 0);
 	},
 	_dstAdjust: function(date) {
+		// Make sure not to run into daylight savings time.
 		if (!date) { return null; }
 		date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
 		return date;
 	},
 	_getFirstDay: function(date) {
+		// Get the first DAY of the month (0-6)
 		return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
 	},
 	_getLastDate: function(date) {
+		// Get the last DATE of the month (28,29,30,31)
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth(), 32)).getDate();
 	},
 	_getLastDateBefore: function(date) {
+		// Get the last DATE of the PREVIOUS month (28,29,30,31)
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth()-1, 32)).getDate();
 	},
 	_formatter: function(format, date) {
+		// Format the output date or time (not duration)
 		format = format.replace('SS', this._makeOrd(date.getDate()));
 		format = format.replace('YYYY', date.getFullYear());
 		format = format.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
@@ -164,15 +174,19 @@
 		return format;
 	},
 	_formatHeader: function(date) {
+		// Shortcut function to return headerFormat date/time format
 		return this._formatter(this.options.headerFormat, date);
 	},
 	_formatDate: function(date) {
+		// Shortcut function to return dateFormat date/time format
 		return this._formatter(this.options.dateFormat, date);
 	},
 	_isoDate: function(y,m,d) {
+		// Return an ISO 8601 date (yyyy-mm-dd)
 		return String(y) + '-' + (( m < 10 ) ? "0" : "") + String(m) + '-' + ((d < 10 ) ? "0" : "") + String(d);
 	},
 	_formatTime: function(date) {
+		// Shortcut to return formatted time, also handles duration
 		var self = this,
 			h, i, y,
 			days = '';
@@ -196,6 +210,7 @@
 		}
 	},
 	_makeDate: function (str) {
+		// Date Parser
 		str = $.trim(str);
 		var o = this.options,
 			self = this,
@@ -242,12 +257,12 @@
 			adv = RegExp('^' + adv + '$');
 			exp_input = adv.exec(str);
 			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-				exp_format = adv.exec(o.timeOutput);
+				exp_format = adv.exec(o.timeOutput); // If time, use timeOutput as expected format
 			} else {
-				exp_format = adv.exec(o.dateFormat);
+				exp_format = adv.exec(o.dateFormat); // If date, use dateFormat as expected format
 			}
 			
-			if ( o.debug ) {
+			if ( o.debug ) { // Legacy debug code - you probably never need this.
 				console.log({'info': 'EXPERIMENTAL REGEX MODE ENABLED', 'string': str, 'regex':adv, 'input':exp_input, 'format':exp_format});
 			}
 			
@@ -295,12 +310,16 @@
 		}
 	},
 	_checker: function(date) {
+		// Return a ISO 8601 BASIC format date (YYYYMMDD) for simple comparisons
 		return parseInt(String(date.getFullYear()) + this._zeroPad(date.getMonth()+1) + this._zeroPad(date.getDate()),10);
 	},
 	_hoover: function(item) {
+		// Hover toggle class, for calendar
 		$(item).toggleClass('ui-btn-up-'+$(item).attr('data-theme')+' ui-btn-down-'+$(item).attr('data-theme'));
 	},
 	_offset: function(mode, amount, update) {
+		// Compute a date/time offset.
+		//   update = false to prevent controls refresh
 		var self = this,
 			o = this.options;
 			
@@ -336,6 +355,7 @@
 		if ( update === true ) { self._update(); }
 	},
 	_updateduration: function() {
+		// Update the duration contols when inputs are directly edited.
 		var self = this,
 			secs = (self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000;
 		
@@ -352,6 +372,7 @@
 		self._update();
 	},
 	_update: function() {
+		// Update the display on date change
 		var self = this,
 			o = self.options, 
 			testDate = null,
@@ -892,13 +913,16 @@
 		/* END:CALBOX */
 	},
 	_create: function() {
+		// Create the widget, called automatically by widget system
 		var self = this,
 			o = $.extend(this.options, this.element.data('options')),
 			input = this.element,
 			focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ o.theme +'"></div>').parent(),
-			theDate = new Date(),
-			initDate = new Date(theDate.getTime()),
+			theDate = new Date(), // Internal date object, used for all operations
+			initDate = new Date(theDate.getTime()), // Initilization time - used for duration
 			dialogTitle = ((o.titleDialogLabel === false)?((o.mode==='timebox')?o.titleTimeDialogLabel:o.titleDateDialogLabel):o.titleDialogLabel),
+			
+			// This is the button that is added to the original input
 			openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
 				.bind('vclick', function (e) {
 					e.preventDefault();
@@ -932,9 +956,11 @@
 		
 		/* BUILD:MODE */
 		
-		if ( o.mode === "timeflipbox" ) {
+		if ( o.mode === "timeflipbox" ) { // No header in time flipbox.
 			o.headerFormat = ' ';
 		}
+		
+		// Select the appropriate output format if not otherwise specified
 		if ( o.timeOutput === false ) {
 			o.timeOutput = o.timeFormats[o.timeFormat];
 		}
@@ -951,12 +977,14 @@
 					o.fieldsOrder = o.dateFieldOrder; 
 			}
 		}
-			
+		
+		// For focus mode, disable button, and bind click of input element and it's parent	
 		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
 		focusedEl.bind('vclick', function() {
 			if ( !o.disabled && o.noButtonFocusMode ) { input.trigger('datebox', {'method': 'open'}); }
 		});
+		
 		
 		input
 			.removeClass('ui-corner-all ui-shadow-inset')
@@ -976,8 +1004,10 @@
 				self._update();
 			});
 			
+		// Bind the master handler.
 		input.bind('datebox', self._dateboxHandler);
 		
+		// Bind the close button on the DIALOG mode.
 		pickPage.find( ".ui-header a").bind('vclick', function(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
@@ -1002,10 +1032,12 @@
 			dragPos: dragPos
 		});
 		
+		// Check if mousewheel plugin is loaded
 		if ( typeof $.event.special.mousewheel !== 'undefined' ) { o.wheelExists = true; }
 		
 		self._buildPage();
 		
+		// drag and drop support, all ending and moving events are defined here, start events are handled in _buildPage or update
 		if ( o.swipeEnabled ) {
 			$(document).bind(self.MOVE_DRAG, function(e) {
 				if ( self.dragMove ) {
@@ -1076,11 +1108,13 @@
 			});
 		}
 		
+		// Disable when done if element attribute disabled is true.
 		if ( input.is(':disabled') ) {
 			self.disable();
 		}
 	},
 	_buildPage: function () {
+		// Build the controls
 		var self = this,
 			o = self.options, x, newHour,
 			linkdiv =$("<div><a href='#'></a></div>"),
@@ -1116,7 +1150,7 @@
 			pickerMins = templFlip.clone().attr('data-field', 'i');
 			pickerMeri = templFlip.clone().attr('data-field', 'a');
 			
-			if ( o.wheelExists ) {
+			if ( o.wheelExists ) { // Mousewheel operation, if the plugin is loaded.
 				pickerYar.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('y', (d<0)?-1:1); });
 				pickerMon.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('m', (d<0)?-1:1); });
 				pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', (d<0)?-1:1); });
@@ -1133,7 +1167,7 @@
 				});
 			}
 			
-			for(x=0; x<=o.fieldsOrder.length; x++) {
+			for(x=0; x<=o.fieldsOrder.length; x++) { // Use fieldsOrder to decide which to show.
 				if (o.fieldsOrder[x] === 'y') { pickerYar.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'm') { pickerMon.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
@@ -1142,7 +1176,7 @@
 				if (o.fieldsOrder[x] === 'a' && o.timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
 			}
 			
-			if ( o.swipeEnabled ) {
+			if ( o.swipeEnabled ) { // Drag and drop support
 				controlsInput.find('ul').bind(self.START_DRAG, function(e,f) {
 					if ( !self.dragMove ) {
 						if ( typeof f !== "undefined" ) { e = f; }
@@ -1167,7 +1201,7 @@
 				});
 			}
 			
-			if ( o.noSetButton === false ) {
+			if ( o.noSetButton === false ) { // Set button at bottom
 				$("<a href='#'>" + ((o.mode==='timeflipbox')?o.setTimeButtonLabel:o.setDateButtonLabel) + "</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
@@ -1207,14 +1241,14 @@
 			pickerMins = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
 			pickerSecs = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
 			
-			if ( o.wheelExists ) {
+			if ( o.wheelExists ) { // Mousewheel operation, if the plgin is loaded
 					pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', ((d<0)?-1:1)*o.durationSteppers['d']); });
 					pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', ((d<0)?-1:1)*o.durationSteppers['h']); });
 					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.durationSteppers['i']); });
 					pickerSecs.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('s', ((d<0)?-1:1)*o.durationSteppers['s']); });
 				}
 			
-			for ( x=0; x<o.durationOrder.length; x++ ) {
+			for ( x=0; x<o.durationOrder.length; x++ ) { // Use durationOrder to decide what goes where
 				switch ( o.durationOrder[x] ) {
 					case 'd':
 						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'd'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.durationLabel[0]+'</label>');
@@ -1231,7 +1265,7 @@
 				}
 			}
 			
-			if ( o.swipeEnabled ) {
+			if ( o.swipeEnabled ) { // Drag and drop operation
 				controlsInput.find('input').bind(self.START_DRAG, function(e) {
 					if ( !self.dragMove ) {
 						self.dragMove = true;
@@ -1240,12 +1274,11 @@
 						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
 						self.dragEnd = false;
 						e.stopPropagation();
-						//e.preventDefault();
 					}
 				});
 			}
 			
-			if ( o.noSetButton === false ) {
+			if ( o.noSetButton === false ) { // Bottom set button
 				$("<a href='#'>" + o.setDurationButtonLabel + "</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
@@ -1291,7 +1324,7 @@
 			controlsMinus = templControls.clone().appendTo(pickerContent);
 			controlsSet = templControls.clone().appendTo(pickerContent);
 			
-			if ( o.mode === 'timebox' ) { controlsHeader.parent().html(''); }
+			if ( o.mode === 'timebox' ) { controlsHeader.parent().html(''); } // Time mode has no header
 			
 			pickerMon = templInput.clone()
 				.attr('data-field', 'm')
@@ -1350,7 +1383,7 @@
 					}
 				});
 					
-			if ( o.wheelExists ) {
+			if ( o.wheelExists ) { // Mousewheel operation, if plugin is loaded
 				pickerYar.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('y', (d<0)?-1:1); });
 				pickerMon.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('m', (d<0)?-1:1); });
 				pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', (d<0)?-1:1); });
@@ -1359,7 +1392,7 @@
 				pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', d); });
 			}
 		
-			for(x=0; x<=o.fieldsOrder.length; x++) {
+			for(x=0; x<=o.fieldsOrder.length; x++) { // Use fieldsOrder to decide what goes where
 				if (o.fieldsOrder[x] === 'y') { pickerYar.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'm') { pickerMon.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
@@ -1368,7 +1401,7 @@
 				if (o.fieldsOrder[x] === 'a' && o.timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
 			}
 			
-			if ( o.swipeEnabled ) {
+			if ( o.swipeEnabled ) { // Drag and drop support
 				controlsInput.find('input').bind(self.START_DRAG, function(e) {
 					if ( !self.dragMove ) {
 						self.dragMove = true;
@@ -1381,7 +1414,7 @@
 				});
 			}
 			
-			if ( o.noSetButton === false ) {
+			if ( o.noSetButton === false ) { // Set button at bottom
 				$("<a href='#'>" + ((o.mode==='timebox')?o.setTimeButtonLabel:o.setDateButtonLabel) + "</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
@@ -1392,7 +1425,7 @@
 					});
 			}
 			
-			for( x=0; x<self.options.fieldsOrder.length; x++ ) {
+			for( x=0; x<self.options.fieldsOrder.length; x++ ) { // Generate the plus and minus buttons, use fieldsOrder again
 				if ( o.fieldsOrder[x] !== 'a' || o.timeFormat === 12 ) {
 					linkdiv.clone()
 						.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
@@ -1430,13 +1463,13 @@
 			controlsSet = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(pickerContent);
 			controlsInput = $("<div class='ui-datebox-gridlabel'><h4>Uninitialized</h4></div>").appendTo(controlsHeader).find('h4');
 			
-			if ( o.swipeEnabled ) {
+			if ( o.swipeEnabled ) { // Calendar swipe left and right
 				pickerContent
 					.bind('swipeleft', function() { if ( !self.calNoNext ) { self._offset('m', 1); } })
 					.bind('swiperight', function() { if ( !self.calNoPrev ) { self._offset('m', -1); } });
 			}
 			
-			if ( o.wheelExists) {
+			if ( o.wheelExists) { // Mousewheel operations, if plugin is loaded
 				pickerContent.bind('mousewheel', function(e,d) {
 					e.preventDefault();
 					if ( d > 0 && !self.calNoNext ) { 
@@ -1450,6 +1483,7 @@
 				});
 			}
 						
+			// Previous and next month buttons, define booleans to decide if they should do anything
 			$("<div class='ui-datebox-gridplus'><a href='#'>Next Month</a></div>")
 				.prependTo(controlsHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
 				.bind('vclick', function(e) {
@@ -1469,7 +1503,7 @@
 					}
 				});
 				
-			if ( o.calTodayButton === true ) {
+			if ( o.calTodayButton === true ) { // Show today button at bottom
 				$("<a href='#'>" + o.calTodayButtonLabel + "</a>")
 					.appendTo(pickerContent).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
@@ -1496,7 +1530,7 @@
 			controlsInput = $('<div>').addClass('ui-datebox-slide').appendTo(pickerContent);
 			controlsSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent);
 				
-			if ( o.noSetButton === false ) {
+			if ( o.noSetButton === false ) { // Show set button at bottom
 				$("<a href='#'>" + o.setDateButtonLabel + "</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
@@ -1520,6 +1554,7 @@
 			screen: screen
 		});
 		
+		// If useInline mode, drop it into the document, and stop a few events from working (or just hide the trigger)
 		if ( o.useInline ) { 
 			self.input.parent().parent().append(self.pickerContent);
 			if ( o.useInlineHideInput ) { self.input.parent().hide(); }
@@ -1529,16 +1564,18 @@
 			
 	},
 	refresh: function() {
+		// Pulic shortcut to _update, with an extra hook for inline mode.
 		if ( this.options.useInline === true ) {
 			this.input.trigger('change');
 		}
 		this._update();
 	},
 	open: function() {
-		if ( this.options.useInline ) { return false; }
-		if ( this.options.open === true ) { return false; } else { this.options.open = true; }
+		// Open the controls
+		if ( this.options.useInline ) { return false; } // Ignore if inline
+		if ( this.options.open === true ) { return false; } else { this.options.open = true; } // Ignore if already open
 		
-		this.input.trigger('change').blur();
+		this.input.trigger('change').blur(); // Grab latest value of input, in case it changed
 		
 		var self = this,
 			o = this.options,
@@ -1556,6 +1593,7 @@
 		if ( pickWinLeft < 0 ) {
 			pickWinLeft = 0;
 		}
+		// Center popup on request - centered in document, not any containing div. 
 		if ( o.centerWindow ) {
 			pickWinLeft = ( $(document).width() / 2 ) - ( pickWinWidth / 2 );
 		}
@@ -1565,11 +1603,12 @@
 		}
 		if ( pickWinTop < 45 ) { pickWinTop = 45; }
 		
+		// If the window is less than 400px wide, use the jQM dialog method unless otherwise forced
 		if ( ( $(document).width() > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
 			o.useDialog = false;
-			if ( o.useModal ) {
+			if ( o.useModal ) { // If model, fade the background screen
 				self.screen.fadeIn('slow');
-			} else {
+			} else { // Else just unhide it since it's transparent
 				self.screen.removeClass('ui-datebox-hidden');
 			}
 			self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).removeClass('ui-datebox-hidden');
@@ -1581,6 +1620,7 @@
 		}
 	},
 	close: function() {
+		// Close the controls
 		var self = this,
 			callback;
 
@@ -1588,7 +1628,8 @@
 			return true;
 		}
 		self.options.open = false;
-
+		
+		// Check options to see if we are closing a dialog, or removing a popup
 		if ( self.options.useDialog ) {
 			$(self.pickPage).dialog('close');
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex);
@@ -1606,6 +1647,7 @@
 		if ( self.options.closeCallback !== false ) { callback = new Function(self.options.closeCallback); callback(); }
 	},
 	disable: function(){
+		// Disable the element
 		this.element.attr("disabled",true);
 		this.element.parent().addClass("ui-disabled");
 		this.options.disabled = true;
@@ -1613,6 +1655,7 @@
 		this.input.trigger('datebox', {'method':'disable'});
 	},
 	enable: function(){
+		// Enable the element
 		this.element.attr("disabled", false);
 		this.element.parent().removeClass("ui-disabled");
 		this.options.disabled = false;
@@ -1621,6 +1664,7 @@
 	
   });
 	  
+  // Automatically bind to data-role='datebox' items. (you probably *can* do it to things other than an input - good luck as to the results, it will likely fail.
   $( document ).bind( "pagecreate", function( e ){
 	$( ":jqmData(role='datebox')", e.target ).datebox();
   });
