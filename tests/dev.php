@@ -10,11 +10,6 @@
 	<!-- NOTE: Script load order is significant! -->
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
-	<script type="text/javascript">
-		$( document ).bind( "mobileinit", function(){
-			$.mobile.page.prototype.options.degradeInputs.date = 'text';
-		});	
-	</script>
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
@@ -36,7 +31,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="bb2">Slide w/ time</label>
-			<input name="bb2" type="date" data-role="datebox" data-options='{"debug": true, "mode": "slidebox", "dateFormat": "MM/DD/YYYY at hh:iiaa", "headerFormat": "MM/DD/YYYY hh:iiaa", "timeFormat": 12, "fieldsOrder": ["y","m","d","h", "i"]}' id="bb2" />
+			<input name="bb2" type="text" data-role="datebox" data-options='{"debug": true, "mode": "slidebox", "dateFormat": "MM/DD/YYYY at hh:iiaa", "headerFormat": "MM/DD/YYYY hh:iiaa", "timeFormat": 12, "fieldsOrder": ["y","m","d","h", "i"]}' id="bb2" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="cc">Droid</label>
@@ -56,7 +51,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="gg">Flip (12hr Time)</label>
-			<input name="gg" type="date" data-role="datebox" data-options='{"mode": "timeflipbox", "timeFormat": 12}' id="gg" />
+			<input name="gg" type="text" data-role="datebox" data-options='{"mode": "timeflipbox", "timeFormat": 12}' id="gg" />
 		</div>
 		
 		

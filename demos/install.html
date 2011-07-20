@@ -11,19 +11,9 @@
 	<!-- NOTE: Script load order is significant! -->
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
-	<script type="text/javascript">
-		$( document ).bind( "mobileinit", function(){
-			$.mobile.page.prototype.options.degradeInputs.date = 'text';
-		});	
-	</script>
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
-	<script type="text/javascript">
-		 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-			'experimentalReg': true
-		});
-	</script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
 	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
 	<script type="text/javascript">
@@ -64,7 +54,7 @@
 		</dl>
 		<dl>
 			<dt>Recommended Use</dt>
-			<dd>It is highly recommended that you degrade date inputs while using datebox.  <strong>Before</strong> loading jQueryMobile:</dd>
+			<dd><strong>Note: DO NOT USE the following code - DateBox does this for you now, and it will break future jQM versions - if you have this in your HTML, remove it now.</strong></dd>
 			<dd><pre class="prettyprint">$( document ).bind( "mobileinit", function(){
   $.mobile.page.prototype.options.degradeInputs.date = 'text';
 });</pre></dd>
@@ -82,10 +72,11 @@
 &lt;link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" /&gt; 
 
 &lt;script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"&gt;&lt;/script&gt; 
-&lt;script type="text/javascript"&gt;
-    $( document ).bind( "mobileinit", function(){ $.mobile.page.prototype.options.degradeInputs.date = 'text'; });	
-&lt;/script&gt;
 &lt;script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Optional Mousewheel support: http://brandonaaron.net/code/mousewheel/docs -->
+&lt;script type="text/javascript" src="PATH/TO/YOUR/COPY/OF/jquery.mousewheel.min.js">&lt;/script>
+
 &lt;script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"&gt;&lt;/script&gt;</pre></dd>
 		</dl>
 
