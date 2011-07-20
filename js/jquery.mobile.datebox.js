@@ -410,7 +410,7 @@
 				if ( i !== 0 ) { self.theDate.setMinutes(self.theDate.getMinutes() - i); }
 			}
 			self.pickerMins.val(self._zeroPad(self.theDate.getMinutes()));
-			if ( o.timeFormat === 12 ) {
+			if ( o.timeFormat === 12 ) { // Handle meridiems
 				if ( self.theDate.getHours() > 11 ) {
 					self.pickerMeri.val(o.meridiemLetters[1]);
 					if ( self.theDate.getHours() === 12 ) {
