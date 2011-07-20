@@ -1664,7 +1664,16 @@
 	
   });
 	  
-  // Automatically bind to data-role='datebox' items. (you probably *can* do it to things other than an input - good luck as to the results, it will likely fail.
+  // Degrade date inputs to text inputs, suppress standard UI functions.
+  $( document ).bind( "pagebeforecreate", function( e ) {
+	$( ":jqmData(role='datebox')", e.target ).each(function() {
+		$(this).replaceWith(
+			$( "<div>" ).html( $(this).clone() ).html()
+				.replace( /\s+type=["']date['"]?/, " type=\"text\" " )
+		);
+	});
+  });
+  // Automatically bind to data-role='datebox' items.
   $( document ).bind( "pagecreate", function( e ){
 	$( ":jqmData(role='datebox')", e.target ).datebox();
   });
