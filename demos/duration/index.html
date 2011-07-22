@@ -85,6 +85,19 @@
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "durationbox", "durationNoDays": true}'&gt;</pre>
+
+                <h2>Configuring Duration Units</h2>
+
+				<div data-role="fieldcontain">
+					<label for="durunitconfigs">Some Date</label><input name="durunitconfigs" type="date" data-role="datebox" id="durunitconfigs" data-options='{"mode": "durationbox", "durationOrder": ["d", "h", "i"]}' />
+				</div>
+
+                <p>Duration units can be defined by setting 'durationOrder' to combinations of ["d","h","i","s"].</p>
+
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "durationbox", "durationOrder": ["d", "h", "i"]}'&gt;</pre>
 				
 			</nav> 
 		</div> 
