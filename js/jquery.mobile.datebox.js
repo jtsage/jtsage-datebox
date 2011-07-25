@@ -223,7 +223,7 @@
 			durationRegex = /^(?:([0-9]+) .+, )?(?:([0-9]+):)?(?:([0-9]+):)?([0-9]+)$/i,
 			match = null,
 			i;
-		
+
 		if ( o.mode === 'durationbox' ) {
 			match = durationRegex.exec(str);
 			if ( match === null ) {
@@ -269,13 +269,30 @@
 			if ( exp_input === null || exp_input.length !== exp_format.length ) {
 				if ( o.defaultDate !== false ) {
 					if ( $.isArray(o.defaultDate) && o.defaultDate.length === 3 ) {
-						return new Date(o.defaultDate[0], o.defaultDate[1], o.defaultDate[2], 0, 0, 0, 0);
-					} else {
-						exp_temp = o.defaultDate.split('-');
-						if ( exp_temp.length === 3 ) {
-							date = new Date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
-							if ( isNaN(date.getDate()) ) { date = new Date(); }
-						}
+                        if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+                            var currentTime = new Date();
+                            return new Date(currentTime.getYear(), currentTime.getMonth(), currentTime.getDate(), o.defaultDate[0], o.defaultDate[1], o.defaultDate[2], 0);
+                        }
+                        else {
+                            return new Date(o.defaultDate[0], o.defaultDate[1], o.defaultDate[2], 0, 0, 0, 0);
+                        }
+					}
+                    else {
+						if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+                            exp_temp = o.defaultDate.split(':');
+                            if ( exp_temp.length === 3 ) {
+                                var currentTime = new Date();
+                                date = new Date(currentTime.getYear(), currentTime.getMonth(), currentTime.getDate(), parseInt(exp_temp[0],10),parseInt(exp_temp[1],10),parseInt(exp_temp[2],10),0);
+                                if ( isNaN(date.getDate()) ) { date = new Date(); }
+                            }
+                        }
+                        else {
+                            exp_temp = o.defaultDate.split('-');
+                            if ( exp_temp.length === 3 ) {
+                                date = new Date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
+                                if ( isNaN(date.getDate()) ) { date = new Date(); }
+                            }
+                        }
 					}
 				}
 			} else {
