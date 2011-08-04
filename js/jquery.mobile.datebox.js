@@ -60,6 +60,7 @@
 		noSetButton: false,
 		closeCallback: false,
 		open: false,
+		nestedBox: false,
 		
 		fieldsOrder: false,
 		dateFieldOrder: ['m', 'd', 'y'],
@@ -1583,7 +1584,8 @@
 			pickWinHeight = self.pickerContent.outerHeight(),
 			pickWinWidth = self.pickerContent.innerWidth(),
 			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
-			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
+			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2),
+			activePage;
 			
 		// TOO FAR RIGHT TRAP
 		if ( (pickWinLeft + pickWinWidth) > $(document).width() ) {
@@ -1606,6 +1608,15 @@
 		// If the window is less than 400px wide, use the jQM dialog method unless otherwise forced
 		if ( ( $(document).width() > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
 			o.useDialog = false;
+			if ( o.nestedBox ) { 
+				if ( pickWinHeight === 0 ) { // The box may have no height since it dosen't exist yet.  working on it.
+					pickWinHeight = 250;
+					pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2);
+				}
+				activePage = $('.ui-page-active').first(); 
+				$(activePage).append(self.pickerContent);
+				$(activePage).append(self.screen);
+			}
 			if ( o.useModal ) { // If model, fade the background screen
 				self.screen.fadeIn('slow');
 			} else { // Else just unhide it since it's transparent
