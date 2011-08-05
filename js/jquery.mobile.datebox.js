@@ -22,6 +22,7 @@
 		calHighToday: true,
 		calHighPicked: true,
 		noAnimation: false,
+        disableManualInput : false,
 		
 		disabled: false,
 		wheelExists: false,
@@ -1113,6 +1114,10 @@
 		if ( input.is(':disabled') ) {
 			self.disable();
 		}
+
+        if( o.disableManualInput === true ){
+            input.attr("disabled",true);
+        }
 	},
 	_buildPage: function () {
 		// Build the controls

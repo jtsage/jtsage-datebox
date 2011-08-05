@@ -96,6 +96,18 @@
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox", 'calTodayButton': true}'&gt;</pre>
+
+                <h2>Disabling manual input</h2>
+				<div data-role="fieldcontain">
+					<label for="caldisablemanualinput">Some Date</label><input name="caldisablemanualinput" type="date" data-role="datebox" id="caldisablemanualinput" data-options='{"mode": "calbox", "disableManualInput": true}'/>
+				</div>
+
+				<p>You're not able to type a value in the following input, you can set the value by the picker.</p>
+
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "disableManualInput": true}'&gt;</pre>
 			</nav> 
 		</div> 
 		
