@@ -237,7 +237,6 @@
 				}
 			} else {
 			  if( self.options.durationNoSeconds ) {
-			    alert("h")
 			    seconds = ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000) + parseInt(match[4],10)*60;
   				if ( typeof match[3] !== 'undefined' ) { seconds = seconds + (parseInt(match[3],10)*60*60); }
   				if ( typeof match[2] !== 'undefined' ) { 
