@@ -168,9 +168,11 @@
 		format = format.replace('dd',   date.getDate());
 		
 		format = format.replace('HH',   this._zeroPad(date.getHours()));
-		format = format.replace('GG',   this._zeroPad(((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():date.getHours()-12))));
-		format = format.replace('hh',   ((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():(date.getHours()-12))));
-		format = format.replace('gg',   date.getHours());
+		format = format.replace('GG',   date.getHours());
+		
+		format = format.replace('hh',   this._zeroPad(((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():date.getHours()-12))));
+		format = format.replace('gg',   ((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():(date.getHours()-12))));
+		
 		format = format.replace('ii',   this._zeroPad(date.getMinutes()));
 		format = format.replace('ss',   this._zeroPad(date.getSeconds()));
 		format = format.replace('AA',   ((date.getHours() < 12)?this.options.meridiemLetters[0].toUpperCase():this.options.meridiemLetters[1].toUpperCase()));
