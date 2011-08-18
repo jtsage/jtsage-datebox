@@ -89,6 +89,7 @@
 		blackDays: false,
 		blackDates: false,
 		durationNoDays: false,
+		durationNoSeconds: false,
 		durationShort: true,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1},
 		disabledDayColor: '#888'
@@ -204,9 +205,9 @@
 			h = parseInt( i / (60*60), 10); i = i-(h*60*60); // Hours
 			y = parseInt( i / (60), 10); i = i-(y*60); // Mins
 			if ( self.options.durationShort ) {
-				return days + ((h>0||days!=='')?self._zeroPad(h) + ':':'') + ((y>0||h>0||days!=='')?self._zeroPad(y) + ':':'') + ((y>0||h>0||days!=='')?self._zeroPad(parseInt(i, 10)):String(i));
+				return days + ((h>0||days!=='')?self._zeroPad(h) + ':':'') + ((y>0||h>0||days!=='')?self._zeroPad(y):'') + (self.options.durationNoSeconds?'':(':'+(y>0||h>0||days!=='')?self._zeroPad(parseInt(i, 10)):String(i)));
 			} else {
-				return days + self._zeroPad(h) + ':' + self._zeroPad(y) + ':' + self._zeroPad(parseInt(i, 10));
+				return days + self._zeroPad(h) + ':' + self._zeroPad(y) + (self.options.durationNoSeconds?'':(':' + self._zeroPad(parseInt(i, 10))));
 			}
 		} else {
 			return this._formatter(self.options.timeOutput, date);
@@ -236,16 +237,29 @@
 					return new Date(self.initDate.getTime());
 				}
 			} else {
-				seconds = ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000) + parseInt(match[4],10);
-				if ( typeof match[3] !== 'undefined' ) { seconds = seconds + (parseInt(match[3],10)*60); }
-				if ( typeof match[2] !== 'undefined' ) { 
-					if ( typeof match[3] === 'undefined' ) {
-						seconds = seconds + (parseInt(match[2],10)*60); 
-					} else {
-						seconds = seconds + (parseInt(match[2],10)*60*60); 
-					}
-				}
-				if ( typeof match[1] !== 'undefined' ) { seconds = seconds + (parseInt(match[1],10)*60*60*24); }
+			  if( self.options.durationNoSeconds ) {
+			    seconds = ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000) + parseInt(match[4],10)*60;
+  				if ( typeof match[3] !== 'undefined' ) { seconds = seconds + (parseInt(match[3],10)*60*60); }
+  				if ( typeof match[2] !== 'undefined' ) { 
+  					if ( typeof match[3] === 'undefined' ) {
+  						seconds = seconds + (parseInt(match[2],10)*60*60); 
+  					} else {
+  						seconds = seconds + (parseInt(match[2],10)*60*60*24); 
+  					}
+  				}
+  				if ( typeof match[1] !== 'undefined' ) { seconds = seconds + (parseInt(match[1],10)*60*60*24); }
+			  } else {
+			    seconds = ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000) + parseInt(match[4],10);
+  				if ( typeof match[3] !== 'undefined' ) { seconds = seconds + (parseInt(match[3],10)*60); }
+  				if ( typeof match[2] !== 'undefined' ) { 
+  					if ( typeof match[3] === 'undefined' ) {
+  						seconds = seconds + (parseInt(match[2],10)*60); 
+  					} else {
+  						seconds = seconds + (parseInt(match[2],10)*60*60); 
+  					}
+  				}
+  				if ( typeof match[1] !== 'undefined' ) { seconds = seconds + (parseInt(match[1],10)*60*60*24); }
+			  }
 				seconds = seconds * 1000;
 				return new Date(seconds);
 			}
