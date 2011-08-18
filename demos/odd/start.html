@@ -57,12 +57,12 @@
 				</div>
 				<script type="text/javascript">
 					$('#oddStart').live('pagecreate', function(event) {
-						var defaultDate = [2012, 0, 1];
-						var presetDate = new Date(defaultDate[0], defaultDate[1], defaultDate[2], 0, 0, 0, 0);
+						var defaultPickerValue = [2012, 0, 1];
+						var presetDate = new Date(defaultPickerValue[0], defaultPickerValue[1], defaultPickerValue[2], 0, 0, 0, 0);
 						var todaysDate = new Date();
 						var lengthOfDay = 24 * 60 * 60 * 1000;
 						var diff = parseInt((((presetDate.getTime() - todaysDate.getTime()) / lengthOfDay)+1)*-1,10);
-						$('#dynstart').data('datebox').options.defaultDate = defaultDate;
+						$('#dynstart').data('datebox').options.defaultPickerValue = defaultPickerValue;
 						$('#dynstart').data('datebox').options.minDays = diff;
 					});
 				</script>
@@ -79,11 +79,11 @@
 
 				<strong>jQuery</strong>
 				<pre class="prettyprint">$('#thisPageID').live('pagecreate', function(event) {
-  // Default Date of Jan 1, 2012
-  var defaultDate = [2012, 0, 1]; 
+  // Default picker value of Jan 1, 2012
+  var defaultPickerValue = [2012, 0, 1];
     
   // Make it a date
-  var presetDate = new Date(defaultDate[0], defaultDate[1], defaultDate[2], 0, 0, 0, 0); 
+  var presetDate = new Date(defaultPickerValue[0], defaultPickerValue[1], defaultPickerValue[2], 0, 0, 0, 0);
     
   // Get Today
   var todaysDate = new Date(); 
@@ -95,7 +95,7 @@
   var diff = parseInt((((presetDate.getTime() - todaysDate.getTime()) / lengthOfDay)+1)*-1,10); 
     
   // Set the origin date
-  $('#mydate').data('datebox').options.defaultDate = defaultDate; 
+  $('#mydate').data('datebox').options.defaultPickerValue = defaultPickerValue;
     
   // Set minDays to disallow anything earlier
   $('#mydate').data('datebox').options.minDays = diff; 
