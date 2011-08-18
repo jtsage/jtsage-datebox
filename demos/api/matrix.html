@@ -136,7 +136,8 @@
 			</ul></li>
 			<li><h3>Date Defaults and Limits</h3><ul data-inset="true">
 				<li data-role="list-divider">Defaults</li>
-				<li><h3>defaultDate</h3><p><strong>Purpose:</strong>Default date when nothing entered into input box, array of [y,m,d] prefered, ISO accepted.  For durationbox mode, this can be an integer of seconds instead.<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>defaultPickerValue</h3><p><strong>Purpose:</strong>Default value shown on the picker when nothing entered into input box. For datebox, slidebox, calbox and flipbox modes  array of [y,m,d] is preferred, ISO is accepted. For timebox and timeflipbox modes, array of [h,m,s] is preferred, time value seperated with ":" is also accepted. For durationbox mode, this can be an integer of seconds instead.<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+                <li><h3>defaultDate (deprecated)</h3><p><strong>Purpose:</strong>This deprecated option is the old name of "defaultPickerValue" option and exists for backward compatibility. Please use "defaultPickerValue" option instead.<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
 				<li data-role="list-divider">Limits</li>
 				<li><h3>afterToday</h3><p><strong>Purpose:</strong>Limit date to "today" or after<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> android, calendar</p></li>
 				<li><h3>beforeToday</h3><p><strong>Purpose:</strong>Limit date to "today" or before<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> android, calendar</p></li>
