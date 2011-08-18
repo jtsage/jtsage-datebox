@@ -987,7 +987,7 @@
 			dragPos = false,
 			dragTarget = false,
 			dragThisDelta = 0;
-
+		
         if(o.defaultPickerValue===false && o.defaultDate!==false){
             o.defaultPickerValue = o.defaultDate;
         }
@@ -1667,6 +1667,8 @@
 			}
 			self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).removeClass('ui-datebox-hidden');
 		} else {
+			// prevent the parent page from being removed from the DOM,
+			self.thisPage.unbind( "pagehide.remove" );
 			o.useDialog = true;
 			self.pickPageContent.append(self.pickerContent);
 			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'}).removeClass('ui-overlay-shadow ui-datebox-hidden');
@@ -1686,6 +1688,11 @@
 		// Check options to see if we are closing a dialog, or removing a popup
 		if ( self.options.useDialog ) {
 			$(self.pickPage).dialog('close');
+			if( !self.thisPage.data("page").options.domCache ){
+				self.thisPage.bind( "pagehide.remove", function() {
+					$(this).remove();
+				});
+			}
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex);
 			self.thisPage.append(self.pickerContent);
 		} else {

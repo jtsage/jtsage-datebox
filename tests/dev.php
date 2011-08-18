@@ -23,7 +23,7 @@
 	<div data-role="content" data-theme="c">
 		<div data-role="fieldcontain">
 			<label for="aa">Cal</label>
-			<input name="aa" type="date" data-role="datebox" data-options='{"mode": "calbox", "calTodayButton": true, "pickPageHighButtonTheme": "a", "pickPageButtonTheme": "d", "pickPageOHighButtonTheme": "b", "highDays": [0,6]}' id="aa" />
+			<input name="aa" type="date" data-role="datebox" data-options='{"mode": "calbox", "useDialogForceTrue": true, "pickPageHighButtonTheme": "a", "pickPageButtonTheme": "d", "pickPageOHighButtonTheme": "b", "highDays": [0,6]}' id="aa" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="bb">Slide</label>
@@ -35,7 +35,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="cc">Droid</label>
-			<input name="cc" type="date" data-role="datebox" data-options='{"debug":true,"mode": "datebox", "dateFormat": "ddd the ddSS of mmm in the year YYYY"}' id="cc" />
+			<input name="cc" type="date" data-role="datebox" data-options='{"debug":true,"mode": "datebox", "useDialogForceTrue": true, "dateFormat": "ddd the ddSS of mmm in the year YYYY"}' id="cc" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="dd">Time</label>
