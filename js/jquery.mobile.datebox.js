@@ -1617,7 +1617,7 @@
 	open: function() {
 		// Open the controls
 		if ( this.options.useInline ) { return false; } // Ignore if inline
-		if ( this.options.open === true ) { return false; } else { this.options.open = true; } // Ignore if already open
+		if ( this.pickPage.is(':visible') ) { return false; } // Ignore if already open
 		
 		this.input.trigger('change').blur(); // Grab latest value of input, in case it changed
 		
@@ -1683,7 +1683,6 @@
 		if ( self.options.useInline ) {
 			return true;
 		}
-		self.options.open = false;
 		
 		// Check options to see if we are closing a dialog, or removing a popup
 		if ( self.options.useDialog ) {
