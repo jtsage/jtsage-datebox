@@ -45,7 +45,7 @@
 		durationLabel: ['Days', 'Hours', 'Minutes', 'Seconds'],
 		durationDays: ['Day', 'Days'],
 		timeFormat: 24,
-		timeFormats: { '12': 'GG:ii AA', '24': 'HH:ii' },
+		timeFormats: { '12': 'gg:ii AA', '24': 'HH:ii' },
 		timeOutput: false,
 		
 		mode: 'datebox',
