@@ -54,11 +54,11 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="ff">Flip (Date)</label>
-			<input name="ff" type="date" data-role="datebox" data-options='{"mode": "flipbox"}' id="ff" />
+			<input name="ff" type="date" data-role="datebox" data-options='{"mode": "flipbox", "rolloverMode": {"m":false, "d":false}}' id="ff" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="gg">Flip (12hr Time)</label>
-			<input name="gg" type="text" data-role="datebox" data-options='{"mode": "timeflipbox", "minuteStep": 5, "timeFormat": 12}' id="gg" />
+			<input name="gg" type="text" data-role="datebox" data-options='{"mode": "timeflipbox", "rolloverMode": false, "minuteStep": 5, "timeFormat": 12}' id="gg" />
 		</div>
 		
 		

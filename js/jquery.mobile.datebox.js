@@ -47,6 +47,7 @@
 		timeFormat: 24,
 		timeFormats: { '12': 'gg:ii AA', '24': 'HH:ii' },
 		timeOutput: false,
+		rolloverMode: { 'm': true, 'd': true, 'h': true, 'i': true, 's': true },
 		
 		mode: 'datebox',
 		calShowDays: true,
@@ -366,19 +367,38 @@
 				self.theDate.setYear(self.theDate.getFullYear() + amount);
 				break;
 			case 'm':
-				self.theDate.setMonth(self.theDate.getMonth() + amount);
+			console.log(o.rolloverMode);
+				if ( o.rolloverMode['m'] || ( self.theDate.getMonth() + amount < 12 && self.theDate.getMonth() + amount > -1 ) ) {
+					self.theDate.setMonth(self.theDate.getMonth() + amount);
+				}
 				break;
 			case 'd':
-				self.theDate.setDate(self.theDate.getDate() + amount);
+				if ( o.rolloverMode['d'] || (
+					self.theDate.getDate() + amount > 0 &&
+					self.theDate.getDate() + amount < (self._getLastDate(self.theDate) + 1) ) ) {
+						self.theDate.setDate(self.theDate.getDate() + amount);
+				}
 				break;
 			case 'h':
-				self.theDate.setHours(self.theDate.getHours() + amount);
+				if ( o.rolloverMode['h'] || (
+					self.theDate.getHours() + amount > -1 &&
+					self.theDate.getHours() + amount < 24 ) ) {
+						self.theDate.setHours(self.theDate.getHours() + amount);
+				}
 				break;
 			case 'i':
-				self.theDate.setMinutes(self.theDate.getMinutes() + amount);
+				if ( o.rolloverMode['i'] || (
+					self.theDate.getMinutes() + amount > -1 &&
+					self.theDate.getMinutes() + amount < 60 ) ) {
+						self.theDate.setMinutes(self.theDate.getMinutes() + amount);
+				}
 				break;
 			case 's':
-				self.theDate.setSeconds(self.theDate.getSeconds() + amount);
+				if ( o.rolloverMode['i'] || (
+					self.theDate.getSeconds() + amount > -1 &&
+					self.theDate.getSeconds() + amount < 60 ) ) {
+						self.theDate.setSeconds(self.theDate.getSeconds() + amount);
+				}
 				break;
 			case 'a':
 				if ( self.pickerMeri.val() === o.meridiemLetters[0] ) { 
