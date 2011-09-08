@@ -518,7 +518,7 @@
 						thisRow = self.pickerMon.find('ul');
 						thisRow.html('');
 						for ( i=-12; i<13; i++ ) {
-							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
+							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), 1);
 							testDate.setMonth(testDate.getMonth()+i);
 							cTheme = ( inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
@@ -680,7 +680,7 @@
 						thisPRow.addClass('ui-datebox-sliderow-ym');
 						thisRow.css('marginLeft', '-204px');
 						for ( i=-6; i<7; i++ ) {
-							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
+							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), 1);
 							testDate.setMonth(testDate.getMonth()+i);
 							cTheme = ( inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageSlideButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
