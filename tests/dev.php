@@ -13,6 +13,13 @@
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
+	<!--<script type="text/javascript">
+		$('input').live('datebox', function(e, p) {
+			if ( p.method === "offset" ) { 
+				console.log(p);
+			}
+		});
+	</script>-->
 	
 </head>
 <body>
@@ -51,7 +58,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="gg">Flip (12hr Time)</label>
-			<input name="gg" type="text" data-role="datebox" data-options='{"mode": "timeflipbox", "timeFormat": 12}' id="gg" />
+			<input name="gg" type="text" data-role="datebox" data-options='{"mode": "timeflipbox", "minuteStep": 5, "timeFormat": 12}' id="gg" />
 		</div>
 		
 		

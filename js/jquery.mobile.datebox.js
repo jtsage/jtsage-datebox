@@ -565,11 +565,12 @@
 						thisRow = self.pickerMins.find('ul');
 						thisRow.html('');
 						for ( i=-30; i<31; i++ ) {
+							if ( o.minuteStep > 1 ) { self.theDate.setMinutes(self.theDate.getMinutes() - (self.theDate.getMinutes() % o.minuteStep)); }
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), self.theDate.getHours(), self.theDate.getMinutes());
-							testDate.setMinutes(testDate.getMinutes()+i);
+							testDate.setMinutes(testDate.getMinutes()+(i*o.minuteStep));
 							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageFlipButtonTheme;
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -933px':'') })
-								.attr('data-offset',i)
+								.attr('data-offset',(i*o.minuteStep))
 								.attr('data-theme', cTheme)
 								.html("<span>"+self._zeroPad(testDate.getMinutes())+"</span>")
 								.appendTo(thisRow);
@@ -1160,7 +1161,7 @@
 	_buildPage: function () {
 		// Build the controls
 		var self = this,
-			o = self.options, x, newHour,
+			o = self.options, x, newHour, fld,
 			linkdiv =$("<div><a href='#'></a></div>"),
 			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
 			templInput = $("<input type='text' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
@@ -1204,10 +1205,11 @@
 				controlsPlus.bind('mousewheel', function(e,d) { 
 					e.preventDefault();
 					if ( o.fieldsOrder.length === 3 ) {
-						self._offset(o.fieldsOrder[parseInt((e.pageX - $(e.currentTarget).offset().left) / 87, 10)], ((d<0)?-1:1));
+						fld = o.fieldsOrder[parseInt((e.pageX - $(e.currentTarget).offset().left) / 87, 10)];
 					} else if ( o.fieldsOrder.length === 2 ) {
-						self._offset(o.fieldsOrder[parseInt((e.pageX - $(e.currentTarget).offset().left) / 130, 10)], ((d<0)?-1:1));
+						fld = o.fieldsOrder[parseInt((e.pageX - $(e.currentTarget).offset().left) / 130, 10)];
 					}
+					self._offset(fld, ((d<0)?-1:1) * ((fld==="i")?o.minuteStep:1));
 				});
 			}
 			
