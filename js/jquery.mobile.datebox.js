@@ -791,7 +791,7 @@
 			
 			calmode = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'nexttoday': 1,
 				'thisDate': new Date(), 'maxDate': new Date(), 'minDate': new Date(),
-				'currentMonth': false, 'weekMode': 0, 'weekDays': null, 'thisTheme': o.pickPageButtoTheme };
+				'currentMonth': false, 'weekMode': 0, 'weekDays': null, 'thisTheme': o.pickPageButtonTheme };
 			calmode.start = self._getFirstDay(self.theDate);
 			calmode.end = self._getLastDate(self.theDate);
 			calmode.lastend = self._getLastDateBefore(self.theDate);
