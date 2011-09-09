@@ -1658,6 +1658,7 @@
 			pickWinWidth = self.pickerContent.innerWidth(),
 			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
 			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2),
+			transition = o.noAnimation ? 'none' : 'pop',
 			activePage;
 			
 		// TOO FAR RIGHT TRAP
@@ -1702,7 +1703,7 @@
 			o.useDialog = true;
 			self.pickPageContent.append(self.pickerContent);
 			self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'}).removeClass('ui-overlay-shadow ui-datebox-hidden');
-			$.mobile.changePage(self.pickPage, {'transition': 'pop'});
+			$.mobile.changePage(self.pickPage, {'transition': transition});
 		}
 	},
 	close: function() {
