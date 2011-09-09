@@ -159,9 +159,11 @@
 		// Format the output date or time (not duration)
 		format = format.replace('SS', this._makeOrd(date.getDate()));
 		format = format.replace('YYYY', date.getFullYear());
+		format = format.replace('mmmm', this.options.monthsOfYearShort[date.getMonth()] );
 		format = format.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
 		format = format.replace('MM',   this._zeroPad(date.getMonth() + 1));
 		format = format.replace('mm',   date.getMonth() + 1);
+		format = format.replace('dddd', this.options.daysOfWeekShort[date.getDay()] );
 		format = format.replace('ddd',  this.options.daysOfWeek[date.getDay()] );
 		format = format.replace('DD',   this._zeroPad(date.getDate()));
 		format = format.replace('dd',   date.getDate());
@@ -274,6 +276,7 @@
 		} else {
 			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) { adv = o.timeOutput; } else { adv = o.dateFormat; }
 			
+			adv = adv.replace(/dddd|mmmm/g, '(.+?)');
 			adv = adv.replace(/ddd|SS/g, '.+?');
 			adv = adv.replace(/mmm/g, '(.+?)');
 			adv = adv.replace(/ *AA/ig, ' *(.*?)');
@@ -336,9 +339,11 @@
 					}
 					if ( exp_format[i].match(/^mmm$/i) )  { 
 						exp_temp = $.inArray(exp_input[i], o.monthsOfYear);
-						if ( exp_temp > -1 ) {
-							found_date[1] = exp_temp;
-						}
+						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
+					}
+					if ( exp_format[i].match(/^mmmm$/i) )  { 
+						exp_temp = $.inArray(exp_input[i], o.monthsOfYearShort);
+						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
 					}
 				}
 			}
