@@ -229,6 +229,7 @@
 			seconds = 0,
 			durationRegex = /^(?:([0-9]+) .+, )?(?:([0-9]+):)?(?:([0-9]+):)?([0-9]+)$/i,
 			match = null,
+			found_date = [date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds()],
 			i;
 
 		if ( o.mode === 'durationbox' ) {
@@ -316,33 +317,33 @@
 					}
 				}
 			} else {
-				for ( i=0; i<exp_input.length; i++ ) {
-					if ( exp_format[i].match(/^gg$/i) )   { date.setHours(parseInt(exp_input[i],10)); }
-					if ( exp_format[i].match(/^hh$/i) )   { date.setHours(parseInt(exp_input[i],10)); }
-					if ( exp_format[i].match(/^ii$/i) )   { date.setMinutes(parseInt(exp_input[i],10)); }
-					if ( exp_format[i].match(/^ss$/ ) )   { date.setSeconds(parseInt(exp_input[i],10)); }
-					if ( exp_format[i].match(/^dd$/i) )   { date.setDate(parseInt(exp_input[i],10)); }
-					if ( exp_format[i].match(/^mm$/i) )   { date.setMonth(parseInt(exp_input[i],10)-1); }
-					if ( exp_format[i].match(/^yyyy$/i) ) { date.setYear(parseInt(exp_input[i],10)); }
+				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
+					if ( exp_format[i].match(/^gg$/i) )   { found_date[3] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^hh$/i) )   { found_date[3] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^ii$/i) )   { found_date[4] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^ss$/ ) )   { found_date[5] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^dd$/i) )   { found_date[2] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^mm$/i) )   { found_date[1] = parseInt(exp_input[i],10)-1; }
+					if ( exp_format[i].match(/^yyyy$/i) ) { found_date[0] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^AA$/i) )   { 
-						if ( exp_input[i].toLowerCase().charAt(0) === 'a' && date.getHours() === 12 ) {
-							date.setHours(0);
-						} else if ( exp_input[i].toLowerCase().charAt(0) === 'p' && date.getHours() !== 12 ) {
-							date.setHours(date.getHours() + 12);
+						if ( exp_input[i].toLowerCase().charAt(0) === 'a' && found_date[3] === 12 ) {
+							found_date[3] = 0;
+						} else if ( exp_input[i].toLowerCase().charAt(0) === 'p' && found_date[3] !== 12 ) {
+							found_date[3] = found_date[3] + 12;
 						}
 					}
 					if ( exp_format[i].match(/^mmm$/i) )  { 
 						exp_temp = $.inArray(exp_input[i], o.monthsOfYear);
 						if ( exp_temp > -1 ) {
-							date.setMonth(exp_temp);
+							found_date[1] = exp_temp;
 						}
 					}
 				}
 			}
 			if ( exp_format[0].match(/G|g|i|s|H|h|A/) ) { 
-				return date;
+				return new Date(found_date[0], found_date[1], found_date[2], found_date[3], found_date[4], found_date[5], 0);
 			} else {
-				return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0); // Normalize time for raw dates
+				return new Date(found_date[0], found_date[1], found_date[2], 0, 0, 0, 0); // Normalize time for raw dates
 			}
 		}
 	},
