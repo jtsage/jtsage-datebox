@@ -50,7 +50,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="ee">Length</label>
-			<input name="ee" type="text" data-role="datebox" data-options='{"mode": "durationbox", "defaultDate": 3612, "durationOrder": ["d", "h", "i"]}' id="ee" />
+			<input name="ee" type="text" data-role="datebox" data-options='{"mode": "durationbox", "durationFormat": "hh:ii:ss", "debug":true,"defaultDate": 0 }' id="ee" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="ff">Flip (Date)</label>

@@ -44,6 +44,7 @@
 		monthsOfYearShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 		durationLabel: ['Days', 'Hours', 'Minutes', 'Seconds'],
 		durationDays: ['Day', 'Days'],
+		durationFormat: 'DD ddd, hh:ii:ss',
 		timeFormat: 24,
 		timeFormats: { '12': 'gg:ii AA', '24': 'HH:ii' },
 		timeOutput: false,
@@ -89,9 +90,6 @@
 		highDates: false,
 		blackDays: false,
 		blackDates: false,
-		durationNoDays: false,
-		durationNoSeconds: false,
-		durationShort: true,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1},
 		disabledDayColor: '#888'
 	},
@@ -195,23 +193,38 @@
 	_formatTime: function(date) {
 		// Shortcut to return formatted time, also handles duration
 		var self = this,
-			h, i, y,
-			days = '';
+			dur_collapse = [false,false,false], adv, exp_format, i, j,
+			format = this.options.durationFormat,
+			dur_comps = [0,0,0,0];
 			
 		if ( this.options.mode === 'durationbox' ) {
-			i = ((self.theDate.getTime() - self.theDate.getMilliseconds()) / 1000) - ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000);
-			y = parseInt( i / (60*60*24),10); // Days
-			if ( !self.options.durationNoDays ) {
-				days = (y===0) ? '' : String(y) + ' ' + ((y>1) ? this.options.durationDays[1]:this.options.durationDays[0]) + ', ';
-				i = i-(y*60*60*24);
+			adv = this.options.durationFormat;
+			adv = adv.replace(/ddd/g, '.+?');
+			adv = adv.replace(/DD|ss|hh|ii/g, '([0-9Dhis]+)');
+			adv = RegExp('^' + adv + '$');
+			exp_format = adv.exec(this.options.durationFormat);
+			
+			i = ((self.theDate.getTime() - self.theDate.getMilliseconds()) / 1000) - ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000); j = i;
+			
+			dur_comps[0] = parseInt( i / (60*60*24),10); i = i - (dur_comps[0]*60*60*24); // Days
+			dur_comps[1] = parseInt( i / (60*60),10); i = i - (dur_comps[1]*60*60); // Hours
+			dur_comps[2] = parseInt( i / (60),10); i = i - (dur_comps[2]*60); // Minutes
+			dur_comps[3] = i; // Seconds
+			
+			if ( ! exp_format[0].match(/DD/) ) { dur_collapse[0] = true; dur_comps[1] = dur_comps[1] + (dur_comps[0]*24);}
+			if ( ! exp_format[0].match(/hh/) ) { dur_collapse[1] = true; dur_comps[2] = dur_comps[2] + (dur_comps[1]*60);}
+			if ( ! exp_format[0].match(/ii/) ) { dur_collapse[2] = true; dur_comps[3] = dur_comps[3] + (dur_comps[2]*60);}
+			
+			if ( this.options.debug ) { 
+				console.log({'format': exp_format, 'collapse': dur_collapse, 'seconds': j, 'parts': dur_comps});
 			}
-			h = parseInt( i / (60*60), 10); i = i-(h*60*60); // Hours
-			y = parseInt( i / (60), 10); i = i-(y*60); // Mins
-			if ( self.options.durationShort ) {
-				return days + ((h>0||days!=='')?self._zeroPad(h) + ':':'') + ((y>0||h>0||days!=='')?self._zeroPad(y):'') + (self.options.durationNoSeconds?'':(':'+(y>0||h>0||days!=='')?self._zeroPad(parseInt(i, 10)):String(i)));
-			} else {
-				return days + self._zeroPad(h) + ':' + self._zeroPad(y) + (self.options.durationNoSeconds?'':(':' + self._zeroPad(parseInt(i, 10))));
-			}
+			
+			format = format.replace('DD', dur_comps[0]);
+			format = format.replace('ddd', ((dur_comps[0] > 1)?this.options.durationDays[1]:this.options.durationDays[0]));
+			format = format.replace('hh', self._zeroPad(dur_comps[1]));
+			format = format.replace('ii', self._zeroPad(dur_comps[2]));
+			format = format.replace('ss', self._zeroPad(dur_comps[3]));
+			return format;
 		} else {
 			return this._formatter(self.options.timeOutput, date);
 		}
@@ -226,53 +239,44 @@
 			exp_format = null,
 			exp_temp = null,
 			date = new Date(),
-			seconds = 0,
-			durationRegex = /^(?:([0-9]+) .+, )?(?:([0-9]+):)?(?:([0-9]+):)?([0-9]+)$/i,
-			match = null,
+			dur_collapse = [false,false,false],
 			found_date = [date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds()],
 			i;
 
 		if ( o.mode === 'durationbox' ) {
-			match = durationRegex.exec(str);
-			if ( match === null ) {
+			adv = o.durationFormat;
+			adv = adv.replace(/ddd/g, '.+?');
+			adv = adv.replace(/DD|ss|hh|ii/g, '([0-9Dhis]+)');
+			adv = RegExp('^' + adv + '$');
+			exp_input = adv.exec(str);
+			exp_format = adv.exec(o.durationFormat);
+			
+			if ( o.debug ) { // Legacy debug code - you probably never need this.
+				console.log({'info': 'EXPERIMENTAL REGEX MODE ENABLED', 'string': str, 'regex':adv, 'input':exp_input, 'format':exp_format});
+			}
+			
+			if ( exp_input === null || exp_input.length !== exp_format.length ) {
 				if ( typeof o.defaultPickerValue === "number" && o.defaultPickerValue > 0 ) {
 					return new Date(self.initDate.getTime() + (parseInt(o.defaultPickerValue,10) * 1000));
 				} else {
 					return new Date(self.initDate.getTime());
 				}
 			} else {
-			  if( self.options.durationNoSeconds ) {
-			    seconds = ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000) + parseInt(match[4],10)*60;
-  				if ( typeof match[3] !== 'undefined' ) { seconds = seconds + (parseInt(match[3],10)*60*60); }
-  				if ( typeof match[2] !== 'undefined' ) { 
-  					if ( typeof match[3] === 'undefined' ) {
-  						seconds = seconds + (parseInt(match[2],10)*60*60); 
-  					} else {
-  						seconds = seconds + (parseInt(match[2],10)*60*60*24); 
-  					}
-  				}
-  				if ( typeof match[1] !== 'undefined' ) { seconds = seconds + (parseInt(match[1],10)*60*60*24); }
-			  } else {
-			    seconds = ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000) + parseInt(match[4],10);
-  				if ( typeof match[3] !== 'undefined' ) { seconds = seconds + (parseInt(match[3],10)*60); }
-  				if ( typeof match[2] !== 'undefined' ) { 
-  					if ( typeof match[3] === 'undefined' ) {
-  						seconds = seconds + (parseInt(match[2],10)*60); 
-  					} else {
-  						seconds = seconds + (parseInt(match[2],10)*60*60); 
-  					}
-  				}
-  				if ( typeof match[1] !== 'undefined' ) { seconds = seconds + (parseInt(match[1],10)*60*60*24); }
-			  }
-				seconds = seconds * 1000;
-				return new Date(seconds);
+				exp_temp = ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000);
+				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
+					if ( exp_format[i].match(/^DD$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60*24); }
+					if ( exp_format[i].match(/^hh$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60); }
+					if ( exp_format[i].match(/^ii$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60); }
+					if ( exp_format[i].match(/^ss$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)); }
+				}
+				return new Date((exp_temp*1000));
 			}
 		} else {
 			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) { adv = o.timeOutput; } else { adv = o.dateFormat; }
 			
 			adv = adv.replace(/ddd|SS/g, '.+?');
 			adv = adv.replace(/mmm/g, '(.+?)');
-			adv = adv.replace(/ *AA/g, ' *(.*?)');
+			adv = adv.replace(/ *AA/ig, ' *(.*?)');
 			adv = adv.replace(/yyyy|dd|mm|gg|hh|ii/ig, '([0-9yYdDmMgGhHi]+)');
 			adv = adv.replace(/ss/g, '([0-9s]+)');
 			adv = RegExp('^' + adv + '$');
@@ -290,30 +294,28 @@
 			if ( exp_input === null || exp_input.length !== exp_format.length ) {
 				if ( o.defaultPickerValue !== false ) {
 					if ( $.isArray(o.defaultPickerValue) && o.defaultPickerValue.length === 3 ) {
-                        if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-                            var currentTime = new Date();
-                            return new Date(currentTime.getYear(), currentTime.getMonth(), currentTime.getDate(), o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0);
-                        }
-                        else {
-                            return new Date(o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0, 0, 0, 0);
-                        }
-					}
-                    else {
 						if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-                            exp_temp = o.defaultPickerValue.split(':');
-                            if ( exp_temp.length === 3 ) {
-                                var currentTime = new Date();
-                                date = new Date(currentTime.getYear(), currentTime.getMonth(), currentTime.getDate(), parseInt(exp_temp[0],10),parseInt(exp_temp[1],10),parseInt(exp_temp[2],10),0);
-                                if ( isNaN(date.getDate()) ) { date = new Date(); }
-                            }
-                        }
-                        else {
-                            exp_temp = o.defaultPickerValue.split('-');
-                            if ( exp_temp.length === 3 ) {
-                                date = new Date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
-                                if ( isNaN(date.getDate()) ) { date = new Date(); }
-                            }
-                        }
+							return new Date(found_date[0], found_date[1], found_date[2], o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0);
+						}
+						else {
+							return new Date(o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0, 0, 0, 0);
+						}
+					}
+					else {
+						if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+							exp_temp = o.defaultPickerValue.split(':');
+							if ( exp_temp.length === 3 ) {
+								date = new Date(found_date[0], found_date[1], found_date[2], parseInt(exp_temp[0],10),parseInt(exp_temp[1],10),parseInt(exp_temp[2],10),0);
+								if ( isNaN(date.getDate()) ) { date = new Date(); }
+							}
+						}
+						else {
+							exp_temp = o.defaultPickerValue.split('-');
+							if ( exp_temp.length === 3 ) {
+								date = new Date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
+								if ( isNaN(date.getDate()) ) { date = new Date(); }
+							}
+						}
 					}
 				}
 			} else {

@@ -111,8 +111,14 @@
 	ss : 2 Digit Seconds (zero pad)
 	aa : Lower case meridiem letters
 	AA : Upper case meridiem letters</code></pre></p></li>
-				<li><h3>durationShort</h3><p><strong>Purpose:</strong>Use the shortest mode possible to display duration<br /><strong>Default:</strong> true<br /><strong>Modes:</strong> duration</p></li>
-				<li><h3>durationNoDays</h3><p><strong>Purpose:</strong>Do not break off days from duration, only h:i:s<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> duration</p></li>
+				<li><h3>durationOutput</h3><p><strong>Purpose:</strong>Format the returned time<br /><strong>Default:</strong> 'GG:ii AA' or 'HH:ii' dependant on timeFormat<br /><strong>Modes:</strong> timebox, timeflipbox
+				<pre><code>	DD: Number of Days (no padding)
+	ddd : Text "Day" or "Days" as appropriate from durationDays option
+	hh : 2 or more Digit Hours (zero pad) - can exceed 24 if days not used
+	ii : 2 or more Digit Minutes (zero pad) - can exceed 59 if hours not used
+	ss : 2 or more Digit Seconds (zero pad) - can exceed 59 if minutes not used</code></pre></p></li>
+				<li><h3>durationShort</h3><p><strong>OPTION REMOVED</strong></p></li>
+				<li><h3>durationNoDays</h3><p><strong>OPTION REMOVED</strong></p></li>
 				<li data-role="list-divider">Input Format</li>
 				<li><h3>timeFormat</h3><p><strong>Purpose:</strong>Set either a 12 or 24 hour clock<br /><strong>Default:</strong> 24<br /><strong>Modes:</strong> time</p></li>
 				<li><h3>fieldsOrder</h3><p><strong>Purpose:</strong>Define the order of the fields<br /><strong>Default:</strong> android: ['m', 'd', 'y'], slide: ['y', 'm', 'd'], time: ['h', 'i', 'a'] ('a' only displays on 12 hour format)<br /><strong>Modes:</strong> android, time, slide<br />
