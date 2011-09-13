@@ -1720,7 +1720,7 @@
 			$(self.pickPage).dialog('close');
 			if( !self.thisPage.data("page").options.domCache ){
 				self.thisPage.bind( "pagehide.remove", function() {
-					$(this).remove();
+					$(self).remove();
 				});
 			}
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex);
