@@ -1070,7 +1070,9 @@
 			})
 			.change(function() {
 				self.theDate = self._makeDate(self.input.val());
-				self._update();
+				if (o.useInline) {
+				  self._update();
+        }
 			});
 			
 		// Bind the master handler.
