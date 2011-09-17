@@ -61,6 +61,7 @@
 		noButtonFocusMode: false,
 		noButton: false,
 		noSetButton: false,
+    openCallback: false,
 		closeCallback: false,
 		open: false,
 		nestedBox: false,
@@ -1645,6 +1646,12 @@
 		this._update();
 	},
 	open: function() {
+    // Call the open callback if provided. Additionally, if this
+    // returns falsy then the open of the dialog will be canceled
+    if (this.openCallback && !this.openCallback()) {
+      return false;
+    }
+
 		// Open the controls
 		if ( this.options.useInline ) { return false; } // Ignore if inline
 		if ( this.pickPage.is(':visible') ) { return false; } // Ignore if already open
