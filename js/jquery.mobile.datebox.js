@@ -61,7 +61,7 @@
 		noButtonFocusMode: false,
 		noButton: false,
 		noSetButton: false,
-    openCallback: false,
+		openCallback: false,
 		closeCallback: false,
 		open: false,
 		nestedBox: false,
@@ -503,6 +503,10 @@
 			if ( o.afterToday !== false ) {
 				testDate = new Date();
 				if ( self.theDate < testDate ) { self.theDate = testDate; }
+			}
+			if ( o.beforeToday !== false ) {
+				testDate = new Date();
+				if ( self.theDate > testDate ) { self.theDate = testDate; }
 			}
 			if ( o.maxDays !== false ) {
 				testDate = new Date();
