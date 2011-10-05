@@ -1170,7 +1170,9 @@
 						if ( self.dragEnd !== false ) {
 							e.preventDefault();
 							e.stopPropagation();
-							self._offset(self.dragTarget.parent().parent().data('field'), parseInt(( self.dragStart - self.dragEnd ) / 30, 10));
+							var fld = self.dragTarget.parent().parent().data('field'),
+								amount = parseInt(( self.dragStart - self.dragEnd ) / 30);
+							self._offset(fld, amount * ( (fld === "i") ? o.minuteStep : 1 ));
 						}
 					}
 					self.dragStart = false;
