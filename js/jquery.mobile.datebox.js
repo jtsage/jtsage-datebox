@@ -375,7 +375,9 @@
 				self.theDate.setYear(self.theDate.getFullYear() + amount);
 				break;
 			case 'm':
-			console.log(o.rolloverMode);
+				if ( o.debug ) {
+					console.log(o.rolloverMode);
+				}
 				if ( o.rolloverMode['m'] || ( self.theDate.getMonth() + amount < 12 && self.theDate.getMonth() + amount > -1 ) ) {
 					self.theDate.setMonth(self.theDate.getMonth() + amount);
 				}
