@@ -56,7 +56,7 @@
 					<label for="dynstart">Some Date</label><input name="dynstart" type="date" data-role="datebox" id="dynstart" data-options='{"mode": "calbox"}' />
 				</div>
 				<script type="text/javascript">
-					$('#oddStart').live('pagecreate', function(event) {
+					$('#oddStart').live('pageinit', function(event) {
 						var defaultPickerValue = [2012, 0, 1];
 						var presetDate = new Date(defaultPickerValue[0], defaultPickerValue[1], defaultPickerValue[2], 0, 0, 0, 0);
 						var todaysDate = new Date();
