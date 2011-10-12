@@ -99,7 +99,7 @@
 		if ( ! event.isPropagationStopped() ) {
 			switch (payload.method) {
 				case 'close':
-					$(this).data('datebox').close();
+					$(this).data('datebox').close(payload.fromCloseButton);
 					break;
 				case 'open':
 					$(this).data('datebox').open();
@@ -1087,7 +1087,7 @@
 		pickPage.find( ".ui-header a").bind('vclick', function(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
-			self.input.trigger('datebox', {'method':'close'});
+			self.input.trigger('datebox', {'method':'close', 'fromCloseButton':true});
 		});
 
 		$.extend(self, {
@@ -1721,7 +1721,7 @@
 			$.mobile.changePage(self.pickPage, {'transition': transition});
 		}
 	},
-	close: function() {
+	close: function(fromCloseButton) {
 		// Close the controls
 		var self = this,
 			callback;
@@ -1732,7 +1732,9 @@
 		
 		// Check options to see if we are closing a dialog, or removing a popup
 		if ( self.options.useDialog ) {
-			$(self.pickPage).dialog('close');
+			if (!fromCloseButton) {
+				$(self.pickPage).dialog('close');
+			}
 			if( !self.thisPage.data("page").options.domCache ){
 				self.thisPage.bind( "pagehide.remove", function() {
 					$(self).remove();
