@@ -91,6 +91,7 @@
 		highDates: false,
 		blackDays: false,
 		blackDates: false,
+		enableDates: false,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1},
 		disabledDayColor: '#888'
 	},
@@ -839,7 +840,7 @@
 			}
 			
 			calmode.prevtoday = calmode.lastend - (calmode.start - 1);
-			calmode.checkDates = ( o.afterToday !== false || o.beforeToday !== false || o.notToday !== false || o.maxDays !== false || o.minDays !== false || o.blackDates !== false || o.blackDays !== false );
+			calmode.checkDates = ( o.enableDates === false && ( o.afterToday !== false || o.beforeToday !== false || o.notToday !== false || o.maxDays !== false || o.minDays !== false || o.blackDates !== false || o.blackDays !== false ) );
 				
 			if ( calmode.thisDate.getMonth() === self.theDate.getMonth() && calmode.thisDate.getFullYear() === self.theDate.getFullYear() ) { calmode.currentMonth = true; calmode.highlightDay = calmode.thisDate.getDate(); } 
 			if ( self._checker(calmode.presetDate) === self._checker(self.theDate) ) { calmode.presetDay = calmode.presetDate.getDate(); }
@@ -881,12 +882,20 @@
 							if ( o.calShowOnlyMonth ) {
 								$("<div>", {'class': 'ui-datebox-griddate ui-datebox-griddate-empty'}).appendTo(thisRow);
 							} else {
-								if (
-									( o.blackDays !== false && $.inArray(gridDay, o.blackDays) > -1 ) ||
-									( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), (self.theDate.getMonth()), calmode.prevtoday), o.blackDates) > -1 ) ||
-									( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), (self.theDate.getMonth()+2), calmode.nexttoday), o.blackDates) > -1 ) ) {
-										skipThis = true;
-								} else { skipThis = false; }
+								if ( o.enableDates !== false ) {
+									if ( 
+										( $.inArray(self._isoDate(self.theDate.getFullYear(), (self.theDate.getMonth()), calmode.prevtoday), o.enableDates) > -1 ) ||
+										( $.inArray(self._isoDate(self.theDate.getFullYear(), (self.theDate.getMonth() + 2), calmode.nexttoday), o.enableDates) > -1 ) ) {
+											skipThis = false;
+									} else { skipThis = true; }
+								} else {
+									if (
+										( o.blackDays !== false && $.inArray(gridDay, o.blackDays) > -1 ) ||
+										( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), (self.theDate.getMonth()), calmode.prevtoday), o.blackDates) > -1 ) ||
+										( o.blackDates !== false && $.inArray(self._isoDate(self.theDate.getFullYear(), (self.theDate.getMonth()+2), calmode.nexttoday), o.blackDates) > -1 ) ) {
+											skipThis = true;
+									} else { skipThis = false; }
+								}
 									
 								if ( gridWeek === 0 ) {
 									$("<div>"+String(calmode.prevtoday)+"</div>")
@@ -920,6 +929,11 @@
 							}
 						} else {
 							skipThis = false;
+							if ( o.enableDates ) {
+								if ( $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth() + 1, calmode.today), o.enableDates) < 0 ) {
+									skipThis = true;
+								}
+							}
 							if ( calmode.checkDates ) {
 								if ( o.afterToday && self._checker(calmode.thisDate) > (self._checker(self.theDate)+calmode.today-self.theDate.getDate()) ) {
 									skipThis = true;
