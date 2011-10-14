@@ -1808,5 +1808,9 @@
 	$( document ).trigger( "dateboxbeforecreate" );
 	$( ":jqmData(role='datebox')", e.target ).datebox();
   });
-	
+
+  // Trigger dateboxinit event - useful hook for configuring $.mobile.datebox
+  // settings before they're used
+  $( document ).trigger( "dateboxinit" );
+
 })( jQuery );
