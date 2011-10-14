@@ -440,6 +440,41 @@
 		self.theDate.setTime( secs * 1000 );
 		self._update();
 	},
+	_orientChange: function(e) {
+		var self = $(e.currentTarget).data('datebox');
+			o = self.options,
+			inputOffset = self.focusedEl.offset(),
+			pickWinHeight = self.pickerContent.outerHeight(),
+			pickWinWidth = self.pickerContent.innerWidth(),
+			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
+			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
+		
+		e.stopPropagation();
+		if ( ! self.pickerContent.is(':visible') || o.useDialog === true ) { 
+			return false;  // Not open, or in a dialog (let jQM do it)
+		} else {
+			// TOO FAR RIGHT TRAP
+			if ( (pickWinLeft + pickWinWidth) > $(document).width() ) {
+				pickWinLeft = $(document).width() - pickWinWidth - 1;
+			}
+			// TOO FAR LEFT TRAP
+			if ( pickWinLeft < 0 ) {
+				pickWinLeft = 0;
+			}
+			// Center popup on request - centered in document, not any containing div. 
+			if ( o.centerWindow ) {
+				pickWinLeft = ( $(document).width() / 2 ) - ( pickWinWidth / 2 );
+			}
+			
+			if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
+				pickWinTop = $(document).height() - (pickWinHeight + 2);
+			}
+			if ( pickWinTop < 45 ) { pickWinTop = 45; }
+			
+			self.pickerContent.css({'top': pickWinTop, 'left': pickWinLeft});
+		}
+		
+	},
 	_update: function() {
 		// Update the display on date change
 		var self = this,
@@ -1100,7 +1135,7 @@
 			});
 			
 		// Bind the master handler.
-		input.bind('datebox', self._dateboxHandler);
+		input.bind('datebox', self._dateboxHandler);		
 		
 		// Bind the close button on the DIALOG mode.
 		pickPage.find( ".ui-header a").bind('vclick', function(e) {
@@ -1213,6 +1248,10 @@
 		if ( o.disableManualInput === true ) {
 			input.attr("readonly", true);
 		}
+		
+		$(document).bind('orientationchange', function(e) { input.trigger('orientationchange'); });
+		
+		input.bind('orientationchange', self._orientChange);
 		
 		//Throw dateboxinit event
 		$( document ).trigger( "dateboxaftercreate" );
