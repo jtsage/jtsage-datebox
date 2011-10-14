@@ -44,7 +44,16 @@
 		
 		<h2>Events</h2>
 		
-		<p>Datebox has a number of callback event types.  They all fire the same master event, with an object payload.  To catch:</p>
+		<p>Datebox has a few standard init events.  They are:</p>
+		
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider">Standard Callbacks</li>
+			<li><h3>Triggered before init of datebox</h3><p><strong>dateboxbeforecreate</strong> Note: this is called on *every* page if datebox is loaded, regardless if there are any datebox elements.</p></li>
+			<li><h3>Triggered at init of datebox</h3><p><strong>dateboxcreate</strong> Note: this happens dureing the init, before anything is set, and only on when datebox elements are found</p></li>
+			<li><h3>Triggered post-init of datebox</h3><p><strong>dateboxaftercreate</strong></p></li>
+		</ul>
+		
+		<p>Datebox also has a number of custom callback event types.  They all fire the same master event, with an object payload.  To catch:</p>
 		
 		<pre class="prettyprint">$('element').bind('datebox', function (e, passed) { ... });</pre>
 

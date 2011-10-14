@@ -1001,6 +1001,10 @@
 	},
 	_create: function() {
 		// Create the widget, called automatically by widget system
+		
+		// Trigger dateboxcreate
+		$( document ).trigger( "dateboxcreate" );
+		
 		var self = this,
 			o = $.extend(this.options, this.element.data('options')),
 			input = this.element,
@@ -1209,6 +1213,9 @@
 		if ( o.disableManualInput === true ) {
 			input.attr("readonly", true);
 		}
+		
+		//Throw dateboxinit event
+		$( document ).trigger( "dateboxaftercreate" );
 	},
 	_buildPage: function () {
 		// Build the controls
@@ -1798,6 +1805,7 @@
   });
   // Automatically bind to data-role='datebox' items.
   $( document ).bind( "pagecreate", function( e ){
+	$( document ).trigger( "dateboxbeforecreate" );
 	$( ":jqmData(role='datebox')", e.target ).datebox();
   });
 	
