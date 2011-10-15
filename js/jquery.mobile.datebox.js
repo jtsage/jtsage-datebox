@@ -58,6 +58,7 @@
 		useDialog: false,
 		useModal: false,
 		useInline: false,
+		useInlineBlind: false,
 		noButtonFocusMode: false,
 		noButton: false,
 		noSetButton: false,
@@ -1701,11 +1702,18 @@
 		});
 		
 		// If useInline mode, drop it into the document, and stop a few events from working (or just hide the trigger)
-		if ( o.useInline ) { 
+		if ( o.useInline || o.useInlineBlind ) { 
 			self.input.parent().parent().append(self.pickerContent);
 			if ( o.useInlineHideInput ) { self.input.parent().hide(); }
 			self.input.trigger('change');
 			self.pickerContent.removeClass('ui-datebox-hidden');
+		}
+		if ( o.useInline ) {
+			self.pickerContent.addClass('ui-datebox-inline');
+		}
+		if ( o.useInlineBlind ) {
+			self.pickerContent.addClass('ui-datebox-inlineblind');
+			self.pickerContent.hide();
 		}
 			
 	},
@@ -1724,6 +1732,10 @@
     }
 
 		// Open the controls
+		if ( this.options.useInlineBlind ) {
+			this.pickerContent.slideDown();
+			return false; // No More!
+		}
 		if ( this.options.useInline ) { return false; } // Ignore if inline
 		if ( this.pickPage.is(':visible') ) { return false; } // Ignore if already open
 		
@@ -1789,6 +1801,10 @@
 		var self = this,
 			callback;
 
+		if ( this.options.useInlineBlind ) {
+			this.pickerContent.slideUp();
+			return false; // No More!
+		}
 		if ( self.options.useInline ) {
 			return true;
 		}

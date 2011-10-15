@@ -66,3 +66,6 @@
 .ui-datebox-hidden { display: none; }
 .ui-dialog .ui-datebox-container { border: none !important; }
 .ui-dialog-datebox .ui-content { padding: 5px !important;}
+
+.ui-datebox-inline { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto; margin-right: auto; text-align: center; }
+.ui-datebox-inlineblind { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto; margin-right: auto; text-align: center; }
