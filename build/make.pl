@@ -19,6 +19,8 @@ chomp $javapath;
 	'jquery.mobile.datebox.flipbox.js',
 	'jquery.mobile.datebox.durationbox.js');
 
+$slugtext = "/*\n * jQuery Mobile Framework : plugin to provide a date and time picker.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-datebox\n */\n";
+
 if ( $javapath eq '' ) {
 	die "Java not found, can not continue\n";
 }
@@ -107,7 +109,21 @@ sub make_master {
 	print "Build :-: CSS File... ";
 	print "compressing... ";
 	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.datebox.min.css", "../css/jquery.mobile.datebox.css");
+	do_slug("./jquery.mobile.datebox.min.js");
 	print "DONE.\n";
+}
+
+sub do_slug {
+	local @ARGV = ($_[0]);
+	local $^I = '.bac';
+	while(<>){
+		if ($. == 1) {
+			print "$slugtext$/";
+			print;
+		} else {
+			print;
+		}
+	}
 }
 
 sub make_durbox {
@@ -125,6 +141,7 @@ sub make_durbox {
 	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.datebox.durationbox.min.js", "jquery.mobile.datebox.durationbox.js");
 	print "DONE.\n";
 	close INFILE; close OUTFILE;
+	do_slug("./jquery.mobile.datebox.durationbox.min.js");
 }
 
 sub make_slidebox {
@@ -142,6 +159,7 @@ sub make_slidebox {
 	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.datebox.slidebox.min.js", "jquery.mobile.datebox.slidebox.js");
 	print "DONE.\n";
 	close INFILE; close OUTFILE;
+	do_slug("./jquery.mobile.datebox.slidebox.min.js");
 }
 
 sub make_flipbox {
@@ -158,6 +176,7 @@ sub make_flipbox {
 	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.datebox.flipbox.min.js", "jquery.mobile.datebox.flipbox.js");
 	print "DONE.\n";
 	close INFILE; close OUTFILE;
+	do_slug("./jquery.mobile.datebox.flipbox.min.js");
 }
 
 sub make_calbox {
@@ -175,6 +194,7 @@ sub make_calbox {
 	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.datebox.calbox.min.js", "jquery.mobile.datebox.calbox.js");
 	print "DONE.\n";
 	close INFILE; close OUTFILE;
+	do_slug("./jquery.mobile.datebox.calbox.min.js");
 }
 
 sub make_timebox {
@@ -192,6 +212,7 @@ sub make_timebox {
 	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.datebox.timebox.min.js", "jquery.mobile.datebox.timebox.js");
 	print "DONE.\n";
 	close INFILE; close OUTFILE;
+	do_slug("./jquery.mobile.datebox.timebox.min.js");
 }
 
 sub make_datebox {
@@ -209,6 +230,6 @@ sub make_datebox {
 	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.datebox.datebox.min.js", "jquery.mobile.datebox.datebox.js");
 	print "DONE.\n";
 	close INFILE; close OUTFILE;
+	do_slug("./jquery.mobile.datebox.datebox.min.js");
 }
 
-#			print 'Usage'; }
