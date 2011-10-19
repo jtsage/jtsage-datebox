@@ -21,7 +21,7 @@
 		centerWindow: false,
 		calHighToday: true,
 		calHighPicked: true,
-        transition: "pop",
+        transition: 'pop',
 		noAnimation: false,
 		disableManualInput: false,
 		
