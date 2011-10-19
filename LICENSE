@@ -1,18 +1,24 @@
-This project jQueryMobile DateBox falls under the license of the jQuery Project:
+jQuery Mobile Framework : plugin to provide a date and time picker.
+Copyright (c) JTSage
+CC 3.0 Attribution.  May be relicensed without permission/notifcation.
+https://github.com/jtsage/jquery-mobile-datebox
 
-From the jQuery Website:
+You are free:
+ * to Share — to copy, distribute and transmit the work
+ * to Remix — to adapt the work
+ * to make commercial use of the work
 
-"You may use any jQuery project under the terms of either the MIT License or the
-GNU General Public License (GPL) Version 2"
+Under the following conditions:
+ * Attribution — You must attribute JQM-DateBox to JTSage (with link).
 
-"The MIT License is recommended for most projects. It is simple and easy to 
-understand and it places almost no restrictions on what you can do with a
-jQuery project."
+With the understanding that:
 
-"If the GPL suits your project better you are also free to use a jQuery 
-project under that license."
+ * Waiver — Any of the above conditions can be waived if you get permission from the copyright holder.
+ * Public Domain — Where the work or any of its elements is in the public domain under applicable law, that status is in no way affected by the license.
 
-"You don't have to do anything special to choose one license or the other and 
-you don't have to notify anyone which license you are using. You are free to 
-use a jQuery project in commercial projects as long as the copyright header 
-is left intact."
+ * Other Rights — In no way are any of the following rights affected by the license:
+   * Your fair dealing or fair use rights, or other applicable copyright exceptions and limitations;
+   * The author's moral rights;
+   * Rights other persons may have either in the work itself or in how the work is used, such as publicity or privacy rights.
+
+ * Notice — For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a link to this web page.
