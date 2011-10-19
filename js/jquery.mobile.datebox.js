@@ -21,6 +21,7 @@
 		centerWindow: false,
 		calHighToday: true,
 		calHighPicked: true,
+        transition: 'pop',
 		noAnimation: false,
 		disableManualInput: false,
 		
@@ -1068,7 +1069,7 @@
 						"<div data-role='content'></div>"+
 					"</div>")
 					.appendTo( $.mobile.pageContainer )
-					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
+					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass(o.transition),
 			pickPageContent = pickPage.find( ".ui-content" ),
 			touch = ('ontouchstart' in window),
 			START_EVENT = touch ? 'touchstart' : 'mousedown',
@@ -1280,7 +1281,7 @@
 					self.input.trigger('datebox', {'method':'close'});
 				});
 		
-		if ( o.noAnimation ) { pickerContent.removeClass('pop'); }
+		if ( o.noAnimation ) { pickerContent.removeClass(o.transition); }
 		
 		/* BEGIN:FLIPBOX */
 		if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
@@ -1748,7 +1749,7 @@
 			pickWinWidth = self.pickerContent.innerWidth(),
 			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
 			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2),
-			transition = o.noAnimation ? 'none' : 'pop',
+			transition = o.noAnimation ? 'none' : o.transition,
 			activePage;
 			
 		// TOO FAR RIGHT TRAP
