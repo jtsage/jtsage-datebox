@@ -13,7 +13,7 @@ transName = raw_input("Please enter your name: ")
 transEmail = raw_input("Please enter your e-mail: ")
 transLang = raw_input("Language code to produce?: ")
 
-transFile = "./jquery.mobile.datebox.i8n-"+transLang+".js."+str(int(time.time()))
+transFile = "./jquery.mobile.datebox.i8n."+transLang+".js."+str(int(time.time()))
 f = open(transFile, 'w');
 
 f.write("/*\n * jQuery Mobile Framework : plugin to provide a date and time picker.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-datebox\n *\n")
