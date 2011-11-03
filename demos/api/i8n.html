@@ -30,14 +30,38 @@
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
 	</div>
 	<div data-role="content" data-theme="c">
-		<h2>Global Configuration Overrides</h2>
+		<h2>Internationalization</h2>
 		
-		<p>Configuration details can be overridden site wide if you wish.  After loading jQueryMobile, run:</p>
+		<p>Some internationalization support is complete.  To use, simply link the appropriate file from: <a href="http://dev.jtsage.com/cdn/datebox/i8n/">http://dev.jtsage.com/cdn/datebox/i8n/</a>.  It must be loaded <b>after</b> datebox.</p>
+		
+		<h3>Contributing</h3>
+		
+		<p>There are two easy ways to contribute (or just write your own) translation file.  That easiest, if you have a machine with python on it, is to retrieve the <a href="https://github.com/jtsage/jquery-mobile-datebox/blob/master/js/i8n/make-translation.py">generator</a>, download and run it.  After checking it over, remove the date stamp at the end of the file name.</p>
+		
+		<p>Option two is to hand edit the following:</p>
 		
 		<pre class="prettyprint">jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-    'dateFormat': 'dd.mm.YYYY',
-    'headerFormat': 'dd.mm.YYYY'
+    setDateButtonLabel: 'Set Date',
+    setTimeButtonLabel: 'Set Time',
+    setDurationButtonLabel: 'Set Duration',
+    calTodayButtonLabel: 'Jump to Today',
+    titleDateDialogLabel: 'Choose Date',
+    titleTimeDialogLabel: 'Choose Time',
+    daysofWeek: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    daysofWeekShort: ['Su','Mo','Tu','We','Th','Fr','Sa'],
+    monthsOfYear: ['January','February','March','April','May','June','July','August','September','October','Novemeber','December'],
+    monthsOfYearShort: ['Jan','Feb','Mar','Arp','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    durationLabel: ['Days','Hours','Minutes','Seconds'],
+    durationDays: ['Day','Days'],
+    timeFormat: 12,
+    dateFieldOrder: ['m', 'd', 'y'],
+    timeFieldOrder: ['h', 'i', 'a'],
+    slideFieldOrder: ['y', 'm', 'd'],
+    headerFormat: ddd, mmm dd, YYYY,
+    isRTL: false
 });</pre>
+
+		<p>If you wish to have your translation included in datebox, either fork your own copy at github and send me a pull request, or simply e-mail me the file <a href="mailto:jtsage+datebox@gmail.com">jtsage+datebox@gmail.com</a>.</p>
 		
 	</div>
 	<div data-role="footer">
