@@ -13,6 +13,8 @@
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n-es.js"></script>
+
 	<!--<script type="text/javascript">
 		$('input').live('datebox', function(e, p) {
 			if ( p.method === "offset" ) { 
@@ -30,7 +32,7 @@
 	<div data-role="content" data-theme="c">
 		<div data-role="fieldcontain">
 			<label for="aa">Cal</label>
-			<input name="aa" type="date" data-role="datebox" data-options='{"debug":true,"mode": "calbox", "dateFormat": "dddd DD-mmmm-YYYY", "pickPageHighButtonTheme": "a", "pickPageButtonTheme": "d", "pickPageOHighButtonTheme": "b", "useInlineBlind": true}' id="aa" />
+			<input name="aa" type="date" data-role="datebox" data-options='{"debug":true,"noButtonFocusMode": true, "mode": "calbox", "dateFormat": "dddd DD-mmmm-YYYY", "pickPageHighButtonTheme": "a", "pickPageButtonTheme": "d", "pickPageOHighButtonTheme": "b", "useInlineBlind": true}' id="aa" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="bb">Slide</label>
