@@ -28,5 +28,6 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 	dateFieldOrder: ['d', 'm', 'y'],
 	timeFieldOrder: ['h', 'i', 'a'],
 	slideFieldOrder: ['y', 'm', 'd'],
-	headerFormat: 'ddd, mmm dd, YYYY'
+	headerFormat: 'ddd, mmm dd, YYYY',
+	isRTL: false
 });
