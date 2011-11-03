@@ -95,7 +95,8 @@
 		blackDates: false,
 		enableDates: false,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1},
-		disabledDayColor: '#888'
+		disabledDayColor: '#888',
+		isRTL: false
 	},
 	_dateboxHandler: function(event, payload) {
 		// Handle all event triggers that have an internal effect
