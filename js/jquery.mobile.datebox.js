@@ -1740,7 +1740,9 @@
 		if ( this.options.useInline ) { return false; } // Ignore if inline
 		if ( this.pickPage.is(':visible') ) { return false; } // Ignore if already open
 		
-		this.input.trigger('change').blur(); // Grab latest value of input, in case it changed
+		this.theDate = this._makeDate(this.input.val());
+		this._update();
+		this.input.blur(); // Grab latest value of input, in case it changed
 		
 		var self = this,
 			o = this.options,
