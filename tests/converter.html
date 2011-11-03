@@ -1,0 +1,78 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Demo</title>
+	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+	<script type="text/javascript">
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = 'text';
+		});	
+	</script>
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint();
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="main"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - Using DateBox as Library</h1>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div style="display: none">
+			<input name="dbox" type="date" data-role="datebox" id="dbox" />
+		</div>
+		<p>Given the date 2001-03-04, lets convert it to Day, Month Date w/ Ordinal Suffix Year</p>
+		<a href="#" data-role="button" id="dodate">Convert</a>
+		<p>Converted date: <span id="outdate"></span></p>
+		<script type="text/javascript">
+			$('#dodate').live('vclick', function() {
+				$('#dbox').data('datebox').options.dateFormat = 'YYYY-MM-DD';
+				$('#dbox').val('2001-03-04').trigger('change');
+				//$('#dbox').data('datebox').options.dateFormat = 'ddd, mmm DD YYYY';
+				$('#dbox').trigger('datebox', {'method':'set', 'value':$('#dbox').data('datebox')._formatter('ddd, mmm ddSS YYYY', $('#dbox').data('datebox').theDate)});
+				$('#outdate').text($('#dbox').val());
+			});
+		</script>
+		<pre class="prettyprint">
+&lt;div style="display: none"&gt;
+    &lt;input name="dbox" type="date" data-role="datebox" id="dbox" /&gt;
+&lt;/div&gt;
+&lt;p&gt;Given the date 2001-03-04, lets convert it to Day, Month Date w/ Ordinal Suffix Year&lt;/p&gt;
+&lt;a href="#" data-role="button" id="dodate"&gt;Convert&lt;/a&gt;
+&lt;p&gt;Converted date: &lt;span id="outdate"&gt;&lt;/span&gt;&lt;/p&gt;
+</pre>
+		<pre class="prettyprint">
+$('#dodate').live('vclick', function() {
+    $('#dbox').data('datebox').options.dateFormat = 'YYYY-MM-DD'; // INPUT Format
+    $('#dbox').val('2001-03-04').trigger('change'); // Value to convert
+    
+    // Call _formatter with the OUTPUT format...
+    $('#dbox').trigger('datebox', {'method':'set', 'value':$('#dbox').data('datebox')._formatter('ddd, mmm ddSS YYYY', $('#dbox').data('datebox').theDate)}); 
+    
+    $('#outdate').text($('#dbox').val()); // Grab the value from the hidden input
+})
+		</pre>
+		
+		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+	</div>
+	<div data-role="footer">
+		<a href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a href="mailto:jtsage+datebox@gmail.com">Contact</a>
+	</div>
+</div>
+</html>
