@@ -1787,7 +1787,9 @@
 				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDurationButtonLabel);
 				break;
 			case "calbox":
-				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].calTodayButtonLabel);
+				if ( self.setButton !== false ) {
+					self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].calTodayButtonLabel);
+				}
 				break;
 			default:
 				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDateButtonLabel);
