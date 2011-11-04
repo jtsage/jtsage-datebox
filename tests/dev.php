@@ -40,7 +40,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="bb2">Slide w/ time</label>
-			<input name="bb2" type="text" data-role="datebox" data-options='{"debug": true, "mode": "slidebox", "dateFormat": "MM/DD/YYYY at hh:iiaa", "headerFormat": "MM/DD/YYYY hh:iiaa", "timeFormat": 12, "fieldsOrder": ["y","m","d","h", "i"]}' id="bb2" />
+			<input name="bb2" type="text" data-role="datebox" data-options='{"debug": true, "afterToday": true, "mode": "slidebox", "dateFormat": "MM/DD/YYYY at hh:iiaa", "headerFormat": "MM/DD/YYYY hh:iiaa", "timeFormat": 12, "fieldsOrder": ["y","m","d","h", "i"]}' id="bb2" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="cc">Droid</label>

@@ -447,6 +447,34 @@
 		self.theDate.setTime( secs * 1000 );
 		self._update();
 	},
+	_checkConstraints: function() {
+		var self = this,
+			o = this.options;
+		
+		if ( o.afterToday !== false ) {
+			testDate = new Date();
+			if ( self.theDate < testDate ) { self.theDate = testDate; }
+		}
+		if ( o.maxDays !== false ) {
+			testDate = new Date();
+			testDate.setDate(testDate.getDate() + o.maxDays);
+			if ( self.theDate > testDate ) { self.theDate = testDate; }
+		}
+		if ( o.minDays !== false ) {
+			testDate = new Date();
+			testDate.setDate(testDate.getDate() - o.minDays);
+			if ( self.theDate < testDate ) { self.theDate = testDate; }
+		}
+		if ( o.maxYear !== false ) {
+			testDate = new Date(o.maxYear, 0, 1);
+			testDate.setDate(testDate.getDate() - 1);
+			if ( self.theDate > testDate ) { self.theDate = testDate; }
+		}
+		if ( o.minYear !== false ) {
+			testDate = new Date(o.minYear, 0, 1);
+			if ( self.theDate < testDate ) { self.theDate = testDate; }
+		}
+	},
 	_orientChange: function(e) {
 		var self = $(e.currentTarget).data('datebox');
 			o = self.options,
@@ -544,33 +572,7 @@
 		/* END:TIMEBOX */
 		/* BEGIN:FLIPBOX */
 		if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
-			if ( o.afterToday !== false ) {
-				testDate = new Date();
-				if ( self.theDate < testDate ) { self.theDate = testDate; }
-			}
-			if ( o.beforeToday !== false ) {
-				testDate = new Date();
-				if ( self.theDate > testDate ) { self.theDate = testDate; }
-			}
-			if ( o.maxDays !== false ) {
-				testDate = new Date();
-				testDate.setDate(testDate.getDate() + o.maxDays);
-				if ( self.theDate > testDate ) { self.theDate = testDate; }
-			}
-			if ( o.minDays !== false ) {
-				testDate = new Date();
-				testDate.setDate(testDate.getDate() - o.minDays);
-				if ( self.theDate < testDate ) { self.theDate = testDate; }
-			}
-			if ( o.maxYear !== false ) {
-				testDate = new Date(o.maxYear, 0, 1);
-				testDate.setDate(testDate.getDate() - 1);
-				if ( self.theDate > testDate ) { self.theDate = testDate; }
-			}
-			if ( o.minYear !== false ) {
-				testDate = new Date(o.minYear, 0, 1);
-				if ( self.theDate < testDate ) { self.theDate = testDate; }
-			}
+			self._checkConstraints();
 			
 			inheritDate = self._makeDate(self.input.val());
 			
@@ -685,29 +687,7 @@
 		/* END:FLIPBOX */
 		/* BEGIN:SLIDEBOX */
 		if ( o.mode === 'slidebox' ) {
-			if ( o.afterToday !== false ) {
-				testDate = new Date();
-				if ( self.theDate < testDate ) { self.theDate = testDate; }
-			}
-			if ( o.maxDays !== false ) {
-				testDate = new Date();
-				testDate.setDate(testDate.getDate() + o.maxDays);
-				if ( self.theDate > testDate ) { self.theDate = testDate; }
-			}
-			if ( o.minDays !== false ) {
-				testDate = new Date();
-				testDate.setDate(testDate.getDate() - o.minDays);
-				if ( self.theDate < testDate ) { self.theDate = testDate; }
-			}
-			if ( o.maxYear !== false ) {
-				testDate = new Date(o.maxYear, 0, 1);
-				testDate.setDate(testDate.getDate() - 1);
-				if ( self.theDate > testDate ) { self.theDate = testDate; }
-			}
-			if ( o.minYear !== false ) {
-				testDate = new Date(o.minYear, 0, 1);
-				if ( self.theDate < testDate ) { self.theDate = testDate; }
-			}
+			self._checkConstraints();
 			
 			inheritDate = self._makeDate(self.input.val());
 			
@@ -830,33 +810,7 @@
 		/* END:SLIDEBOX */
 		/* BEGIN:DATEBOX */
 		if ( o.mode === 'datebox' ) {
-			if ( o.afterToday !== false ) {
-				testDate = new Date();
-				if ( self.theDate < testDate ) { self.theDate = testDate; }
-			}
-			if ( o.beforeToday !== false ) {
-				testDate = new Date();
-				if ( self.theDate > testDate ) { self.theDate = testDate; }
-			}
-			if ( o.maxDays !== false ) {
-				testDate = new Date();
-				testDate.setDate(testDate.getDate() + o.maxDays);
-				if ( self.theDate > testDate ) { self.theDate = testDate; }
-			}
-			if ( o.minDays !== false ) {
-				testDate = new Date();
-				testDate.setDate(testDate.getDate() - o.minDays);
-				if ( self.theDate < testDate ) { self.theDate = testDate; }
-			}
-			if ( o.maxYear !== false ) {
-				testDate = new Date(o.maxYear, 0, 1);
-				testDate.setDate(testDate.getDate() - 1);
-				if ( self.theDate > testDate ) { self.theDate = testDate; }
-			}
-			if ( o.minYear !== false ) {
-				testDate = new Date(o.minYear, 0, 1);
-				if ( self.theDate < testDate ) { self.theDate = testDate; }
-			}
+			self._checkConstraints();
 			
 			self.controlsHeader.html( self._formatHeader(self.theDate) );
 			self.pickerMon.val(self.theDate.getMonth() + 1);
