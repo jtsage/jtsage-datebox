@@ -32,7 +32,7 @@
 	<div data-role="content" data-theme="c">
 		<h2>Internationalization</h2>
 		
-		<p>Some internationalization support is complete.  To use, simply link the appropriate file from: <a href="http://dev.jtsage.com/cdn/datebox/i8n/">http://dev.jtsage.com/cdn/datebox/i8n/</a>.  It must be loaded <b>after</b> datebox.</p>
+		<p>Some internationalization support is complete.  To use, simply link the appropriate file(s) from: <a href="http://dev.jtsage.com/cdn/datebox/i8n/">http://dev.jtsage.com/cdn/datebox/i8n/</a>.  It must be loaded <b>after</b> datebox. Note that the last file loaded will be the "default" language.</p>
 		
 		<h3>Contributing</h3>
 		
@@ -40,27 +40,32 @@
 		
 		<p>Option two is to hand edit the following:</p>
 		
-		<pre class="prettyprint">jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-    setDateButtonLabel: 'Set Date',
-    setTimeButtonLabel: 'Set Time',
-    setDurationButtonLabel: 'Set Duration',
-    calTodayButtonLabel: 'Jump to Today',
-    titleDateDialogLabel: 'Choose Date',
-    titleTimeDialogLabel: 'Choose Time',
-    daysofWeek: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-    daysofWeekShort: ['Su','Mo','Tu','We','Th','Fr','Sa'],
-    monthsOfYear: ['January','February','March','April','May','June','July','August','September','October','Novemeber','December'],
-    monthsOfYearShort: ['Jan','Feb','Mar','Arp','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-    durationLabel: ['Days','Hours','Minutes','Seconds'],
-    durationDays: ['Day','Days'],
-    timeFormat: 12,
-    dateFieldOrder: ['m', 'd', 'y'],
-    timeFieldOrder: ['h', 'i', 'a'],
-    slideFieldOrder: ['y', 'm', 'd'],
-    headerFormat: ddd, mmm dd, YYYY,
-    isRTL: false
+		<pre class="prettyprint">jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
+    'en-US': {
+        setDateButtonLabel: 'Set Date',
+        setTimeButtonLabel: 'Set Time',
+        setDurationButtonLabel: 'Set Duration',
+        calTodayButtonLabel: 'Jump to Today',
+        titleDateDialogLabel: 'Choose Date',
+        titleTimeDialogLabel: 'Choose Time',
+        daysOfWeek: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+        daysOfWeekShort: ['Su','Mo','Tu','We','Th','Fr','Sa'],
+        monthsOfYear: ['January','February','March','April','May','June','July','August','September','October','Novemeber','December'],
+        monthsOfYearShort: ['Jan','Feb','Mar','Arp','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        durationLabel: ['Days','Hours','Minutes','Seconds'],
+        durationDays: ['Day','Days'],
+        timeFormat: 12,
+        dateFieldOrder: ['m', 'd', 'y'],
+        timeFieldOrder: ['h', 'i', 'a'],
+        slideFieldOrder: ['y', 'm', 'd'],
+        headerFormat: 'ddd, mmm dd, YYYY',
+        isRTL: false
+    }
+});
+jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+    useLang: 'en-US'
 });</pre>
-
+		<p>Multiple languages can be loaded at once, simply change options.useLang (even in realtime) in order to switch the language. See <a href="http://dev.jtsage.com/jQM-DateBox/tests/lang.html" target="_blank">this</a> for an example.</p>
 		<p>If you wish to have your translation included in datebox, either fork your own copy at github and send me a pull request, or simply e-mail me the file <a href="mailto:jtsage+datebox@gmail.com">jtsage+datebox@gmail.com</a>.</p>
 		
 	</div>

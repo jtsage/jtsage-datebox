@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Demo</title>
+	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.es.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.fr.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.de.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.en-US.js"></script>
+
+	<script type="text/javascript">
+		$(document).delegate('#picklang', 'change', function() {
+			$('#lang').data('datebox').options.useLang = $('#picklang').val();
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="main"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - i8n Dev Page</h1>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div data-role="fieldcontain">
+			<label for="picklang">Language</label>
+			<select name="picklang" id="picklang" data-native-menu="false">
+				<option value="en-US" selected="selected">English US</option>
+				<option value="fr">French</option>
+				<option value="de">German</option>
+				<option value="es">Spanish</option>
+			</select>
+		</div>
+		<div data-role="fieldcontain">
+			<label for="lang">Slide</label>
+			<input name="lang" type="text" data-role="datebox" data-options='{"mode": "slidebox", "dateFormat": "MM/DD/YYYY at hh:iiaa", "headerFormat": "MM/DD/YYYY hh:iiaa", "fieldsOrder": ["y","m","d","h", "i"]}' id="lang" />
+		</div>
+		
+				
+		
+		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+	</div>
+	<div data-role="footer">
+		<a href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a href="mailto:jtsage+datebox@gmail.com">Contact</a>
+	</div>
+</div>
+</html>

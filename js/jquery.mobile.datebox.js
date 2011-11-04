@@ -31,22 +31,8 @@
 		zindex: '500',
 		debug: false,
 		
-		setDateButtonLabel: 'Set Date',
-		setTimeButtonLabel: 'Set Time',
-		setDurationButtonLabel: 'Set Duration',
-		calTodayButtonLabel: 'Jump to Today',
-		titleDateDialogLabel: 'Set Date',
-		titleTimeDialogLabel: 'Set Time',
 		titleDialogLabel: false,
 		meridiemLetters: ['AM', 'PM'],
-		daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-		daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-		monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-		monthsOfYearShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-		durationLabel: ['Days', 'Hours', 'Minutes', 'Seconds'],
-		durationDays: ['Day', 'Days'],
-		durationFormat: 'DD ddd, hh:ii:ss',
-		timeFormat: 24,
 		timeFormats: { '12': 'gg:ii AA', '24': 'HH:ii' },
 		timeOutput: false,
 		rolloverMode: { 'm': true, 'd': true, 'h': true, 'i': true, 's': true },
@@ -69,11 +55,8 @@
 		nestedBox: false,
 		
 		fieldsOrder: false,
-		dateFieldOrder: ['m', 'd', 'y'],
-		timeFieldOrder: ['h', 'i', 'a'],
-		slideFieldOrder: ['y', 'm', 'd'],
 		durationOrder: ['d', 'h', 'i', 's'],
-		headerFormat: 'ddd, mmm dd, YYYY',
+		slideFieldOrder: ['y', 'm', 'd'],
 		dateFormat: 'YYYY-MM-DD',
 		minuteStep: 1,
 		calTodayButton: false,
@@ -96,7 +79,28 @@
 		enableDates: false,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1},
 		disabledDayColor: '#888',
-		isRTL: false
+		useLang: 'en',
+		lang: {
+			'en' : {
+				setDateButtonLabel: 'Set Date',
+				setTimeButtonLabel: 'Set Time',
+				setDurationButtonLabel: 'Set Duration',
+				calTodayButtonLabel: 'Jump to Today',
+				titleDateDialogLabel: 'Set Date',
+				titleTimeDialogLabel: 'Set Time',
+				daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+				daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+				monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+				monthsOfYearShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				durationLabel: ['Days', 'Hours', 'Minutes', 'Seconds'],
+				durationDays: ['Day', 'Days'],
+				timeFormat: 24,
+				headerFormat: 'ddd, mmm dd, YYYY',
+				dateFieldOrder: ['m', 'd', 'y'],
+				timeFieldOrder: ['h', 'i', 'a'],
+				isRTL: false
+			}
+		}
 	},
 	_dateboxHandler: function(event, payload) {
 		// Handle all event triggers that have an internal effect
@@ -175,12 +179,12 @@
 		
 		format = format.replace('SS', this._makeOrd(date.getDate()));
 		format = format.replace('YYYY', date.getFullYear());
-		format = format.replace('mmmm', this.options.monthsOfYearShort[date.getMonth()] );
-		format = format.replace('mmm',  this.options.monthsOfYear[date.getMonth()] );
+		format = format.replace('mmmm', this.options.lang[this.options.useLang].monthsOfYearShort[date.getMonth()] );
+		format = format.replace('mmm',  this.options.lang[this.options.useLang].monthsOfYear[date.getMonth()] );
 		format = format.replace('MM',   this._zeroPad(date.getMonth() + 1));
 		format = format.replace('mm',   date.getMonth() + 1);
-		format = format.replace('dddd', this.options.daysOfWeekShort[date.getDay()] );
-		format = format.replace('ddd',  this.options.daysOfWeek[date.getDay()] );
+		format = format.replace('dddd', this.options.lang[this.options.useLang].daysOfWeekShort[date.getDay()] );
+		format = format.replace('ddd',  this.options.lang[this.options.useLang].daysOfWeek[date.getDay()] );
 		format = format.replace('DD',   this._zeroPad(date.getDate()));
 		format = format.replace('dd',   date.getDate());
 
@@ -188,7 +192,7 @@
 	},
 	_formatHeader: function(date) {
 		// Shortcut function to return headerFormat date/time format
-		return this._formatter(this.options.headerFormat, date);
+		return this._formatter(this.options.lang[this.options.useLang].headerFormat, date);
 	},
 	_formatDate: function(date) {
 		// Shortcut function to return dateFormat date/time format
@@ -228,7 +232,7 @@
 			}
 			
 			format = format.replace('DD', dur_comps[0]);
-			format = format.replace('ddd', ((dur_comps[0] > 1)?this.options.durationDays[1]:this.options.durationDays[0]));
+			format = format.replace('ddd', ((dur_comps[0] > 1)?this.options.lang[this.options.useLang].durationDays[1]:this.options.lang[this.options.useLang].durationDays[0]));
 			format = format.replace('hh', self._zeroPad(dur_comps[1]));
 			format = format.replace('ii', self._zeroPad(dur_comps[2]));
 			format = format.replace('ss', self._zeroPad(dur_comps[3]));
@@ -344,11 +348,11 @@
 						}
 					}
 					if ( exp_format[i].match(/^mmm$/i) )  { 
-						exp_temp = $.inArray(exp_input[i], o.monthsOfYear);
+						exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYear);
 						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
 					}
 					if ( exp_format[i].match(/^mmmm$/i) )  { 
-						exp_temp = $.inArray(exp_input[i], o.monthsOfYearShort);
+						exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYearShort);
 						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
 					}
 				}
@@ -517,7 +521,7 @@
 				if ( i !== 0 ) { self.theDate.setMinutes(self.theDate.getMinutes() - i); }
 			}
 			self.pickerMins.val(self._zeroPad(self.theDate.getMinutes()));
-			if ( o.timeFormat === 12 ) { // Handle meridiems
+			if ( o.lang[o.useLang].timeFormat === 12 ) { // Handle meridiems
 				if ( self.theDate.getHours() > 11 ) {
 					self.pickerMeri.val(o.meridiemLetters[1]);
 					if ( self.theDate.getHours() === 12 ) {
@@ -600,7 +604,7 @@
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -357px':'') })
 								.attr('data-offset',i)
 								.attr('data-theme', cTheme)
-								.html("<span>"+o.monthsOfYearShort[testDate.getMonth()]+"</span>")
+								.html("<span>"+o.lang[o.useLang].monthsOfYearShort[testDate.getMonth()]+"</span>")
 								.appendTo(thisRow);
 							if ( tmpVal === true ) { tmpVal = false; }
 						}
@@ -631,7 +635,7 @@
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -357px':'') })
 								.attr('data-offset',i)
 								.attr('data-theme', cTheme)
-								.html("<span>"+( ( o.timeFormat === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() : ( ( testDate.getHours() === 12 ) ? '12' : (testDate.getHours()-12) ) ) ) : testDate.getHours() )+"</span>")
+								.html("<span>"+( ( o.lang[o.useLang].timeFormat === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() : ( ( testDate.getHours() === 12 ) ? '12' : (testDate.getHours()-12) ) ) ) : testDate.getHours() )+"</span>")
 								.appendTo(thisRow);
 							if ( tmpVal === true ) { tmpVal = false; }
 						}
@@ -744,7 +748,7 @@
 							cTheme = ((inheritDate.getFullYear()===(self.theDate.getFullYear() + i))?o.pickPageHighButtonTheme:o.pickPageSlideButtonTheme);
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							$("<div>", { 'class' : 'ui-datebox-slideyear ui-corner-all ui-btn-up-'+cTheme })
-								.text(self.theDate.getFullYear() + i)
+								.html(self.theDate.getFullYear() + i)
 								.attr('data-offset', i)
 								.attr('data-theme', cTheme)
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
@@ -763,7 +767,7 @@
 							$("<div>", { 'class' : 'ui-datebox-slidemonth ui-corner-all ui-btn-up-'+cTheme })
 								.attr('data-offset',i)
 								.attr('data-theme', cTheme)
-								.text(o.monthsOfYearShort[testDate.getMonth()])
+								.html(o.lang[o.useLang].monthsOfYearShort[testDate.getMonth()])
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
 								.bind('vclick', function(e) { e.preventDefault(); self._offset('m', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
@@ -781,7 +785,7 @@
 							$("<div>", { 'class' : 'ui-datebox-slideday ui-corner-all ui-btn-up-'+cTheme })
 								.attr('data-offset', i)
 								.attr('data-theme', cTheme)
-								.html(testDate.getDate() + '<br /><span class="ui-datebox-slidewday">' + o.daysOfWeekShort[testDate.getDay()] + '</span>')
+								.html(testDate.getDate() + '<br /><span class="ui-datebox-slidewday">' + o.lang[o.useLang].daysOfWeekShort[testDate.getDay()] + '</span>')
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
 								.bind('vclick', function(e) { e.preventDefault(); self._offset('d', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
@@ -797,7 +801,7 @@
 							$("<div>", { 'class' : 'ui-datebox-slidehour ui-corner-all ui-btn-up-'+cTheme })
 								.attr('data-offset',i)
 								.attr('data-theme', cTheme)
-								.html(( ( o.timeFormat === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() + '<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() === 12 ) ? '12<span class="ui-datebox-slidewday">PM</span>' : (testDate.getHours()-12) + '<span class="ui-datebox-slidewday">PM</span>') ) ) : testDate.getHours() ))
+								.html(( ( o.lang[o.useLang].timeFormat === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() + '<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() === 12 ) ? '12<span class="ui-datebox-slidewday">PM</span>' : (testDate.getHours()-12) + '<span class="ui-datebox-slidewday">PM</span>') ) ) : testDate.getHours() ))
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
 								.bind('vclick', function(e) { e.preventDefault(); self._offset('h', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
@@ -813,7 +817,7 @@
 							$("<div>", { 'class' : 'ui-datebox-slidemins ui-corner-all ui-btn-up-'+cTheme })
 								.attr('data-offset',i)
 								.attr('data-theme', cTheme)
-								.text(self._zeroPad(testDate.getMinutes()))
+								.html(self._zeroPad(testDate.getMinutes()))
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
 								.bind('vclick', function(e) { e.preventDefault(); self._offset('i', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
@@ -862,7 +866,7 @@
 		/* END:DATEBOX */
 		/* BEGIN:CALBOX */
 		if ( o.mode === 'calbox' ) { // Meat and potatos - make the calendar grid.
-			self.controlsInput.text( o.monthsOfYear[self.theDate.getMonth()] + " " + self.theDate.getFullYear() );
+			self.controlsInput.html( o.lang[o.useLang].monthsOfYear[self.theDate.getMonth()] + " " + self.theDate.getFullYear() );
 			self.controlsSet.html('');
 			
 			calmode = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'nexttoday': 1,
@@ -903,10 +907,10 @@
 			}
 			
 			if ( o.calShowDays ) {
-				if ( o.daysOfWeekShort.length < 8 ) { o.daysOfWeekShort = o.daysOfWeekShort.concat(o.daysOfWeekShort); }
+				if ( o.lang[o.useLang].daysOfWeekShort.length < 8 ) { o.daysOfWeekShort = o.lang[o.useLang].daysOfWeekShort.concat(o.lang[o.useLang].daysOfWeekShort); }
 				calmode.weekDays = $("<div>", {'class':'ui-datebox-gridrow'}).appendTo(self.controlsSet);
 				for ( i=0; i<=6;i++ ) {
-					$("<div>"+o.daysOfWeekShort[i+o.calStartDay]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(calmode.weekDays);
+					$("<div>"+o.lang[o.useLang].daysOfWeekShort[i+o.calStartDay]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(calmode.weekDays);
 				}
 			}
 			
@@ -1051,7 +1055,6 @@
 			focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ o.theme +'"></div>').parent(),
 			theDate = new Date(), // Internal date object, used for all operations
 			initDate = new Date(theDate.getTime()), // Initilization time - used for duration
-			dialogTitle = ((o.titleDialogLabel === false)?((o.mode==='timebox')?o.titleTimeDialogLabel:o.titleDateDialogLabel):o.titleDialogLabel),
 			
 			// This is the button that is added to the original input
 			openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
@@ -1065,12 +1068,13 @@
 			thisPage = input.closest('.ui-page'),
 			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + o.pickPageTheme + "' >" +
 						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
-							"<div class='ui-title'>" + dialogTitle + "</div>"+
+							"<div class='ui-title'>PlaceHolder</div>"+
 						"</div>"+
 						"<div data-role='content'></div>"+
 					"</div>")
 					.appendTo( $.mobile.pageContainer )
 					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass(o.transition),
+			pickPageTitle = pickPage.find('.ui-title'),
 			pickPageContent = pickPage.find( ".ui-content" ),
 			touch = ('ontouchstart' in window),
 			START_EVENT = touch ? 'touchstart' : 'mousedown',
@@ -1092,24 +1096,24 @@
 		/* BUILD:MODE */
 		
 		if ( o.mode === "timeflipbox" ) { // No header in time flipbox.
-			o.headerFormat = ' ';
+			o.lang[o.useLang].headerFormat = ' ';
 		}
 		
 		// Select the appropriate output format if not otherwise specified
 		if ( o.timeOutput === false ) {
-			o.timeOutput = o.timeFormats[o.timeFormat];
+			o.timeOutput = o.timeFormats[o.lang[o.useLang].timeFormat];
 		}
 		if ( o.fieldsOrder === false ) {
 			switch (o.mode) {
 				case 'timebox':
 				case 'timeflipbox':
-					o.fieldsOrder = o.timeFieldOrder; 
+					o.fieldsOrder = o.lang[o.useLang].timeFieldOrder; 
 					break;
 				case 'slidebox':
-					o.fieldsOrder = o.slideFieldOrder; 
+					o.fieldsOrder = o.lang[o.useLang].slideFieldOrder; 
 					break;
 				default:
-					o.fieldsOrder = o.dateFieldOrder; 
+					o.fieldsOrder = o.lang[o.useLang].dateFieldOrder; 
 			}
 		}
 		
@@ -1153,6 +1157,7 @@
 			pickPage: pickPage,
 			thisPage: thisPage,
 			pickPageContent: pickPageContent,
+			pickPageTitle: pickPageTitle,
 			input: input,
 			theDate: theDate,
 			initDate: initDate,
@@ -1274,6 +1279,7 @@
 			pickerHour, pickerMins, pickerMeri, pickerMon, pickerDay, pickerYar, pickerSecs,
 			calNoNext = false,
 			calNoPrev = false,
+			setButton = false,
 			screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
 				.css({'z-index': o.zindex-1})
 				.appendTo(self.thisPage)
@@ -1322,7 +1328,7 @@
 				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'h') { pickerHour.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'i') { pickerMins.appendTo(controlsInput); }
-				if (o.fieldsOrder[x] === 'a' && o.timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'a' && o.lang[o.useLang].timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
 			}
 			
 			if ( o.swipeEnabled ) { // Drag and drop support
@@ -1351,7 +1357,7 @@
 			}
 			
 			if ( o.noSetButton === false ) { // Set button at bottom
-				$("<a href='#'>" + ((o.mode==='timeflipbox')?o.setTimeButtonLabel:o.setDateButtonLabel) + "</a>")
+				setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
@@ -1400,16 +1406,16 @@
 			for ( x=0; x<o.durationOrder.length; x++ ) { // Use durationOrder to decide what goes where
 				switch ( o.durationOrder[x] ) {
 					case 'd':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'd'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.durationLabel[0]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'd'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[0]+'</label>');
 						break;
 					case 'h':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'h'}).append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.durationLabel[1]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'h'}).append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[1]+'</label>');
 						break;
 					case 'i':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'i'}).append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.durationLabel[2]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'i'}).append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[2]+'</label>');
 						break;
 					case 's':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 's'}).append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.durationLabel[3]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 's'}).append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[3]+'</label>');
 						break;
 				}
 			}
@@ -1428,7 +1434,7 @@
 			}
 			
 			if ( o.noSetButton === false ) { // Bottom set button
-				$("<a href='#'>" + o.setDurationButtonLabel + "</a>")
+				setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
@@ -1508,7 +1514,7 @@
 					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
 						newHour = parseInt($(this).val(),10);
 						if ( newHour === 12 ) {
-							if ( o.timeFormat === 12 && pickerMeri.val() === o.meridiemLetters[0] ) { newHour = 0; }
+							if ( o.lang[o.useLang].timeFormat === 12 && pickerMeri.val() === o.meridiemLetters[0] ) { newHour = 0; }
 						}
 						self.theDate.setHours(newHour);
 						self._update();
@@ -1547,7 +1553,7 @@
 				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'h') { pickerHour.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'i') { pickerMins.appendTo(controlsInput); }
-				if (o.fieldsOrder[x] === 'a' && o.timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'a' && o.lang[o.useLang].timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
 			}
 			
 			if ( o.swipeEnabled ) { // Drag and drop support
@@ -1564,7 +1570,7 @@
 			}
 			
 			if ( o.noSetButton === false ) { // Set button at bottom
-				$("<a href='#'>" + ((o.mode==='timebox')?o.setTimeButtonLabel:o.setDateButtonLabel) + "</a>")
+				setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
@@ -1575,7 +1581,7 @@
 			}
 			
 			for( x=0; x<self.options.fieldsOrder.length; x++ ) { // Generate the plus and minus buttons, use fieldsOrder again
-				if ( o.fieldsOrder[x] !== 'a' || o.timeFormat === 12 ) {
+				if ( o.fieldsOrder[x] !== 'a' || o.lang[o.useLang].timeFormat === 12 ) {
 					linkdiv.clone()
 						.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 						.attr('data-field', o.fieldsOrder[x])
@@ -1653,7 +1659,7 @@
 				});
 				
 			if ( o.calTodayButton === true ) { // Show today button at bottom
-				$("<a href='#'>" + o.calTodayButtonLabel + "</a>")
+				setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(pickerContent).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
@@ -1680,7 +1686,7 @@
 			controlsSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent);
 				
 			if ( o.noSetButton === false ) { // Show set button at bottom
-				$("<a href='#'>" + o.setDateButtonLabel + "</a>")
+				setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
@@ -1700,7 +1706,8 @@
 
 		$.extend(self, {
 			pickerContent: pickerContent,
-			screen: screen
+			screen: screen,
+			setButton: setButton
 		});
 		
 		// If useInline mode, drop it into the document, and stop a few events from working (or just hide the trigger)
@@ -1755,6 +1762,38 @@
 			transition = o.noAnimation ? 'none' : o.transition,
 			activePage;
 			
+		// FIX THE DIALOG TITLE LABEL
+		if ( o.titleDialogLable === false ) {
+			switch (o.mode) {
+				case "timebox":
+				case "timeflipbox":
+					self.pickPageTitle.html(o.lang[o.useLang].titleTimeDialogLabel);
+					break;
+				default:
+					self.pickPageTitle.html(o.lang[o.useLang].titleDateDialogLabel);
+					break;
+			}
+		} else {
+			self.pickPageTitle.html(o.titleDialogLable);
+		}
+		
+		// FIX THE SET BUTTON
+		switch (o.mode) {
+			case "timebox":
+			case "timeflipbox":
+				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setTimeButtonLabel);
+				break;
+			case "durationbox":
+				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDurationButtonLabel);
+				break;
+			case "calbox":
+				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].calTodayButtonLabel);
+				break;
+			default:
+				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDateButtonLabel);
+				break;
+		}
+		
 		// TOO FAR RIGHT TRAP
 		if ( (pickWinLeft + pickWinWidth) > $(document).width() ) {
 			pickWinLeft = $(document).width() - pickWinWidth - 1;
