@@ -9,7 +9,7 @@
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.min.js"></script> 
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
@@ -32,27 +32,27 @@
 	<div data-role="content" data-theme="c">
 		<div data-role="fieldcontain">
 			<label for="aa">Cal</label>
-			<input name="aa" type="date" data-role="datebox" data-options='{"debug":true,"noButtonFocusMode": true, "mode": "calbox", "dateFormat": "dddd DD-mmmm-YYYY", "pickPageHighButtonTheme": "a", "pickPageButtonTheme": "d", "pickPageOHighButtonTheme": "b", "useInlineBlind": true}' id="aa" />
+			<input name="aa" type="date" data-role="datebox" data-options='{"noButtonFocusMode": true, "mode": "calbox", "dateFormat": "dddd DD-mmmm-YYYY", "pickPageHighButtonTheme": "a", "pickPageButtonTheme": "d", "pickPageOHighButtonTheme": "b", "useInlineBlind": true}' id="aa" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="bb">Slide</label>
 			<input name="bb" type="date" data-role="datebox" data-options='{"mode": "slidebox"}' id="bb" />
 		</div>
-		<div data-role="fieldcontain">
+		<!--div data-role="fieldcontain">
 			<label for="bb2">Slide w/ time</label>
 			<input name="bb2" type="text" data-role="datebox" data-options='{"debug": true, "afterToday": true, "mode": "slidebox", "dateFormat": "MM/DD/YYYY at hh:iiaa", "headerFormat": "MM/DD/YYYY hh:iiaa", "timeFormat": 12, "fieldsOrder": ["y","m","d","h", "i"]}' id="bb2" />
-		</div>
+		</div>-->
 		<div data-role="fieldcontain">
 			<label for="cc">Droid</label>
-			<input name="cc" type="date" data-role="datebox" data-options='{"debug":true,"mode": "datebox", "useDialogForceTrue": true, "dateFormat": "ddd the ddSS of mmm in the year YYYY"}' id="cc" />
+			<input name="cc" type="date" data-role="datebox" data-options='{"mode": "datebox", "dateFormat": "ddd the ddSS of mmm in the year YYYY"}' id="cc" />
 		</div>
-		<div data-role="fieldcontain">
+		<!--div data-role="fieldcontain">
 			<label for="dd">Time</label>
 			<input name="dd" type="text" data-role="datebox" data-options='{"mode": "timebox", "timeFormat":12}' id="dd" />
-		</div>
+		</div-->
 		<div data-role="fieldcontain">
 			<label for="ee">Length</label>
-			<input name="ee" type="text" data-role="datebox" data-options='{"mode": "durationbox", "durationFormat": "hh:ii:ss", "debug":true,"defaultDate": 0 }' id="ee" />
+			<input name="ee" type="text" data-role="datebox" data-options='{"mode": "durationbox", "durationFormat": "hh:ii:ss", "defaultDate": 0 }' id="ee" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="ff">Flip (Date)</label>

@@ -40,6 +40,7 @@
 			<li><h3>$('element').datebox('disable');</h3><p>Disable the DateBox control</p></li>
 			<li><h3>$('element').datebox('enable');</h3><p>Enable the DateBox control</p></li>
 			<li><h3>$('element').datebox('refresh');</h3><p>Refresh the DateBox control</p></li>
+			<li><h3>$('element').datebox('hardreset');</h3><p>Hard Reset the DateBox control, rebuild the interface window.</p></li>
 		</ul>
 		
 		<h2>Events</h2>
@@ -75,6 +76,7 @@
 			<li><h3>Trigger to set specified date</h3><p><strong>{'method'}</strong> === set<br /><strong>{'value'}</strong> === value to place in input</p></li>
 			<li><h3>Trigger to refresh input date</h3><p><strong>{'method'}</strong> === doset</p></li>
 			<li><h3>Trigger to refresh</h3><p><strong>Note:</strong> Not used interaly.<br /><strong>{'method'}</strong> === dorefresh</p></li>
+			<li><h3>Trigger to hard reset the controls</h3><p><strong>Note:</strong> Not used interaly.<br /><strong>{'method'}</strong> === doreset</p></li>
 			<li><h3>Trigger to change date</h3><p><strong>Note:</strong> Not used interaly.<br /><strong>{'method'}</strong> === dooffset<br /><strong>{'amount'}</strong> === Amount of change (usually +/- 1)<br /><strong>{'type'}</strong> === Type of change ( 'y' = Year, 'm' = Month, 'd' = Date, 'h' = Hour, 'i' = Minute, 's' = Second, 'a' = Meridian ) </p></li>
 			<li data-role="list-divider">Event Payloads - Action causes trigger</li>
 			<li><h3>Triggered on datebox enable</h3><p><strong>{'method'}</strong> === enable</p></li>

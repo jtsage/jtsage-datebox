@@ -128,6 +128,9 @@
 				case 'dorefresh':
 					$(this).data('datebox')._update();
 					break;
+				case 'doreset':
+					$(this).data('datebox').hardreset();
+					break;
 			}
 		} 
 	},
@@ -1220,8 +1223,48 @@
 		//Throw dateboxinit event
 		$( document ).trigger( "dateboxaftercreate" );
 	},
-	_buildPage: function () {
-		// Build the controls
+	_makeElement: function(source, parts) {
+		var self = this,
+			part = false,
+			retty = false;
+		
+		retty = source.clone();
+		
+		if ( 'attr' in parts ) {
+			for ( part in parts.attr ) {
+				retty.attr("data-"+part, parts.attr[part]);
+			}
+		}
+		return retty;
+	},
+	_eventEnterValue: function (item) {
+		var self = this,
+			o = self.options,
+			newHour = false;
+		
+		if ( item.val() !== '' && self._isInt(item.val()) ) {
+			switch(item.attr('data-field')) {
+				case 'm':
+					self.theDate.setMonth(parseInt(item.val(),10)-1); break;
+				case 'd':
+					self.theDate.setDate(parseInt(item.val(),10)); break;
+				case 'y':
+					self.theDate.setFullYear(parseInt(item.val(),10)); break;
+				case 'i':
+					self.theDate.setMinutes(parseInt(item.val(),10)); break;
+				case 'h':
+					newHour = parseInt(item.val(),10);
+					if ( newHour === 12 ) {
+						if ( o.lang[o.useLang].timeFormat === 12 && self.pickerMeri.val() === o.meridiemLetters[0] ) { newHour = 0; }
+					}
+					self.theDate.setHours(newHour);
+					break;
+			}
+			self._update();
+		}
+	},
+	_buildInternals: function () {
+		// Build the POSSIBLY VARIABLE controls (these might change)
 		var self = this,
 			o = self.options, x, newHour, fld,
 			linkdiv =$("<div><a href='#'></a></div>"),
@@ -1230,33 +1273,245 @@
 			templControls = $("<div>", { "class":'ui-datebox-controls' }),
 			templFlip = $("<div class='ui-overlay-shadow'><ul></ul></div>"),
 			controlsPlus, controlsInput, controlsMinus, controlsSet, controlsHeader,
-			pickerHour, pickerMins, pickerMeri, pickerMon, pickerDay, pickerYar, pickerSecs,
-			calNoNext = false,
-			calNoPrev = false,
-			setButton = false,
-			screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
-				.css({'z-index': o.zindex-1})
-				.appendTo(self.thisPage)
-				.bind("vclick", function(event) {
-					event.preventDefault();
-					self.input.trigger('datebox', {'method':'close'});
-				});
+			pickerHour, pickerMins, pickerMeri, pickerMon, pickerDay, pickerYar, pickerSecs;
+			
+		self.calNoNext = false;
+		self.calNoPrev = false;
+		self.setButton = false;
 		
-		if ( o.noAnimation ) { pickerContent.removeClass(o.transition); }
+		self.pickerContent.html('');
+			
+		/* BEGIN:DATETIME */
+		if ( o.mode === 'datebox' || o.mode === 'timebox' ) {
+			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(self.pickerContent).find("h4");
+			controlsPlus = templControls.clone().appendTo(self.pickerContent);
+			controlsInput = templControls.clone().appendTo(self.pickerContent);
+			controlsMinus = templControls.clone().appendTo(self.pickerContent);
+			controlsSet = templControls.clone().appendTo(self.pickerContent);
+			
+			if ( o.mode === 'timebox' ) { controlsHeader.parent().html(''); } // Time mode has no header
+			
+			pickerMon = self._makeElement(templInput, {'attr': {'field':'m'} })
+				.keyup(function() { self._eventEnterValue($(this)); });
+				
+			pickerDay = self._makeElement(templInput, {'attr': {'field':'d'} })
+				.keyup(function() { self._eventEnterValue($(this)); });
+				
+			pickerYar = self._makeElement(templInput, {'attr': {'field':'y'} })
+				.keyup(function() { self._eventEnterValue($(this)); });
+				
+			pickerHour = self._makeElement(templInput, {'attr': {'field':'h'} })
+				.keyup(function() { self._eventEnterValue($(this)); });
+				
+			pickerMins = self._makeElement(templInput, {'attr': {'field':'i'} })
+				.keyup(function() { self._eventEnterValue($(this)); });
+				
+			pickerMeri = self._makeElement(templInput, {'attr': {'field':'a'} })
+				.keyup(function() { self._eventEnterValue($(this)); });
+					
+			if ( o.wheelExists ) { // Mousewheel operation, if plugin is loaded
+				pickerYar.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('y', (d<0)?-1:1); });
+				pickerMon.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('m', (d<0)?-1:1); });
+				pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', (d<0)?-1:1); });
+				pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', (d<0)?-1:1); });
+				pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.minuteStep); });
+				pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', d); });
+			}
+		
+			for(x=0; x<=o.fieldsOrder.length; x++) { // Use fieldsOrder to decide what goes where
+				if (o.fieldsOrder[x] === 'y') { pickerYar.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'm') { pickerMon.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'h') { pickerHour.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'i') { pickerMins.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'a' && o.lang[o.useLang].timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
+			}
+			
+			if ( o.swipeEnabled ) { // Drag and drop support
+				controlsInput.find('input').bind(self.START_DRAG, function(e) {
+					if ( !self.dragMove ) {
+						self.dragMove = true;
+						self.dragTarget = $(this).data('field');
+						self.dragPos = 0;
+						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+						self.dragEnd = false;
+						e.stopPropagation();
+					}
+				});
+			}
+			
+			if ( o.noSetButton === false ) { // Set button at bottom
+				self.setButton = $("<a href='#'>PlaceHolder</a>")
+					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						if ( o.mode === 'timebox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)}); }
+						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)}); }
+						self.input.trigger('datebox', {'method':'close'});
+					});
+			}
+			
+			for( x=0; x<self.options.fieldsOrder.length; x++ ) { // Generate the plus and minus buttons, use fieldsOrder again
+				if ( o.fieldsOrder[x] !== 'a' || o.lang[o.useLang].timeFormat === 12 ) {
+					linkdiv.clone()
+						.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
+						.attr('data-field', o.fieldsOrder[x])
+						.bind('vclick', function(e) {
+							e.preventDefault();
+							self._offset($(this).attr('data-field'),1*($(this).attr('data-field')==='i'?o.minuteStep:1));
+					});
+					linkdiv.clone()
+						.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
+						.attr('data-field', o.fieldsOrder[x])
+						.bind('vclick', function(e) {
+							e.preventDefault();
+							self._offset($(this).attr('data-field'),-1*($(this).attr('data-field')==='i'?o.minuteStep:1));
+					});
+				}
+			}
+				
+			$.extend(self, {
+				controlsHeader: controlsHeader,
+				pickerDay: pickerDay,
+				pickerMon: pickerMon,
+				pickerYar: pickerYar,
+				pickerHour: pickerHour,
+				pickerMins: pickerMins,
+				pickerMeri: pickerMeri
+			});
+			
+			self.pickerContent.appendTo(self.thisPage);
+		}
+		/* END:DATETIME */
+		
+		/* BEGIN:DURATIONBOX */
+		if ( o.mode === 'durationbox' ) {
+			controlsPlus = templControls.clone().removeClass('ui-datebox-controls').addClass('ui-datebox-scontrols').appendTo(self.pickerContent);
+			controlsInput = controlsPlus.clone().appendTo(self.pickerContent);
+			controlsMinus = controlsPlus.clone().appendTo(self.pickerContent);
+			controlsSet = templControls.clone().appendTo(self.pickerContent);
+			
+			pickerDay = templInput.removeClass('ui-datebox-input').clone()
+				.keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
+				
+			pickerHour = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
+			pickerMins = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
+			pickerSecs = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
+			
+			if ( o.wheelExists ) { // Mousewheel operation, if the plgin is loaded
+					pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', ((d<0)?-1:1)*o.durationSteppers['d']); });
+					pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', ((d<0)?-1:1)*o.durationSteppers['h']); });
+					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.durationSteppers['i']); });
+					pickerSecs.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('s', ((d<0)?-1:1)*o.durationSteppers['s']); });
+				}
+			
+			for ( x=0; x<o.durationOrder.length; x++ ) { // Use durationOrder to decide what goes where
+				switch ( o.durationOrder[x] ) {
+					case 'd':
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'd'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[0]+'</label>');
+						break;
+					case 'h':
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'h'}).append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[1]+'</label>');
+						break;
+					case 'i':
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'i'}).append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[2]+'</label>');
+						break;
+					case 's':
+						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 's'}).append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[3]+'</label>');
+						break;
+				}
+			}
+			
+			if ( o.swipeEnabled ) { // Drag and drop operation
+				controlsInput.find('input').bind(self.START_DRAG, function(e) {
+					if ( !self.dragMove ) {
+						self.dragMove = true;
+						self.dragTarget = $(this).parent().data('field');
+						self.dragPos = 0;
+						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+						self.dragEnd = false;
+						e.stopPropagation();
+					}
+				});
+			}
+			
+			if ( o.noSetButton === false ) { // Bottom set button
+				self.setButton = $("<a href='#'>PlaceHolder</a>")
+					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)});
+						self.input.trigger('datebox', {'method':'close'});
+					});
+			}
+				
+			for ( x=0; x<o.durationOrder.length; x++ ) {
+				linkdiv.clone()
+					.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
+					.attr('data-field', o.durationOrder[x])
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						self._offset($(this).attr('data-field'),o.durationSteppers[$(this).attr('data-field')]);
+					});
+					
+				linkdiv.clone()
+					.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
+					.attr('data-field', o.durationOrder[x])
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						self._offset($(this).attr('data-field'),-1*o.durationSteppers[$(this).attr('data-field')]);
+					});
+			}
+			
+			$.extend(self, {
+				pickerHour: pickerHour,
+				pickerMins: pickerMins,
+				pickerDay: pickerDay,
+				pickerSecs: pickerSecs
+			});
+			
+			self.pickerContent.appendTo(self.thisPage);
+		}
+		/* END:DURATIONBOX */
+		
+		/* BEGIN:SLIDEBOX */
+		if ( o.mode === 'slidebox' ) {
+			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(self.pickerContent).find("h4");
+			controlsInput = $('<div>').addClass('ui-datebox-slide').appendTo(self.pickerContent);
+			controlsSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(self.pickerContent);
+				
+			if ( o.noSetButton === false ) { // Show set button at bottom
+				self.setButton = $("<a href='#'>PlaceHolder</a>")
+					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					.bind('vclick', function(e) {
+						e.preventDefault();
+						self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
+						self.input.trigger('datebox', {'method':'close'});
+					});
+			}
+			
+			$.extend(self, {
+				controlsHeader: controlsHeader,
+				controlsInput: controlsInput
+			});
+			
+			self.pickerContent.appendTo(self.thisPage);
+		}
+		/* END:SLIDEBOX */
 		
 		/* BEGIN:FLIPBOX */
 		if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
-			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4");
-			controlsInput = $("<div>", {"class":'ui-datebox-flipcontent'}).appendTo(pickerContent);
-			controlsPlus = $("<div>", {"class":'ui-datebox-flipcenter ui-overlay-shadow'}).appendTo(pickerContent);
-			controlsSet = templControls.clone().appendTo(pickerContent);
+			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(self.pickerContent).find("h4");
+			controlsInput = $("<div>", {"class":'ui-datebox-flipcontent'}).appendTo(self.pickerContent);
+			controlsPlus = $("<div>", {"class":'ui-datebox-flipcenter ui-overlay-shadow'}).appendTo(self.pickerContent);
+			controlsSet = templControls.clone().appendTo(self.pickerContent);
 			
-			pickerDay = templFlip.clone().attr('data-field', 'd');
-			pickerMon = templFlip.clone().attr('data-field', 'm');
-			pickerYar = templFlip.clone().attr('data-field', 'y');
-			pickerHour = templFlip.clone().attr('data-field', 'h');
-			pickerMins = templFlip.clone().attr('data-field', 'i');
-			pickerMeri = templFlip.clone().attr('data-field', 'a');
+			pickerDay = self._makeElement(templFlip, {'attr': {'field':'d'} });
+			pickerMon = self._makeElement(templFlip, {'attr': {'field':'m'} });
+			pickerYar = self._makeElement(templFlip, {'attr': {'field':'y'} });
+			pickerHour = self._makeElement(templFlip, {'attr': {'field':'h'} });
+			pickerMins = self._makeElement(templFlip, {'attr': {'field':'i'} });
+			pickerMeri = self._makeElement(templFlip, {'attr': {'field':'a'} });
 			
 			if ( o.wheelExists ) { // Mousewheel operation, if the plugin is loaded.
 				pickerYar.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('y', (d<0)?-1:1); });
@@ -1311,7 +1566,7 @@
 			}
 			
 			if ( o.noSetButton === false ) { // Set button at bottom
-				setButton = $("<a href='#'>PlaceHolder</a>")
+				self.setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
@@ -1332,254 +1587,25 @@
 				pickerMeri: pickerMeri
 			});
 			
-			pickerContent.appendTo(self.thisPage);
+			self.pickerContent.appendTo(self.thisPage);
 			
 		}
 		/* END:FLIPBOX */
-		/* BEGIN:DURATIONBOX */
-		if ( o.mode === 'durationbox' ) {
-			controlsPlus = templControls.clone().removeClass('ui-datebox-controls').addClass('ui-datebox-scontrols').appendTo(pickerContent);
-			controlsInput = controlsPlus.clone().appendTo(pickerContent);
-			controlsMinus = controlsPlus.clone().appendTo(pickerContent);
-			controlsSet = templControls.clone().appendTo(pickerContent);
-			
-			pickerDay = templInput.removeClass('ui-datebox-input').clone()
-				.keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
-				
-			pickerHour = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
-			pickerMins = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
-			pickerSecs = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
-			
-			if ( o.wheelExists ) { // Mousewheel operation, if the plgin is loaded
-					pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', ((d<0)?-1:1)*o.durationSteppers['d']); });
-					pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', ((d<0)?-1:1)*o.durationSteppers['h']); });
-					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.durationSteppers['i']); });
-					pickerSecs.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('s', ((d<0)?-1:1)*o.durationSteppers['s']); });
-				}
-			
-			for ( x=0; x<o.durationOrder.length; x++ ) { // Use durationOrder to decide what goes where
-				switch ( o.durationOrder[x] ) {
-					case 'd':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'd'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[0]+'</label>');
-						break;
-					case 'h':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'h'}).append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[1]+'</label>');
-						break;
-					case 'i':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'i'}).append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[2]+'</label>');
-						break;
-					case 's':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 's'}).append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[3]+'</label>');
-						break;
-				}
-			}
-			
-			if ( o.swipeEnabled ) { // Drag and drop operation
-				controlsInput.find('input').bind(self.START_DRAG, function(e) {
-					if ( !self.dragMove ) {
-						self.dragMove = true;
-						self.dragTarget = $(this).parent().data('field');
-						self.dragPos = 0;
-						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
-						self.dragEnd = false;
-						e.stopPropagation();
-					}
-				});
-			}
-			
-			if ( o.noSetButton === false ) { // Bottom set button
-				setButton = $("<a href='#'>PlaceHolder</a>")
-					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-					.bind('vclick', function(e) {
-						e.preventDefault();
-						self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)});
-						self.input.trigger('datebox', {'method':'close'});
-					});
-			}
-				
-			for ( x=0; x<o.durationOrder.length; x++ ) {
-				linkdiv.clone()
-					.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-					.attr('data-field', o.durationOrder[x])
-					.bind('vclick', function(e) {
-						e.preventDefault();
-						self._offset($(this).attr('data-field'),o.durationSteppers[$(this).attr('data-field')]);
-					});
-					
-				linkdiv.clone()
-					.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-					.attr('data-field', o.durationOrder[x])
-					.bind('vclick', function(e) {
-						e.preventDefault();
-						self._offset($(this).attr('data-field'),-1*o.durationSteppers[$(this).attr('data-field')]);
-					});
-			}
-			
-			$.extend(self, {
-				pickerHour: pickerHour,
-				pickerMins: pickerMins,
-				pickerDay: pickerDay,
-				pickerSecs: pickerSecs
-			});
-			
-			pickerContent.appendTo(self.thisPage);
-		}
-		/* END:DURATIONBOX */
-		/* BEGIN:DATETIME */
-		if ( o.mode === 'datebox' || o.mode === 'timebox' ) {
-			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4");
-			controlsPlus = templControls.clone().appendTo(pickerContent);
-			controlsInput = templControls.clone().appendTo(pickerContent);
-			controlsMinus = templControls.clone().appendTo(pickerContent);
-			controlsSet = templControls.clone().appendTo(pickerContent);
-			
-			if ( o.mode === 'timebox' ) { controlsHeader.parent().html(''); } // Time mode has no header
-			
-			pickerMon = templInput.clone()
-				.attr('data-field', 'm')
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						self.theDate.setMonth(parseInt($(this).val(),10)-1);
-						self._update();
-					}
-				});
-				
-			pickerDay = pickerMon.clone()
-				.attr('data-field', 'd')
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						self.theDate.setDate(parseInt($(this).val(),10));
-						self._update();
-					}
-				});
-				
-			pickerYar = pickerMon.clone()
-				.attr('data-field', 'y')
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						self.theDate.setFullYear(parseInt($(this).val(),10));
-						self._update();
-					}
-				});
-				
-			pickerHour = templInput.clone()
-				.attr('data-field', 'h')
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						newHour = parseInt($(this).val(),10);
-						if ( newHour === 12 ) {
-							if ( o.lang[o.useLang].timeFormat === 12 && pickerMeri.val() === o.meridiemLetters[0] ) { newHour = 0; }
-						}
-						self.theDate.setHours(newHour);
-						self._update();
-					}
-				});
-				
-			pickerMins = templInput.clone()
-				.attr('data-field', 'i')
-				.keyup(function() {
-					if ( $(this).val() !== '' && self._isInt($(this).val()) ) {
-						self.theDate.setMinutes(parseInt($(this).val(),10));
-						self._update();
-					}
-				});
-				
-			pickerMeri = templInput.clone()
-				.attr('data-field', 'a')
-				.keyup(function() {
-					if ( $(this).val() !== '' ) {
-						self._update();
-					}
-				});
-					
-			if ( o.wheelExists ) { // Mousewheel operation, if plugin is loaded
-				pickerYar.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('y', (d<0)?-1:1); });
-				pickerMon.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('m', (d<0)?-1:1); });
-				pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', (d<0)?-1:1); });
-				pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', (d<0)?-1:1); });
-				pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.minuteStep); });
-				pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', d); });
-			}
 		
-			for(x=0; x<=o.fieldsOrder.length; x++) { // Use fieldsOrder to decide what goes where
-				if (o.fieldsOrder[x] === 'y') { pickerYar.appendTo(controlsInput); }
-				if (o.fieldsOrder[x] === 'm') { pickerMon.appendTo(controlsInput); }
-				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
-				if (o.fieldsOrder[x] === 'h') { pickerHour.appendTo(controlsInput); }
-				if (o.fieldsOrder[x] === 'i') { pickerMins.appendTo(controlsInput); }
-				if (o.fieldsOrder[x] === 'a' && o.lang[o.useLang].timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
-			}
-			
-			if ( o.swipeEnabled ) { // Drag and drop support
-				controlsInput.find('input').bind(self.START_DRAG, function(e) {
-					if ( !self.dragMove ) {
-						self.dragMove = true;
-						self.dragTarget = $(this).data('field');
-						self.dragPos = 0;
-						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
-						self.dragEnd = false;
-						e.stopPropagation();
-					}
-				});
-			}
-			
-			if ( o.noSetButton === false ) { // Set button at bottom
-				setButton = $("<a href='#'>PlaceHolder</a>")
-					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-					.bind('vclick', function(e) {
-						e.preventDefault();
-						if ( o.mode === 'timebox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)}); }
-						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)}); }
-						self.input.trigger('datebox', {'method':'close'});
-					});
-			}
-			
-			for( x=0; x<self.options.fieldsOrder.length; x++ ) { // Generate the plus and minus buttons, use fieldsOrder again
-				if ( o.fieldsOrder[x] !== 'a' || o.lang[o.useLang].timeFormat === 12 ) {
-					linkdiv.clone()
-						.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-						.attr('data-field', o.fieldsOrder[x])
-						.bind('vclick', function(e) {
-							e.preventDefault();
-							self._offset($(this).attr('data-field'),1*($(this).attr('data-field')==='i'?o.minuteStep:1));
-					});
-					linkdiv.clone()
-						.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-						.attr('data-field', o.fieldsOrder[x])
-						.bind('vclick', function(e) {
-							e.preventDefault();
-							self._offset($(this).attr('data-field'),-1*($(this).attr('data-field')==='i'?o.minuteStep:1));
-					});
-				}
-			}
-				
-			$.extend(self, {
-				controlsHeader: controlsHeader,
-				pickerDay: pickerDay,
-				pickerMon: pickerMon,
-				pickerYar: pickerYar,
-				pickerHour: pickerHour,
-				pickerMins: pickerMins,
-				pickerMeri: pickerMeri
-			});
-			
-			pickerContent.appendTo(self.thisPage);
-		}
-		/* END:DATETIME */
 		/* BEGIN:CALBOX */
 		if ( o.mode === 'calbox' ) {
-			controlsHeader = $("<div>", {"class": 'ui-datebox-gridheader'}).appendTo(pickerContent);
-			controlsSet = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(pickerContent);
+			controlsHeader = $("<div>", {"class": 'ui-datebox-gridheader'}).appendTo(self.pickerContent);
+			controlsSet = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(self.pickerContent);
 			controlsInput = $("<div class='ui-datebox-gridlabel'><h4>Uninitialized</h4></div>").appendTo(controlsHeader).find('h4');
 			
 			if ( o.swipeEnabled ) { // Calendar swipe left and right
-				pickerContent
+				self.pickerContent
 					.bind('swipeleft', function() { if ( !self.calNoNext ) { self._offset('m', 1); } })
 					.bind('swiperight', function() { if ( !self.calNoPrev ) { self._offset('m', -1); } });
 			}
 			
 			if ( o.wheelExists) { // Mousewheel operations, if plugin is loaded
-				pickerContent.bind('mousewheel', function(e,d) {
+				self.pickerContent.bind('mousewheel', function(e,d) {
 					e.preventDefault();
 					if ( d > 0 && !self.calNoNext ) { 
 						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
@@ -1613,8 +1639,8 @@
 				});
 				
 			if ( o.calTodayButton === true ) { // Show today button at bottom
-				setButton = $("<a href='#'>PlaceHolder</a>")
-					.appendTo(pickerContent).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+				self.setButton = $("<a href='#'>PlaceHolder</a>")
+					.appendTo(self.pickerContent).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind('vclick', function(e) {
 						e.preventDefault();
 						self.theDate = new Date();
@@ -1626,43 +1652,33 @@
 			$.extend(self, {
 				controlsInput: controlsInput,
 				controlsSet: controlsSet,
-				calNoNext: calNoNext,
-				calNoPrev: calNoPrev
 			});
 			
-			pickerContent.appendTo(self.thisPage);
+			self.pickerContent.appendTo(self.thisPage);
 		}
 		/* END:CALBOX */
-		/* BEGIN:SLIDEBOX */
-		if ( o.mode === 'slidebox' ) {
-			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(pickerContent).find("h4");
-			controlsInput = $('<div>').addClass('ui-datebox-slide').appendTo(pickerContent);
-			controlsSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(pickerContent);
-				
-			if ( o.noSetButton === false ) { // Show set button at bottom
-				setButton = $("<a href='#'>PlaceHolder</a>")
-					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-					.bind('vclick', function(e) {
-						e.preventDefault();
-						self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
-						self.input.trigger('datebox', {'method':'close'});
-					});
-			}
-			
-			$.extend(self, {
-				controlsHeader: controlsHeader,
-				controlsInput: controlsInput
-			});
-			
-			pickerContent.appendTo(self.thisPage);
-		}
-		/* END:SLIDEBOX */
-
+	},
+	_buildPage: function () {
+		// Build the CONSTANT controls (these never change)
+		var self = this,
+			o = self.options, 
+			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden '+o.transition+' ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
+			screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
+				.css({'z-index': o.zindex-1})
+				.appendTo(self.thisPage)
+				.bind("vclick", function(event) {
+					event.preventDefault();
+					self.input.trigger('datebox', {'method':'close'});
+				});
+		
+		if ( o.noAnimation ) { pickerContent.removeClass(o.transition); }
+		
 		$.extend(self, {
 			pickerContent: pickerContent,
 			screen: screen,
-			setButton: setButton
 		});
+		
+		self._buildInternals();
 		
 		// If useInline mode, drop it into the document, and stop a few events from working (or just hide the trigger)
 		if ( o.useInline || o.useInlineBlind ) { 
@@ -1680,6 +1696,11 @@
 		}
 			
 	},
+	hardreset: function() {
+		// Public shortcut to rebuild all internals
+		this._buildInternals();
+		this.refresh();
+	},
 	refresh: function() {
 		// Pulic shortcut to _update, with an extra hook for inline mode.
 		if ( this.options.useInline === true ) {
@@ -1688,12 +1709,12 @@
 		this._update();
 	},
 	open: function() {
-    // Call the open callback if provided. Additionally, if this
-    // returns falsy then the open of the dialog will be canceled
-    if (this.openCallback && !this.openCallback()) {
-      return false;
-    }
-
+		// Call the open callback if provided. Additionally, if this
+		// returns falsy then the open of the dialog will be canceled
+		if (this.openCallback && !this.openCallback()) {
+			return false;
+		}
+		
 		// Open the controls
 		if ( this.options.useInlineBlind ) {
 			this.pickerContent.slideDown();
