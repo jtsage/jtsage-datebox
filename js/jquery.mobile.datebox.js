@@ -1691,6 +1691,7 @@
 		}
 		if ( o.useInline ) {
 			self.pickerContent.addClass('ui-datebox-inline');
+			self.open();
 		}
 		if ( o.useInlineBlind ) {
 			self.pickerContent.addClass('ui-datebox-inlineblind');
@@ -1717,18 +1718,6 @@
 			return false;
 		}
 		
-		// Open the controls
-		if ( this.options.useInlineBlind ) {
-			this.pickerContent.slideDown();
-			return false; // No More!
-		}
-		if ( this.options.useInline ) { return false; } // Ignore if inline
-		if ( this.pickPage.is(':visible') ) { return false; } // Ignore if already open
-		
-		this.theDate = this._makeDate(this.input.val());
-		this._update();
-		this.input.blur(); // Grab latest value of input, in case it changed
-		
 		var self = this,
 			o = this.options,
 			inputOffset = self.focusedEl.offset(),
@@ -1738,9 +1727,9 @@
 			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2),
 			transition = o.noAnimation ? 'none' : o.transition,
 			activePage;
-			
+		
 		// FIX THE DIALOG TITLE LABEL
-		if ( o.titleDialogLable === false ) {
+		if ( o.titleDialogLabel === false ) {
 			switch (o.mode) {
 				case "timebox":
 				case "timeflipbox":
@@ -1772,6 +1761,21 @@
 				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDateButtonLabel);
 				break;
 		}
+		
+		// Open the controls
+		if ( this.options.useInlineBlind ) {
+			this.pickerContent.slideDown();
+			return false; // No More!
+		}
+		if ( this.options.useInline ) { return true; } // Ignore if inline
+		if ( this.pickPage.is(':visible') ) { return false; } // Ignore if already open
+		
+		this.theDate = this._makeDate(this.input.val());
+		this._update();
+		this.input.blur(); // Grab latest value of input, in case it changed
+		
+		
+			
 		
 		// TOO FAR RIGHT TRAP
 		if ( (pickWinLeft + pickWinWidth) > $(document).width() ) {
