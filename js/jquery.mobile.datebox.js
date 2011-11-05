@@ -34,6 +34,7 @@
 		titleDialogLabel: false,
 		meridiemLetters: ['AM', 'PM'],
 		timeFormats: { '12': 'gg:ii AA', '24': 'HH:ii' },
+		durationFormat: 'DD ddd, hh:ii:ss',
 		timeOutput: false,
 		rolloverMode: { 'm': true, 'd': true, 'h': true, 'i': true, 's': true },
 		
@@ -260,6 +261,7 @@
 
 		if ( o.mode === 'durationbox' ) {
 			adv = o.durationFormat;
+			console.log(adv);
 			adv = adv.replace(/ddd/g, '.+?');
 			adv = adv.replace(/DD|ss|hh|ii/g, '([0-9Dhis]+)');
 			adv = RegExp('^' + adv + '$');

@@ -22,7 +22,20 @@
 
 	<script type="text/javascript">
 		$(document).delegate('#picklang', 'change', function() {
-			$('#lang').data('datebox').options.useLang = $('#picklang').val();
+			$('#lang1').data('datebox').options.useLang = $('#picklang').val();
+			$('#lang1').data('datebox').hardreset();
+			$('#lang2').data('datebox').options.useLang = $('#picklang').val();
+			$('#lang2').data('datebox').hardreset();
+			$('#lang3').data('datebox').options.useLang = $('#picklang').val();
+			$('#lang3').data('datebox').hardreset();
+			$('#lang4').data('datebox').options.useLang = $('#picklang').val();
+			$('#lang4').data('datebox').hardreset();
+			$('#lang5').data('datebox').options.useLang = $('#picklang').val();
+			$('#lang5').data('datebox').hardreset();
+			$('#lang6').data('datebox').options.useLang = $('#picklang').val();
+			$('#lang6').data('datebox').hardreset();
+			$('#lang7').data('datebox').options.useLang = $('#picklang').val();
+			$('#lang7').data('datebox').hardreset();
 		});
 	</script>
 	
@@ -45,8 +58,32 @@
 			</select>
 		</div>
 		<div data-role="fieldcontain">
-			<label for="lang">Slide</label>
-			<input name="lang" type="text" data-role="datebox" data-options='{"mode": "slidebox"}' id="lang" />
+			<label for="lang1">calbox</label>
+			<input name="lang1" type="text" data-role="datebox" data-options='{"mode": "calbox"}' id="lang1" />
+		</div>
+		<div data-role="fieldcontain">
+			<label for="lang2">datebox</label>
+			<input name="lang2" type="text" data-role="datebox" data-options='{"mode": "datebox"}' id="lang2" />
+		</div>
+		<div data-role="fieldcontain">
+			<label for="lang3">flipbox</label>
+			<input name="lang3" type="text" data-role="datebox" data-options='{"mode": "flipbox"}' id="lang3" />
+		</div>
+		<div data-role="fieldcontain">
+			<label for="lang4">slidebox</label>
+			<input name="lang4" type="text" data-role="datebox" data-options='{"mode": "slidebox"}' id="lang4" />
+		</div>
+		<div data-role="fieldcontain">
+			<label for="lang5">timebox</label>
+			<input name="lang5" type="text" data-role="datebox" data-options='{"mode": "timebox"}' id="lang5" />
+		</div>
+		<div data-role="fieldcontain">
+			<label for="lang6">timeflipbox</label>
+			<input name="lang6" type="text" data-role="datebox" data-options='{"mode": "timeflipbox"}' id="lang6" />
+		</div>
+		<div data-role="fieldcontain">
+			<label for="lang7">durationbox</label>
+			<input name="lang7" type="text" data-role="datebox" data-options='{"mode": "durationbox"}' id="lang7" />
 		</div>
 		
 				
