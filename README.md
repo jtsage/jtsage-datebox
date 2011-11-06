@@ -26,6 +26,7 @@ DateBox Features
   * Configurable Month names
   * Configurable Day Names
   * All labels and buttons configuratble
+  * Multiple languages can be loaded at once for dynamic reconfigure
 
 * Supports data-limiting of input:
   * Configurable maximum and minimum years (android mode)
@@ -39,11 +40,6 @@ DateBox Features
 
 Suggested Use
 -------------
-
-	// BEFORE loading jQM
-	$( document ).bind( "mobileinit", function(){
-		$.mobile.page.prototype.options.degradeInputs.date = 'text';
-	});
 
 #### No Option Overrides:
 		
@@ -88,14 +84,17 @@ The following options **can** be changed after initialization (i.e. in per-page 
   * Dialog mode forcing (either on or off)
 * Any of the calendar of slide mode themes (except the base theme) & disabledDayColor & calWeekModeHighLight
 * closeCallback
-  
+* These require throwing the 'reset' trigger method, or hardreset() function:
+  * Any of the labels on buttons / window titles.
+  * Any of the themes on the datebox or time modes.
+  * Any of the options related to inline display
+  * timeFormat, fieldsOrder
+
 The following options happen to early, and cannot be changed post-initialization by script events.
 
 * Operation mode
-* Any of the labels on buttons / window titles.
-* Any of the themes on the datebox or time modes.
-* Any of the options related to inline display
-* noButtonFocusMode, useModal, zindex, noAnimation, timeFormat, fieldsOrder
+* useInline or useInlineBlind
+* noButtonFocusMode, useModal, zindex, noAnimation
 
 
   
