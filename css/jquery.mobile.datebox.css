@@ -4,11 +4,15 @@
  
 /* Base input element Styles */
 
-.ui-input-datebox { width: 95%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; width: 95%; padding-top: 0px; padding-bottom: 0px; padding-right: .4em; }
-.ui-input-datebox input { width: 70% !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }
+.ui-input-datebox { width: 97%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; padding-top: 0px; padding-bottom: 0px; } 
+.ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }
+.ui-input-datebox input { width: 90% !important; padding: 0 !important; margin-top: 5px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }
 .ui-input-datebox input:focus { outline: none;}
 .ui-input-datebox .ui-btn-text {display: none;}
 
+@media all and (max-width: 650px){ /* Fix internal input element at low size */
+  .ui-input-datebox input { width: 80% !important; }
+}
 @media all and (min-width: 450px){
   .ui-input-datebox { width: 60%; display: inline-block; zoom:1; *display: inline; }
 }
@@ -33,7 +37,7 @@
 .ui-datebox-scontrols { text-align: center; }
 .ui-datebox-scontrols div { width: 55px; text-align: center; display: inline-block; zoom: 1; *display: inline;}
 .ui-datebox-scontrols .ui-datebox-sinput { width: 68px; }
-.ui-datebox-scontrols .ui-datebox-sinput input { width: 48px; text-align: center; }
+.ui-datebox-scontrols .ui-datebox-sinput input { width: 48px; text-align: center; margin-left: 3px; }
 .ui-datebox-input { width: 74px !important; margin-left: 1px; margin-right: 1px; text-align: center !important; display: inline-block !important; zoom:1; *display: inline; }
 
 /* Slide Mode Styles */
