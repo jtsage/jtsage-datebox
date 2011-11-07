@@ -460,6 +460,10 @@
 			testDate = new Date();
 			if ( self.theDate < testDate ) { self.theDate = testDate; }
 		}
+		if ( o.beforeToday !== false ) {
+			testDate = new Date();
+			if ( self.theDate > testDate ) { self.theDate = testDate; }
+		}
 		if ( o.maxDays !== false ) {
 			testDate = new Date();
 			testDate.setDate(testDate.getDate() + o.maxDays);
