@@ -160,6 +160,33 @@
 		// Get the first DAY of the month (0-6)
 		return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
 	},
+	_getRecDays: function(year, month, day) {
+		// Get the recurring Days of a week for 'year'-'month'
+		// (pass nulls for whatever the internal year and month are)
+		if ( month === null ) { month = this.theDate.getMonth()+1; }
+		if ( year === null ) { year = this.theDate.getFullYear(); }
+		
+		var self = this,
+			tempDate = new Date(year, month-1, 1, 0, 0, 0, 0),
+			dates = [], i;
+		
+		if ( tempDate.getDay() > day ) {
+			tempDate.setDate(8 - (tempDate.getDay() - day));
+		} else if ( tempDate.getDay() < day ) {
+			tempDate.setDate(1 + (day - tempDate.getDay()));
+		}
+		
+		dates[0] = tempDate.getFullYear() + '-' + self._zeroPad(tempDate.getMonth()+1) + '-' + self._zeroPad(tempDate.getDate());
+		
+		for ( i = 1; i<6; i++ ) {
+			tempDate.setDate(tempDate.getDate() + 7);
+			if ( (tempDate.getMonth()+1) === month ) {
+				dates[i] = tempDate.getFullYear() + '-' + self._zeroPad(tempDate.getMonth()+1) + '-' + self._zeroPad(tempDate.getDate());
+			}
+		}
+		
+		return dates;
+	},
 	_getLastDate: function(date) {
 		// Get the last DATE of the month (28,29,30,31)
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth(), 32)).getDate();
