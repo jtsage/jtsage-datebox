@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demo</title>
 	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" rel="stylesheet" type="text/css" />
@@ -20,6 +20,7 @@
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.jp.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.el.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.en-US.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.pt-BR.js"></script>
 
 	<script type="text/javascript">
 		$(document).delegate('#picklang', 'change', function() {
@@ -37,6 +38,8 @@
 			$('#lang6').data('datebox').hardreset();
 			$('#lang7').data('datebox').options.useLang = $('#picklang').val();
 			$('#lang7').data('datebox').hardreset();
+			$('#lang8').data('datebox').options.useLang = $('#picklang').val();
+			$('#lang8').data('datebox').hardreset();
 		});
 	</script>
 	
@@ -58,6 +61,7 @@
 				<option value="fr">[fr] French</option>
 				<option value="jp">[jp] Japanese</option>
 				<option value="sv">[sv] Swedish</option>
+				<option value="sv">[pt-BR] Portuguese</option>
 			</select>
 		</div>
 		<div data-role="fieldcontain">
@@ -88,7 +92,10 @@
 			<label for="lang7">durationbox</label>
 			<input name="lang7" type="text" data-role="datebox" data-options='{"mode": "durationbox"}' id="lang7" />
 		</div>
-		
+		<div data-role="fieldcontain">
+			<label for="lang8">durationbox</label>
+			<input name="lang8" type="text" data-role="datebox" data-options='{"mode": "durationbox"}' id="lang8" />
+		</div>
 				
 		
 		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
