@@ -60,7 +60,7 @@
 			</ul></li>
 			<li><h3>Date Formats</h3><ul data-inset="true">
 				<li data-role="list-divider">Output Format</li>
-				<li><h3>dateFormat</h3><p><strong>Purpose:</strong>Format the returned date<br /><strong>Default:</strong> 'YYYY-MM-DD' for dates<br /><strong>Modes:</strong> all date
+				<li><h3>dateFormat</h3><p><em>DEPRECIATED/CHANGED: Part of the i8n Configuration now</em><strong>Purpose:</strong>Format the returned date (Note: this is an override of the i8n provided format)<br /><strong>Default:</strong> 'YYYY-MM-DD' for dates<br /><strong>Modes:</strong> all date
 				<pre><code>	YYYY: 4 Digit Year
 	MM : 2 Digit Month (zero pad)
 	mm : 1 or 2 Digit Month
@@ -79,7 +79,7 @@
 	ss : 2 Digit Seconds (zero pad)
 	aa : Lower case meridiem letters
 	AA : Upper case meridiem letters</code></pre></p></li>
-				<li><h3>headerFormat</h3><p><strong>Purpose:</strong>Format the date header<br /><strong>Default:</strong> 'ddd, mmm dd, YYYY'<br /><strong>Modes:</strong> android, slide
+				<li><h3>headerFormat</h3><p><em>DEPRECIATED: Part of the i8n Configuration now</em><br /><strong>Purpose:</strong>Format the date header<br /><strong>Default:</strong> 'ddd, mmm dd, YYYY'<br /><strong>Modes:</strong> android, slide
 				<pre><code>	YYYY: 4 Digit Year
 	MM : 2 Digit Month (zero pad)
 	mm : 1 or 2 Digit Month
@@ -98,7 +98,7 @@
 	ss : 2 Digit Seconds (zero pad)
 	aa : Lower case meridiem letters
 	AA : Upper case meridiem letters</code></pre></p></li>
-				<li><h3>timeOutput</h3><p><strong>Purpose:</strong>Format the returned time<br /><strong>Default:</strong> 'GG:ii AA' or 'HH:ii' dependant on timeFormat<br /><strong>Modes:</strong> timebox, timeflipbox
+				<li><h3>timeOutput</h3><p><em>DEPRECIATED: Part of the i8n Configuration now</em><strong>Purpose:</strong>Format the returned time<br /><strong>Default:</strong> 'GG:ii AA' or 'HH:ii' dependant on timeFormat<br /><strong>Modes:</strong> timebox, timeflipbox
 				<pre><code>	YYYY: 4 Digit Year
 	MM : 2 Digit Month (zero pad)
 	mm : 1 or 2 Digit Month
@@ -126,8 +126,8 @@
 				<li><h3>durationShort</h3><p><strong>OPTION REMOVED</strong></p></li>
 				<li><h3>durationNoDays</h3><p><strong>OPTION REMOVED</strong></p></li>
 				<li data-role="list-divider">Input Format</li>
-				<li><h3>timeFormat</h3><p><strong>MOVED! This is now in the i8n settings! Purpose:</strong>Set either a 12 or 24 hour clock<br /><strong>Default:</strong> 24<br /><strong>Modes:</strong> time</p></li>
-				<li><h3>fieldsOrder</h3><p><strong>Purpose:</strong>Define the order of the fields<br /><strong>Default:</strong> android: ['m', 'd', 'y'], slide: ['y', 'm', 'd'], time: ['h', 'i', 'a'] ('a' only displays on 12 hour format)<br /><strong>Modes:</strong> android, time, slide<br />
+				<li><h3>timeFormat</h3><p><em>DEPRECIATED: Part of the i8n Configuration now</em><strong>Purpose:</strong>Set either a 12 or 24 hour clock<br /><strong>Default:</strong> 24<br /><strong>Modes:</strong> time</p></li>
+				<li><h3>fieldsOrder</h3><p><strong>Purpose:</strong>Define the order of the fields (as an override.  Otherwise, from the i8n settings)<br /><strong>Default:</strong> android: ['m', 'd', 'y'], slide: ['y', 'm', 'd'], time: ['h', 'i', 'a'] ('a' only displays on 12 hour format)<br /><strong>Modes:</strong> android, time, slide<br />
 				<pre><code>	y : Year
 	m : Month
 	d : Day of Month (date)

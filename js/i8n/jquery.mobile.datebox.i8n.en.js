@@ -21,11 +21,12 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
 		monthsOfYearShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
 		durationLabel: ['Days','Hours','Minutes','Seconds'],
 		durationDays: ['Day','Days'],
-		timeFormat: 12,
+		timeFormat: 24,
 		dateFieldOrder: ['m', 'd', 'y'],
 		timeFieldOrder: ['h', 'i', 'a'],
 		slideFieldOrder: ['y', 'm', 'd'],
 		headerFormat: 'ddd, mmm dd, YYYY',
+		dateFormat: 'YYYY-MM-DD',
 		isRTL: false
 	}
 });

@@ -31,11 +31,12 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
 		monthsOfYearShort: ['1&#26376;','2&#26376;','3&#26376;','4&#26376;','5&#26376;','6&#26376;','7&#26376;','8&#26376;','9&#26376;','10&#26376;','11&#26376;','12&#26376;'],
 		durationLabel: ['&#26085;','&#26178;&#38291;','&#20998;','&#31186;'], /* ['日','時間','分','秒'] */
 		durationDays: ['&#26085;','&#26085;'], /* ['日','日'] */
-		timeFormat: 12,
+		timeFormat: 24,
 		dateFieldOrder: ['m', 'd', 'y'],
 		timeFieldOrder: ['h', 'i', 'a'],
 		slideFieldOrder: ['y', 'm', 'd'],
 		headerFormat: 'ddd, mmm dd, YYYY',
+		dateFormat: 'YYYY/mm/dd',
 		isRTL: false
 	}
 });

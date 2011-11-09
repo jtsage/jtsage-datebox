@@ -58,7 +58,9 @@
 		fieldsOrder: false,
 		durationOrder: ['d', 'h', 'i', 's'],
 		slideFieldOrder: ['y', 'm', 'd'],
-		dateFormat: 'YYYY-MM-DD',
+		defaultDateFormat: 'YYYY-MM-DD',
+		dateFormat: false,
+		dateOutput: false,
 		minuteStep: 1,
 		calTodayButton: false,
 		calWeekMode: false,
@@ -99,6 +101,7 @@
 				headerFormat: 'ddd, mmm dd, YYYY',
 				dateFieldOrder: ['m', 'd', 'y'],
 				timeFieldOrder: ['h', 'i', 'a'],
+				dateFormat: 'YYYY-MM-DD',
 				isRTL: false
 			}
 		}
@@ -227,7 +230,7 @@
 	},
 	_formatDate: function(date) {
 		// Shortcut function to return dateFormat date/time format
-		return this._formatter(this.options.dateFormat, date);
+		return this._formatter(this.options.dateOutput, date);
 	},
 	_isoDate: function(y,m,d) {
 		// Return an ISO 8601 date (yyyy-mm-dd)
@@ -316,7 +319,7 @@
 				return new Date((exp_temp*1000));
 			}
 		} else {
-			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) { adv = o.timeOutput; } else { adv = o.dateFormat; }
+			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) { adv = o.timeOutput; } else { adv = o.dateOutput; }
 			
 			adv = adv.replace(/dddd|mmmm/g, '(.+?)');
 			adv = adv.replace(/ddd|SS/g, '.+?');
@@ -329,7 +332,7 @@
 			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
 				exp_format = adv.exec(o.timeOutput); // If time, use timeOutput as expected format
 			} else {
-				exp_format = adv.exec(o.dateFormat); // If date, use dateFormat as expected format
+				exp_format = adv.exec(o.dateOutput); // If date, use dateFormat as expected format
 			}
 			
 			if ( o.debug ) { // Legacy debug code - you probably never need this.
@@ -1089,10 +1092,6 @@
 			o.lang[o.useLang].headerFormat = ' ';
 		}
 		
-		// Select the appropriate output format if not otherwise specified
-		if ( o.timeOutput === false ) {
-			o.timeOutput = o.timeFormats[o.lang[o.useLang].timeFormat];
-		}
 		if ( o.fieldsOrder === false ) {
 			switch (o.mode) {
 				case 'timebox':
@@ -1311,6 +1310,19 @@
 		self.calNoNext = false;
 		self.calNoPrev = false;
 		self.setButton = false;
+		
+		/* Do the Date / Time Format */
+		o.timeOutput = o.timeFormats[o.lang[o.useLang].timeFormat];
+		
+		if ( o.dateFormat !== false ) {
+			o.dateOutput = o.dateFormat;
+		} else {
+			if ( 'dateFormat' in o.lang[o.useLang] ) {
+				o.dateOutput = o.lang[o.useLang].dateFormat;
+			} else {
+				o.dateOutput = o.defaultDateFormat;
+			}
+		}
 		
 		self.pickerContent.html('');
 			
@@ -1691,6 +1703,44 @@
 		}
 		/* END:CALBOX */
 	},
+	_buttonsTitle: function () {
+		var self = this,
+			o = this.options;
+			
+		// FIX THE DIALOG TITLE LABEL
+		if ( o.titleDialogLabel === false ) {
+			switch (o.mode) {
+				case "timebox":
+				case "timeflipbox":
+					self.pickPageTitle.html(o.lang[o.useLang].titleTimeDialogLabel);
+					break;
+				default:
+					self.pickPageTitle.html(o.lang[o.useLang].titleDateDialogLabel);
+					break;
+			}
+		} else {
+			self.pickPageTitle.html(o.titleDialogLable);
+		}
+		
+		// FIX THE SET BUTTON
+		switch (o.mode) {
+			case "timebox":
+			case "timeflipbox":
+				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setTimeButtonLabel);
+				break;
+			case "durationbox":
+				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDurationButtonLabel);
+				break;
+			case "calbox":
+				if ( self.setButton !== false ) {
+					self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].calTodayButtonLabel);
+				}
+				break;
+			default:
+				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDateButtonLabel);
+				break;
+		}
+	},
 	_buildPage: function () {
 		// Build the CONSTANT controls (these never change)
 		var self = this,
@@ -1734,6 +1784,7 @@
 		// Public shortcut to rebuild all internals
 		this._buildInternals();
 		this.refresh();
+		this._buttonsTitle();
 	},
 	refresh: function() {
 		// Pulic shortcut to _update, with an extra hook for inline mode.
@@ -1759,39 +1810,7 @@
 			transition = o.noAnimation ? 'none' : o.transition,
 			activePage;
 		
-		// FIX THE DIALOG TITLE LABEL
-		if ( o.titleDialogLabel === false ) {
-			switch (o.mode) {
-				case "timebox":
-				case "timeflipbox":
-					self.pickPageTitle.html(o.lang[o.useLang].titleTimeDialogLabel);
-					break;
-				default:
-					self.pickPageTitle.html(o.lang[o.useLang].titleDateDialogLabel);
-					break;
-			}
-		} else {
-			self.pickPageTitle.html(o.titleDialogLable);
-		}
-		
-		// FIX THE SET BUTTON
-		switch (o.mode) {
-			case "timebox":
-			case "timeflipbox":
-				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setTimeButtonLabel);
-				break;
-			case "durationbox":
-				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDurationButtonLabel);
-				break;
-			case "calbox":
-				if ( self.setButton !== false ) {
-					self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].calTodayButtonLabel);
-				}
-				break;
-			default:
-				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDateButtonLabel);
-				break;
-		}
+		self._buttonsTitle();
 		
 		// Open the controls
 		if ( this.options.useInlineBlind ) {
@@ -1804,9 +1823,6 @@
 		this.theDate = this._makeDate(this.input.val());
 		this._update();
 		this.input.blur(); // Grab latest value of input, in case it changed
-		
-		
-			
 		
 		// TOO FAR RIGHT TRAP
 		if ( (pickWinLeft + pickWinWidth) > $(document).width() ) {
