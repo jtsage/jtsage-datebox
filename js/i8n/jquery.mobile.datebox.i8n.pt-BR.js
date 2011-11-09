@@ -1,3 +1,12 @@
+/*
+ * jQuery Mobile Framework : plugin to provide a date and time picker.
+ * Copyright (c) JTSage
+ * CC 3.0 Attribution.  May be relicensed without permission/notifcation.
+ * https://github.com/jtsage/jquery-mobile-datebox
+ *
+ * Translation by: Rodrigo Vieira <rodrigovieira1994@gmail.com>
+ */
+
 jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
     'pt-BR': {
         setDateButtonLabel: 'Informar data',
