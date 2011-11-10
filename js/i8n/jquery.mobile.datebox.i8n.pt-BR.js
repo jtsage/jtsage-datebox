@@ -21,7 +21,7 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
         monthsOfYearShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
         durationLabel: ['Dias','Horas','Minutos','Segundos'],
         durationDays: ['Dia','Dias'],
-        timeFormat: 12,
+        timeFormat: 24,
         dateFieldOrder: ['d', 'm', 'y'],
         timeFieldOrder: ['h', 'i', 'a'],
         slideFieldOrder: ['y', 'm', 'd'],
