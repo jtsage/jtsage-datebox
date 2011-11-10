@@ -56,6 +56,7 @@
 		nestedBox: false,
 		
 		fieldsOrder: false,
+		fieldsOrderOverride: false,
 		durationOrder: ['d', 'h', 'i', 's'],
 		slideFieldOrder: ['y', 'm', 'd'],
 		defaultDateFormat: 'YYYY-MM-DD',
@@ -1092,20 +1093,6 @@
 			o.lang[o.useLang].headerFormat = ' ';
 		}
 		
-		if ( o.fieldsOrder === false ) {
-			switch (o.mode) {
-				case 'timebox':
-				case 'timeflipbox':
-					o.fieldsOrder = o.lang[o.useLang].timeFieldOrder; 
-					break;
-				case 'slidebox':
-					o.fieldsOrder = o.lang[o.useLang].slideFieldOrder; 
-					break;
-				default:
-					o.fieldsOrder = o.lang[o.useLang].dateFieldOrder; 
-			}
-		}
-		
 		// For focus mode, disable button, and bind click of input element and it's parent	
 		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
@@ -1310,6 +1297,23 @@
 		self.calNoNext = false;
 		self.calNoPrev = false;
 		self.setButton = false;
+		
+		if ( o.fieldsOrderOverride === false ) {
+			switch (o.mode) {
+				case 'timebox':
+				case 'timeflipbox':
+					o.fieldsOrder = o.lang[o.useLang].timeFieldOrder; 
+					break;
+				case 'slidebox':
+					o.fieldsOrder = o.lang[o.useLang].slideFieldOrder; 
+					break;
+				default:
+					o.fieldsOrder = o.lang[o.useLang].dateFieldOrder; 
+			}
+		} else {
+			o.fieldsOrder = o.fieldsOrderOverride;
+		}
+		console.log(o.fieldsOrder);
 		
 		/* Do the Date / Time Format */
 		o.timeOutput = o.timeFormats[o.lang[o.useLang].timeFormat];
