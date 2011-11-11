@@ -58,7 +58,6 @@
 		fieldsOrder: false,
 		fieldsOrderOverride: false,
 		durationOrder: ['d', 'h', 'i', 's'],
-		slideFieldOrder: ['y', 'm', 'd'],
 		defaultDateFormat: 'YYYY-MM-DD',
 		dateFormat: false,
 		dateOutput: false,
@@ -102,6 +101,7 @@
 				headerFormat: 'ddd, mmm dd, YYYY',
 				dateFieldOrder: ['m', 'd', 'y'],
 				timeFieldOrder: ['h', 'i', 'a'],
+				slideFieldOrder: ['y', 'm', 'd'],
 				dateFormat: 'YYYY-MM-DD',
 				isRTL: false
 			}
