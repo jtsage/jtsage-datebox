@@ -1926,6 +1926,10 @@
 		this.element.parent().removeClass("ui-disabled");
 		this.options.disabled = false;
 		this.input.trigger('datebox', {'method':'enable'});
+	},
+	_setOption: function( key, value ) {
+		$.Widget.prototype._setOption.apply( this, arguments );
+		this._update();
 	}
 	
   });
