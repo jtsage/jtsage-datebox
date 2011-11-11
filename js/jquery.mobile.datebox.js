@@ -60,6 +60,7 @@
 		durationOrder: ['d', 'h', 'i', 's'],
 		defaultDateFormat: 'YYYY-MM-DD',
 		dateFormat: false,
+		timeFormatOverride: false,
 		dateOutput: false,
 		minuteStep: 1,
 		calTodayButton: false,
@@ -292,7 +293,6 @@
 
 		if ( o.mode === 'durationbox' ) {
 			adv = o.durationFormat;
-			console.log(adv);
 			adv = adv.replace(/ddd/g, '.+?');
 			adv = adv.replace(/DD|ss|hh|ii/g, '([0-9Dhis]+)');
 			adv = RegExp('^' + adv + '$');
@@ -321,7 +321,6 @@
 			}
 		} else {
 			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) { adv = o.timeOutput; } else { adv = o.dateOutput; }
-			
 			adv = adv.replace(/dddd|mmmm/g, '(.+?)');
 			adv = adv.replace(/ddd|SS/g, '.+?');
 			adv = adv.replace(/mmm/g, '(.+?)');
@@ -589,7 +588,7 @@
 				if ( i !== 0 ) { self.theDate.setMinutes(self.theDate.getMinutes() - i); }
 			}
 			self.pickerMins.val(self._zeroPad(self.theDate.getMinutes()));
-			if ( o.lang[o.useLang].timeFormat === 12 ) { // Handle meridiems
+			if ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) { // Handle meridiems
 				if ( self.theDate.getHours() > 11 ) {
 					self.pickerMeri.val(o.meridiemLetters[1]);
 					if ( self.theDate.getHours() === 12 ) {
@@ -677,7 +676,7 @@
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -357px':'') })
 								.attr('data-offset',i)
 								.attr('data-theme', cTheme)
-								.html("<span>"+( ( o.lang[o.useLang].timeFormat === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() : ( ( testDate.getHours() === 12 ) ? '12' : (testDate.getHours()-12) ) ) ) : testDate.getHours() )+"</span>")
+								.html("<span>"+( ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12  ) ? ( ( testDate.getHours() === 0 ) ? '12' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() : ( ( testDate.getHours() === 12 ) ? '12' : (testDate.getHours()-12) ) ) ) : testDate.getHours() )+"</span>")
 								.appendTo(thisRow);
 							if ( tmpVal === true ) { tmpVal = false; }
 						}
@@ -821,7 +820,7 @@
 							$("<div>", { 'class' : 'ui-datebox-slidehour ui-corner-all ui-btn-up-'+cTheme })
 								.attr('data-offset',i)
 								.attr('data-theme', cTheme)
-								.html(( ( o.lang[o.useLang].timeFormat === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() + '<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() === 12 ) ? '12<span class="ui-datebox-slidewday">PM</span>' : (testDate.getHours()-12) + '<span class="ui-datebox-slidewday">PM</span>') ) ) : testDate.getHours() ))
+								.html(( ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() + '<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() === 12 ) ? '12<span class="ui-datebox-slidewday">PM</span>' : (testDate.getHours()-12) + '<span class="ui-datebox-slidewday">PM</span>') ) ) : testDate.getHours() ))
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
 								.bind('vclick', function(e) { e.preventDefault(); self._offset('h', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
@@ -1274,7 +1273,7 @@
 				case 'h':
 					newHour = parseInt(item.val(),10);
 					if ( newHour === 12 ) {
-						if ( o.lang[o.useLang].timeFormat === 12 && self.pickerMeri.val() === o.meridiemLetters[0] ) { newHour = 0; }
+						if ( ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) && self.pickerMeri.val() === o.meridiemLetters[0] ) { newHour = 0; }
 					}
 					self.theDate.setHours(newHour);
 					break;
@@ -1313,10 +1312,13 @@
 		} else {
 			o.fieldsOrder = o.fieldsOrderOverride;
 		}
-		console.log(o.fieldsOrder);
 		
 		/* Do the Date / Time Format */
-		o.timeOutput = o.timeFormats[o.lang[o.useLang].timeFormat];
+		if ( o.timeFormatOverride === false ) {
+			o.timeOutput = o.timeFormats[o.lang[o.useLang].timeFormat];
+		} else {
+			o.timeOutput = o.timeFormats[o.timeFormatOverride];
+		}
 		
 		if ( o.dateFormat !== false ) {
 			o.dateOutput = o.dateFormat;
@@ -1373,7 +1375,7 @@
 				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'h') { pickerHour.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'i') { pickerMins.appendTo(controlsInput); }
-				if (o.fieldsOrder[x] === 'a' && o.lang[o.useLang].timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'a' && ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) ) { pickerMeri.appendTo(controlsInput); }
 			}
 			
 			if ( o.swipeEnabled ) { // Drag and drop support
@@ -1401,7 +1403,7 @@
 			}
 			
 			for( x=0; x<self.options.fieldsOrder.length; x++ ) { // Generate the plus and minus buttons, use fieldsOrder again
-				if ( o.fieldsOrder[x] !== 'a' || o.lang[o.useLang].timeFormat === 12 ) {
+				if ( o.fieldsOrder[x] !== 'a' || o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) {
 					linkdiv.clone()
 						.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 						.attr('data-field', o.fieldsOrder[x])
@@ -1586,7 +1588,7 @@
 				if (o.fieldsOrder[x] === 'd') { pickerDay.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'h') { pickerHour.appendTo(controlsInput); }
 				if (o.fieldsOrder[x] === 'i') { pickerMins.appendTo(controlsInput); }
-				if (o.fieldsOrder[x] === 'a' && o.lang[o.useLang].timeFormat === 12 ) { pickerMeri.appendTo(controlsInput); }
+				if (o.fieldsOrder[x] === 'a' && ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) ) { pickerMeri.appendTo(controlsInput); }
 			}
 			
 			if ( o.swipeEnabled ) { // Drag and drop support
