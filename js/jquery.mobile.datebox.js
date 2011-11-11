@@ -1942,7 +1942,11 @@
   // Automatically bind to data-role='datebox' items.
   $( document ).bind( "pagecreate create", function( e ){
 	$( document ).trigger( "dateboxbeforecreate" );
-	$( ":jqmData(role='datebox')", e.target ).datebox();
+	$( ":jqmData(role='datebox')", e.target ).each(function() {
+		if ( typeof($(this).data('datebox')) === "undefined" ) {
+			$(this).datebox();
+		}
+	});
   });
 	
 })( jQuery );
