@@ -1938,7 +1938,7 @@
 	});
   });
   // Automatically bind to data-role='datebox' items.
-  $( document ).bind( "pagecreate", function( e ){
+  $( document ).bind( "pagecreate create", function( e ){
 	$( document ).trigger( "dateboxbeforecreate" );
 	$( ":jqmData(role='datebox')", e.target ).datebox();
   });
