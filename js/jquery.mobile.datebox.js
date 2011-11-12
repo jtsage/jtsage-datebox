@@ -1930,7 +1930,7 @@
 	_setOption: function( key, value ) {
 		var noReset = ['minYear','maxYear','afterToday','beforeToday','maxDays','minDays','highDays','highDates','blackDays','blackDates','enableDates'];
 		$.Widget.prototype._setOption.apply( this, arguments );
-		if ( key in noReset ) {
+		if ( $.inArray(key, noReset) > -1 ) {
 			this._refresh();
 		} else {
 			this.hardreset();
