@@ -60,12 +60,12 @@ Suggested Use
 Available Options
 -----------------
 
-Please see the full api documantation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox/demos/api/matrix.html)
+Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox/demos/api/matrix.html)
 
 Runtime Operation (Scripting / Extending)
 -----------------------------------------
 
-Please see the full api documantation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox/demos/api/events.html)
+Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox/demos/api/events.html)
 
 ### Just-In-Time options updating
 
