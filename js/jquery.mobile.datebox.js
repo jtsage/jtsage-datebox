@@ -1910,7 +1910,7 @@
 		}
 		self.focusedEl.removeClass('ui-focus');
 		
-		if ( self.options.closeCallback !== false ) { callback = new Function(self.options.closeCallback); callback(); }
+		if ( self.options.closeCallback !== false ) { callback = new Function(self.options.closeCallback(self.theDate, self)); callback(); }
 	},
 	disable: function(){
 		// Disable the element
