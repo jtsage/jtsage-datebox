@@ -20,6 +20,14 @@ dt { font-weight: bold; margin: 2em 0 .5em; }
 dt code, dd code { font-size:1.3em; line-height:150%; }
 pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
 
+.options h3 { display: inline; }
+.options p { margin-top: .3em; margin-left: 2em;}
+.options li p.desc { font-size: 1.1em; margin-left: .6em; }
+.options pre { font-weight: normal; }
+dl.option dt { display: inline; width: 60px; margin-left: 30px; }
+dl.option dd { display: inline-block; width: 100px; font-style: italic; margin-left: 10px;}
+dl.option { float: right; clear: right;}
+
 #jqm-homeheader img { width: 235px; }
 
 .ui-header .jqm-home { top:0.65em; }
@@ -238,3 +246,6 @@ p.intro strong {
         width: 60%;
     }
 }
+
+
+
