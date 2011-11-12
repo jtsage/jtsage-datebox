@@ -1929,7 +1929,7 @@
 	},
 	_setOption: function( key, value ) {
 		$.Widget.prototype._setOption.apply( this, arguments );
-		this._update();
+		this.hardreset();
 	}
 	
   });
