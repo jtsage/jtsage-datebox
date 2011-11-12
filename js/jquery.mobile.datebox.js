@@ -1928,8 +1928,13 @@
 		this.input.trigger('datebox', {'method':'enable'});
 	},
 	_setOption: function( key, value ) {
+		var noReset = ['minYear','maxYear','afterToday','beforeToday','maxDays','minDays','highDays','highDates','blackDays','blackDates','enableDates'];
 		$.Widget.prototype._setOption.apply( this, arguments );
-		this.hardreset();
+		if ( key in noReset ) {
+			this._refresh();
+		} else {
+			this.hardreset();
+		}
 	}
 	
   });
