@@ -14,6 +14,7 @@
 		pickPageButtonTheme: 'a',
 		pickPageHighButtonTheme: 'e',
 		pickPageOHighButtonTheme: 'e',
+		pickPageOAHighButtonTheme: 'e',
 		pickPageODHighButtonTheme: 'e',
 		pickPageTodayButtonTheme: 'e',
 		pickPageSlideButtonTheme: 'd',
@@ -78,6 +79,7 @@
 		minDays: false,
 		highDays: false,
 		highDates: false,
+		highDatesAlt: false,
 		blackDays: false,
 		blackDates: false,
 		enableDates: false,
@@ -1001,6 +1003,8 @@
 								calmode.thisTheme = o.pickPageHighButtonTheme;
 							} else if ( o.calHighToday && calmode.today === calmode.highlightDay ) {
 								calmode.thisTheme = o.pickPageTodayButtonTheme;
+							} else if ( $.isArray(o.highDatesAlt) && ($.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, calmode.today), o.highDates) > -1 ) ) {
+								calmode.thisTheme = o.pickPageOAHighButtonTheme;
 							} else if ( $.isArray(o.highDates) && ($.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, calmode.today), o.highDates) > -1 ) ) {
 								calmode.thisTheme = o.pickPageOHighButtonTheme;
 							} else if ( $.isArray(o.highDays) && $.inArray(gridDay, o.highDays) > -1 ) {
