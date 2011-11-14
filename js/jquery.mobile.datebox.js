@@ -905,7 +905,7 @@
 				if ( o.lang[o.useLang].daysOfWeekShort.length < 8 ) { o.daysOfWeekShort = o.lang[o.useLang].daysOfWeekShort.concat(o.lang[o.useLang].daysOfWeekShort); }
 				calmode.weekDays = $("<div>", {'class':'ui-datebox-gridrow'}).appendTo(self.controlsSet);
 				for ( i=0; i<=6;i++ ) {
-					$("<div>"+o.lang[o.useLang].daysOfWeekShort[i+o.calStartDay]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(calmode.weekDays);
+					$("<div>"+o.lang[o.useLang].daysOfWeekShort[(i+o.calStartDay)%7]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(calmode.weekDays);
 				}
 			}
 			
