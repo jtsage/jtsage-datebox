@@ -1003,7 +1003,7 @@
 								calmode.thisTheme = o.pickPageHighButtonTheme;
 							} else if ( o.calHighToday && calmode.today === calmode.highlightDay ) {
 								calmode.thisTheme = o.pickPageTodayButtonTheme;
-							} else if ( $.isArray(o.highDatesAlt) && ($.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, calmode.today), o.highDates) > -1 ) ) {
+							} else if ( $.isArray(o.highDatesAlt) && ($.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, calmode.today), o.highDatesAlt) > -1 ) ) {
 								calmode.thisTheme = o.pickPageOAHighButtonTheme;
 							} else if ( $.isArray(o.highDates) && ($.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, calmode.today), o.highDates) > -1 ) ) {
 								calmode.thisTheme = o.pickPageOHighButtonTheme;
