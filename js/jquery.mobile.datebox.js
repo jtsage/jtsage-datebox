@@ -1,7 +1,7 @@
 /*
  * jQuery Mobile Framework : plugin to provide a date and time picker.
  * Copyright (c) JTSage
- * CC 3.0 Attribution.  May be relicensed without permission/notifcation.
+ * CC 3.0 Attribution.  May be relicensed without permission/notification.
  * https://github.com/jtsage/jquery-mobile-datebox
  */
 (function($, undefined ) {
@@ -1706,7 +1706,7 @@
 					
 			$.extend(self, {
 				controlsInput: controlsInput,
-				controlsSet: controlsSet,
+				controlsSet: controlsSet
 			});
 			
 			self.pickerContent.appendTo(self.thisPage);
@@ -1768,7 +1768,7 @@
 		
 		$.extend(self, {
 			pickerContent: pickerContent,
-			screen: screen,
+			screen: screen
 		});
 		
 		self._buildInternals();
