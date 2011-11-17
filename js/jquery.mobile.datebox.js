@@ -1779,6 +1779,8 @@
 			if ( o.useInlineHideInput ) { self.input.parent().hide(); }
 			self.input.trigger('change');
 			self.pickerContent.removeClass('ui-datebox-hidden');
+		} else if ( o.centerWindow && o.useInlineHideInput ) {
+			self.input.parent().hide();
 		}
 		if ( o.useInline ) {
 			self.pickerContent.addClass('ui-datebox-inline');
