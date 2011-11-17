@@ -8,7 +8,8 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		theme: 'c',
+		theme: false,
+		defaultTheme: 'c',
 		pickPageTheme: 'b',
 		pickPageInputTheme: 'e',
 		pickPageButtonTheme: 'a',
@@ -1049,7 +1050,11 @@
 		var self = this,
 			o = $.extend(this.options, this.element.data('options')),
 			input = this.element,
-			focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ o.theme +'"></div>').parent(),
+			thisTheme = ( o.theme === false && typeof($(self).attr('data-theme')) === 'undefined' ) ?
+				( ( typeof(input.parentsUntil('[data-theme]').parent().attr('data-theme')) === 'undefined' ) ?
+					o.defaultTheme : input.parentsUntil('[data-theme]').parent().attr('data-theme') )
+				: o.theme,
+			focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ thisTheme +'"></div>').parent(),
 			theDate = new Date(), // Internal date object, used for all operations
 			initDate = new Date(theDate.getTime()), // Initilization time - used for duration
 			
@@ -1084,10 +1089,12 @@
 			dragTarget = false,
 			dragThisDelta = 0;
 		
-        if(o.defaultPickerValue===false && o.defaultDate!==false){
-            o.defaultPickerValue = o.defaultDate;
-        }
-
+		o.theme = thisTheme;
+		
+		if ( o.defaultPickerValue===false && o.defaultDate!==false ) {
+			o.defaultPickerValue = o.defaultDate;
+		}
+		
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
 		
 		/* BUILD:MODE */
