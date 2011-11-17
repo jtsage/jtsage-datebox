@@ -3,8 +3,6 @@ jQuery-Mobile-DateBox
 
 DateBox is a jQuery-mobile based date and time picker.
 
-This is based in part on the work of Todd M. Horst, and his [Android Like Date Picker 2](http://toddmhorst.wordpress.com/2010/12/30/android-like-date-picker-with-jquery-mobile-2/)
-
 DateBox Features
 ----------------
 
@@ -37,6 +35,28 @@ DateBox Features
 * Automatically parses hand-entered or pre-entered dates on open
 
 * Auto-bind's to data-type='datebox', options are configurable via data-options.
+
+Special Thanks
+--------------
+
+This is based in part on the work of Todd M. Horst, and his [Android Like Date Picker 2](http://toddmhorst.wordpress.com/2010/12/30/android-like-date-picker-with-jquery-mobile-2/)
+
+Some features inspired by [mobiscroll](http://code.google.com/p/mobiscroll/) - Specifically the IOS-ish flipbox.
+
+An extra special thanks to [Phill Pafford](http://stackoverflow.com/users/93966/phill-pafford) for answering tons of questions about DateBox, and jQueryMobile in general on StackOverflow.
+
+And last but not least, thanks to all the [contributors](https://github.com/jtsage/jquery-mobile-datebox/contributors) to the project on github.
+
+Versioning
+----------
+
+DateBox uses the following version scheme:
+
+jquery.mobile.datebox-<jQueryMobile Major Version>.<jQueryMobile Minor Version>.<DateBox bugfix Version>.js
+
+With the speed that jQM has been moving, the bugfix version is usually either 0 or not included.
+
+When jQM releases a new version, the previous version of datebox should be considered retired - I have neither the time, nor the patience to backport features or bug fixes - however, I will do my best to keep whatever corresponds to the latest jQM up-to-date.
 
 Suggested Use
 -------------
