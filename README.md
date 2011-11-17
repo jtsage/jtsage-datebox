@@ -52,7 +52,7 @@ Versioning
 
 DateBox uses the following version scheme:
 
-jquery.mobile.datebox-<jQueryMobile Major Version>.<jQueryMobile Minor Version>.<DateBox bugfix Version>.js
+jquery.mobile.datebox-&lt;jQueryMobile Major Version&gt;.&lt;jQueryMobile Minor Version&gt;.&lt;DateBox bugfix Version&gt;.js
 
 With the speed that jQM has been moving, the bugfix version is usually either 0 or not included.
 
