@@ -20,6 +20,7 @@
 		pickPageTodayButtonTheme: 'e',
 		pickPageSlideButtonTheme: 'd',
 		pickPageFlipButtonTheme: 'b',
+		forceInheritTheme: false,
 		centerWindow: false,
 		calHighToday: true,
 		calHighPicked: true,
@@ -1068,8 +1069,8 @@
 				.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
 				.css({'vertical-align': 'middle', 'float': 'right'}),
 			thisPage = input.closest('.ui-page'),
-			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + o.pickPageTheme + "' >" +
-						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
+			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + (o.forceInheritTheme === true ) ? thisTheme : o.pickPageTheme + "' >" +
+						"<div data-role='header' data-backbtn='false'>" +
 							"<div class='ui-title'>PlaceHolder</div>"+
 						"</div>"+
 						"<div data-role='content'></div>"+
@@ -1090,6 +1091,12 @@
 			dragThisDelta = 0;
 		
 		o.theme = thisTheme;
+		
+		if ( o.forceInheritTheme ) {
+			o.pickPageTheme = thisTheme;
+			o.pickPageInputTheme = thisTheme;
+			o.pickPageButtonTheme = thisTheme;
+		}
 		
 		if ( o.defaultPickerValue===false && o.defaultDate!==false ) {
 			o.defaultPickerValue = o.defaultDate;
