@@ -1740,22 +1740,22 @@
 		}
 		
 		// FIX THE SET BUTTON
-		switch (o.mode) {
-			case "timebox":
-			case "timeflipbox":
-				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setTimeButtonLabel);
-				break;
-			case "durationbox":
-				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDurationButtonLabel);
-				break;
-			case "calbox":
-				if ( self.setButton !== false ) {
+		if ( self.setButton !== false ) {
+			switch (o.mode) {
+				case "timebox":
+				case "timeflipbox":
+					self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setTimeButtonLabel);
+					break;
+				case "durationbox":
+					self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDurationButtonLabel);
+					break;
+				case "calbox":
 					self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].calTodayButtonLabel);
-				}
-				break;
-			default:
-				self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDateButtonLabel);
-				break;
+					break;
+				default:
+					self.setButton.find('.ui-btn-text').html(o.lang[o.useLang].setDateButtonLabel);
+					break;
+			}
 		}
 	},
 	_buildPage: function () {
