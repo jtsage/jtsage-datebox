@@ -9,7 +9,7 @@
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.min.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
@@ -17,6 +17,7 @@
 
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+			//useModal: true
 			//forceInheritTheme: true
 			//useDialogForceTrue: true
 		});
@@ -31,7 +32,7 @@
 	<div data-role="content">
 		<div data-role="fieldcontain">
 			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" data-role="datebox" data-options='{"mode": "calbox"}' id="lang1" />
+			<input name="lang1" type="text" data-role="datebox" data-options='{"mode": "calbox", "useModal": true}' id="lang1" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="aa1">text comparison</label>

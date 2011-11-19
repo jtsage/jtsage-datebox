@@ -1069,8 +1069,8 @@
 				.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
 				.css({'vertical-align': 'middle', 'float': 'right'}),
 			thisPage = input.closest('.ui-page'),
-			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + (o.forceInheritTheme === true ) ? thisTheme : o.pickPageTheme + "' >" +
-						"<div data-role='header' data-backbtn='false'>" +
+			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + ((o.forceInheritTheme === false ) ? o.pickPageTheme : thisTheme ) + "' >" +
+						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
 							"<div class='ui-title'>PlaceHolder</div>"+
 						"</div>"+
 						"<div data-role='content'></div>"+
