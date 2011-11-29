@@ -1822,7 +1822,7 @@
 	open: function() {
 		// Call the open callback if provided. Additionally, if this
 		// returns falsy then the open of the dialog will be canceled
-		if (this.openCallback && !this.openCallback()) {
+		if (this.options.openCallback !== false && !this.options.openCallback()) {
 			return false;
 		}
 		
