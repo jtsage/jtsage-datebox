@@ -1743,7 +1743,7 @@
 					break;
 			}
 		} else {
-			self.pickPageTitle.html(o.titleDialogLable);
+			self.pickPageTitle.html(o.titleDialogLabel);
 		}
 		
 		// FIX THE SET BUTTON
