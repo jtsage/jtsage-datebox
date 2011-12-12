@@ -1823,8 +1823,15 @@
 	open: function() {
 		// Call the open callback if provided. Additionally, if this
 		// returns falsy then the open of the dialog will be canceled
-		if (this.options.openCallback !== false && !this.options.openCallback()) {
-			return false;
+		if (this.options.openCallback !== false ) {
+			if ( $.isFunction(this.options.openCallback()) && !this.options.openCallback()) {
+				return false;
+			} else {
+				callback = new Function(this.options.openCallback);
+				if ( !callback() ) {
+					return false;
+				}
+			}
 		}
 		
 		var self = this,
@@ -1881,7 +1888,7 @@
 				$(activePage).append(self.pickerContent);
 				$(activePage).append(self.screen);
 			}
-			if ( o.useModal ) { // If model, fade the background screen
+			if ( o.useModal === true ) { // If model, fade the background screen
 				self.screen.fadeIn('slow');
 			} else { // Else just unhide it since it's transparent
 				self.screen.removeClass('ui-datebox-hidden');
@@ -1931,7 +1938,13 @@
 		}
 		self.focusedEl.removeClass('ui-focus');
 		
-		if ( self.options.closeCallback !== false ) { callback = new Function(self.options.closeCallback); callback(self.theDate, self); }
+		if ( self.options.closeCallback !== false ) { 
+			if ( $.isFunction(self.options.closeCallback) ) {
+				self.options.closeCallback(self.theDate, self);
+			} else {
+				callback = new Function(self.options.closeCallback); callback(self.theDate, self); 
+			}
+		}
 	},
 	disable: function(){
 		// Disable the element
