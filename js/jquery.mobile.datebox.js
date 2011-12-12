@@ -8,6 +8,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
+		version: '1.0.0-2011121200', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -65,6 +66,7 @@
 		defaultDateFormat: 'YYYY-MM-DD',
 		dateFormat: false,
 		timeFormatOverride: false,
+		headerFormat: false,
 		dateOutput: false,
 		minuteStep: 1,
 		calTodayButton: false,
@@ -233,7 +235,11 @@
 	},
 	_formatHeader: function(date) {
 		// Shortcut function to return headerFormat date/time format
-		return this._formatter(this.options.lang[this.options.useLang].headerFormat, date);
+		if ( this.options.headerFormat !== false ) {
+			return this._formatter(this.options.headerFormat, date);
+		} else {
+			return this._formatter(this.options.lang[this.options.useLang].headerFormat, date);
+		}
 	},
 	_formatDate: function(date) {
 		// Shortcut function to return dateFormat date/time format
