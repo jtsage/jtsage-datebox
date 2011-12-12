@@ -33,6 +33,7 @@
 		swipeEnabled: true,
 		zindex: '500',
 		debug: false,
+		clickEvent: 'vclick',
 		
 		titleDialogLabel: false,
 		meridiemLetters: ['AM', 'PM'],
@@ -775,7 +776,7 @@
 								.attr('data-offset', i)
 								.attr('data-theme', cTheme)
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function(e) { e.preventDefault(); self._offset('y', parseInt($(this).attr('data-offset'),10)); })
+								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('y', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -792,7 +793,7 @@
 								.attr('data-theme', cTheme)
 								.html(o.lang[o.useLang].monthsOfYearShort[testDate.getMonth()])
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function(e) { e.preventDefault(); self._offset('m', parseInt($(this).attr('data-offset'),10)); })
+								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('m', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -810,7 +811,7 @@
 								.attr('data-theme', cTheme)
 								.html(testDate.getDate() + '<br /><span class="ui-datebox-slidewday">' + o.lang[o.useLang].daysOfWeekShort[testDate.getDay()] + '</span>')
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function(e) { e.preventDefault(); self._offset('d', parseInt($(this).attr('data-offset'),10)); })
+								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('d', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -826,7 +827,7 @@
 								.attr('data-theme', cTheme)
 								.html(( ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() + '<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() === 12 ) ? '12<span class="ui-datebox-slidewday">PM</span>' : (testDate.getHours()-12) + '<span class="ui-datebox-slidewday">PM</span>') ) ) : testDate.getHours() ))
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function(e) { e.preventDefault(); self._offset('h', parseInt($(this).attr('data-offset'),10)); })
+								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('h', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -842,7 +843,7 @@
 								.attr('data-theme', cTheme)
 								.html(self._zeroPad(testDate.getMinutes()))
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind('vclick', function(e) { e.preventDefault(); self._offset('i', parseInt($(this).attr('data-offset'),10)); })
+								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('i', parseInt($(this).attr('data-offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -943,7 +944,7 @@
 									$("<div>"+String(calmode.prevtoday)+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
 										.attr('data-date', ((o.calWeekMode)?(calmode.weekMode+calmode.lastend):calmode.prevtoday))
-										.bind((!skipThis)?'vclick':'error', function(e) {
+										.bind((!skipThis)?o.clickEvent:'error', function(e) {
 											e.preventDefault();
 											if ( !self.calNoPrev ) {
 												self.theDate.setMonth(self.theDate.getMonth() - 1);
@@ -957,7 +958,7 @@
 									$("<div>"+String(calmode.nexttoday)+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
 										.attr('data-date', ((o.calWeekMode)?calmode.weekMode:calmode.nexttoday))
-										.bind((!skipThis)?'vclick':'error', function(e) {
+										.bind((!skipThis)?o.clickEvent:'error', function(e) {
 											e.preventDefault();
 											if ( !self.calNoNext ) {
 												self.theDate.setDate($(this).attr('data-date'));
@@ -1026,7 +1027,7 @@
 										$(this).parent().find('div').each(function() { self._hoover(this); });
 									} else { self._hoover(this); }
 								})
-								.bind((!skipThis)?'vclick':'error', function(e) {
+								.bind((!skipThis)?o.clickEvent:'error', function(e) {
 										e.preventDefault();
 										self.theDate.setDate($(this).attr('data-date'));
 										self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
@@ -1061,7 +1062,7 @@
 			
 			// This is the button that is added to the original input
 			openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
-				.bind('vclick', function (e) {
+				.bind(o.clickEvent, function (e) {
 					e.preventDefault();
 					if ( !o.disabled ) { self.input.trigger('datebox', {'method': 'open'}); }
 					setTimeout( function() { $(e.target).closest("a").removeClass($.mobile.activeBtnClass); }, 300);
@@ -1113,7 +1114,7 @@
 		// For focus mode, disable button, and bind click of input element and it's parent	
 		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
-		focusedEl.bind('vclick', function() {
+		focusedEl.bind(o.clickEvent, function() {
 			if ( !o.disabled && o.noButtonFocusMode ) { input.trigger('datebox', {'method': 'open'}); }
 		});
 		
@@ -1140,7 +1141,7 @@
 		input.bind('datebox', self._dateboxHandler);		
 		
 		// Bind the close button on the DIALOG mode.
-		pickPage.find( ".ui-header a").bind('vclick', function(e) {
+		pickPage.find( ".ui-header a").bind(o.clickEvent, function(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
 			self.input.trigger('datebox', {'method':'close', 'fromCloseButton':true});
@@ -1412,7 +1413,7 @@
 			if ( o.noSetButton === false ) { // Set button at bottom
 				self.setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-					.bind('vclick', function(e) {
+					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
 						if ( o.mode === 'timebox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)}); }
 						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)}); }
@@ -1425,14 +1426,14 @@
 					linkdiv.clone()
 						.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 						.attr('data-field', o.fieldsOrder[x])
-						.bind('vclick', function(e) {
+						.bind(o.clickEvent, function(e) {
 							e.preventDefault();
 							self._offset($(this).attr('data-field'),1*($(this).attr('data-field')==='i'?o.minuteStep:1));
 					});
 					linkdiv.clone()
 						.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 						.attr('data-field', o.fieldsOrder[x])
-						.bind('vclick', function(e) {
+						.bind(o.clickEvent, function(e) {
 							e.preventDefault();
 							self._offset($(this).attr('data-field'),-1*($(this).attr('data-field')==='i'?o.minuteStep:1));
 					});
@@ -1507,7 +1508,7 @@
 			if ( o.noSetButton === false ) { // Bottom set button
 				self.setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-					.bind('vclick', function(e) {
+					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
 						self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)});
 						self.input.trigger('datebox', {'method':'close'});
@@ -1518,7 +1519,7 @@
 				linkdiv.clone()
 					.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
 					.attr('data-field', o.durationOrder[x])
-					.bind('vclick', function(e) {
+					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
 						self._offset($(this).attr('data-field'),o.durationSteppers[$(this).attr('data-field')]);
 					});
@@ -1526,7 +1527,7 @@
 				linkdiv.clone()
 					.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
 					.attr('data-field', o.durationOrder[x])
-					.bind('vclick', function(e) {
+					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
 						self._offset($(this).attr('data-field'),-1*o.durationSteppers[$(this).attr('data-field')]);
 					});
@@ -1552,7 +1553,7 @@
 			if ( o.noSetButton === false ) { // Show set button at bottom
 				self.setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-					.bind('vclick', function(e) {
+					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
 						self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
 						self.input.trigger('datebox', {'method':'close'});
@@ -1637,7 +1638,7 @@
 			if ( o.noSetButton === false ) { // Set button at bottom
 				self.setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-					.bind('vclick', function(e) {
+					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
 						if ( o.mode === 'timeflipbox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)}); }
 						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)}); }
@@ -1690,7 +1691,7 @@
 			// Previous and next month buttons, define booleans to decide if they should do anything
 			$("<div class='ui-datebox-gridplus'><a href='#'>Next Month</a></div>")
 				.prependTo(controlsHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.bind('vclick', function(e) {
+				.bind(o.clickEvent, function(e) {
 					e.preventDefault();
 					if ( ! self.calNoNext ) {
 						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
@@ -1699,7 +1700,7 @@
 				});
 			$("<div class='ui-datebox-gridminus'><a href='#'>Prev Month</a></div>")
 				.prependTo(controlsHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.bind('vclick', function(e) {
+				.bind(o.clickEvent, function(e) {
 					e.preventDefault();
 					if ( ! self.calNoPrev ) {
 						if ( self.theDate.getDate() > 28 ) { self.theDate.setDate(1); }
@@ -1710,7 +1711,7 @@
 			if ( o.calTodayButton === true ) { // Show today button at bottom
 				self.setButton = $("<a href='#'>PlaceHolder</a>")
 					.appendTo(self.pickerContent).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-					.bind('vclick', function(e) {
+					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
 						self.theDate = new Date();
 						self.theDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), 0,0,0,0);
@@ -1773,7 +1774,7 @@
 			screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
 				.css({'z-index': o.zindex-1})
 				.appendTo(self.thisPage)
-				.bind("vclick", function(event) {
+				.bind(o.clickEvent, function(event) {
 					event.preventDefault();
 					self.input.trigger('datebox', {'method':'close'});
 				});
