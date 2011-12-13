@@ -14,7 +14,7 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
                 setTimeButtonLabel: 'Valitse aika',
                 setDurationButtonLabel: 'Valitse kesto',
                 calTodayButtonLabel: 'T&#228;n&#228;&#228;n',
-                titleDateDialogLabel: 'Valitse p&#228;i&#228;',
+                titleDateDialogLabel: 'Valitse p&#228;iv&#228;',
                 titleTimeDialogLabel: 'Valitse aika',
                 daysOfWeek: ['Sunnuntai','Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai','Lauantai'],
                 daysOfWeekShort: ['Su','Ma','Ti','Ke','To','Pe','La'],
