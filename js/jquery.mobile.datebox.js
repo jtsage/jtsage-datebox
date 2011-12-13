@@ -133,9 +133,9 @@
 					break;
 				case 'doset':
 					if ( $(this).data('datebox').options.mode === 'timebox' || $(this).data('datebox').options.mode === 'durationbox' ) {
-						$(this).trigger('datebox', {'method':'set', 'value':$(this).data('datebox')._formatTime($(this).data('datebox').theDate)});
+						$(this).trigger('datebox', {'method':'set', 'value':$(this).data('datebox')._formatTime($(this).data('datebox').theDate), 'date':$(this).data('datebox').theDate});
 					} else {
-						$(this).trigger('datebox', {'method':'set', 'value':$(this).data('datebox')._formatDate($(this).data('datebox').theDate)});
+						$(this).trigger('datebox', {'method':'set', 'value':$(this).data('datebox')._formatDate($(this).data('datebox').theDate), 'date':$(this).data('datebox').theDate});
 					}
 				case 'dooffset':
 					$(this).data('datebox')._offset(payload.type, payload.amount, true);
@@ -957,7 +957,7 @@
 											if ( !self.calNoPrev ) {
 												self.theDate.setMonth(self.theDate.getMonth() - 1);
 												self.theDate.setDate($(this).attr('data-date'));
-												self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
+												self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
 												self.input.trigger('datebox', {'method':'close'});
 											}
 										});
@@ -971,7 +971,7 @@
 											if ( !self.calNoNext ) {
 												self.theDate.setDate($(this).attr('data-date'));
 												if ( !o.calWeekMode ) { self.theDate.setMonth(self.theDate.getMonth() + 1); }
-												self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
+												self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
 												self.input.trigger('datebox', {'method':'close'});
 											}
 										});
@@ -1038,7 +1038,7 @@
 								.bind((!skipThis)?o.clickEvent:'error', function(e) {
 										e.preventDefault();
 										self.theDate.setDate($(this).attr('data-date'));
-										self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
+										self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
 										self.input.trigger('datebox', {'method':'close'});
 								})
 								.css((skipThis)?'color':'nocolor', o.disabledDayColor);
@@ -1423,8 +1423,8 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
-						if ( o.mode === 'timebox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)}); }
-						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)}); }
+						if ( o.mode === 'timebox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate), 'date':self.theDate}); }
+						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate}); }
 						self.input.trigger('datebox', {'method':'close'});
 					});
 			}
@@ -1518,7 +1518,7 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
-						self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)});
+						self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate), 'date':self.theDate});
 						self.input.trigger('datebox', {'method':'close'});
 					});
 			}
@@ -1563,7 +1563,7 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
-						self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)});
+						self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
 						self.input.trigger('datebox', {'method':'close'});
 					});
 			}
@@ -1648,8 +1648,8 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
-						if ( o.mode === 'timeflipbox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate)}); }
-						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate)}); }
+						if ( o.mode === 'timeflipbox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate), 'date':self.theDate}); }
+						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate}); }
 						self.input.trigger('datebox', {'method':'close'});
 					});
 			}
