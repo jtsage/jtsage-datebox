@@ -4,8 +4,8 @@
  * CC 3.0 Attribution.  May be relicensed without permission/notifcation.
  * https://github.com/jtsage/jquery-mobile-datebox
  *
- * Swedish localisation for JQM DateBox plugin *
- * Written by: Henrik Ekselius (henrik@xelius.net)
+ * Finnish localisation for JQM DateBox plugin *
+ * Written by: Ville Salonen (ville.salonen@iki.fi)
  */
 
 jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
