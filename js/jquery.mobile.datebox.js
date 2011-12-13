@@ -61,6 +61,7 @@
 		closeCallback: false,
 		open: false,
 		nestedBox: false,
+		lastDuration: false,
 		
 		fieldsOrder: false,
 		fieldsOrderOverride: false,
@@ -576,6 +577,7 @@
 		if ( o.mode === 'durationbox' ) {
 			i = ((self.theDate.getTime() - self.theDate.getMilliseconds()) / 1000) - ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000);
 			if ( i<0 ) { i = 0; self.theDate.setTime(self.initDate.getTime()); }
+			o.lastDuration = i; // Let the number of seconds be sort of public.
 			
 			/* DAYS */
 			y = parseInt( i / interval['d'],10); 
