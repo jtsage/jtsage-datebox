@@ -48,6 +48,8 @@
 		calShowOnlyMonth: false,
 		useDialogForceTrue: false,
 		useDialogForceFalse: false,
+		fullScreen: false,
+		fullScreenAlways: false,
 		useDialog: false,
 		useModal: false,
 		useInline: false,
@@ -1848,6 +1850,10 @@
 			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
 			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2),
 			transition = o.noAnimation ? 'none' : o.transition,
+			fullTop = $(window).scrollTop(),
+			fullLeft = $(window).scrollLeft(),
+			docWinWidth = $(document).width(),
+			docWinHeight = $(window).height(),
 			activePage;
 		
 		self._buttonsTitle();
@@ -1883,9 +1889,9 @@
 		if ( pickWinTop < 45 ) { pickWinTop = 45; }
 		
 		// If the window is less than 400px wide, use the jQM dialog method unless otherwise forced
-		if ( ( $(document).width() > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
+		if ( ( $(document).width() > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse || o.fullScreen ) {
 			o.useDialog = false;
-			if ( o.nestedBox ) { 
+			if ( o.nestedBox === true && o.fullScreen === false ) { 
 				if ( pickWinHeight === 0 ) { // The box may have no height since it dosen't exist yet.  working on it.
 					pickWinHeight = 250;
 					pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2);
@@ -1894,12 +1900,19 @@
 				$(activePage).append(self.pickerContent);
 				$(activePage).append(self.screen);
 			}
-			if ( o.useModal === true ) { // If model, fade the background screen
-				self.screen.fadeIn('slow');
-			} else { // Else just unhide it since it's transparent
-				self.screen.removeClass('ui-datebox-hidden');
+			if ( o.fullScreenAlways === false || $(document).width() > 399 ) {
+				if ( o.useModal === true ) { // If model, fade the background screen
+					self.screen.fadeIn('slow');
+				} else { // Else just unhide it since it's transparent
+					self.screen.removeClass('ui-datebox-hidden');
+				}
 			}
-			self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).removeClass('ui-datebox-hidden');
+			
+			if ( o.fullScreenAlways === true || ( o.fullScreen === true && $(document).width() < 400 ) ) {
+				self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'text-align': 'center', 'top': fullTop, 'left': fullLeft, 'height': docWinHeight, 'width': docWinWidth, 'border': '0px !important' }).removeClass('ui-datebox-hidden');
+			} else {
+				self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).removeClass('ui-datebox-hidden');
+			}
 		} else {
 			// prevent the parent page from being removed from the DOM,
 			self.thisPage.unbind( "pagehide.remove" );

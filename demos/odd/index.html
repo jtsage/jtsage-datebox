@@ -77,6 +77,32 @@
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"useDialogForceTrue": true}'&gt;</pre>
 				
+				<h2>Fullscreen (non-forced) Mode</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="noforcefull">Some Date</label><input name="noforcefull" type="date" data-role="datebox" id="noforcefull" data-options='{"fullScreen": true}' />
+				</div>
+				
+				<p>On small displays (&lt; 400px wide), this will use the full screen to display the picker, *without* using a dialog - 'fullScreen' set to 'true'</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"fullScreen": true}'&gt;</pre>
+   
+				<h2>Fullscreen (forced) Mode</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="fullscreen">Some Date</label><input name="fullscreen" type="date" data-role="datebox" id="fullscreen" data-options='{"fullScreen": true, "fullScreenAlways": true}' />
+				</div>
+				
+				<p>This will use the full screen to display the picker, *without* using a dialog - 'fullScreen' and 'fullScreenAlways' set to 'true'</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"fullScreen": true, "fullScreenAlways": true}'&gt;</pre>
+  
 				<h2>Inline Mode</h2>
 				
 				<div data-role="fieldcontain">
@@ -89,6 +115,19 @@
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"useInline": true}'&gt;</pre>
+   
+				<h2>Inline Blind Mode</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="inlineblind">Some Date</label><input name="inlineblind" type="date" data-role="datebox" id="inlineblind" data-options='{"useInline": true, "noButtonFocusMode": true, "useInlineBlind": true}' />
+				</div>
+				
+				<p>You can force DateBox to display inline (with hiding) with 'useInline', 'useInlineBlind', and 'noButtonFocusMode' set to 'true'.</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"useInline": true, "noButtonFocusMode": true, "useInlineBlind": true}'&gt;</pre>
 				
 			</nav> 
 		</div> 
