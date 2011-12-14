@@ -138,6 +138,7 @@
 					} else {
 						$(this).trigger('datebox', {'method':'set', 'value':$(this).data('datebox')._formatDate($(this).data('datebox').theDate), 'date':$(this).data('datebox').theDate});
 					}
+					break;
 				case 'dooffset':
 					$(this).data('datebox')._offset(payload.type, payload.amount, true);
 					break;
@@ -263,7 +264,7 @@
 			adv = this.options.durationFormat;
 			adv = adv.replace(/ddd/g, '.+?');
 			adv = adv.replace(/DD|ss|hh|ii/g, '([0-9Dhis]+)');
-			adv = RegExp('^' + adv + '$');
+			adv = new RegExp('^' + adv + '$');
 			exp_format = adv.exec(this.options.durationFormat);
 			
 			i = ((self.theDate.getTime() - self.theDate.getMilliseconds()) / 1000) - ((self.initDate.getTime() - self.initDate.getMilliseconds()) / 1000); j = i;
@@ -309,7 +310,7 @@
 			adv = o.durationFormat;
 			adv = adv.replace(/ddd/g, '.+?');
 			adv = adv.replace(/DD|ss|hh|ii/g, '([0-9Dhis]+)');
-			adv = RegExp('^' + adv + '$');
+			adv = new RegExp('^' + adv + '$');
 			exp_input = adv.exec(str);
 			exp_format = adv.exec(o.durationFormat);
 			
@@ -341,7 +342,7 @@
 			adv = adv.replace(/ *AA/ig, ' *(.*?)');
 			adv = adv.replace(/yyyy|dd|mm|gg|hh|ii/ig, '([0-9yYdDmMgGhHi]+)');
 			adv = adv.replace(/ss/g, '([0-9s]+)');
-			adv = RegExp('^' + adv + '$');
+			adv = new RegExp('^' + adv + '$');
 			exp_input = adv.exec(str);
 			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
 				exp_format = adv.exec(o.timeOutput); // If time, use timeOutput as expected format
@@ -437,33 +438,33 @@
 				if ( o.debug ) {
 					console.log(o.rolloverMode);
 				}
-				if ( o.rolloverMode['m'] || ( self.theDate.getMonth() + amount < 12 && self.theDate.getMonth() + amount > -1 ) ) {
+				if ( o.rolloverMode.m || ( self.theDate.getMonth() + amount < 12 && self.theDate.getMonth() + amount > -1 ) ) {
 					self.theDate.setMonth(self.theDate.getMonth() + amount);
 				}
 				break;
 			case 'd':
-				if ( o.rolloverMode['d'] || (
+				if ( o.rolloverMode.d || (
 					self.theDate.getDate() + amount > 0 &&
 					self.theDate.getDate() + amount < (self._getLastDate(self.theDate) + 1) ) ) {
 						self.theDate.setDate(self.theDate.getDate() + amount);
 				}
 				break;
 			case 'h':
-				if ( o.rolloverMode['h'] || (
+				if ( o.rolloverMode.h || (
 					self.theDate.getHours() + amount > -1 &&
 					self.theDate.getHours() + amount < 24 ) ) {
 						self.theDate.setHours(self.theDate.getHours() + amount);
 				}
 				break;
 			case 'i':
-				if ( o.rolloverMode['i'] || (
+				if ( o.rolloverMode.i || (
 					self.theDate.getMinutes() + amount > -1 &&
 					self.theDate.getMinutes() + amount < 60 ) ) {
 						self.theDate.setMinutes(self.theDate.getMinutes() + amount);
 				}
 				break;
 			case 's':
-				if ( o.rolloverMode['i'] || (
+				if ( o.rolloverMode.s || (
 					self.theDate.getSeconds() + amount > -1 &&
 					self.theDate.getSeconds() + amount < 60 ) ) {
 						self.theDate.setSeconds(self.theDate.getSeconds() + amount);
@@ -498,6 +499,7 @@
 	},
 	_checkConstraints: function() {
 		var self = this,
+			testDate = null,
 			o = this.options;
 		
 		if ( o.afterToday !== false ) {
@@ -529,7 +531,7 @@
 		}
 	},
 	_orientChange: function(e) {
-		var self = $(e.currentTarget).data('datebox');
+		var self = $(e.currentTarget).data('datebox'),
 			o = self.options,
 			inputOffset = self.focusedEl.offset(),
 			pickWinHeight = self.pickerContent.outerHeight(),
@@ -580,18 +582,18 @@
 			o.lastDuration = i; // Let the number of seconds be sort of public.
 			
 			/* DAYS */
-			y = parseInt( i / interval['d'],10); 
-			i = i - ( y * interval['d'] ); 
+			y = parseInt( i / interval.d,10); 
+			i = i - ( y * interval.d ); 
 			self.pickerDay.val(y);
 			
 			/* HOURS */
-			y = parseInt( i / interval['h'], 10);
-			i = i - ( y * interval['h'] );
+			y = parseInt( i / interval.h, 10);
+			i = i - ( y * interval.h );
 			self.pickerHour.val(y);
 			
 			/* MINS AND SECS */
-			y = parseInt( i / interval['i'], 10);
-			i = i - ( y * interval['i']); 
+			y = parseInt( i / interval.i, 10);
+			i = i - ( y * interval.i); 
 			self.pickerMins.val(y);
 			self.pickerSecs.val(parseInt(i,10));
 		}
@@ -641,7 +643,7 @@
 						for ( i=-15; i<16; i++ ) {
 							cTheme = ((inheritDate.getFullYear()===(self.theDate.getFullYear() + i))?o.pickPageHighButtonTheme:o.pickPageFlipButtonTheme);
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
-							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -453px':'') })
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -453px':'') })
 								.html("<span>"+(self.theDate.getFullYear() + i)+"</span>")
 								.attr('data-offset', i)
 								.attr('data-theme', cTheme)
@@ -657,7 +659,7 @@
 							testDate.setMonth(testDate.getMonth()+i);
 							cTheme = ( inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
-							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -357px':'') })
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -357px':'') })
 								.attr('data-offset',i)
 								.attr('data-theme', cTheme)
 								.html("<span>"+o.lang[o.useLang].monthsOfYearShort[testDate.getMonth()]+"</span>")
@@ -673,7 +675,7 @@
 							testDate.setDate(testDate.getDate()+i);
 							cTheme = ( inheritDate.getDate() === testDate.getDate() && inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
-							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -453px':'') })
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -453px':'') })
 								.attr('data-offset', i)
 								.attr('data-theme', cTheme)
 								.html("<span>"+testDate.getDate()+"</span>")
@@ -688,7 +690,7 @@
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), self.theDate.getHours());
 							testDate.setHours(testDate.getHours()+i);
 							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageFlipButtonTheme;
-							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -357px':'') })
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -357px':'') })
 								.attr('data-offset',i)
 								.attr('data-theme', cTheme)
 								.html("<span>"+( ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12  ) ? ( ( testDate.getHours() === 0 ) ? '12' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() : ( ( testDate.getHours() === 12 ) ? '12' : (testDate.getHours()-12) ) ) ) : testDate.getHours() )+"</span>")
@@ -704,7 +706,7 @@
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), self.theDate.getHours(), self.theDate.getMinutes());
 							testDate.setMinutes(testDate.getMinutes()+(i*o.minuteStep));
 							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageFlipButtonTheme;
-							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':''+((tmpVal===true)?'margin-top: -933px':'') })
+							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -933px':'') })
 								.attr('data-offset',(i*o.minuteStep))
 								.attr('data-theme', cTheme)
 								.html("<span>"+self._zeroPad(testDate.getMinutes())+"</span>")
@@ -717,10 +719,10 @@
 						thisRow.html('');
 						if ( self.theDate.getHours() > 11 ) { 
 							tmpVal = '-65';
-							cTheme = [o.pickPageFlipButtonTheme, o.pickPageButtonTheme]
+							cTheme = [o.pickPageFlipButtonTheme, o.pickPageButtonTheme];
 						} else {
 							tmpVal = '-33';
-							cTheme = [o.pickPageButtonTheme, o.pickPageFlipButtonTheme]
+							cTheme = [o.pickPageButtonTheme, o.pickPageFlipButtonTheme];
 						}
 						$("<li>").appendTo(thisRow).clone().appendTo(thisRow);
 						$("<li>", { 'class' : 'ui-body-'+cTheme[0], 'style':'margin-top: '+tmpVal+'px' })
@@ -1204,7 +1206,7 @@
 							if ( dragThisDelta < self.dragPos ) {
 								self._offset(self.dragTarget, -1*(self.dragTarget==='i'?o.minuteStep:1));
 							} else if ( dragThisDelta > self.dragPos ) {
-								self._offset(self.dragTarget, 1*(self.dragTarget==='i'?o.minuteStep:1));
+								self._offset(self.dragTarget, (self.dragTarget==='i'?o.minuteStep:1));
 							} 
 							self.dragPos = dragThisDelta;
 						}
@@ -1244,7 +1246,7 @@
 							e.preventDefault();
 							e.stopPropagation();
 							var fld = self.dragTarget.parent().parent().data('field'),
-								amount = parseInt(( self.dragStart - self.dragEnd ) / 30);
+								amount = parseInt(( self.dragStart - self.dragEnd ) / 30,10);
 							self._offset(fld, amount * ( (fld === "i") ? o.minuteStep : 1 ));
 						}
 					}
@@ -1438,7 +1440,7 @@
 						.attr('data-field', o.fieldsOrder[x])
 						.bind(o.clickEvent, function(e) {
 							e.preventDefault();
-							self._offset($(this).attr('data-field'),1*($(this).attr('data-field')==='i'?o.minuteStep:1));
+							self._offset($(this).attr('data-field'),($(this).attr('data-field')==='i'?o.minuteStep:1));
 					});
 					linkdiv.clone()
 						.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
@@ -1479,10 +1481,10 @@
 			pickerSecs = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
 			
 			if ( o.wheelExists ) { // Mousewheel operation, if the plgin is loaded
-					pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', ((d<0)?-1:1)*o.durationSteppers['d']); });
-					pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', ((d<0)?-1:1)*o.durationSteppers['h']); });
-					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.durationSteppers['i']); });
-					pickerSecs.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('s', ((d<0)?-1:1)*o.durationSteppers['s']); });
+					pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', ((d<0)?-1:1)*o.durationSteppers.d); });
+					pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', ((d<0)?-1:1)*o.durationSteppers.h); });
+					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.durationSteppers.i); });
+					pickerSecs.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('s', ((d<0)?-1:1)*o.durationSteppers.s); });
 				}
 			
 			for ( x=0; x<o.durationOrder.length; x++ ) { // Use durationOrder to decide what goes where
@@ -1837,7 +1839,7 @@
 			if ( $.isFunction(this.options.openCallback()) && !this.options.openCallback()) {
 				return false;
 			} else {
-				callback = new Function(this.options.openCallback);
+				var callback = new Function(this.options.openCallback);
 				if ( !callback() ) {
 					return false;
 				}
