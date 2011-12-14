@@ -8,7 +8,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.0-2011121200', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.0-2011121400', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -35,6 +35,7 @@
 		zindex: '500',
 		debug: false,
 		clickEvent: 'vclick',
+		resizeListener: true,
 		
 		titleDialogLabel: false,
 		meridiemLetters: ['AM', 'PM'],
@@ -1266,6 +1267,10 @@
 		}
 		
 		$(document).bind('orientationchange', function(e) { input.trigger('orientationchange'); });
+		
+		if ( o.resizeListener === true ) {
+			$(window).bind('resize', function (e) { input.trigger('orientationchange'); });
+		}
 		
 		input.bind('orientationchange', self._orientChange);
 		
