@@ -1323,7 +1323,7 @@
 			o = self.options, x, newHour, fld,
 			linkdiv =$("<div><a href='#'></a></div>"),
 			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
-			templInput = $("<input type='text' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+			templInput = $("<input type='number' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 			templControls = $("<div>", { "class":'ui-datebox-controls' }),
 			templFlip = $("<div class='ui-overlay-shadow'><ul></ul></div>"),
 			controlsPlus, controlsInput, controlsMinus, controlsSet, controlsHeader,
