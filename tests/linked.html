@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<!--meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Demo</title>
+	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.sv.js"></script>
+	<!--script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.en-US.js"></script-->
+
+	<script type="text/javascript">
+		function dooffset() { // This does the actual work.  if you wanted based on "now", startdate should be = new Date();
+			var startdate = $('#link1').data('datebox').theDate,
+				offsetsec = $('#link2').data('datebox').options.lastDuration,
+				enddate = new Date(startdate.getFullYear(), startdate.getMonth(), startdate.getDate(), startdate.getHours(), startdate.getMinutes(), startdate.getSeconds(), 0);
+				
+			enddate.setSeconds(enddate.getSeconds() + offsetsec);
+			
+			$('#link3').data('datebox').theDate = enddate;
+			$('#link3').trigger('datebox', {'method':'doset'});
+		}
+		
+		$('#link1').live('change', function() {
+			$('#link2').trigger('datebox', {'method':'doset'});
+		});
+		
+		$('#link2').live('change', function() {
+			dooffset();
+		});
+		
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="main"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - Linked Duration Dev Page</h1>
+	</div>
+	<div data-role="content" data-theme="c">
+		<p>These are all linked - it gives a general idea of how to accomplish it.</p>
+		<div data-role="fieldcontain">
+			<label for="link1">Start Time</label>
+			<input name="link1" type="text" data-role="datebox" data-options='{"mode": "timebox"}' id="link1" />
+			<label for="link2">Duration</label>
+			<input name="link2" type="text" data-role="datebox" data-options='{"mode": "durationbox", "defaultPickerValue":0}' id="link2" />
+			<label for="link3">End Time</label>
+			<input name="link3" type="text" data-role="datebox" data-options='{"mode": "timebox"}' id="link3" />
+		</div>
+				
+		
+		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+	</div>
+	<div data-role="footer">
+		<a href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a href="mailto:jtsage+datebox@gmail.com">Contact</a>
+	</div>
+</div>
+</html>

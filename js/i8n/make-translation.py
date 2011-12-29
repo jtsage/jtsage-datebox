@@ -81,6 +81,7 @@ f.write("\t\tdateFieldOrder: "+raw_input("Date field order prefered <['m', 'd', 
 f.write("\t\ttimeFieldOrder: "+raw_input("Time field order prefered <['h', 'i', 'a']> : ")+",\n")
 f.write("\t\tslideFieldOrder: "+raw_input("Slide field order prefered <['y', 'm', 'd']> : ")+",\n")
 f.write("\t\theaderFormat: '"+raw_input("Format for date header <ddd, mmm dd, YYYY> : ")+"',\n")
+f.write("\t\tuseArabicIndic: "+raw_input("Does this language use Arabic-Indic (Eastern Arabic) numerals? <false> : ")+"\n")
 f.write("\t\tisRTL: "+raw_input("Does text flow Right-To-Left in this language? <false> : ")+"\n")
 f.write("});\n");
 f.write("jQuery.extend(jQuery.mobile.datebox.prototype.options, {\n\tuseLang: '"+transLang+"': });\n")
