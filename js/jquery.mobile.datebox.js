@@ -8,7 +8,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.0-2011122800', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.0-2011122900', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -817,6 +817,8 @@
 				
 				thisRow = $("<div>", {'class': 'ui-datebox-sliderow-int', 'data-rowtype': o.fieldsOrder[y]}).appendTo(thisPRow);
 				
+				if ( o.lang[o.useLang].isRTL === true ) { thisRow.css('direction', 'rtl'); }
+				
 				if ( o.swipeEnabled ) {
 					thisRow
 						.bind(self.START_DRAG, function(e) {
@@ -974,6 +976,7 @@
 			if ( o.calShowDays ) {
 				if ( o.lang[o.useLang].daysOfWeekShort.length < 8 ) { o.daysOfWeekShort = o.lang[o.useLang].daysOfWeekShort.concat(o.lang[o.useLang].daysOfWeekShort); }
 				calmode.weekDays = $("<div>", {'class':'ui-datebox-gridrow'}).appendTo(self.controlsSet);
+				if ( o.lang[o.useLang].isRTL === true ) { calmode.weekDays.css('direction', 'rtl'); }
 				for ( i=0; i<=6;i++ ) {
 					$("<div>"+o.lang[o.useLang].daysOfWeekShort[(i+o.calStartDay)%7]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(calmode.weekDays);
 				}
@@ -982,6 +985,7 @@
 			for ( gridWeek=0; gridWeek<=5; gridWeek++ ) {
 				if ( gridWeek === 0 || ( gridWeek > 0 && (calmode.today > 0 && calmode.today <= calmode.end) ) ) {
 					thisRow = $("<div>", {'class': 'ui-datebox-gridrow'}).appendTo(self.controlsSet);
+					if ( o.lang[o.useLang].isRTL === true ) { thisRow.css('direction', 'rtl'); }
 					for ( gridDay=0; gridDay<=6; gridDay++) {
 						if ( gridDay === 0 ) { calmode.weekMode = ( calmode.today < 1 ) ? (calmode.prevtoday - calmode.lastend + o.calWeekModeFirstDay) : (calmode.today + o.calWeekModeFirstDay); }
 						if ( gridDay === calmode.start && gridWeek === 0 ) { calmode.today = 1; }
@@ -1764,7 +1768,7 @@
 			}
 						
 			// Previous and next month buttons, define booleans to decide if they should do anything
-			$("<div class='ui-datebox-gridplus'><a href='#'>Next Month</a></div>")
+			$("<div class='ui-datebox-gridplus"+((o.lang[o.useLang].isRTL===true)?'-rtl':'')+"'><a href='#'>Next Month</a></div>")
 				.prependTo(controlsHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
 				.bind(o.clickEvent, function(e) {
 					e.preventDefault();
@@ -1773,7 +1777,7 @@
 						self._offset('m',1);
 					}
 				});
-			$("<div class='ui-datebox-gridminus'><a href='#'>Prev Month</a></div>")
+			$("<div class='ui-datebox-gridminus"+((o.lang[o.useLang].isRTL===true)?'-rtl':'')+"'><a href='#'>Prev Month</a></div>")
 				.prependTo(controlsHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
 				.bind(o.clickEvent, function(e) {
 					e.preventDefault();
