@@ -25,7 +25,7 @@
 		centerWindow: false,
 		calHighToday: true,
 		calHighPicked: true,
-        transition: 'pop',
+		transition: 'pop',
 		noAnimation: false,
 		disableManualInput: false,
 		
@@ -79,7 +79,7 @@
 		calWeekModeHighlight: true,
 		calStartDay: 0,
 		defaultPickerValue: false,
-        defaultDate : false,    //this is deprecated and will be removed in the future versions (ok, may be not)
+		defaultDate : false,    //this is deprecated and will be removed in the future versions (ok, may be not)
 		minYear: false,
 		maxYear: false,
 		afterToday: false,
@@ -115,6 +115,7 @@
 				timeFieldOrder: ['h', 'i', 'a'],
 				slideFieldOrder: ['y', 'm', 'd'],
 				dateFormat: 'YYYY-MM-DD',
+				useArabicIndic: false,
 				isRTL: false
 			}
 		}
@@ -151,6 +152,46 @@
 					break;
 			}
 		} 
+	},
+	_digitReplace: function(oper, direction) {
+		var start = 48,
+			end = 57,
+			adder = 1584,
+			i = null, 
+			ch = null,
+			newd = '';
+			
+		if ( direction === -1 ) {
+			start = 48 + 1584;
+			end = 57 + 1584;
+			adder = -1584;
+		}
+		
+		for ( i=0; i<oper.length; i++ ) {
+			ch = oper.charCodeAt(i);
+			if ( ch >= start && ch <= end ) {
+				newd = newd + String.fromCharCode(ch+adder);
+			} else {
+				newd = newd + String.fromCharCode(ch);
+			}
+		}
+		
+		return newd;
+	},
+	_makeDisplayIndic: function() {
+		var self = this,
+			o = this.options;
+			
+		self.pickerContent.find('*').each(function() {
+			if ( $(this).children().length < 1 ) {
+				$(this).text(self._digitReplace($(this).text()));
+			} else if ( $(this).hasClass('ui-datebox-slideday') ) {
+				$(this).html(self._digitReplace($(this).html()));
+			}
+		});
+		self.pickerContent.find('input').each(function() {
+			$(this).val(self._digitReplace($(this).val()));
+		});
 	},
 	_zeroPad: function(number) {
 		// Pad a number with a zero, to make it 2 digits
@@ -235,7 +276,11 @@
 		format = format.replace('ddd',  this.options.lang[this.options.useLang].daysOfWeek[date.getDay()] );
 		format = format.replace('DD',   this._zeroPad(date.getDate()));
 		format = format.replace('dd',   date.getDate());
-
+		
+		if ( this.options.lang[this.options.useLang].useArabicIndic === true ) {
+			format = this._digitReplace(format);
+		}
+		
 		return format;
 	},
 	_formatHeader: function(date) {
@@ -288,7 +333,12 @@
 			format = format.replace('hh', self._zeroPad(dur_comps[1]));
 			format = format.replace('ii', self._zeroPad(dur_comps[2]));
 			format = format.replace('ss', self._zeroPad(dur_comps[3]));
-			return format;
+			
+			if ( this.options.lang[this.options.useLang].useArabicIndic === true ) {
+				return this._digitReplace(format);
+			} else {
+				return format;
+			}
 		} else {
 			return this._formatter(self.options.timeOutput, date);
 		}
@@ -306,6 +356,10 @@
 			dur_collapse = [false,false,false],
 			found_date = [date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds()],
 			i;
+			
+		if ( o.lang[this.options.useLang].useArabicIndic === true ) {
+			str = this._digitReplace(str, -1);
+		}
 
 		if ( o.mode === 'durationbox' ) {
 			adv = o.durationFormat;
@@ -1055,6 +1109,10 @@
 			}
 		}
 		/* END:CALBOX */
+		
+		if ( o.lang[this.options.useLang].useArabicIndic === true ) {
+			self._makeDisplayIndic();
+		}
 	},
 	_create: function() {
 		// Create the widget, called automatically by widget system
