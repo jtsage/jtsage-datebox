@@ -27,6 +27,7 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
 	slideFieldOrder: ['y', 'm', 'd'],
 	dateFormat: 'DD/MM/YYYY',
 	useArabicIndic: true,
+	calStartDay: 0,
 	isRTL: true
     }
 });

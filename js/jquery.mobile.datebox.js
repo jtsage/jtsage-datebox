@@ -8,7 +8,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.0-2011122900', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.0-2012010600', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -77,7 +77,7 @@
 		calWeekMode: false,
 		calWeekModeFirstDay: 1,
 		calWeekModeHighlight: true,
-		calStartDay: 0,
+		calStartDay: false,
 		defaultPickerValue: false,
 		defaultDate : false,    //this is deprecated and will be removed in the future versions (ok, may be not)
 		minYear: false,
@@ -944,8 +944,12 @@
 			calmode.lastend = self._getLastDateBefore(self.theDate);
 			calmode.presetDate = self._makeDate(self.input.val());	
 						
-			if ( o.calStartDay > 0 ) {
-				calmode.start = calmode.start - o.calStartDay;
+			if ( o.calStartDay !== false || typeof o.lang[o.useLang].calStartDay === "number" ) {
+				if ( o.calStartDay !== false ) {
+					calmode.start = calmode.start - o.calStartDay;
+				} else {
+					calmode.start = calmode.start - o.lang[o.useLang].calStartDay;
+				}
 				if ( calmode.start < 0 ) { calmode.start = calmode.start + 7; }
 			}
 			
