@@ -39,6 +39,7 @@
 		
 		titleDialogLabel: false,
 		meridiemLetters: ['AM', 'PM'],
+		timeOutputOverride: false,
 		timeFormats: { '12': 'gg:ii AA', '24': 'HH:ii' },
 		durationFormat: 'DD ddd, hh:ii:ss',
 		timeOutput: false,
@@ -1416,7 +1417,9 @@
 		}
 		
 		/* Do the Date / Time Format */
-		if ( o.timeFormatOverride === false ) {
+		if ( o.timeOutputOverride !== false  ) {
+			o.timeOutput = o.timeOutputOverride;
+		} else if ( o.timeFormatOverride === false ) {
 			o.timeOutput = o.timeFormats[o.lang[o.useLang].timeFormat];
 		} else {
 			o.timeOutput = o.timeFormats[o.timeFormatOverride];
