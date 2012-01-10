@@ -1,0 +1,271 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/js/datebox.i8n.status.js"></script>
+	<script type="text/javascript">
+		$('html').live('pageinit', function() {
+			var urlParams = {};
+			(function () {
+				var e,
+					a = /\+/g,  // Regex for replacing addition symbol with a space
+					r = /([^&=]+)=?([^&]*)/g,
+					d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+					q = window.location.search.substring(1);
+				while (e = r.exec(q))
+					urlParams[d(e[1])] = d(e[2]);
+			})();
+			
+			
+			for ( thisLang in isoLangs ) {
+				var thisEntry = '<li>';
+				var thisIncomp = (typeof isoLangs[thisLang].status !== "undefined")?false:true;
+				if ( typeof isoLangs[thisLang].file === 'undefined' ) {
+					thisEntry += '<a href="#">';
+				} else {
+					thisEntry += '<a rel="external" href="http://dev.jtsage.com/jQM-DateBox/js/i8n/jquery.mobile.datebox.i8n.'+isoLangs[thisLang].file+'.utf8.js">';
+				}
+				
+				thisEntry += '<h3>'+isoLangs[thisLang].name+' - '+isoLangs[thisLang].nativeName+' ('+thisLang+')</h3>';
+				thisEntry += '<p class="auth"><strong>Author: </strong>'+((typeof isoLangs[thisLang].author !== "undefined")?isoLangs[thisLang].author:'n/a')+'</p>';
+				thisEntry += '<p class="ui-li-count">'+((typeof isoLangs[thisLang].status !== "undefined")?isoLangs[thisLang].status:'--')+'</p>';
+				thisEntry += '</a></li>';
+				
+				if ( thisIncomp === false || urlParams.onlyComp !== '1' ) {
+					$('#langs').append(thisEntry);
+				}
+			}
+			$('#langs').listview('refresh');
+			
+		});
+	</script>
+</head>
+<body>
+<div data-role="page" data-theme="c" id="apiConfig"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<h2>Internationalization - Status</h2>
+		
+		<p>This is the full list of ISO-639-1 codes, with the status of the translations if available. Note some other varients may be available here: <a href="http://dev.jtsage.com/cdn/datebox/i8n/">http://dev.jtsage.com/cdn/datebox/i8n/</a></p>
+		<p><a href="i8n-status.html?onlyComp=1" rel="external">Show only worked on / complete translations</a></p>
+		
+		<ul data-role="listview" data-inset="true" id="langs">
+			
+		</ul>
+		    
+		    
+		    
+
+<!--
+
+Indo-European	Avestan	avesta	ae	ave	ave	ave	ancient
+Indo-European	Afrikaans	Afrikaans	af	afr	afr	afr	
+Niger–Congo	Akan	Akan	ak	aka	aka	aka + 2	macrolanguage, Twi is [tw/twi], Fanti is [fat]
+Afro-Asiatic	Amharic	አማርኛ	am	amh	amh	amh	
+Indo-European	Aragonese	aragonés	an	arg	arg	arg	
+Afro-Asiatic	Arabic	العربية	ar	ara	ara	ara + 30	macrolanguage, Standard Arabic is [arb]
+Indo-European	Assamese	অসমীয়া	as	asm	asm	asm	
+Northeast Caucasian	Avaric	авар мацӀ, магӀарул мацӀ	av	ava	ava	ava	
+Aymaran	Aymara	aymar aru	ay	aym	aym	aym + 2	macrolanguage
+Turkic	Azerbaijani	azərbaycan dili	az	aze	aze	aze + 2	macrolanguage
+Turkic	Bashkir	башҡорт теле	ba	bak	bak	bak	
+Indo-European	Belarusian	беларуская мова	be	bel	bel	bel	
+Indo-European	Bulgarian	български език	bg	bul	bul	bul	
+Indo-European	Bihari	भोजपुरी	bh	bih	bih	–	Collective language code for Bhojpuri, Magahi, and Maithili
+Creole	Bislama	Bislama	bi	bis	bis	bis	
+Austronesian	Banjar	Bahasa Banjar	bjn	bjn	bjn	bjn	Indonesian is [id/ind]
+Niger–Congo	Bambara	bamanankan	bm	bam	bam	bam	
+Indo-European	Bengali	বাংলা	bn	ben	ben	ben	
+Sino-Tibetan	Tibetan Standard, Tibetan, Central	བོད་ཡིག	bo	bod	tib	bod	
+Indo-European	Breton	brezhoneg	br	bre	bre	bre	
+Indo-European	Bosnian	bosanski jezik	bs	bos	bos	bos	
+Indo-European	Catalan; Valencian	català, valencià	ca	cat	cat	cat	
+Northeast Caucasian	Chechen	нохчийн мотт	ce	che	che	che	
+Austronesian	Chamorro	Chamoru	ch	cha	cha	cha	
+Indo-European	Corsican	corsu, lingua corsa	co	cos	cos	cos	
+Algonquian	Cree	ᓀᐦᐃᔭᐍᐏᐣ	cr	cre	cre	cre + 6	macrolanguage
+Indo-European	Czech	čeština, český jazyk	cs	ces	cze	ces	
+Indo-European	Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic	ѩзыкъ словѣньскъ	cu	chu	chu	chu	ancient
+Turkic	Chuvash	чӑваш чӗлхи	cv	chv	chv	chv	
+Indo-European	Welsh	Cymraeg	cy	cym	wel	cym	
+Indo-European	Danish	dansk	da	dan	dan	dan	
+Austronesian	Dayak	Behas Dayak	day	day	day	day	Indonesian is [id/ind]
+Indo-European	German	Deutsch	de	deu	ger	deu	
+Indo-European	Divehi; Dhivehi; Maldivian;	ދިވެހި	dv	div	div	div	
+Sino-Tibetan	Dzongkha	རྫོང་ཁ	dz	dzo	dzo	dzo	
+Niger–Congo	Ewe	Eʋegbe	ee	ewe	ewe	ewe	
+Indo-European	Greek, Modern	ελληνικά	el	ell	gre	ell	
+Indo-European	English	English	en	eng	eng	eng	
+Constructed	Esperanto	Esperanto	eo	epo	epo	epo	constructed
+Indo-European	Spanish; Castilian	español, castellano	es	spa	spa	spa	
+Uralic	Estonian	eesti, eesti keel	et	est	est	est + 2	macrolanguage
+Language isolate	Basque	euskara, euskera	eu	eus	baq	eus	
+Indo-European	Persian	فارسی	fa	fas	per	fas + 2	macrolanguage
+Niger–Congo	Fula; Fulah; Pulaar; Pular	Fulfulde, Pulaar, Pular	ff	ful	ful	ful + 9	macrolanguage
+Uralic	Finnish	suomi, suomen kieli	fi	fin	fin	fin	
+Austronesian	Fijian	vosa Vakaviti	fj	fij	fij	fij	
+Indo-European	Faroese	føroyskt	fo	fao	fao	fao	
+Indo-European	French	français, langue française	fr	fra	fre	fra	
+Indo-European	Western Frisian	Frysk	fy	fry	fry	fry	
+Indo-European	Irish	Gaeilge	ga	gle	gle	gle	
+Indo-European	Scottish Gaelic; Gaelic	Gàidhlig	gd	gla	gla	gla	
+Indo-European	Galician	galego	gl	glg	glg	glg	
+Tupian	Guaraní	Avañe'ẽ	gn	grn	grn	grn + 5	macrolanguage
+Indo-European	Gujarati	ગુજરાતી	gu	guj	guj	guj	
+Indo-European	Manx	Gaelg, Gailck	gv	glv	glv	glv	
+Afro-Asiatic	Hausa	Hausa, هَوُسَ	ha	hau	hau	hau	
+Afro-Asiatic	Hebrew (modern)	עברית	he	heb	heb	heb	
+Indo-European	Hindi	हिन्दी, हिंदी	hi	hin	hin	hin	
+Austronesian	Hiri Motu	Hiri Motu	ho	hmo	hmo	hmo	
+Indo-European	Croatian	hrvatski jezik	hr	hrv	hrv	hrv	
+Creole	Haitian; Haitian Creole	Kreyòl ayisyen	ht	hat	hat	hat	
+Uralic	Hungarian	Magyar	hu	hun	hun	hun	
+Indo-European	Armenian	Հայերեն	hy	hye	arm	hye	
+Niger–Congo	Herero	Otjiherero	hz	her	her	her	
+Constructed	Interlingua	Interlingua	ia	ina	ina	ina	constructed by International Auxiliary Language Association
+Austronesian	Indonesian	Bahasa Indonesia	id	ind	ind	ind	Covered by macrolanguage [ms/msa]
+Constructed	Interlingue	Originally called Occidental; then Interlingue after WWII	ie	ile	ile	ile	constructed by Edgar de Wahl, first published in 1922
+Niger–Congo	Igbo	Asụsụ Igbo	ig	ibo	ibo	ibo	
+Sino-Tibetan	Nuosu	ꆈꌠ꒿ Nuosuhxop	ii	iii	iii	iii	Standard form of Yi languages
+Eskimo–Aleut	Inupiaq	Iñupiaq, Iñupiatun	ik	ipk	ipk	ipk + 2	macrolanguage
+Constructed	Ido	Ido	io	ido	ido	ido	
+Indo-European	Icelandic	Íslenska	is	isl	ice	isl	
+Indo-European	Italian	italiano	it	ita	ita	ita	
+Eskimo–Aleut	Inuktitut	ᐃᓄᒃᑎᑐᑦ	iu	iku	iku	iku + 2	macrolanguage
+Japonic	Japanese	日本語 (にほんご)	ja	jpn	jpn	jpn	
+Austronesian	Javanese	basa Jawa	jv	jav	jav	jav	
+South Caucasian	Georgian	ქართული	ka	kat	geo	kat	
+Niger–Congo	Kongo	KiKongo	kg	kon	kon	kon + 3	macrolanguage
+Niger–Congo	Kikuyu, Gikuyu	Gĩkũyũ	ki	kik	kik	kik	
+Niger–Congo	Kwanyama, Kuanyama	Kuanyama	kj	kua	kua	kua	
+Turkic	Kazakh	қазақ тілі	kk	kaz	kaz	kaz	
+Eskimo–Aleut	Kalaallisut, Greenlandic	kalaallisut, kalaallit oqaasii	kl	kal	kal	kal	
+Austro-Asiatic	Khmer	ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ	km	khm	khm	khm	a.k.a. Cambodian
+Dravidian	Kannada	ಕನ್ನಡ	kn	kan	kan	kan	
+Language isolate	Korean	한국어 (韓國語), 조선어 (朝鮮語)	ko	kor	kor	kor	
+Nilo-Saharan	Kanuri	Kanuri	kr	kau	kau	kau + 3	macrolanguage
+Indo-European	Kashmiri	कश्मीरी, كشميري‎	ks	kas	kas	kas	
+Indo-European	Kurdish	Kurdî, كوردی‎	ku	kur	kur	kur + 3	macrolanguage
+Uralic	Komi	коми кыв	kv	kom	kom	kom + 2	macrolanguage
+Indo-European	Cornish	Kernewek	kw	cor	cor	cor	
+Turkic	Kirghiz, Kyrgyz	кыргыз тили	ky	kir	kir	kir	
+Indo-European	Latin	latine, lingua latina	la	lat	lat	lat	ancient
+Indo-European	Luxembourgish, Letzeburgesch	Lëtzebuergesch	lb	ltz	ltz	ltz	
+Niger–Congo	Ganda	Luganda	lg	lug	lug	lug	
+Indo-European	Limburgish, Limburgan, Limburger	Limburgs	li	lim	lim	lim	
+Niger–Congo	Lingala	Lingála	ln	lin	lin	lin	
+Tai–Kadai	Lao	ພາສາລາວ	lo	lao	lao	lao	
+Indo-European	Lithuanian	lietuvių kalba	lt	lit	lit	lit	
+Niger–Congo	Luba-Katanga	Tshiluba	lu	lub	lub	lub	
+Indo-European	Latvian	latviešu valoda	lv	lav	lav	lav	
+Austronesian	Malagasy	Malagasy fiteny	mg	mlg	mlg	mlg + 10	macrolanguage
+Austronesian	Marshallese	Kajin M̧ajeļ	mh	mah	mah	mah	
+Austronesian	Māori	te reo Māori	mi	mri	mao	mri	
+Indo-European	Macedonian	македонски јазик	mk	mkd	mac	mkd	
+Dravidian	Malayalam	മലയാളം	ml	mal	mal	mal	
+Mongolic	Mongolian	монгол	mn	mon	mon	mon + 2	macrolanguage
+Indo-European	Marathi (Marāṭhī)	मराठी	mr	mar	mar	mar	
+Austronesian	Malay	bahasa Melayu, بهاس ملايو‎	ms	msa	may	msa + 13	macrolanguage, Standard Malay is [zsm], Indonesian is [id/ind]
+Afro-Asiatic	Maltese	Malti	mt	mlt	mlt	mlt	
+Sino-Tibetan	Burmese	ဗမာစာ	my	mya	bur	mya	
+Austronesian	Nauru	Ekakairũ Naoero	na	nau	nau	nau	
+Indo-European	Norwegian Bokmål	Norsk bokmål	nb	nob	nob	nob	Covered by macrolanguage [no/nor]
+Niger–Congo	North Ndebele	isiNdebele	nd	nde	nde	nde	
+Indo-European	Nepali	नेपाली	ne	nep	nep	nep	
+Niger–Congo	Ndonga	Owambo	ng	ndo	ndo	ndo	
+Indo-European	Dutch	Nederlands, Vlaams	nl	nld	dut	nld	
+Indo-European	Norwegian Nynorsk	Norsk nynorsk	nn	nno	nno	nno	Covered by macrolanguage [no/nor]
+Indo-European	Norwegian	Norsk	no	nor	nor	nor + 2	macrolanguage, Bokmål is [nb/nob], Nynorsk is [nn/nno]
+Niger–Congo	South Ndebele	isiNdebele	nr	nbl	nbl	nbl	
+Dené–Yeniseian	Navajo, Navaho	Diné bizaad, Dinékʼehǰí	nv	nav	nav	nav	
+Niger–Congo	Chichewa; Chewa; Nyanja	chiCheŵa, chinyanja	ny	nya	nya	nya	
+Indo-European	Occitan	occitan, lenga d'òc	oc	oci	oci	oci	
+Algonquian	Ojibwe, Ojibwa	ᐊᓂᔑᓈᐯᒧᐎᓐ	oj	oji	oji	oji + 7	macrolanguage
+Afro-Asiatic	Oromo	Afaan Oromoo	om	orm	orm	orm + 4	macrolanguage
+Indo-European	Oriya	ଓଡ଼ିଆ	or	ori	ori	ori	
+Indo-European	Ossetian, Ossetic	ирон æвзаг	os	oss	oss	oss	
+Indo-European	Panjabi, Punjabi	ਪੰਜਾਬੀ, پنجابی‎	pa	pan	pan	pan	
+Indo-European	Pāli	पाऴि	pi	pli	pli	pli	ancient
+Indo-European	Polish	język polski, polszczyzna	pl	pol	pol	pol	
+Indo-European	Pashto, Pushto	پښتو	ps	pus	pus	pus + 3	macrolanguage
+Indo-European	Portuguese	português	pt	por	por	por	
+Quechuan	Quechua	Runa Simi, Kichwa	qu	que	que	que + 44	macrolanguage
+Indo-European	Romansh	rumantsch grischun	rm	roh	roh	roh	
+Niger–Congo	Kirundi	Ikirundi	rn	run	run	run	
+Indo-European	Romanian, Moldavian, Moldovan	limba română, limba moldovenească	ro	ron	rum	ron	[mo] for Moldavian has been withdrawn, recommending [ro] also for Moldavian
+Indo-European	Russian	русский язык	ru	rus	rus	rus	
+Niger–Congo	Kinyarwanda	Ikinyarwanda	rw	kin	kin	kin	
+Indo-European	Sanskrit (Saṁskṛta)	संस्कृतम्	sa	san	san	san	ancient, still spoken
+Indo-European	Sardinian	sardu	sc	srd	srd	srd + 4	macrolanguage
+Indo-European	Sindhi	सिन्धी, سنڌي، سندھی‎	sd	snd	snd	snd	
+Uralic	Northern Sami	Davvisámegiella	se	sme	sme	sme	
+Creole	Sango	yângâ tî sängö	sg	sag	sag	sag	
+Indo-European	Sinhala, Sinhalese	සිංහල	si	sin	sin	sin	
+Indo-European	Slovak	slovenčina, slovenský jazyk	sk	slk	slo	slk	
+Indo-European	Slovene	slovenski jezik, slovenščina	sl	slv	slv	slv	
+Austronesian	Samoan	gagana fa'a Samoa	sm	smo	smo	smo	
+Niger–Congo	Shona	chiShona	sn	sna	sna	sna	
+Afro-Asiatic	Somali	Soomaaliga, af Soomaali	so	som	som	som	
+Indo-European	Albanian	gjuha shqipe	sq	sqi	alb	sqi + 4	macrolanguage
+Indo-European	Serbian	српски језик	sr	srp	srp	srp	
+Niger–Congo	Swati	SiSwati	ss	ssw	ssw	ssw	
+Niger–Congo	Southern Sotho	Sesotho	st	sot	sot	sot	
+Austronesian	Sundanese	Basa Sunda	su	sun	sun	sun	
+Indo-European	Swedish	Svenska	sv	swe	swe	swe	
+Niger–Congo	Swahili	Kiswahili	sw	swa	swa	swa + 2	macrolanguage
+Dravidian	Tamil	தமிழ்	ta	tam	tam	tam	
+Dravidian	Telugu	తెలుగు	te	tel	tel	tel	
+Indo-European	Tajik	тоҷикӣ, toğikī, تاجیکی‎	tg	tgk	tgk	tgk	
+Tai–Kadai	Thai	ไทย	th	tha	tha	tha	
+Afro-Asiatic	Tigrinya	ትግርኛ	ti	tir	tir	tir	
+Turkic	Turkmen	Türkmen, Түркмен	tk	tuk	tuk	tuk	
+Austronesian	Tagalog	Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔	tl	tgl	tgl	tgl	Note: Filipino (Pilipino) has the code [fil]
+Niger–Congo	Tswana	Setswana	tn	tsn	tsn	tsn	
+Austronesian	Tonga (Tonga Islands)	faka Tonga	to	ton	ton	ton	
+Turkic	Turkish	Türkçe	tr	tur	tur	tur	
+Niger–Congo	Tsonga	Xitsonga	ts	tso	tso	tso	
+Turkic	Tatar	татар теле, tatar tele	tt	tat	tat	tat	
+Niger–Congo	Twi	Twi	tw	twi	twi	twi	Covered by macrolanguage [ak/aka]
+Austronesian	Tahitian	Reo Tahiti	ty	tah	tah	tah	One of the Reo Mā`ohi (languages of French Polynesia)
+Turkic	Uighur, Uyghur	Uyƣurqə, ئۇيغۇرچە‎	ug	uig	uig	uig	
+Indo-European	Ukrainian	українська мова	uk	ukr	ukr	ukr	
+Indo-European	Urdu	اردو	ur	urd	urd	urd	
+Turkic	Uzbek	O'zbek, Ўзбек, أۇزبېك‎	uz	uzb	uzb	uzb + 2	macrolanguage
+Niger–Congo	Venda	Tshivenḓa	ve	ven	ven	ven	
+Austro-Asiatic	Vietnamese	Tiếng Việt	vi	vie	vie	vie	
+Constructed	Volapük	Volapük	vo	vol	vol	vol	constructed
+Indo-European	Walloon	walon	wa	wln	wln	wln	
+Niger–Congo	Wolof	Wollof	wo	wol	wol	wol	
+Niger–Congo	Xhosa	isiXhosa	xh	xho	xho	xho	
+Indo-European	Yiddish	ייִדיש	yi	yid	yid	yid + 2	macrolanguage
+Niger–Congo	Yoruba	Yorùbá	yo	yor	yor	yor	
+Tai–Kadai	Zhuang, Chuang	Saɯ cueŋƅ, Saw cuengh	za	zha	zha	zha + 16	macrolanguage
+Sino-Tibetan	Chinese	中文 (Zhōngwén), 汉语, 漢語	zh	zho	chi	zho + 13	macrolanguage
+Niger–Congo	Zulu	isiZulu	zu	zul	zul	zul	
+		    -->
+		    
+	
+	</div>
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+		</div>
+	</div>
+</div>
+</html>
