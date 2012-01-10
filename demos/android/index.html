@@ -64,7 +64,7 @@
 				<h2>Credit Cards</h2>
 				
 				<div data-role="fieldcontain">
-					<label for="droidcard">Expires</label><input name="droidcard" type="date" data-role="datebox" data-options='{"dateFormat": "mm/YYYY", "fieldsOrder": ["m", "y"]}' id="droidcard" />
+					<label for="droidcard">Expires</label><input name="droidcard" type="date" data-role="datebox" data-options='{"dateFormat": "mm/YYYY", "fieldsOrderOverride": ["m", "y"]}' id="droidcard" />
 				</div>
 				
 				<p>Credit Card expiration dates can be gathered by setting 'dateFormat' to "mm/YYYY" and 'fieldsOrder' to ["m", "y"]</p>
@@ -72,7 +72,7 @@
 				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "datebox", "dateFormat": "mm/YYYY", "fieldsOrder": ["m", "y"]}'}'&gt;</pre>
+   data-options='{"mode": "datebox", "dateFormat": "mm/YYYY", "fieldsOrderOverride": ["m", "y"]}'}'&gt;</pre>
 				
 			</nav> 
 		</div> 
