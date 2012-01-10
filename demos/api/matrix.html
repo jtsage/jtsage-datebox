@@ -263,6 +263,22 @@
 					<p class="desc">Override the <a href="i8n.html">i8n</a> Time format.</p>
 					<p><strong>Valid options:</strong>[12, 24]</p>
 				</li>
+				<li><h3>timeOutputOverride</h3>
+					<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+					<dl data-role="none" class="option"><dt>Default:</dt><dd><b>false</b></dd></dl>
+					<dl data-role="none" class="option"><dt>Modes:</dt><dd>all time</dd></dl>
+					<p class="desc">Override the default time output format - this will apply to both 12 and 24 hour modes if set.</p>
+					<p><strong>Valid options:</strong><pre>
+	HH : 2 Digit Hour, 24 Hour Clock (zero pad)
+	GG : 1 or 2 Digit Hour, 24 Hour Clock
+	hh : 2 Digit Hour, 12 Hour Clock (zero pad)
+	gg : 1 or 2 Digit Hour, 12 Hour Clock
+	ii : 2 Digit Minutes (zero pad)
+	ss : 2 Digit Seconds (zero pad)
+	aa : Lower case meridiem letters
+	AA : Upper case meridiem letters
+</pre></p>
+				</li>
 				<li><h3>fieldsOrderOverride</h3>
 					<dl data-role="none" class="option"><dt>Type:</dt><dd>Array</dd></dl>
 					<dl data-role="none" class="option"><dt>Default:</dt><dd><b>Inherited</b></dd></dl>
