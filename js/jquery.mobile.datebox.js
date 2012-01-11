@@ -277,6 +277,7 @@
 		format = format.replace('ddd',  this.options.lang[this.options.useLang].daysOfWeek[date.getDay()] );
 		format = format.replace('DD',   this._zeroPad(date.getDate()));
 		format = format.replace('dd',   date.getDate());
+		format = format.replace('UU',   ( date.getTime() - date.getMilliseconds() ) / 1000);
 		
 		if ( this.options.lang[this.options.useLang].useArabicIndic === true ) {
 			format = this._digitReplace(format);
@@ -355,7 +356,7 @@
 			exp_temp = null,
 			date = new Date(),
 			dur_collapse = [false,false,false],
-			found_date = [date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds()],
+			found_date = [date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds(),0],
 			i;
 			
 		if ( o.lang[this.options.useLang].useArabicIndic === true ) {
@@ -397,7 +398,7 @@
 			adv = adv.replace(/mmm/g, '(.+?)');
 			adv = adv.replace(/ *AA/ig, ' *(.*?)');
 			adv = adv.replace(/yyyy|dd|mm|gg|hh|ii/ig, '([0-9yYdDmMgGhHi]+)');
-			adv = adv.replace(/ss/g, '([0-9s]+)');
+			adv = adv.replace(/ss|UU/g, '([0-9sU]+)');
 			adv = new RegExp('^' + adv + '$');
 			exp_input = adv.exec(str);
 			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
@@ -420,6 +421,9 @@
 							return new Date(o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0, 0, 0, 0);
 						}
 					}
+					else if ( typeof o.defaultPickerValue === "number" ) {
+						return new Date(o.defaultPickerValue * 1000);
+					}
 					else {
 						if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
 							exp_temp = o.defaultPickerValue.split(':');
@@ -438,7 +442,8 @@
 					}
 				}
 			} else {
-				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
+				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5a 6epoch
+					if ( exp_format[i].match(/^UU$/ ) )   { found_date[6] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^gg$/i) )   { found_date[3] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^hh$/i) )   { found_date[3] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^ii$/i) )   { found_date[4] = parseInt(exp_input[i],10); }
@@ -463,7 +468,10 @@
 					}
 				}
 			}
-			if ( exp_format[0].match(/G|g|i|s|H|h|A/) ) { 
+			if ( exp_format[0].match(/UU/) ) {
+				return new Date(found_date[6] * 1000);
+			}
+			else if ( exp_format[0].match(/G|g|i|s|H|h|A/) ) { 
 				return new Date(found_date[0], found_date[1], found_date[2], found_date[3], found_date[4], found_date[5], 0);
 			} else {
 				return new Date(found_date[0], found_date[1], found_date[2], 0, 0, 0, 0); // Normalize time for raw dates
