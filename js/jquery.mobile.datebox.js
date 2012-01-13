@@ -35,6 +35,8 @@
 		zindex: '500',
 		debug: false,
 		clickEvent: 'vclick',
+		numberInputEnhance: true,
+		internalInputType: 'text',
 		resizeListener: true,
 		
 		titleDialogLabel: false,
@@ -1191,6 +1193,12 @@
 			o.defaultPickerValue = o.defaultDate;
 		}
 		
+		if ( o.numberInputEnhance === true ) {
+			if( navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ){
+				o.internalInputType = 'number';
+			}
+		}
+		
 		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
 		
 		/* BUILD:MODE */
@@ -1398,7 +1406,8 @@
 			o = self.options, x, newHour, fld,
 			linkdiv =$("<div><a href='#'></a></div>"),
 			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
-			templInput = $("<input type='text' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+			templInput = $("<input type='"+o.internalInputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
+			templInputT = $("<input type='text' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
 			templControls = $("<div>", { "class":'ui-datebox-controls' }),
 			templFlip = $("<div class='ui-overlay-shadow'><ul></ul></div>"),
 			controlsPlus, controlsInput, controlsMinus, controlsSet, controlsHeader,
@@ -1470,7 +1479,7 @@
 			pickerMins = self._makeElement(templInput, {'attr': {'field':'i'} })
 				.keyup(function() { self._eventEnterValue($(this)); });
 				
-			pickerMeri = self._makeElement(templInput, {'attr': {'field':'a'} })
+			pickerMeri = self._makeElement(templInputT, {'attr': {'field':'a'} })
 				.keyup(function() { self._eventEnterValue($(this)); });
 					
 			if ( o.wheelExists ) { // Mousewheel operation, if plugin is loaded
