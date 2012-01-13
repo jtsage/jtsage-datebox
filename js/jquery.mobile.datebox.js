@@ -95,6 +95,7 @@
 		blackDays: false,
 		blackDates: false,
 		enableDates: false,
+		fixDateArrays: false,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1},
 		disabledDayColor: '#888',
 		useLang: 'en',
@@ -155,6 +156,23 @@
 					break;
 			}
 		} 
+	},
+	_fixArray: function(arr) {
+		var x = 0,
+			self = this,
+			exp = new RegExp('^([0-9]+)-([0-9]+)-([0-9]+)$'),
+			matches = null;
+		
+		if ( $.isArray(arr) ) {
+			for ( x=0; x<arr.length; x++) {
+				matches = [0];
+				matches = exp.exec(arr[x]);
+				if ( matches.length === 4 ) {
+					arr[x] = matches[1] + '-' + self._zeroPad(parseInt(matches[2],10)) + '-' + self._zeroPad(parseInt(matches[3],10));
+				}
+			}
+		}
+		return arr;
 	},
 	_digitReplace: function(oper, direction) {
 		var start = 48,
@@ -997,6 +1015,13 @@
 				}
 			}
 			
+			if ( o.fixDateArrays === true ) {
+				o.blackDates = self._fixArray(o.blackDates);
+				o.blackDates = self._fixArray(o.highDates);
+				o.blackDates = self._fixArray(o.highDatesAlt);
+				o.blackDates = self._fixArray(o.enableDates);
+			}
+				
 			for ( gridWeek=0; gridWeek<=5; gridWeek++ ) {
 				if ( gridWeek === 0 || ( gridWeek > 0 && (calmode.today > 0 && calmode.today <= calmode.end) ) ) {
 					thisRow = $("<div>", {'class': 'ui-datebox-gridrow'}).appendTo(self.controlsSet);
