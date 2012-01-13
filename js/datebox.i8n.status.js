@@ -640,9 +640,9 @@
 	es : {
 		name : "Spanish; Castilian ",
 		nativeName : "español, castellano ",
-		status: 'Needs Work',
-		file: 'es',
-		author: 'Google Translate'
+		status: 'Complete',
+		file: 'es-ES',
+		author: 'Rafael Carballo Cerqueira <rcc@la-ira.com>'
 	},
 	su : {
 		name : "Sundanese ",
