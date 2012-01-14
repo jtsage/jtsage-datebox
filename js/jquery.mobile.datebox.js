@@ -8,7 +8,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.0-2012010600', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.0-2012011300', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -504,7 +504,7 @@
 	},
 	_hoover: function(item) {
 		// Hover toggle class, for calendar
-		$(item).toggleClass('ui-btn-up-'+$(item).attr('data-theme')+' ui-btn-down-'+$(item).attr('data-theme'));
+		$(item).toggleClass('ui-btn-up-'+$(item).jqmData('theme')+' ui-btn-down-'+$(item).jqmData('theme'));
 	},
 	_offset: function(mode, amount, update) {
 		// Compute a date/time offset.
@@ -729,8 +729,8 @@
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -453px':'') })
 								.html("<span>"+(self.theDate.getFullYear() + i)+"</span>")
-								.attr('data-offset', i)
-								.attr('data-theme', cTheme)
+								.jqmData('offset', i)
+								.jqmData('theme', cTheme)
 								.appendTo(thisRow);
 							if ( tmpVal === true ) { tmpVal = false; }
 						}
@@ -744,8 +744,8 @@
 							cTheme = ( inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -357px':'') })
-								.attr('data-offset',i)
-								.attr('data-theme', cTheme)
+								.jqmData('offset', i)
+								.jqmData('theme', cTheme)
 								.html("<span>"+o.lang[o.useLang].monthsOfYearShort[testDate.getMonth()]+"</span>")
 								.appendTo(thisRow);
 							if ( tmpVal === true ) { tmpVal = false; }
@@ -760,8 +760,8 @@
 							cTheme = ( inheritDate.getDate() === testDate.getDate() && inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -453px':'') })
-								.attr('data-offset', i)
-								.attr('data-theme', cTheme)
+								.jqmData('offset', i)
+								.jqmData('theme', cTheme)
 								.html("<span>"+testDate.getDate()+"</span>")
 								.appendTo(thisRow);
 							if ( tmpVal === true ) { tmpVal = false; }
@@ -775,8 +775,8 @@
 							testDate.setHours(testDate.getHours()+i);
 							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageFlipButtonTheme;
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -357px':'') })
-								.attr('data-offset',i)
-								.attr('data-theme', cTheme)
+								.jqmData('offset', i)
+								.jqmData('theme', cTheme)
 								.html("<span>"+( ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12  ) ? ( ( testDate.getHours() === 0 ) ? '12' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() : ( ( testDate.getHours() === 12 ) ? '12' : (testDate.getHours()-12) ) ) ) : testDate.getHours() )+"</span>")
 								.appendTo(thisRow);
 							if ( tmpVal === true ) { tmpVal = false; }
@@ -791,8 +791,8 @@
 							testDate.setMinutes(testDate.getMinutes()+(i*o.minuteStep));
 							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageFlipButtonTheme;
 							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -933px':'') })
-								.attr('data-offset',(i*o.minuteStep))
-								.attr('data-theme', cTheme)
+								.jqmData('offset', i)
+								.jqmData('theme', cTheme)
 								.html("<span>"+self._zeroPad(testDate.getMinutes())+"</span>")
 								.appendTo(thisRow);
 							if ( tmpVal === true ) { tmpVal = false; }
@@ -810,13 +810,13 @@
 						}
 						$("<li>").appendTo(thisRow).clone().appendTo(thisRow);
 						$("<li>", { 'class' : 'ui-body-'+cTheme[0], 'style':'margin-top: '+tmpVal+'px' })
-							.attr('data-offset',1)
-							.attr('data-theme', cTheme[0])
+							.jqmData('offset', 1)
+							.jqmData('theme', cTheme[0])
 							.html("<span>"+o.meridiemLetters[0]+"</span>")
 							.appendTo(thisRow);
 						$("<li>", { 'class' : 'ui-body-'+cTheme[1] })
-							.attr('data-offset',1)
-							.attr('data-theme', cTheme[1])
+							.jqmData('offset', 1)
+							.jqmData('theme', cTheme[1])
 							.html("<span>"+o.meridiemLetters[1]+"</span>")
 							.appendTo(thisRow);
 						$("<li>").appendTo(thisRow).clone().appendTo(thisRow);
@@ -835,16 +835,16 @@
 			self.controlsInput.html('');
 			
 			for ( y=0; y<o.fieldsOrder.length; y++ ) {
-				thisPRow = $("<div>", {'data-rowtype': o.fieldsOrder[y]});
+				thisPRow = $("<div>").jqmData('rowtype', o.fieldsOrder[y]);
 				
 				if ( o.wheelExists ) {
 					thisPRow.bind('mousewheel', function(e,d) {
 						e.preventDefault();
-						self._offset($(this).attr('data-rowtype'), ((d>0)?1:-1));
+						self._offset($(this).jqmData('rowtype'), ((d>0)?1:-1));
 					});
 				}
 				
-				thisRow = $("<div>", {'class': 'ui-datebox-sliderow-int', 'data-rowtype': o.fieldsOrder[y]}).appendTo(thisPRow);
+				thisRow = $("<div>", {'class': 'ui-datebox-sliderow-int'}).jqmData('rowtype',o.fieldsOrder[y]).appendTo(thisPRow);
 				
 				if ( o.lang[o.useLang].isRTL === true ) { thisRow.css('direction', 'rtl'); }
 				
@@ -871,10 +871,10 @@
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							$("<div>", { 'class' : 'ui-datebox-slideyear ui-corner-all ui-btn-up-'+cTheme })
 								.html(self.theDate.getFullYear() + i)
-								.attr('data-offset', i)
-								.attr('data-theme', cTheme)
+								.jqmData('offset', i)
+								.jqmData('theme', cTheme)
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('y', parseInt($(this).attr('data-offset'),10)); })
+								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('y', parseInt($(this).jqmData('offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -887,11 +887,11 @@
 							cTheme = ( inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageSlideButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							$("<div>", { 'class' : 'ui-datebox-slidemonth ui-corner-all ui-btn-up-'+cTheme })
-								.attr('data-offset',i)
-								.attr('data-theme', cTheme)
+								.jqmData('offset', i)
+								.jqmData('theme', cTheme)
 								.html(o.lang[o.useLang].monthsOfYearShort[testDate.getMonth()])
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('m', parseInt($(this).attr('data-offset'),10)); })
+								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('m', parseInt($(this).jqmData('offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -905,11 +905,11 @@
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							
 							$("<div>", { 'class' : 'ui-datebox-slideday ui-corner-all ui-btn-up-'+cTheme })
-								.attr('data-offset', i)
-								.attr('data-theme', cTheme)
+								.jqmData('offset', i)
+								.jqmData('theme', cTheme)
 								.html(testDate.getDate() + '<br /><span class="ui-datebox-slidewday">' + o.lang[o.useLang].daysOfWeekShort[testDate.getDay()] + '</span>')
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('d', parseInt($(this).attr('data-offset'),10)); })
+								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('d', parseInt($(this).jqmData('offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -921,11 +921,11 @@
 							testDate.setHours(testDate.getHours()+i);
 							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageSlideButtonTheme;
 							$("<div>", { 'class' : 'ui-datebox-slidehour ui-corner-all ui-btn-up-'+cTheme })
-								.attr('data-offset',i)
-								.attr('data-theme', cTheme)
+								.jqmData('offset', i)
+								.jqmData('theme', cTheme)
 								.html(( ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() + '<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() === 12 ) ? '12<span class="ui-datebox-slidewday">PM</span>' : (testDate.getHours()-12) + '<span class="ui-datebox-slidewday">PM</span>') ) ) : testDate.getHours() ))
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('h', parseInt($(this).attr('data-offset'),10)); })
+								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('h', parseInt($(this).jqmData('offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -937,11 +937,11 @@
 							testDate.setMinutes(testDate.getMinutes()+i);
 							cTheme = ( i === 0 ) ?  o.pickPageButtonTheme : o.pickPageSlideButtonTheme;
 							$("<div>", { 'class' : 'ui-datebox-slidemins ui-corner-all ui-btn-up-'+cTheme })
-								.attr('data-offset',i)
-								.attr('data-theme', cTheme)
+								.jqmData('offset', i)
+								.jqmData('theme', cTheme)
 								.html(self._zeroPad(testDate.getMinutes()))
 								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('i', parseInt($(this).attr('data-offset'),10)); })
+								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('i', parseInt($(this).jqmData('offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -1054,12 +1054,12 @@
 								if ( gridWeek === 0 ) {
 									$("<div>"+String(calmode.prevtoday)+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
-										.attr('data-date', ((o.calWeekMode)?(calmode.weekMode+calmode.lastend):calmode.prevtoday))
+										.jqmData('date', ((o.calWeekMode)?(calmode.weekMode+calmode.lastend):calmode.prevtoday))
 										.bind((!skipThis)?o.clickEvent:'error', function(e) {
 											e.preventDefault();
 											if ( !self.calNoPrev ) {
 												self.theDate.setMonth(self.theDate.getMonth() - 1);
-												self.theDate.setDate($(this).attr('data-date'));
+												self.theDate.setDate($(this).jqmData('date'));
 												self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
 												self.input.trigger('datebox', {'method':'close'});
 											}
@@ -1068,11 +1068,11 @@
 								} else {
 									$("<div>"+String(calmode.nexttoday)+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
-										.attr('data-date', ((o.calWeekMode)?calmode.weekMode:calmode.nexttoday))
+										.jqmData('date', ((o.calWeekMode)?calmode.weekMode:calmode.nexttoday))
 										.bind((!skipThis)?o.clickEvent:'error', function(e) {
 											e.preventDefault();
 											if ( !self.calNoNext ) {
-												self.theDate.setDate($(this).attr('data-date'));
+												self.theDate.setDate($(this).jqmData('date'));
 												if ( !o.calWeekMode ) { self.theDate.setMonth(self.theDate.getMonth() + 1); }
 												self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
 												self.input.trigger('datebox', {'method':'close'});
@@ -1129,8 +1129,8 @@
 							
 							$("<div>"+String(calmode.today)+"</div>")
 								.addClass('ui-datebox-griddate ui-corner-all')
-								.attr('data-date', ((o.calWeekMode)?calmode.weekMode:calmode.today))
-								.attr('data-theme', calmode.thisTheme)
+								.jqmData('date', ((o.calWeekMode)?calmode.weekMode:calmode.today))
+								.jqmData('theme', calmode.thisTheme)
 								.appendTo(thisRow)
 								.addClass('ui-btn-up-'+calmode.thisTheme)
 								.bind('vmouseover vmouseout', function() { 
@@ -1140,7 +1140,7 @@
 								})
 								.bind((!skipThis)?o.clickEvent:'error', function(e) {
 										e.preventDefault();
-										self.theDate.setDate($(this).attr('data-date'));
+										self.theDate.setDate($(this).jqmData('date'));
 										self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
 										self.input.trigger('datebox', {'method':'close'});
 								})
@@ -1165,11 +1165,11 @@
 		$( document ).trigger( "dateboxcreate" );
 		
 		var self = this,
-			o = $.extend(this.options, this.element.data('options')),
+			o = $.extend(this.options, this.element.jqmData('options')),
 			input = this.element,
-			thisTheme = ( o.theme === false && typeof($(self).attr('data-theme')) === 'undefined' ) ?
-				( ( typeof(input.parentsUntil('[data-theme]').parent().attr('data-theme')) === 'undefined' ) ?
-					o.defaultTheme : input.parentsUntil('[data-theme]').parent().attr('data-theme') )
+			thisTheme = ( o.theme === false && typeof($(self).jqmData('theme')) === 'undefined' ) ?
+				( ( typeof(input.parentsUntil(':jqmData(theme)').parent().jqmData('theme')) === 'undefined' ) ?
+					o.defaultTheme : input.parentsUntil(':jqmData(theme)').parent().jqmData('theme') )
 				: o.theme,
 			focusedEl = input.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ thisTheme +'"></div>').parent(),
 			theDate = new Date(), // Internal date object, used for all operations
@@ -1185,11 +1185,12 @@
 				.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
 				.css({'vertical-align': 'middle', 'float': 'right'}),
 			thisPage = input.closest('.ui-page'),
-			pickPage = $("<div data-role='dialog' class='ui-dialog-datebox' data-theme='" + ((o.forceInheritTheme === false ) ? o.pickPageTheme : thisTheme ) + "' >" +
-						"<div data-role='header' data-backbtn='false' data-theme='a'>" +
+			ns = (typeof $.mobile.ns !== 'undefined')?$.mobile.ns:'',
+			pickPage = $("<div data-"+ns+"role='dialog' class='ui-dialog-datebox' data-"+ns+"theme='" + ((o.forceInheritTheme === false ) ? o.pickPageTheme : thisTheme ) + "' >" +
+						"<div data-"+ns+"role='header' data-"+ns+"backbtn='false' data-"+ns+"theme='a'>" +
 							"<div class='ui-title'>PlaceHolder</div>"+
 						"</div>"+
-						"<div data-role='content'></div>"+
+						"<div data-"+ns+"role='content'></div>"+
 					"</div>")
 					.appendTo( $.mobile.pageContainer )
 					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass(o.transition),
@@ -1332,7 +1333,7 @@
 						if ( self.dragEnd !== false && Math.abs(self.dragStart - self.dragEnd) > 25 ) {
 							e.preventDefault();
 							e.stopPropagation();
-							switch(self.dragTarget.parent().data('rowtype')) {
+							switch(self.dragTarget.parent().jqmData('rowtype')) {
 								case 'y':
 									self._offset('y', parseInt(( self.dragStart - self.dragEnd ) / 84, 10));
 									break;
@@ -1354,7 +1355,7 @@
 						if ( self.dragEnd !== false ) {
 							e.preventDefault();
 							e.stopPropagation();
-							var fld = self.dragTarget.parent().parent().data('field'),
+							var fld = self.dragTarget.parent().parent().jqmData('field'),
 								amount = parseInt(( self.dragStart - self.dragEnd ) / 30,10);
 							self._offset(fld, amount * ( (fld === "i") ? o.minuteStep : 1 ));
 						}
@@ -1394,7 +1395,7 @@
 		
 		if ( 'attr' in parts ) {
 			for ( part in parts.attr ) {
-				retty.attr("data-"+part, parts.attr[part]);
+				retty.jqmData(part, parts.attr[part]);
 			}
 		}
 		return retty;
@@ -1405,7 +1406,7 @@
 			newHour = false;
 		
 		if ( item.val() !== '' && self._isInt(item.val()) ) {
-			switch(item.attr('data-field')) {
+			switch(item.jqmData('field')) {
 				case 'm':
 					self.theDate.setMonth(parseInt(item.val(),10)-1); break;
 				case 'd':
@@ -1529,7 +1530,7 @@
 				controlsInput.find('input').bind(self.START_DRAG, function(e) {
 					if ( !self.dragMove ) {
 						self.dragMove = true;
-						self.dragTarget = $(this).data('field');
+						self.dragTarget = $(this).jqmData('field');
 						self.dragPos = 0;
 						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
 						self.dragEnd = false;
@@ -1553,17 +1554,17 @@
 				if ( o.fieldsOrder[x] !== 'a' || o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) {
 					linkdiv.clone()
 						.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-						.attr('data-field', o.fieldsOrder[x])
+						.jqmData('field', o.fieldsOrder[x])
 						.bind(o.clickEvent, function(e) {
 							e.preventDefault();
-							self._offset($(this).attr('data-field'),($(this).attr('data-field')==='i'?o.minuteStep:1));
+							self._offset($(this).jqmData('field'),($(this).jqmData('field')==='i'?o.minuteStep:1));
 					});
 					linkdiv.clone()
 						.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-						.attr('data-field', o.fieldsOrder[x])
+						.jqmData('field', o.fieldsOrder[x])
 						.bind(o.clickEvent, function(e) {
 							e.preventDefault();
-							self._offset($(this).attr('data-field'),-1*($(this).attr('data-field')==='i'?o.minuteStep:1));
+							self._offset($(this).jqmData('field'),-1*($(this).jqmData('field')==='i'?o.minuteStep:1));
 					});
 				}
 			}
@@ -1606,16 +1607,16 @@
 			for ( x=0; x<o.durationOrder.length; x++ ) { // Use durationOrder to decide what goes where
 				switch ( o.durationOrder[x] ) {
 					case 'd':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'd'}).append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[0]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput'}).jqmData('field', 'd').append(pickerDay).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[0]+'</label>');
 						break;
 					case 'h':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'h'}).append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[1]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput'}).jqmData('field', 'h').append(pickerHour).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[1]+'</label>');
 						break;
 					case 'i':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 'i'}).append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[2]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput'}).jqmData('field', 'i').append(pickerMins).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[2]+'</label>');
 						break;
 					case 's':
-						$('<div>', {'class': 'ui-datebox-sinput', 'data-field': 's'}).append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[3]+'</label>');
+						$('<div>', {'class': 'ui-datebox-sinput'}).jqmData('field', 's').append(pickerSecs).appendTo(controlsInput).prepend('<label>'+o.lang[o.useLang].durationLabel[3]+'</label>');
 						break;
 				}
 			}
@@ -1624,7 +1625,7 @@
 				controlsInput.find('input').bind(self.START_DRAG, function(e) {
 					if ( !self.dragMove ) {
 						self.dragMove = true;
-						self.dragTarget = $(this).parent().data('field');
+						self.dragTarget = $(this).parent().jqmData('field');
 						self.dragPos = 0;
 						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
 						self.dragEnd = false;
@@ -1646,18 +1647,18 @@
 			for ( x=0; x<o.durationOrder.length; x++ ) {
 				linkdiv.clone()
 					.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-					.attr('data-field', o.durationOrder[x])
+					.jqmData('field', o.durationOrder[x])
 					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
-						self._offset($(this).attr('data-field'),o.durationSteppers[$(this).attr('data-field')]);
+						self._offset($(this).jqmData('field'),o.durationSteppers[$(this).jqmData('field')]);
 					});
 					
 				linkdiv.clone()
 					.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-					.attr('data-field', o.durationOrder[x])
+					.jqmData('field', o.durationOrder[x])
 					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
-						self._offset($(this).attr('data-field'),-1*o.durationSteppers[$(this).attr('data-field')]);
+						self._offset($(this).jqmData('field'),-1*o.durationSteppers[$(this).jqmData('field')]);
 					});
 			}
 			
@@ -2060,7 +2061,7 @@
 			if (!fromCloseButton) {
 				$(self.pickPage).dialog('close');
 			}
-			if( !self.thisPage.data("page").options.domCache ){
+			if( !self.thisPage.jqmData("page").options.domCache ){
 				self.thisPage.bind( "pagehide.remove", function() {
 					$(self).remove();
 				});
