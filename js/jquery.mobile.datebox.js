@@ -8,7 +8,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.0-2012011300', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.0-2012011400', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -1016,10 +1016,10 @@
 			}
 			
 			if ( o.fixDateArrays === true ) {
-				o.blackDates = self._fixArray(o.blackDates);
-				o.blackDates = self._fixArray(o.highDates);
-				o.blackDates = self._fixArray(o.highDatesAlt);
-				o.blackDates = self._fixArray(o.enableDates);
+				o.blackDates   = self._fixArray(o.blackDates);
+				o.highDates    = self._fixArray(o.highDates);
+				o.highDatesAlt = self._fixArray(o.highDatesAlt);
+				o.enableDates  = self._fixArray(o.enableDates);
 			}
 				
 			for ( gridWeek=0; gridWeek<=5; gridWeek++ ) {
