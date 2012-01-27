@@ -4,6 +4,15 @@
  * CC 3.0 Attribution.  May be relicensed without permission/notification.
  * https://github.com/jtsage/jquery-mobile-datebox
  */
+ 
+ if (!console) {
+    console = {
+        log : function(string){
+
+        }
+    }
+}
+ 
 (function($, undefined ) {
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
@@ -1225,8 +1234,8 @@
 			}
 		}
 		
-		$('label[for='+input.attr('id')+']').addClass('ui-input-text').css('verticalAlign', 'middle');
-		
+		$('label[for=\''+input.attr('id')+'\']').addClass('ui-input-text').css('verticalAlign', 'middle');
+
 		/* BUILD:MODE */
 		
 		if ( o.mode === "timeflipbox" ) { // No header in time flipbox.
