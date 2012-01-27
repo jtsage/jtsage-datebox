@@ -2125,10 +2125,7 @@
   // Degrade date inputs to text inputs, suppress standard UI functions.
   $( document ).bind( "pagebeforecreate", function( e ) {
 	$( ":jqmData(role='datebox')", e.target ).each(function() {
-		$(this).replaceWith(
-			$( "<div>" ).html( $(this).clone() ).html()
-				.replace( /\s+type=["']date['"]?/, " type=\"text\" " )
-		);
+		$(this).prop('type', 'text');
 	});
   });
   // Automatically bind to data-role='datebox' items.
