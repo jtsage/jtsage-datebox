@@ -60,7 +60,7 @@
 		calShowDays: true,
 		calShowOnlyMonth: false,
 		useDialogForceTrue: false,
-		useDialogForceFalse: false,
+		useDialogForceFalse: true,
 		fullScreen: false,
 		fullScreenAlways: false,
 		useDialog: false,
