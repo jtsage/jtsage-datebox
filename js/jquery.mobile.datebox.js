@@ -5,19 +5,17 @@
  * https://github.com/jtsage/jquery-mobile-datebox
  */
  
- if (!console) {
-    console = {
-        log : function(string){
-
-        }
-    }
+if (!console) {
+	console = {
+		log : function(string){ }
+	}
 }
  
 (function($, undefined ) {
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.0-2012011400', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.1-2012020100', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
