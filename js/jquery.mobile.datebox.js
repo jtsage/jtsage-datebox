@@ -124,6 +124,7 @@
 				durationDays: ['Day', 'Days'],
 				timeFormat: 24,
 				headerFormat: 'ddd, mmm dd, YYYY',
+				tooltip: 'Open Date Picker',
 				dateFieldOrder: ['m', 'd', 'y'],
 				timeFieldOrder: ['h', 'i', 'a'],
 				slideFieldOrder: ['y', 'm', 'd'],
@@ -1185,7 +1186,7 @@
 			initDate = new Date(theDate.getTime()), // Initilization time - used for duration
 			
 			// This is the button that is added to the original input
-			openbutton = $('<a href="#" class="ui-input-clear" title="date picker">date picker</a>')
+			openbutton = $('<a href="#" class="ui-input-clear" title="'+((typeof o.lang[o.useLang].tooltip !== 'undefined')?o.lang[o.useLang].tooltip:o.lang.en.tooltip)+'">'+((typeof o.lang[o.useLang].tooltip !== 'undefined')?o.lang[o.useLang].tooltip:o.lang.en.tooltip)+'</a>')
 				.bind(o.clickEvent, function (e) {
 					e.preventDefault();
 					if ( !o.disabled ) { self.input.trigger('datebox', {'method': 'open'}); }
