@@ -15,7 +15,7 @@ if (!console) {
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.1-2012020100', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.1-2012020101', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -725,14 +725,14 @@ if (!console) {
 			
 			inheritDate = self._makeDate(self.input.val());
 			
-			self.controlsHeader.html( self._formatHeader(self.theDate) );
+			self.controlsHeader.empty().html( self._formatHeader(self.theDate) );
 			
 			for ( y=0; y<o.fieldsOrder.length; y++ ) {
 				tmpVal = true;
 				switch (o.fieldsOrder[y]) {
 					case 'y':
 						thisRow = self.pickerYar.find('ul');
-						thisRow.html('');
+						thisRow.empty();
 						for ( i=-15; i<16; i++ ) {
 							cTheme = ((inheritDate.getFullYear()===(self.theDate.getFullYear() + i))?o.pickPageHighButtonTheme:o.pickPageFlipButtonTheme);
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
@@ -746,7 +746,7 @@ if (!console) {
 						break;
 					case 'm':
 						thisRow = self.pickerMon.find('ul');
-						thisRow.html('');
+						thisRow.empty();
 						for ( i=-12; i<13; i++ ) {
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), 1);
 							testDate.setMonth(testDate.getMonth()+i);
@@ -762,7 +762,7 @@ if (!console) {
 						break;
 					case 'd':
 						thisRow = self.pickerDay.find('ul');
-						thisRow.html('');
+						thisRow.empty();
 						for ( i=-15; i<16; i++ ) {
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
 							testDate.setDate(testDate.getDate()+i);
@@ -778,7 +778,7 @@ if (!console) {
 						break;
 					case 'h':
 						thisRow = self.pickerHour.find('ul');
-						thisRow.html('');
+						thisRow.empty();
 						for ( i=-12; i<13; i++ ) {
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), self.theDate.getHours());
 							testDate.setHours(testDate.getHours()+i);
@@ -793,7 +793,7 @@ if (!console) {
 						break;
 					case 'i':
 						thisRow = self.pickerMins.find('ul');
-						thisRow.html('');
+						thisRow.empty();
 						for ( i=-30; i<31; i++ ) {
 							if ( o.minuteStep > 1 ) { self.theDate.setMinutes(self.theDate.getMinutes() - (self.theDate.getMinutes() % o.minuteStep)); }
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), self.theDate.getHours(), self.theDate.getMinutes());
@@ -809,7 +809,7 @@ if (!console) {
 						break;
 					case 'a':
 						thisRow = self.pickerMeri.find('ul');
-						thisRow.html('');
+						thisRow.empty();
 						if ( self.theDate.getHours() > 11 ) { 
 							tmpVal = '-65';
 							cTheme = [o.pickPageFlipButtonTheme, o.pickPageButtonTheme];
@@ -840,8 +840,8 @@ if (!console) {
 			
 			inheritDate = self._makeDate(self.input.val());
 			
-			self.controlsHeader.html( self._formatHeader(self.theDate) );
-			self.controlsInput.html('');
+			self.controlsHeader.empty().html( self._formatHeader(self.theDate) );
+			self.controlsInput.empty();
 			
 			for ( y=0; y<o.fieldsOrder.length; y++ ) {
 				thisPRow = $("<div>").jqmData('rowtype', o.fieldsOrder[y]);
@@ -963,7 +963,7 @@ if (!console) {
 		if ( o.mode === 'datebox' ) {
 			self._checkConstraints();
 			
-			self.controlsHeader.html( self._formatHeader(self.theDate) );
+			self.controlsHeader.empty().html( self._formatHeader(self.theDate) );
 			self.pickerMon.val(self.theDate.getMonth() + 1);
 			self.pickerDay.val(self.theDate.getDate());
 			self.pickerYar.val(self.theDate.getFullYear());
@@ -971,8 +971,8 @@ if (!console) {
 		/* END:DATEBOX */
 		/* BEGIN:CALBOX */
 		if ( o.mode === 'calbox' ) { // Meat and potatos - make the calendar grid.
-			self.controlsInput.html( o.lang[o.useLang].monthsOfYear[self.theDate.getMonth()] + " " + self.theDate.getFullYear() );
-			self.controlsSet.html('');
+			self.controlsInput.empty().html( o.lang[o.useLang].monthsOfYear[self.theDate.getMonth()] + " " + self.theDate.getFullYear() );
+			self.controlsSet.empty();
 			
 			calmode = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'nexttoday': 1,
 				'thisDate': new Date(), 'maxDate': new Date(), 'minDate': new Date(),
@@ -1487,7 +1487,7 @@ if (!console) {
 			}
 		}
 		
-		self.pickerContent.html('');
+		self.pickerContent.empty();
 			
 		/* BEGIN:DATETIME */
 		if ( o.mode === 'datebox' || o.mode === 'timebox' ) {
@@ -1497,7 +1497,7 @@ if (!console) {
 			controlsMinus = templControls.clone().appendTo(self.pickerContent);
 			controlsSet = templControls.clone().appendTo(self.pickerContent);
 			
-			if ( o.mode === 'timebox' ) { controlsHeader.parent().html(''); } // Time mode has no header
+			if ( o.mode === 'timebox' ) { controlsHeader.parent().empty(); } // Time mode has no header
 			
 			pickerMon = self._makeElement(templInput, {'attr': {'field':'m'} })
 				.keyup(function() { self._eventEnterValue($(this)); });
