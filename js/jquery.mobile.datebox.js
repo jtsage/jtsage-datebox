@@ -68,6 +68,7 @@
 		useInline: false,
 		useInlineBlind: false,
 		noButtonFocusMode: false,
+		focusMode: false,
 		noButton: false,
 		noSetButton: false,
 		openCallback: false,
@@ -1247,7 +1248,7 @@
 		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
 		focusedEl.bind(o.clickEvent, function() {
-			if ( !o.disabled && o.noButtonFocusMode ) { input.trigger('datebox', {'method': 'open'}); }
+			if ( !o.disabled && ( o.noButtonFocusMode || o.focusMode ) ) { input.trigger('datebox', {'method': 'open'}); }
 		});
 		
 		
