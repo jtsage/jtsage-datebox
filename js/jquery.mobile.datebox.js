@@ -2033,8 +2033,8 @@ if (!console) {
 			if ( o.fullScreenAlways === false || $(document).width() > 399 ) {
 				if ( o.useModal === true ) { // If model, fade the background screen
 					self.screen.fadeIn('slow');
-				} else { // Else just unhide it since it's transparent
-					self.screen.removeClass('ui-datebox-hidden');
+				} else { // Else just unhide it since it's transparent (with a delay to prevent insta-close)
+					setTimeout(function() {self.screen.removeClass('ui-datebox-hidden');}, 500);
 				}
 			}
 			
