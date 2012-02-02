@@ -151,7 +151,10 @@
 	},
 	hr : {
 		name : "Croatian ",
-		nativeName : "hrvatski "
+		nativeName : "hrvatski ",
+		status : 'Complete',
+		file: 'hr',
+		author: 'Marko &lt;ma3ko0@gmail.com>'
 	},
 	cs : {
 		name : "Czech ",
