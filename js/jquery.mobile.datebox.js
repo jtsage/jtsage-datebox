@@ -5,8 +5,8 @@
  * https://github.com/jtsage/jquery-mobile-datebox
  */
  
-if (!console) {
-	console = {
+if (!window.console) {
+	window.console = {
 		log : function(string){ }
 	}
 }
