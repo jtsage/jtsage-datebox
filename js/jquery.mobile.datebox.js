@@ -5,12 +5,6 @@
  * https://github.com/jtsage/jquery-mobile-datebox
  */
  
-if (!console) {
-	console = {
-		log : function(string){ }
-	}
-}
- 
 (function($, undefined ) {
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
@@ -355,10 +349,6 @@ if (!console) {
 			if ( ! exp_format[0].match(/hh/) ) { dur_collapse[1] = true; dur_comps[2] = dur_comps[2] + (dur_comps[1]*60);}
 			if ( ! exp_format[0].match(/ii/) ) { dur_collapse[2] = true; dur_comps[3] = dur_comps[3] + (dur_comps[2]*60);}
 			
-			if ( this.options.debug ) { 
-				console.log({'format': exp_format, 'collapse': dur_collapse, 'seconds': j, 'parts': dur_comps});
-			}
-			
 			format = format.replace('DD', dur_comps[0]);
 			format = format.replace('ddd', ((dur_comps[0] > 1)?this.options.lang[this.options.useLang].durationDays[1]:this.options.lang[this.options.useLang].durationDays[0]));
 			format = format.replace('hh', self._zeroPad(dur_comps[1]));
@@ -400,10 +390,6 @@ if (!console) {
 			exp_input = adv.exec(str);
 			exp_format = adv.exec(o.durationFormat);
 			
-			if ( o.debug ) { // Legacy debug code - you probably never need this.
-				console.log({'info': 'EXPERIMENTAL REGEX MODE ENABLED', 'string': str, 'regex':adv, 'input':exp_input, 'format':exp_format});
-			}
-			
 			if ( exp_input === null || exp_input.length !== exp_format.length ) {
 				if ( typeof o.defaultPickerValue === "number" && o.defaultPickerValue > 0 ) {
 					return new Date(self.initDate.getTime() + (parseInt(o.defaultPickerValue,10) * 1000));
@@ -434,10 +420,6 @@ if (!console) {
 				exp_format = adv.exec(o.timeOutput); // If time, use timeOutput as expected format
 			} else {
 				exp_format = adv.exec(o.dateOutput); // If date, use dateFormat as expected format
-			}
-			
-			if ( o.debug ) { // Legacy debug code - you probably never need this.
-				console.log({'info': 'EXPERIMENTAL REGEX MODE ENABLED', 'string': str, 'regex':adv, 'input':exp_input, 'format':exp_format});
 			}
 			
 			if ( exp_input === null || exp_input.length !== exp_format.length ) {
@@ -528,9 +510,6 @@ if (!console) {
 				self.theDate.setYear(self.theDate.getFullYear() + amount);
 				break;
 			case 'm':
-				if ( o.debug ) {
-					console.log(o.rolloverMode);
-				}
 				if ( o.rolloverMode.m || ( self.theDate.getMonth() + amount < 12 && self.theDate.getMonth() + amount > -1 ) ) {
 					self.theDate.setMonth(self.theDate.getMonth() + amount);
 				}
