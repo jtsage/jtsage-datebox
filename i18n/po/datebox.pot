@@ -273,5 +273,5 @@ msgstr ""
 
 #. Set to "true" if this language runs Right->to->Left (or false)
 #: generate-i18n.py:41
-msgid "false1"
+msgid "false2"
 msgstr ""
