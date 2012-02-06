@@ -1,0 +1,175 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="apiConfig"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		
+		<h2>Available Date Format Options</h2>
+		<p>The date format follows the POSIX standards.  There is one extension.  By default, all numbers are zero-padded. (see modifiers section)</p>
+		
+		<ul data-role="listview" data-inset="true" class="options" data-dividertheme="a">
+			<li data-role="list-divider">Implemented Options</li>
+			<li><h3>%%</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<p class="desc">A Literal '%'</p>
+			</li>
+			<li><h3>%a</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<p class="desc">Abreviated name of day</p>
+			</li>
+			<li><h3>%A</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<p class="desc">Full name of day</p>
+			</li>
+			<li><h3>%b</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<p class="desc">Abreviated name of month</p>
+			</li>
+			<li><h3>%B</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<p class="desc">Full name of Month</p>
+			</li>
+			<li><h3>%C</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Centruy (First 2 digits of year)</p>
+			</li>
+			<li><h3>%d</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Day of month</p>
+			</li>
+			<li><h3>%H</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Hour of day (01..23)</p>
+			</li>
+			<li><h3>%I</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Hour of day (01..12)</p>
+			</li>
+			<li><h3>%k</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Hour of day (01..23)</p>
+			</li>
+			<li><h3>%l</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Hour of day (01..12)</p>
+			</li>
+			<li><h3>%m</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Month of year (01..12)</p>
+			</li>
+			<li><h3>%M</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Minutes (01..59)</p>
+			</li>
+			<li><h3>%p</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<p class="desc">Meridian Letters (AM/PM) in uppercase</p>
+			</li>
+			<li><h3>%P</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<p class="desc">Meridian Letters (AM/PM) in lowercase</p>
+			</li>
+			<li><h3>%s</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">The number of seconds since the Epoch, 1970-01-01 00:00:00.</p>
+			</li>
+			<li><h3>%S</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Seconds (00..59)</p>
+			</li>
+			<li><h3>%w</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Day of week (0-7), 0 = Sunday</p>
+			</li>
+			<li><h3>%y</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Year (00-99) (2 Digit)</p>
+			</li>
+			<li><h3>%Y</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<p class="desc">Full Year (4 Digit)</p>
+			</li>
+			<li data-role="list-divider">Extension Options</li>
+			<li><h3>%o</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<p class="desc">Date ordinal (st / nd / rd / th)</p>
+			</li>
+			<li data-role="list-divider">Modifiers</li>
+			<li><h3>0</h3>
+				<p class="desc">Pad with zeros (the default) - e.g. 4 -> %0d -> 04 </p>
+			</li>
+			<li><h3>-</h3>
+				<p class="desc">Pad with nothing - e.g. 4 -> %-d -> 4 </p>
+			</li>
+			<li data-role="list-divider">Might Implement Options</li>
+			<li><h3>%G</h3>
+				<p class="desc">The ISO 8601 week-based year (see NOTES) with century as a decimal number. The 4-digit year corresponding to the ISO week number (see %V). This has the same format and value as %Y, except that if the ISO week number belongs to the previous or next year, that year is used instead. (TZ)</p>
+			</li>
+			<li><h3>%g</h3>
+				<p class="desc">Like %G, but without century, that is, with a 2-digit year (00-99). (TZ)</p>
+			</li>
+			<li><h3>%j</h3>
+				<p class="desc">The day of the year as a decimal number (range 001 to 366).</p>
+			</li>
+			<li><h3>%u</h3>
+				<p class="desc">The day of the week as a decimal, range 1 to 7, Monday being 1. See also %w. (SU)</p>
+			</li>
+			<li><h3>%U</h3>
+				<p class="desc">The week number of the current year as a decimal number, range 00 to 53, starting with the first Sunday as the first day of week 01. See also %V and %W.</p>
+			</li>
+			<li><h3>%V</h3>
+				<p class="desc">The ISO 8601 week number (see NOTES) of the current year as a decimal number, range 01 to 53, where week 1 is the first week that has at least 4 days in the new year. See also %U and %W. (SU)</p>
+			</li>
+			<li><h3>%W</h3>
+				<p class="desc">The week number of the current year as a decimal number, range 00 to 53, starting with the first Monday as the first day of week 01.</p>
+			</li>
+			<li data-role="list-divider">Unimplemented Options</li>
+			<li><h3>%c, %D, %F, %r, %R, %T, %x, %X, %+</h3>
+				<p>These options all deal with "standard" full formats - which is the point of this package</p>
+			</li>
+			<li><h3>%n, %t</h3>
+				<p>Formatting options that make no sense in an HTML world</p>
+			</li>
+			<li><h3>%z, %Z</h3>
+				<p>Time zone options that are better handled server-side</p>
+			</li>
+			
+			
+			
+		</ul>
+		
+	</div>
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+		</div>
+	</div>
+</div>
+</html>

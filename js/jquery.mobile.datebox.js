@@ -309,6 +309,8 @@
 		} else {
 			format = format.replace(/%(0|-)*([a-z])/gi, function(match, pad, oper, offset, s) {
 				switch ( oper ) {
+					case '%': // Literal %
+						return '%';
 					case 'a': // Short Day
 						return o.lang[o.useLang].daysOfWeekShort[date.getDay()];
 					case 'A': // Full Day of week
