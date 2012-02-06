@@ -1520,10 +1520,6 @@
 		
 		$(document).bind('orientationchange', function(e) { input.trigger('orientationchange'); });
 		
-		if ( o.resizeListener === true ) {
-			$(window).bind('resize', function (e) { input.trigger('orientationchange'); });
-		}
-		
 		input.bind('orientationchange', self._orientChange);
 		
 		//Throw dateboxinit event
@@ -2176,6 +2172,9 @@
 				self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'text-align': 'center', 'top': fullTop, 'left': fullLeft, 'height': docWinHeight, 'width': docWinWidth, 'border': '0px !important' }).removeClass('ui-datebox-hidden');
 			} else {
 				self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).removeClass('ui-datebox-hidden');
+				if ( o.resizeListener === true ) {
+					$(window).bind('resize.datebox', function (e) { self._orientChange(this); });
+				}
 			}
 		} else {
 			// prevent the parent page from being removed from the DOM,
@@ -2220,6 +2219,10 @@
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex).removeClass('in');
 		}
 		self.focusedEl.removeClass('ui-focus');
+		
+		if ( self.options.resizeListener === true ) {
+			$(window).unbind('resize.datebox');
+		}
 		
 		if ( self.options.closeCallback !== false ) { 
 			if ( $.isFunction(self.options.closeCallback) ) {
