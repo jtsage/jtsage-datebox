@@ -9,7 +9,7 @@
 
 import sys
 import gettext
-
+import os
 gettext.install('datebox', './locale', unicode=1)
 
 def doTrans(lang):
@@ -43,11 +43,8 @@ def doTrans(lang):
 	outtext += "jQuery.extend(jQuery.mobile.datebox.prototype.options, {\n\tuseLang: '" + lang + "'\n});\n"
 	return outtext
 
-if ( len(sys.argv) == 1 ):
-	print "Please specify a language"
-	sys.exit()
-else:
-	#lang1 = gettext.translation('datebox', languages=[sys.argv[1]])
-	#lang1.install()
-	print doTrans(sys.argv[1])
-
+try:
+	lang = os.environ['LANG']
+	print doTrans(lang)
+except KeyError as e:
+	print 'Lang not set!'
