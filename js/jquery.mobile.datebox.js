@@ -9,7 +9,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.1-2012020101', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.1-2012020500', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -43,7 +43,7 @@
 		titleDialogLabel: false,
 		meridiemLetters: ['AM', 'PM'],
 		timeOutputOverride: false,
-		timeFormats: { '12': 'gg:ii AA', '24': 'HH:ii' },
+		timeFormats: { '12': '%l:%M %p', '24': '%k:%M' },
 		durationFormat: 'DD ddd, hh:ii:ss',
 		timeOutput: false,
 		rolloverMode: { 'm': true, 'd': true, 'h': true, 'i': true, 's': true },
@@ -72,7 +72,7 @@
 		fieldsOrder: false,
 		fieldsOrderOverride: false,
 		durationOrder: ['d', 'h', 'i', 's'],
-		defaultDateFormat: 'YYYY-MM-DD',
+		defaultDateFormat: '%Y-%m-%d',
 		dateFormat: false,
 		timeFormatOverride: false,
 		headerFormat: false,
@@ -116,12 +116,12 @@
 				durationLabel: ['Days', 'Hours', 'Minutes', 'Seconds'],
 				durationDays: ['Day', 'Days'],
 				timeFormat: 24,
-				headerFormat: 'ddd, mmm dd, YYYY',
+				headerFormat: '%A, %B %-d, %Y',
 				tooltip: 'Open Date Picker',
 				dateFieldOrder: ['m', 'd', 'y'],
 				timeFieldOrder: ['h', 'i', 'a'],
 				slideFieldOrder: ['y', 'm', 'd'],
-				dateFormat: 'YYYY-MM-DD',
+				dateFormat: '%Y-%m-%d',
 				useArabicIndic: false,
 				isRTL: false
 			}
@@ -278,29 +278,78 @@
 		return 32 - this._dstAdjust(new Date(date.getFullYear(), date.getMonth()-1, 32)).getDate();
 	},
 	_formatter: function(format, date) {
+		var self = this,
+			o = this.options;
 		// Format the output date or time (not duration)
-		format = format.replace('HH',   this._zeroPad(date.getHours()));
-		format = format.replace('GG',   date.getHours());
-		
-		format = format.replace('hh',   this._zeroPad(((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():date.getHours()-12))));
-		format = format.replace('gg',   ((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():(date.getHours()-12))));
-
-		format = format.replace('ii',   this._zeroPad(date.getMinutes()));
-		format = format.replace('ss',   this._zeroPad(date.getSeconds()));
-		format = format.replace('AA',   ((date.getHours() < 12)?this.options.meridiemLetters[0].toUpperCase():this.options.meridiemLetters[1].toUpperCase()));
-		format = format.replace('aa',   ((date.getHours() < 12)?this.options.meridiemLetters[0].toLowerCase():this.options.meridiemLetters[1].toLowerCase()));
-		
-		format = format.replace('SS', this._makeOrd(date.getDate()));
-		format = format.replace('YYYY', date.getFullYear());
-		format = format.replace('mmmm', this.options.lang[this.options.useLang].monthsOfYearShort[date.getMonth()] );
-		format = format.replace('mmm',  this.options.lang[this.options.useLang].monthsOfYear[date.getMonth()] );
-		format = format.replace('MM',   this._zeroPad(date.getMonth() + 1));
-		format = format.replace('mm',   date.getMonth() + 1);
-		format = format.replace('dddd', this.options.lang[this.options.useLang].daysOfWeekShort[date.getDay()] );
-		format = format.replace('ddd',  this.options.lang[this.options.useLang].daysOfWeek[date.getDay()] );
-		format = format.replace('DD',   this._zeroPad(date.getDate()));
-		format = format.replace('dd',   date.getDate());
-		format = format.replace('UU',   ( date.getTime() - date.getMilliseconds() ) / 1000);
+		if ( ! format.match(/%/) ) {
+			format = format.replace('HH',   this._zeroPad(date.getHours()));
+			format = format.replace('GG',   date.getHours());
+			
+			format = format.replace('hh',   this._zeroPad(((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():date.getHours()-12))));
+			format = format.replace('gg',   ((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():(date.getHours()-12))));
+	
+			format = format.replace('ii',   this._zeroPad(date.getMinutes()));
+			format = format.replace('ss',   this._zeroPad(date.getSeconds()));
+			format = format.replace('AA',   ((date.getHours() < 12)?this.options.meridiemLetters[0].toUpperCase():this.options.meridiemLetters[1].toUpperCase()));
+			format = format.replace('aa',   ((date.getHours() < 12)?this.options.meridiemLetters[0].toLowerCase():this.options.meridiemLetters[1].toLowerCase()));
+			
+			format = format.replace('SS', this._makeOrd(date.getDate()));
+			format = format.replace('YYYY', date.getFullYear());
+			format = format.replace('mmmm', this.options.lang[this.options.useLang].monthsOfYearShort[date.getMonth()] );
+			format = format.replace('mmm',  this.options.lang[this.options.useLang].monthsOfYear[date.getMonth()] );
+			format = format.replace('MM',   this._zeroPad(date.getMonth() + 1));
+			format = format.replace('mm',   date.getMonth() + 1);
+			format = format.replace('dddd', this.options.lang[this.options.useLang].daysOfWeekShort[date.getDay()] );
+			format = format.replace('ddd',  this.options.lang[this.options.useLang].daysOfWeek[date.getDay()] );
+			format = format.replace('DD',   this._zeroPad(date.getDate()));
+			format = format.replace('dd',   date.getDate());
+			format = format.replace('UU',   ( date.getTime() - date.getMilliseconds() ) / 1000);
+		} else {
+			format = format.replace(/%(0|-)*([a-z])/gi, function(match, pad, oper, offset, s) {
+				switch ( oper ) {
+					case 'a': // Short Day
+						return o.lang[o.useLang].daysOfWeekShort[date.getDay()];
+					case 'A': // Full Day of week
+						return o.lang[o.useLang].daysOfWeek[date.getDay()];
+					case 'b': // Short month
+						return o.lang[o.useLang].monthsOfYearShort[date.getMonth()];
+					case 'B': // Full month
+						return o.lang[o.useLang].monthsOfYear[date.getMonth()];
+					case 'C': // Century
+						return date.getFullYear().toString().substr(0,2);
+					case 'd': // Day of month
+						return (( pad === '-' ) ? date.getDate() : self._zeroPad(date.getDate()));
+					case 'H': // Hour (01..23)
+					case 'k':
+						return (( pad === '-' ) ? date.getHours() : self._zeroPad(date.getHours()));
+					case 'I': // Hour (01..12)
+					case 'l':
+						return (( pad === '-' ) ? ((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():(date.getHours()-12))) : self._zeroPad(((date.getHours() === 0 || date.getHours() === 12)?12:((date.getHours()<12)?date.getHours():date.getHours()-12))));
+					case 'm': // Month
+						return (( pad === '-' ) ? date.getMonth()+1 : self._zeroPad(date.getMonth()+1));
+					case 'M': // Minutes
+						return (( pad === '-' ) ? date.getMinutes() : self._zeroPad(date.getMinutes()));
+					case 'p': // AM/PM (ucase)
+						return ((date.getHours() < 12)?o.meridiemLetters[0].toUpperCase():o.meridiemLetters[1].toUpperCase());
+					case 'P': // AM/PM (lcase)
+						return ((date.getHours() < 12)?o.meridiemLetters[0].toLowerCase():o.meridiemLetters[1].toLowerCase());
+					case 's': // Unix Seconds
+						return ( date.getTime() - date.getMilliseconds() ) / 1000;
+					case 'S': // Seconds
+						return (( pad === '-' ) ? date.getSeconds() : self._zeroPad(date.getSeconds()));
+					case 'w': // Day of week
+						return date.getDay();
+					case 'y': // Year (2 digit)
+						return date.getFullYear().toString().substr(2,2);
+					case 'Y': // Year (4 digit)
+						return date.getFullYear();
+					case 'o': // Ordinals
+						return self._makeOrd(date.getDate());
+					default:
+						return match; break;		
+				}
+			});
+		}
 		
 		if ( this.options.lang[this.options.useLang].useArabicIndic === true ) {
 			format = this._digitReplace(format);
@@ -408,84 +457,190 @@
 			}
 		} else {
 			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) { adv = o.timeOutput; } else { adv = o.dateOutput; }
-			adv = adv.replace(/dddd|mmmm/g, '(.+?)');
-			adv = adv.replace(/ddd|SS/g, '.+?');
-			adv = adv.replace(/mmm/g, '(.+?)');
-			adv = adv.replace(/ *AA/ig, ' *(.*?)');
-			adv = adv.replace(/yyyy|dd|mm|gg|hh|ii/ig, '([0-9yYdDmMgGhHi]+)');
-			adv = adv.replace(/ss|UU/g, '([0-9sU]+)');
-			adv = new RegExp('^' + adv + '$');
-			exp_input = adv.exec(str);
-			if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-				exp_format = adv.exec(o.timeOutput); // If time, use timeOutput as expected format
-			} else {
-				exp_format = adv.exec(o.dateOutput); // If date, use dateFormat as expected format
-			}
-			
-			if ( exp_input === null || exp_input.length !== exp_format.length ) {
-				if ( o.defaultPickerValue !== false ) {
-					if ( $.isArray(o.defaultPickerValue) && o.defaultPickerValue.length === 3 ) {
-						if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-							return new Date(found_date[0], found_date[1], found_date[2], o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0);
-						}
-						else {
-							return new Date(o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0, 0, 0, 0);
-						}
+			if ( adv.match(/%/) ) {
+				adv = adv.replace(/%(0|-)*([a-z])/gi, function(match, pad, oper, offset, s) {
+					switch (oper) {
+						case 'p':
+						case 'P':
+						case 'b':
+						case 'B': return '(' + match + '|' +'.+?' + ')';
+						case 'H':
+						case 'k':
+						case 'I':
+						case 'l':
+						case 'm':
+						case 'M':
+						case 'S':
+						case 'd': return '(' + match + '|' + (( pad === '-' ) ? '[0-9]{1,2}' : '[0-9]{2}') + ')';
+						case 's': return '(' + match + '|' +'[0-9]+' + ')';
+						case 'y': return '(' + match + '|' +'[0-9]{2}' + ')';
+						case 'Y': return '(' + match + '|' +'[0-9]{1,4}' + ')';
+						default: return '.+?'
 					}
-					else if ( typeof o.defaultPickerValue === "number" ) {
-						return new Date(o.defaultPickerValue * 1000);
-					}
-					else {
-						if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-							exp_temp = o.defaultPickerValue.split(':');
-							if ( exp_temp.length === 3 ) {
-								date = new Date(found_date[0], found_date[1], found_date[2], parseInt(exp_temp[0],10),parseInt(exp_temp[1],10),parseInt(exp_temp[2],10),0);
-								if ( isNaN(date.getDate()) ) { date = new Date(); }
+				});
+				adv = new RegExp('^' + adv + '$');
+				exp_input = adv.exec(str);
+				if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+					exp_format = adv.exec(o.timeOutput); // If time, use timeOutput as expected format
+				} else {
+					exp_format = adv.exec(o.dateOutput); // If date, use dateFormat as expected format
+				}
+				
+				if ( exp_input === null || exp_input.length !== exp_format.length ) {
+					if ( o.defaultPickerValue !== false ) {
+						if ( $.isArray(o.defaultPickerValue) && o.defaultPickerValue.length === 3 ) {
+							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+								return new Date(found_date[0], found_date[1], found_date[2], o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0);
+							}
+							else {
+								return new Date(o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0, 0, 0, 0);
 							}
 						}
+						else if ( typeof o.defaultPickerValue === "number" ) {
+							return new Date(o.defaultPickerValue * 1000);
+						}
 						else {
-							exp_temp = o.defaultPickerValue.split('-');
-							if ( exp_temp.length === 3 ) {
-								date = new Date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
-								if ( isNaN(date.getDate()) ) { date = new Date(); }
+							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+								exp_temp = o.defaultPickerValue.split(':');
+								if ( exp_temp.length === 3 ) {
+									date = new Date(found_date[0], found_date[1], found_date[2], parseInt(exp_temp[0],10),parseInt(exp_temp[1],10),parseInt(exp_temp[2],10),0);
+									if ( isNaN(date.getDate()) ) { date = new Date(); }
+								}
 							}
+							else {
+								exp_temp = o.defaultPickerValue.split('-');
+								if ( exp_temp.length === 3 ) {
+									date = new Date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
+									if ( isNaN(date.getDate()) ) { date = new Date(); }
+								}
+							}
+						}
+					}
+				} else {
+					for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5a 6epoch
+						if ( exp_format[i] === '%s' )                { found_date[6] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^%.*S$/) )         { found_date[5] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^%.*M$/) )         { found_date[4] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^%.*(H|k|I|l)$/) ) { found_date[3] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^%.*d$/) )         { found_date[2] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^%.*m$/) )         { found_date[1] = parseInt(exp_input[i],10)-1; }
+						if ( exp_format[i].match(/^%.*Y$/) )         { found_date[0] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^%.*y$/) ) { 
+							if ( o.afterToday === true ) {
+								found_date[0] = parseInt('20' + exp_input[i],10);
+							} else {
+								if ( parseInt(exp_input[i],10) < 38 ) {
+									found_date[0] = parseInt('20' + exp_input[i],10);
+								} else {
+									found_date[0] = parseInt('19' + exp_input[i],10);
+								}
+							}
+						}
+						if ( exp_format[i].match(/^%(0|-)*(p|P)$/) ) {
+							if ( exp_input[i].toLowerCase().charAt(0) === 'a' && found_date[3] === 12 ) {
+								found_date[3] = 0;
+							} else if ( exp_input[i].toLowerCase().charAt(0) === 'p' && found_date[3] !== 12 ) {
+								found_date[3] = found_date[3] + 12;
+							}
+						}
+						if ( exp_format[i] === '%B' ) {
+							exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYear);
+							if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
+						}
+						if ( exp_format[i] === '%b' ) {
+							exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYearShort);
+							if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
 						}
 					}
 				}
+				if ( exp_format[0].match(/%s/) ) {
+					return new Date(found_date[6] * 1000);
+				}
+				else if ( exp_format[0].match(/%(.)*(I|l|H|k|s|M)/) ) { 
+					return new Date(found_date[0], found_date[1], found_date[2], found_date[3], found_date[4], found_date[5], 0);
+				} else {
+					return new Date(found_date[0], found_date[1], found_date[2], 0, 0, 0, 0); // Normalize time for raw dates
+				}
 			} else {
-				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5a 6epoch
-					if ( exp_format[i].match(/^UU$/ ) )   { found_date[6] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^gg$/i) )   { found_date[3] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^hh$/i) )   { found_date[3] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^ii$/i) )   { found_date[4] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^ss$/ ) )   { found_date[5] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^dd$/i) )   { found_date[2] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^mm$/i) )   { found_date[1] = parseInt(exp_input[i],10)-1; }
-					if ( exp_format[i].match(/^yyyy$/i) ) { found_date[0] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^AA$/i) )   { 
-						if ( exp_input[i].toLowerCase().charAt(0) === 'a' && found_date[3] === 12 ) {
-							found_date[3] = 0;
-						} else if ( exp_input[i].toLowerCase().charAt(0) === 'p' && found_date[3] !== 12 ) {
-							found_date[3] = found_date[3] + 12;
+				adv = adv.replace(/dddd|mmmm/g, '(.+?)');
+				adv = adv.replace(/ddd|SS/g, '.+?');
+				adv = adv.replace(/mmm/g, '(.+?)');
+				adv = adv.replace(/ *AA/ig, ' *(.*?)');
+				adv = adv.replace(/yyyy|dd|mm|gg|hh|ii/ig, '([0-9yYdDmMgGhHi]+)');
+				adv = adv.replace(/ss|UU/g, '([0-9sU]+)');
+				adv = new RegExp('^' + adv + '$');
+				exp_input = adv.exec(str);
+				if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+					exp_format = adv.exec(o.timeOutput); // If time, use timeOutput as expected format
+				} else {
+					exp_format = adv.exec(o.dateOutput); // If date, use dateFormat as expected format
+				}
+				
+				if ( exp_input === null || exp_input.length !== exp_format.length ) {
+					if ( o.defaultPickerValue !== false ) {
+						if ( $.isArray(o.defaultPickerValue) && o.defaultPickerValue.length === 3 ) {
+							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+								return new Date(found_date[0], found_date[1], found_date[2], o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0);
+							}
+							else {
+								return new Date(o.defaultPickerValue[0], o.defaultPickerValue[1], o.defaultPickerValue[2], 0, 0, 0, 0);
+							}
+						}
+						else if ( typeof o.defaultPickerValue === "number" ) {
+							return new Date(o.defaultPickerValue * 1000);
+						}
+						else {
+							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+								exp_temp = o.defaultPickerValue.split(':');
+								if ( exp_temp.length === 3 ) {
+									date = new Date(found_date[0], found_date[1], found_date[2], parseInt(exp_temp[0],10),parseInt(exp_temp[1],10),parseInt(exp_temp[2],10),0);
+									if ( isNaN(date.getDate()) ) { date = new Date(); }
+								}
+							}
+							else {
+								exp_temp = o.defaultPickerValue.split('-');
+								if ( exp_temp.length === 3 ) {
+									date = new Date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
+									if ( isNaN(date.getDate()) ) { date = new Date(); }
+								}
+							}
 						}
 					}
-					if ( exp_format[i].match(/^mmm$/i) )  { 
-						exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYear);
-						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
-					}
-					if ( exp_format[i].match(/^mmmm$/i) )  { 
-						exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYearShort);
-						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
+				} else {
+					for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5a 6epoch
+						if ( exp_format[i].match(/^UU$/ ) )   { found_date[6] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^gg$/i) )   { found_date[3] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^hh$/i) )   { found_date[3] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^ii$/i) )   { found_date[4] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^ss$/ ) )   { found_date[5] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^dd$/i) )   { found_date[2] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^mm$/i) )   { found_date[1] = parseInt(exp_input[i],10)-1; }
+						if ( exp_format[i].match(/^yyyy$/i) ) { found_date[0] = parseInt(exp_input[i],10); }
+						if ( exp_format[i].match(/^AA$/i) )   { 
+							if ( exp_input[i].toLowerCase().charAt(0) === 'a' && found_date[3] === 12 ) {
+								found_date[3] = 0;
+							} else if ( exp_input[i].toLowerCase().charAt(0) === 'p' && found_date[3] !== 12 ) {
+								found_date[3] = found_date[3] + 12;
+							}
+						}
+						if ( exp_format[i].match(/^mmm$/i) )  { 
+							exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYear);
+							if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
+						}
+						if ( exp_format[i].match(/^mmmm$/i) )  { 
+							exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYearShort);
+							if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
+						}
 					}
 				}
-			}
-			if ( exp_format[0].match(/UU/) ) {
-				return new Date(found_date[6] * 1000);
-			}
-			else if ( exp_format[0].match(/G|g|i|s|H|h|A/) ) { 
-				return new Date(found_date[0], found_date[1], found_date[2], found_date[3], found_date[4], found_date[5], 0);
-			} else {
-				return new Date(found_date[0], found_date[1], found_date[2], 0, 0, 0, 0); // Normalize time for raw dates
+				if ( exp_format[0].match(/UU/) ) {
+					return new Date(found_date[6] * 1000);
+				}
+				else if ( exp_format[0].match(/G|g|i|s|H|h|A/) ) { 
+					return new Date(found_date[0], found_date[1], found_date[2], found_date[3], found_date[4], found_date[5], 0);
+				} else {
+					return new Date(found_date[0], found_date[1], found_date[2], 0, 0, 0, 0); // Normalize time for raw dates
+				}
 			}
 		}
 	},
@@ -507,7 +662,7 @@
 		self.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
 		switch(mode) {
 			case 'y':
-				self.theDate.setYear(self.theDate.getFullYear() + amount);
+				self.theDate.setFullYear(self.theDate.getFullYear() + amount);
 				break;
 			case 'm':
 				if ( o.rolloverMode.m || ( self.theDate.getMonth() + amount < 12 && self.theDate.getMonth() + amount > -1 ) ) {
