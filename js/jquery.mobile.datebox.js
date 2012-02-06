@@ -118,6 +118,8 @@
 				timeFormat: 24,
 				headerFormat: '%A, %B %-d, %Y',
 				tooltip: 'Open Date Picker',
+				nextMonth: 'Next Month',
+				prevMonth: 'Previous Month',
 				dateFieldOrder: ['m', 'd', 'y'],
 				timeFieldOrder: ['h', 'i', 'a'],
 				slideFieldOrder: ['y', 'm', 'd'],
@@ -1953,7 +1955,7 @@
 			}
 						
 			// Previous and next month buttons, define booleans to decide if they should do anything
-			$("<div class='ui-datebox-gridplus"+((o.lang[o.useLang].isRTL===true)?'-rtl':'')+"'><a href='#'>Next Month</a></div>")
+			$("<div class='ui-datebox-gridplus"+((o.lang[o.useLang].isRTL===true)?'-rtl':'')+"'><a href='#'>"+((typeof o.lang[o.useLang].nextMonth !== 'undefined')?o.lang[o.useLang].nextMonth:o.lang.en.nextMonth)+"</a></div>")
 				.prependTo(controlsHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
 				.bind(o.clickEvent, function(e) {
 					e.preventDefault();
@@ -1962,7 +1964,7 @@
 						self._offset('m',1);
 					}
 				});
-			$("<div class='ui-datebox-gridminus"+((o.lang[o.useLang].isRTL===true)?'-rtl':'')+"'><a href='#'>Prev Month</a></div>")
+			$("<div class='ui-datebox-gridminus"+((o.lang[o.useLang].isRTL===true)?'-rtl':'')+"'><a href='#'>"+((typeof o.lang[o.useLang].prevMonth !== 'undefined')?o.lang[o.useLang].prevMonth:o.lang.en.prevMonth)+"</a></div>")
 				.prependTo(controlsHeader).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
 				.bind(o.clickEvent, function(e) {
 					e.preventDefault();
