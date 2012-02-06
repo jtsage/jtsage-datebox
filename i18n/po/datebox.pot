@@ -1,0 +1,277 @@
+# jQueryMobile DateBox
+# Copyright (C) 2011
+# This file is distributed under the same license as the jQM-DateBox package.
+# J.T.Sage <jtsage@gmail.com>, 2012
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.1-2012020500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-06 16:10-0500\n"
+"PO-Revision-Date: 2012-02-06 16:12-0500\n"
+"Last-Translator: J.T.Sage <jtsage@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. POSIX style date format for header
+#: generate-i18n.py:35
+msgid "%A, %B %-d, %Y"
+msgstr ""
+
+#. POSIX sytle date format for returned dates
+#: generate-i18n.py:39
+msgid "%Y-%m-%d"
+msgstr ""
+
+#. Field order for time input (h=hour, i=minute, a=AM/PM)
+#: generate-i18n.py:37
+msgid "'h', 'i', 'a'"
+msgstr ""
+
+#. Field order for date input (m=month, d=day, y=year)
+#: generate-i18n.py:36
+msgid "'m', 'd', 'y'"
+msgstr ""
+
+#. Field order for slide input (y=year, m=month, d=day)
+#: generate-i18n.py:38
+msgid "'y', 'm', 'd'"
+msgstr ""
+
+#. Clock format - either 12 or 24
+#: generate-i18n.py:34
+msgid "24"
+msgstr ""
+
+#. Abbreviation for the month 'April'
+#: generate-i18n.py:28
+msgid "Apr"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "April"
+msgstr ""
+
+#. Abbreviation for the month 'August'
+#: generate-i18n.py:28
+msgid "Aug"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "August"
+msgstr ""
+
+#: generate-i18n.py:30
+msgid "Day"
+msgstr ""
+
+#: generate-i18n.py:29 generate-i18n.py:30
+msgid "Days"
+msgstr ""
+
+#. Abbreviation for the month 'December'
+#: generate-i18n.py:28
+msgid "Dec"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "December"
+msgstr ""
+
+#. Abbreviation for the month 'February'
+#: generate-i18n.py:28
+msgid "Feb"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "February"
+msgstr ""
+
+#. Abbreviation for the day 'Friday'
+#: generate-i18n.py:26
+msgid "Fr"
+msgstr ""
+
+#: generate-i18n.py:25
+msgid "Friday"
+msgstr ""
+
+#: generate-i18n.py:29
+msgid "Hours"
+msgstr ""
+
+#. Abbreviation for the month 'January'
+#: generate-i18n.py:28
+msgid "Jan"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "January"
+msgstr ""
+
+#. Abreviation for the month 'July'
+#: generate-i18n.py:28
+msgid "Jul"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "July"
+msgstr ""
+
+#: generate-i18n.py:22
+msgid "Jump to Today"
+msgstr ""
+
+#. Abbreviation for the month 'June'
+#: generate-i18n.py:28
+msgid "Jun"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "June"
+msgstr ""
+
+#. Abbreviation for the month 'March'
+#: generate-i18n.py:28
+msgid "Mar"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "March"
+msgstr ""
+
+#. Abbreviation for the month 'May'
+#: generate-i18n.py:28
+msgid "Ma"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "May"
+msgstr ""
+
+#: generate-i18n.py:29
+msgid "Minutes"
+msgstr ""
+
+#. Abbreviation for the day 'Monday'
+#: generate-i18n.py:26
+msgid "Mo"
+msgstr ""
+
+#: generate-i18n.py:25
+msgid "Monday"
+msgstr ""
+
+#: generate-i18n.py:32
+msgid "Next Month"
+msgstr ""
+
+#. Abbreviation for the month 'November'
+#: generate-i18n.py:28
+msgid "Nov"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "November"
+msgstr ""
+
+#. Abbreviation for the month 'October'
+#: generate-i18n.py:28
+msgid "Oct"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "October"
+msgstr ""
+
+#: generate-i18n.py:31
+msgid "Open Date Picker"
+msgstr ""
+
+#: generate-i18n.py:33
+msgid "Previous Month"
+msgstr ""
+
+#. Abbreviation for the day 'Saturday'
+#: generate-i18n.py:26
+msgid "Sa"
+msgstr ""
+
+#: generate-i18n.py:25
+msgid "Saturday"
+msgstr ""
+
+#: generate-i18n.py:29
+msgid "Seconds"
+msgstr ""
+
+#. Abbreviation for the month 'September'
+#: generate-i18n.py:28
+msgid "Sep"
+msgstr ""
+
+#: generate-i18n.py:27
+msgid "September"
+msgstr ""
+
+#: generate-i18n.py:19 generate-i18n.py:23
+msgid "Set Date"
+msgstr ""
+
+#: generate-i18n.py:21
+msgid "Set Duration"
+msgstr ""
+
+#: generate-i18n.py:20 generate-i18n.py:24
+msgid "Set Time"
+msgstr ""
+
+#. Abbreviation for the day 'Sunday'
+#: generate-i18n.py:26
+msgid "Su"
+msgstr ""
+
+#: generate-i18n.py:25
+msgid "Sunday"
+msgstr ""
+
+#. Abbreviation for the day 'Thursday'
+#: generate-i18n.py:26
+msgid "Th"
+msgstr ""
+
+#: generate-i18n.py:25
+msgid "Thursday"
+msgstr ""
+
+#. Abbreviation for the day 'Tuesday'
+#: generate-i18n.py:26
+msgid "Tu"
+msgstr ""
+
+#: generate-i18n.py:25
+msgid "Tuesday"
+msgstr ""
+
+#. Abbreviation for the day 'Wednesday'
+#: generate-i18n.py:26
+msgid "We"
+msgstr ""
+
+#: generate-i18n.py:25
+msgid "Wednesday"
+msgstr ""
+
+#. Set to "true" if this language uses the Arabic/Indic numerals (not 1,2,3...) (or false)
+#: generate-i18n.py:40
+msgid "false1"
+msgstr ""
+
+#. Set to "true" if this language runs Right->to->Left (or false)
+#: generate-i18n.py:41
+msgid "false1"
+msgstr ""
