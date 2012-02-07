@@ -7,13 +7,13 @@
 #
 # Translation tool - homespun
 
-import sys
-import gettext
-import os
+import sys, gettext, os, translators
+
+
 gettext.install('datebox', './locale', unicode=1)
 
-def doTrans(lang):
-	outtext = "/*\n * jQuery Mobile Framework : plugin to provide a date and time picker.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-datebox\n */\n\n"
+def doTrans(lang,name):
+	outtext = "/*\n * jQuery Mobile Framework : plugin to provide a date and time picker.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-datebox\n *\n * Translation by: "+name+"\n *\n */\n\n"
 	outtext += "jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {\n"
 	outtext += "\t'" + lang + "': {\n"
 	outtext += "\t\tsetDateButtonLabel: '" + _('Set Date') + "',\n"
@@ -45,6 +45,10 @@ def doTrans(lang):
 
 try:
 	lang = os.environ['LANG']
-	print doTrans(lang)
+	if ( translators.trans.has_key(lang) ):
+		transname = translators.trans[lang]
+	else:
+		transname = 'Unknown'
+	print doTrans(lang,transname).encode('utf-8')
 except KeyError as e:
 	print 'Lang not set!'

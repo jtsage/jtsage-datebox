@@ -23,7 +23,7 @@ for x in langs:
 	af = open(ascFile, 'w');
 	uf = open(utfFile, 'w');
 	for line in p.stdout.readlines():
-		af.write(line.encode('ascii', 'xmlcharrefreplace'))
+		af.write(line.decode('utf-8').encode('ascii', 'xmlcharrefreplace'))
 		uf.write(line)
 	retval = p.wait()
 	
