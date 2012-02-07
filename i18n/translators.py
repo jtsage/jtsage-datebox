@@ -9,4 +9,5 @@ trans = {
 	'pt-BR': 'Rodrigo Vieira <rodrigovieira1994@gmail.com>',
 	'pl': 'Zbigniew Motyka <zbigniew@motyka.net.pl>',
 	'ar': 'Michael de Lara <mykel1829@yahoo.com>',
+	'de': 'Chris P. Vigelius <me@cv.gd>',
 }
