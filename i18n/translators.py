@@ -14,4 +14,8 @@ trans = {
 	'lt': 'Tadas Subonis <tadas.subonis@affecto.com>',
 	'es': 'Rafael Carballo Cerqueira',
 	'es_ES': 'Rafael Carballo Cerqueira',
+	'fi': 'Ville Salonen <ville.salonen@iki.fi>',
+	'fr': '--google translate--',
+	'hr': 'Marko <ma3ko0@gmail.com>',
+	'nl': 'G. Hengeveld <info@ghengeveld.nl>',
 }
