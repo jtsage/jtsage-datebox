@@ -6,4 +6,5 @@ trans = {
 	'zh-CH': 'ChiElvis <elvis311@msn.com>',
 	'uk': 'Alexander Zolotko <azolotko@gmail.com>',
 	'sv': 'Henrik Ekselius <henrik@xelius.net>',
+	'pt-BR': 'Rodrigo Vieira <rodrigovieira1994@gmail.com>',
 }

@@ -14,7 +14,7 @@ import subprocess
 def listdirs(folder):
 	return [d for d in os.listdir(folder) if os.path.isdir(os.path.join(folder, d))]
 
-langs = listdirs('./po')
+langs = listdirs('./locale')
 
 for x in langs:
 	p = subprocess.Popen('./generate-i18n.py', env={'LANG': x}, shell=True, stdout=subprocess.PIPE)
