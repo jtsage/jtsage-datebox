@@ -18,8 +18,8 @@ langs = listdirs('./locale')
 
 for x in langs:
 	p = subprocess.Popen('./generate-i18n.py', env={'LANG': x}, shell=True, stdout=subprocess.PIPE)
-	utfFile = "./genny/jquery.mobile.datebox.i8n."+x+".utf8.js"
-	ascFile = "./genny/jquery.mobile.datebox.i8n."+x+".asc.js"
+	utfFile = "./genny/jquery.mobile.datebox.i18n."+x+".utf8.js"
+	ascFile = "./genny/jquery.mobile.datebox.i18n."+x+".asc.js"
 	af = open(ascFile, 'w');
 	uf = open(utfFile, 'w');
 	for line in p.stdout.readlines():
