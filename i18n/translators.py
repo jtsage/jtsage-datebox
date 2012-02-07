@@ -18,4 +18,7 @@ trans = {
 	'fr': '--google translate--',
 	'hr': 'Marko <ma3ko0@gmail.com>',
 	'nl': 'G. Hengeveld <info@ghengeveld.nl>',
+	'ja': 'Moon Dial',
+	'it': 'Giuseppe Petagine <giuseppe.petagine@virgilio.it>',
+	'it_IT': 'Giuseppe Petagine <giuseppe.petagine@virgilio.it>',
 }
