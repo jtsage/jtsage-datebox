@@ -22,4 +22,5 @@ trans = {
 	'it': 'Giuseppe Petagine <giuseppe.petagine@virgilio.it>',
 	'it_IT': 'Giuseppe Petagine <giuseppe.petagine@virgilio.it>',
 	'nb_NO': 'Robin Heggelund Hansen <skinneyz89@gmail.com>',
+	'ru': 'Alexander Zolotko <azolotko@gmail.com>'
 }

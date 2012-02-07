@@ -36,7 +36,7 @@
 		nativeName : "العربية ",
 		file: 'ar',
 		author: 'Michael de Lara',
-		status: 'Complete'
+		status: '94%'
 	},
 	an : {
 		name : "Aragonese ",
@@ -129,8 +129,8 @@
 	zh : {
 		name : "Chinese ",
 		nativeName : "中文 (Zhōngwén), 汉语, 漢語 ",
-		file: 'CHN-S',
-		status: 'Complete',
+		file: 'zh_CH',
+		status: '94%',
 		author: ' ChiElvis &lt;elvis311@msn.com>'
 	},
 	cv : {
@@ -152,7 +152,7 @@
 	hr : {
 		name : "Croatian ",
 		nativeName : "hrvatski ",
-		status : 'Complete',
+		status : '94%',
 		file: 'hr',
 		author: 'Marko &lt;ma3ko0@gmail.com>'
 	},
@@ -171,7 +171,7 @@
 	nl : {
 		name : "Dutch ",
 		nativeName : "Nederlands, Vlaams ",
-		status : 'Complete',
+		status : '94%',
 		file : 'nl',
 		author : 'G. Hengeveld &lt;info@ghengeveld.nl>'
 	},
@@ -179,7 +179,7 @@
 		name : "English ",
 		nativeName : "English ",
 		file: 'en-US',
-		status: 'Complete',
+		status: '100%',
 		author: 'J.T.Sage &lt;jtsage@gmail.com>'
 	},
 	eo : {
@@ -205,14 +205,14 @@
 	fi : {
 		name : "Finnish ",
 		nativeName : "suomi, suomen kieli ",
-		status: 'Complete',
+		status: '94%',
 		author: 'Ville Salonen &lt;ville.salonen@iki.fi>',
 		file: 'fi'
 	},
 	fr : {
 		name : "French ",
 		nativeName : "français, langue française ",
-		status: 'Needs Work',
+		status: '94%',
 		author: 'Google Translate',
 		file: 'fr'
 	},
@@ -231,14 +231,14 @@
 	de : {
 		name : "German ",
 		nativeName : "Deutsch ",
-		status: 'Needs Work',
-		author: 'Google Translate',
+		status: '94%',
+		author: 'Chris P. Vigelius &lt;me@cv.gd>',
 		file: 'de'
 	},
 	el : {
 		name : "Greek, Modern ",
 		nativeName : "Ελληνικά ",
-		status: 'Complete',
+		status: '94%',
 		author: 'Giannis Kosmas &lt;kosmasgiannis@gmail.com>',
 		file: 'el'
 	},
@@ -313,9 +313,9 @@
 	it : {
 		name : "Italian ",
 		nativeName : "Italiano ",
-		status: 'Complete',
-		author: 'Michele Dal Corso &lt;mdalco@gmail.com>',
-		file: 'it'
+		status: '94%',
+		author: 'Giuseppe Petagine &lt;giuseppe.petagine@virgilio.it>',
+		file: 'it_IT'
 	},
 	iu : {
 		name : "Inuktitut ",
@@ -325,8 +325,8 @@
 		name : "Japanese ",
 		nativeName : "日本語 (にほんご／にっぽんご) ",
 		author: 'Moon Dial',
-		status: 'Complete',
-		file: 'jp'
+		status: '94%',
+		file: 'ja'
 	},
 	jv : {
 		name : "Javanese ",
@@ -414,7 +414,10 @@
 	},
 	lt : {
 		name : "Lithuanian ",
-		nativeName : "lietuvių kalba "
+		nativeName : "lietuvių kalba ",
+		file: 'lt',
+		status: '94%',
+		author: 'Tadas Subonis %lt;tadas.subonis@affecto.com>'
 	},
 	lu : {
 		name : "Luba-Katanga ",
@@ -475,8 +478,8 @@
 	nb : {
 		name : "Norwegian Bokmål ",
 		nativeName : "Norsk bokmål ",
-		status: 'Complete',
-		file: 'nb-NO',
+		status: '94%',
+		file: 'nb_NO',
 		author: 'Robin Heggelund Hansen &lt;skinneyz89@gmail.com>'
 	},
 	nd : {
@@ -547,7 +550,7 @@
 		name : "Polish ",
 		nativeName : "polski ",
 		file: 'pl',
-		status: 'Complete',
+		status: '94%',
 		author: 'Zbigniew Motyka &lt;zbigniew@motyka.net.pl>'
 	},
 	ps : {
@@ -557,8 +560,8 @@
 	pt : {
 		name : "Portuguese ",
 		nativeName : "Português ",
-		status: 'Complete',
-		file: 'pt-BR',
+		status: '94%',
+		file: 'pt_BR',
 		author: 'Rodrigo Vieira &lt;rodrigovieira1994@gmail.com>'
 	},
 	qu : {
@@ -580,7 +583,7 @@
 	ru : {
 		name : "Russian ",
 		nativeName : "русский язык ",
-		status: 'Complete',
+		status: '94%',
 		file: 'ru',
 		author: 'Alexander Zolotko &lt;azolotko@gmail.com>'
 	},
@@ -643,8 +646,8 @@
 	es : {
 		name : "Spanish; Castilian ",
 		nativeName : "español, castellano ",
-		status: 'Complete',
-		file: 'es-ES',
+		status: '100%',
+		file: 'es_ES',
 		author: 'Rafael Carballo Cerqueira <rcc@la-ira.com>'
 	},
 	su : {
@@ -663,7 +666,7 @@
 		name : "Swedish ",
 		nativeName : "svenska ",
 		file: 'sv',
-		status: 'Complete',
+		status: '94%',
 		author: 'Henrik Ekselius &lt;henrik@xelius.net>'
 	},
 	ta : {
@@ -734,7 +737,7 @@
 		name : "Ukrainian ",
 		nativeName : "українська ",
 		file: 'uk',
-		status: 'Complete',
+		status: '94%',
 		author: 'Alexander Zolotko &lt;azolotko@gmail.com>'
 	},
 	ur : {
