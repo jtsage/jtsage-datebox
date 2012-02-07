@@ -38,7 +38,7 @@ def doTrans(lang,name):
 	outtext += "\t\tslideFieldOrder: [" + _("'y', 'm', 'd'") + "],\n"
 	outtext += "\t\tdateFormat: '" + _('%Y-%m-%d') + "',\n"
 	outtext += "\t\tuseArabicIndic: " + _('false1') + ",\n"
-	outtext += "\t\tisRTL: " + _('false2') + "\n"
+	outtext += "\t\tisRTL: " + _('false2') + ",\n"
 	outtext += "\t\tcalStartDay: " + _('0') + "\n"
 	outtext += "\t}\n});\n"
 	outtext += "jQuery.extend(jQuery.mobile.datebox.prototype.options, {\n\tuseLang: '" + lang + "'\n});\n"
