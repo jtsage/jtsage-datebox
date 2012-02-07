@@ -11,4 +11,5 @@ trans = {
 	'ar': 'Michael de Lara <mykel1829@yahoo.com>',
 	'de': 'Chris P. Vigelius <me@cv.gd>',
 	'el': 'Giannis Kosmas <kosmasgiannis@gmail.com>',
+	'lt': 'Tadas Subonis <tadas.subonis@affecto.com>',
 }
