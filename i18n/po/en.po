@@ -275,3 +275,9 @@ msgstr "false"
 #: generate-i18n.py:41
 msgid "false2"
 msgstr "false"
+
+#. Set to the start day of the calendar (0=Sunday)
+#: generate-i18n.py:42
+msgid "0"
+msgstr "0"
+
