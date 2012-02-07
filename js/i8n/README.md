@@ -1,7 +1,9 @@
 jQuery-Mobile-DateBox
 =====================
 
-Localization.  Run make-translation.py to automate the process, or hand edit.
+ALL FILES ARE NOW AUTO GENERATED.  PLEASE SEE ../../i18n/po FOR THE PO
+FILES THAT ARE USED FOR THIS PROCESS. ONLY THE ONE-OFF FILES EXIST HERE
+(CURRENTLY JUST UTF16LE ARABIC).
 
 Include as many of these per-page / per-site as you want.  Last loaded will 
 be the "default" language.
@@ -9,7 +11,7 @@ be the "default" language.
 
 Naming: 
 
-jquery.mobile.datebox.i8n.[Language Code].[Type Code].js
+jquery.mobile.datebox.i18n.[Language Code].[Type Code].js
 
 Type Codes:
 
