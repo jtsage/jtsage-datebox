@@ -162,7 +162,10 @@
 	},
 	da : {
 		name : "Danish ",
-		nativeName : "dansk "
+		nativeName : "dansk ",
+		author : '--',
+		status : '100%',
+		file : 'da'
 	},
 	dv : {
 		name : "Divehi; Dhivehi; Maldivian; ",
@@ -578,7 +581,10 @@
 	},
 	ro : {
 		name : "Romanian, Moldavian, Moldovan ",
-		nativeName : "română "
+		nativeName : "română ",
+		file: 'ro',
+		author: '--crowdin--',
+		status: '100%'
 	},
 	ru : {
 		name : "Russian ",
