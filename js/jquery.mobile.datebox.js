@@ -967,6 +967,14 @@
 			self.controlsHeader.empty().html( self._formatHeader(self.theDate) );
 			self.controlsInput.empty();
 			
+			self.controlsInput.delegate('.ui-datebox-sliderow-int>div', o.clickEvent, function(e) {
+				e.preventDefault();
+				self._offset($(this).parent().jqmData('rowtype'), parseInt($(this).jqmData('offset'),10));
+			});
+			self.controlsInput.delegate('.ui-datebox-sliderow-int>div', 'vmouseover vmouseout', function() {
+				self._hoover(this);
+			});
+			
 			for ( y=0; y<o.fieldsOrder.length; y++ ) {
 				thisPRow = $("<div>").jqmData('rowtype', o.fieldsOrder[y]);
 				
@@ -1006,8 +1014,6 @@
 								.html(self.theDate.getFullYear() + i)
 								.jqmData('offset', i)
 								.jqmData('theme', cTheme)
-								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('y', parseInt($(this).jqmData('offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -1023,8 +1029,6 @@
 								.jqmData('offset', i)
 								.jqmData('theme', cTheme)
 								.html(o.lang[o.useLang].monthsOfYearShort[testDate.getMonth()])
-								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('m', parseInt($(this).jqmData('offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -1041,8 +1045,6 @@
 								.jqmData('offset', i)
 								.jqmData('theme', cTheme)
 								.html(testDate.getDate() + '<br /><span class="ui-datebox-slidewday">' + o.lang[o.useLang].daysOfWeekShort[testDate.getDay()] + '</span>')
-								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('d', parseInt($(this).jqmData('offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -1057,8 +1059,6 @@
 								.jqmData('offset', i)
 								.jqmData('theme', cTheme)
 								.html(( ( o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) ? ( ( testDate.getHours() === 0 ) ? '12<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() < 12 ) ? testDate.getHours() + '<span class="ui-datebox-slidewday">AM</span>' : ( ( testDate.getHours() === 12 ) ? '12<span class="ui-datebox-slidewday">PM</span>' : (testDate.getHours()-12) + '<span class="ui-datebox-slidewday">PM</span>') ) ) : testDate.getHours() ))
-								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('h', parseInt($(this).jqmData('offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
@@ -1073,8 +1073,6 @@
 								.jqmData('offset', i)
 								.jqmData('theme', cTheme)
 								.html(self._zeroPad(testDate.getMinutes()))
-								.bind('vmouseover vmouseout', function() { self._hoover(this); })
-								.bind(o.clickEvent, function(e) { e.preventDefault(); self._offset('i', parseInt($(this).jqmData('offset'),10)); })
 								.appendTo(thisRow);
 						}
 						break;
