@@ -31,6 +31,7 @@
 .ui-datebox-griddate { width: 36px; height: 30px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; zoom:1; *display: inline;}
 .ui-datebox-griddate-empty { border: 1px solid transparent; color: #888; }
 .ui-datebox-griddate-label { height: 15px !important; line-height: 15px !important; color: black;}
+.ui-datebox-griddate-disable { color: #888; }
 
 /* Android Mode Styles */
 

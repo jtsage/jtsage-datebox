@@ -99,7 +99,6 @@
 		enableDates: false,
 		fixDateArrays: false,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1},
-		disabledDayColor: '#888',
 		useLang: 'en',
 		lang: {
 			'en' : {
@@ -1155,7 +1154,7 @@
 				
 			for ( gridWeek=0; gridWeek<=5; gridWeek++ ) {
 				if ( gridWeek === 0 || ( gridWeek > 0 && (calmode.today > 0 && calmode.today <= calmode.end) ) ) {
-					thisRow = $("<div>", {'class': 'ui-datebox-gridrow'}).appendTo(self.controlsSet);
+					thisRow = $("<div>", {'class': 'ui-datebox-gridrow'});
 					if ( o.lang[o.useLang].isRTL === true ) { thisRow.css('direction', 'rtl'); }
 					for ( gridDay=0; gridDay<=6; gridDay++) {
 						if ( gridDay === 0 ) { calmode.weekMode = ( calmode.today < 1 ) ? (calmode.prevtoday - calmode.lastend + o.calWeekModeFirstDay) : (calmode.today + o.calWeekModeFirstDay); }
@@ -1186,29 +1185,15 @@
 									$("<div>"+String(calmode.prevtoday)+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
 										.jqmData('date', ((o.calWeekMode)?(calmode.weekMode+calmode.lastend):calmode.prevtoday))
-										.bind((!skipThis)?o.clickEvent:'error', function(e) {
-											e.preventDefault();
-											if ( !self.calNoPrev ) {
-												self.theDate.setMonth(self.theDate.getMonth() - 1);
-												self.theDate.setDate($(this).jqmData('date'));
-												self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
-												self.input.trigger('datebox', {'method':'close'});
-											}
-										});
+										.jqmData('enabled', (!skipThis && !self.calNoPrev))
+										.jqmData('month', -1);
 									calmode.prevtoday++;
 								} else {
 									$("<div>"+String(calmode.nexttoday)+"</div>")
 										.addClass('ui-datebox-griddate ui-datebox-griddate-empty').appendTo(thisRow)
 										.jqmData('date', ((o.calWeekMode)?calmode.weekMode:calmode.nexttoday))
-										.bind((!skipThis)?o.clickEvent:'error', function(e) {
-											e.preventDefault();
-											if ( !self.calNoNext ) {
-												self.theDate.setDate($(this).jqmData('date'));
-												if ( !o.calWeekMode ) { self.theDate.setMonth(self.theDate.getMonth() + 1); }
-												self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
-												self.input.trigger('datebox', {'method':'close'});
-											}
-										});
+										.jqmData('enabled', (!skipThis && !self.calNoNext))
+										.jqmData('month', 1);
 									calmode.nexttoday++;
 								}
 							}
@@ -1259,29 +1244,39 @@
 							}
 							
 							$("<div>"+String(calmode.today)+"</div>")
-								.addClass('ui-datebox-griddate ui-corner-all')
+								.addClass('ui-datebox-griddate ui-corner-all ui-btn-up-' + calmode.thisTheme + ((skipThis)?' ui-datebox-griddate-disable':''))
 								.jqmData('date', ((o.calWeekMode)?calmode.weekMode:calmode.today))
 								.jqmData('theme', calmode.thisTheme)
-								.appendTo(thisRow)
-								.addClass('ui-btn-up-'+calmode.thisTheme)
-								.bind('vmouseover vmouseout', function() { 
-									if ( o.calWeekMode !== false && o.calWeekModeHighlight === true ) {
-										$(this).parent().find('div').each(function() { self._hoover(this); });
-									} else { self._hoover(this); }
-								})
-								.bind((!skipThis)?o.clickEvent:'error', function(e) {
-										e.preventDefault();
-										self.theDate.setDate($(this).jqmData('date'));
-										self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
-										self.input.trigger('datebox', {'method':'close'});
-								})
-								.css((skipThis)?'color':'nocolor', o.disabledDayColor);
-							
+								.jqmData('enabled', !skipThis)
+								.jqmData('month', 0)
+								.appendTo(thisRow);
 							calmode.today++;
 						}
 					}
 				}
+				thisRow.appendTo(self.controlsSet);
 			}
+			self.controlsSet.delegate('div.ui-datebox-griddate', o.clickEvent +  ' vmouseover vmouseout', function(e) {
+				if ( e.type === o.clickEvent ) {
+					e.preventDefault();
+					if ( $(this).jqmData('enabled') ) {
+						if ( $(this).jqmData('month') < 0 ) {
+							self.theDate.setMonth(self.theDate.getMonth() - 1);
+						} else if ( $(this).jqmData('month') > 0 ) {
+							if ( !o.calWeekMode ) { self.theDate.setMonth(self.theDate.getMonth() + 1); }
+						}
+						self.theDate.setDate($(this).jqmData('date'));
+						self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
+						self.input.trigger('datebox', {'method':'close'});
+					}
+				} else {
+					if ( $(this).jqmData('enabled') && typeof $(this).jqmData('theme') !== 'undefined' ) {
+						if ( o.calWeekMode !== false && o.calWeekModeHighlight === true ) {
+							$(this).parent().find('div').each(function() { self._hoover(this); });
+						} else { self._hoover(this); }
+					}
+				}
+			});
 		}
 		/* END:CALBOX */
 		
