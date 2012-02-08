@@ -1722,19 +1722,21 @@
 			controlsMinus = controlsPlus.clone().appendTo(self.pickerContent);
 			controlsSet = templControls.clone().appendTo(self.pickerContent);
 			
-			pickerDay = templInput.removeClass('ui-datebox-input').clone()
-				.keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
-				
-			pickerHour = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
-			pickerMins = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
-			pickerSecs = pickerDay.clone().keyup(function() {	if ( $(this).val() !== '' ) { self._updateduration(); } });
+			pickerDay = templInput.removeClass('ui-datebox-input');
+			pickerHour = pickerDay.clone();
+			pickerMins = pickerDay.clone();
+			pickerSecs = pickerDay.clone();
+			
+			controlsInput.delegate('input', 'keyup', function() {
+				if ( $(this).val() !== '' ) { self._updateduration(); }
+			});
 			
 			if ( o.wheelExists ) { // Mousewheel operation, if the plgin is loaded
-					pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', ((d<0)?-1:1)*o.durationSteppers.d); });
-					pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', ((d<0)?-1:1)*o.durationSteppers.h); });
-					pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.durationSteppers.i); });
-					pickerSecs.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('s', ((d<0)?-1:1)*o.durationSteppers.s); });
-				}
+				controlsInput.delegate('input', 'mousewheel', function(e,d) {
+					e.preventDefault();
+					self._offset($(this).parent().jqmData('field'), ((d<0)?-1:1));
+				});
+			}
 			
 			for ( x=0; x<o.durationOrder.length; x++ ) { // Use durationOrder to decide what goes where
 				switch ( o.durationOrder[x] ) {
@@ -1754,7 +1756,7 @@
 			}
 			
 			if ( o.swipeEnabled ) { // Drag and drop operation
-				controlsInput.find('input').bind(self.START_DRAG, function(e) {
+				controlsInput.delegate('input', self.START_DRAG, function(e) {
 					if ( !self.dragMove ) {
 						self.dragMove = true;
 						self.dragTarget = $(this).parent().jqmData('field');
@@ -1776,23 +1778,23 @@
 					});
 			}
 				
-			for ( x=0; x<o.durationOrder.length; x++ ) {
-				linkdiv.clone()
-					.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-					.jqmData('field', o.durationOrder[x])
-					.bind(o.clickEvent, function(e) {
-						e.preventDefault();
-						self._offset($(this).jqmData('field'),o.durationSteppers[$(this).jqmData('field')]);
-					});
-					
-				linkdiv.clone()
-					.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-					.jqmData('field', o.durationOrder[x])
-					.bind(o.clickEvent, function(e) {
-						e.preventDefault();
-						self._offset($(this).jqmData('field'),-1*o.durationSteppers[$(this).jqmData('field')]);
-					});
+			for ( x=0; x<o.durationOrder.length; x++ ) {3
+				for ( y=0; y<2; y++ ) {
+					linkdiv.clone()
+						.appendTo(((y===0)?controlsPlus:controlsMinus))
+						.buttonMarkup({theme: o.pickPageButtonTheme, icon: ((y===0)?'plus':'minus'), iconpos: 'bottom', corners:true, shadow:true})
+						.jqmData('field', o.durationOrder[x]);
+				}
 			}
+			
+			controlsPlus.delegate('div', o.clickEvent, function(e) {
+				e.preventDefault();
+				self._offset($(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]);
+			});
+			controlsMinus.delegate('div', o.clickEvent, function(e) {
+				e.preventDefault();
+				self._offset($(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1);
+			});
 			
 			$.extend(self, {
 				pickerHour: pickerHour,
