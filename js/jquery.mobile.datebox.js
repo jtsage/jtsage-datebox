@@ -1836,31 +1836,20 @@
 		if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
 			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(self.pickerContent).find("h4");
 			controlsInput = $("<div>", {"class":'ui-datebox-flipcontent'}).appendTo(self.pickerContent);
-			controlsPlus = $("<div>", {"class":'ui-datebox-flipcenter ui-overlay-shadow'}).appendTo(self.pickerContent);
+			controlsPlus = $("<div>", {"class":'ui-datebox-flipcenter ui-overlay-shadow'}).css('pointerEvents', 'none').appendTo(self.pickerContent);
 			controlsSet = templControls.clone().appendTo(self.pickerContent);
 			
-			pickerDay = self._makeElement(templFlip, {'attr': {'field':'d'} });
-			pickerMon = self._makeElement(templFlip, {'attr': {'field':'m'} });
-			pickerYar = self._makeElement(templFlip, {'attr': {'field':'y'} });
-			pickerHour = self._makeElement(templFlip, {'attr': {'field':'h'} });
-			pickerMins = self._makeElement(templFlip, {'attr': {'field':'i'} });
-			pickerMeri = self._makeElement(templFlip, {'attr': {'field':'a'} });
+			pickerDay = self._makeElement(templFlip, {'attr': {'field':'d','amount':1} });
+			pickerMon = self._makeElement(templFlip, {'attr': {'field':'m','amount':1} });
+			pickerYar = self._makeElement(templFlip, {'attr': {'field':'y','amount':1} });
+			pickerHour = self._makeElement(templFlip, {'attr': {'field':'h','amount':1} });
+			pickerMins = self._makeElement(templFlip, {'attr': {'field':'i','amount':o.minuteStep} });
+			pickerMeri = self._makeElement(templFlip, {'attr': {'field':'a','amount':1} });
 			
 			if ( o.wheelExists ) { // Mousewheel operation, if the plugin is loaded.
-				pickerYar.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('y', (d<0)?-1:1); });
-				pickerMon.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('m', (d<0)?-1:1); });
-				pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', (d<0)?-1:1); });
-				pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', (d<0)?-1:1); });
-				pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.minuteStep); });
-				pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', d); });
-				controlsPlus.bind('mousewheel', function(e,d) { 
+				controlsInput.delegate('div', 'mousewheel', function(e,d) {
 					e.preventDefault();
-					if ( o.fieldsOrder.length === 3 ) {
-						fld = o.fieldsOrder[parseInt((e.pageX - $(e.currentTarget).offset().left) / 87, 10)];
-					} else if ( o.fieldsOrder.length === 2 ) {
-						fld = o.fieldsOrder[parseInt((e.pageX - $(e.currentTarget).offset().left) / 130, 10)];
-					}
-					self._offset(fld, ((d<0)?-1:1) * ((fld==="i")?o.minuteStep:1));
+					self._offset($(this).jqmData('field'), ((d<0)?-1:1)*$(this).jqmData('amount'));
 				});
 			}
 			
@@ -1874,7 +1863,7 @@
 			}
 			
 			if ( o.swipeEnabled ) { // Drag and drop support
-				controlsInput.find('ul').bind(self.START_DRAG, function(e,f) {
+				controlsInput.delegate('ul', self.START_DRAG, function(e,f) {
 					if ( !self.dragMove ) {
 						if ( typeof f !== "undefined" ) { e = f; }
 						self.dragMove = true;
@@ -1886,7 +1875,7 @@
 						e.preventDefault();
 					}
 				});
-				controlsPlus.bind(self.START_DRAG, function(e) {
+				controlsPlus.bind(self.START_DRAG, function(e) { // ONLY USED ON OLD BROWSERS & IE
 					if ( !self.dragMove ) {
 						self.dragTarget = self.touch ? e.originalEvent.changedTouches[0].pageX - $(e.currentTarget).offset().left : e.pageX - $(e.currentTarget).offset().left;
 						if ( o.fieldsOrder.length === 3 ) {
