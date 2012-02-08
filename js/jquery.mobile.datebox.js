@@ -761,7 +761,7 @@
 		}
 	},
 	_orientChange: function(e) {
-		var self = $(e.currentTarget).data('datebox'),
+		var self = e.data.widget,
 			o = self.options,
 			inputOffset = self.focusedEl.offset(),
 			pickWinHeight = self.pickerContent.outerHeight(),
@@ -2136,9 +2136,9 @@
 				self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'text-align': 'center', 'top': fullTop, 'left': fullLeft, 'height': docWinHeight, 'width': docWinWidth, 'border': '0px !important' }).removeClass('ui-datebox-hidden');
 			} else {
 				self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).removeClass('ui-datebox-hidden');
-				$(document).bind('orientationchange.datebox', function(e) { self._orientChange(e); });
+				$(document).bind('orientationchange.datebox', {widget:self}, function(e) { self._orientChange(e); });
 				if ( o.resizeListener === true ) {
-					$(window).bind('resize.datebox', function (e) { self._orientChange(this); });
+					$(window).bind('resize.datebox', {widget:self}, function (e) { self._orientChange(e); });
 				}
 			}
 		} else {
