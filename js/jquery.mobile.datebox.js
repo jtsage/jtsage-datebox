@@ -4,7 +4,7 @@
  * CC 3.0 Attribution.  May be relicensed without permission/notification.
  * https://github.com/jtsage/jquery-mobile-datebox
  */
- 
+
 (function($, undefined ) {
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
@@ -349,7 +349,7 @@
 					case 'o': // Ordinals
 						return self._makeOrd(date.getDate());
 					default:
-						return match; break;		
+						return match;
 				}
 			});
 		}
@@ -478,7 +478,7 @@
 						case 's': return '(' + match + '|' +'[0-9]+' + ')';
 						case 'y': return '(' + match + '|' +'[0-9]{2}' + ')';
 						case 'Y': return '(' + match + '|' +'[0-9]{1,4}' + ')';
-						default: return '.+?'
+						default: return '.+?';
 					}
 				});
 				adv = new RegExp('^' + adv + '$');
@@ -974,34 +974,33 @@
 				self._hoover(this);
 			});
 			
+			if ( o.wheelExists ) {
+				self.controlsInput.delegate('.ui-datebox-sliderow-int', 'mousewheel', function(e,d) {
+					e.preventDefault();
+					self._offset($(this).jqmData('rowtype'), ((d>0)?1:-1));
+				});
+			}
+			
+			if ( o.swipeEnabled ) {
+				self.controlsInput.delegate('.ui-datebox-sliderow-int', self.START_DRAG, function(e) {
+					if ( !self.dragMove ) {
+						self.dragMove = true;
+						self.dragTarget = $(this);
+						self.dragPos = parseInt(self.dragTarget.css('marginLeft').replace(/px/i, ''),10);
+						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX;
+						self.dragEnd = false;
+						e.stopPropagation();
+						e.preventDefault();
+					}
+				});
+			}
+			
 			for ( y=0; y<o.fieldsOrder.length; y++ ) {
 				thisPRow = $("<div>").jqmData('rowtype', o.fieldsOrder[y]);
-				
-				if ( o.wheelExists ) {
-					thisPRow.bind('mousewheel', function(e,d) {
-						e.preventDefault();
-						self._offset($(this).jqmData('rowtype'), ((d>0)?1:-1));
-					});
-				}
-				
 				thisRow = $("<div>", {'class': 'ui-datebox-sliderow-int'}).jqmData('rowtype',o.fieldsOrder[y]).appendTo(thisPRow);
 				
 				if ( o.lang[o.useLang].isRTL === true ) { thisRow.css('direction', 'rtl'); }
 				
-				if ( o.swipeEnabled ) {
-					thisRow
-						.bind(self.START_DRAG, function(e) {
-							if ( !self.dragMove ) {
-								self.dragMove = true;
-								self.dragTarget = $(this);
-								self.dragPos = parseInt(self.dragTarget.css('marginLeft').replace(/px/i, ''),10);
-								self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX;
-								self.dragEnd = false;
-								e.stopPropagation();
-								e.preventDefault();
-							}
-						});
-				}
 				switch (o.fieldsOrder[y]) {
 					case 'y':
 						thisPRow.addClass('ui-datebox-sliderow-ym');
@@ -1322,7 +1321,7 @@
 					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass(o.transition),
 			pickPageTitle = pickPage.find('.ui-title'),
 			pickPageContent = pickPage.find( ".ui-content" ),
-			touch = ('ontouchstart' in window),
+			touch = ( typeof window.ontouchstart !== 'undefined' ),
 			START_EVENT = touch ? 'touchstart' : 'mousedown',
 			MOVE_EVENT = touch ? 'touchmove' : 'mousemove',
 			END_EVENT = touch ? 'touchend' : 'mouseup',
@@ -1511,9 +1510,11 @@
 		
 		retty = source.clone();
 		
-		if ( 'attr' in parts ) {
+		if ( typeof parts.attr !== 'undefined' ) {
 			for ( part in parts.attr ) {
-				retty.jqmData(part, parts.attr[part]);
+				if ( parts.attr.hasOwnProperty(part) ) {
+					retty.jqmData(part, parts.attr[part]);
+				}
 			}
 		}
 		return retty;
@@ -1547,7 +1548,7 @@
 	_buildInternals: function () {
 		// Build the POSSIBLY VARIABLE controls (these might change)
 		var self = this,
-			o = self.options, x, newHour, fld,
+			o = self.options, x, y, newHour, fld,
 			linkdiv =$("<div><a href='#'></a></div>"),
 			pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
 			templInput = $("<input type='"+o.internalInputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-datebox-input ui-body-'+o.pickPageInputTheme),
@@ -1589,7 +1590,7 @@
 		if ( o.dateFormat !== false ) {
 			o.dateOutput = o.dateFormat;
 		} else {
-			if ( 'dateFormat' in o.lang[o.useLang] ) {
+			if ( typeof o.lang[o.useLang].dateFormat !== 'undefined' ) {
 				o.dateOutput = o.lang[o.useLang].dateFormat;
 			} else {
 				o.dateOutput = o.defaultDateFormat;
@@ -1757,7 +1758,7 @@
 					});
 			}
 				
-			for ( x=0; x<o.durationOrder.length; x++ ) {3
+			for ( x=0; x<o.durationOrder.length; x++ ) {
 				for ( y=0; y<2; y++ ) {
 					linkdiv.clone()
 						.appendTo(((y===0)?controlsPlus:controlsMinus))
