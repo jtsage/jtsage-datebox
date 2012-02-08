@@ -1629,31 +1629,22 @@
 			
 			if ( o.mode === 'timebox' ) { controlsHeader.parent().empty(); } // Time mode has no header
 			
-			pickerMon = self._makeElement(templInput, {'attr': {'field':'m'} })
-				.keyup(function() { self._eventEnterValue($(this)); });
+			pickerMon = self._makeElement(templInput, {'attr': {'field':'m', 'amount':1} });
+			pickerDay = self._makeElement(templInput, {'attr': {'field':'d', 'amount':1} });
+			pickerYar = self._makeElement(templInput, {'attr': {'field':'y', 'amount':1} });
+			pickerHour = self._makeElement(templInput, {'attr': {'field':'h', 'amount':1} });
+			pickerMins = self._makeElement(templInput, {'attr': {'field':'i', 'amount':1} });
+			pickerMeri = self._makeElement(templInputT, {'attr': {'field':'a', 'amount':o.minuteStep} });
 				
-			pickerDay = self._makeElement(templInput, {'attr': {'field':'d'} })
-				.keyup(function() { self._eventEnterValue($(this)); });
-				
-			pickerYar = self._makeElement(templInput, {'attr': {'field':'y'} })
-				.keyup(function() { self._eventEnterValue($(this)); });
-				
-			pickerHour = self._makeElement(templInput, {'attr': {'field':'h'} })
-				.keyup(function() { self._eventEnterValue($(this)); });
-				
-			pickerMins = self._makeElement(templInput, {'attr': {'field':'i'} })
-				.keyup(function() { self._eventEnterValue($(this)); });
-				
-			pickerMeri = self._makeElement(templInputT, {'attr': {'field':'a'} })
-				.keyup(function() { self._eventEnterValue($(this)); });
+			controlsInput.delegate('input', 'keyup', function() {
+				self._eventEnterValue($(this));
+			});
 					
 			if ( o.wheelExists ) { // Mousewheel operation, if plugin is loaded
-				pickerYar.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('y', (d<0)?-1:1); });
-				pickerMon.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('m', (d<0)?-1:1); });
-				pickerDay.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('d', (d<0)?-1:1); });
-				pickerHour.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('h', (d<0)?-1:1); });
-				pickerMins.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('i', ((d<0)?-1:1)*o.minuteStep); });
-				pickerMeri.bind('mousewheel', function(e,d) { e.preventDefault(); self._offset('a', d); });
+				controlsInput.delegate('input', 'mousewheel', function(e,d) {
+					e.preventDefault();
+					self._offset($(this).jqmData('field'), ((d<0)?-1:1)*$(this).jqmData('amount'));
+				});
 			}
 		
 			for(x=0; x<=o.fieldsOrder.length; x++) { // Use fieldsOrder to decide what goes where
@@ -1666,7 +1657,7 @@
 			}
 			
 			if ( o.swipeEnabled ) { // Drag and drop support
-				controlsInput.find('input').bind(self.START_DRAG, function(e) {
+				controlsInput.delegate('input', self.START_DRAG, function(e) {
 					if ( !self.dragMove ) {
 						self.dragMove = true;
 						self.dragTarget = $(this).jqmData('field');
@@ -1691,22 +1682,24 @@
 			
 			for( x=0; x<self.options.fieldsOrder.length; x++ ) { // Generate the plus and minus buttons, use fieldsOrder again
 				if ( o.fieldsOrder[x] !== 'a' || o.lang[o.useLang].timeFormat === 12 || o.timeFormatOverride === 12 ) {
-					linkdiv.clone()
-						.appendTo(controlsPlus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true})
-						.jqmData('field', o.fieldsOrder[x])
-						.bind(o.clickEvent, function(e) {
-							e.preventDefault();
-							self._offset($(this).jqmData('field'),($(this).jqmData('field')==='i'?o.minuteStep:1));
-					});
-					linkdiv.clone()
-						.appendTo(controlsMinus).buttonMarkup({theme: o.pickPageButtonTheme, icon: 'minus', iconpos: 'top', corners:true, shadow:true})
-						.jqmData('field', o.fieldsOrder[x])
-						.bind(o.clickEvent, function(e) {
-							e.preventDefault();
-							self._offset($(this).jqmData('field'),-1*($(this).jqmData('field')==='i'?o.minuteStep:1));
-					});
+					for ( y=0; y<2; y++ ) {
+						linkdiv.clone()
+							.appendTo(((y===0)?controlsPlus:controlsMinus))
+							.buttonMarkup({theme: o.pickPageButtonTheme, icon: ((y===0)?'plus':'minus'), iconpos: 'bottom', corners:true, shadow:true})
+							.jqmData('field', o.fieldsOrder[x])
+							.jqmData('amount', ((o.fieldsOrder[x]==='i')?o.minuteStep:1));
+					}
 				}
 			}
+			
+			controlsPlus.delegate('div', o.clickEvent, function(e) {
+				e.preventDefault();
+				self._offset($(this).jqmData('field'), $(this).jqmData('amount'));
+			});
+			controlsMinus.delegate('div', o.clickEvent, function(e) {
+				e.preventDefault();
+				self._offset($(this).jqmData('field'), $(this).jqmData('amount')*-1);
+			});
 				
 			$.extend(self, {
 				controlsHeader: controlsHeader,
