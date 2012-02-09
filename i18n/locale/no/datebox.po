@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-02-09 01:36+0100\n"
+"PO-Revision-Date: 2012-02-09 03:14+0100\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Norwegian\n"
 "Language: \n"
@@ -163,7 +163,7 @@ msgstr "Mandag"
 
 #: generate-i18n.py:32
 msgid "Next Month"
-msgstr "Next Month"
+msgstr "Neste måned"
 
 #. Abbreviation for the month 'November'
 #: generate-i18n.py:28
@@ -185,11 +185,11 @@ msgstr "Oktober"
 
 #: generate-i18n.py:31
 msgid "Open Date Picker"
-msgstr "Open Date Picker"
+msgstr "Åpne datovelger"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
-msgstr "Previous Month"
+msgstr "Forrige måned"
 
 #. Abbreviation for the day 'Saturday'
 #: generate-i18n.py:26

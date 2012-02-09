@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-02-09 01:36+0100\n"
+"PO-Revision-Date: 2012-02-09 03:14+0100\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: English\n"
 "Language: \n"
@@ -20,7 +20,7 @@ msgstr "%A, %B %-d, %Y"
 #. POSIX sytle date format for returned dates
 #: generate-i18n.py:39
 msgid "%Y-%m-%d"
-msgstr "%Y-%m-%d"
+msgstr "%-m/%-d/%Y"
 
 #. Field order for time input (h=hour, i=minute, a=AM/PM)
 #: generate-i18n.py:37
@@ -40,7 +40,7 @@ msgstr "'y', 'm', 'd'"
 #. Clock format - either 12 or 24
 #: generate-i18n.py:34
 msgid "24"
-msgstr "24"
+msgstr "12"
 
 #. Abbreviation for the month 'April'
 #: generate-i18n.py:28
