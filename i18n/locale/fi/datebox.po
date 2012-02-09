@@ -1,0 +1,278 @@
+msgid ""
+msgstr "Project-Id-Version: jquery-mobile-datebox\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-06 16:10-0500\n"
+"PO-Revision-Date: 2012-02-09 01:36+0100\n"
+"Last-Translator: jtsage <Jtsage@gmail.com>\n"
+"Language-Team: Finnish\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+"X-Generator: crowdin.net\n"
+
+#. POSIX style date format for header
+#: generate-i18n.py:35
+msgid "%A, %B %-d, %Y"
+msgstr "%A, %B %-d, %Y"
+
+#. POSIX sytle date format for returned dates
+#: generate-i18n.py:39
+msgid "%Y-%m-%d"
+msgstr "%d.%m.%Y"
+
+#. Field order for time input (h=hour, i=minute, a=AM/PM)
+#: generate-i18n.py:37
+msgid "'h', 'i', 'a'"
+msgstr "'h', 'i', 'a'"
+
+#. Field order for date input (m=month, d=day, y=year)
+#: generate-i18n.py:36
+msgid "'m', 'd', 'y'"
+msgstr "'d','m','y'"
+
+#. Field order for slide input (y=year, m=month, d=day)
+#: generate-i18n.py:38
+msgid "'y', 'm', 'd'"
+msgstr "'y', 'm', 'd'"
+
+#. Clock format - either 12 or 24
+#: generate-i18n.py:34
+msgid "24"
+msgstr "24"
+
+#. Abbreviation for the month 'April'
+#: generate-i18n.py:28
+msgid "Apr"
+msgstr "Huhti"
+
+#: generate-i18n.py:27
+msgid "April"
+msgstr "Huhtikuu"
+
+#. Abbreviation for the month 'August'
+#: generate-i18n.py:28
+msgid "Aug"
+msgstr "Elo"
+
+#: generate-i18n.py:27
+msgid "August"
+msgstr "Elokuu"
+
+#: generate-i18n.py:30
+msgid "Day"
+msgstr "Päivä"
+
+#: generate-i18n.py:29 generate-i18n.py:30
+msgid "Days"
+msgstr "Päivää"
+
+#. Abbreviation for the month 'December'
+#: generate-i18n.py:28
+msgid "Dec"
+msgstr "Joulu"
+
+#: generate-i18n.py:27
+msgid "December"
+msgstr "Joulukuu"
+
+#. Abbreviation for the month 'February'
+#: generate-i18n.py:28
+msgid "Feb"
+msgstr "Helmi"
+
+#: generate-i18n.py:27
+msgid "February"
+msgstr "Helmikuu"
+
+#. Abbreviation for the day 'Friday'
+#: generate-i18n.py:26
+msgid "Fr"
+msgstr "Pe"
+
+#: generate-i18n.py:25
+msgid "Friday"
+msgstr "Perjantai"
+
+#: generate-i18n.py:29
+msgid "Hours"
+msgstr "Tuntia"
+
+#. Abbreviation for the month 'January'
+#: generate-i18n.py:28
+msgid "Jan"
+msgstr "Tammi"
+
+#: generate-i18n.py:27
+msgid "January"
+msgstr "Tammikuu"
+
+#. Abreviation for the month 'July'
+#: generate-i18n.py:28
+msgid "Jul"
+msgstr "Heinä"
+
+#: generate-i18n.py:27
+msgid "July"
+msgstr "Heinäkuu"
+
+#: generate-i18n.py:22
+msgid "Jump to Today"
+msgstr "Tänään"
+
+#. Abbreviation for the month 'June'
+#: generate-i18n.py:28
+msgid "Jun"
+msgstr "Kesä"
+
+#: generate-i18n.py:27
+msgid "June"
+msgstr "Kesäkuu"
+
+#. Abbreviation for the month 'March'
+#: generate-i18n.py:28
+msgid "Mar"
+msgstr "Maali"
+
+#: generate-i18n.py:27
+msgid "March"
+msgstr "Maaliskuu"
+
+#. Abbreviation for the month 'May'
+#: generate-i18n.py:28
+msgid "Ma"
+msgstr "Touko"
+
+#: generate-i18n.py:27
+msgid "May"
+msgstr "Toukokuu"
+
+#: generate-i18n.py:29
+msgid "Minutes"
+msgstr "Minuuttia"
+
+#. Abbreviation for the day 'Monday'
+#: generate-i18n.py:26
+msgid "Mo"
+msgstr "Ma"
+
+#: generate-i18n.py:25
+msgid "Monday"
+msgstr "Maanantai"
+
+#: generate-i18n.py:32
+msgid "Next Month"
+msgstr "Next Month"
+
+#. Abbreviation for the month 'November'
+#: generate-i18n.py:28
+msgid "Nov"
+msgstr "Marras"
+
+#: generate-i18n.py:27
+msgid "November"
+msgstr "Marraskuu"
+
+#. Abbreviation for the month 'October'
+#: generate-i18n.py:28
+msgid "Oct"
+msgstr "Loka"
+
+#: generate-i18n.py:27
+msgid "October"
+msgstr "Lokakuu"
+
+#: generate-i18n.py:31
+msgid "Open Date Picker"
+msgstr "Open Date Picker"
+
+#: generate-i18n.py:33
+msgid "Previous Month"
+msgstr "Previous Month"
+
+#. Abbreviation for the day 'Saturday'
+#: generate-i18n.py:26
+msgid "Sa"
+msgstr "La"
+
+#: generate-i18n.py:25
+msgid "Saturday"
+msgstr "Lauantai"
+
+#: generate-i18n.py:29
+msgid "Seconds"
+msgstr "Sekuntia"
+
+#. Abbreviation for the month 'September'
+#: generate-i18n.py:28
+msgid "Sep"
+msgstr "Syys"
+
+#: generate-i18n.py:27
+msgid "September"
+msgstr "Syyskuu"
+
+#: generate-i18n.py:19 generate-i18n.py:23
+msgid "Set Date"
+msgstr "Valitse päivä"
+
+#: generate-i18n.py:21
+msgid "Set Duration"
+msgstr "Valitse kesto"
+
+#: generate-i18n.py:20 generate-i18n.py:24
+msgid "Set Time"
+msgstr "Valitse aika"
+
+#. Abbreviation for the day 'Sunday'
+#: generate-i18n.py:26
+msgid "Su"
+msgstr "Su"
+
+#: generate-i18n.py:25
+msgid "Sunday"
+msgstr "Sunnuntai"
+
+#. Abbreviation for the day 'Thursday'
+#: generate-i18n.py:26
+msgid "Th"
+msgstr "To"
+
+#: generate-i18n.py:25
+msgid "Thursday"
+msgstr "Torstai"
+
+#. Abbreviation for the day 'Tuesday'
+#: generate-i18n.py:26
+msgid "Tu"
+msgstr "Ti"
+
+#: generate-i18n.py:25
+msgid "Tuesday"
+msgstr "Tiistai"
+
+#. Abbreviation for the day 'Wednesday'
+#: generate-i18n.py:26
+msgid "We"
+msgstr "Ke"
+
+#: generate-i18n.py:25
+msgid "Wednesday"
+msgstr "Keskiviikko"
+
+#. Set to "true" if this language uses the Arabic/Indic numerals (not 1,2,3...)
+#: generate-i18n.py:40
+msgid "false1"
+msgstr "false"
+
+#. Set to "true" if this language runs Right->to->Left
+#: generate-i18n.py:41
+msgid "false2"
+msgstr "false"
+
+#. Set to the start day of the calendar (0=Sunday)
+#: generate-i18n.py:42
+msgid "0"
+msgstr "0"
+

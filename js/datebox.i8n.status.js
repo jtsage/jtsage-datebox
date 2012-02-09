@@ -181,7 +181,7 @@
 	en : {
 		name : "English ",
 		nativeName : "English ",
-		file: 'en-US',
+		file: 'en',
 		status: '100%',
 		author: 'J.T.Sage &lt;jtsage@gmail.com>'
 	},
@@ -482,7 +482,7 @@
 		name : "Norwegian Bokmål ",
 		nativeName : "Norsk bokmål ",
 		status: '94%',
-		file: 'nb_NO',
+		file: 'no',
 		author: 'Robin Heggelund Hansen &lt;skinneyz89@gmail.com>'
 	},
 	nd : {
@@ -564,7 +564,7 @@
 		name : "Portuguese ",
 		nativeName : "Português ",
 		status: '94%',
-		file: 'pt_BR',
+		file: 'pt-BR',
 		author: 'Rodrigo Vieira &lt;rodrigovieira1994@gmail.com>'
 	},
 	qu : {
@@ -671,7 +671,7 @@
 	sv : {
 		name : "Swedish ",
 		nativeName : "svenska ",
-		file: 'sv',
+		file: 'sv-SE',
 		status: '94%',
 		author: 'Henrik Ekselius &lt;henrik@xelius.net>'
 	},
