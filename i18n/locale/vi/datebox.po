@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-02-09 03:14+0100\n"
+"PO-Revision-Date: 2012-02-10 01:24+0100\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Vietnamese\n"
 "Language: \n"
@@ -20,7 +20,7 @@ msgstr "%A, %B %-d, %Y"
 #. POSIX sytle date format for returned dates
 #: generate-i18n.py:39
 msgid "%Y-%m-%d"
-msgstr "%Y-%m-%d"
+msgstr "%d/%m/%Y"
 
 #. Field order for time input (h=hour, i=minute, a=AM/PM)
 #: generate-i18n.py:37
@@ -30,7 +30,7 @@ msgstr "'h', 'i', 'a'"
 #. Field order for date input (m=month, d=day, y=year)
 #: generate-i18n.py:36
 msgid "'m', 'd', 'y'"
-msgstr "'m', 'd', 'y'"
+msgstr "'d','m','y'"
 
 #. Field order for slide input (y=year, m=month, d=day)
 #: generate-i18n.py:38
@@ -45,231 +45,231 @@ msgstr "24"
 #. Abbreviation for the month 'April'
 #: generate-i18n.py:28
 msgid "Apr"
-msgstr "Apr"
+msgstr "Tháng tư"
 
 #: generate-i18n.py:27
 msgid "April"
-msgstr "April"
+msgstr "Tháng tư"
 
 #. Abbreviation for the month 'August'
 #: generate-i18n.py:28
 msgid "Aug"
-msgstr "Aug"
+msgstr "Tháng Tám"
 
 #: generate-i18n.py:27
 msgid "August"
-msgstr "August"
+msgstr "Tháng Tám"
 
 #: generate-i18n.py:30
 msgid "Day"
-msgstr "Day"
+msgstr "Ngày"
 
 #: generate-i18n.py:29 generate-i18n.py:30
 msgid "Days"
-msgstr "Days"
+msgstr "Ngày"
 
 #. Abbreviation for the month 'December'
 #: generate-i18n.py:28
 msgid "Dec"
-msgstr "Dec"
+msgstr "Tháng mười hai"
 
 #: generate-i18n.py:27
 msgid "December"
-msgstr "December"
+msgstr "Tháng mười hai"
 
 #. Abbreviation for the month 'February'
 #: generate-i18n.py:28
 msgid "Feb"
-msgstr "Feb"
+msgstr "Tháng hai"
 
 #: generate-i18n.py:27
 msgid "February"
-msgstr "February"
+msgstr "Tháng hai"
 
 #. Abbreviation for the day 'Friday'
 #: generate-i18n.py:26
 msgid "Fr"
-msgstr "Fr"
+msgstr "T6"
 
 #: generate-i18n.py:25
 msgid "Friday"
-msgstr "Friday"
+msgstr "Thứ sáu"
 
 #: generate-i18n.py:29
 msgid "Hours"
-msgstr "Hours"
+msgstr "Giờ"
 
 #. Abbreviation for the month 'January'
 #: generate-i18n.py:28
 msgid "Jan"
-msgstr "Jan"
+msgstr "Tháng một"
 
 #: generate-i18n.py:27
 msgid "January"
-msgstr "January"
+msgstr "Tháng một"
 
 #. Abreviation for the month 'July'
 #: generate-i18n.py:28
 msgid "Jul"
-msgstr "Jul"
+msgstr "Tháng Bảy"
 
 #: generate-i18n.py:27
 msgid "July"
-msgstr "July"
+msgstr "Tháng Bảy"
 
 #: generate-i18n.py:22
 msgid "Jump to Today"
-msgstr "Jump to Today"
+msgstr "Hôm nay"
 
 #. Abbreviation for the month 'June'
 #: generate-i18n.py:28
 msgid "Jun"
-msgstr "Jun"
+msgstr "Tháng Sáu"
 
 #: generate-i18n.py:27
 msgid "June"
-msgstr "June"
+msgstr "Tháng Sáu"
 
 #. Abbreviation for the month 'March'
 #: generate-i18n.py:28
 msgid "Mar"
-msgstr "Mar"
+msgstr "Tháng ba"
 
 #: generate-i18n.py:27
 msgid "March"
-msgstr "March"
+msgstr "Tháng ba"
 
 #. Abbreviation for the month 'May'
 #: generate-i18n.py:28
 msgid "Ma"
-msgstr "Ma"
+msgstr "Tháng năm"
 
 #: generate-i18n.py:27
 msgid "May"
-msgstr "May"
+msgstr "Tháng năm"
 
 #: generate-i18n.py:29
 msgid "Minutes"
-msgstr "Minutes"
+msgstr "Phút"
 
 #. Abbreviation for the day 'Monday'
 #: generate-i18n.py:26
 msgid "Mo"
-msgstr "Mo"
+msgstr "T2"
 
 #: generate-i18n.py:25
 msgid "Monday"
-msgstr "Monday"
+msgstr "Thứ hai"
 
 #: generate-i18n.py:32
 msgid "Next Month"
-msgstr "Next Month"
+msgstr "Tiếp"
 
 #. Abbreviation for the month 'November'
 #: generate-i18n.py:28
 msgid "Nov"
-msgstr "Nov"
+msgstr "Tháng mười một"
 
 #: generate-i18n.py:27
 msgid "November"
-msgstr "November"
+msgstr "Tháng mười một"
 
 #. Abbreviation for the month 'October'
 #: generate-i18n.py:28
 msgid "Oct"
-msgstr "Oct"
+msgstr "Tháng Mười"
 
 #: generate-i18n.py:27
 msgid "October"
-msgstr "October"
+msgstr "Tháng Mười"
 
 #: generate-i18n.py:31
 msgid "Open Date Picker"
-msgstr "Open Date Picker"
+msgstr "Mở bảng chọn ngày"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
-msgstr "Previous Month"
+msgstr "Trước"
 
 #. Abbreviation for the day 'Saturday'
 #: generate-i18n.py:26
 msgid "Sa"
-msgstr "Sa"
+msgstr "T7"
 
 #: generate-i18n.py:25
 msgid "Saturday"
-msgstr "Saturday"
+msgstr "Thứ Bảy"
 
 #: generate-i18n.py:29
 msgid "Seconds"
-msgstr "Seconds"
+msgstr "Giây"
 
 #. Abbreviation for the month 'September'
 #: generate-i18n.py:28
 msgid "Sep"
-msgstr "Sep"
+msgstr "Tháng Chín"
 
 #: generate-i18n.py:27
 msgid "September"
-msgstr "September"
+msgstr "Tháng Chín"
 
 #: generate-i18n.py:19 generate-i18n.py:23
 msgid "Set Date"
-msgstr "Set Date"
+msgstr "Đóng"
 
 #: generate-i18n.py:21
 msgid "Set Duration"
-msgstr "Set Duration"
+msgstr "Đóng"
 
 #: generate-i18n.py:20 generate-i18n.py:24
 msgid "Set Time"
-msgstr "Set Time"
+msgstr "Đóng"
 
 #. Abbreviation for the day 'Sunday'
 #: generate-i18n.py:26
 msgid "Su"
-msgstr "Su"
+msgstr "CN"
 
 #: generate-i18n.py:25
 msgid "Sunday"
-msgstr "Sunday"
+msgstr "Chủ Nhật"
 
 #. Abbreviation for the day 'Thursday'
 #: generate-i18n.py:26
 msgid "Th"
-msgstr "Th"
+msgstr "T5"
 
 #: generate-i18n.py:25
 msgid "Thursday"
-msgstr "Thursday"
+msgstr "Thứ Năm"
 
 #. Abbreviation for the day 'Tuesday'
 #: generate-i18n.py:26
 msgid "Tu"
-msgstr "Tu"
+msgstr "T3"
 
 #: generate-i18n.py:25
 msgid "Tuesday"
-msgstr "Tuesday"
+msgstr "Thứ Ba"
 
 #. Abbreviation for the day 'Wednesday'
 #: generate-i18n.py:26
 msgid "We"
-msgstr "We"
+msgstr "T4"
 
 #: generate-i18n.py:25
 msgid "Wednesday"
-msgstr "Wednesday"
+msgstr "Thứ Tư"
 
 #. Set to "true" if this language uses the Arabic/Indic numerals (not 1,2,3...)
 #: generate-i18n.py:40
 msgid "false1"
-msgstr "false1"
+msgstr "false"
 
 #. Set to "true" if this language runs Right->to->Left
 #: generate-i18n.py:41
 msgid "false2"
-msgstr "false2"
+msgstr "false"
 
 #. Set to the start day of the calendar (0=Sunday)
 #: generate-i18n.py:42

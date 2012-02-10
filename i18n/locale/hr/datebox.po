@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-02-09 03:14+0100\n"
+"PO-Revision-Date: 2012-02-10 01:24+0100\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Croatian\n"
 "Language: \n"
@@ -164,7 +164,7 @@ msgstr "Ponedjeljak"
 
 #: generate-i18n.py:32
 msgid "Next Month"
-msgstr "Next Month"
+msgstr "Sljedeći"
 
 #. Abbreviation for the month 'November'
 #: generate-i18n.py:28
@@ -186,11 +186,11 @@ msgstr "Listopad"
 
 #: generate-i18n.py:31
 msgid "Open Date Picker"
-msgstr "Open Date Picker"
+msgstr "Otvorite kontrolu"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
-msgstr "Previous Month"
+msgstr "Prethodna"
 
 #. Abbreviation for the day 'Saturday'
 #: generate-i18n.py:26
