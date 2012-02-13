@@ -627,11 +627,11 @@
 							}
 						}
 						if ( exp_format[i].match(/^mmm$/i) )  { 
-							exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYear);
+							exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYearShort);
 							if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
 						}
 						if ( exp_format[i].match(/^mmmm$/i) )  { 
-							exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYearShort);
+							exp_temp = $.inArray(exp_input[i], o.lang[o.useLang].monthsOfYear);
 							if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
 						}
 					}
