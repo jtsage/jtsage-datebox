@@ -1315,7 +1315,7 @@
 					setTimeout( function() { $(e.target).closest("a").removeClass($.mobile.activeBtnClass); }, 300);
 				})
 				.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
-				.css({'vertical-align': 'middle', 'float': 'right'}),
+				.css({'vertical-align': 'middle', 'display': 'inline-block'}),
 			thisPage = input.closest('.ui-page'),
 			ns = (typeof $.mobile.ns !== 'undefined')?$.mobile.ns:'',
 			pickPage = $("<div data-"+ns+"role='dialog' class='ui-dialog-datebox' data-"+ns+"theme='" + ((o.forceInheritTheme === false ) ? o.pickPageTheme : thisTheme ) + "' >" +

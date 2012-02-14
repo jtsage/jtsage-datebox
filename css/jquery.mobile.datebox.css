@@ -7,13 +7,10 @@
 .ui-input-datebox { width: 97%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; padding-top: 0px; padding-bottom: 0px; } 
 .ui-input-datebox { min-height: 38px; } /* Fix for IE8 */
 .ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }
-.ui-input-datebox input { width: 87% !important; padding: 0 !important; margin-top: 5px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }
+.ui-input-datebox input { width: 100% !important; padding: 0 !important; margin-top: 5px !important; margin-right: -40px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }
 .ui-input-datebox input:focus { outline: none;}
 .ui-input-datebox .ui-btn-text {display: none;}
 
-@media all and (max-width: 650px){ /* Fix internal input element at low size */
-  .ui-input-datebox input { width: 80% !important; }
-}
 @media all and (min-width: 450px){
   .ui-input-datebox { width: 60%; display: inline-block; zoom:1; *display: inline; }
 }
