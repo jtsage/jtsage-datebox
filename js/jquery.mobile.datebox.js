@@ -766,12 +766,12 @@
 	},
 	_orientChange: function(e) {
 		var self = e.data.widget,
-			o = self.options,
-			inputOffset = self.focusedEl.offset(),
-			pickWinHeight = self.pickerContent.outerHeight(),
-			pickWinWidth = self.pickerContent.innerWidth(),
-			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
-			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
+			o = e.data.widget.options,
+			inputOffset = e.data.widget.focusedEl.offset(),
+			pickWinHeight = e.data.widget.pickerContent.outerHeight(),
+			pickWinWidth = e.data.widget.pickerContent.innerWidth(),
+			pickWinTop = inputOffset.top + ( e.data.widget.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
+			pickWinLeft = inputOffset.left + ( e.data.widget.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
 		
 		e.stopPropagation();
 		if ( ! self.pickerContent.is(':visible') || o.useDialog === true ) { 
