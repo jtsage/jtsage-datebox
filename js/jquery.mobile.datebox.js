@@ -561,13 +561,16 @@
 					}
 				}
 				if ( exp_format[0].match(/%s/) ) {
-					return new Date(found_date[6] * 1000);
+					date = new Date(found_date[6] * 1000);
 				}
 				else if ( exp_format[0].match(/%(.)*(I|l|H|k|s|M)/) ) { 
-					return new Date(found_date[0], found_date[1], found_date[2], found_date[3], found_date[4], found_date[5], 0);
+					date = new Date(found_date[0], found_date[1], found_date[2], found_date[3], found_date[4], found_date[5], 0);
+					if ( found_date[0] < 100 ) { date.setFullYear(found_date[0]); }
 				} else {
-					return new Date(found_date[0], found_date[1], found_date[2], 0, 0, 0, 0); // Normalize time for raw dates
+					date = new Date(found_date[0], found_date[1], found_date[2], 0, 0, 0, 0); // Normalize time for raw dates
+					if ( found_date[0] < 100 ) { date.setFullYear(found_date[0]); }
 				}
+				return date;
 			} else {
 				adv = adv.replace(/dddd|mmmm/g, '(.+?)');
 				adv = adv.replace(/ddd|SS/g, '.+?');
