@@ -128,6 +128,10 @@
 			}
 		}
 	},
+	destroy: function () {
+		$(this.pickPage).remove();
+		$.Widget.prototype.destroy.call(this);
+	},
 	_dateboxHandler: function(event, payload) {
 		// Handle all event triggers that have an internal effect
 		if ( ! event.isPropagationStopped() ) {
