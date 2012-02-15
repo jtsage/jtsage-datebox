@@ -1992,14 +1992,20 @@
 			
 		// FIX THE DIALOG TITLE LABEL
 		if ( o.titleDialogLabel === false ) {
-			switch (o.mode) {
-				case "timebox":
-				case "timeflipbox":
-					self.pickPageTitle.html(o.lang[o.useLang].titleTimeDialogLabel);
-					break;
-				default:
-					self.pickPageTitle.html(o.lang[o.useLang].titleDateDialogLabel);
-					break;
+			if ( typeof this.element.attr('title') !== 'undefined' ) {
+				self.pickPageTitle.html(this.element.attr('title'));
+			} else if ( this.focusedEl.parent().find('label').text() !== '' ) {
+				self.pickPageTitle.html(this.focusedEl.parent().find('label').text());
+			} else {
+				switch (o.mode) {
+					case "timebox":
+					case "timeflipbox":
+						self.pickPageTitle.html(o.lang[o.useLang].titleTimeDialogLabel);
+						break;
+					default:
+						self.pickPageTitle.html(o.lang[o.useLang].titleDateDialogLabel);
+						break;
+				}
 			}
 		} else {
 			self.pickPageTitle.html(o.titleDialogLabel);
