@@ -9,7 +9,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.1-2012021300', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.1-2012021500', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -1330,7 +1330,7 @@
 			openbutton = $('<a href="#" class="ui-input-clear" title="'+((typeof o.lang[o.useLang].tooltip !== 'undefined')?o.lang[o.useLang].tooltip:o.lang.en.tooltip)+'">'+((typeof o.lang[o.useLang].tooltip !== 'undefined')?o.lang[o.useLang].tooltip:o.lang.en.tooltip)+'</a>')
 				.bind(o.clickEvent, function (e) {
 					e.preventDefault();
-					if ( !o.disabled ) { self.input.trigger('datebox', {'method': 'open'}); }
+					if ( !o.disabled ) { self.input.trigger('datebox', {'method': 'open'}); self.focusedEl.addClass('ui-focus'); }
 					setTimeout( function() { $(e.target).closest("a").removeClass($.mobile.activeBtnClass); }, 300);
 				})
 				.appendTo(focusedEl).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
@@ -1360,6 +1360,10 @@
 		
 		o.theme = thisTheme;
 		
+		$.extend(self, {
+			input: input,
+			focusedEl: focusedEl, });
+		
 		if ( o.forceInheritTheme ) {
 			o.pickPageTheme = thisTheme;
 			o.pickPageInputTheme = thisTheme;
@@ -1387,23 +1391,26 @@
 		// For focus mode, disable button, and bind click of input element and it's parent	
 		if ( o.noButtonFocusMode || o.useInline || o.noButton ) { openbutton.hide(); }
 		
-		focusedEl.bind(o.clickEvent, function() {
-			if ( !o.disabled && ( o.noButtonFocusMode || o.focusMode ) ) { input.trigger('datebox', {'method': 'open'}); }
+		self.focusedEl.bind(o.clickEvent, function() {
+			if ( !o.disabled && ( o.noButtonFocusMode || o.focusMode ) ) { 
+				self.input.trigger('datebox', {'method': 'open'});
+				self.focusedEl.addClass('ui-focus');
+				self.input.removeClass('ui-focus');
+			}
 		});
 		
 		
-		input
+		self.input
 			.removeClass('ui-corner-all ui-shadow-inset')
 			.focus(function(){
 				if ( ! o.disabled ) {
-					focusedEl.addClass('ui-focus');
-					if ( o.noButtonFocusMode ) { focusedEl.addClass('ui-focus'); input.trigger('datebox', {'method': 'open'}); }
+					self.focusedEl.addClass('ui-focus');
 				}
-				input.removeClass('ui-focus');
+				self.input.removeClass('ui-focus');
 			})
 			.blur(function(){
-				focusedEl.removeClass('ui-focus');
-				input.removeClass('ui-focus');
+				self.focusedEl.removeClass('ui-focus');
+				self.input.removeClass('ui-focus');
 			})
 			.change(function() {
 				self.theDate = self._makeDate(self.input.val());
@@ -1411,7 +1418,7 @@
 			});
 			
 		// Bind the master handler.
-		input.bind('datebox', self._dateboxHandler);		
+		self.input.bind('datebox', self._dateboxHandler);		
 		
 		// Bind the close button on the DIALOG mode.
 		pickPage.find( ".ui-header a").bind(o.clickEvent, function(e) {
@@ -1425,10 +1432,8 @@
 			thisPage: thisPage,
 			pickPageContent: pickPageContent,
 			pickPageTitle: pickPageTitle,
-			input: input,
 			theDate: theDate,
 			initDate: initDate,
-			focusedEl: focusedEl,
 			touch: touch,
 			START_DRAG: START_EVENT,
 			MOVE_DRAG: MOVE_EVENT,
@@ -1518,12 +1523,12 @@
 		}
 		
 		// Disable when done if element attribute disabled is true.
-		if ( input.is(':disabled') ) {
+		if ( self.input.is(':disabled') ) {
 			self.disable();
 		}
 		// Turn input readonly if requested (on by default)
 		if ( o.disableManualInput === true ) {
-			input.attr("readonly", true);
+			self.input.attr("readonly", true);
 		}
 		
 		//Throw dateboxinit event
