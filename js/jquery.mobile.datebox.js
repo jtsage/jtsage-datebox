@@ -1290,6 +1290,24 @@
 			self._makeDisplayIndic();
 		}
 	},
+	_getLongOptions: function(element) {
+		var key, retty = {}, prefix, temp;
+		
+		if ( $.mobile.ns == "" ) { 
+			prefix = "datebox";
+		} else { 
+			prefix = $.mobile.ns.substr(0, $.mobile.ns.length - 1) + 'Datebox';
+		}
+		
+		for ( key in element.data() ) {
+			if ( key.substr(0, prefix.length) === prefix && key.length > prefix.length ) {
+				temp = key.substr(prefix.length);
+				temp = temp.charAt(0).toLowerCase() + temp.slice(1);
+				retty[temp] = element.data(key);
+			}
+		}
+		return retty;
+	},
 	_create: function() {
 		// Create the widget, called automatically by widget system
 		
@@ -1298,6 +1316,7 @@
 		
 		var self = this,
 			o = $.extend(this.options, this.element.jqmData('options')),
+			o = ((typeof this.element.jqmData('options') === 'undefined') ? $.extend(o, this._getLongOptions(this.element)) : o);
 			input = this.element,
 			thisTheme = ( o.theme === false && typeof($(self).jqmData('theme')) === 'undefined' ) ?
 				( ( typeof(input.parentsUntil(':jqmData(theme)').parent().jqmData('theme')) === 'undefined' ) ?
