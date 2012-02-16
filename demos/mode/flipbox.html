@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
 	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
 	<script type="text/javascript">
@@ -24,7 +25,7 @@
 	
 </head>
 <body>
-<div data-role="page" data-theme="c" id="oddOpen"> 
+<div data-role="page" data-theme="c" id="slideIndex"> 
 	<div data-role="header"> 
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
@@ -38,67 +39,55 @@
 				
 			</div> 
 			
-			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
-				<li data-role="list-divider">Other Demos</li> 
-				<li><a href="./">Display Modes</a></li> 
-				<li data-theme='a'>Other Open Methods</li>
-				<li><a href="start.html">Dynamic Start Date</a></li>
-				<li><a href="link.html">Linked Inputs</a></li>
-			</ul> 
+			<div class="modedemos sidebar"></div>
 			
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
-			<nav> 
-				<h2>No Button, Focus Mode</h2>
+				<h2>Flip Default</h2>
 				
 				<div data-role="fieldcontain">
-					<label for="focusmode">Some Date</label><input name="focusmode" type="date" data-role="datebox" id="focusmode" data-options='{"noButtonFocusMode": true}' />
+					<label for="defflip">Some Date</label><input name="defflip" type="date" data-role="datebox" id="defflip" data-options='{"mode": "flipbox"}' />
 				</div>
 				
-				<p>You can open on focus, removing the button by using 'noButtonFocusMode' set to 'true'</p>
+				<p>Using the flip mode is as simple as setting the 'mode' option to "flipbox".</p>
 				
 				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"noButtonFocusMode": true}'&gt;</pre>
-				
-				
-				<h2>Open on Link</h2>
-				
-				<div data-role="fieldcontain">
-					<label for="linkmode">Some Date</label><input name="linkmode" type="date" data-role="datebox" id="linkmode" data-options='{"noButton": true}' />
-				</div>
-				<script type="text/javascript">
-					$('#linkmodelink').live('click', function() {
-						$('#linkmode').datebox('open');
-					});
-				</script>
-				
-				<p>You can force open the dialog by clicking <a href="#" id="linkmodelink">here</a>.  Also shown without a button (noButton : true)</p>
-				
-				<strong>HTML</strong>
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"noButton": true}'&gt;
+   data-options='{"mode": "flipbox"}'&gt;</pre>
    
-&lt;a href="#" id="linkmodelink"&gt;Open Link&lt;/a&gt;</pre>
+				<h2>Flip Time Mode Default</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="deftimeflip">Some Date</label><input name="deftimeflip" type="date" data-role="datebox" id="deftimeflip" data-options='{"mode": "timeflipbox"}' />
+				</div>
+				
+				<p>Using the flip mode is as simple as setting the 'mode' option to "timeflipbox".</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
-				<strong>jQuery</strong>
-				<pre class="prettyprint">$('#linkmodelink').live('click', function() {
-  $('#mydate').datebox('open');
-});</pre>
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "timeflipbox"}'&gt;</pre>
+   
+				<h2>Flip Time Mode 12 Hour Clock</h2>
 				
+				<div data-role="fieldcontain">
+					<label for="deftimeflip2">Some Date</label><input name="deftimeflip2" type="date" data-role="datebox" id="deftimeflip2" data-options='{"mode": "timeflipbox", "timeFormatOverride": 12}' />
+				</div>
 				
-			</nav> 
+				<p>Using the flip mode is as simple as setting the 'mode' option to "timeflipbox".</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "timeflipbox", "timeFormatOverride": 12}'&gt;</pre>
+   
+				
 		</div> 
 		
 	</div>
 	<div data-role="footer">
-		<div data-role="controlgroup" data-type="horizontal">
-			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
-		</div>
 	</div>
 </div>
 </html>

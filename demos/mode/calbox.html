@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
 	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
 	<script type="text/javascript">
@@ -38,17 +39,11 @@
 				
 			</div> 
 			
-			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
-				<li data-role="list-divider">Calendar Demos</li> 
-				<li data-theme='a'>Simple Calendars</li> 
-				<li><a href="limit.html">Range Limiting &amp; Picking</a></li>
-				<li><a href="blackhigh.html">Disabled &amp; Highlighted Dates</a></li>
-			</ul> 
+			<div class="modedemos sidebar"></div>
 			
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
-			<nav> 
 				<h2>Basic Calendar</h2>
 				<div data-role="fieldcontain">
 					<label for="defcal">Some Date</label><input name="defcal" type="date" data-role="datebox" id="defcal" data-options='{"mode": "calbox"}'/>
@@ -97,25 +92,11 @@
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox", 'calTodayButton': true}'&gt;</pre>
 
-				<h2>Disabling manual input</h2>
-				<div data-role="fieldcontain">
-					<label for="caldisablemanualinput">Some Date</label><input name="caldisablemanualinput" type="date" data-role="datebox" id="caldisablemanualinput" data-options='{"mode": "calbox", "disableManualInput": true}'/>
-				</div>
-
-				<p>You're not able to type a value in the following input, you can set the value by the picker.</p>
-
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "disableManualInput": true}'&gt;</pre>
-			</nav> 
+				
 		</div> 
 		
 	</div>
 	<div data-role="footer">
-		<div data-role="controlgroup" data-type="horizontal">
-			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
-		</div>
 	</div>
 </div>
 </html>

@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
 	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
 	<script type="text/javascript">
@@ -38,19 +39,13 @@
 				
 			</div> 
 			
-			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
-				<li data-role="list-divider">Calendar Demos</li> 
-				<li><a href="./">Simple Calendars</a></li> 
-				<li><a href="limit.html">Range Limiting &amp; Picking</a></li>
-				<li data-theme='a'>Disabled &amp; Highlighted Dates</li>
-			</ul> 
+			<div class="optdemos sidebar"></div>
 			
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
-			<nav> 
 				<h2>Disabling and Highlighting Dates and Days</h2>
-				<p>Disabling or highlighting dates and days can be done in a variety of ways.  The pertinent options are:</p>
+				<p>Disabling or highlighting dates and days can be done in a variety of ways.  The pertinent options are (these only work in calbox mode):</p>
 				<dl>
 					<dt>blackDays</dt>
 					<dd>An array of days to disable, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2])</dd>
@@ -60,6 +55,8 @@
 					<dd>An array of days to highlight, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2])</dd>
 					<dt>highDates</dt>
 					<dd>An array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"])</dd>
+					<dt>highDatesAlt</dt>
+					<dd>An second, alternate array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"])</dd>
 				</dl>
 				
 				<h3>Blacklisted Days</h3>
@@ -110,9 +107,6 @@
 		
 	</div>
 	<div data-role="footer">
-		<div data-role="controlgroup" data-type="horizontal">
-			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
-		</div>
 	</div>
 </div>
 </html>

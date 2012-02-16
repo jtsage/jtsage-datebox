@@ -1,0 +1,98 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="oddStart"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+	    <div class="content-secondary"> 
+		<div id="jqm-homeheader"> 
+		    <h1 id="jqm-logo"><img src="../jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
+		    <p>A Date and Time Picker plugin for jQueryMobile</p> 
+		</div> 
+			
+		<div class="scriptdemos sidebar"></div>
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+			<h2>Dynamic Start Date</h2>
+				
+			<div data-role="fieldcontain">
+				<label for="dynend">Only till Jun 30</label>
+				<input name="dynend" type="text" data-role="datebox" data-options='{"mode": "calbox", "maxDays" : 30}' id="dynend" />
+			</div>
+			<script type="text/javascript">
+				function getdays() { 
+					var rightnow = new Date()
+						today = new Date(rightnow.getFullYear(), rightnow.getMonth(), rightnow.getDate(), 0,0,0,0)
+						maxdate = new Date(2012, 5, 30, 0,0,0,0)
+						
+						daysuntil = ( maxdate - today ) / ( 1000 * 60 * 60 * 24 )
+						
+						daysuntil = daysuntil + 1
+						// Without this, Jun 30 isn't valid.
+						
+						return parseInt(daysuntil,10)
+				}
+				$('#dynend').live('dateboxcreate', function() {
+					$('#dynend').data('datebox').options.maxDays = getdays()
+				});
+			</script>
+				
+			<p>You can dynamically set a start date for you calendar (or android mode) too.</p>
+				
+			<strong>HTML</strong>
+			<pre class="prettyprint">&lt;label for="dynend"&gt;Only till Jun 30&lt;/label&gt;
+&lt;input name="dynend" type="text" data-role="datebox" data-options='{"mode": "calbox", "maxDays" : 30}' id="dynend" /&gt;</pre>
+
+			<strong>jQuery</strong>
+			<pre class="prettyprint">function getdays() { 
+  var rightnow = new Date()
+    today = new Date(rightnow.getFullYear(), rightnow.getMonth(), rightnow.getDate(), 0,0,0,0)
+    maxdate = new Date(2012, 5, 30, 0,0,0,0)
+
+  daysuntil = ( maxdate - today ) / ( 1000 * 60 * 60 * 24 )
+
+  daysuntil = daysuntil + 1
+  // Without this, Jun 30 isn't valid.
+
+  return parseInt(daysuntil,10)
+}
+
+$('#dynend').live('dateboxcreate', function() {
+  $('#dynend').data('datebox').options.maxDays = getdays()
+});</pre>
+		</div> 
+		
+	</div>
+	<div data-role="footer">
+	</div>
+</div>
+</html>

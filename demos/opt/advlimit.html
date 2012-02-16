@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
 	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
 	<script type="text/javascript">
@@ -24,7 +25,7 @@
 	
 </head>
 <body>
-<div data-role="page" data-theme="c" id="slideIndex"> 
+<div data-role="page" data-theme="c" id="calBlack"> 
 	<div data-role="header"> 
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
@@ -38,63 +39,73 @@
 				
 			</div> 
 			
-			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
-				<li data-role="list-divider">Flip Demos</li> 
-				<li data-theme='a'>Simple Options</li> 
-			</ul> 
+			<div class="optdemos sidebar"></div>
 			
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
-			<nav> 
-				<h2>Flip Default</h2>
+				<h2>Disabling and Highlighting Dates and Days</h2>
+				<p>Disabling or highlighting dates and days can be done in a variety of ways.  The pertinent options are (these only work in calbox mode):</p>
+				<dl>
+					<dt>blackDays</dt>
+					<dd>An array of days to disable, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2])</dd>
+					<dt>blackDates</dt>
+					<dd>An array of ISO 8601 Dates to disable. (e.g. ["2011-01-01", "2011-12-25"])</dd>
+					<dt>highDays</dt>
+					<dd>An array of days to highlight, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2])</dd>
+					<dt>highDates</dt>
+					<dd>An array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"])</dd>
+					<dt>highDatesAlt</dt>
+					<dd>An second, alternate array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"])</dd>
+				</dl>
+				
+				<h3>Blacklisted and Highlighted Days</h3>
 				
 				<div data-role="fieldcontain">
-					<label for="defflip">Some Date</label><input name="defflip" type="date" data-role="datebox" id="defflip" data-options='{"mode": "flipbox"}' />
+					<label for="calblackday">Some Date</label>
+					<input name="calblackday" type="date" data-role="datebox" id="calblackday" data-options='{"mode": "calbox", "blackDays": [2], "highDays": [6] }'/>
 				</div>
 				
-				<p>Using the flip mode is as simple as setting the 'mode' option to "flipbox".</p>
+				<p>Example shows all Tuesdays disabled, Saturdays Highlighted</p>
 				
 				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "flipbox"}'&gt;</pre>
-   
-				<h2>Flip Time Mode Default</h2>
+   data-options='{"mode": "calbox", "blackDays": [2], "highDays": [6] }'&gt;</pre>
+				
+				<h3>Blacklisted Dates</h3>
 				
 				<div data-role="fieldcontain">
-					<label for="deftimeflip">Some Date</label><input name="deftimeflip" type="date" data-role="datebox" id="deftimeflip" data-options='{"mode": "timeflipbox"}' />
+					<label for="calblackdate">Some Date</label>
+					<input value="2011-12-01" name="calblackdate" type="date" data-role="datebox" id="calblackdate" data-options='{"mode": "calbox", "blackDates": ["2011-12-24", "2011-12-25"]}'/>
 				</div>
 				
-				<p>Using the flip mode is as simple as setting the 'mode' option to "timeflipbox".</p>
+				<p>Example shows all Christmas disabled.</p>
 				
 				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "timeflipbox"}'&gt;</pre>
-   
-				<h2>Flip Time Mode 12 Hour Clock</h2>
+   data-options='{"mode": "calbox", "blackDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
+				
+				
+				<h3>Highlighted Dates</h3>
 				
 				<div data-role="fieldcontain">
-					<label for="deftimeflip2">Some Date</label><input name="deftimeflip2" type="date" data-role="datebox" id="deftimeflip2" data-options='{"mode": "timeflipbox", "timeFormat": 12}' />
+					<label for="calhighdate">Some Date</label>
+					<input value="2011-12-01" name="calhighdate" type="date" data-role="datebox" id="calhighdate" data-options='{"mode": "calbox", "highDates": ["2011-12-24", "2011-12-25"]}'/>
 				</div>
 				
-				<p>Using the flip mode is as simple as setting the 'mode' option to "timeflipbox".</p>
+				<p>Example shows all Christmas highlighted.</p>
 				
 				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "timeflipbox", "timeFormat": 12}'&gt;</pre>
-   
+   data-options='{"mode": "calbox", "highDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
 				
-			</nav> 
 		</div> 
 		
 	</div>
 	<div data-role="footer">
-		<div data-role="controlgroup" data-type="horizontal">
-			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
-		</div>
 	</div>
 </div>
 </html>

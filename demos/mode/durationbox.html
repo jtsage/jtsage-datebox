@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="durIndex"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary"> 
+	
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="../jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
+				<p>A Date and Time Picker plugin for jQueryMobile</p> 
+				
+			</div> 
+			
+			<div class="modedemos sidebar"></div>
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+				<h2>Duration Default</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="defdurate">Some Date</label><input name="defdurate" type="date" data-role="datebox" id="defdurate" data-options='{"mode": "durationbox"}' />
+				</div>
+				
+				<p>Using the duration mode is as simple as setting the 'mode' option to "durationbox".</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "durationbox"}'&gt;</pre>
+				
+				<h2>Duration Collapse Mode</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="durshort">Some Date</label><input name="durshort" type="date" data-role="datebox" id="durshort" data-options='{"mode": "durationbox", "durationFormat": "ii:ss"}' />
+				</div>
+				
+				<p>Using the duration collapse mode will use only as many digits as nessasary to completly convey the duration. To use it, set a different durationFormat.</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "durationbox", "durationFormat": "ii:ss"}'&gt;</pre>
+				
+				<h2>Configuring Duration Units</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="durunitconfigs">Some Date</label><input name="durunitconfigs" type="date" data-role="datebox" id="durunitconfigs" data-options='{"mode": "durationbox", "durationOrder": ["d", "h", "i"]}' />
+				</div>
+				
+				<p>Duration units can be defined by setting 'durationOrder' to combinations of ["d","h","i","s"].</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "durationbox", "durationOrder": ["d", "h", "i"]}'&gt;</pre>
+				
+		</div> 
+		
+	</div>
+	<div data-role="footer">
+	</div>
+</div>
+</html>

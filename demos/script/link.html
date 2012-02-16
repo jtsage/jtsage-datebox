@@ -2,7 +2,7 @@
 <html lang="en"> 
 <head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
 	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
 	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
 	<script type="text/javascript">
@@ -24,7 +25,7 @@
 	
 </head>
 <body>
-<div data-role="page" data-theme="c" id="timeIndex"> 
+<div data-role="page" data-theme="c" id="oddLink"> 
 	<div data-role="header"> 
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
@@ -38,50 +39,37 @@
 				
 			</div> 
 			
-			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
-				<li data-role="list-divider">Time Demos</li> 
-				<li data-theme='a'>Simple Options</li> 
-			</ul> 
+			<div class="scriptdemos sidebar"></div>
 			
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
-			<nav> 
-				<h2>Time Default</h2>
+				<h2>Linked Inputs</h2>
 				
 				<div data-role="fieldcontain">
-					<label for="deftime">Some Time</label><input name="deftime" type="date" data-role="datebox" id="deftime" data-options='{"mode": "timebox"}' />
+					<label for="linked1">Date</label>
+					<input name="linked1" type="text" data-role="datebox" data-options='{"mode": "datebox", "closeCallback": "$(\"#linked2\").datebox(\"open\");" }' id="linked1" />
+					<label for="linked2">Time</label>
+					<input name="linked2" type="text" data-role="datebox" data-options='{"mode": "timebox", "timeFormatOverride":12}' id="linked2" />
 				</div>
 				
-				<p>Using the time mode is as simple as setting the 'mode' option to "timebox".</p>
+				<p>You can also link inputs easily. (Show with optional 'center popup' option)</p>
 				
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Time&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "timebox"}'&gt;</pre>
-				
-				<h2>12 Hour Clock Mode</h2>
-				
-				<div data-role="fieldcontain">
-					<label for="timehalf">Some Time</label><input name="timehalf" type="date" data-role="datebox" id="timehalf" data-options='{"mode": "timebox", "timeFormatOverride": 12}' />
-				</div>
-				
-				<p>To use a 12 hour clock instead or a 24 hour clock, set 'timeFomat' to 12.</p>
-				
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Time&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "timebox", "timeFormatOverride": 12}'&gt;</pre>
+				<pre class="prettyprint">&lt;label for="linked1"&gt;Date&lt;/label&gt;
+        
+&lt;input name="linked1" type="text" data-role="datebox" id="linked1" 
+    data-options='{"mode": "datebox", "closeCallback": "$(\"#linked2\").datebox(\"open\");"}' /&gt;
+    
+&lt;label for="linked2"&gt;Time&lt;/label&gt;
+        
+&lt;input name="linked2" type="text" data-role="datebox" id="linked2"
+    data-options='{"mode": "timebox", "timeFormatOverride":12}' /&gt;</pre>
 				
 				
-			</nav> 
 		</div> 
 		
 	</div>
 	<div data-role="footer">
-		<div data-role="controlgroup" data-type="horizontal">
-			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
-		</div>
 	</div>
 </div>
 </html>

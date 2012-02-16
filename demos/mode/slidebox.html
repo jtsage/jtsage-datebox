@@ -1,8 +1,8 @@
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
 	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
 	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
 	<script type="text/javascript">
@@ -24,7 +25,7 @@
 	
 </head>
 <body>
-<div data-role="page" data-theme="c" id="durIndex"> 
+<div data-role="page" data-theme="c" id="slideIndex"> 
 	<div data-role="header"> 
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
@@ -38,68 +39,37 @@
 				
 			</div> 
 			
-			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
-				<li data-role="list-divider">Duration Demos</li> 
-				<li data-theme='a'>Simple Options</li> 
-			</ul> 
+			<div class="modedemos sidebar"></div>
 			
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
-			<nav> 
-				<h2>Duration Default</h2>
+				<h2>Slide Default</h2>
 				
 				<div data-role="fieldcontain">
-					<label for="defdurate">Some Date</label><input name="defdurate" type="date" data-role="datebox" id="defdurate" data-options='{"mode": "durationbox"}' />
+					<label for="defslide">Some Date</label><input name="defslide" type="date" data-role="datebox" id="defslide" data-options='{"mode": "slidebox"}' />
 				</div>
 				
-				<p>Using the duration mode is as simple as setting the 'mode' option to "durationbox".</p>
+				<p>Using the slide mode is as simple as setting the 'mode' option to "slidebox".</p>
 				
 				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "durationbox"}'&gt;</pre>
-				
-				<h2>Duration Short Mode</h2>
-				
-				<div data-role="fieldcontain">
-					<label for="durshort">Some Date</label><input name="durshort" type="date" data-role="datebox" id="durshort" data-options='{"mode": "durationbox", "durationShort": true}' />
-				</div>
-				
-				<p>Using the duration short mode will use only as many digits as nessasary to completly convey the duration.</p>
-				
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "durationbox", "durationShort": true}'&gt;</pre>
-				
-				<h2>Duration No Days Mode</h2>
+   data-options='{"mode": "slidebox"}'&gt;</pre>
+   
+				<h2>Slide with Time</h2>
 				
 				<div data-role="fieldcontain">
-					<label for="durnoday">Some Date</label><input name="durnoday" type="date" data-role="datebox" id="durnoday" data-options='{"mode": "durationbox", "durationNoDays": true}' />
+					<label for="timeslide">Some Date and Time</label><input name="timeslide" type="text" data-role="datebox" id="timeslide" data-options='{"mode": "slidebox", "dateFormat":"%Y-%m-%dT%I:%M%p", "timeFormatOverride":12, "fieldsOrderOverride":["y","m","d","h","i"]}' />
 				</div>
 				
-				<p>Using the duration no days mode will calculate the duration in h:i:s, never using the # Day(s) prefix.</p>
+				<p>Using the slide mode is as simple as setting the 'mode' option to "slidebox". For time input as well, just add the "h" and "i" field types.  You'll also want to set an appropriate output format.</p>
 				
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date and Time&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "durationbox", "durationNoDays": true}'&gt;</pre>
-
-                <h2>Configuring Duration Units</h2>
-
-				<div data-role="fieldcontain">
-					<label for="durunitconfigs">Some Date</label><input name="durunitconfigs" type="date" data-role="datebox" id="durunitconfigs" data-options='{"mode": "durationbox", "durationOrder": ["d", "h", "i"]}' />
-				</div>
-
-                <p>Duration units can be defined by setting 'durationOrder' to combinations of ["d","h","i","s"].</p>
-
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "durationbox", "durationOrder": ["d", "h", "i"]}'&gt;</pre>
+   data-options='{"mode": "slidebox", "dateFormat":"%Y-%m-%dT%I:%M%p", "timeFormatOverride":12, "fieldsOrderOverride":["y","m","d","h","i"]}'&gt;</pre>
 				
-			</nav> 
 		</div> 
 		
 	</div>

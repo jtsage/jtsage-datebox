@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
 	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
 	<script type="text/javascript">
@@ -38,25 +39,18 @@
 				
 			</div> 
 			
-			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
-				<li data-role="list-divider">Other Demos</li> 
-				<li data-theme='a'>Display Modes</li> 
-				<li><a href="open.html">Other Open Methods</a></li>
-				<li><a href="start.html">Dynamic Start Date</a></li>
-				<li><a href="link.html">Linked Inputs</a></li>
-			</ul> 
+			<div class="optdemos sidebar"></div>
 			
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
-			<nav> 
 				<h2>Forced Popup Mode</h2>
 				
 				<div data-role="fieldcontain">
 					<label for="forcepop">Some Date</label><input name="forcepop" type="date" data-role="datebox" id="forcepop" data-options='{"useDialogForceFalse": true}' />
 				</div>
 				
-				<p>You can force the dialog mode off with 'useDialogForceFalse' set to 'true'</p>
+				<p>You can force the dialog mode off with 'useDialogForceFalse' set to 'true' (this is the default!!)</p>
 				
 				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
@@ -67,15 +61,15 @@
 				<h2>Forced Dialog Mode</h2>
 				
 				<div data-role="fieldcontain">
-					<label for="forcediag">Some Date</label><input name="forcediag" type="date" data-role="datebox" id="forcediag" data-options='{"useDialogForceTrue": true}' />
+					<label for="forcediag">Some Date</label><input name="forcediag" type="date" data-role="datebox" id="forcediag" data-options='{"useDialogForceTrue": true, "useDialogForceFalse": false}' />
 				</div>
 				
-				<p>You can force the dialog mode on with 'useDialogForceTrue' set to 'true'</p>
+				<p>You can force the dialog mode on with 'useDialogForceTrue' set to 'true' and 'useDialogForceFalse' set to 'false'</p>
 				
 				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"useDialogForceTrue": true}'&gt;</pre>
+   data-options='{"useDialogForceTrue": true, "useDialogForceFalse": false}'&gt;</pre>
 				
 				<h2>Fullscreen (non-forced) Mode</h2>
 				
@@ -142,14 +136,10 @@
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"useInline": true, "noButtonFocusMode": true, "useInlineBlind": true}'&gt;</pre>
 				
-			</nav> 
 		</div> 
 		
 	</div>
 	<div data-role="footer">
-		<div data-role="controlgroup" data-type="horizontal">
-			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
-		</div>
 	</div>
 </div>
 </html>

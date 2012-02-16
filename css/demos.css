@@ -13,7 +13,7 @@ body { background: #dddddd; }
 .ui-mobile #jqm-version { text-indent: -99999px; background: url(../images/version.png) top right no-repeat; width: 119px; height: 122px; overflow: hidden; position: absolute; z-index: 50; top: 0; right: 0; }
 .ui-mobile .jqm-themeswitcher { margin: 10px 25px 10px 10px;  }
 
-h2 { margin-top:1.5em; }
+h2 { margin-top:2.5em; }
 p code { font-size:1.2em; font-weight:bold; } 
 
 dt { font-weight: bold; margin: 2em 0 .5em; }
@@ -167,7 +167,7 @@ p.intro strong {
     .content-primary {
         width: 45%;
         float: right;
-        margin-top: 30px;
+        
         margin-right: 1%;
         padding-right: 1%;
     }
