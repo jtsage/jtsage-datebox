@@ -64,8 +64,72 @@ $(":jqmData(role)=page").live('pageinit', function(e) {
 	}
 	
 });
+goodLang = {
+	"en": "English US",
+	"af": "Afrikaans",
+	"ar": "Arabic",
+	"ca": "Catalan",
+	"cs": "Czech",
+	"da": "Danish",
+	"de": "German",
+	"el": "Greek, Modern",
+	"es-ES": "Spanish",
+	"fi": "Finnish",
+	"fr": "French",
+	"hr": "Croatian",
+	"hu": "Hungarian",
+	"it": "Italian",
+	"ja": "Japanese",
+	"ko": "Korean",
+	"lt": "Lituanian",
+	"nl": "Dutch",
+	"no": "Norwegian",
+	"pl": "Polish",
+	"pt-BR": "Portuguese",
+	"pt-PT": "Portuguese",
+	"ro": "Romainian",
+	"ru": "Russian",
+	"sr": "Serbian",
+	"sv-SE": "Swedish",
+	"tr": "Turkish",
+	"uk": "Ukrainian",
+	"vi": "Vietnamese",
+	"zh-CN": "Chinese - Simplified"
+}
+
+intHTML = "<p>Choose your Language: </p><select class='opt-pop-lang'>";
+for (x in goodLang) {
+	intHTML += "<option value='"+x+"'>["+x+"] "+goodLang[x]+"</option>";
+}
+intHTML += "</select><a data-role='button' href='#' rel='close'>Close</a>";
+
+$('.opt-pop-lang').live('change', function() {
+	// This is so much bullshit it's not funny...
+	newLang = $(this).val();
+	$.ajax({
+		url: "http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n."+newLang+".utf8.js",
+		success: function(data) {
+			eval(data);
+			var x = $.mobile.datebox.prototype.options.lang[newLang];
+			$(document).find('[data-role=datebox]').each(function () {
+				$(this).data('datebox').options.lang[newLang] = x;
+				$(this).data('datebox').options.useLang = newLang;
+			});
+		}
+	});
+});
 
 $('.opt-pop').live('vclick', function() {
 	var first = $('.ui-page-active').children('.ui-content:first');
-	console.log(first);
+		
+	first.simpledialog({
+		'mode': 'blank',
+		'prompt': false,
+		'forceInput': false,
+		'useModal': true,
+		'clickEvent': 'vclick',
+		'fullScreen': true,
+		'fullHTML': intHTML
+	});
 });
+
