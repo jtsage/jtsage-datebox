@@ -2103,22 +2103,6 @@
 			}
 		}
 		
-		var self = this,
-			o = this.options,
-			inputOffset = self.focusedEl.offset(),
-			pickWinHeight = self.pickerContent.outerHeight(),
-			pickWinWidth = self.pickerContent.innerWidth(),
-			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
-			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2),
-			transition = o.noAnimation ? 'none' : o.transition,
-			fullTop = $(window).scrollTop(),
-			fullLeft = $(window).scrollLeft(),
-			docWinWidth = $(document).width(),
-			docWinHeight = $(window).height(),
-			activePage;
-		
-		self._buttonsTitle();
-		
 		// Open the controls
 		if ( this.options.useInlineBlind ) {
 			this.pickerContent.slideDown();
@@ -2131,6 +2115,24 @@
 		this._update();
 		this.input.blur(); // Grab latest value of input, in case it changed
 		
+		var self = this,
+			o = this.options,
+			inputOffset = self.focusedEl.offset(),
+			pickWinHeight = self.pickerContent.outerHeight(),
+			pickWinWidth = self.pickerContent.innerWidth(),
+			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
+			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2),
+			transition = o.noAnimation ? 'none' : o.transition,
+			fullTop = $(window).scrollTop(),
+			fullBottom = $(window).scrollTop() + $(window).height(),
+			fullLeft = $(window).scrollLeft(),
+			topBottomPadding = 5,
+			docWinWidth = $(document).width(),
+			docWinHeight = $(window).height(),
+			activePage;
+		
+		self._buttonsTitle();
+		
 		// TOO FAR RIGHT TRAP
 		if ( (pickWinLeft + pickWinWidth) > $(document).width() ) {
 			pickWinLeft = $(document).width() - pickWinWidth - 1;
@@ -2139,15 +2141,44 @@
 		if ( pickWinLeft < 0 ) {
 			pickWinLeft = 0;
 		}
+		
+		// Adjustments for headers and footers and are optionally fixed.
+		var pageHeader = $('.ui-header', self.thisPage);
+		if(pageHeader.length > 0) {
+			var headerHeight = pageHeader.height();
+			if(pageHeader.is('.ui-fixed-hidden')) {
+				if(fullTop < headerHeight) {
+					fullTop = headerHeight;
+				}
+			} else {
+				fullTop += headerHeight;
+			}
+		}
+		var pageFooter = $('.ui-footer', self.thisPage);
+		if(pageFooter.length > 0) {
+			var footerHeight = pageFooter.height();
+			if(pageFooter.is('.ui-fixed-hidden')) {
+				var heightToEndOfDocument = $(document).height() - (fullTop + $(window).height());
+				if(heightToEndOfDocument < footerHeight) {
+					fullBottom -= (footerHeight - heightToEndOfDocument);
+				}
+			} else {
+				fullBottom -= footerHeight;
+			}
+		}
+
 		// Center popup on request - centered in document, not any containing div. 
 		if ( o.centerWindow ) {
 			pickWinLeft = ( $(document).width() / 2 ) - ( pickWinWidth / 2 );
 		}
-		
-		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
-			pickWinTop = $(document).height() - (pickWinHeight + 2);
+		// Ensure the top of popup isn't outside the top of the visible scroll region.
+		if ( pickWinTop < fullTop ) {
+			pickWinTop = fullTop + topBottomPadding;
 		}
-		if ( pickWinTop < 45 ) { pickWinTop = 45; }
+		// Ensure the bottom of popup isn't outside the bottom of the visible scroll region.
+		else if ( (pickWinHeight + pickWinTop) > fullBottom ) {
+			pickWinTop = fullBottom - pickWinHeight - topBottomPadding;
+		}
 		
 		// If the window is less than 400px wide, use the jQM dialog method unless otherwise forced
 		if ( ( $(document).width() > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse || o.fullScreen ) {
