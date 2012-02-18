@@ -165,6 +165,71 @@
 			}
 		} 
 	},
+	_getCoords: function(widget) {
+		var self = widget,
+			inputOffset   = widget.focusedEl.offset(),
+			inputHigh     = widget.focusedEl.outerHeight(),
+			inputWidth    = widget.focusedEl.outerWidth(),
+			docWinWidth   = $.mobile.activePage.width(),
+			docWinHighOff = $(window).scrollTop(),
+			docWinHigh    = $(window).height(),
+			diaWinWidth   = widget.pickerContent.innerWidth(),
+			diaWinHigh    = widget.pickerContent.outerHeight(),
+			pageitem      = false,
+			minTop        = 0, // Minimum TOP measurment (absolute)
+			padTop        = 0, // Padding for TOP measurment (fixed header)
+			unPadBottom   = 0, // Padding for BOTTOM measurement (fixed header)
+			maxBottom     = $(document).height(), // Max BOTTOM measurement (absolute)
+			
+			coords        = {
+				'high'    : $(window).height(),
+				'width'   : $.mobile.activePage.width(),
+				'fullTop' : $(window).scrollTop(),
+				'fullLeft': $(window).scrollLeft(),
+			};
+			
+		if ( widget.options.centerWindow ) { // If it's centered, no need for lots of checks.
+			coords.winTop = docWinHighOff + (( docWinHigh / 2 ) - ( diaWinHigh / 2 ) );
+			coords.winLeft = (( docWinWidth / 2 ) - ( diaWinWidth / 2 ) );
+		} else {
+			pageitem = $('.ui-header', $.mobile.activePage);
+			if ( pageitem.length > 0 ) {
+				if ( pageitem.is('.ui-header-fixed')) {
+					padTop = ( pageitem.outerHeight() + 2 );
+				} else {
+					minTop += ( pageitem.outerHeight() + 2 );
+				}
+			}
+			pageitem = $('.ui-footer', $.mobile.activePage);
+			if ( pageitem.length > 0 ) {
+				if ( pageitem.is('.ui-footer-fixed')) {
+					unPadBottom = ( pageitem.outerHeight() + 2 );
+				} else {
+					maxBottom -= ( pageitem.outerHeight() + 2 );
+				}
+			}
+			coords.winLeft = (inputOffset.left + ( inputWidth / 2 )) - ( diaWinWidth / 2 );
+			coords.winTop = (inputOffset.top + ( inputHigh / 2)) - ( diaWinHigh / 2 );
+			
+			// Not beyond bottom of page or on footer (not fixed)
+			if ( (coords.winTop + diaWinHigh) > maxBottom ) {
+				coords.winTop += ( maxBottom - ( coords.winTop + diaWinHigh ) );
+			}
+			
+			// Not on the footer either (but only if it floats)
+			if ( unPadBottom > 0 && (( coords.winTop + diaWinHigh - docWinHighOff ) > (docWinHigh - unPadBottom)) ) {
+				coords.winTop = (( docWinHigh - unPadBottom + docWinHighOff - diaWinHigh ));
+			}
+			// Not on the header (not fixed)
+			if ( coords.winTop < minTop ) { coords.winTop = minTop; }
+			
+			// Not on the floating header either (fixed)
+			if ( padTop > 0 && ( coords.winTop < ( docWinHighOff + padTop ) ) )  {
+				coords.winTop = docWinHighOff + padTop;
+			}
+		}
+		return coords;
+	},
 	_fixArray: function(arr) {
 		var x = 0,
 			self = this,
@@ -770,37 +835,18 @@
 	_orientChange: function(e) {
 		var self = e.data.widget,
 			o = e.data.widget.options,
-			inputOffset = e.data.widget.focusedEl.offset(),
-			pickWinHeight = e.data.widget.pickerContent.outerHeight(),
-			pickWinWidth = e.data.widget.pickerContent.innerWidth(),
-			pickWinTop = inputOffset.top + ( e.data.widget.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
-			pickWinLeft = inputOffset.left + ( e.data.widget.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2);
+			coords = e.data.widget._getCoords(e.data.widget); // Get the coords now, since we need em.
 		
 		e.stopPropagation();
 		if ( ! self.pickerContent.is(':visible') || o.useDialog === true ) { 
 			return false;  // Not open, or in a dialog (let jQM do it)
 		} else {
-			// TOO FAR RIGHT TRAP
-			if ( (pickWinLeft + pickWinWidth) > $(document).width() ) {
-				pickWinLeft = $(document).width() - pickWinWidth - 1;
+			if ( o.fullScreen == true && ( coords.width < 400 || o.fullScreenForce === true ) ) {
+				self.pickerContent.css({'top': coords.fullTop, 'left': coords.fullLeft, 'height': coords.high, 'width': coords.width, 'maxWidth': coords.width });
+			} else {
+				self.pickerContent.css({'top': coords.winTop, 'left': coords.winLeft});
 			}
-			// TOO FAR LEFT TRAP
-			if ( pickWinLeft < 0 ) {
-				pickWinLeft = 0;
-			}
-			// Center popup on request - centered in document, not any containing div. 
-			if ( o.centerWindow ) {
-				pickWinLeft = ( $(document).width() / 2 ) - ( pickWinWidth / 2 );
-			}
-			
-			if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
-				pickWinTop = $(document).height() - (pickWinHeight + 2);
-			}
-			if ( pickWinTop < 45 ) { pickWinTop = 45; }
-			
-			self.pickerContent.css({'top': pickWinTop, 'left': pickWinLeft});
 		}
-		
 	},
 	_update: function() {
 		// Update the display on date change
@@ -2090,24 +2136,29 @@
 		this._update();
 	},
 	open: function() {
+		var self = this,
+			o = this.options,
+			coords = false, // Later, if need be
+			transition = o.noAnimation ? 'none' : o.transition,
+			callback, activePage;
+			
 		// Call the open callback if provided. Additionally, if this
 		// returns falsy then the open of the dialog will be canceled
 		if (this.options.openCallback !== false ) {
 			if ( $.isFunction(this.options.openCallback()) && !this.options.openCallback()) {
 				return false;
 			} else {
-				var callback = new Function(this.options.openCallback);
+				callback = new Function(this.options.openCallback);
 				if ( !callback() ) {
 					return false;
 				}
 			}
 		}
 		
+		self._buttonsTitle();
+		
 		// Open the controls
-		if ( this.options.useInlineBlind ) {
-			this.pickerContent.slideDown();
-			return false; // No More!
-		}
+		if ( this.options.useInlineBlind ) { this.pickerContent.slideDown(); return false; } // Just slide if blinds mode
 		if ( this.options.useInline ) { return true; } // Ignore if inline
 		if ( this.pickPage.is(':visible') ) { return false; } // Ignore if already open
 		
@@ -2115,84 +2166,16 @@
 		this._update();
 		this.input.blur(); // Grab latest value of input, in case it changed
 		
-		var self = this,
-			o = this.options,
-			inputOffset = self.focusedEl.offset(),
-			pickWinHeight = self.pickerContent.outerHeight(),
-			pickWinWidth = self.pickerContent.innerWidth(),
-			pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2),
-			pickWinLeft = inputOffset.left + ( self.focusedEl.outerWidth() / 2) - ( pickWinWidth / 2),
-			transition = o.noAnimation ? 'none' : o.transition,
-			fullTop = $(window).scrollTop(),
-			fullBottom = $(window).scrollTop() + $(window).height(),
-			fullLeft = $(window).scrollLeft(),
-			topBottomPadding = 5,
-			docWinWidth = $(document).width(),
-			docWinHeight = $(window).height(),
-			activePage;
-		
-		self._buttonsTitle();
-		
-		// TOO FAR RIGHT TRAP
-		if ( (pickWinLeft + pickWinWidth) > $(document).width() ) {
-			pickWinLeft = $(document).width() - pickWinWidth - 1;
-		}
-		// TOO FAR LEFT TRAP
-		if ( pickWinLeft < 0 ) {
-			pickWinLeft = 0;
-		}
-		
-		// Adjustments for headers and footers and are optionally fixed.
-		var pageHeader = $('.ui-header', self.thisPage);
-		if(pageHeader.length > 0) {
-			var headerHeight = pageHeader.height();
-			if(pageHeader.is('.ui-fixed-hidden')) {
-				if(fullTop < headerHeight) {
-					fullTop = headerHeight;
-				}
-			} else {
-				fullTop += headerHeight;
-			}
-		}
-		var pageFooter = $('.ui-footer', self.thisPage);
-		if(pageFooter.length > 0) {
-			var footerHeight = pageFooter.height();
-			if(pageFooter.is('.ui-fixed-hidden')) {
-				var heightToEndOfDocument = $(document).height() - (fullTop + $(window).height());
-				if(heightToEndOfDocument < footerHeight) {
-					fullBottom -= (footerHeight - heightToEndOfDocument);
-				}
-			} else {
-				fullBottom -= footerHeight;
-			}
-		}
-
-		// Center popup on request - centered in document, not any containing div. 
-		if ( o.centerWindow ) {
-			pickWinLeft = ( $(document).width() / 2 ) - ( pickWinWidth / 2 );
-		}
-		// Ensure the top of popup isn't outside the top of the visible scroll region.
-		if ( pickWinTop < fullTop ) {
-			pickWinTop = fullTop + topBottomPadding;
-		}
-		// Ensure the bottom of popup isn't outside the bottom of the visible scroll region.
-		else if ( (pickWinHeight + pickWinTop) > fullBottom ) {
-			pickWinTop = fullBottom - pickWinHeight - topBottomPadding;
-		}
-		
 		// If the window is less than 400px wide, use the jQM dialog method unless otherwise forced
 		if ( ( $(document).width() > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse || o.fullScreen ) {
+			coords = this._getCoords(this); // Get the coords now, since we need em.
 			o.useDialog = false;
 			if ( o.nestedBox === true && o.fullScreen === false ) { 
-				if ( pickWinHeight === 0 ) { // The box may have no height since it dosen't exist yet.  working on it.
-					pickWinHeight = 250;
-					pickWinTop = inputOffset.top + ( self.focusedEl.outerHeight() / 2 )- ( pickWinHeight / 2);
-				}
 				activePage = $('.ui-page-active').first(); 
 				$(activePage).append(self.pickerContent);
 				$(activePage).append(self.screen);
 			}
-			if ( o.fullScreenAlways === false || $(document).width() > 399 ) {
+			if ( o.fullScreenAlways === false || coords.width > 399 ) {
 				if ( o.useModal === true ) { // If model, fade the background screen
 					self.screen.fadeIn('slow');
 				} else { // Else just unhide it since it's transparent (with a delay to prevent insta-close)
@@ -2200,10 +2183,10 @@
 				}
 			}
 			
-			if ( o.fullScreenAlways === true || ( o.fullScreen === true && $(document).width() < 400 ) ) {
-				self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'text-align': 'center', 'top': fullTop, 'left': fullLeft, 'height': docWinHeight, 'width': docWinWidth, 'border': '0px !important' }).removeClass('ui-datebox-hidden');
+			if ( o.fullScreenAlways === true || ( o.fullScreen === true && coords.width < 400 ) ) {
+				self.pickerContent.addClass('in').css({'position': 'absolute', 'text-align': 'center', 'top': coords.fullTop-5, 'left': coords.fullLeft-5, 'height': coords.high, 'width': coords.width}).removeClass('ui-datebox-hidden');
 			} else {
-				self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).removeClass('ui-datebox-hidden');
+				self.pickerContent.addClass('ui-overlay-shadow in').css({'position': 'absolute', 'top': coords.winTop, 'left': coords.winLeft}).removeClass('ui-datebox-hidden');
 				$(document).bind('orientationchange.datebox', {widget:self}, function(e) { self._orientChange(e); });
 				if ( o.resizeListener === true ) {
 					$(window).bind('resize.datebox', {widget:self}, function (e) { self._orientChange(e); });

@@ -5,13 +5,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>jQueryMobile - DateBox Demo</title>
-	<link href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.css" rel="stylesheet" type="text/css" />
+	<!--link href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.css" rel="stylesheet" type="text/css" /-->
+	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.css" rel="stylesheet" type="text/css" />
 	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
-	<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<!--script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script-->
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
@@ -21,6 +23,7 @@
 			useModal: false,
 			fullScreen: true,
 			focusMode: true,
+			//centerWindow: true,
 			//focusMode: true,
 			//afterToday: true,
 			
@@ -33,7 +36,7 @@
 </head>
 <body>
 <div data-role="page" data-theme="b" id="main"> 
-	<div data-role="header"> 
+	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - Dev Page</h1>
 	</div>
 	<div data-role="content">
@@ -72,10 +75,11 @@
 		</div>
 		
 		
-		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+		<!--br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+		-->
 	</div>
-	<div data-role="footer">
-		<a href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a href="mailto:jtsage+datebox@gmail.com">Contact</a>
+	<div data-role="footer" data-position="fixed">
+		<h1>Some SHit!</h1><!--a href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a href="mailto:jtsage+datebox@gmail.com">Contact</a-->
 	</div>
 </div>
 </html>
