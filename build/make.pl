@@ -119,6 +119,7 @@ sub make_master {
 	print "compressing... ";
 	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.datebox".$version.".min.css", "../css/jquery.mobile.datebox.css");
 	do_slug("./jquery.mobile.datebox".$version.".min.js");
+	do_slug("./jquery.mobile.datebox".$version.".min.css");
 	print "DONE.\n";
 }
 

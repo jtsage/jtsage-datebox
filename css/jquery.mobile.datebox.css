@@ -1,5 +1,8 @@
-/* jQuery-Mobile-DateBox Plugin
- * contains all plugin styles
+/*
+ * jQuery Mobile Framework : plugin to provide a date and time picker.
+ * Copyright (c) JTSage
+ * CC 3.0 Attribution.  May be relicensed without permission/notification.
+ * https://github.com/jtsage/jquery-mobile-datebox
  */
  
 /* Base input element Styles */
@@ -8,6 +11,7 @@
 .ui-input-datebox { min-height: 38px; } /* Fix for IE8 */
 .ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }
 .ui-input-datebox input { width: 100% !important; padding: 0 !important; margin-top: 5px !important; margin-right: -40px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }
+.ui-input-datebox input.clearbtn { margin-right: -80px !important; }
 .ui-input-datebox input:focus { outline: none;}
 .ui-input-datebox .ui-btn-text {display: none;}
 
