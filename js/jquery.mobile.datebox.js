@@ -209,6 +209,12 @@
 				}
 			}
 			coords.winLeft = (inputOffset.left + ( inputWidth / 2 )) - ( diaWinWidth / 2 );
+			
+			// Trap for small screens (center horizontally instead)
+			if ( docWinWidth < 450 ) {
+				coords.winLeft = (( docWinWidth / 2 ) - ( diaWinWidth / 2 ) );
+			}
+			
 			coords.winTop = (inputOffset.top + ( inputHigh / 2)) - ( diaWinHigh / 2 );
 			
 			// Not beyond bottom of page or on footer (not fixed)
