@@ -232,7 +232,11 @@
 			// Not on the floating header either (fixed)
 			if ( padTop > 0 && ( coords.winTop < ( docWinHighOff + padTop ) ) )  {
 				coords.winTop = docWinHighOff + padTop;
+			} else if ( docWinHighOff > minTop && docWinHighOff > coords.winTop ) {
+				// This one for non fixed scroll?
+				coords.winTop = docWinHighOff + 2;
 			}
+				
 		}
 		return coords;
 	},
