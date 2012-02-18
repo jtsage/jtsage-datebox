@@ -59,6 +59,8 @@
 		useModal: false,
 		useInline: false,
 		useInlineBlind: false,
+		useClearButton: false,
+		collapseButtons: false,
 		noButtonFocusMode: false,
 		focusMode: false,
 		noButton: false,
@@ -124,7 +126,8 @@
 				slideFieldOrder: ['y', 'm', 'd'],
 				dateFormat: '%Y-%m-%d',
 				useArabicIndic: false,
-				isRTL: false
+				isRTL: false,
+				clearButton: 'Clear'
 			}
 		}
 	},
@@ -1155,7 +1158,7 @@
 		/* BEGIN:CALBOX */
 		if ( o.mode === 'calbox' ) { // Meat and potatos - make the calendar grid.
 			self.controlsInput.empty().html( o.lang[o.useLang].monthsOfYear[self.theDate.getMonth()] + " " + self.theDate.getFullYear() );
-			self.controlsSet.empty();
+			self.controlsPlus.empty();
 			
 			calmode = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'nexttoday': 1,
 				'thisDate': new Date(), 'maxDate': new Date(), 'minDate': new Date(),
@@ -1316,9 +1319,9 @@
 						}
 					}
 				}
-				thisRow.appendTo(self.controlsSet);
+				thisRow.appendTo(self.controlsPlus);
 			}
-			self.controlsSet.delegate('div.ui-datebox-griddate', o.clickEvent +  ' vmouseover vmouseout', function(e) {
+			self.controlsPlus.delegate('div.ui-datebox-griddate', o.clickEvent +  ' vmouseover vmouseout', function(e) {
 				if ( e.type === o.clickEvent ) {
 					e.preventDefault();
 					if ( $(this).jqmData('enabled') ) {
@@ -1648,6 +1651,7 @@
 		self.calNoNext = false;
 		self.calNoPrev = false;
 		self.setButton = false;
+		self.clearButton = false;
 		
 		if ( o.fieldsOrderOverride === false ) {
 			switch (o.mode) {
@@ -1984,7 +1988,8 @@
 		/* BEGIN:CALBOX */
 		if ( o.mode === 'calbox' ) {
 			controlsHeader = $("<div>", {"class": 'ui-datebox-gridheader'}).appendTo(self.pickerContent);
-			controlsSet = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(self.pickerContent);
+			controlsPlus = $("<div>", {"class": 'ui-datebox-grid'}).appendTo(self.pickerContent);
+			controlsSet = templControls.clone().appendTo(self.pickerContent);
 			controlsInput = $("<div class='ui-datebox-gridlabel'><h4>Uninitialized</h4></div>").appendTo(controlsHeader).find('h4');
 			
 			if ( o.swipeEnabled ) { // Calendar swipe left and right
@@ -2029,7 +2034,7 @@
 				
 			if ( o.calTodayButton === true ) { // Show today button at bottom
 				self.setButton = $("<a href='#'>PlaceHolder</a>")
-					.appendTo(self.pickerContent).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
 						self.theDate = new Date();
@@ -2040,12 +2045,26 @@
 					
 			$.extend(self, {
 				controlsInput: controlsInput,
-				controlsSet: controlsSet
+				controlsPlus: controlsPlus
 			});
 			
 			self.pickerContent.appendTo(self.thisPage);
 		}
 		/* END:CALBOX */
+		
+		if ( o.useClearButton === true ) { // Clear button at very bottom
+			self.clearButton = $("<a href='#'>PlaceHolder</a>")
+				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
+				.bind(o.clickEvent, function(e) {
+					e.preventDefault();
+					self.input.val('');
+					self.input.trigger('datebox', {'method':'close'});
+				});
+		}
+		if ( o.collapseButtons && ( self.clearButton !== false && self.setButton !== false ) ) {
+			controlsSet.addClass('ui-datebox-collapse');
+		}
+			
 	},
 	_buttonsTitle: function () {
 		var self = this,
@@ -2070,6 +2089,11 @@
 			}
 		} else {
 			self.pickPageTitle.html(o.titleDialogLabel);
+		}
+		
+		// FIX THE CLEAR BUTTON
+		if ( self.clearButton !== false ) {
+			self.clearButton.find('.ui-btn-text').html(o.lang[o.useLang].clearButton);
 		}
 		
 		// FIX THE SET BUTTON

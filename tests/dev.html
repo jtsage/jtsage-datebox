@@ -16,13 +16,15 @@
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<!--script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script-->
 
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			useModal: false,
 			fullScreen: true,
-			focusMode: true,
+			useClearButton: true,
+			collapseButtons: true,
+			//noButtonFocusMode: true,
 			//centerWindow: true,
 			//focusMode: true,
 			//afterToday: true,
@@ -51,7 +53,7 @@
 		
 		<div data-role="fieldcontain">
 			<label for="lang2">datebox</label>
-			<input name="lang2" type="text" data-role="datebox" data-options='{"mode": "datebox"}' id="lang2" />
+			<input name="lang2" type="text" data-role="datebox" data-options='{"mode": "datebox", "noButtonFocusMode":false}' id="lang2" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="lang3">flipbox</label>
