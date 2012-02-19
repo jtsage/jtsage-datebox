@@ -9,7 +9,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.1-2012021800', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.1-2012021801', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -1117,10 +1117,15 @@
 						for ( i=-15; i<16; i++ ) {
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
 							testDate.setDate(testDate.getDate()+i);
+							disVal = "";
+							if ( ( o.blackDates !== false && $.inArray(self._isoDate(testDate.getFullYear(), testDate.getMonth()+1, testDate.getDate()), o.blackDates) > -1 ) ||
+								( o.blackDays !== false && $.inArray(testDate.getDay(), o.blackDays) > -1 ) ) {
+								disVal = " ui-datebox-griddate-disable";
+							}
 							cTheme = ( inheritDate.getDate() === testDate.getDate() && inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageSlideButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
 							
-							$("<div>", { 'class' : 'ui-datebox-slideday ui-corner-all ui-btn-up-'+cTheme })
+							$("<div>", { 'class' : 'ui-datebox-slideday ui-corner-all ui-btn-up-'+cTheme+disVal })
 								.jqmData('offset', i)
 								.jqmData('theme', cTheme)
 								.html(testDate.getDate() + '<br /><span class="ui-datebox-slidewday">' + o.lang[o.useLang].daysOfWeekShort[testDate.getDay()] + '</span>')
@@ -1914,8 +1919,10 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
-						self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
-						self.input.trigger('datebox', {'method':'close'});
+						if ( self.dateOK === true ) {
+							self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate});
+							self.input.trigger('datebox', {'method':'close'});
+						}
 					});
 			}
 			
