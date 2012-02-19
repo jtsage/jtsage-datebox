@@ -137,6 +137,19 @@
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"useInline": true, "noButtonFocusMode": true, "useInlineBlind": true}'&gt;</pre>
+   
+				<h2>Inline w/o Input</h2>
+				
+				<div data-role="fieldcontain">
+					<label for="useInlineHideInput">Some Date</label><input name="useInlineHideInput" type="date" data-role="datebox" id="useInlineHideInput" data-options='{"useInline": true, "useInlineHideInput": true}' />
+				</div>
+				
+				<p>You can force DateBox to display inline (without the input hiding) with 'useInline' and 'useInlineHideInput' set to 'true'.</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"useInline": true, "useInlineHideInput": true}'&gt;</pre>
 				
 		</div> 
 		
