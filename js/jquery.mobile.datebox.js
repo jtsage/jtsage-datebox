@@ -127,6 +127,7 @@
 				dateFormat: '%Y-%m-%d',
 				useArabicIndic: false,
 				isRTL: false,
+				calStartDay: 0,
 				clearButton: 'Clear'
 			}
 		}

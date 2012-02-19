@@ -213,9 +213,13 @@ msgstr "Sep"
 msgid "September"
 msgstr "September"
 
-#: generate-i18n.py:19 generate-i18n.py:23
+#: generate-i18n.py:19
 msgid "Set Date"
 msgstr "Set Date"
+
+#: generate-i18n.py:23
+msgid "Choose Date"
+msgstr "Choose Date"
 
 #: generate-i18n.py:21
 msgid "Set Duration"
@@ -224,6 +228,10 @@ msgstr "Set Duration"
 #: generate-i18n.py:20 generate-i18n.py:24
 msgid "Set Time"
 msgstr "Set Time"
+
+#: generate-i18n.py:24
+msgid "Choose Time"
+msgstr "Choose Time"
 
 #. Abbreviation for the day 'Sunday'
 #: generate-i18n.py:26
@@ -275,4 +283,8 @@ msgstr "false"
 #: generate-i18n.py:42
 msgid "0"
 msgstr "0"
+
+#: generate-i18n.py:43
+msgid "Clear"
+msgstr "Clear"
 
