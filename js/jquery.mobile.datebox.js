@@ -876,7 +876,7 @@
 		var self = this,
 			o = self.options, 
 			testDate = null,
-			i, gridWeek, gridDay, skipThis, thisRow, y, cTheme, inheritDate, thisPRow, tmpVal,
+			i, gridWeek, gridDay, skipThis, thisRow, y, cTheme, inheritDate, thisPRow, tmpVal, disVal,
 			interval = {'d': 60*60*24, 'h': 60*60, 'i': 60, 's':1},
 			calmode = {};
 			
@@ -975,9 +975,14 @@
 						for ( i=-15; i<16; i++ ) {
 							testDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate());
 							testDate.setDate(testDate.getDate()+i);
+							disVal = "";
+							if ( ( o.blackDates !== false && $.inArray(self._isoDate(testDate.getFullYear(), testDate.getMonth()+1, testDate.getDate()), o.blackDates) > -1 ) ||
+								( o.blackDays !== false && $.inArray(testDate.getDay(), o.blackDays) > -1 ) ) {
+								disVal = " ui-datebox-griddate-disable";
+							}
 							cTheme = ( inheritDate.getDate() === testDate.getDate() && inheritDate.getMonth() === testDate.getMonth() && inheritDate.getYear() === testDate.getYear() ) ? o.pickPageHighButtonTheme : o.pickPageFlipButtonTheme;
 							if ( i === 0 ) { cTheme = o.pickPageButtonTheme; }
-							$("<li>", { 'class' : 'ui-body-'+cTheme, 'style':((tmpVal===true)?'margin-top: -453px':'') })
+							$("<li>", { 'class' : 'ui-body-'+cTheme+disVal, 'style':((tmpVal===true)?'margin-top: -453px':'') })
 								.html("<span>"+testDate.getDate()+"</span>")
 								.appendTo(thisRow);
 							tmpVal = false;
@@ -1983,9 +1988,11 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
-						if ( o.mode === 'timeflipbox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate), 'date':self.theDate}); }
-						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate}); }
-						self.input.trigger('datebox', {'method':'close'});
+						if ( self.dateOK === true ) {
+							if ( o.mode === 'timeflipbox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate), 'date':self.theDate}); }
+							else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate}); }
+							self.input.trigger('datebox', {'method':'close'});
+						}
 					});
 			}
 			
