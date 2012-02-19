@@ -818,6 +818,8 @@
 			testDate = null,
 			o = this.options;
 		
+		self.dateOK = true;
+		
 		if ( o.afterToday !== false ) {
 			testDate = new Date();
 			if ( self.theDate < testDate ) { self.theDate = testDate; }
@@ -844,6 +846,13 @@
 		if ( o.minYear !== false ) {
 			testDate = new Date(o.minYear, 0, 1);
 			if ( self.theDate < testDate ) { self.theDate = testDate; }
+		}
+		if ( o.blackDates !== false ) {
+			if ( $.inArray(self._isoDate(self.theDate.getFullYear(), self.theDate.getMonth()+1, self.theDate.getDate()), o.blackDates) > -1 ) { self.dateOK = false;
+			}
+		}
+		if ( o.blackDays !== false ) {
+			if ( $.inArray(self.theDate.getDay(), o.blackDays) > -1 ) { self.dateOK = false; }
 		}
 	},
 	_orientChange: function(e) {
@@ -1154,6 +1163,12 @@
 			self.pickerMon.val(self.theDate.getMonth() + 1);
 			self.pickerDay.val(self.theDate.getDate());
 			self.pickerYar.val(self.theDate.getFullYear());
+			
+			if ( self.dateOK !== true ) {
+				self.controlsInput.find('input').addClass('ui-datebox-griddate-disable');
+			} else {
+				self.controlsInput.find('.ui-datebox-griddate-disable').removeClass('ui-datebox-griddate-disable');
+			}
 		}
 		/* END:DATEBOX */
 		/* BEGIN:CALBOX */
@@ -1653,6 +1668,7 @@
 		self.calNoPrev = false;
 		self.setButton = false;
 		self.clearButton = false;
+		self.dateOK = true;
 		
 		if ( o.fieldsOrderOverride === false ) {
 			switch (o.mode) {
@@ -1746,9 +1762,11 @@
 					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 					.bind(o.clickEvent, function(e) {
 						e.preventDefault();
-						if ( o.mode === 'timebox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate), 'date':self.theDate}); }
-						else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate}); }
-						self.input.trigger('datebox', {'method':'close'});
+						if ( self.dateOK === true ) {
+							if ( o.mode === 'timebox' ) { self.input.trigger('datebox', {'method':'set', 'value':self._formatTime(self.theDate), 'date':self.theDate}); }
+							else { self.input.trigger('datebox', {'method':'set', 'value':self._formatDate(self.theDate), 'date':self.theDate}); }
+							self.input.trigger('datebox', {'method':'close'});
+						}
 					});
 			}
 			
@@ -1780,7 +1798,8 @@
 				pickerYar: pickerYar,
 				pickerHour: pickerHour,
 				pickerMins: pickerMins,
-				pickerMeri: pickerMeri
+				pickerMeri: pickerMeri,
+				controlsInput: controlsInput
 			});
 			
 			self.pickerContent.appendTo(self.thisPage);
