@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-02-10 01:24+0100\n"
+"PO-Revision-Date: 2012-02-19 01:40+0100\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Swedish\n"
 "Language: \n"
@@ -213,8 +213,12 @@ msgstr "Sep"
 msgid "September"
 msgstr "September"
 
-#: generate-i18n.py:19 generate-i18n.py:23
+#: generate-i18n.py:19
 msgid "Set Date"
+msgstr "Välj datum"
+
+#: generate-i18n.py:23
+msgid "Choose Date"
 msgstr "Välj datum"
 
 #: generate-i18n.py:21
@@ -223,6 +227,10 @@ msgstr "Välj varaktighet"
 
 #: generate-i18n.py:20 generate-i18n.py:24
 msgid "Set Time"
+msgstr "Välj tid"
+
+#: generate-i18n.py:24
+msgid "Choose Time"
 msgstr "Välj tid"
 
 #. Abbreviation for the day 'Sunday'
@@ -275,4 +283,8 @@ msgstr "false"
 #: generate-i18n.py:42
 msgid "0"
 msgstr "0"
+
+#: generate-i18n.py:43
+msgid "Clear"
+msgstr "Klart"
 

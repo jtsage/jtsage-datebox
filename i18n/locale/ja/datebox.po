@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-02-10 01:24+0100\n"
+"PO-Revision-Date: 2012-02-19 01:40+0100\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Japanese\n"
 "Language: \n"
@@ -213,9 +213,13 @@ msgstr "9月"
 msgid "September"
 msgstr "9月"
 
-#: generate-i18n.py:19 generate-i18n.py:23
+#: generate-i18n.py:19
 msgid "Set Date"
 msgstr "日付を設定"
+
+#: generate-i18n.py:23
+msgid "Choose Date"
+msgstr "日付を選択します。"
 
 #: generate-i18n.py:21
 msgid "Set Duration"
@@ -224,6 +228,10 @@ msgstr "期間を設定"
 #: generate-i18n.py:20 generate-i18n.py:24
 msgid "Set Time"
 msgstr "時刻を設定"
+
+#: generate-i18n.py:24
+msgid "Choose Time"
+msgstr "時間を選択します。"
 
 #. Abbreviation for the day 'Sunday'
 #: generate-i18n.py:26
@@ -275,4 +283,8 @@ msgstr "false"
 #: generate-i18n.py:42
 msgid "0"
 msgstr "0"
+
+#: generate-i18n.py:43
+msgid "Clear"
+msgstr "クリア"
 
