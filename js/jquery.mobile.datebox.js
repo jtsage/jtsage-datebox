@@ -9,7 +9,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.1-2012021500', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.1-2012021800', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
