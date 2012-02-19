@@ -47,25 +47,33 @@
 		
 		<div class="content-primary"> 
 				<h2>Disabling and Highlighting Dates and Days</h2>
-				<p>Disabling or highlighting dates and days can be done in a variety of ways.  The pertinent options are (these only work in calbox mode):</p>
+				<p>Disabling or highlighting dates and days can be done in a variety of ways.  The pertinent options are (highlights only available in calbox mode, blacklisting available in all date modes):</p>
 				<dl>
 					<dt>blackDays</dt>
 					<dd>An array of days to disable, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2])</dd>
 					<dt>blackDates</dt>
 					<dd>An array of ISO 8601 Dates to disable. (e.g. ["2011-01-01", "2011-12-25"])</dd>
+					<dt>enableDates</dt>
+					<dd>An array of ISO 8601 Dates to exclusivly enable (disable everything else). (e.g. ["2011-01-01", "2011-12-25"]) (calbox)</dd>
 					<dt>highDays</dt>
-					<dd>An array of days to highlight, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2])</dd>
+					<dd>An array of days to highlight, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2]) (calbox)</dd>
 					<dt>highDates</dt>
-					<dd>An array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"])</dd>
+					<dd>An array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"]) (calbox)</dd>
 					<dt>highDatesAlt</dt>
-					<dd>An second, alternate array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"])</dd>
+					<dd>An second, alternate array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"]) (calbox)</dd>
 				</dl>
 				
 				<h3>Blacklisted and Highlighted Days</h3>
 				
 				<div data-role="fieldcontain">
-					<label for="calblackday">Some Date</label>
+					<label for="calblackday">Some Date (calbox)</label>
 					<input name="calblackday" type="date" data-role="datebox" id="calblackday" data-options='{"mode": "calbox", "blackDays": [2], "highDays": [6] }'/>
+					<label for="andblackday">Some Date (datebox)</label>
+					<input name="andblackday" type="date" data-role="datebox" id="andblackday" data-options='{"mode": "datebox", "blackDays": [2], "highDays": [6] }'/>
+					<label for="fliblackday">Some Date (flipbox)</label>
+					<input name="fliblackday" type="date" data-role="datebox" id="fliblackday" data-options='{"mode": "flipbox", "blackDays": [2], "highDays": [6] }'/>
+					<label for="sliblackday">Some Date (slidebox)</label>
+					<input name="sliblackday" type="date" data-role="datebox" id="sliblackday" data-options='{"mode": "slidebox", "blackDays": [2], "highDays": [6] }'/>
 				</div>
 				
 				<p>Example shows all Tuesdays disabled, Saturdays Highlighted</p>
@@ -89,6 +97,19 @@
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox", "blackDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
 				
+				<h3>Exclusive Dates</h3>
+				
+				<div data-role="fieldcontain">
+					<label for="calenabledate">Some Date</label>
+					<input value="2011-12-01" name="calenabledate" type="date" data-role="datebox" id="calenabledate" data-options='{"mode": "calbox", "enableDates": ["2011-12-24", "2011-12-25"]}'/>
+				</div>
+				
+				<p>Example shows only Christmas enabled.</p>
+				
+				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "enableDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
 				
 				<h3>Highlighted Dates</h3>
 				
