@@ -56,11 +56,11 @@
 		<p>Converted date: <span id="outdate"></span></p>
 		<script type="text/javascript">
 			$('#dodate').live('vclick', function() {
-				$('#dbox').data('datebox').options.dateFormat = 'YYYY-MM-DD';
+				$('#dbox').data('datebox').options.dateFormat = '%Y-%m-%d';
 				$('#dbox').val('2001-03-04').trigger('change');
 				//$('#dbox').data('datebox').options.dateFormat = 'ddd, mmm DD YYYY';
-				$('#dbox').trigger('datebox', {'method':'set', 'value':$('#dbox').data('datebox')._formatter('ddd, mmm ddSS YYYY', $('#dbox').data('datebox').theDate)});
-				$('#outdate').text($('#dbox').val());
+				//$('#dbox').trigger('datebox', {'method':'set', 'value':$('#dbox').data('datebox')._formatter('ddd, mmm ddSS YYYY', $('#dbox').data('datebox').theDate)});
+				$('#outdate').text($('#dbox').data('datebox')._formatter('ddd, mmm ddSS YYYY', $('#dbox').data('datebox').theDate));
 			});
 		</script>
 		<pre class="prettyprint">
@@ -77,9 +77,7 @@ $('#dodate').live('vclick', function() {
     $('#dbox').val('2001-03-04').trigger('change'); // Value to convert
     
     // Call _formatter with the OUTPUT format...
-    $('#dbox').trigger('datebox', {'method':'set', 'value':$('#dbox').data('datebox')._formatter('ddd, mmm ddSS YYYY', $('#dbox').data('datebox').theDate)}); 
-    
-    $('#outdate').text($('#dbox').val()); // Grab the value from the hidden input
+    $('#outdate').text($('#dbox').data('datebox')._formatter('ddd, mmm ddSS YYYY', $('#dbox').data('datebox').theDate));
 })
 		</pre>
 				

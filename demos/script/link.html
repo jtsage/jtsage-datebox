@@ -46,7 +46,7 @@
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
-				<h2>Linked Inputs</h2>
+				<h2>Simple Linked Inputs</h2>
 				
 				<div data-role="fieldcontain">
 					<label for="linked1">Date</label>
@@ -67,7 +67,102 @@
 &lt;input name="linked2" type="text" data-role="datebox" id="linked2"
     data-options='{"mode": "timebox", "timeFormatOverride":12}' /&gt;</pre>
 				
+				<h2>Advanced Linked Inputs</h2>
+				<p>A Form showing checkin and checkout dates.  With the addition of splitting the date into parts for the backend.</p>
 				
+				
+			<div id="checklinkform" data-role="fieldcontain">
+				<label for="checkin">Check-in:</label>
+				<input name="checkin" id="checkin" type="date" data-role="datebox" data-options='{"closeCallback":"linkedCheckin", "closeCallbackArgs":["checkin"], "mode": "calbox", "focusMode": true, "centerWindow": true, "afterToday": true}'>
+				
+				<input name="checkin_monthday" type="hidden" size="2" id="checkin_monthday" />
+				<input name="checkin_year_month" type="hidden" size="7" id="checkin_year_month" />
+			
+				<label for="checkout">Check-out:</label>
+				<input name="checkout" id="checkout" type="date" data-role="datebox" data-options='{"calHighToday":false, "closeCallback":"linkedCheckin", "closeCallbackArgs":["checkout"], "mode": "calbox", "focusMode": true, "centerWindow": true}'>
+				
+				<input name="checkout_monthday" type="hidden" size="2" id="checkout_monthday" />
+				<input name="checkout_year_month" type="hidden" size="7" id="checkout_year_month" />
+			</div>
+			<script type="text/javascript">
+			linkedCheckin = function (date, name) {
+				var self     = this,
+					nextday  = date.copymod([0,0,1]);
+					today     = new Date();
+					diff     = parseInt((date - today) / ( 1000 * 60 * 60 * 24 ),10);
+					diffstrt = (diff * -1)-2;
+				
+				$('#'+name+'_year_month').val(self._formatter('%Y-%m', date));
+				$('#'+name+'_monthday').val(self._formatter('%d', date));
+
+				$('#checkoutput').text($('#checklinkform input').serialize());
+				
+				if ( name === "checkin" ) {
+					$('#checkout').data('datebox').theDate = nextday;
+					$('#checkout').trigger('datebox', {'method':'doset'});
+					$('#checkout').datebox({"minDays": diffstrt});
+					$('#checkout').datebox('open');
+				}
+			}
+			</script>
+		<strong>RESULT</strong>
+			<pre class="prettyprint"><span id="checkoutput"> </span></pre>
+		<strong>HTML</strong><pre class="prettyprint">
+&lt;div id="checklinkform" data-role="fieldcontain"&gt;
+  &lt;label for="checkin"&gt;Check-in:&lt;/label&gt;
+  &lt;input name="checkin" id="checkin" type="date" data-role="datebox"
+      data-options='{"closeCallback":"linkedCheckin", "closeCallbackArgs":["checkin"], "mode": "calbox", "focusMode": true, "centerWindow": true, "afterToday": true}'&gt;
+				
+  &lt;input name="checkin_monthday" type="hidden" size="2" id="checkin_monthday" /&gt;
+  &lt;input name="checkin_year_month" type="hidden" size="7" id="checkin_year_month" /&gt;
+			
+  &lt;label for="checkout"&gt;Check-out:&lt;/label&gt;
+  &lt;input name="checkout" id="checkout" type="date" data-role="datebox" 
+      data-options='{"calHighToday":false, "closeCallback":"linkedCheckin", "closeCallbackArgs":["checkout"], "mode": "calbox", "focusMode": true, "centerWindow": true}'&gt;
+				
+  &lt;input name="checkout_monthday" type="hidden" size="2" id="checkout_monthday" /&gt;
+  &lt;input name="checkout_year_month" type="hidden" size="7" id="checkout_year_month" /&gt;
+&lt;/div&gt;</pre>
+
+			<strong>jQuery</strong>
+			<pre class="prettyprint">
+linkedCheckin = function (date, name) {
+      // The widget itself
+  var self     = this,
+      // The day after whatever just got set
+      // btw, Date().copymod() is an extension of datebox - basically:
+      // copymod([y,m,d,h,i,s],[y,m,d,h,i,s]) : 
+      //   * This first array is an OFFSET of the original
+      //   * The second is an OVERRIDE of the original (if non-zero)
+      nextday  = date.copymod([0,0,1]);
+      // Today
+      today    = new Date();
+      // The difference of today and whatever got set (secs)
+      diff     = parseInt((date - today) / ( 1000 * 60 * 60 * 24 ),10);
+      // The same difference, in days (+2)
+      diffstrt = (diff * -1)-2;
+        
+  // Lets fill in the other fields.
+  $('#'+name+'_year_month').val(self._formatter('%Y-%m', date));
+  $('#'+name+'_monthday').val(self._formatter('%d', date));
+  // Update the seen output
+  $('#checkoutput').text($('#checklinkform input').serialize());
+        
+  // If we edited the checkin date, more work to do
+  if ( name === "checkin" ) {
+    // Ok, so in steps: (nuke the comments)
+    // Set the (internal) checkout date to be whatever was picking in checkin +1 day
+    $('#checkout').data('datebox').theDate = nextday;
+    // Show that to the user
+    $('#checkout').trigger('datebox', {'method':'doset'});
+    // Make sure that minDays won't let them check out same day or earlier
+    $('#checkout').datebox({"minDays": diffstrt});
+    // Open it up
+    $('#checkout').datebox('open');
+  }
+}</pre>
+			
+		</div>
 		</div> 
 		
 	</div>
