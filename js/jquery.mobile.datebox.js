@@ -90,7 +90,9 @@
 		noButton: false,
 		noSetButton: false,
 		openCallback: false,
+		openCallbackArgs: [],
 		closeCallback: false,
+		closeCallbackArgs: [],
 		open: false,
 		nestedBox: false,
 		lastDuration: false,
@@ -2231,16 +2233,18 @@
 			
 		// Call the open callback if provided. Additionally, if this
 		// returns falsy then the open of the dialog will be canceled
-		if (this.options.openCallback !== false ) {
-			if ( $.isFunction(this.options.openCallback()) && !this.options.openCallback()) {
-				return false;
-			} else {
-				callback = new Function(this.options.openCallback);
-				if ( !callback() ) {
-					return false;
+		if ( o.openCallback !== false ) {
+			if ( ! $.isFunction(this.options.openCallback) ) {
+				if ( typeof window[o.openCallback] !== 'undefined' ) {
+					o.openCallback = window[o.openCallback];
+				} else {
+					o.openCallback = new Function(o.openCallback);
 				}
 			}
+			callback = o.openCallback.apply(self, o.openCallbackArgs);
+			if ( callback == false ) { return false; }
 		}
+		
 		
 		self._buttonsTitle();
 		
@@ -2291,18 +2295,19 @@
 	close: function(fromCloseButton) {
 		// Close the controls
 		var self = this,
+			o = this.options,
 			callback;
 
-		if ( this.options.useInlineBlind ) {
-			this.pickerContent.slideUp();
+		if ( o.useInlineBlind ) {
+			self.pickerContent.slideUp();
 			return false; // No More!
 		}
-		if ( self.options.useInline ) {
+		if ( o.useInline ) {
 			return true;
 		}
 		
 		// Check options to see if we are closing a dialog, or removing a popup
-		if ( self.options.useDialog ) {
+		if ( o.useDialog ) {
 			if (!fromCloseButton) {
 				$(self.pickPage).dialog('close');
 			}
@@ -2314,7 +2319,7 @@
 			self.pickerContent.addClass('ui-datebox-hidden').removeAttr('style').css('zIndex', self.options.zindex);
 			self.thisPage.append(self.pickerContent);
 		} else {
-			if ( self.options.useModal ) {
+			if ( o.useModal ) {
 				self.screen.fadeOut('slow');
 			} else {
 				self.screen.addClass('ui-datebox-hidden');
@@ -2324,16 +2329,21 @@
 		self.focusedEl.removeClass('ui-focus');
 		
 		$(document).unbind('orientationchange.datebox');
-		if ( self.options.resizeListener === true ) {
+		if ( o.resizeListener === true ) {
 			$(window).unbind('resize.datebox');
 		}
 		
-		if ( self.options.closeCallback !== false ) { 
-			if ( $.isFunction(self.options.closeCallback) ) {
-				self.options.closeCallback(self.theDate, self);
-			} else {
-				callback = new Function(self.options.closeCallback); callback(self.theDate, self); 
+		
+		if ( o.closeCallback !== false ) {
+			if ( ! $.isFunction(o.closeCallback) ) {
+				if ( typeof window[o.closeCallback] !== 'undefined' ) {
+					o.closeCallback = window[o.closeCallback];
+				} else {
+					o.closeCallback = new Function(o.closeCallback);
+				}
 			}
+			o.closeCallback.apply(self, $.merge([self.theDate], o.closeCallbackArgs));
+			
 		}
 	},
 	disable: function(){
@@ -2355,7 +2365,7 @@
 		var noReset = ['minYear','maxYear','afterToday','beforeToday','maxDays','minDays','highDays','highDates','blackDays','blackDates','enableDates'];
 		$.Widget.prototype._setOption.apply( this, arguments );
 		if ( $.inArray(key, noReset) > -1 ) {
-			this._refresh();
+			this.refresh();
 		} else {
 			this.hardreset();
 		}
