@@ -101,6 +101,14 @@
 		<p>Example to modify and set date without open (increment month by 2):</p>
 		<pre class="prettyprint">$('element').trigger('datebox', {'method':'dooffset', 'type':'m', 'amount':2}).trigger('datebox', {'method':'doset'});</pre>
 		
+		<h2>Working with callbacks</h2>
+		<p>Callbacks ('openCallback' and 'closeCallback') are simple to work with - a few interesting features:</p>
+		<ul data-role="listview" data-inset="true">
+			<li><h3>'this' scope</h3><p>Inside your function, initally, "this" will refer to the widget object</p></li>
+			<li><h3>arguments[0]</h3><p>The first argument for the is always the date the control currently is set to.</p></li>
+			<li><h3>arguments[1]+</h3><p>The second argument and beyond can be set in 'openCallbackArgs' and 'closeCallbackArgs' respecitvly.</p></li>
+		</ul>
+		
 	</div>
 	<div data-role="footer">
 	</div>

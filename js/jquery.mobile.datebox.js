@@ -2241,7 +2241,7 @@
 					o.openCallback = new Function(o.openCallback);
 				}
 			}
-			callback = o.openCallback.apply(self, o.openCallbackArgs);
+			callback = o.openCallback.apply(self, $.merge([self.theDate],o.openCallbackArgs));
 			if ( callback == false ) { return false; }
 		}
 		
