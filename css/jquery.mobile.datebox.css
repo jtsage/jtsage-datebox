@@ -18,6 +18,12 @@
   .ui-input-datebox { width: 60%; display: inline-block; zoom:1; *display: inline; }
 }
 
+/* Full width if in a grid, ignore the media query */
+.ui-grid-a .ui-input-datebox { width: 97%; }
+.ui-grid-b .ui-input-datebox { width: 97%; }
+.ui-grid-c .ui-input-datebox { width: 97%; }
+.ui-grid-d .ui-input-datebox { width: 97%; }
+
 /* Calendar Mode Styles */
 
 .ui-datebox-gridheader { text-align: center; }
