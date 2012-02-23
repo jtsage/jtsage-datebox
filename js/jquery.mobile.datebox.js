@@ -33,7 +33,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.1-2012021900', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.1-2012022300', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -219,7 +219,7 @@
 				'high'    : $(window).height(),
 				'width'   : $.mobile.activePage.width(),
 				'fullTop' : $(window).scrollTop(),
-				'fullLeft': $(window).scrollLeft(),
+				'fullLeft': $(window).scrollLeft()
 			};
 			
 		if ( widget.options.centerWindow ) { // If it's centered, no need for lots of checks.
@@ -1467,7 +1467,7 @@
 		
 		$.extend(self, {
 			input: input,
-			focusedEl: focusedEl, });
+			focusedEl: focusedEl });
 		
 		if ( o.forceInheritTheme ) {
 			o.pickPageTheme = thisTheme;
@@ -1523,13 +1523,13 @@
 			});
 			
 		// Bind the master handler.
-		self.input.bind('datebox', self._dateboxHandler);		
+		self.input.bind('datebox', self._dateboxHandler);
 		
-		// Bind the close button on the DIALOG mode.
-		pickPage.find( ".ui-header a").bind(o.clickEvent, function(e) {
+		// Bind the close button on the DIALOG mode. (after unbinding the default)
+		pickPage.find( ".ui-header a").unbind('click vclick').bind(o.clickEvent, function(e) {
 			e.preventDefault();
 			e.stopImmediatePropagation();
-			self.input.trigger('datebox', {'method':'close', 'fromCloseButton':true});
+			self.input.trigger('datebox', {'method':'close', 'fromCloseButton':false});
 		});
 
 		$.extend(self, {
