@@ -33,7 +33,7 @@
   $.widget( "mobile.datebox", $.mobile.widget, {
 	options: {
 		// All widget options, including some internal runtime details
-		version: '1.0.1-2012022300', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+		version: '1.0.1-2012022700', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 		theme: false,
 		defaultTheme: 'c',
 		pickPageTheme: 'b',
@@ -1203,7 +1203,7 @@
 			self.controlsPlus.empty();
 			
 			calmode = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'nexttoday': 1,
-				'thisDate': new Date(), 'maxDate': new Date(), 'minDate': new Date(),
+				'thisDate': new Date(), 'maxDate': new Date(), 'minDate': new Date(), 'startDay': false,
 				'currentMonth': false, 'weekMode': 0, 'weekDays': null, 'thisTheme': o.pickPageButtonTheme };
 			calmode.start = self._getFirstDay(self.theDate);
 			calmode.end = self._getLastDate(self.theDate);
@@ -1213,8 +1213,10 @@
 			if ( o.calStartDay !== false || typeof o.lang[o.useLang].calStartDay === "number" ) {
 				if ( o.calStartDay !== false ) {
 					calmode.start = calmode.start - o.calStartDay;
+					calmode.startDay = o.calStartDay;
 				} else {
 					calmode.start = calmode.start - o.lang[o.useLang].calStartDay;
+					calmode.startDay = o.lang[o.useLang].calStartDay;
 				}
 				if ( calmode.start < 0 ) { calmode.start = calmode.start + 7; }
 			}
@@ -1248,7 +1250,7 @@
 				calmode.weekDays = $("<div>", {'class':'ui-datebox-gridrow'}).appendTo(self.controlsPlus);
 				if ( o.lang[o.useLang].isRTL === true ) { calmode.weekDays.css('direction', 'rtl'); }
 				for ( i=0; i<=6;i++ ) {
-					$("<div>"+o.lang[o.useLang].daysOfWeekShort[(i+o.calStartDay)%7]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(calmode.weekDays);
+					$("<div>"+o.lang[o.useLang].daysOfWeekShort[(i+calmode.startDay)%7]+"</div>").addClass('ui-datebox-griddate ui-datebox-griddate-empty ui-datebox-griddate-label').appendTo(calmode.weekDays);
 				}
 			}
 			
