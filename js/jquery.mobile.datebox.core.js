@@ -54,6 +54,17 @@
 			closeCallback: false,
 			closeCallbackArgs: [],
 			
+			afterToday: false,
+			beforeToday: false,
+			maxDays: false,
+			minDays: false,
+			maxYear: false,
+			minYear: false,
+			blackDates: false,
+			blackDays: false,
+			minHour: false,
+			maxHour: false,
+			
 			useLang: 'default',
 			lang: {
 				'default' : {
@@ -85,7 +96,7 @@
 					durationOrder: ['d', 'h', 'i', 's'],
 					meridiem: ['AM', 'PM'],
 					timeOutput: '%k:%M', //{ '12': '%l:%M %p', '24': '%k:%M' },
-					durationFormat: 'DD ddd, hh:ii:ss'
+					durationFormat: '%Dd %DA, %Dl:%DM:%DS'
 				}
 			}
 		},
@@ -161,11 +172,11 @@
 					case 'open':
 						w.open(); break;
 					case 'set':
-						$(this).val(payload.value);
+						$(this).val(p.value);
 						$(this).trigger('change');
 						break;
 					case 'doset':
-						$(this).trigger('datebox', {'method':'set', 'value':w._formatter(w.outputFormat, w.theDate), 'date':w.theDate});
+						$(this).trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(), w.theDate), 'date':w.theDate});
 						break;
 					case 'dooffset':
 						w._offset(p.type, p.amount, true); break;
@@ -278,8 +289,16 @@
 			if ( typeof o.mode === 'undefined' ) { return date; }
 			
 			if ( o.mode === 'durationbox' ) {
-				adv = adv.replace(/ddd/g, '.+?');
-				adv = adv.replace(/DD|ss|hh|ii/g, '([0-9Dhis]+)');
+				adv = adv.replace(/%D([a-z])/gi, function(match, oper, offset, s) {
+					switch (oper) {
+						case 'd':
+						case 'k':
+						case 'M':
+						case 'S': return '(' + match + '|' +'[0-9]+' + ')';
+						default: return '.+?';
+					}
+				});
+				
 				adv = new RegExp('^' + adv + '$');
 				exp_input = adv.exec(str);
 				exp_format = adv.exec(w.__fmt());
@@ -291,12 +310,12 @@
 						return new w._date(w.initDate.getTime());
 					}
 				} else {
-					exp_temp = self.initDate.getEpoch();
+					exp_temp = w.initDate.getEpoch();
 					for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
-						if ( exp_format[i].match(/^DD$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60*24); }
-						if ( exp_format[i].match(/^hh$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60); }
-						if ( exp_format[i].match(/^ii$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60); }
-						if ( exp_format[i].match(/^ss$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)); }
+						if ( exp_format[i].match(/^%Dd$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60*24); }
+						if ( exp_format[i].match(/^%Dl$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60); }
+						if ( exp_format[i].match(/^%DM$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60); }
+						if ( exp_format[i].match(/^%DS$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)); }
 					}
 					return new w._date((exp_temp*1000));
 				}
@@ -409,9 +428,34 @@
 		},
 		_formatter: function(format, date) {
 			var w = this,
-				o = this.options;
-		
-			format = format.replace(/%(0|-)*([a-z])/gi, function(match, pad, oper, offset, s) {
+				o = this.options,
+				dur = {
+					part: [0,0,0,0],
+					tp: this.theDate.getEpoch() - this.initDate.getEpoch()
+				};
+				
+				if ( o.mode === 'durationbox' ) {
+					dur.part[0] = parseInt( dur.tp / (60*60*24),10); dur.tp -=(dur.part[0]*60*60*24); // Days
+					dur.part[1] = parseInt( dur.tp / (60*60),10); dur.tp -= (dur.part[1]*60*60); // Hours
+					dur.part[2] = parseInt( dur.tp / (60),10); dur.tp -= (dur.part[2]*60); // Minutes
+					dur.part[3] = dur.tp; // Seconds
+			
+					if ( ! format.match(/%Dd/) ) { dur.part[1] += (dur.part[0]*24);}
+					if ( ! format.match(/%Dl/) ) { dur.part[2] += (dur.part[1]*60);}
+					if ( ! format.match(/%DM/) ) { dur.part[3] += (dur.part[2]*60);}
+				}
+				
+			format = format.replace(/%(D|0|-)*([a-z])/gi, function(match, pad, oper, offset, s) {
+				if ( pad === 'D' ) {
+					switch ( oper ) {
+						case 'd': return dur.part[0];
+						case 'l': return w._zPad(dur.part[1]);
+						case 'M': return w._zPad(dur.part[2]);
+						case 'S': return w._zPad(dur.part[3]);
+						case 'A': return ((dur.part[0] > 1)?w.__('durationDays')[1]:w.__('durationDays')[0]);
+						default: return match;
+					}
+				}
 				switch ( oper ) {
 					case '%': // Literal %
 						return '%';
@@ -827,129 +871,78 @@
 		},
 		refresh: function() {
 			if ( typeof this._build[this.options.mode] === 'undefined' ) {
-				this._build['default'].apply(w,[]);
+				this._build['default'].apply(this,[]);
 			} else {
 				this._build[this.options.mode]().apply(this,[]);
 			}
 			if ( this.__('useArabicIndic') === true ) { this._doIndic(); }
 		},
+		_check: function() {
+			var w = this,
+				td = null,
+				o = this.options;
 			
-	
-	
-	
-	
-	
-	
-	
-	
-	_formatTime: function(date) {
-		// Shortcut to return formatted time, also handles duration
-		var self = this,
-			dur_collapse = [false,false,false], adv, exp_format, i, j,
-			format = this.options.durationFormat,
-			dur_comps = [0,0,0,0];
+			w.dateOK = true;
 			
-		if ( this.options.mode === 'durationbox' ) {
-			adv = this.options.durationFormat;
-			adv = adv.replace(/ddd/g, '.+?');
-			adv = adv.replace(/DD|ss|hh|ii/g, '([0-9Dhis]+)');
-			adv = new RegExp('^' + adv + '$');
-			exp_format = adv.exec(this.options.durationFormat);
-			
-			i = self.theDate.getEpoch() - self.initDate.getEpoch(); j = i;
-			
-			dur_comps[0] = parseInt( i / (60*60*24),10); i = i - (dur_comps[0]*60*60*24); // Days
-			dur_comps[1] = parseInt( i / (60*60),10); i = i - (dur_comps[1]*60*60); // Hours
-			dur_comps[2] = parseInt( i / (60),10); i = i - (dur_comps[2]*60); // Minutes
-			dur_comps[3] = i; // Seconds
-			
-			if ( ! exp_format[0].match(/DD/) ) { dur_collapse[0] = true; dur_comps[1] = dur_comps[1] + (dur_comps[0]*24);}
-			if ( ! exp_format[0].match(/hh/) ) { dur_collapse[1] = true; dur_comps[2] = dur_comps[2] + (dur_comps[1]*60);}
-			if ( ! exp_format[0].match(/ii/) ) { dur_collapse[2] = true; dur_comps[3] = dur_comps[3] + (dur_comps[2]*60);}
-			
-			format = format.replace('DD', dur_comps[0]);
-			format = format.replace('ddd', ((dur_comps[0] > 1)?this.options.lang[this.options.useLang].durationDays[1]:this.options.lang[this.options.useLang].durationDays[0]));
-			format = format.replace('hh', self._zPad(dur_comps[1]));
-			format = format.replace('ii', self._zPad(dur_comps[2]));
-			format = format.replace('ss', self._zPad(dur_comps[3]));
-			
-			if ( this.options.lang[this.options.useLang].useArabicIndic === true ) {
-				return this._digitReplace(format);
-			} else {
-				return format;
+			if ( o.afterToday !== false ) {
+				td = new w._date();
+				if ( w.theDate < td ) { w.theDate = td; }
 			}
-		} else {
-			return this._formatter(self.options.timeOutput, date);
-		}
-	},
-	
-	
-	
-	_checkConstraints: function() {
-		var self = this,
-			testDate = null,
-			o = this.options;
-		
-		self.dateOK = true;
-		
-		if ( o.afterToday !== false ) {
-			testDate = new Date();
-			if ( self.theDate < testDate ) { self.theDate = testDate; }
-		}
-		if ( o.beforeToday !== false ) {
-			testDate = new Date();
-			if ( self.theDate > testDate ) { self.theDate = testDate; }
-		}
-		if ( o.maxDays !== false ) {
-			testDate = new Date();
-			testDate.adjust('d', o.maxDays);
-			if ( self.theDate > testDate ) { self.theDate = testDate; }
-		}
-		if ( o.minDays !== false ) {
-			testDate = new Date();
-			testDate.adjust('d', -1*o.minDays);
-			if ( self.theDate < testDate ) { self.theDate = testDate; }
-		}
-		if ( o.maxYear !== false ) {
-			testDate = new Date(o.maxYear, 0, 1);
-			testDate.adjust('d', -1);
-			if ( self.theDate > testDate ) { self.theDate = testDate; }
-		}
-		if ( o.minYear !== false ) {
-			testDate = new Date(o.minYear, 0, 1);
-			if ( self.theDate < testDate ) { self.theDate = testDate; }
-		}
-		if ( o.blackDates !== false ) {
-			if ( $.inArray(self.theDate.getISO(), o.blackDates) > -1 ) { self.dateOK = false; }
-		}
-		if ( o.blackDays !== false ) {
-			if ( $.inArray(self.theDate.getDay(), o.blackDays) > -1 ) { self.dateOK = false; }
-		}
-		if ( $.inArray(o.mode, ['timebox','durationbox','timeflipbox']) > -1 ) { self.dateOK = true; }
-	},
-	
-	
-	
-	
-	_makeElement: function(source, parts) {
-		var self = this,
-			part = false,
-			retty = false;
-		
-		retty = source.clone();
-		
-		if ( typeof parts.attr !== 'undefined' ) {
-			for ( part in parts.attr ) {
-				if ( parts.attr.hasOwnProperty(part) ) {
-					retty.jqmData(part, parts.attr[part]);
+			if ( o.beforeToday !== false ) {
+				td = new w._date();
+				if ( w.theDate > td ) { w.theDate = td; }
+			}
+			if ( o.maxDays !== false ) {
+				td = new w._date();
+				td.adj(2, o.maxDays);
+				if ( w.theDate > td ) { w.theDate = td; }
+			}
+			if ( o.minDays !== false ) {
+				td = new w._date();
+				td.adj(2, -1*o.minDays);
+				if ( w.theDate < td ) { w.theDate = td; }
+			}
+			if ( o.maxYear !== false ) {
+				td = new w._date(o.maxYear, 0, 1);
+				td.adj(2, -1);
+				if ( w.theDate > td ) { w.theDate = td; }
+			}
+			if ( o.minYear !== false ) {
+				td = new w._date(o.minYear, 0, 1);
+				if ( w.theDate < td ) { w.theDate = td; }
+			}
+			if ( o.maxHour !== false ) {
+				td = w._date.copy([0],[0,0,0,o.maxHour]);
+				if ( w.theDate > td ) { w.theDate = td; }
+			}
+			if ( o.minHour !== false ) {
+				td = w._date.copy([0],[0,0,0,o.minHour]);
+				if ( w.theDate < td ) { w.theDate = td; }
+			}
+			if ( o.blackDates !== false ) {
+				if ( $.inArray(w.theDate.getISO(), o.blackDates) > -1 ) { w.dateOK = false; }
+			}
+			if ( o.blackDays !== false ) {
+				if ( $.inArray(w.theDate.getDay(), o.blackDays) > -1 ) { w.dateOK = false; }
+			}
+			if ( $.inArray(o.mode, ['timebox','durationbox','timeflipbox']) > -1 ) { w.dateOK = true; }
+		},
+		_makeElement: function(source, parts) {
+			var self = this,
+				part = false,
+				retty = false;
+			
+			retty = source.clone();
+			
+			if ( typeof parts.attr !== 'undefined' ) {
+				for ( part in parts.attr ) {
+					if ( parts.attr.hasOwnProperty(part) ) {
+						retty.jqmData(part, parts.attr[part]);
+					}
 				}
 			}
-		}
-		return retty;
-	},
-	
-	
-	
+			return retty;
+		},
 		_getLongOptions: function(element) {
 			var key, retty = {}, prefix, temp;
 			
