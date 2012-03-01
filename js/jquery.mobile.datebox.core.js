@@ -30,12 +30,6 @@
 			clickEvent: 'vclick',
 			resizeListener: true,
 			
-			overrideHeaderLabel: false,
-			overrideTimeOutput: false,
-			overrideDateFormat: false,
-			overrideFieldsOrder: false,
-			overrideDurationFormat: false,
-			
 			defaultValue: false,
 			
 			dialogEnable: false,
@@ -193,7 +187,7 @@
 			// Hover toggle class, for calendar
 			$(item).toggleClass('ui-btn-up-'+$(item).jqmData('theme')+' ui-btn-down-'+$(item).jqmData('theme'));
 		},
-		_makeOrd: {
+		_ord: {
 			'default': function (num) {
 				// Return an ordinal suffix (1st, 2nd, 3rd, etc)
 				var ending = num % 10;
@@ -202,13 +196,12 @@
 				return ['th','st','nd','rd'][ending];
 			}
 		},
-		__ : function(val, override) {
+		__ : function(val) {
 			var w = this,
-				o = this.options;
-			
-			if ( typeof override !== 'undefined' ) {
-				if ( override !== false ) { return override; }
-			}
+				o = this.options,
+				oride = 'override' + val.charAt(0).toUpperCase() + val.slice(1);
+				
+			if ( typeof o[oride] !== 'undefined' ) { return o[oride]; }
 			if ( typeof o.lang[o.useLang][val] !== 'undefined' ) { 
 				return o.lang[o.useLang][val];
 			} else {
@@ -222,17 +215,17 @@
 			switch ( o.mode ) {
 				case 'timebox':
 				case 'timeflipbox':
-					return w.__('timeOutput', o.overrideTimeOutput);
+					return w.__('timeOutput');
 				case 'durationbox':
-					return w.__('durationFormat', o.overrideDurationFormat);
+					return w.__('durationFormat');
 				default:
-					return w.__('dateFormat', o.overrideDateFormat);
+					return w.__('dateFormat');
 			}
 		},
 		_zPad: function(number) {
 			return (( number < 10 ) ? '0' + String(number) : String(number));
 		},
-		_digitReplace: function(oper, direction) {
+		_dRep: function(oper, direction) {
 			var start = 48,
 				end = 57,
 				adder = 1584,
@@ -263,18 +256,18 @@
 				
 			w.d.intHTML.find('*').each(function() {
 				if ( $(this).children().length < 1 ) {
-					$(this).text(self._digitReplace($(this).text()));
+					$(this).text(self._dRep($(this).text()));
 				} else if ( $(this).hasClass('ui-datebox-slideday') ) {
-					$(this).html(self._digitReplace($(this).html()));
+					$(this).html(self._dRep($(this).html()));
 				}
 			});
 			w.d.intHTML.find('input').each(function() {
-				$(this).val(self._digitReplace($(this).val()));
+				$(this).val(self._dRep($(this).val()));
 			});
 		},
 		_makeDate: function (str) {
 			// Date Parser
-			str = $.trim(((this.__('useArabicIndic') === true)?this._digitReplace(str, -1):str));
+			str = $.trim(((this.__('useArabicIndic') === true)?this._dRep(str, -1):str));
 			var w = this,
 				o = this.options,
 				adv = w.__fmt(),
@@ -507,7 +500,7 @@
 			});
 		
 			if ( w.__('useArabicIndic') === true ) {
-				format = w._digitReplace(format);
+				format = w._dRep(format);
 			}
 		
 			return format;
@@ -525,7 +518,6 @@
 			if ( typeof(update) === "undefined" ) { update = true; }
 			w.d.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
 			if ( o.rolloverMode[mode] ) {
-				console.log('no rollover');
 				ok = $.inArray(mode, ['y','m','d','h','i','s']);
 			} else {
 				switch(mode) {
@@ -568,7 +560,7 @@
 				d = {
 					input: this.element,
 					wrap: this.element.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ thisTheme +'"></div>').parent(),
-					mainWrap: pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden '+trans+' ui-body-'+o.theme} ).css('zIndex', o.zindex),
+					mainWrap: pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden '+trans+' ui-body-'+thisTheme} ).css('zIndex', o.zindex),
 					intHTML: false,
 				},
 				touch = ( typeof window.ontouchstart !== 'undefined' ),
@@ -699,7 +691,6 @@
 				
 			if ( o.centerVert === false ) {
 				if ( o.hideFixedToolbars === true && ( typeof fixd.f !== 'undefined' || typeof fixd.h !== 'undefined' )) {
-					console.log('hiding toolbars');
 					$.mobile.activePage.find(":jqmData(position='fixed')").fixedtoolbar('hide');
 					fixd.f = undefined;
 					fixd.h = undefined;
@@ -737,6 +728,7 @@
 			var w = this,
 				o = this.options,
 				temp = null,
+				qns = 'data-'+this.ns,
 				trans = o.useAnimation ? o.transition : 'none';
 			
 			// Call the open callback if provided. Additionally, if this
@@ -777,13 +769,12 @@
 			if ( o.useInline ) { 
 				return true; }
 			if ( o.useInlineBlind ) { w.d.mainWrap.slideDown(); }
-			if ( w.d.intHTML.is(':visible') ) { return false; console.log('vis');} // Ignore if already open
+			if ( w.d.intHTML.is(':visible') ) { return false; } // Ignore if already open
 				
 			if ( o.dialogForce || ( o.dialogEnable && window.width() < 400 ) ) {
-				console.log('dialog mode');
-				w.d.dialogPage = $("<div data-"+w.ns+"role='dialog' class='ui-dialog-datebox' data-"+w.ns+"theme='"+o.theme+"' >" +
-					"<div data-"+w.ns+"role='header' data-"+w.ns+"backbtn='false' data-"+w.ns+"theme='"+o.themeHeader+"'>" +
-					"<div class='ui-title'>"+w.d.headerText+"</div></div><div data-"+w.ns+"role='content'></div></div>")
+				w.d.dialogPage = $("<div "+qns+"role='dialog' "+qns+"theme='"+o.theme+"' >" +
+					"<div "+qns+"role='header' "+qns+"theme='"+o.themeHeader+"'>" +
+					"<h1>"+w.d.headerText+"</h1><div "+qns+"role='content'></div></div>")
 					.appendTo( $.mobile.pageContainer )
 					.page().css('minHeight', '0px').addClass(trans);
 				w.d.dialogPage.find('.ui-header').find('a').unbind('click vclick').bind(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
