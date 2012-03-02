@@ -4,6 +4,7 @@
  * CC 3.0 Attribution.  May be relicensed without permission/notification.
  * https://github.com/jtsage/jquery-mobile-datebox
  */
+/* CALBOX Mode */
 
 (function($, undefined ) {
 	$.extend( $.mobile.datebox.prototype.options, {
@@ -22,6 +23,7 @@
 		calWeekMode: false,
 		calWeekModeDay: 1,
 		calWeekHigh: false,
+		calControlGroup: false,
 		
 		useClearButton: false,
 		useTodayButton: false,
@@ -67,7 +69,8 @@
 		_cal_check : function (cal, year, month, date, col) {
 			var w = this,
 				o = this.options,
-				ret = {};
+				ret = {},
+				day = new this._date(year,month,date,0,0,0,0).getDay();
 				
 			ret.ok = true;
 			ret.iso = year + '-' + w._zPad(month+1) + '-' + w._zPad(date);
@@ -83,7 +86,7 @@
 					( o.notToday === true && cal.thisDate.comp() === ret.comp ) ||
 					( o.maxDays !== false && cal.maxDate.comp() < ret.comp ) ||
 					( o.minDays !== false && cal.minDate.comp() > ret.comp ) ||
-					( $.isArray(o.blackDays) && $.inArray(col, o.blackDays) > -1 ) ||
+					( $.isArray(o.blackDays) && $.inArray(day, o.blackDays) > -1 ) ||
 					( $.isArray(o.blackDates) && $.inArray(ret.iso, o.blackDates) > -1 ) 
 				) {
 					ret.ok = false;
@@ -98,7 +101,7 @@
 					ret.theme = o.themeDateHighAlt;
 				} else if ( $.isArray(o.highDates) && ($.inArray(ret.iso, o.highDates) > -1) ) {
 					ret.theme = o.themeDateHigh;
-				} else if ( $.isArray(o.highDays) && ($.inArray(cal, o.highDays) > -1) ) {
+				} else if ( $.isArray(o.highDays) && ($.inArray(day, o.highDays) > -1) ) {
 					ret.theme = o.themeDayHigh;
 				}
 			}
@@ -128,7 +131,7 @@
 			$("<div class='"+uid+"gridplus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('nextMonth')+"</a></div>")
 				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
 				.buttonMarkup({theme: o.themeDate, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.bind(o.clickEvent, function(e) {
+				.on(o.clickEvent, function(e) {
 					e.preventDefault();
 					if ( w.calNext ) {
 						if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
@@ -138,7 +141,7 @@
 			$("<div class='"+uid+"gridminus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('prevMonth')+"</a></div>")
 				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
 				.buttonMarkup({theme: o.themeDate, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.bind(o.clickEvent, function(e) {
+				.on(o.clickEvent, function(e) {
 					e.preventDefault();
 					if ( w.calPrev ) {
 						if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
@@ -146,10 +149,10 @@
 					}
 				});
 			
-			cal = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'nexttoday': 1,
-				'thisDate': new w._date(), 'maxDate': new w._date(), 'minDate': new w._date(), 'startDay': w.__('calStartDay'),
-				'currentMonth': false, 'weekMode': 0, 'weekDays': null, 'thisTheme': o.themeDate };
-			cal.start = w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay');
+			cal = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'startDay': w.__('calStartDay'),
+				'thisDate': new w._date(), 'maxDate': new w._date(), 'minDate': new w._date(), 
+				'currentMonth': false, 'weekMode': 0, 'weekDays': null };
+			cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7,
 			cal.thisMonth = w.theDate.getMonth();
 			cal.end = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
 			cal.lastend = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate();
@@ -157,10 +160,7 @@
 			cal.thisDateArr = cal.thisDate.getArray();
 			cal.theDateArr = w.theDate.getArray();
 			
-			if ( cal.start < 0 ) { cal.start = cal.start + 7; }
-			
-			cal.prevtoday = cal.lastend - (cal.start - 1);
-			cal.checkDates = ( o.enableDates === false && $.inArray(false, [o.afterToday, o.beforeToday, o.notToday, o.maxDays, o.minDays, o.blackDates, o.blackDays]) > -1 );
+			cal.checkDates = ( $.inArray(false, [o.afterToday, o.beforeToday, o.notToday, o.maxDays, o.minDays, o.blackDates, o.blackDays]) > -1 );
 			
 			w.calNext = true;
 			w.calPrev = true;
@@ -200,7 +200,7 @@
 				hRow = $('<div>', {'class': uid+'gridrow'});
 				if ( w.__('isRTL') ) { hRow.css('direction', 'rtl'); }
 				for ( col in cal.gen[row] ) {
-					if ( o.calWeekMode ) { cal.weekMode = cal.gen[row][o.calWeekMode][0]; }
+					if ( o.calWeekMode ) { cal.weekMode = cal.gen[row][o.calWeekModeDay][0]; }
 					if ( typeof cal.gen[row][col] === 'boolean' ) {
 						$('<div>', {'class':uid+'griddate '+uid+'griddate-empty'}).appendTo(hRow);
 					} else {
@@ -217,9 +217,42 @@
 							.appendTo(hRow);
 					}
 				}
+				if ( o.calControlGroup === true ) {
+					hRow.find('.ui-corner-all').removeClass('ui-corner-all').eq(0).addClass('ui-corner-left').end().last().addClass('ui-corner-right').addClass('ui-controlgroup-last');
+				}
 				hRow.appendTo(temp);
 			}
-			w.d.intHTML.delegate('div.'+uid+'griddate', o.clickEvent +  ' vmouseover vmouseout', function(e) {
+			
+			if ( o.useTodayButton || o.useClearButton ) {
+				hRow = $('<div>', {'class':uid+'controls'});
+				
+				if ( o.useTodayButton ) {
+					$('<a href="#">'+w.__('calTodayButtonLabel')+'</a>')
+						.appendTo(hRow).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+						.on(o.clickEvent, function(e) {
+							e.preventDefault();
+							w.theDate = new w._date();
+							w.theDate = new w._date(w.theDate.getFullYear(), w.theDate.getMonth(), w.theDate.getDate(),0,0,0,0);
+							w.d.input.trigger('datebox',{'method':'doset'});
+						});
+				}
+				if ( o.useClearButton ) {
+					$('<a href="#">'+w.__('clearButton')+'</a>')
+						.appendTo(hRow).buttonMarkup({theme: o.pickPageTheme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
+						.on(o.clickEvent, function(e) {
+							e.preventDefault();
+							w.d.input.val('');
+							w.d.input.trigger('datebox',{'method':'clear'});
+							w.d.input.trigger('datebox',{'method':'close'});
+						});
+				}
+				if ( o.useCollapsedBut ) {
+					hRow.addClass('ui-datebox-collapse');
+				}
+				hRow.appendTo(temp);
+			}
+			
+			w.d.intHTML.on(o.clickEvent+' vmouseover vmouseout', 'div.'+uid+'griddate', function(e) {
 				if ( e.type === o.clickEvent ) {
 					e.preventDefault();
 					if ( $(this).jqmData('enabled') ) {
@@ -229,18 +262,18 @@
 					}
 				} else {
 					if ( $(this).jqmData('enabled') && typeof $(this).jqmData('theme') !== 'undefined' ) {
-						if ( o.calWeekMode !== false && o.calWeekModeHighlight === true ) {
+						if ( o.calWeekMode !== false && o.calWeekHigh === true ) {
 							$(this).parent().find('div').each(function() { w._hoover(this); });
 						} else { w._hoover(this); }
 					}
 				}
 			});
 			w.d.intHTML
-				.bind('swipeleft', function() { if ( w.calNext ) { w._offset('m', 1); } })
-				.bind('swiperight', function() { if ( w.calPrev ) { w._offset('m', -1); } });
+				.on('swipeleft', function() { if ( w.calNext ) { w._offset('m', 1); } })
+				.on('swiperight', function() { if ( w.calPrev ) { w._offset('m', -1); } });
 			
 			if ( w.wheelExists) { // Mousewheel operations, if plugin is loaded
-				w.d.intHTML.bind('mousewheel', function(e,d) {
+				w.d.intHTML.on('mousewheel', function(e,d) {
 					e.preventDefault();
 					if ( d > 0 && w.calNext ) { 
 						w.theDate.set(2,1);
@@ -254,42 +287,4 @@
 			}
 		}
 	});
-/*
-					
-				
-			if ( o.calTodayButton === true ) { // Show today button at bottom
-				self.setButton = $("<a href='#'>PlaceHolder</a>")
-					.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-					.bind(o.clickEvent, function(e) {
-						e.preventDefault();
-						self.theDate = new Date();
-						self.theDate = new Date(self.theDate.getFullYear(), self.theDate.getMonth(), self.theDate.getDate(), 0,0,0,0);
-						self.input.trigger('datebox', {'method':'doset'});
-					});
-			}
-					
-			$.extend(self, {
-				controlsInput: controlsInput,
-				controlsPlus: controlsPlus
-			});
-			
-			self.pickerContent.appendTo(self.thisPage);
-		}
-		/* END:CALBOX /
-		
-		if ( o.useClearButton === true ) { // Clear button at very bottom
-			self.clearButton = $("<a href='#'>PlaceHolder</a>")
-				.appendTo(controlsSet).buttonMarkup({theme: o.pickPageTheme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
-				.bind(o.clickEvent, function(e) {
-					e.preventDefault();
-					self.input.val('');
-					self.input.trigger('datebox', {'method':'clear'});
-					self.input.trigger('datebox', {'method':'close'});
-				});
-		}
-		if ( o.collapseButtons && ( self.clearButton !== false && self.setButton !== false ) ) {
-			controlsSet.addClass('ui-datebox-collapse');
-		}
-			
-	},*/
 })( jQuery );
