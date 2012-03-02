@@ -25,14 +25,14 @@
 		calWeekHigh: false,
 		calControlGroup: false,
 		
-		useClearButton: false,
 		useTodayButton: false,
 		useCollapsedBut: false,
 		
 		highDays: false,
 		highDates: false,
 		highDatesAlt: false,
-		enableDates: false
+		enableDates: false,
+		minuteStep: 1
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_cal_gen: function (start,prev,last,other,month) {
@@ -228,7 +228,7 @@
 				
 				if ( o.useTodayButton ) {
 					$('<a href="#">'+w.__('calTodayButtonLabel')+'</a>')
-						.appendTo(hRow).buttonMarkup({theme: o.pickPageTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+						.appendTo(hRow).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = new w._date();
@@ -238,7 +238,7 @@
 				}
 				if ( o.useClearButton ) {
 					$('<a href="#">'+w.__('clearButton')+'</a>')
-						.appendTo(hRow).buttonMarkup({theme: o.pickPageTheme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
+						.appendTo(hRow).buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.d.input.val('');
@@ -257,7 +257,7 @@
 					e.preventDefault();
 					if ( $(this).jqmData('enabled') ) {
 						w.theDate.set(2,1).set(1,$(this).jqmData('month')).set(2,$(this).jqmData('date'));
-						w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__('dateFormat'),w.theDate), 'date':w.theDate});
+						w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(),w.theDate), 'date':w.theDate});
 						w.d.input.trigger('datebox', {'method':'close'});
 					}
 				} else {

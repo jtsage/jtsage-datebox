@@ -42,6 +42,7 @@
 			
 			useButton: true,
 			useFocus: false,
+			useClearButton: false,
 			
 			openCallback: false,
 			openCallbackArgs: [],
@@ -513,7 +514,8 @@
 				
 			if ( typeof(update) === "undefined" ) { update = true; }
 			w.d.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
-			if ( typeof o.rolloverMode[mode] === 'undefined' || o.rolloverMode[mode] === true ) {
+			
+			if ( mode !== 'a' && ( typeof o.rolloverMode[mode] === 'undefined' || o.rolloverMode[mode] === true )) {
 				ok = $.inArray(mode, ['y','m','d','h','i','s']);
 			} else {
 				switch(mode) {
@@ -746,6 +748,7 @@
 			} else {
 				w._build[o.mode].apply(w,[]);
 			}
+			w.d.input.trigger('datebox', {'method':'refresh'});
 			if ( w.__('useArabicIndic') === true ) { w._doIndic(); }
 			
 			if ( ( o.useInline === true || o.useInlineBlind === true ) && w.initDone === false ) {
@@ -924,7 +927,7 @@
 			}
 			return o.overrideDialogLabel;
 		},
-		_makeElement: function(source, parts) {
+		_makeEl: function(source, parts) {
 			var part = false,
 				retty = false;
 			
