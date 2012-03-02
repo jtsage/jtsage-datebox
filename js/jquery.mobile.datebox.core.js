@@ -6,7 +6,7 @@
  */
 /* CORE Functions */
 
-(function($, undefined ) {
+(function($) {
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
@@ -203,16 +203,12 @@
 			}
 		},
 		__ : function(val) {
-			var w = this,
-				o = this.options,
+			var o = this.options,
 				oride = 'override' + val.charAt(0).toUpperCase() + val.slice(1);
 				
 			if ( typeof o[oride] !== 'undefined' ) { return o[oride]; }
-			if ( typeof o.lang[o.useLang][val] !== 'undefined' ) { 
-				return o.lang[o.useLang][val];
-			} else {
-				return o.lang['default'][val];
-			}
+			if ( typeof o.lang[o.useLang][val] !== 'undefined' ) { return o.lang[o.useLang][val]; }
+			return o.lang['default'][val];
 		},
 		__fmt: function() {
 			var w = this,
@@ -257,18 +253,17 @@
 			return newd;
 		},
 		_doIndic: function() {
-			var w = this,
-				o = this.options;
+			var w = this;
 				
 			w.d.intHTML.find('*').each(function() {
 				if ( $(this).children().length < 1 ) {
-					$(this).text(self._dRep($(this).text()));
+					$(this).text(w._dRep($(this).text()));
 				} else if ( $(this).hasClass('ui-datebox-slideday') ) {
-					$(this).html(self._dRep($(this).html()));
+					$(this).html(w._dRep($(this).html()));
 				}
 			});
 			w.d.intHTML.find('input').each(function() {
-				$(this).val(self._dRep($(this).val()));
+				$(this).val(w._dRep($(this).val()));
 			});
 		},
 		_makeDate: function (str) {
@@ -281,14 +276,13 @@
 				exp_format = null,
 				exp_temp = null,
 				date = new w._date(),
-				dur_collapse = [false,false,false],
 				found_date = [date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds(),0],
 				i;
 			
 			if ( typeof o.mode === 'undefined' ) { return date; }
 			
 			if ( o.mode === 'durationbox' ) {
-				adv = adv.replace(/%D([a-z])/gi, function(match, oper, offset, s) {
+				adv = adv.replace(/%D([a-z])/gi, function(match, oper) {
 					switch (oper) {
 						case 'd':
 						case 'k':
@@ -305,125 +299,124 @@
 				if ( exp_input === null || exp_input.length !== exp_format.length ) {
 					if ( typeof o.defaultValue === "number" && o.defaultValue > 0 ) {
 						return new w._date((w.initDate.getEpoch() + parseInt(o.defaultValue,10))*1000);
-					} else {
-						return new w._date(w.initDate.getTime());
-					}
-				} else {
-					exp_temp = w.initDate.getEpoch();
-					for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
-						if ( exp_format[i].match(/^%Dd$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60*24); }
-						if ( exp_format[i].match(/^%Dl$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60); }
-						if ( exp_format[i].match(/^%DM$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60); }
-						if ( exp_format[i].match(/^%DS$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)); }
-					}
-					return new w._date((exp_temp*1000));
+					} 
+					return new w._date(w.initDate.getTime());
+				} 
+				
+				exp_temp = w.initDate.getEpoch();
+				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
+					if ( exp_format[i].match(/^%Dd$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60*24); }
+					if ( exp_format[i].match(/^%Dl$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60); }
+					if ( exp_format[i].match(/^%DM$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60); }
+					if ( exp_format[i].match(/^%DS$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)); }
 				}
-			} else {
-				adv = adv.replace(/%(0|-)*([a-z])/gi, function(match, pad, oper, offset, s) {
-					switch (oper) {
-						case 'p':
-						case 'P':
-						case 'b':
-						case 'B': return '(' + match + '|' +'.+?' + ')';
-						case 'H':
-						case 'k':
-						case 'I':
-						case 'l':
-						case 'm':
-						case 'M':
-						case 'S':
-						case 'd': return '(' + match + '|' + (( pad === '-' ) ? '[0-9]{1,2}' : '[0-9]{2}') + ')';
-						case 's': return '(' + match + '|' +'[0-9]+' + ')';
-						case 'y': return '(' + match + '|' +'[0-9]{2}' + ')';
-						case 'Y': return '(' + match + '|' +'[0-9]{1,4}' + ')';
-						default: return '.+?';
-					}
-				});
-				
-				adv = new RegExp('^' + adv + '$');
-				exp_input = adv.exec(str);
-				exp_format = adv.exec(w.__fmt());
-				
-				if ( exp_input === null || exp_input.length !== exp_format.length ) {
-					if ( o.defaultValue !== false ) {
-						if ( $.isArray(o.defaultValue) && o.defaultValue.length === 3 ) {
-							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-								return new w._date(found_date[0], found_date[1], found_date[2], o.defaultValue[0], o.defaultValue[1], o.defaultValue[2], 0);
-							}
-							else {
-								return new w._date(o.defaultValue[0], o.defaultValue[1], o.defaultValue[2], 0, 0, 0, 0);
-							}
+				return new w._date((exp_temp*1000));
+			}
+			
+			adv = adv.replace(/%(0|-)*([a-z])/gi, function(match, pad, oper) {
+				switch (oper) {
+					case 'p':
+					case 'P':
+					case 'b':
+					case 'B': return '(' + match + '|' +'.+?' + ')';
+					case 'H':
+					case 'k':
+					case 'I':
+					case 'l':
+					case 'm':
+					case 'M':
+					case 'S':
+					case 'd': return '(' + match + '|' + (( pad === '-' ) ? '[0-9]{1,2}' : '[0-9]{2}') + ')';
+					case 's': return '(' + match + '|' +'[0-9]+' + ')';
+					case 'y': return '(' + match + '|' +'[0-9]{2}' + ')';
+					case 'Y': return '(' + match + '|' +'[0-9]{1,4}' + ')';
+					default: return '.+?';
+				}
+			});
+			
+			adv = new RegExp('^' + adv + '$');
+			exp_input = adv.exec(str);
+			exp_format = adv.exec(w.__fmt());
+			
+			if ( exp_input === null || exp_input.length !== exp_format.length ) {
+				if ( o.defaultValue !== false ) {
+					if ( $.isArray(o.defaultValue) && o.defaultValue.length === 3 ) {
+						if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+							return new w._date(found_date[0], found_date[1], found_date[2], o.defaultValue[0], o.defaultValue[1], o.defaultValue[2], 0);
 						}
-						else if ( typeof o.defaultValue === "number" ) {
-							return new w._date(o.defaultValue * 1000);
-						}
-						else {
-							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-								exp_temp = o.defaultValue.split(':');
-								if ( exp_temp.length === 3 ) {
-									date = new w._date(found_date[0], found_date[1], found_date[2], parseInt(exp_temp[0],10),parseInt(exp_temp[1],10),parseInt(exp_temp[2],10),0);
-								}
-							}
-							else {
-								exp_temp = o.defaultValue.split('-');
-								if ( exp_temp.length === 3 ) {
-									date = new w._date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
-									
-								}
-							}
-							if ( isNaN(date.getDate()) ) { date = new w._date(); }
-						}
-					}
-				} else {
-					for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5a 6epoch
-						if ( exp_format[i] === '%s' )                { found_date[6] = parseInt(exp_input[i],10); }
-						if ( exp_format[i].match(/^%.*S$/) )         { found_date[5] = parseInt(exp_input[i],10); }
-						if ( exp_format[i].match(/^%.*M$/) )         { found_date[4] = parseInt(exp_input[i],10); }
-						if ( exp_format[i].match(/^%.*(H|k|I|l)$/) ) { found_date[3] = parseInt(exp_input[i],10); }
-						if ( exp_format[i].match(/^%.*d$/) )         { found_date[2] = parseInt(exp_input[i],10); }
-						if ( exp_format[i].match(/^%.*m$/) )         { found_date[1] = parseInt(exp_input[i],10)-1; }
-						if ( exp_format[i].match(/^%.*Y$/) )         { found_date[0] = parseInt(exp_input[i],10); }
-						if ( exp_format[i].match(/^%.*y$/) ) { 
-							if ( o.afterToday === true ) {
-								found_date[0] = parseInt('20' + exp_input[i],10);
-							} else {
-								if ( parseInt(exp_input[i],10) < 38 ) {
-									found_date[0] = parseInt('20' + exp_input[i],10);
-								} else {
-									found_date[0] = parseInt('19' + exp_input[i],10);
-								}
-							}
-						}
-						if ( exp_format[i].match(/^%(0|-)*(p|P)$/) ) {
-							if ( exp_input[i].toLowerCase() === w.__('meridiem')[0].toLowerCase() && found_date[3] === 12 ) {
-								found_date[3] = 0;
-							} else if ( exp_input[i].toLowerCase() === w.__('meridiem')[1].toLowerCase() && found_date[3] !== 12 ) {
-								found_date[3] = found_date[3] + 12;
-							}
-						}
-						if ( exp_format[i] === '%B' ) {
-							exp_temp = $.inArray(exp_input[i], w.__('monthsOfYear'));
-							if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
-						}
-						if ( exp_format[i] === '%b' ) {
-							exp_temp = $.inArray(exp_input[i], w.__('monthsOfYearShort'));
-							if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
-						}
-					}
-				
-					if ( exp_format[0].match(/%s/) ) {
-						return new w._date(found_date[6] * 1000);
-					}
-					else if ( exp_format[0].match(/%(.)*(I|l|H|k|s|M)/) ) { 
-						date = new w._date(found_date[0], found_date[1], found_date[2], found_date[3], found_date[4], found_date[5], 0);
-					} else {
-						date = new w._date(found_date[0], found_date[1], found_date[2], 0, 0, 0, 0); // Normalize time for raw dates
+						return new w._date(o.defaultValue[0], o.defaultValue[1], o.defaultValue[2], 0, 0, 0, 0);
 					}
 					
-					if ( found_date[0] < 100 ) { date.setFullYear(found_date[0]); }
+					if ( typeof o.defaultValue === "number" ) {
+						return new w._date(o.defaultValue * 1000);
+					}
+					
+					if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+						exp_temp = o.defaultValue.split(':');
+						if ( exp_temp.length === 3 ) {
+							date = new w._date(found_date[0], found_date[1], found_date[2], parseInt(exp_temp[0],10),parseInt(exp_temp[1],10),parseInt(exp_temp[2],10),0);
+						}
+					}
+					else {
+						exp_temp = o.defaultValue.split('-');
+						if ( exp_temp.length === 3 ) {
+							date = new w._date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
+						}
+					}
+					if ( isNaN(date.getDate()) ) { date = new w._date(); }
+					
 				}
-				return date;
+			} else {
+				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5a 6epoch
+					if ( exp_format[i] === '%s' )                { found_date[6] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*S$/) )         { found_date[5] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*M$/) )         { found_date[4] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*(H|k|I|l)$/) ) { found_date[3] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*d$/) )         { found_date[2] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*m$/) )         { found_date[1] = parseInt(exp_input[i],10)-1; }
+					if ( exp_format[i].match(/^%.*Y$/) )         { found_date[0] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*y$/) ) { 
+						if ( o.afterToday === true ) {
+							found_date[0] = parseInt('20' + exp_input[i],10);
+						} else {
+							if ( parseInt(exp_input[i],10) < 38 ) {
+								found_date[0] = parseInt('20' + exp_input[i],10);
+							} else {
+								found_date[0] = parseInt('19' + exp_input[i],10);
+							}
+						}
+					}
+					if ( exp_format[i].match(/^%(0|-)*(p|P)$/) ) {
+						if ( exp_input[i].toLowerCase() === w.__('meridiem')[0].toLowerCase() && found_date[3] === 12 ) {
+							found_date[3] = 0;
+						} else if ( exp_input[i].toLowerCase() === w.__('meridiem')[1].toLowerCase() && found_date[3] !== 12 ) {
+							found_date[3] = found_date[3] + 12;
+						}
+					}
+					if ( exp_format[i] === '%B' ) {
+						exp_temp = $.inArray(exp_input[i], w.__('monthsOfYear'));
+						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
+					}
+					if ( exp_format[i] === '%b' ) {
+						exp_temp = $.inArray(exp_input[i], w.__('monthsOfYearShort'));
+						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
+					}
+				}
+			
+				if ( exp_format[0].match(/%s/) ) {
+					return new w._date(found_date[6] * 1000);
+				}
+				
+				if ( exp_format[0].match(/%(.)*(I|l|H|k|s|M)/) ) { 
+					date = new w._date(found_date[0], found_date[1], found_date[2], found_date[3], found_date[4], found_date[5], 0);
+				} else {
+					date = new w._date(found_date[0], found_date[1], found_date[2], 0, 0, 0, 0); // Normalize time for raw dates
+				}
+				
+				if ( found_date[0] < 100 ) { date.setFullYear(found_date[0]); }
 			}
+			return date;
+		
 		},
 		_formatter: function(format, date) {
 			var w = this,
@@ -444,7 +437,7 @@
 					if ( ! format.match(/%DM/) ) { dur.part[3] += (dur.part[2]*60);}
 				}
 				
-			format = format.replace(/%(D|0|-)*([a-z])/gi, function(match, pad, oper, offset, s) {
+			format = format.replace(/%(D|0|-)*([a-z])/gi, function(match, pad, oper) {
 				if ( pad === 'D' ) {
 					switch ( oper ) {
 						case 'd': return dur.part[0];
@@ -495,11 +488,8 @@
 					case 'Y': // Year (4 digit)
 						return date.getFullYear();
 					case 'o': // Ordinals
-						if ( typeof w._makeOrd[o.useLang] !== 'undefined' ) {
-							return w._makeOrd[o.useLang](date.getDate());
-						} else {
-							return w._makeOrd['default'](date.getDate());
-						}
+						if ( typeof w._makeOrd[o.useLang] !== 'undefined' ) { return w._makeOrd[o.useLang](date.getDate()); }
+						return w._makeOrd['default'](date.getDate());
 					default:
 						return match;
 				}
@@ -523,7 +513,7 @@
 				
 			if ( typeof(update) === "undefined" ) { update = true; }
 			w.d.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
-			if ( o.rolloverMode[mode] == true ) {
+			if ( typeof o.rolloverMode[mode] === 'undefined' || o.rolloverMode[mode] === true ) {
 				ok = $.inArray(mode, ['y','m','d','h','i','s']);
 			} else {
 				switch(mode) {
@@ -556,18 +546,17 @@
 			$( document ).trigger( "dateboxcreate" );
 		
 			var w = this,
-				o = $.extend(this.options, this.element.jqmData('options')),
-				o = ((typeof this.element.jqmData('options') === 'undefined') ? $.extend(o, this._getLongOptions(this.element)) : o),
-				thisTheme = ( o.theme === false && typeof($(self).jqmData('theme')) === 'undefined' ) ?
+				o = $.extend(this.options, (typeof this.element.jqmData('options') !== 'undefined') ? this.element.jqmData('options') : this._getLongOptions(this.element) ),
+				thisTheme = ( o.theme === false && typeof($(this).jqmData('theme')) === 'undefined' ) ?
 					( ( typeof(this.element.parentsUntil(':jqmData(theme)').parent().jqmData('theme')) === 'undefined' ) ?
 						o.themeDefault : this.element.parentsUntil(':jqmData(theme)').parent().jqmData('theme') )
 					: o.theme,
-				trans = o.useAnimation ? o.transition : 'none';
+				trans = o.useAnimation ? o.transition : 'none',
 				d = {
 					input: this.element,
 					wrap: this.element.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ thisTheme +'"></div>').parent(),
-					mainWrap: pickerContent = $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden '+trans+' ui-body-'+thisTheme} ).css('zIndex', o.zindex),
-					intHTML: false,
+					mainWrap: $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden '+trans+' ui-body-'+thisTheme} ).css('zIndex', o.zindex),
+					intHTML: false
 				},
 				touch = ( typeof window.ontouchstart !== 'undefined' ),
 				drag = {
@@ -728,12 +717,11 @@
 					}
 				}
 			}
-			w.d.mainWrap.css({'position': 'absolute', 'top': pos.y, 'left': pos.x})
+			w.d.mainWrap.css({'position': 'absolute', 'top': pos.y, 'left': pos.x});
 		},
 		open: function () {
 			var w = this,
 				o = this.options,
-				temp = null,
 				qns = 'data-'+this.ns,
 				trans = o.useAnimation ? o.transition : 'none';
 			
@@ -747,7 +735,7 @@
 						o.openCallback = new Function(o.openCallback);
 					}
 				}
-				if ( o.openCallback.apply(self, $.merge([self.theDate],o.openCallbackArgs)) === false ) { return false; }
+				if ( o.openCallback.apply(w, $.merge([w.theDate],o.openCallbackArgs)) === false ) { return false; }
 			}
 				
 			w.theDate = w._makeDate(w.d.input.val());
@@ -784,7 +772,7 @@
 					.appendTo( $.mobile.pageContainer )
 					.page().css('minHeight', '0px').addClass(trans);
 				w.d.dialogPage.find('.ui-header').find('a').off('click vclick').on(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
-				w.d.mainWrap.append(w.d.intHTML).css({'marginLeft':'auto', 'marginRight':'auto'}).removeClass('ui-datebox-hidden')
+				w.d.mainWrap.append(w.d.intHTML).css({'marginLeft':'auto', 'marginRight':'auto'}).removeClass('ui-datebox-hidden');
 				w.d.dialogPage.find('.ui-content').append(w.d.mainWrap);
 				$.mobile.activePage.off( "pagehide.remove" );
 				$.mobile.changePage(w.d.dialogPage, {'transition': trans});
@@ -861,7 +849,7 @@
 						o.closeCallback = new Function(o.closeCallback);
 					}
 				}
-				o.closeCallback.apply(self, $.merge([self.theDate], o.closeCallbackArgs));
+				o.closeCallback.apply(w, $.merge([w.theDate], o.closeCallbackArgs));
 			}
 		},
 		refresh: function() {
@@ -928,20 +916,16 @@
 				o = this.options;
 				
 			if ( typeof o.overrideDialogLabel === 'undefined' ) {
-				if ( typeof w.d.input.attr('title') !== 'undefined' ) {
-					return w.d.input.attr('title');
-				} else if ( w.d.wrap.parent().find('label[for='+w.d.input.attr('id')+']').text() !== '' ) {
+				if ( typeof w.d.input.attr('title') !== 'undefined' ) { return w.d.input.attr('title'); }
+				if ( w.d.wrap.parent().find('label[for='+w.d.input.attr('id')+']').text() !== '' ) {
 					return w.d.wrap.parent().find('label[for='+w.d.input.attr('id')+']').text();
-				} else {
-					return false;
 				}
-			} else {
-				return o.overrideDialogLabel;
+				return false;
 			}
+			return o.overrideDialogLabel;
 		},
 		_makeElement: function(source, parts) {
-			var self = this,
-				part = false,
+			var part = false,
 				retty = false;
 			
 			retty = source.clone();
@@ -958,7 +942,7 @@
 		_getLongOptions: function(element) {
 			var key, retty = {}, prefix, temp;
 			
-			if ( $.mobile.ns == "" ) { 
+			if ( $.mobile.ns === "" ) { 
 				prefix = "datebox";
 			} else { 
 				prefix = $.mobile.ns.substr(0, $.mobile.ns.length - 1) + 'Datebox';
@@ -987,7 +971,7 @@
 			this.disabled = false;
 			this.d.input.trigger('datebox', {'method':'enable'});
 		},
-		_setOption: function( key, value ) {
+		_setOption: function() {
 			$.Widget.prototype._setOption.apply( this, arguments );
 			this.refresh();
 		}

@@ -6,7 +6,7 @@
  */
 /* CALBOX Mode */
 
-(function($, undefined ) {
+(function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
 		themeDateToday: 'e',
 		themeDayHigh: 'e',
@@ -32,7 +32,7 @@
 		highDays: false,
 		highDates: false,
 		highDatesAlt: false,
-		enableDates: false,
+		enableDates: false
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_cal_gen: function (start,prev,last,other,month) {
@@ -66,7 +66,7 @@
 			}
 			return cal;
 		},
-		_cal_check : function (cal, year, month, date, col) {
+		_cal_check : function (cal, year, month, date) {
 			var w = this,
 				o = this.options,
 				ret = {},
@@ -74,7 +74,7 @@
 				
 			ret.ok = true;
 			ret.iso = year + '-' + w._zPad(month+1) + '-' + w._zPad(date);
-			ret.comp = parseInt(ret.iso.replace(/-/g,''));
+			ret.comp = parseInt(ret.iso.replace(/-/g,''),10);
 			ret.theme = o.themeDate;
 			
 			if ( $.isArray(o.enableDates) && $.inArray(ret.iso, o.enableDates) < 0 ) {
@@ -111,7 +111,7 @@
 	$.extend( $.mobile.datebox.prototype._build, {
 		'calbox': function () {
 			var w = this,
-				o = this.options,
+				o = this.options, i,
 				cal = false,
 				uid = 'ui-datebox-',
 				temp = false, row = false, col = false, hRow = false, checked = false;
@@ -152,11 +152,11 @@
 			cal = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'startDay': w.__('calStartDay'),
 				'thisDate': new w._date(), 'maxDate': new w._date(), 'minDate': new w._date(), 
 				'currentMonth': false, 'weekMode': 0, 'weekDays': null };
-			cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7,
+			cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7;
 			cal.thisMonth = w.theDate.getMonth();
 			cal.end = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
 			cal.lastend = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate();
-			cal.presetDate = w._makeDate(w.d.input.val())
+			cal.presetDate = w._makeDate(w.d.input.val());
 			cal.thisDateArr = cal.thisDate.getArray();
 			cal.theDateArr = w.theDate.getArray();
 			
@@ -204,14 +204,14 @@
 					if ( typeof cal.gen[row][col] === 'boolean' ) {
 						$('<div>', {'class':uid+'griddate '+uid+'griddate-empty'}).appendTo(hRow);
 					} else {
-						checked = w._cal_check(cal, cal.theDateArr[0], cal.gen[row][col][1], cal.gen[row][col][0], col);
+						checked = w._cal_check(cal, cal.theDateArr[0], cal.gen[row][col][1], cal.gen[row][col][0]);
 						$("<div>"+String(cal.gen[row][col][0])+"</div>")
-							.addClass( cal.thisMonth == cal.gen[row][col][1] ?
+							.addClass( cal.thisMonth === cal.gen[row][col][1] ?
 								(uid+'griddate ui-corner-all ui-btn-up-'+checked.theme + (checked.ok?'':' '+uid+'griddate-disable')):
 								(uid+'griddate '+uid+'griddate-empty')
 							)
 							.jqmData('date', ((o.calWeekMode)?cal.weekMode:cal.gen[row][col][0]))
-							.jqmData('theme', cal.thisMonth == cal.gen[row][col][1] ? checked.theme : '-')
+							.jqmData('theme', cal.thisMonth === cal.gen[row][col][1] ? checked.theme : '-')
 							.jqmData('enabled', checked.ok)
 							.jqmData('month', cal.gen[row][col][1])
 							.appendTo(hRow);
