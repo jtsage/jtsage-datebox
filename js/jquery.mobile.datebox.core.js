@@ -50,6 +50,7 @@
 			
 			afterToday: false,
 			beforeToday: false,
+			notToday: false,
 			maxDays: false,
 			minDays: false,
 			maxYear: false,
@@ -58,6 +59,8 @@
 			blackDays: false,
 			minHour: false,
 			maxHour: false,
+			
+			rolloverMode: { 'm': true, 'd': true, 'h': true, 'i': true, 's': true },
 			
 			useLang: 'default',
 			lang: {
@@ -154,6 +157,9 @@
 				},
 				getEpoch: function() { 
 					return (this.getTime() - this.getMilliseconds()) / 1000; 
+				},
+				getArray: function() {
+					return [this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes(), this.getSeconds()];
 				}
 			});
 		},
@@ -517,7 +523,7 @@
 				
 			if ( typeof(update) === "undefined" ) { update = true; }
 			w.d.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
-			if ( o.rolloverMode[mode] ) {
+			if ( o.rolloverMode[mode] == true ) {
 				ok = $.inArray(mode, ['y','m','d','h','i','s']);
 			} else {
 				switch(mode) {
@@ -750,7 +756,7 @@
 			if ( typeof w._build[o.mode] === 'undefined' ) {
 				w._build['default'].apply(w,[]);
 			} else {
-				w._build[o.mode]().apply(w,[]);
+				w._build[o.mode].apply(w,[]);
 			}
 			if ( w.__('useArabicIndic') === true ) { w._doIndic(); }
 			
@@ -793,7 +799,7 @@
 					$('<h1 class="ui-title">'+w.d.headerText+'</h1>').appendTo(w.d.headHTML);
 					w.d.mainWrap.append(w.d.headHTML);
 				}
-				w.d.mainWrap.append(w.d.intHTML);
+				w.d.mainWrap.append(w.d.intHTML).css('zIndex', o.zindex);
 				w.d.mainWrap.appendTo($.mobile.activePage);
 				w.d.screen.appendTo($.mobile.activePage);
 				w._applyCoords({widget:w});
@@ -806,9 +812,9 @@
 				
 				w.d.mainWrap.addClass('ui-overlay-shadow in').removeClass('ui-datebox-hidden');
 				
-				$(document).bind('orientationchange.datebox', {widget:w}, function(e) { w._applyCoords(e); });
+				$(document).on('orientationchange.datebox', {widget:w}, function(e) { w._applyCoords(e.data); });
 				if ( o.resizeListener === true ) {
-					$(window).bind('resize.datebox', {widget:w}, function (e) { w._applyCoords(e); });
+					$(window).on('resize.datebox', {widget:w}, function (e) { w._applyCoords(e.data); });
 				}
 				
 				window['w'] = w.d;
@@ -839,7 +845,7 @@
 					w.d.screen.addClass('ui-datebox-hidden');
 				}
 				w.d.screen.detach();
-				w.d.mainWrap.addClass('ui-datebox-hidden').removeAttr('style').css('zindex', o.zindex).removeClass('in ui-overlay-shadow').empty().detach();
+				w.d.mainWrap.addClass('ui-datebox-hidden').removeAttr('style').removeClass('in ui-overlay-shadow').empty().detach();
 				w.d.intHTML.detach();
 				w.d.wrap.removeClass('ui-focus');
 				
@@ -864,9 +870,10 @@
 			if ( typeof this._build[this.options.mode] === 'undefined' ) {
 				this._build['default'].apply(this,[]);
 			} else {
-				this._build[this.options.mode]().apply(this,[]);
+				this._build[this.options.mode].apply(this,[]);
 			}
 			if ( this.__('useArabicIndic') === true ) { this._doIndic(); }
+			this.d.mainWrap.append(this.d.intHTML);
 		},
 		_check: function() {
 			var w = this,
@@ -917,6 +924,22 @@
 				if ( $.inArray(w.theDate.getDay(), o.blackDays) > -1 ) { w.dateOK = false; }
 			}
 			if ( $.inArray(o.mode, ['timebox','durationbox','timeflipbox']) > -1 ) { w.dateOK = true; }
+		},
+		_grabLabel: function() {
+			var w = this,
+				o = this.options;
+				
+			if ( typeof o.overrideDialogLabel === 'undefined' ) {
+				if ( typeof w.d.input.attr('title') !== 'undefined' ) {
+					return w.d.input.attr('title');
+				} else if ( w.d.wrap.parent().find('label[for='+w.d.input.attr('id')+']').text() !== '' ) {
+					return w.d.wrap.parent().find('label[for='+w.d.input.attr('id')+']').text();
+				} else {
+					return false;
+				}
+			} else {
+				return o.overrideDialogLabel;
+			}
 		},
 		_makeElement: function(source, parts) {
 			var self = this,
