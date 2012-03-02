@@ -596,7 +596,7 @@
 			
 			if ( o.useButton === true && o.useInline === false ) {
 				w.d.open = $('<a href="#" class="ui-input-clear" title="'+this.__('tooltip')+'">'+this.__('tooltip')+'</a>')
-					.bind(o.clickEvent, function(e) {
+					.on(o.clickEvent, function(e) {
 						e.preventDefault();
 						if ( !w.disabled ) { w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus'); }
 						setTimeout( function() { $(e.target).closest('a').removeClass($.mobile.activeBtnClass); }, 300);
@@ -606,7 +606,7 @@
 			
 			w.d.screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
 				.css({'z-index': o.zindex-1})
-				.bind(o.clickEvent, function(e) {
+				.on(o.clickEvent, function(e) {
 					e.preventDefault();
 					w.d.input.trigger('datebox', {'method':'close'});
 				});
@@ -621,7 +621,7 @@
 		
 			$('label[for=\''+w.d.input.attr('id')+'\']').addClass('ui-input-text').css('verticalAlign', 'middle');
 
-			w.d.wrap.bind(o.clickEvent, function() {
+			w.d.wrap.on(o.clickEvent, function() {
 				if ( !w.disabled && ( o.noButtonFocusMode || o.focusMode ) ) { 
 					w.d.input.trigger('datebox', {'method': 'open'});
 					w.d.wrap.addClass('ui-focus');
@@ -646,7 +646,7 @@
 					w.refresh();
 				})
 				.attr("readonly", o.lockInput)
-				.bind('datebox', w._event);
+				.on('datebox', w._event);
 			
 			// Check if mousewheel plugin is loaded
 			if ( typeof $.event.special.mousewheel !== 'undefined' ) { w.wheelExists = true; }
@@ -783,10 +783,10 @@
 					"<h1>"+w.d.headerText+"</h1><div "+qns+"role='content'></div></div>")
 					.appendTo( $.mobile.pageContainer )
 					.page().css('minHeight', '0px').addClass(trans);
-				w.d.dialogPage.find('.ui-header').find('a').unbind('click vclick').bind(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
+				w.d.dialogPage.find('.ui-header').find('a').off('click vclick').on(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
 				w.d.mainWrap.append(w.d.intHTML).css({'marginLeft':'auto', 'marginRight':'auto'}).removeClass('ui-datebox-hidden')
 				w.d.dialogPage.find('.ui-content').append(w.d.mainWrap);
-				$.mobile.activePage.unbind( "pagehide.remove" );
+				$.mobile.activePage.off( "pagehide.remove" );
 				$.mobile.changePage(w.d.dialogPage, {'transition': trans});
 			} else {
 				w.d.dialogPage = false;
@@ -795,7 +795,7 @@
 					w.d.headHTML = $('<div class="ui-header ui-bar-'+o.themeHeader+'"></div>');
 					$("<a class='ui-btn-left' href='#'>Close</a>").appendTo(w.d.headHTML)
 						.buttonMarkup({ theme  : o.themeHeader, icon   : 'delete', iconpos: 'notext', corners: true, shadow : true })
-						.bind(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
+						.on(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
 					$('<h1 class="ui-title">'+w.d.headerText+'</h1>').appendTo(w.d.headHTML);
 					w.d.mainWrap.append(w.d.headHTML);
 				}
@@ -816,8 +816,6 @@
 				if ( o.resizeListener === true ) {
 					$(window).on('resize.datebox', {widget:w}, function (e) { w._applyCoords(e.data); });
 				}
-				
-				window['w'] = w.d;
 			}
 		},
 		close: function() {
@@ -831,7 +829,7 @@
 				$(w.d.dialogPage).dialog('close');
 				
 				if ( ! $.mobile.activePage.jqmData('page').options.domCache ) {
-					$.mobile.activePage.bind('pagehide.remove', function () { $(this).remove(); });
+					$.mobile.activePage.on('pagehide.remove', function () { $(this).remove(); });
 				}
 				
 				w.d.intHTML.detach().empty();
@@ -849,9 +847,9 @@
 				w.d.intHTML.detach();
 				w.d.wrap.removeClass('ui-focus');
 				
-				$(document).unbind('orientationchange.datebox');
+				$(document).off('orientationchange.datebox');
 				if ( o.resizeListener === true ) {
-					$(window).unbind('resize.datebox');
+					$(window).off('resize.datebox');
 				}
 			}
 					
@@ -996,13 +994,13 @@
 	});
 	  
 	// Degrade date inputs to text inputs, suppress standard UI functions.
-	$( document ).bind( "pagebeforecreate", function( e ) {
+	$( document ).on( "pagebeforecreate", function( e ) {
 		$( ":jqmData(role='datebox')", e.target ).each(function() {
 			$(this).prop('type', 'text');
 		});
 	});
 	// Automatically bind to data-role='datebox' items.
-	$( document ).bind( "pagecreate create", function( e ){
+	$( document ).on( "pagecreate create", function( e ){
 		$( document ).trigger( "dateboxbeforecreate" );
 		$( ":jqmData(role='datebox')", e.target ).each(function() {
 			if ( typeof($(this).data('datebox')) === "undefined" ) {
