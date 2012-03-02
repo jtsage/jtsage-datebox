@@ -907,7 +907,7 @@
 				if ( w.theDate < td ) { w.theDate = td; }
 			}
 			if ( o.blackDates !== false ) {
-				if ( $.inArray(w.theDate.getISO(), o.blackDates) > -1 ) { w.dateOK = false; }
+				if ( $.inArray(w.theDate.iso(), o.blackDates) > -1 ) { w.dateOK = false; }
 			}
 			if ( o.blackDays !== false ) {
 				if ( $.inArray(w.theDate.getDay(), o.blackDays) > -1 ) { w.dateOK = false; }
