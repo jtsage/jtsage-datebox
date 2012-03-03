@@ -9,11 +9,40 @@
 	$.extend( $.mobile.datebox.prototype.options, {
 		themeButton: 'a',
 		themeInput: 'e',
-		useSetButton: true
+		useSetButton: true,
+		validHours: false
 	});
 	$.extend( $.mobile.datebox.prototype, {
+		_dbox_vhour: function (delta) {
+			var w = this,
+				o = this.options, tmp, 
+				closeya = [25,0],
+				closenay = [25,0];
+				
+			if ( o.validHours === false ) { return true; }
+			if ( $.inArray(w.theDate.getHours(), o.validHours) > -1 ) { return true; }
+			
+			tmp = w.theDate.getHours();
+			$.each(o.validHours, function(){
+				if ( ((tmp < this)?1:-1) === delta ) {
+					if ( closeya[0] > Math.abs(this-tmp) ) {
+						closeya = [Math.abs(this-tmp),parseInt(this,10)];
+					}
+				} else {
+					if ( closenay[0] > Math.abs(this-tmp) ) {
+						closenay = [Math.abs(this-tmp),parseInt(this,10)];
+					}
+				}
+			});
+			if ( closeya[1] !== 0 ) { w.theDate.setHours(closeya[1]); }
+			else { w.theDate.setHours(closenay[1]); }
+		},
 		_dbox_enter: function (item) {
 			var w = this;
+			
+			if ( item.jqmData('field') === 'M' && $.inArray(item.val(), w.__('monthsOfYearShort')) > -1 ) {
+				w.theDate.setMonth($.inArray(item.val(), w.__('monthsOfYearShort')));
+			}
 			
 			if ( item.val() !== '' && item.val().toString().search(/^[0-9]+$/) === 0 ) {
 				switch ( item.jqmData('field') ) {
@@ -59,6 +88,7 @@
 			
 			w.fldOrder = ((o.mode==='datebox')?w.__('dateFieldOrder'):w.__('timeFieldOrder'));
 			w._check();
+			w._dbox_vhour(typeof w._dbox_delta !== 'undefined'?w._dbox_delta:1);
 			
 			if ( o.mode === 'datebox' ) { $('<div class="'+uid+'header"><h4>'+w._formatter(w.__('headerFormat'), w.theDate)+'</h4></div>').appendTo(w.d.intHTML); }
 			
@@ -79,7 +109,7 @@
 							w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).buttonMarkup(butMTheme).appendTo(divMinus);
 						} 
 						break;
-					case 'D':
+					case 'M':
 						w._makeEl(inBaseT, {'attr': {'field':w.fldOrder[i], 'amount':1}}).appendTo(divIn);
 						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).buttonMarkup(butPTheme).appendTo(divPlus);
 						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).buttonMarkup(butMTheme).appendTo(divMinus);
@@ -111,8 +141,8 @@
 						}		
 						$(this).val(w.theDate.getHours()); break;
 					case 'i':
-						$(this).val(w.theDate.getMinutes()); break;
-					case 'D':
+						$(this).val(w._zPad(w.theDate.getMinutes())); break;
+					case 'M':
 						$(this).val(w.__('monthsOfYearShort')[w.theDate.getMonth()]); break;
 					case 'a':
 						$(this).val((w.theDate.getHours() > 11)?w.__('meridiem')[1]:w.__('meridiem')[0]);
@@ -164,10 +194,12 @@
 			
 			divPlus.on(o.clickEvent, 'div', function(e) {
 				e.preventDefault();
+				w._dbox_delta = 1;
 				w._offset($(this).jqmData('field'), $(this).jqmData('amount'));
 			});
 			divMinus.on(o.clickEvent, 'div', function(e) {
 				e.preventDefault();
+				w._dbox_delta = -1;
 				w._offset($(this).jqmData('field'), $(this).jqmData('amount')*-1);
 			});
 			
@@ -176,6 +208,7 @@
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
 				divIn.on('mousewheel', 'input', function(e,d) {
 					e.preventDefault();
+					w._dbox_delta = d<0?-1:1;
 					w._offset($(this).jqmData('field'), ((d<0)?-1:1)*$(this).jqmData('amount'));
 				});
 			}

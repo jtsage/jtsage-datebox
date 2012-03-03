@@ -511,7 +511,8 @@
 			//   update = false to prevent controls refresh
 			var w = this,
 				o = this.options,
-				ok = false;
+				ok = false,
+				mode = mode.toLowerCase();
 				
 			if ( typeof(update) === "undefined" ) { update = true; }
 			w.d.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
@@ -890,6 +891,16 @@
 				td.adj(2, -1*o.minDays);
 				if ( w.theDate < td ) { w.theDate = td; }
 			}
+			if ( o.minHour !== false ) {
+				if ( w.theDate.getHours() < o.minHour ) {
+					w.theDate.setHours(o.minHour);
+				}
+			}
+			if ( o.maxHour !== false ) {
+				if ( w.theDate.getHours() > o.maxHour ) {
+					w.theDate.setHours(o.maxHour);
+				}
+			}
 			if ( o.maxYear !== false ) {
 				td = new w._date(o.maxYear, 0, 1);
 				td.adj(2, -1);
@@ -897,14 +908,6 @@
 			}
 			if ( o.minYear !== false ) {
 				td = new w._date(o.minYear, 0, 1);
-				if ( w.theDate < td ) { w.theDate = td; }
-			}
-			if ( o.maxHour !== false ) {
-				td = w._date.copy([0],[0,0,0,o.maxHour]);
-				if ( w.theDate > td ) { w.theDate = td; }
-			}
-			if ( o.minHour !== false ) {
-				td = w._date.copy([0],[0,0,0,o.minHour]);
 				if ( w.theDate < td ) { w.theDate = td; }
 			}
 			if ( o.blackDates !== false ) {
