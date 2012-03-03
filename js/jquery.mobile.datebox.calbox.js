@@ -31,8 +31,7 @@
 		highDays: false,
 		highDates: false,
 		highDatesAlt: false,
-		enableDates: false,
-		minuteStep: 1
+		enableDates: false
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_cal_gen: function (start,prev,last,other,month) {

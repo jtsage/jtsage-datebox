@@ -60,6 +60,7 @@
 			blackDays: false,
 			minHour: false,
 			maxHour: false,
+			minuteStep: 1,
 			
 			rolloverMode: { 'm': true, 'd': true, 'h': true, 'i': true, 's': true },
 			
