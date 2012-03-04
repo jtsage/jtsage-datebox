@@ -16,12 +16,18 @@
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		'_fbox_pos': function () {
-			var ech = null,
+			var w = this,
+				ech = null,
 				top = null,
-				par = null,
+				par = this.d.intHTML.find('.ui-datebox-flipcontent').innerHeight(),
 				tot = null;
 				
-			this.d.intHTML.find('ul').each(function () {
+			w.d.intHTML.find('.ui-datebox-flipcenter').each(function() {
+				ech = $(this);
+				top = ech.outerHeight();
+				ech.css('top', ((par/2)-(top/2)+2)*-1);
+			});
+			w.d.intHTML.find('ul').each(function () {
 				ech = $(this);
 				par = ech.parent().innerHeight();
 				top = ech.find('li').first();
@@ -88,7 +94,7 @@
 							tmp = (i!==0)?((iDate.comp() === testDate.comp())?o.themeDateHigh:o.themeDate):o.themeDatePick;
 							if ( ( o.blackDates !== false && $.inArray(testDate.iso(), o.blackDates) > -1 ) ||
 								( o.blackDays !== false && $.inArray(testDate.getDay(), o.blackDays) > -1 ) ) {
-								tmp += uid+'griddate-disable';
+								tmp += ' '+uid+'griddate-disable';
 							}
 							$("<li>", { 'class' : 'ui-body-'+tmp})
 								.html("<span>"+testDate.getDate()+"</span>").appendTo(hRow.find('ul'));
@@ -101,8 +107,8 @@
 							testDate = w.theDate.copy();
 							testDate.adj(3,i);
 							tmp = (i!==0)?o.themeDate:o.themeDatePick;
-							if ( o.validHours !== false && $.inArray(testDate.getHours(), o.validHours) < -1 ) {
-								tmp += uid+'griddate-disable';
+							if ( o.validHours !== false && $.inArray(testDate.get(3), o.validHours) < 0 ) {
+								tmp += ' '+uid+'griddate-disable';
 							}
 							$("<li>", { 'class' : 'ui-body-'+tmp})
 								.html("<span>"+((w.__('timeFormat')===12) ? (( testDate.get(3) === 0 ) ? '12' : (( testDate.get(3) < 13 ) ? testDate.get(3) : (testDate.get(3)-12))) : testDate.get(3))+"</span>").appendTo(hRow.find('ul'));
@@ -127,6 +133,7 @@
 						testDate = $("<li class='ui-body-"+o.themeDate+"'><span> </span></li>");
 						
 						testDate.clone().appendTo(hRow.find('ul'));
+						testDate.clone().appendTo(hRow.find('ul'));
 						if ( w.theDate.get(3) < 12 ) { testDate.clone().appendTo(hRow.find('ul')); }
 						
 						tmp = (w.theDate.get(3) > 11) ? [o.themeDate,o.themeDatePick] : [o.themeDatePick,o.themeDate];
@@ -136,12 +143,13 @@
 						
 						if ( w.theDate.get(3) > 11 ) { testDate.clone().appendTo(hRow.find('ul')); }
 						testDate.clone().appendTo(hRow.find('ul'));
+						testDate.clone().appendTo(hRow.find('ul'));
 						
 						hRow.appendTo(ctrl);
 						break;
 				}
 			}
-				
+			
 			$("<div>", {"class":uid+'flipcenter ui-overlay-shadow'}).css('pointerEvents', 'none').appendTo(w.d.intHTML);
 			
 			if ( o.useSetButton || o.useClearButton ) {

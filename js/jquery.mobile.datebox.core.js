@@ -522,8 +522,9 @@
 			//   update = false to prevent controls refresh
 			var w = this,
 				o = this.options,
-				ok = false,
-				mode = mode.toLowerCase();
+				ok = false;
+				
+			mode = mode.toLowerCase();
 				
 			if ( typeof(update) === "undefined" ) { update = true; }
 			w.d.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
@@ -934,13 +935,19 @@
 				td = new w._date(o.minYear, 0, 1);
 				if ( w.theDate < td ) { w.theDate = td; }
 			}
-			if ( o.blackDates !== false ) {
-				if ( $.inArray(w.theDate.iso(), o.blackDates) > -1 ) { w.dateOK = false; }
+			
+			if ( $.inArray(o.mode, ['timebox','durationbox','timeflipbox']) > -1 ) { 
+				if ( o.mode === 'timeflipbox' && o.validHours !== false ) {
+					if ( $.inArray(w.theDate.getHours(), o.validHours) < 0 ) { w.dateOK = false; }
+				}
+			} else {
+				if ( o.blackDates !== false ) {
+					if ( $.inArray(w.theDate.iso(), o.blackDates) > -1 ) { w.dateOK = false; }
+				}
+				if ( o.blackDays !== false ) {
+					if ( $.inArray(w.theDate.getDay(), o.blackDays) > -1 ) { w.dateOK = false; }
+				}
 			}
-			if ( o.blackDays !== false ) {
-				if ( $.inArray(w.theDate.getDay(), o.blackDays) > -1 ) { w.dateOK = false; }
-			}
-			if ( $.inArray(o.mode, ['timebox','durationbox','timeflipbox']) > -1 ) { w.dateOK = true; }
 		},
 		_grabLabel: function() {
 			var w = this,
