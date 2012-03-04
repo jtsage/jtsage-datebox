@@ -18,8 +18,14 @@
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.core.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.calbox.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.flipbox.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 
+	<script type="text/javascript">
+		//$(document).on('datebox', function (e,p) {
+			//console.log(p);
+		//});
+	</script>
 	
 	
 </head>
@@ -61,7 +67,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="lang6">timeflipbox</label>
-			<input name="lang6" type="text" data-role="datebox" data-options='{"mode": "timeflipbox"}' id="lang6" />
+			<input name="lang6" type="text" data-role="datebox" data-options='{"overrideTimeFormat":24,"mode": "timeflipbox"}' id="lang6" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="lang7">durationbox</label>

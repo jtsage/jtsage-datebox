@@ -59,10 +59,14 @@
 			});
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():((o.mode==='flipbox')?w.__('titleDateDialogLabel'):w.__('titleTimeDialogLabel')));
-			w.d.intHTML = $('<span>').append(ctrl);
+			w.d.intHTML = $('<span>')
 			
 			w.fldOrder = ((o.mode==='flipbox')?w.__('dateFieldOrder'):w.__('timeFieldOrder'));
 			w._check();
+			
+			if ( o.mode === 'flipbox' ) { $('<div class="'+uid+'header"><h4>'+w._formatter(w.__('headerFormat'), w.theDate)+'</h4></div>').appendTo(w.d.intHTML); }
+			
+			w.d.intHTML.append(ctrl);
 			
 			for ( y=0; y<w.fldOrder.length; y++ ) {
 				switch (w.fldOrder[y]) {
