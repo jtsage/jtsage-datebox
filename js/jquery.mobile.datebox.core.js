@@ -151,6 +151,17 @@
 					}
 					return this;
 				},
+				get: function(type) {
+					switch ( type ) {
+						case 0: return this.getFullYear();
+						case 1: return this.getMonth();
+						case 2: return this.getDate();
+						case 3: return this.getHours();
+						case 4: return this.getMinutes();
+						case 5: return this.getSeconds();
+					}
+					return false;
+				},
 				iso: function() {
 					return String(this.getFullYear()) + '-' + (( this.getMonth() < 9 ) ? "0" : "") + String(this.getMonth()+1) + '-' + ((this.getDate() < 10 ) ? "0" : "") + String(this.getDate());
 				},
@@ -564,19 +575,20 @@
 				},
 				touch = ( typeof window.ontouchstart !== 'undefined' ),
 				drag = {
-					eStart : touch ? 'touchstart' : 'mousedown',
-					eMove  : touch ? 'touchmove' : 'mousemove',
-					eEnd   : touch ? 'touchend' : 'mouseup',
+					eStart : (touch ? 'touchstart' : 'mousedown')+'.datebox',
+					eMove  : (touch ? 'touchmove' : 'mousemove')+'.datebox',
+					eEnd   : (touch ? 'touchend' : 'mouseup')+'.datebox',
 					move   : false,
 					start  : false,
 					end    : false,
 					pos    : false,
 					target : false,
-					delta  : false
+					delta  : false,
+					tmp    : false
 				},
 				ns = (typeof $.mobile.ns !== 'undefined')?$.mobile.ns:'';
 				
-			$.extend(w, {d: d, ns: ns, drag: drag});
+			$.extend(w, {d: d, ns: ns, drag: drag, touch:touch});
 			
 			o.theme = thisTheme;
 			
@@ -723,6 +735,9 @@
 			}
 			w.d.mainWrap.css({'position': 'absolute', 'top': pos.y, 'left': pos.x});
 		},
+		_drag: {
+			'default': function () { return false; }
+		},
 		open: function () {
 			var w = this,
 				o = this.options,
@@ -750,6 +765,9 @@
 			} else {
 				w._build[o.mode].apply(w,[]);
 			}
+			if ( typeof w._drag[o.mode] !== 'undefined' ) {
+				w._drag[o.mode].apply(w, []);
+			}
 			w.d.input.trigger('datebox', {'method':'refresh'});
 			if ( w.__('useArabicIndic') === true ) { w._doIndic(); }
 			
@@ -763,10 +781,10 @@
 					w.d.mainWrap.addClass('ui-datebox-inlineblind');
 				}
 				w.initDone = true;
+				w.d.input.trigger('datebox',{'method':'postrefresh'});
 			}
 				
-			if ( o.useInline ) { 
-				return true; }
+			if ( o.useInline ) { return true; }
 			if ( o.useInlineBlind ) { w.d.mainWrap.slideDown(); }
 			if ( w.d.intHTML.is(':visible') ) { return false; } // Ignore if already open
 				
@@ -779,6 +797,7 @@
 				w.d.dialogPage.find('.ui-header').find('a').off('click vclick').on(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
 				w.d.mainWrap.append(w.d.intHTML).css({'marginLeft':'auto', 'marginRight':'auto'}).removeClass('ui-datebox-hidden');
 				w.d.dialogPage.find('.ui-content').append(w.d.mainWrap);
+				w.d.input.trigger('datebox',{'method':'postrefresh'});
 				$.mobile.activePage.off( "pagehide.remove" );
 				$.mobile.changePage(w.d.dialogPage, {'transition': trans});
 			} else {
@@ -795,6 +814,7 @@
 				w.d.mainWrap.append(w.d.intHTML).css('zIndex', o.zindex);
 				w.d.mainWrap.appendTo($.mobile.activePage);
 				w.d.screen.appendTo($.mobile.activePage);
+				w.d.input.trigger('datebox',{'method':'postrefresh'});
 				w._applyCoords({widget:w});
 				
 				if ( o.useModal === true ) { 
@@ -846,6 +866,9 @@
 				}
 			}
 					
+			$(document).off(w.drag.eMove);
+			$(document).off(w.drag.eEnd);
+			
 			if ( o.closeCallback !== false ) {
 				if ( ! $.isFunction(o.closeCallback) ) {
 					if ( typeof window[o.closeCallback] !== 'undefined' ) {
@@ -865,6 +888,7 @@
 			}
 			if ( this.__('useArabicIndic') === true ) { this._doIndic(); }
 			this.d.mainWrap.append(this.d.intHTML);
+			this.d.input.trigger('datebox',{'method':'postrefresh'});
 		},
 		_check: function() {
 			var w = this,
