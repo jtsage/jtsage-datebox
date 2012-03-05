@@ -298,7 +298,7 @@
 				adv = adv.replace(/%D([a-z])/gi, function(match, oper) {
 					switch (oper) {
 						case 'd':
-						case 'k':
+						case 'l':
 						case 'M':
 						case 'S': return '(' + match + '|' +'[0-9]+' + ')';
 						default: return '.+?';
