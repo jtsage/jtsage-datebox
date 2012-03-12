@@ -12,7 +12,8 @@
 		themeDatePick: 'a',
 		themeDate: 'b',
 		useSetButton: true,
-		validHours: false
+		validHours: false,
+		flen: {'y': 15, 'm':12, 'd':15, 'h':12, 'i':15, 'a':3}
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		'_fbox_pos': function () {
@@ -72,7 +73,7 @@
 				switch (w.fldOrder[y]) {
 					case 'y':
 						hRow = w._makeEl(flipBase, {'attr': {'field':'y','amount':1} });
-						for ( i=-15; i<16; i++ ) {
+						for ( i=o.flen.y*-1; i<(o.flen.y+1); i++ ) {
 							tmp = (i!==0)?((iDate.get(0) === (w.theDate.get(0) + i))?o.themeDateHigh:o.themeDate):o.themeDatePick;
 							$('<li>', {'class':'ui-body-'+tmp})
 								.html('<span>'+(w.theDate.get(0)+i)+'</span>').appendTo(hRow.find('ul'));
@@ -81,18 +82,18 @@
 						break;
 					case 'm':
 						hRow = w._makeEl(flipBase, {'attr': {'field':'m','amount':1} });
-						for ( i=-12; i<13; i++ ) {
+						for ( i=o.flen.m*-1; i<(o.flen.m+1); i++ ) {
 							testDate = w.theDate.copy([0],[0,0,1]);
 							testDate.adj(1,i);
 							tmp = (i!==0)?((iDate.get(1) === testDate.get(1) && iDate.get(0) === testDate.get(0))?o.themeDateHigh:o.themeDate):o.themeDatePick;
 							$("<li>", { 'class' : 'ui-body-'+tmp})
-								.html("<span>"+o.lang[o.useLang].monthsOfYearShort[testDate.getMonth()]+"</span>").appendTo(hRow.find('ul'));
+								.html("<span>"+w.__('monthsOfYearShort')[testDate.getMonth()]+"</span>").appendTo(hRow.find('ul'));
 						}
 						hRow.appendTo(ctrl);
 						break;
 					case 'd':
 						hRow = w._makeEl(flipBase, {'attr': {'field':'d','amount':1} });
-						for ( i=-15; i<16; i++ ) {
+						for ( i=o.flen.d*-1; i<(o.flen.d+1); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj(2,i);
 							tmp = (i!==0)?((iDate.comp() === testDate.comp())?o.themeDateHigh:o.themeDate):o.themeDatePick;
@@ -107,7 +108,7 @@
 						break;
 					case 'h':
 						hRow = w._makeEl(flipBase, {'attr': {'field':'h','amount':1} });
-						for ( i=-12; i<13; i++ ) {
+						for ( i=o.flen.h*-1; i<(o.flen.h+1); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj(3,i);
 							tmp = (i!==0)?o.themeDate:o.themeDatePick;
@@ -122,7 +123,7 @@
 					case 'i':
 						hRow = w._makeEl(flipBase, {'attr': {'field':'i','amount':o.minuteStep} });
 						if ( o.minuteStep > 1 ) { w.theDate.set(4, (w.theDate.get(4) - (w.theDate.get(4) % o.minuteStep))); }
-						for ( i=-30; i<31; i++ ) {
+						for ( i=o.flen.i*-1; i<(o.flen.i+1); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj(4,(i*o.minuteStep));
 							tmp = (i!==0)?o.themeDate:o.themeDatePick;
@@ -136,8 +137,7 @@
 						hRow = w._makeEl(flipBase, {'attr': {'field':'a','amount':1} });
 						testDate = $("<li class='ui-body-"+o.themeDate+"'><span> </span></li>");
 						
-						testDate.clone().appendTo(hRow.find('ul'));
-						testDate.clone().appendTo(hRow.find('ul'));
+						for ( i=0; i<o.flen.a; i++ ) { testDate.clone().appendTo(hRow.find('ul')); }
 						if ( w.theDate.get(3) < 12 ) { testDate.clone().appendTo(hRow.find('ul')); }
 						
 						tmp = (w.theDate.get(3) > 11) ? [o.themeDate,o.themeDatePick] : [o.themeDatePick,o.themeDate];
@@ -146,8 +146,7 @@
 						$("<li>", { 'class' : 'ui-body-'+tmp[1]}).html('<span>'+w.__('meridiem')[1]+'</span>').appendTo(hRow.find('ul'));
 						
 						if ( w.theDate.get(3) > 11 ) { testDate.clone().appendTo(hRow.find('ul')); }
-						testDate.clone().appendTo(hRow.find('ul'));
-						testDate.clone().appendTo(hRow.find('ul'));
+						for ( i=0; i<o.flen.a; i++ ) { testDate.clone().appendTo(hRow.find('ul')); }
 						
 						hRow.appendTo(ctrl);
 						break;
