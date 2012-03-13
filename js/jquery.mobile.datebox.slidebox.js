@@ -18,22 +18,14 @@
 	$.extend( $.mobile.datebox.prototype, {
 		'_sbox_pos': function () {
 			var w = this,
-				ech = null,
-				top = null,
-				par = this.d.intHTML.find('.ui-datebox-flipcontent').innerHeight(),
-				tot = null;
-				
-			w.d.intHTML.find('.ui-datebox-flipcenter').each(function() {
+				ech, top, par, tot;
+			
+			w.d.intHTML.find('div.ui-datebox-sliderow-int').each(function () {
 				ech = $(this);
-				top = ech.outerHeight();
-				ech.css('top', ((par/2)-(top/2)+2)*-1);
-			});
-			w.d.intHTML.find('ul').each(function () {
-				ech = $(this);
-				par = ech.parent().innerHeight();
-				top = ech.find('li').first();
-				tot = ech.find('li').size() * top.outerHeight();
-				top.css('marginTop', ((tot/2)-(par/2)+(top.outerHeight()/2))*-1);
+				par = ech.parent().innerWidth();
+				top = ech.find('div').first();
+				tot = ech.find('div').size() * top.outerWidth();
+				top.css('marginLeft', ((tot/2)-(par/2))*-1);
 			});
 		}
 	});
@@ -52,9 +44,7 @@
 			}
 			
 			w.d.input.on('datebox', function (e,p) {
-				if ( p.method === 'postrefresh' ) {
-					w._sbox_pos();
-				}
+				if ( p.method === 'postrefresh' ) { w._sbox_pos(); }
 			});
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
@@ -109,7 +99,7 @@
 						break;
 					case 'h':
 						phRow.addClass(uid+'sliderow-hi');
-						for ( i=o.flen.h*-1; i<(o.flen.h+1); i++ ) {
+						for ( i=o.slen.h*-1; i<(o.slen.h+1); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj(3,i);
 							tmp = (i!==0)?o.themeDate:o.themeDatePick;
@@ -124,7 +114,7 @@
 					case 'i':
 						phRow.addClass(uid+'sliderow-hi');
 						if ( o.minuteStep > 1 ) { w.theDate.set(4, (w.theDate.get(4) - (w.theDate.get(4) % o.minuteStep))); }
-						for ( i=o.flen.i*-1; i<(o.flen.i+1); i++ ) {
+						for ( i=o.slen.i*-1; i<(o.slen.i+1); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj(4,(i*o.minuteStep));
 							tmp = (i!==0)?o.themeDate:o.themeDatePick;
@@ -167,47 +157,43 @@
 			}
 			
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
-				w.d.intHTML.on('mousewheel', '.ui-overlay-shadow', function(e,d) {
+				w.d.intHTML.on('mousewheel', '.ui-datebox-sliderow-int', function(e,d) {
 					e.preventDefault();
-					w._offset($(this).jqmData('field'), ((d<0)?-1:1)*$(this).jqmData('amount'));
+					w._offset($(this).jqmData('rowtype'), (d<0)?-1:1);
 				});
 			}
 			
-			w.d.intHTML.on(w.drag.eStart, 'ul', function(e,f) {
+			w.d.intHTML.on(o.clickEvent, '.ui-datebox-sliderow-int>div', function(e) {
+				e.preventDefault();
+				w._offset($(this).parent().jqmData('rowtype'), parseInt($(this).jqmData('offset'),10));
+			});
+			w.d.intHTML.on('vmouseover vmouseout', '.ui-datebox-sliderow-int>div', function() {
+				w._hoover(this);
+			});
+			
+			w.d.intHTML.on(w.drag.eStart, '.ui-datebox-sliderow-int', function(e) {
 				if ( !w.drag.move ) {
-					if ( typeof f !== "undefined" ) { e = f; }
 					w.drag.move = true;
-					w.drag.target = $(this).find('li').first();
-					w.drag.pos = parseInt(w.drag.target.css('marginTop').replace(/px/i, ''),10);
-					w.drag.start = w.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+					w.drag.target = $(this);
+					w.drag.pos = parseInt(w.drag.target.css('marginLeft').replace(/px/i, ''),10);
+					w.drag.start = w.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX;
 					w.drag.end = false;
 					e.stopPropagation();
 					e.preventDefault();
 				}
 			});
-			
-			w.d.intHTML.on(w.drag.eStart, '.'+uid+'flipcenter', function(e) { // Used only on old browsers and IE.
-				if ( !w.drag.move ) {
-					w.drag.target = w.touch ? e.originalEvent.changedTouches[0].pageX - $(e.currentTarget).offset().left : e.pageX - $(e.currentTarget).offset().left;
-					w.drag.tmp = w.d.intHTML.find('.'+uid+'flipcenter').innerWidth() / (( $.inArray('a', w.fldOrder) > -1 && w.__('timeFormat') !== 12 )?w.fldOrder.length-1:w.fldOrder.length);
-					$(w.d.intHTML.find('ul').get(parseInt(w.drag.target / w.drag.tmp,10))).trigger(w.drag.eStart,e);
-				}
-			});
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._drag, {
-		'timeflipbox': function() {
-			this._drag.flipbox.apply(this);
-		},
-		'flipbox': function() {
+		'slidebox': function() {
 			var w = this,
 				o = this.options,
 				g = this.drag;
 			
 			$(document).on(g.eMove, function(e) {
-				if ( g.move && ( o.mode === 'flipbox' || o.mode === 'timeflipbox' )) {
-					g.end = w.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
-					g.target.css('marginTop', (g.pos + g.end - g.start) + 'px');
+				if ( g.move && o.mode === 'slidebox') {
+					g.end = w.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX;
+					g.target.css('marginLeft', (g.pos + g.end - g.start) + 'px');
 					e.preventDefault();
 					e.stopPropagation();
 					return false;
@@ -215,13 +201,13 @@
 			});
 			
 			$(document).on(g.eEnd, function(e) {
-				if ( g.move && (o.mode === 'flipbox' || o.mode === 'timeflipbox' )) {
+				if ( g.move && o.mode === 'slidebox' ) {
 					g.move = false;
 					if ( g.end !== false ) {
 						e.preventDefault();
 						e.stopPropagation();
-						g.tmp = g.target.parent().parent();
-						w._offset(g.tmp.jqmData('field'), (parseInt((g.start - g.end) / g.target.innerHeight(),10) * g.tmp.jqmData('amount')));
+						g.tmp = g.target.find('div').first();
+						w._offset(g.target.jqmData('rowtype'), (parseInt((g.start - g.end) / g.tmp.innerWidth(),10)));
 					}
 					g.start = false;
 					g.end = false;
@@ -230,141 +216,3 @@
 		}
 	});
 })( jQuery );
-
-
-
-/*
-(function($, undefined ) {
-	
-	return true;
-  $.widget( "mobile.datebox", $.mobile.widget, {
-	
-	_update: function() {
-		// Update the display on date change
-		var self = this,
-			o = self.options, 
-			testDate = null,
-			i, gridWeek, gridDay, skipThis, thisRow, y, cTheme, inheritDate, thisPRow, tmpVal, disVal,
-			interval = {'d': 60*60*24, 'h': 60*60, 'i': 60, 's':1},
-			calmode = {};
-			
-		// BEGIN:SLIDEBOX /
-		if ( o.mode === 'slidebox' ) {
-			
-			
-			self.controlsInput.delegate('.ui-datebox-sliderow-int>div', o.clickEvent, function(e) {
-				e.preventDefault();
-				self._offset($(this).parent().jqmData('rowtype'), parseInt($(this).jqmData('offset'),10));
-			});
-			self.controlsInput.delegate('.ui-datebox-sliderow-int>div', 'vmouseover vmouseout', function() {
-				self._hoover(this);
-			});
-			
-			if ( o.wheelExists ) {
-				self.controlsInput.delegate('.ui-datebox-sliderow-int', 'mousewheel', function(e,d) {
-					e.preventDefault();
-					self._offset($(this).jqmData('rowtype'), ((d>0)?1:-1));
-				});
-			}
-			
-			if ( o.swipeEnabled ) {
-				self.controlsInput.delegate('.ui-datebox-sliderow-int', self.START_DRAG, function(e) {
-					if ( !self.dragMove ) {
-						self.dragMove = true;
-						self.dragTarget = $(this);
-						self.dragPos = parseInt(self.dragTarget.css('marginLeft').replace(/px/i, ''),10);
-						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX;
-						self.dragEnd = false;
-						e.stopPropagation();
-						e.preventDefault();
-					}
-				});
-			}
-			
-			for ( y=0; y<o.fieldsOrder.length; y++ ) {
-				thisPRow = $("<div>").jqmData('rowtype', o.fieldsOrder[y]);
-				thisRow = $("<div>", {'class': 'ui-datebox-sliderow-int'}).jqmData('rowtype',o.fieldsOrder[y]).appendTo(thisPRow);
-				
-				if ( o.lang[o.useLang].isRTL === true ) { thisRow.css('direction', 'rtl'); }
-				
-				switch (o.fieldsOrder[y]) {
-					
-				thisPRow.appendTo(self.controlsInput);
-			}
-		}
-		// END:SLIDEBOX /
-		
-	},
-	* 
-	* 
-	* 
-	* 
-	* 
-	/ drag and drop support, all ending and moving events are defined here, start events are handled in _buildPage or update
-			if ( o.swipeEnabled ) {
-				$(document).bind(self.MOVE_DRAG, function(e) {
-					if ( self.dragMove ) {
-						if ( o.mode === 'slidebox' ) {
-							self.dragEnd = self.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX;
-							self.dragTarget.css('marginLeft', (self.dragPos + self.dragEnd - self.dragStart) + 'px');
-							e.preventDefault();
-							e.stopPropagation();
-							return false;
-						
-						} else if ( o.mode === 'durationbox' || o.mode === 'timebox' || o.mode === 'datebox' ) {
-							self.dragEnd = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
-							if ( (self.dragEnd - self.dragStart) % 2 === 0 ) {
-								dragThisDelta = (self.dragEnd - self.dragStart) / -2;
-								if ( dragThisDelta < self.dragPos ) {
-									self._offset(self.dragTarget, -1*(self.dragTarget==='i'?o.minuteStep:1));
-								} else if ( dragThisDelta > self.dragPos ) {
-									self._offset(self.dragTarget, (self.dragTarget==='i'?o.minuteStep:1));
-								} 
-								self.dragPos = dragThisDelta;
-							}
-							e.preventDefault();
-							e.stopPropagation();
-							return false;
-						}
-					} 
-				});
-				$(document).bind(self.END_DRAG, function(e) {
-					if ( self.dragMove ) {
-						self.dragMove = false;
-						if ( o.mode === 'slidebox' ) {
-							if ( self.dragEnd !== false && Math.abs(self.dragStart - self.dragEnd) > 25 ) {
-								e.preventDefault();
-								e.stopPropagation();
-								switch(self.dragTarget.parent().jqmData('rowtype')) {
-									case 'y':
-										self._offset('y', parseInt(( self.dragStart - self.dragEnd ) / 84, 10));
-										break;
-									case 'm':
-										self._offset('m', parseInt(( self.dragStart - self.dragEnd ) / 51, 10));
-										break;
-									case 'd':
-										self._offset('d', parseInt(( self.dragStart - self.dragEnd ) / 32, 10));
-										break;
-									case 'h':
-										self._offset('h', parseInt(( self.dragStart - self.dragEnd ) / 32, 10));
-										break;
-									case 'i':
-										self._offset('i', parseInt(( self.dragStart - self.dragEnd ) / 32, 10));
-										break;
-								}
-							}
-						} else if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
-							if ( self.dragEnd !== false ) {
-								e.preventDefault();
-								e.stopPropagation();
-								var fld = self.dragTarget.parent().parent().jqmData('field'),
-									amount = parseInt(( self.dragStart - self.dragEnd ) / 30,10);
-								self._offset(fld, amount * ( (fld === "i") ? o.minuteStep : 1 ));
-							}
-						}
-						self.dragStart = false;
-						self.dragEnd = false;
-					}
-				});
-			}
-*/

@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>jQueryMobile - DateBox Option Tests</title>
+	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.core.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.durationbox.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<script type="text/javascript">
+		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+			useModal: true,
+			mode: 'durationbox',
+			
+		});
+	</script>
+</head>
+<body>
+<div data-role="page" id="main"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - Options Tests - DurationBox</h1>
+	</div>
+	<div data-role="content">
+		<div data-role="fieldcontain">
+			<label for="themes">Themes</label>
+			<input type="date" id="themes" name="themes" data-role="datebox" data-theme="b"
+				data-options='{"themeHeader":"d", "themeButton":"b"}' />
+				
+			<label for="useTodayButton">useClearButton</label>
+			<input type="date" id="useTodayButton" name="useTodayButton" data-role="datebox"
+				data-options='{"useClearButton":true}' />
+				
+			<label for="useCollapsedBut">useCollapsedBut</label>
+			<input type="date" id="useCollapsedBut" name="useCollapsedBut" data-role="datebox"
+				data-options='{"useClearButton":true,"useCollapsedBut":true}' />
+		</div>
+		
+	</div>
+	<div data-role="footer">
+		<h1>Some Footer Information or Something.</h1>
+	</div>
+</div>
+</html>
