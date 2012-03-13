@@ -78,7 +78,9 @@
 							testDate.adj(1,i);
 							tmp = (i!==0)?((iDate.get(1) === testDate.get(1) && iDate.get(0) === testDate.get(0))?o.themeDateHigh:o.themeDate):o.themeDatePick;
 							$('<div>', {'class':uid+'slidemonth ui-corner-all ui-btn-up-'+tmp})
-								.html(w.__('monthsOfYearShort')[testDate.get(1)]).jqmData('offset', i).jqmData('theme', tmp).appendTo(hRow);
+								.html(String(w.__('monthsOfYearShort')[testDate.get(1)]))
+								.jqmData('offset', i)
+								.jqmData('theme', tmp).appendTo(hRow);
 						}
 						break;
 						
@@ -130,7 +132,7 @@
 				y = $('<div>', {'class':uid+'controls'});
 				
 				if ( o.useSetButton ) {
-					$('<a href="#">'+((o.mode==='datebox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))+'</a>')
+					$('<a href="#">'+w.__('setDateButtonLabel')+'</a>')
 						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();

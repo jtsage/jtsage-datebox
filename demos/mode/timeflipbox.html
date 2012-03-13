@@ -34,7 +34,7 @@
 	
 </head>
 <body>
-<div data-role="page" data-theme="c" id="droIndex"> 
+<div data-role="page" data-theme="c" id="slideIndex"> 
 	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
@@ -51,41 +51,33 @@
 		
 		<div class="content-primary"> 
 			<div data-role="collapsible-set" data-mini="true" data-theme="c" data-content-theme="d">
-			
 				<div data-role="collapsible" data-collapsed="false">
-					<h2>Android Default</h2>
-					<p>Using the android mode is as simple as setting the 'mode' option to "datebox".</p>
+					<h2>Flip Time Mode Default</h2>
+					<p>Using the flip mode is as simple as setting the 'mode' option to "timeflipbox".</p>
 				
 					<div data-role="fieldcontain">
-						<label for="defandroid">Some Date</label><input name="defandroid" type="date" data-options='{"mode":"datebox"}' data-role="datebox" id="defandroid" />
+						<label for="deftimeflip">Some Date</label><input name="deftimeflip" type="date" data-role="datebox" id="deftimeflip" data-options='{"mode": "timeflipbox"}' />
 					</div>
 				
 					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "datebox"}'&gt;</pre>
-				
-				</div>
-				<div data-role="collapsible">
-					<h2>Credit Cards</h2>
-					<p>Credit Card expiration dates can be gathered by setting 'overrideDateFormat' to "%m/%Y" and 'overrideDateFieldOrder' to ["m", "y"]</p>
-				
-					<div data-role="fieldcontain">
-						<label for="droidcard">Expires</label><input name="droidcard" type="date" data-role="datebox" data-options='{"mode":"datebox", "overrideDateFormat": "%m/%Y", "overrideDateFieldOrder": ["m", "y"]}' id="droidcard" />
-					</div>
-					
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode":"datebox", "overrideDateFormat": "%m/%Y", "overrideDateFieldOrder": ["m", "y"]}'}'&gt;</pre>
-				
+   data-options='{"mode": "timeflipbox"}'&gt;</pre>
+   
 				</div>
 				<div data-role="collapsible">
 					<h2>Theme Options</h2>
 					<ul data-role="listview" data-inset="true">
-						<li><h3>themeButton</h3><p>Theme swatch for +/- Buttons</p></li>
-						<li><h3>themeInput</h3><p>Theme swatch for input elements</p></li>
+						<li><h3>themeDateHigh</h3><p>Theme swatch for today's date</p></li>
+						<li><h3>themeDatePick</h3><p>Theme swatch for choosen (centered) date</p></li>
+						<li><h3>themeDate</h3><p>Theme swatch for other date elements</p></li>
 					</ul>
+				</div>
+				<div data-role="collapsible">
+					<h2>Roller Length</h2>
+					<p>To control the "length" of the rollers, you can alter the 'flen' option.  It has six properties:</p>
+					<pre class="prettyprint">flen: {'y': 15, 'm':12, 'd':15, 'h':12, 'i':15, 'a':3}</pre>
+					<p>Note that these numbers are *half* of the roller length - this is the pad on either end of the centered element</p>
 				</div>
 			</div>
 		</div> 

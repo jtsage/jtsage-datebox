@@ -450,7 +450,7 @@
 					if ( ! format.match(/%DM/) ) { dur.part[3] += (dur.part[2]*60);}
 				}
 				
-			format = format.replace(/%(D|0|-)*([a-z])/gi, function(match, pad, oper) {
+			format = format.replace(/%(D|0|-)*([a-zA-Z])/g, function(match, pad, oper) {
 				if ( pad === 'D' ) {
 					switch ( oper ) {
 						case 'd': return dur.part[0];

@@ -1,0 +1,315 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
+	<script type="text/javascript" src="../extras.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="calLimit"> 
+	<div data-role="header" data-position="fixed"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary"> 
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="../jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
+				<p>A Date and Time Picker plugin for jQueryMobile</p> 
+			</div> 
+			
+			<div class="optdemos sidebar"></div>
+		</div>
+		
+		<div class="content-primary"> 
+			<div data-role="collapsible-set" data-mini="true" data-theme="c" data-content-theme="d">
+			
+				<div data-role="collapsible" data-collapsed="false">
+					<h2>Range Limiting</h2>
+					<p>Range limiting can be accomplished a number of ways, the options available are:</p>
+					<ul data-role="listview" data-inset="true">
+						<li><h3>afterToday</h3><p>When set, only dates that are after or on "today" are selectable (all date modes)</p></li>
+						<li><h3>beforeToday</h3><p>When set, only dates that are before or on "today" are selectable (all date modes)</p></li>
+						<li><h3>notToday</h3><p>When set, "today" is not selectable (all date modes)</p></li>
+						<li><h3>minDays</h3><p>When set, only dates that are after *number* of days <strong>before</strong> today may be selected. Note that minDays can be a negative number. (all date modes)</p></li>
+						<li><h3>maxDays</h3><p>When set, only dates that are before *number* of days <strong>after</strong> today may be selected. Note that maxDays can be a negative number. (all date modes)</p></li>
+						<li><h3>minHour</h3><p>When set, only hours that are after specified hour may be selected. (all time modes)</p></li>
+						<li><h3>maxHour</h3><p>When set, only hours that are before specified hour may be selected. (all time modes)</p></li>
+						<li><h3>blackDays</h3><p>An array of days to disable, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2]) (all date modes)</p></li>
+						<li><h3>blackDates</h3><p>An array of ISO 8601 Dates to disable. (e.g. ["2011-01-01", "2011-12-25"]) (all date modes)</p></li>
+						<li><h3>enableDates</h3><p>An array of ISO 8601 Dates to exclusivly enable (disable everything else). (e.g. ["2011-01-01", "2011-12-25"]) (calbox)</p></li>
+						<li><h3>highDays</h3><p>An array of days to highlight, every week.  0 = Sunday, 1 = Monday, ... 6 = Saturday (e.g. [2]) (calbox)</p></li>
+						<li><h3>highDates</h3><p>An array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"]) (calbox)</p></li>
+						<li><h3>highDatesAlt</h3><p>An second, alternate array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"]) (calbox)</p></li>
+						<li><h3>validHours</h3><p>An array of valid hours of the day for the picker (e.g [9,10,11,13,14,15,16]) (all time modes)</p></li>
+					</ul>
+				</div>
+				<div data-role="collapsible">
+					<h2>Limit to today + 60 days</h2>
+					<p>Limit the allowed dates to at minimum today, and at maximum 60 days in the future. Note that this is also valid in android mode.</p>
+					<p>The calendar mode <strong>does</strong> limit users to viewing months with valid dates.</p>
+				
+					<div data-role="fieldcontain">
+						<label for="callimit1">Some Date</label>
+						<input name="callimit1" type="date" data-role="datebox" data-options='{"afterToday": true, "maxDays": 60, "mode": "calbox"}' id="callimit1" />
+					</div>
+				
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "afterToday": true, "maxDays": 60}'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Limit between 2009 and 2019</h2>
+					<p>Limit the allowed dates to at minimum today, and at maximum 60 days in the future. Note that this is also valid in android mode.</p>
+					<p>The calendar mode <strong>does</strong> limit users to viewing months with valid dates.</p>
+				
+					<div data-role="fieldcontain">
+						<label for="drolimit2">Some Date</label>
+						<input name="drolimit2" type="date" data-role="datebox" data-options='{"minYear": 2009, "maxYear": 2019, "mode": "datebox"}' id="drolimit2" />
+					</div>
+					
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "datebox", "minYear": 2009, "maxYear": 2019}'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Limit to today + 10 days, then based on start.</h2>
+					<p>The first date is limited from "today" to 10 days in the future.</p>
+					<p>The second date is limited from the first date, to 10 days after the first date</p>
+					
+					<script type="text/javascript">
+						$('#calrlimit1').live('change', function() {
+							$('#calrlimit2').val($('#calrlimit1').val());
+							var temp = new Date(),
+								diff = parseInt(($('#calrlimit1').data('datebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
+								diffstrt = (diff * -1)-1; // If you want a minimum of 1 day between, make this -2 instead of -1
+								diffend = diff + 11; // Why 11 instead of 10?  No idea...
+						
+							$('#calrlimit2').data('datebox').options.minDays = diffstrt;
+							$('#calrlimit2').data('datebox').options.maxDays = diffend;
+						});
+					</script>
+					
+					<div data-role="fieldcontain">
+						<label for="calrlimit1">Beginning Date</label>
+						<input name="calrlimit1" type="date" data-role="datebox" id="calrlimit1" data-options='{"mode": "calbox", "afterToday": true, "maxDays": 10}'/>
+						<label for="calrlimit2">Ending Date</label>
+						<input name="calrlimit2" type="date" data-role="datebox" data-options='{"minDays": -10, "maxDays": 10, "mode": "calbox"}' id="calrlimit2" />
+					</div>
+				
+					<strong>HTML</strong>
+					<pre class="prettyprint">&lt;label for="calrlimit1"&gt;Beginning Date&lt;/label&gt;
+&lt;input name="calrlimit1" type="date" data-role="datebox" id="calrlimit1" 
+    data-options='{"mode": "calbox", "afterToday": true, "maxDays": 10}' /&gt;
+
+&lt;label for="calrlimit2"&gt;Ending Date&lt;/label&gt;
+&lt;input name="calrlimit2" type="date" data-role="datebox" id="calrlimit2"
+    data-options='{"minDays": -10, "maxDays": 10, "mode": "calbox"}' /&gt;</pre>
+
+					<strong>JQuery</strong>
+					<pre class="prettyprint">$('#calrlimit1').live('change', function() {
+    $('#calrlimit2').val($('#calrlimit1').val());
+    var temp = new Date(),
+        diff = parseInt(($('#calrlimit1').data('datebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
+        diffstrt = (diff * -1)-1; // If you want a minimum of 1 day between, make this -2 instead of -1
+        diffend = diff + 11; // Why 11 instead of 10?  No idea...
+
+    $('#calrlimit2').data('datebox').options.minDays = diffstrt;
+    $('#calrlimit2').data('datebox').options.maxDays = diffend;
+});</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Date Range Input</h2>
+					<p>Demonstrates using date picker and a text box to enter a date range (customizable)</p>
+					<script type="text/javascript">
+						function updateEndDate() { 
+							var newdate = new Date($('#drorangestart').data('datebox').theDate);
+							if ( newdate.getDate() ) { 
+								newdate.setDate(newdate.getDate() + parseInt($('#drorangedays').val()));
+								
+								var padMonth = (( newdate.getMonth() < 9 ) ? "0" : "") + ( newdate.getMonth() + 1 ),
+									padDay = (( newdate.getDate() < 10 ) ? "0" : "") + newdate.getDate();
+								
+								$('#drorangeend').val(newdate.getFullYear() + "-" + padMonth + "-" + padDay);
+							}
+						}
+						
+						$('#drorangestart').live('change', function() {
+							updateEndDate();
+						});
+						
+						$('#drorangedays').live('change', function() {
+							updateEndDate();
+						});
+					</script>
+			
+					<div data-role="fieldcontain">
+						<label for="drorangestart">Start Date:</label>
+						<input name="drorangestart" type="date" data-role="datebox" data-options='{"mode":"datebox"}' id="drorangestart" />
+						<label for='drorangedays'>Number of Days:</label>
+						<select data-native-menu="false" name='drorangedays' id='drorangedays' >
+							<option value='7' selected="selected">1 Week</option>
+							<option value='6'>6 Days</option>
+							<option value='5'>5 Days</option>
+							<option value='4'>4 Days</option>
+							<option value='3'>3 Days</option>
+							<option value='2'>2 Days</option>
+							<option value='1'>1 Day</option>
+						</select>
+						<label for="drorangeend">End Date:</label>
+						<input id="drorangeend" type="text" />
+					</div>
+					
+					<strong>HTML</strong>
+					<pre class="prettyprint">&lt;label for="drorangestart"&gt;Start Date:&lt;/label&gt;
+&lt;input name="drorangestart" type="date" data-role="datebox" id="drorangestart"/&gt;
+    
+&lt;label for='drorangedays'&gt;Number of Days:&lt;/label&gt;
+&lt;select data-native-menu="false" name='drorangedays' id='drorangedays' &gt;
+  &lt;option value='7' selected="selected"&gt;1 Week&lt;/option&gt;
+  &lt;option value='6'&gt;6 Days&lt;/option&gt;
+  &lt;option value='5'&gt;5 Days&lt;/option&gt;
+  &lt;option value='4'&gt;4 Days&lt;/option&gt;
+  &lt;option value='3'&gt;3 Days&lt;/option&gt;
+  &lt;option value='2'&gt;2 Days&lt;/option&gt;
+  &lt;option value='1'&gt;1 Day&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;label for="drorangeend"&gt;End Date:&lt;/label&gt;
+&lt;input id="drorangeend" type="text" /&gt;</pre>
+
+					<strong>jQuery</strong>
+					<pre class="prettyprint">function updateEndDate() { 
+  var newdate = new Date($('#drorangestart').data('datebox').theDate);
+  if ( newdate.getDate() ) { 
+    newdate.setDate(newdate.getDate() + parseInt($('#drorangedays').val()));
+        
+    var padMonth = (( newdate.getMonth() &lt; 9 ) ? "0" : "") + ( newdate.getMonth() + 1 ),
+        padDay = (( newdate.getDate() &lt; 10 ) ? "0" : "") + newdate.getDate();
+        
+    $('#drorangeend').val(newdate.getFullYear() + "-" + padMonth + "-" + padDay);
+  }
+}
+
+$('#drorangestart').live('change', function() {
+  updateEndDate();
+});
+
+$('#drorangedays').live('change', function() {
+  updateEndDate();
+});</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Blacklisted and Highlighted Days</h2>
+					<p>Example shows all Tuesdays disabled, Saturdays Highlighted</p>
+				
+					<div data-role="fieldcontain">
+						<label for="calblackday">Some Date (calbox)</label>
+						<input name="calblackday" type="date" data-role="datebox" id="calblackday" data-options='{"mode": "calbox", "blackDays": [2], "highDays": [6] }'/>
+						<label for="andblackday">Some Date (datebox)</label>
+						<input name="andblackday" type="date" data-role="datebox" id="andblackday" data-options='{"mode": "datebox", "blackDays": [2], "highDays": [6] }'/>
+						<label for="fliblackday">Some Date (flipbox)</label>
+						<input name="fliblackday" type="date" data-role="datebox" id="fliblackday" data-options='{"mode": "flipbox", "blackDays": [2], "highDays": [6] }'/>
+						<label for="sliblackday">Some Date (slidebox)</label>
+						<input name="sliblackday" type="date" data-role="datebox" id="sliblackday" data-options='{"mode": "slidebox", "blackDays": [2], "highDays": [6] }'/>
+					</div>
+				
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "blackDays": [2], "highDays": [6] }'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Blacklisted Dates</h2>
+					<p>Example shows all Christmas disabled.</p>
+				
+					<div data-role="fieldcontain">
+						<label for="calblackdate">Some Date</label>
+						<input value="12/1/2011" name="calblackdate" type="date" data-role="datebox" id="calblackdate" data-options='{"mode": "calbox", "blackDates": ["2011-12-24", "2011-12-25"]}'/>
+					</div>
+				
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "blackDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Exclusive Dates</h2>
+					<p>Example shows only Christmas enabled.</p>
+				
+					<div data-role="fieldcontain">
+						<label for="calenabledate">Some Date</label>
+						<input value="12/1/2011" name="calenabledate" type="date" data-role="datebox" id="calenabledate" data-options='{"mode": "calbox", "enableDates": ["2011-12-24", "2011-12-25"]}'/>
+					</div>
+				
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "enableDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Highlighted Dates</h2>
+					<p>Example shows all Christmas highlighted.</p>
+				
+					<div data-role="fieldcontain">
+						<label for="calhighdate">Some Date</label>
+						<input value="12/1/2011" name="calhighdate" type="date" data-role="datebox" id="calhighdate" data-options='{"mode": "calbox", "highDates": ["2011-12-24", "2011-12-25"]}'/>
+					</div>
+				
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "highDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Valid Hours</h2>
+					<p>Example shows valid work-day hours</p>
+					
+					<div data-role="fieldcontain">
+						<label for="validHours">validHours</label>
+						<input type="date" id="validHours" name="validHours" data-role="datebox" data-options='{"mode":"timebox", "validHours":[9,10,11,13,14,15,16]}' />
+					</div>
+					
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode":"timebox", "validHours":[9,10,11,13,14,15,16]}'&gt;</pre>
+				</div>
+			</div>
+		</div> 
+		
+	</div>
+	<div data-role="footer" data-position="fixed">
+	</div>
+</div>
+</html>

@@ -60,14 +60,18 @@ uncomp = f.read();
 f.close()
 comp = sp.check_output(javapath.rstrip() + ' -jar ../external/yuicompressor-2.4.6.jar ../css/jqm-datebox.css', shell=True);
 
-f = open('./'+options.ver+'/jqm-datebox.css', 'w')
+f = open('./'+options.ver+'/'+fprefix+'css', 'w')
 f.write(uncomp)
 f.close()
-f = open('./'+options.ver+'/jqm-datebox.min.css', 'w')
+f = open('./'+options.ver+'/'+fprefix+'min.css', 'w')
 f.write(slugtext)
 f.write(comp)
 f.close()
 
+if ( options.verbose ):
+		print ' - Writing File:' + fprefix + 'css'
+		print ' - Writing File:' +fprefix+ 'min.css'
+		
 for key in files:
 	fname = fprefix+key+'.js'
 	fnamem = fprefix+key+'.min.js'
