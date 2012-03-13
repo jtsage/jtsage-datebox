@@ -61,14 +61,14 @@ foreach ( $defaults as $key => $value ) {
 	} ?>
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
-	<!--script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script-->
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.core.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.calbox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.datebox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.flipbox.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.slidebox.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 	
 	<script type="text/javascript">

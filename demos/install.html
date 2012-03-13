@@ -4,17 +4,24 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
@@ -28,57 +35,112 @@
 </head>
 <body>
 <div data-role="page" data-theme="c" id="install"> 
-	<div data-role="header"> 
+	<div data-role="header" data-position="fixed">
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../" data-icon="home" data-iconpos="notext">Home</a>
 	</div>
-	<div data-role="content" data-theme="c">
-		<h2>Download and Use</h2>
-		
-		<dl>
-			<dt>Reqirements</dt>
-			<dd><a href="http://jquery.com/">jQuery 1.6.4+ (Note: 1.7 cause jQM crashes on IE atm)</a></dd>
-			<dd><a href="http://jquerymobile.com">jQueryMobile 1.0.1</a></dd>
-		</dl>
-		<dl>
-			<dt>Download Links - Current Version (hotlinking allowed)</dt>
-			<dd><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js">Uncompressed, Development Version Plugin (88K)</a></dd>
-			<dd><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.css">Uncompressed, Development CSS Styles (5.7K)</a></dd>
-			<dd><br /><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js">Compressed, Production Version Plugin (57K)</a></dd>
-			<dd><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css">Compressed, Production CSS Styles (4.7K)</a></dd>
-			<dd><br /><strong>Note:</strong>The current version is also my first real stop on the development path.  If you have a mission critical app, it is *highly* recommended that you either link to the compressed version, or better yet, a copy on your own server.</dd>
+	<div data-role="content">
+		<div class="content-secondary"> 
+	
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
+				<p>A Date and Time Picker plugin for jQueryMobile</p> 
+				
+			</div> 
 			
-			<dt>Download Links - "STABLE" Version (hotlinking allowed)</dt>
-			<dd><strong>Note:</strong> This is known to work against the version of jQM referenced in the file name.  Stable however, is a matter of opinion, and these tend to lag a bit behind development.</dd>
-			<dd><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.0.1/jquery.mobile.datebox-1.0.1.js">Uncompressed, Development Version Plugin (88K)</a></dd>
-			<dd><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.0.1/jquery.mobile.datebox-1.0.1.css">Uncompressed, Development CSS Styles (5.7K)</a></dd>
-			<dd><br /><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.0.1/jquery.mobile.datebox-1.0.1.min.js">Compressed, Production Version Plugin (57K)</a></dd>
-			<dd><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.0.1/jquery.mobile.datebox-1.0.1.min.css">Compressed, Production CSS Styles (4.7K)</a></dd>
-		</dl>
-		<dl>
-			<dt>Stripped Versions</dt>
-			<dd>Various stripped versions exist - versions in which only one mode is available.  The size savings are really minimal, but the naming format is:</dd>
-			<dd><pre><code>jquery.mobile.datebox.<strong>&lt;mode&gt;</strong><em>(.min)</em>.js</code></pre></dd>
-			<dd>The can be found here: <a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/">http://dev.jtsage.com/cdn/datebox/latest/</a></dd>
-		</dl>
-		<dl>
-			<dt>Significant Loading Order</dt>
-			<dd>Loading Order is significant, a typical &lt;head&gt; might look like:</dd>
-			<dd><pre class="prettyprint">&lt;link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" /&gt;
-&lt;link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" /&gt; 
+			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
+				<li data-role="list-divider">Overview</li> 
+				<li><a href="intro.html">Intro &amp; Features</a></li>
+				<li><a href="install.html">Download &amp; Use</a></li>
+				
+			</ul> 
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+		<h2>Download and Use</h2>
+		<p>To install DateBox on your site, you must first choose which modes, and which langague you wish to use.</p>
+		<div data-role="collapsible-set" data-mini="true" data-theme="c" data-content-theme="d">
+			<div data-role="collapsible">
+				<h2>Requirements</h2>
+				<ul><li><a href="http://jquery.com/">jQuery 1.7.1+ (Note: Will NOT Work with earlier versions of jQuery)</a></li>
+				<li><a href="http://jquerymobile.com">jQueryMobile 1.0.1</a></li></ul>
+			</div>
+			<div data-role="collapsible" data-collapsed="false">
+				<h2>Typical Installation</h2>
+				<p>This shows an installation using the CalBox mode, with the English-US language varient:</p>
+				<pre class="prettyprint">&lt;link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" /&gt;
+&lt;link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" /&gt; 
 
-&lt;script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"&gt;&lt;/script&gt; 
-&lt;script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"&gt;&lt;/script&gt; 
+&lt;script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"&gt;&lt;/script&gt;
 
 &lt;!-- Optional Mousewheel support: http://brandonaaron.net/code/mousewheel/docs -->
 &lt;script type="text/javascript" src="PATH/TO/YOUR/COPY/OF/jquery.mousewheel.min.js">&lt;/script>
 
-&lt;script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i8n/jquery.mobile.datebox.i8n.en.js"&gt;&lt;/script&gt;</pre></dd>
-		</dl>
-
+&lt;script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"&gt;&lt;/script&gt;</pre>
+			</div>
+			<div data-role="collapsible">
+				<h2>Themeing Options</h2>
+				<p>Theme support is provided by supplying swatches from jQueryMobile.  However, if you have a need to alter the physical dimensions of DateBox, you can use our new <a href="../theme/" rel="external">Theme Tool</a>.</p>
+			</div>
+			<div data-role="collapsible">
+				<h2>Download Links - Current Version</h2>
+				<p>This is the first development step version - right after my local testing.  It may occasionally break, but new features happen here first.</p>
+				<ul>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css">CSS - Required</a> [Compressed, 5.2k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js">Core Methods - Required</a> [Compressed, 24k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js">CalBox Mode</a> [Compressed, 7.9k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js">DateBox Mode</a> [Compressed, 5.8k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js">FlipBox Mode</a> [Compressed, 7.1k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js">DurationBox Mode</a> [Compressed, 3.9k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js">SlideBox Mode</a> [Compressed, 5.9k]</li>
+				</ul>
+				<ul>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.css">CSS - Required</a> [Uncompressed, 6.1k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.js">Core Methods - Required</a> [Uncompressed, 36k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.js">CalBox Mode</a> [Uncompressed, 11k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.js">DateBox Mode</a> [Uncompressed, 8.2k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.js">FlipBox Mode</a> [Uncompressed, 9.6k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.js">DurationBox Mode</a> [Uncompressed, 5.7k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.js">SlideBox Mode</a> [Uncompressed, 7.9k]</li>
+				</ul>
+			</div>
+			<div data-role="collapsible">
+				<h2>Download Links - "Stable" Version</h2>
+				<p>This is generally a stable version, based of the last stable version if jQM</p>
+				<ul>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.1.0/jqm-datebox-1.1.0.css">CSS - Required</a> [Uncompressed, 6.1k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.1.0/jqm-datebox-1.1.0.core.js">Core Methods - Required</a> [Uncompressed, 36k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.1.0/jqm-datebox-1.1.0.mode.calbox.js">CalBox Mode</a> [Uncompressed, 11k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.1.0/jqm-datebox-1.1.0.mode.datebox.js">DateBox Mode</a> [Uncompressed, 8.2k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.1.0/jqm-datebox-1.1.0.mode.flipbox.js">FlipBox Mode</a> [Uncompressed, 9.6k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.1.0/jqm-datebox-1.1.0.mode.durationbox.js">DurationBox Mode</a> [Uncompressed, 5.7k]</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.1.0/jqm-datebox-1.1.0.mode.slidebox.js">SlideBox Mode</a> [Uncompressed, 7.9k]</li>
+				</ul>
+			</div>
+			<div data-role="collapsible">
+				<h2>Compiled Version</h2>
+				<p>If you wish to use only one or two modes on your site, you can "compile" the files into one - just place the contents of all the files you wish to use in a single script - but it must start with the "core" file.</p>
+				<p>I have already done this for single mode versions - you can find them here (they have "comp" in the name) :
+				<ul>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/1.1.0/">Stable Versions</li>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/latest/">Latest Versions</li>
+				</ul>
+			</div>
+			<div data-role="collapsible">
+				<h2>Language Files</h2>
+				<p>DateBox is fully internationalized/localized - you can most likely find your langague here:</p>
+				<ul>
+					<li><a rel="external" href="http://dev.jtsage.com/cdn/datebox/i18n/">Stable Versions</li>
+				</ul>
+			</div>
+		</div>
+		</div>
 	</div>
-	<div data-role="footer">
+	<div data-role="footer" data-position="fixed">
 	</div>
 </div>
 </html>

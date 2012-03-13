@@ -1,20 +1,27 @@
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
@@ -28,77 +35,134 @@
 </head>
 <body>
 <div data-role="page" data-theme="c" id="calIndex"> 
-	<div data-role="header"> 
+	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
 	</div>
 	<div data-role="content" data-theme="c">
 		<div class="content-secondary"> 
-	
 			<div id="jqm-homeheader"> 
 				<h1 id="jqm-logo"><img src="../jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
 				<p>A Date and Time Picker plugin for jQueryMobile</p> 
-				
 			</div> 
 			
 			<div class="modedemos sidebar"></div>
-			
-		</div><!--/content-primary-->	
+		</div>
 		
 		<div class="content-primary"> 
-				<h2>Basic Calendar</h2>
-				<div data-role="fieldcontain">
-					<label for="defcal">Some Date</label><input name="defcal" type="date" data-role="datebox" id="defcal" data-options='{"mode": "calbox"}'/>
-				</div>
-				
-				<p>Using a calendar is as simple as setting the 'mode' option to "calbox".</p>
-				
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+			<div data-role="collapsible-set" data-mini="true" data-theme="c" data-content-theme="d">
+			
+				<div data-role="collapsible" data-collapsed="false">
+					<h2>Basic Calendar</h2>
+					<p>Using a calendar is as simple as setting the 'mode' option to "calbox".</p>
+					<div data-role="fieldcontain">
+						<label for="defcal">Some Date</label><input name="defcal" type="date" data-role="datebox" id="defcal" data-options='{"mode": "calbox"}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox"}'&gt;</pre>
-				
-				<h2>Changing the start of the week</h2>
-				<div data-role="fieldcontain">
-					<label for="calstartday">Some Date</label><input name="calstartday" type="date" data-role="datebox" id="calstartday" data-options='{"mode": "calbox", "calStartDay": 1}'/>
 				</div>
-				
-				<p>To change the start of the week, set option 'calStartDay' to an integer 0-6, where 0=Sunday, 1=Monday...</p>
-				
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+				<div data-role="collapsible">
+					<h2>Changing the start of the week (overrideCalStartDay)</h2>
+					<p>To change the start of the week, set option 'overrideCalStartDay' (or calStartDay in an i18n config file) to an integer 0-6, where 0=Sunday, 1=Monday...</p>
+					
+					<div data-role="fieldcontain">
+						<label for="calstartday">Some Date</label><input name="calstartday" type="date" data-role="datebox" id="calstartday" data-options='{"mode": "calbox", "overrideCalStartDay": 1}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "calStartDay": 1}'&gt;</pre>
-				
-				<h2>Selecting by week</h2>
-				<div data-role="fieldcontain">
-					<label for="calweekmode">Some Date</label><input name="calweekmode" type="date" data-role="datebox" id="calweekmode" data-options='{"mode": "calbox", "calWeekMode": true, "calWeekModeFirstDay": 1}'/>
+   data-options='{"mode": "calbox", "overrideCalStartDay": 1}'&gt;</pre>
 				</div>
-				
-				<p>Using a calendar to select a specific day can be accomplished by setting option 'calWeekMode' to 'true' and 'calWeekModeFirstDay' to the day you wish to pick.  For instance, to select by week using monday:</p>
-				
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+				<div data-role="collapsible">
+					<h2>Selecting by week (calWeekMode)</h2>
+					<p>Using a calendar to select a specific day can be accomplished by setting option 'calWeekMode' to 'true' and 'calWeekModeFirstDay' to the day you wish to pick.  For instance, to select by week using monday:</p>
+					
+					<div data-role="fieldcontain">
+						<label for="calweekmode">Some Date</label><input name="calweekmode" type="date" data-role="datebox" id="calweekmode" data-options='{"mode": "calbox", "calWeekMode": true, "calWeekModeFirstDay": 1}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox", "calWeekMode": true, "calWeekModeFirstDay": 1}'&gt;</pre>
    
-				<h2>Showing a "today" button</h2>
-				<div data-role="fieldcontain">
-					<label for="caltodaybut">Some Date</label><input name="caltodaybut" type="date" data-role="datebox" id="caltodaybut" data-options='{"mode": "calbox", "calTodayButton": true}'/>
-				</div>
-				
-				<p>To show a today button, set 'calTodayButton' to true</p>
-				
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+					<p>You can also highlight the full week in this mode:</p>
+					<div data-role="fieldcontain">
+						<label for="calweekmodeh">Some Date</label><input name="calweekmodeh" type="date" data-role="datebox" id="calweekmodeh" data-options='{"mode": "calbox", "calWeekHigh": true, "calWeekMode": true, "calWeekModeFirstDay": 1}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", 'calTodayButton': true}'&gt;</pre>
+   data-options='{"mode": "calbox", "calWeekHigh":true, "calWeekMode": true, "calWeekModeFirstDay": 1}'&gt;</pre>
+					
+				</div>
+				<div data-role="collapsible">
+					<h2>Showing a "today" button (useTodayButton)</h2>
+					<p>To show a today button, set 'calTodayButton' to true</p>
+					
+					<div data-role="fieldcontain">
+						<label for="caltodaybut">Some Date</label><input name="caltodaybut" type="date" data-role="datebox" id="caltodaybut" data-options='{"mode": "calbox", "useTodayButton": true}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
-				
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", 'useTodayButton': true}'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Hide day labels (calShowDays)</h2>
+					<p>To hide day labels, set 'calShowDays' to false</p>
+					
+					<div data-role="fieldcontain">
+						<label for="calnoshow">Some Date</label><input name="calnoshow" type="date" data-role="datebox" id="calnoshow" data-options='{"mode": "calbox", "calShowDays": false}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", 'calShowDays': false}'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Use Control Groups (calControlGroup)</h2>
+					<p>To display date buttons as a control group, set "calControlGroup" to true</p>
+					
+					<div data-role="fieldcontain">
+						<label for="calControlGroup">Some Date</label><input name="calControlGroup" type="date" data-role="datebox" id="calControlGroup" data-options='{"mode": "calbox", "calControlGroup": true}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", 'calControlGroup': true}'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Hide other months (calOnlyMonth)</h2>
+					<p>To hide next and previous month dates, set "calOnlyMonth" to true</p>
+					
+					<div data-role="fieldcontain">
+						<label for="calOnlyMonth">Some Date</label><input name="calOnlyMonth" type="date" data-role="datebox" id="calOnlyMonth" data-options='{"mode": "calbox", "calOnlyMonth": true}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", 'calOnlyMonth': true}'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Theme Options</h2>
+					<ul data-role="listview" data-inset="true">
+						<li><h3>themeDateToday</h3><p>Date button theme swatch for "today"</p></li>
+						<li><h3>themeDayHigh</h3><p>Date button theme swatch for highlighted days (highDays)</p></li>
+						<li><h3>themeDatePick</h3><p>Date button theme swatch for choosen date</p></li>
+						<li><h3>themeDateHigh</h3><p>Date button theme swatch for highlighted dates (highDates)</p></li>
+						<li><h3>themeDateHighAlt</h3><p>Date button theme swatch for highlighted dates (highDatesAlt)</p></li>
+						<li><h3>themeDate</h3><p>Date button theme swatch for all other dates (inherited)</p></li>
+						<li><h3>calHighToday</h3><p>Boolean, highlight "today"'s date</p></li>
+						<li><h3>calHighPick</h3><p>Boolean, highlight choosen date</p></li>
+					</ul>
+				</div>
+			</div>
 		</div> 
 		
 	</div>
-	<div data-role="footer">
+	<div data-role="footer" data-position="fixed">
 	</div>
 </div>
 </html>

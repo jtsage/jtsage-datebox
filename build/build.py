@@ -49,13 +49,26 @@ for ifile in infile:
 	
 if not os.path.exists(options.ver):
 	os.makedirs(options.ver)
-	
-for key in files:
-	if ( options.ver != 'latest' ):
-		fprefix = 'jqm-datebox-'+options.ver+'.'
-	else :
-		fprefix = 'jqm-datebox.'
+
+if ( options.ver != 'latest' ):
+	fprefix = 'jqm-datebox-'+options.ver+'.'
+else :
+	fprefix = 'jqm-datebox.'
 		
+f = open('../css/jqm-datebox.css','r');
+uncomp = f.read();
+f.close()
+comp = sp.check_output(javapath.rstrip() + ' -jar ../external/yuicompressor-2.4.6.jar ../css/jqm-datebox.css', shell=True);
+
+f = open('./'+options.ver+'/jqm-datebox.css', 'w')
+f.write(uncomp)
+f.close()
+f = open('./'+options.ver+'/jqm-datebox.min.css', 'w')
+f.write(slugtext)
+f.write(comp)
+f.close()
+
+for key in files:
 	fname = fprefix+key+'.js'
 	fnamem = fprefix+key+'.min.js'
 		

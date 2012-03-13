@@ -3,13 +3,13 @@ $(":jqmData(role)=page").live('pageinit', function(e) {
 	var currentPage = $(e.target),
 		headerButton = $('<a href="#" data-icon="grid" class="opt-pop ui-btn-right ui-btn ui-btn-icon-left ui-btn-corner-all ui-shadow ui-btn-up-a" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Options</span><span class="ui-icon ui-icon-grid ui-icon-shadow"></span></span></a>'),
 		footerAll = $('<div data-role="footer">' +
-			'<div data-role="controlgroup" data-type="horizontal">' +
-				'<a data-role="button" data-theme="a" rel="external" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a>' +
-				'<a data-role="button" data-theme="a" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a>' +
-				'<a data-role="button" data-theme="a" rel="external" href="http://dev.jtsage.com/blog/">Blog</a>' +
-				'<a data-role="button" data-theme="a" rel="external" href="http://crowdin.net/project/jquery-mobile-datebox">i18n Project</a>' +
-				'<a data-role="button" data-theme="a" rel="external" href="mailto:jtsage+datebox@gmail.com">Contact</a>' +
-				'<a data-role="button" data-theme="a" rel="external" href="http://jquerymobile.com/">jQueryMobile Homepage</a>' +
+			'<div data-role="controlgroup" data-mini="true" data-type="horizontal">' +
+				'<a data-role="button" data-mini="true" data-theme="a" rel="external" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a>' +
+				'<a data-role="button" data-mini="true" data-theme="a" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a>' +
+				'<a data-role="button" data-mini="true" data-theme="a" rel="external" href="http://dev.jtsage.com/blog/">Blog</a>' +
+				'<a data-role="button" data-mini="true" data-theme="a" rel="external" href="http://crowdin.net/project/jquery-mobile-datebox">i18n Project</a>' +
+				'<a data-role="button" data-mini="true" data-theme="a" rel="external" href="mailto:jtsage+datebox@gmail.com">Contact</a>' +
+				'<a data-role="button" data-mini="true" data-theme="a" rel="external" href="http://jquerymobile.com/">jQueryMobile Homepage</a>' +
 			'</div></div>'),
 		sidebarsource = {
 			'mode': $('<li data-role="list-divider">Mode Demos</li>' +

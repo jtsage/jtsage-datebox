@@ -4,17 +4,23 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.css" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.css" rel="stylesheet" /> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.js"></script> 
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
@@ -31,12 +37,12 @@
 	<div data-role="header"> 
 		<h1>jQueryMobile - DateBox</h1>
 	</div>
-	<div data-role="content" data-theme="c">
+	<div data-role="content">
 		<div class="content-secondary"> 
 	
 			<div id="jqm-homeheader"> 
 				<h1 id="jqm-logo"><img src="demos/jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
-				<p>A Date and Time Picker plugin for jQueryMobile 1.0.1</p> 
+				<p>A Date and Time Picker plugin for jQueryMobile 1.0.1+</p> 
 				
 			</div> 
 	
@@ -45,7 +51,6 @@
 			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
 				<li data-role="list-divider">Overview</li> 
 				<li><a href="demos/intro.html">Intro &amp; Features</a></li>
-				<li><a href="demos/api/matrix.html">Full Options Matrix</a></li>
 				<li><a href="demos/install.html">Download &amp; Use</a></li>
 				
 			</ul> 
@@ -53,6 +58,39 @@
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
+			<div data-role="collapsible-set" data-mini="true" data-theme="c" data-content-theme="d">
+				<div data-role="collapsible" data-collapsed="false">
+					<h3>Modes Available</h3>
+					<label for="mode1">CalBox</label>
+					<input name="mode1" id="mode1" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
+					<label for="mode2">DateBox</label>
+					<input name="mode2" id="mode2" type="text" data-role="datebox" data-options='{"mode":"datebox"}' />
+					<label for="mode3">FlipBox</label>
+					<input name="mode3" id="mode3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}' />
+					<label for="mode4">SlideBox</label>
+					<input name="mode4" id="mode4" type="text" data-role="datebox" data-options='{"mode":"slidebox"}' />
+					<label for="mode5">DurationBox</label>
+					<input name="mode5" id="mode5" type="text" data-role="datebox" data-options='{"mode":"durationbox"}' />
+				</div>
+				<div data-role="collapsible">
+					<h3>Mode Options w/ Demos</h3>
+					<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
+						<li><a href="demos/mode/calbox.html">Calendar Mode</a></li> 
+						<li><a href="demos/mode/datebox.html">Android Mode</a></li> 
+						<li><a href="demos/mode/slidebox.html">Slide Mode</a></li> 
+						<li><a href="demos/mode/flipbox.html">Flip Mode</a></li> 
+						<li><a href="demos/mode/timebox.html">Time Mode</a></li> 
+						<li><a href="demos/mode/durationbox.html">Duration Mode</a></li>
+					</ul>
+				</div>
+				<div data-role="collapsible">
+					<h3>Mode Options w/ Demos</h3>
+					<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
+					</ul>
+				</div>
+			</div>
+
+		
 			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 				<li data-role="list-divider">Mode Demos</li> 
 				<li><a href="demos/mode/calbox.html">Calendar Mode</a></li> 
