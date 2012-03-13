@@ -123,6 +123,10 @@
 				}
 			}
 			
+			divPlus.appendTo(w.d.intHTML);
+			divIn.appendTo(w.d.intHTML);
+			divMinus.appendTo(w.d.intHTML);
+			
 			divIn.find('input').each(function () {
 				switch ( $(this).jqmData('field') ) {
 					case 'y':
@@ -155,11 +159,6 @@
 			} else {
 				divIn.find('.'+uid+'griddate-disable').removeClass(uid+'griddate-disable');
 			}
-			
-			divPlus.appendTo(w.d.intHTML);
-			divIn.appendTo(w.d.intHTML);
-			divMinus.appendTo(w.d.intHTML);
-			
 			
 			if ( o.useSetButton || o.useClearButton ) {
 				y = $('<div>', {'class':uid+'controls'});
