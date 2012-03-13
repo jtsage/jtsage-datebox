@@ -18,8 +18,9 @@
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.core.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.calbox.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.datebox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.flipbox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.durationbox.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.flipbox.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jquery.mobile.datebox.slidebox.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 
 	<script type="text/javascript">
@@ -39,7 +40,7 @@
 		<div data-role="fieldcontain">
 			<label for="date">slide w/ default</label>
 			<input type="date" value="2012-02-26 06:00:00" name="startDate" id="date" class="custom" data-role="datebox"
-			 data-options='{"dialogForce":true, "mode": "slidebox", "afterToday": true, "fieldsOrderOverride":["y","m","d","h","i"], "overrideDateFormat":"%Y-%m-%d %H:%M:00"}'/>
+			 data-options='{"mode": "slidebox", "overrideSlideFieldOrder":["y","m","d","h","i"], "overrideDateFormat":"%Y-%m-%d %H:%M:00"}'/>
 		</div>
 		<div data-role="fieldcontain">
 			<label for="lang1">calbox</label>
@@ -68,7 +69,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="lang6">timeflipbox</label>
-			<input name="lang6" type="text" data-role="datebox" data-options='{"overrideTimeFormat":24,"mode": "timeflipbox"}' id="lang6" />
+			<input name="lang6" type="text" data-role="datebox" data-options='{"overrideTimeFormat":12,"mode": "timeflipbox"}' id="lang6" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="lang7">durationbox</label>

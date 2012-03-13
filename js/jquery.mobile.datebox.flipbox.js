@@ -25,8 +25,8 @@
 				
 			w.d.intHTML.find('.ui-datebox-flipcenter').each(function() {
 				ech = $(this);
-				top = ech.outerHeight();
-				ech.css('top', ((par/2)-(top/2)+2)*-1);
+				top = ech.innerHeight();
+				ech.css('top', ((par/2)-(top/2)+4)*-1);
 			});
 			w.d.intHTML.find('ul').each(function () {
 				ech = $(this);
