@@ -4,19 +4,27 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" />  
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<!--script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script-->
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox2/js/jqm-datebox.core.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
+	<script type="text/javascript" src="../extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
 	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
 	<script type="text/javascript">
@@ -27,83 +35,82 @@
 	
 </head>
 <body>
-<div data-role="page" data-theme="c" id="oddOpen"> 
-	<div data-role="header"> 
+<div data-role="page" data-theme="c" id="calLimit"> 
+	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
 	</div>
-	<div data-role="content" data-theme="c">
+	<div data-role="content">
 		<div class="content-secondary"> 
-	
 			<div id="jqm-homeheader"> 
 				<h1 id="jqm-logo"><img src="../jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
 				<p>A Date and Time Picker plugin for jQueryMobile</p> 
-				
 			</div> 
 			
 			<div class="optdemos sidebar"></div>
-			
-		</div><!--/content-primary-->	
+		</div>
 		
 		<div class="content-primary"> 
-				<h2>No Button, Focus Mode</h2>
+			<div data-role="collapsible-set" data-mini="true" data-theme="c" data-content-theme="d">
+			
+				<div data-role="collapsible" data-collapsed="false">
+					<h2>No Button, Focus Mode</h2>
+					<p>You can open on focus, removing the button by using 'useFocus' set to 'true' and 'useButton' set to false</p>
+					
+					<div data-role="fieldcontain">
+						<label for="focusmode">Some Date</label><input name="focusmode" type="date" data-role="datebox" id="focusmode" data-options='{"mode":"calbox", "useFocus": true, "useButton": false}' />
+					</div>
 				
-				<div data-role="fieldcontain">
-					<label for="focusmode">Some Date</label><input name="focusmode" type="date" data-role="datebox" id="focusmode" data-options='{"noButtonFocusMode": true}' />
-				</div>
-				
-				<p>You can open on focus, removing the button by using 'noButtonFocusMode' set to 'true'</p>
-				
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"noButtonFocusMode": true}'&gt;</pre>
-   
-				<h2>Button and Focus Mode</h2>
-				
-				<div data-role="fieldcontain">
-					<label for="focusmode2">Some Date</label><input name="focusmode2" type="date" data-role="datebox" id="focusmode2" data-options='{"focusMode": true}' />
+   data-options='{"mode":"calbox", "useFocus": true, "useButton": false}'&gt;</pre>
 				</div>
+				<div data-role="collapsible">
+					<h2>Button and Focus Mode</h2>
+					<p>You can open on focus, leaving the button by using 'useFocus' set to 'true'</p>
 				
-				<p>You can open on focus, removing the button by using 'focusMode' set to 'true'</p>
+					<div data-role="fieldcontain">
+						<label for="focusmode2">Some Date</label><input name="focusmode2" type="date" data-role="datebox" id="focusmode2" data-options='{"mode":"calbox","useFocus": true}' />
+					</div>
 				
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"focusMode": true}'&gt;</pre>
-				
-				
-				<h2>Open on Link</h2>
-				
-				<div data-role="fieldcontain">
-					<label for="linkmode">Some Date</label><input name="linkmode" type="date" data-role="datebox" id="linkmode" data-options='{"noButton": true}' />
+   data-options='{"mode":"calbox","useFocus": true}'&gt;</pre>
 				</div>
-				<script type="text/javascript">
-					$('#linkmodelink').live('click', function() {
-						$('#linkmode').datebox('open');
-					});
-				</script>
+				<div data-role="collapsible">
+					<h2>Open on Link</h2>
+					<p>You can force open the dialog by clicking <a href="#" id="linkmodelink">here</a>.</p>
+					
+					<div data-role="fieldcontain">
+						<label for="linkmode">Some Date</label><input name="linkmode" type="date" data-role="datebox" id="linkmode" data-options='{"mode": "calbox"}' />
+					</div>
 				
-				<p>You can force open the dialog by clicking <a href="#" id="linkmodelink">here</a>.  Also shown without a button (noButton : true)</p>
-				
-				<strong>HTML</strong>
-				<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+					<script type="text/javascript">
+						$('#linkmodelink').live('click', function() {
+							$('#linkmode').datebox('open');
+						});
+					</script>
+	
+					<strong>HTML</strong>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"noButton": true}'&gt;
    
 &lt;a href="#" id="linkmodelink"&gt;Open Link&lt;/a&gt;</pre>
 
-				<strong>jQuery</strong>
-				<pre class="prettyprint">$('#linkmodelink').live('click', function() {
+					<strong>jQuery</strong>
+					<pre class="prettyprint">$('#linkmodelink').live('click', function() {
   $('#mydate').datebox('open');
 });</pre>
-				
-				
+				</div>
+			</div>
 		</div> 
 		
 	</div>
-	<div data-role="footer">
+	<div data-role="footer" data-position="fixed">
 	</div>
 </div>
 </html>

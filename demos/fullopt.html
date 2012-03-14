@@ -1,0 +1,90 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Options</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.fulloptlist.js"></script>
+	<script type="text/javascript" src="extras.js"></script>
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<style>
+		table { width: 100%; border-collapse: collapse;}
+		td, th { border: 1px solid #ccc; }
+		td { padding-left: 3px; padding-right: 3px;}
+		td:nth-child(4) { font-size: .9em; font-style: italic; text-align: right;}
+		td:nth-child(5) { font-size: .8em; text-align: right;}
+		td:nth-child(1) { font-weight: bold;}
+		tr:nth-child(2n+0) { background-color: #eee; }
+	</style>
+	<script type="text/javascript">
+		function getModes(arr) {
+			if ( arr === true ) { return "-ALL-"; }
+			ret = [];
+			all = ['Date','Cal','Flip','Slide','Time','TimeFlip','Dur'];
+			for ( i=0; i<7; i++ ) {
+				if ( arr[i] == true ) { ret.push(all[i]); }
+			}
+			return ret.join(', ');
+		}
+		
+		$(document).live('pageinit', function() {
+			for ( typ in stuff ) {
+				thisOne = $('<div data-role="collapsible"></div>')
+				$('<h2>'+stuff[typ].XXname+'</h2>').appendTo(thisOne);
+				thisTab = $('<table>').appendTo(thisOne);
+				$('<tr>'+'<th>Name</th>'+'<th>Description</th>'+'<th>Default</th>'+'<th>Type</th>'+'<th>Modes</th>'+'</tr>').appendTo(thisTab);
+				for ( ech in stuff[typ] ) {
+					if ( ech !== 'XXname' ) {
+						if ( typeof stuff[typ][ech] === "object" ) {
+							$('<tr>'+
+								'<td>'+ech+'</td>'+
+								'<td>'+stuff[typ][ech][1]+'</td>'+
+								'<td>'+stuff[typ][ech][0]+'</td>'+
+								'<td>'+stuff[typ][ech][2]+'</td>'+
+								'<td>'+getModes(stuff[typ][ech][3])+'</td>'+
+							'</tr>').appendTo(thisTab);
+						} else {
+							$('<tr><td colspan=5>'+ech+'</td></tr>').appendTo(thisTab);
+						}
+					}
+				}
+				thisOne.find('tr').each(function() {
+					thisRow = $(this).find('td');
+					if ( $(thisRow[3]).text() === 'Boolean' ) {
+						$(thisRow[2]).css({'fontSize': '.8em', 'fontStyle':'italic', 'fontWeight':'bold'});
+					}
+				});
+				thisOne.appendTo($('#docset'));
+			}
+			$('#docset').collapsibleset('refresh');
+			$('#docset').find('[data-role=collapsible]').first().trigger('expand');
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="calLimit"> 
+	<div data-role="header" data-position="fixed"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content"> 
+		<p>This is a generated list of all the available options in datebox, along with the defaults and modes they apply to</p>
+		<div data-role="collapsible-set" data-mini="true" data-theme="c" data-content-theme="d" id="docset">
+		</div> 
+		
+	</div>
+	<div data-role="footer" data-position="fixed">
+	</div>
+</div>
+</html>

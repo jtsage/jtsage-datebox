@@ -39,10 +39,12 @@
 			useInline: false,
 			useInlineBlind: false,
 			useHeader: true,
+			useImmediate: false,
 			
 			useButton: true,
 			useFocus: false,
 			useClearButton: false,
+			useCollapsedBut: false,
 			
 			openCallback: false,
 			openCallbackArgs: [],
@@ -556,6 +558,7 @@
 			}
 			if ( ok !== false ) { w.theDate.adj(ok,amount); }
 			if ( update === true ) { w.refresh(); }
+			if ( o.useImmediate ) { w.d.input.trigger('datebox', {'method':'doset'}); }
 		},
 		_create: function() {
 			// Create the widget, called automatically by widget system
@@ -593,6 +596,7 @@
 			
 			o.theme = thisTheme;
 			
+			w.disabled = false;
 			w._date = window.Date;
 			w._enhanceDate();
 			
@@ -670,7 +674,7 @@
 		_build: {
 			'default': function () {
 				this.d.headerText = "Error";
-				this.d.intHTML = $("<div class='ui-body-e'>There is no mode by that name loaded / mode not given<br />There is no mode by that name loaded / mode not given</div>");
+				this.d.intHTML = $("<div class='ui-body-e'><h2 style='text-align:center'>There is no mode by that name loaded / mode not given</h2></div>");
 			}
 		},
 		_applyCoords: function(e) {
@@ -780,13 +784,19 @@
 					w.d.mainWrap.addClass('ui-datebox-inline');
 				} else {
 					w.d.mainWrap.addClass('ui-datebox-inlineblind');
+					w.d.mainWrap.hide();
 				}
-				w.initDone = true;
+				w.initDone = false;
 				w.d.input.trigger('datebox',{'method':'postrefresh'});
 			}
-				
+			
+			if ( o.useImmediate ) { w.d.input.trigger('datebox', {'method':'doset'}); }
 			if ( o.useInline ) { return true; }
-			if ( o.useInlineBlind ) { w.d.mainWrap.slideDown(); }
+			if ( o.useInlineBlind ) { 
+				if ( w.initDone ) { w.d.mainWrap.slideDown();  }
+				else { w.initDone = true; }
+				return true;
+			}
 			if ( w.d.intHTML.is(':visible') ) { return false; } // Ignore if already open
 				
 			if ( o.dialogForce || ( o.dialogEnable && window.width() < 400 ) ) {
