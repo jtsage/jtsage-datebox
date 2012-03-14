@@ -4,150 +4,148 @@
  * CC 3.0 Attribution.  May be relicensed without permission/notification.
  * https://github.com/jtsage/jquery-mobile-datebox
  */
-/* CORE Functions */
+/* Options Documentation */
 
-//Mode List: [dbox,calbox,flipbox,slidebox,timebox,timeflipbox,durationbox] or true
-var stuff = { // ['default','desc','type','mode list']
-		themes: {
-			XXname: 'Theme Options',
-			theme: [false, 'Base theme for control', 'Boolean', true],
-			themeHeader: ['a', 'Theme for header', 'String', true]
-		},
-		common: {
-			XXname: 'Common Options',
-			mode: ['', 'Mode of operations', 'String', true],
-			lockInput: [true, 'Lock the Input Element from manual input', 'Boolean', true],
-			enhanceInput: [true, 'Enhance Numeric Inputs on Mobile', 'Boolean', [1,0,0,0,1,0,0]],
-		},
-		display: {
-			XXname: 'Display Options',
-			centerHoriz: [false, 'Center Horizonitally', 'Boolean', true],
-			centerVert: [false, 'Center Verticlly', 'Boolean', true],
-			transition: ['pop', 'Transition for display', 'String', true],
-			useAnimation: [true, 'Use Animations', 'Boolean', true],
-			
-			hideInput: [false, 'Hide the Input Element', 'Boolean', true],
-			hideFixedToolbars: [false, 'Hide Fixed toolbars on open', 'Boolean', true],
-			
-			zindex: '500',
-			clickEvent: 'vclick',
-			resizeListener: true,
-			defaultValue: false,
-			dialogEnable: false,
-			dialogForce: false,
-			useModal: false,
-			useInline: false,
-			useInlineBlind: false,
-			useHeader: true,
-			useImmediate: false,
-			useButton: true,
-			useFocus: false,
-			useClearButton: false,
-			useCollapsedBut: false,
-			//rolloverMode: { 'm': true, 'd': true, 'h': true, 'i': true, 's': true },
-		},
-		callback: {
-			openCallback: false,
-			//openCallbackArgs: [],
-			closeCallback: false,
-			//closeCallbackArgs: [],
-		},
-		limiting: {
-			afterToday: false,
-			beforeToday: false,
-			notToday: false,
-			maxDays: false,
-			minDays: false,
-			maxYear: false,
-			minYear: false,
-			blackDates: false,
-			blackDays: false,
-			minHour: false,
-			maxHour: false,
-			validHours: false,
-			minuteStep: 1
-		},
-		/*i18n: {
-			setDateButtonLabel: 'Set Date',
-			setTimeButtonLabel: 'Set Time',
-			setDurationButtonLabel: 'Set Duration',
-			calTodayButtonLabel: 'Jump to Today',
-			titleDateDialogLabel: 'Set Date',
-			titleTimeDialogLabel: 'Set Time',
-			daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-			daysOfWeekShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-			monthsOfYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-			monthsOfYearShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-			durationLabel: ['Days', 'Hours', 'Minutes', 'Seconds'],
-			durationDays: ['Day', 'Days'],
-			timeFormat: 24,
-			headerFormat: '%A, %B %-d, %Y',
-			tooltip: 'Open Date Picker',
-			nextMonth: 'Next Month',
-			prevMonth: 'Previous Month',
-			dateFieldOrder: ['m', 'd', 'y'],
-			timeFieldOrder: ['h', 'i', 'a'],
-			slideFieldOrder: ['y', 'm', 'd'],
-			dateFormat: '%Y-%m-%d',
-			useArabicIndic: false,
-			isRTL: false,
-			calStartDay: 0,
-			clearButton: 'Clear',
-			durationOrder: ['d', 'h', 'i', 's'],
-			meridiem: ['AM', 'PM'],
-			timeOutput: '%k:%M', //{ '12': '%l:%M %p', '24': '%k:%M' },
-			durationFormat: '%Dd %DA, %Dl:%DM:%DS'
-		}*/
-	};
 
-/*
-themeDateHigh: 'e',
-		themeDatePick: 'a',
-		themeDate: 'd',
-		useSetButton: true,
-		validHours: false,
-		slen: {'y': 5, 'm':6, 'd':15, 'h':12, 'i':30}
-		
-		themeDateHigh: 'e',
-		themeDatePick: 'a',
-		themeDate: 'b',
-		useSetButton: true,
-		validHours: false,
-		flen: {'y': 15, 'm':12, 'd':15, 'h':12, 'i':15, 'a':3}
-		
-		themeButton: 'a',
-		themeInput: 'e',
-		useSetButton: true,
-		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1}
-		
-		themeButton: 'a',
-		themeInput: 'e',
-		* 
-		useSetButton: true,
-		validHours: false
-		
-		themeDateToday: 'e',
-		themeDayHigh: 'e',
-		themeDatePick: 'e',
-		themeDateHigh: 'e',
-		themeDateHighAlt: 'e',
-		themeDate: 'a',
-		
-		calHighToday: true,
-		calHighPick: true,
-		
-		calShowDays: true,
-		calOnlyMonth: false,
-		calWeekMode: false,
-		calWeekModeDay: 1,
-		calWeekHigh: false,
-		calControlGroup: false,
-		
-		useTodayButton: false,
-		useCollapsedBut: false,
-		
-		highDays: false,
-		highDates: false,
-		highDatesAlt: false,
-		enableDates: false
-*/
+var stuff = { // name: ['default','desc','type','mode list']
+	common: {
+		XXname: 'Common Options',
+		mode: ['', 'Mode of operations', 'String', true],
+		lockInput: [true, 'Lock the Input Element from manual input', 'Boolean', true],
+		enhanceInput: [true, 'Enhance Numeric Inputs on Mobile', 'Boolean', [1,0,0,0,1,0,0]],
+		defaultValue: [false, 'Default value for the date - e.g. [2001,1,1] or 13:42', 'Array/String', true]
+	},
+	display: {
+		XXname: 'Display Options',
+		centerHoriz: [false, 'Center Horizonitally', 'Boolean', true],
+		centerVert: [false, 'Center Verticlly', 'Boolean', true],
+		transition: ['pop', 'Transition for display', 'String', true],
+		useAnimation: [true, 'Use Animations', 'Boolean', true],
+		hideInput: [false, 'Hide the Input Element', 'Boolean', true],
+		hideFixedToolbars: [false, 'Hide Fixed toolbars on open', 'Boolean', true],
+		zindex: [500, 'Z-Index of controls', 'Integer', true],
+		clickEvent: ['vclick', 'Listener event for all buttons in control', 'String', true],
+		resizeListener: [true, 'Re-Position the control on window resize', 'Boolean', true],
+		dialogEnable: [false, 'Enable the jQM Dialog mode', 'Boolean', true],
+		dialogForce: [false, 'Force use of the jQM Dialog mode', 'Boolean', true],
+		useModal: [false, 'Use faded modal background for control', 'Boolean', true],
+		useInline: [false, 'Show control inline in the page (always visible)', 'Boolean', true],
+		useInlineBlind: [false, 'Show the control inline in the page when clicked (rolldown)', 'Boolean', true],
+		useButton: [true, 'Show a button in the Input Element to open the control', 'Boolean', true],
+		useFocus: [false, 'Open the control when the Input Element is focused', 'Boolean', true]
+	},
+	control: {
+		XXname: 'Control Options',
+		useHeader: [true, 'Use a toolbar header for the control', 'Boolean', true],
+		useImmediate: [false, 'Update the Input Element on every control change', 'Boolean', true],
+		useClearButton: [false, 'Show a button to clear the Input Element in the control', 'Boolean', true],
+		useSetButton: [true, 'Show button to set the date', 'Boolean', [1,0,1,1,1,1,1]],
+		useTodayButton: [false, 'Show button to jump to today', 'Boolean', [0,1,0,0,0,0,0]],
+		useCollapsedBut: [false, 'When 2 buttons would show, collapse them into a single line', 'Boolean', true],
+		rolloverMode: ["{ 'm': true, 'd': true, 'h': true, 'i': true, 's': true }", 'Allow rollover of each date element', 'Object', [1,0,1,1,1,1,0]],
+		slen: ["{'y': 5, 'm':6, 'd':15, 'h':12, 'i':30}", 'Length of sliders (1/2 of slider)', 'Object', [0,0,0,1,0,0,0]],
+		flen: ["{'y': 15, 'm':12, 'd':15, 'h':12, 'i':15, 'a':3}", 'Height of rollers (1/2 of roller)', 'Object', [0,0,1,0,0,1,0]],
+		calShowDays: [true, 'Show Day Labels in calendar', 'Boolean', [0,1,0,0,0,0,0]],
+		calOnlyMonth: [false, 'Do not show next/previous months in calendar', 'Boolean', [0,1,0,0,0,0,0]],
+		calWeekMode: [false, 'Select by single week day in calendar', 'Boolean', [0,1,0,0,0,0,0]],
+		calWeekModeDay: [1, 'Weekday to select when in calWeekMode', 'Integer', [0,1,0,0,0,0,0]]
+	},
+	callback: {
+		XXname: 'Callback options',
+		openCallback: [false, 'Callback function to run on control open', 'Function', true],
+		openCallbackArgs: ["[]", 'Extra arguments to pass to open callback. Note that "this" refers to the widget', 'Array', true],
+		closeCallback: [false, 'Callback function to run on control close', 'Function', true],
+		closeCallbackArgs: ["[]", 'Extra arguments to pass to close callback.  Note that "this" refers to the widget and arguments[0] is the date that was just set', 'Array', true]
+	},
+	limiting: {
+		XXname: 'Date Limiting Options',
+		afterToday: [false, 'Limit all dates selected to *after* today\'s date', 'Boolean', [1,1,1,1,0,0,0]],
+		beforeToday: [false, 'Limit all dates selected to *before* today\'s date', 'Boolean', [1,1,1,1,0,0,0]],
+		notToday: [false, 'Limit all dates selected to *not* today\'s date', 'Boolean', [1,1,1,1,0,0,0]],
+		maxDays: [false, 'Limit all dates selected to before today + ## days', 'Integer', [1,1,1,1,0,0,0]],
+		minDays: [false, 'Limit all dates selected to after today - ## days', 'Integer', [1,1,1,1,0,0,0]],
+		maxYear: [false, 'Limit all dates selected to before this year', 'Integer', [1,1,1,1,0,0,0]],
+		minYear: [false, 'Limit all dates selected to after this year', 'Integer', [1,1,1,1,0,0,0]],
+		blackDates: [false, 'Do not allow these ISO dates to be selected (array of dates)', 'Array', [1,1,1,1,0,0,0]],
+		blackDays: [false, 'Do not allow these days to be selected (array of day indexes)', 'Array', [1,1,1,1,0,0,0]],
+		enableDates: [false, 'Allow *only* these ISO dates to be sleected (array of dates)', 'Array', [0,1,0,0,0,0,0]],
+		minHour: [false, 'Limit times to hours *after* this hour', 'Integer', [0,0,0,0,1,1,0]],
+		maxHour: [false, 'Limit times to hours *before* this hour', 'Integer', [0,0,0,0,1,1,0]],
+		validHours: [false, 'Limit times to *only* these hours (array of hours)', 'Array', [0,0,0,0,1,1,0]],
+		minuteStep: [1, 'Stepper for minutes', 'Integer', [0,0,0,1,1,1,0]],
+		highDays: [false, 'Highlight these days (array of day indexes)', 'Array', [0,1,0,0,0,0,0]],
+		highDates: [false, 'Highlight these ISO dates (array of dates)', 'Array', [0,1,0,0,0,0,0]],
+		highDatesAlt: [false, 'Highlight these ISO dates (array of dates) (alternate)', 'Array', [0,1,0,0,0,0,0]],
+		durationSteppers: ["{'d': 1, 'h': 1, 'i': 1, 's': 1}", 'Steppers for the duration elements', 'Object', [0,0,0,0,0,0,1]]
+	},
+	themes: {
+		XXname: 'Theme Options - Shared',
+		theme: [false, 'Base theme for control', 'Boolean', true],
+		themeHeader: ['a', 'Theme for header', 'String', true],
+	},
+	themesf: {
+		XXname: 'Theme Options - FlipBox / TimeFlipBox',	
+		themeDateHigh: ['e', 'Theme swatch for today\'s date', 'String', [0,0,1,0,0,1,0]],
+		themeDatePick: ['a', 'Theme swatch for choosen (centered) date', 'String', [0,0,1,0,0,1,0]],
+		themeDate: ['d', 'Theme swatch for other dates', 'String', [0,0,1,0,0,1,0]],
+	},
+	themess: {
+		XXname: 'Theme Options - SlideBox',
+		themeDateHigh: ['e', 'Theme swatch for today\'s date', 'String', [0,0,0,1,0,0,0]],
+		themeDatePick: ['a', 'Theme swatch for choosen (centered) date', 'String', [0,0,0,1,0,0,0]],
+		themeDate: ['b', 'Theme swatch for other dates', 'String', [0,0,0,1,0,0,0]],
+	},
+	themesd: {
+		XXname: 'Theme Options - DateBox/TimeBox/DurationBox',
+		themeButton: ['a', 'Theme swatch for +/- Buttons', 'String', [1,0,0,0,1,0,1]],
+		themeInput: ['e', 'Theme swatch for input elements', 'String', [1,0,0,0,1,0,1]],
+	},
+	themesc: {
+		XXname: 'Theme Options - CalBox',
+		themeDateToday: ['e', 'Theme swatch for today\'s date', 'String', [0,1,0,0,0,0,0]],
+		themeDayHigh: ['e', 'Theme swatch for highDays', 'String', [0,1,0,0,0,0,0]],
+		themeDatePick: ['e', 'Theme swatch for choosen date', 'String', [0,1,0,0,0,0,0]],
+		themeDateHigh: ['e', 'Theme swatch for highDates', 'String', [0,1,0,0,0,0,0]],
+		themeDateHighAlt: ['e', 'Theme swatch for highDatesAlt', 'String', [0,1,0,0,0,0,0]],
+		themeDate: ['a', 'Theme swatch for other dates (inherited)', 'String', [0,1,0,0,0,0,0]],
+		calHighToday: [true, 'Highlight today\'s date', 'Boolean', [0,1,0,0,0,0,0]],
+		calHighPick: [true, 'Highlight choosen date', 'Boolean', [0,1,0,0,0,0,0]],
+		calWeekHigh: [false, 'Highlight full week on mouseover', 'Boolean', [0,1,0,0,0,0,0]],
+		calControlGroup: [false, 'Use control group buttons in calendar', 'Boolean', [0,1,0,0,0,0,0]]
+	},
+	i18n: { //Mode List: [dbox,calbox,flipbox,slidebox,timebox,timeflipbox,durationbox] or true
+		XXname: 'Internationalization / Localization',
+		'NOTE:: To override, use overrideNameOfOption - e.g. overrideTimeFormat': true,
+		setDateButtonLabel: ['Set Date', 'Set Date Button Label', 'String', [1,1,1,1,0,0,0]],
+		setTimeButtonLabel: ['Set Time', 'Set Time Button Label', 'String', [0,0,0,0,1,1,0]],
+		setDurationButtonLabel: ['Set Duration', 'Set Duration Button Label', 'String', [0,0,0,0,0,0,1]],
+		calTodayButtonLabel: ['Jump to Today', 'Jump to today button Label', 'String', [0,1,0,0,0,0,0]],
+		titleDateDialogLabel: ['Set Date', 'Date modes fallback header label', 'String', [1,1,1,1,0,0,0]],
+		titleTimeDialogLabel: ['Set Time', 'Time modes fallback header label', 'String', [0,0,0,0,1,1,1]],
+		daysOfWeek: ["['Sunday' ... 'Saturday']", 'Days of the week', 'Array', true],
+		daysOfWeekShort: ["['Su' ... 'Sa']", 'Abbreviated days of the week', 'Array', true],
+		monthsOfYear: ["['January' ... 'December']", 'Months of the year', 'Array', true],
+		monthsOfYearShort: ["['Jan' ... 'Dec']", 'Abbreviated months of the year', 'Array', true],
+		durationLabel: ["['Days', 'Hours', 'Minutes', 'Seconds']", 'Labels for duration elements', 'Array', [0,0,0,0,0,0,1]],
+		durationDays: ["['Day', 'Days']", 'Name of day/days for duration', 'Array', [0,0,0,0,0,0,1]],
+		timeFormat: [24, 'Format for clock', 'Integer', [0,0,0,0,1,1,0]],
+		headerFormat: ['%A, %B %-d, %Y', 'Format for header if used', 'String', true],
+		tooltip: ['Open Date Picker', 'Mouseover tooltip for open button', 'String', true],
+		nextMonth: ['Next Month', 'Mouseover tooltip for next month button', 'String', [0,1,0,0,0,0,0]],
+		prevMonth: ['Previous Month', 'Mouseover tooltip for prev month button', 'String', [0,1,0,0,0,0,0]],
+		dateFieldOrder: ["['m', 'd', 'y']", 'Field order for date entry', 'Array', [1,0,1,0,0,0,0]],
+		timeFieldOrder: ["['h', 'i', 'a']", 'Field order for time entry', 'Array', [0,0,0,0,1,1,0]],
+		slideFieldOrder: ["['y', 'm', 'd']", 'Field order for slide mode', 'Array', [0,0,0,1,0,0,0]],
+		dateFormat: ['%Y-%m-%d', 'Format for returned date', 'Array', [1,1,1,1,0,0,0]],
+		useArabicIndic: [false, 'Use Arabic/Indic numerals', 'Boolean', true],
+		isRTL: [false, 'Language runs Right-to-Left', 'Boolean', true],
+		calStartDay: [0, 'Day of week to start calendar on', 'Integer', [0,1,0,0,0,0,0]],
+		clearButton: ['Clear', 'Clear Input Element button label', 'String', true],
+		durationOrder: ["['d', 'h', 'i', 's']", 'Field order for duration entry', 'Array', [0,0,0,0,0,0,1]],
+		meridiem: ["['AM', 'PM']", 'Name of meridiems, if used', 'Array', true],
+		timeOutput: ['%k:%M', 'Format for returned time', 'String', [0,0,0,0,1,1,0]],
+		durationFormat: ['%Dd %DA, %Dl:%DM:%DS', 'Format for returned duration', 'String', [0,0,0,0,0,0,1]]
+	}
+};
+
+
