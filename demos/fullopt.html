@@ -10,7 +10,7 @@
 	<!-- NOTE: Script load order is significant! -->
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.fulloptlist.js"></script>
 	<script type="text/javascript" src="extras.js"></script>
@@ -54,7 +54,7 @@
 								'<td>'+getModes(stuff[typ][ech][3])+'</td>'+
 							'</tr>').appendTo(thisTab);
 						} else {
-							$('<tr><td colspan=5>'+ech+'</td></tr>').appendTo(thisTab);
+							$('<tr><td colspan=5 style="text-align:center">'+ech+'</td></tr>').appendTo(thisTab);
 						}
 					}
 				}
@@ -65,6 +65,9 @@
 					}
 					if ( $(thisRow[3]).text() === 'Object' ) {
 						$(thisRow[2]).css('fontSize', '.8em');
+					}
+					if ( $(thisRow[4]).text() === '-ALL-' ) {
+						$(thisRow[4]).css({'fontSize': '.8em', 'fontWeight':'bold'});
 					}
 				});
 				thisOne.appendTo($('#docset'));
@@ -79,7 +82,7 @@
 <div data-role="page" data-theme="c" id="calLimit"> 
 	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - DateBox</h1>
-		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
+		<a href="../" data-icon="home" data-iconpos="notext">Home</a>
 	</div>
 	<div data-role="content"> 
 		<p>This is a generated list of all the available options in datebox, along with the defaults and modes they apply to</p>

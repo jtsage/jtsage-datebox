@@ -2,19 +2,26 @@
 <html lang="en"> 
 <head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" />  
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
@@ -28,52 +35,20 @@
 </head>
 <body>
 <div data-role="page" data-theme="c" id="apiTheme"> 
-	<div data-role="header"> 
+	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
 	</div>
 	<div data-role="content" data-theme="c">
-		<div class="content-secondary">
-			<h3>Visual Theme Placement</h3>
-			<img src="../theme-android.png" /><br />
-			<img src="../theme-slide.png" /><br />
-			<img src="../theme-flipbox.png" /><br />
-			<img src="../theme-calendar.png" />
-		</div>
-		<div class="content-primary">
-		<h2>Theming</h2>
-		
+		<h3>Visual Theme Placement</h3>
 		<p>DateBox is fully jQueryMobile theme-roller compatible (when the theme roller is done!).  The individual elements can be passed a theme via the following options:</p>
-		
-		<dl>
-			<dt>theme</dt>
-				<dd>Original input theme</dd>
-			<dt>pickPageTheme</dt>
-				<dd>Theme for popup / dialog - controls background colors, and the set button (if present)</dd>
-			<dt>pickPageInputTheme</dt>
-				<dd>Theme for input elements in the popup / dialog (android, date &amp; duration modes)</dd>
-			<dt>pickPageButtonTheme</dt>
-				<dd>Buttons (other than the set button) in the popup / dialog</dd>
-			<dt>pickPageSlideButtonTheme</dt>
-				<dd>Non-selected buttons in slide mode</dd>
-			<dt>pickPageFlipButtonTheme</dt>
-				<dd>Non-selected buttons in flip mode</dd>
-			<dt>pickPageTodayButtonTheme</dt>
-				<dd>Today's date button in calendar mode</dd>
-			<dt>pickPageHighButtonTheme</dt>
-				<dd>Currently selected date button in calendar mode</dd>
-			<dt>pickPageOHighButtonTheme</dt>
-				<dd>Highlighted dates (highDates) in calendar mode</dd>
-			<dt>pickPageODHighButtonTheme</dt>
-				<dd>Highlighted days (highDays) in calendar mode</dd>
-			<dt>disabledDayColor</dt>
-				<dd>Color for text of disabled calendar days - sorry, this isn't a theme yet</dd>
-		</dl>
-		</div>
-		
-
+		<p>Please see all the available options in the theme sections in the <a href="../fullopt.html">full options list</a></p>
+		<img src="../theme-DateBox.png" /><br />
+		<img src="../theme-FlipBox.png" /><br />
+		<img src="../theme-CalBox.png" /><br />
+		<img src="../theme-SlideBox.png" />
 	</div>
-	<div data-role="footer">
+	<div data-role="footer" data-position="fixed">
 	</div>
 </div>
 </html>
