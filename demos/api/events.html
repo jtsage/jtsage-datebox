@@ -1,20 +1,27 @@
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
@@ -28,11 +35,11 @@
 </head>
 <body>
 <div data-role="page" data-theme="c" id="apiEvent"> 
-	<div data-role="header"> 
+	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
 	</div>
-	<div data-role="content" data-theme="c">
+	<div data-role="content">
 		<h2>Public Functions</h2>
 		
 		<p>Datebox has a number of public functions.  They are:</p>
@@ -43,7 +50,6 @@
 			<li><h3>$('element').datebox('disable');</h3><p>Disable the DateBox control</p></li>
 			<li><h3>$('element').datebox('enable');</h3><p>Enable the DateBox control</p></li>
 			<li><h3>$('element').datebox('refresh');</h3><p>Refresh the DateBox control</p></li>
-			<li><h3>$('element').datebox('hardreset');</h3><p>Hard Reset the DateBox control, rebuild the interface window.</p></li>
 		</ul>
 		
 		<h2>Events</h2>
@@ -80,7 +86,6 @@
 			<li><h3>Trigger to refresh input date</h3><p><strong>{'method'}</strong> === doset</p></li>
 			<li><h3>Trigger to clear input field</h3><p><strong>{'method'}</strong> === doclear</p></li>
 			<li><h3>Trigger to refresh</h3><p><strong>Note:</strong> Not used interaly.<br /><strong>{'method'}</strong> === dorefresh</p></li>
-			<li><h3>Trigger to hard reset the controls</h3><p><strong>Note:</strong> Not used interaly.<br /><strong>{'method'}</strong> === doreset</p></li>
 			<li><h3>Trigger to change date</h3><p><strong>Note:</strong> Not used interaly.<br /><strong>{'method'}</strong> === dooffset<br /><strong>{'amount'}</strong> === Amount of change (usually +/- 1)<br /><strong>{'type'}</strong> === Type of change ( 'y' = Year, 'm' = Month, 'd' = Date, 'h' = Hour, 'i' = Minute, 's' = Second, 'a' = Meridian ) </p></li>
 			<li data-role="list-divider">Event Payloads - Action causes trigger</li>
 			<li><h3>Triggered on datebox enable</h3><p><strong>{'method'}</strong> === enable</p></li>
@@ -108,9 +113,15 @@
 			<li><h3>arguments[0]</h3><p>The first argument for the is always the date the control currently is set to.</p></li>
 			<li><h3>arguments[1]+</h3><p>The second argument and beyond can be set in 'openCallbackArgs' and 'closeCallbackArgs' respecitvly.</p></li>
 		</ul>
+		<p>Fun toys inside the widget for your use:</p>
+		<ul data-role="listview" data-inset="true">
+			<li><h3>lastDuration</h3><p>The last duration set, in seconds</p></li>
+			<li><h3>theDate</h3><p>The current set date (object)</p></li>
+			<li><h3>d.intHTML</h3><p>The currently generated HTML - this gets clobbered a lot.</p></li>
+		</ul>
 		
 	</div>
-	<div data-role="footer">
+	<div data-role="footer" data-position="fixed">
 	</div>
 </div>
 </html>
