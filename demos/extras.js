@@ -77,6 +77,7 @@ goodLang = {
 	"es-ES": "Spanish",
 	"fi": "Finnish",
 	"fr": "French",
+	"he": "Hebrew",
 	"hr": "Croatian",
 	"hu": "Hungarian",
 	"it": "Italian",
