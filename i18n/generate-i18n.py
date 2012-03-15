@@ -40,7 +40,11 @@ def doTrans(lang,name):
 	outtext += "\t\tuseArabicIndic: " + str('true' if _('false1') == 'true' else 'false') + ",\n"
 	outtext += "\t\tisRTL: " + str('true' if _('false2') == 'true' else 'false') + ",\n"
 	outtext += "\t\tcalStartDay: " + _('0') + ",\n"
-	outtext += "\t\tclearButton: \"" + _('Clear') + "\"\n"
+	outtext += "\t\tclearButton: \"" + _('Clear') + "\",\n"
+	outtext += "\t\tdurationOrder: ["+ _("'d', 'h', 'i', 's'") + "],\n"
+	outtext += "\t\tmeridiem: [\""+_('AM')+"\", \""+_('PM')+"\"],\n"
+	outtext += "\t\ttimeOutput: \""+_('%k:%M')+"\",\n"
+	outtext += "\t\tdurationFormat: \""+_('%Dd %DA, %Dl:%DM:%DS')+"\"\n"
 	outtext += "\t}\n});\n"
 	outtext += "jQuery.extend(jQuery.mobile.datebox.prototype.options, {\n\tuseLang: '" + lang + "'\n});\n"
 	return outtext
