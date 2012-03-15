@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-02-19 01:40+0100\n"
+"PO-Revision-Date: 2012-03-15 03:30+0100\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Italian\n"
 "Language: \n"
@@ -15,12 +15,12 @@ msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 #. POSIX style date format for header
 #: generate-i18n.py:35
 msgid "%A, %B %-d, %Y"
-msgstr "%A, %B %-d, %Y"
+msgstr "%A %-d %B %Y"
 
 #. POSIX sytle date format for returned dates
 #: generate-i18n.py:39
 msgid "%Y-%m-%d"
-msgstr "%d/%m/%Y"
+msgstr "%d-%m-%Y"
 
 #. Field order for time input (h=hour, i=minute, a=AM/PM)
 #: generate-i18n.py:37
@@ -185,7 +185,7 @@ msgstr "Ottobre"
 
 #: generate-i18n.py:31
 msgid "Open Date Picker"
-msgstr "Aperta la selezione della data"
+msgstr "Apri Selettore Data"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
@@ -215,7 +215,7 @@ msgstr "Settembre"
 
 #: generate-i18n.py:19
 msgid "Set Date"
-msgstr "Setta Data"
+msgstr "Imposta data"
 
 #: generate-i18n.py:23
 msgid "Choose Date"
@@ -227,11 +227,11 @@ msgstr "Setta Durata"
 
 #: generate-i18n.py:20 generate-i18n.py:24
 msgid "Set Time"
-msgstr "Setta Tempo"
+msgstr "Imposta ora"
 
 #: generate-i18n.py:24
 msgid "Choose Time"
-msgstr "Scegli il tempo"
+msgstr "Scegli ora"
 
 #. Abbreviation for the day 'Sunday'
 #: generate-i18n.py:26
@@ -286,5 +286,25 @@ msgstr "0"
 
 #: generate-i18n.py:43
 msgid "Clear"
-msgstr "Chiara"
+msgstr "Pulisci"
+
+#: generate-i18n.py:44
+msgid "'d', 'h', 'i', 's'"
+msgstr "'d', 'h', 'i', 's'"
+
+#: generate-i18n.py:45
+msgid "AM"
+msgstr "AM"
+
+#: generate-i18n.py:45
+msgid "PM"
+msgstr "PM"
+
+#: generate-i18n.py:46
+msgid "%k:%M"
+msgstr "%l:%M %p"
+
+#: generate-i18n.py:47
+msgid "%Dd %DA, %Dl:%DM:%DS"
+msgstr "%Dd %DA, %Dl:%DM:%DS"
 

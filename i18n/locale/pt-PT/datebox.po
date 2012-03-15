@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-02-19 01:40+0100\n"
+"PO-Revision-Date: 2012-03-15 03:30+0100\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Portuguese\n"
 "Language: \n"
@@ -185,7 +185,7 @@ msgstr "Outubro"
 
 #: generate-i18n.py:31
 msgid "Open Date Picker"
-msgstr "Selecionador de data aberta"
+msgstr "Abrir selecionador de data"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
@@ -286,5 +286,25 @@ msgstr "0"
 
 #: generate-i18n.py:43
 msgid "Clear"
-msgstr "Clara"
+msgstr "Limpar"
+
+#: generate-i18n.py:44
+msgid "'d', 'h', 'i', 's'"
+msgstr "'d', 'h', 'i', 's'"
+
+#: generate-i18n.py:45
+msgid "AM"
+msgstr "AM"
+
+#: generate-i18n.py:45
+msgid "PM"
+msgstr "PM"
+
+#: generate-i18n.py:46
+msgid "%k:%M"
+msgstr "%k:%M"
+
+#: generate-i18n.py:47
+msgid "%Dd %DA, %Dl:%DM:%DS"
+msgstr "%Dd %DA, %Dl:%DM:%DS"
 
