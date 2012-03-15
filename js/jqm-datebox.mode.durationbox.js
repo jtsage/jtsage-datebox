@@ -14,6 +14,13 @@
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1}
 	});
 	$.extend( $.mobile.datebox.prototype, {
+		_durbox_run: function() {
+			var w = this;
+			
+			w.drag.didRun = true;
+			w._offset(w.drag.target[0], w.drag.target[1]);
+			w.runButton = setTimeout(function() {w._durbox_run();}, 100);
+		},
 		_durbox_valid: function (num) {
 			if ( num.toString().search(/^[0-9]+$/) === 0 ) { return parseInt(num,10); }
 			return 0;
@@ -152,19 +159,36 @@
 				});
 			}
 			
-			/*if ( o.swipeEnabled ) { // Drag and drop support
-				divIn.delegate('input', self.START_DRAG, function(e) {
-					if ( !self.dragMove ) {
-						self.dragMove = true;
-						self.dragTarget = $(this).jqmData('field');
-						self.dragPos = 0;
-						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
-						self.dragEnd = false;
-						e.stopPropagation();
-					}
-				});
-			}*/
+			divPlus.on(w.drag.eStart, 'div', function(e) {
+				e.preventDefault();
+				w._dbox_delta = 1;
+				w.drag.move = true;
+				w.drag.target = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]];
+				w.runButton = setTimeout(function() {w._durbox_run();}, 500);
+			});
 			
+			divMinus.on(w.drag.eStart, 'div', function(e) {
+				e.preventDefault();
+				w._dbox_delta = 1;
+				w.drag.move = true;
+				w.drag.target = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1];
+				w.runButton = setTimeout(function() {w._durbox_run();}, 500);
+			});
+		}
+	});
+	$.extend( $.mobile.datebox.prototype._drag, {
+		'durationbox': function() {
+			var w = this,
+				o = this.options,
+				g = this.drag;
+				
+			$(document).on(g.eEnd, function(e) {
+				if ( g.move ) {
+					e.preventDefault();
+					clearTimeout(w.runButton);
+					g.move = false;
+				}
+			});
 		}
 	});
 })( jQuery );

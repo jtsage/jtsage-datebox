@@ -503,8 +503,8 @@
 					case 'Y': // Year (4 digit)
 						return date.getFullYear();
 					case 'o': // Ordinals
-						if ( typeof w._makeOrd[o.useLang] !== 'undefined' ) { return w._makeOrd[o.useLang](date.getDate()); }
-						return w._makeOrd['default'](date.getDate());
+						if ( typeof w._ord[o.useLang] !== 'undefined' ) { return w._ord[o.useLang](date.getDate()); }
+						return w._ord['default'](date.getDate());
 					default:
 						return match;
 				}
@@ -597,6 +597,7 @@
 			o.theme = thisTheme;
 			
 			w.disabled = false;
+			w.runButton = false;
 			w._date = window.Date;
 			w._enhanceDate();
 			

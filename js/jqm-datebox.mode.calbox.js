@@ -8,12 +8,12 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeDateToday: 'e',
+		themeDateToday: 'a',
 		themeDayHigh: 'e',
-		themeDatePick: 'e',
+		themeDatePick: 'a',
 		themeDateHigh: 'e',
 		themeDateHighAlt: 'e',
-		themeDate: 'a',
+		themeDate: 'd',
 		
 		calHighToday: true,
 		calHighPick: true,

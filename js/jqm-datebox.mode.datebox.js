@@ -13,6 +13,13 @@
 		validHours: false
 	});
 	$.extend( $.mobile.datebox.prototype, {
+		_dbox_run: function() {
+			var w = this;
+			
+			w.drag.didRun = true;
+			w._offset(w.drag.target[0], w.drag.target[1]);
+			w.runButton = setTimeout(function() {w._dbox_run();}, 150);
+		},
 		_dbox_vhour: function (delta) {
 			var w = this,
 				o = this.options, tmp, 
@@ -212,19 +219,40 @@
 				});
 			}
 			
-			/*if ( o.swipeEnabled ) { // Drag and drop support
-				divIn.delegate('input', self.START_DRAG, function(e) {
-					if ( !self.dragMove ) {
-						self.dragMove = true;
-						self.dragTarget = $(this).jqmData('field');
-						self.dragPos = 0;
-						self.dragStart = self.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
-						self.dragEnd = false;
-						e.stopPropagation();
-					}
-				});
-			}*/
+			divPlus.on(w.drag.eStart, 'div', function(e) {
+				e.preventDefault();
+				w._dbox_delta = 1;
+				w.drag.move = true;
+				w.drag.target = [$(this).jqmData('field'), $(this).jqmData('amount')];
+				w.runButton = setTimeout(function() {w._dbox_run();}, 500);
+			});
 			
+			divMinus.on(w.drag.eStart, 'div', function(e) {
+				e.preventDefault();
+				w._dbox_delta = 1;
+				w.drag.move = true;
+				w.drag.target = [$(this).jqmData('field'), $(this).jqmData('amount')*-1];
+				w.runButton = setTimeout(function() {w._dbox_run();}, 500);
+			});
+			
+		}
+	});
+	$.extend( $.mobile.datebox.prototype._drag, {
+		'timebox': function() {
+			this._drag.datebox.apply(this);
+		},
+		'datebox': function() {
+			var w = this,
+				o = this.options,
+				g = this.drag;
+				
+			$(document).on(g.eEnd, function(e) {
+				if ( g.move ) {
+					e.preventDefault();
+					clearTimeout(w.runButton);
+					g.move = false;
+				}
+			});
 		}
 	});
 })( jQuery );
