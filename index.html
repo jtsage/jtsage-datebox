@@ -35,7 +35,7 @@
 </head>
 <body>
 <div data-role="page" data-theme="c" id="main"> 
-	<div data-role="header"> 
+	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - DateBox</h1>
 	</div>
 	<div data-role="content">
@@ -54,7 +54,7 @@
 				<li><a href="demos/intro.html">Intro &amp; Features</a></li>
 				<li><a href="demos/install.html">Download &amp; Use</a></li>
 				<li><a href="demos/fullopt.html" rel="external">Full Options List</a></li>
-				
+				<li><a href="theme/" rel="external">Theme Builder</a></li>
 			</ul> 
 			
 		</div><!--/content-primary-->	
@@ -111,25 +111,21 @@
 						<li><a href="demos/single/ns.html" rel="external">jQM namespacing enabled</a></li>
 					</ul>
 				</div>
+				<div data-role="collapsible">
+					<h3>API Documentation</h3>
+					<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+						<li><a href="demos/api/globalconfig.html">Configuring Defaults</a></li> 
+						<li><a href="demos/api/dateformat.html">Date Format Defaults</a></li> 
+						<li><a href="demos/api/events.html">Events &amp; Callbacks</a></li> 
+						<li><a href="demos/api/themes.html">Theme Framework</a></li> 
+						<li><a href="demos/api/i18n.html">Internationalization</a></li> 
+						<li><a href="demos/api/desktop.html">Desktop Operation</a></li> 
+					</ul>
+				</div>
 			</div>
-
-		
-			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
-			
-				
-				<li data-role="list-divider">API</li> 
-				<li><a href="demos/api/globalconfig.html">Configuring Defaults</a></li> 
-				<li><a href="demos/api/dateformat.html">Date Format Defaults</a></li> 
-				<li><a href="demos/api/events.html">Events &amp; Callbacks</a></li> 
-				<li><a href="demos/api/themes.html">Theme Framework</a></li> 
-				<li><a href="demos/api/i8n.html">Internationalization</a></li> 
-				<li><a href="demos/api/i8n-status.html" rel="external">Internationalization Status</a></li> 
-				<li><a href="demos/api/desktop.html">Desktop Operation</a></li> 
-			</ul> 
 		</div> 
-		
 	</div>
-	<div data-role="footer">
+	<div data-role="footer" data-position="fixed">
 	</div>
 </div>
 </html>

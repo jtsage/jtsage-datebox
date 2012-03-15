@@ -52,7 +52,7 @@ foreach ( $defaults as $key => $value ) {
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>jQueryMobile - DateBox Demo</title>
-	<link href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.css" rel="stylesheet" type="text/css" />
+	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.css" rel="stylesheet" type="text/css" />
 	
 	<?php if ( !empty($_SERVER['QUERY_STRING']) ) {
 		echo '<link type="text/css" href="sheet.php?'.$_SERVER['QUERY_STRING'].'" rel="stylesheet" />'."\n";
@@ -107,12 +107,14 @@ foreach ( $defaults as $key => $value ) {
 	</style>
 	
 </head>
-<body style="margin: 0">
-	<div class="ui-header ui-bar-a" role="banner" style="position: relative;"> 
-		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">jQM-DateBox - Theme Roller</h1>
-	</div>
-	
-	<div data-role="ui" style="width: 550px; float: left;">
+<body>
+	<div data-role="page">
+		<div data-role="header">
+			<h1>jQM-DateBox - Theme Roller</h1>
+		</div>
+		
+		<div data-role="content">
+		<div id="ui" style="width: 550px; float: left;">
 		<form id="css" style="padding-left: 30px;">
 			<div data-role="fieldcontain">
 				<label for="width">Master Width</label>
@@ -120,7 +122,7 @@ foreach ( $defaults as $key => $value ) {
 				<label for="cgddc">Master Disable Date Color</label>
 				<input name="cgddc" id="cgddc" value="<?php echo $use['cgddc']; ?>" type="text">
 			</div>
-			<a class="applysheet" href="#" data-role="button" data-theme="b">Apply Changes</a>
+			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
 			
 			<h2>CalBox</h2>
 			<div data-role="fieldcontain">
@@ -135,7 +137,7 @@ foreach ( $defaults as $key => $value ) {
 				<label for="cgdec">Different Month Color</label>
 				<input name="cgdec" id="cgdec" value="<?php echo $use['cgdec']; ?>" type="text">
 			</div>
-			<a class="applysheet" href="#" data-role="button" data-theme="b">Apply Changes</a>
+			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
 			
 			<h2>DateBox</h2>
 			<div data-role="fieldcontain">
@@ -144,7 +146,7 @@ foreach ( $defaults as $key => $value ) {
 				<label for="dsiw">Input Width</label>
 				<input name="dsiw" id="dsiw" value="<?php echo $use['dsiw']; ?>" type="range" min="5" max="150">
 			</div>
-			<a class="applysheet" href="#" data-role="button" data-theme="b">Apply Changes</a>
+			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
 			
 			<h2>FlipBox</h2>
 			<div data-role="fieldcontain">
@@ -161,7 +163,7 @@ foreach ( $defaults as $key => $value ) {
 				<label for="fcsh">Scroller Height (-5px from Content usually)</label>
 				<input name="fcsh" id="fcsh" value="<?php echo $use['fcsh']; ?>" type="range" min="5" max="350">
 			</div>
-			<a class="applysheet" href="#" data-role="button" data-theme="b">Apply Changes</a>
+			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
 
 			<h2>SlideBox</h2>
 			<div data-role="fieldcontain">
@@ -203,18 +205,23 @@ foreach ( $defaults as $key => $value ) {
 				<label for="swdf">Font Size - Subscripts</label>
 				<input name="swdf" id="swdf" value="<?php echo $use['swdf']; ?>" type="range" min="5" max="50">
 			</div>
-			<a class="applysheet" href="#" data-role="button" data-theme="b">Apply Changes</a>
+			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
 
 		</form>
 		<a id="getsheet" href="#" data-role="button" data-theme="b">Get Stylesheet</a>
 		<a id="bookmark" href="#" data-role="button" data-theme="b">Bookmark this Version</a>
-	</div>
-	
-	<div id="display" style="margin-left: 553px; margin-top: 180px">
-		<input name="theme1" id="theme1" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
-		<input name="theme2" id="theme2" type="text" data-role="datebox" data-options='{"mode":"datebox"}' />
-		<input name="theme3" id="theme3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}' />
-		<input name="theme4" id="theme4" type="text" data-role="datebox" data-options='{"mode":"slidebox", "overrideSlideFieldOrder":["y","m","d","h","i"], "overrideDateFormat":"%Y-%m-%d %H:%M:00"}' />
+		</div>
+		
+		<div id="display" style="margin-left: 553px; margin-top: 180px">
+			<input name="theme1" id="theme1" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
+			<input name="theme2" id="theme2" type="text" data-role="datebox" data-options='{"mode":"datebox"}' />
+			<input name="theme3" id="theme3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}' />
+			<input name="theme4" id="theme4" type="text" data-role="datebox" data-options='{"mode":"slidebox", "overrideSlideFieldOrder":["y","m","d","h","i"], "overrideDateFormat":"%Y-%m-%d %H:%M:00"}' />
+		</div>
+		</div>
+		<div data-role="footer">
+			<h3>jQM-DateBox (c) 2012</h3>
+		</div>
 	</div>
 </body>
 </html>
