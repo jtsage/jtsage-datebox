@@ -526,7 +526,7 @@
 				o = this.options,
 				ok = false;
 				
-			mode = mode.toLowerCase();
+			mode = (mode || "").toLowerCase();
 				
 			if ( typeof(update) === "undefined" ) { update = true; }
 			w.d.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
