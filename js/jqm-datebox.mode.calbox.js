@@ -204,16 +204,18 @@
 						$('<div>', {'class':uid+'griddate '+uid+'griddate-empty'}).appendTo(hRow);
 					} else {
 						checked = w._cal_check(cal, cal.theDateArr[0], cal.gen[row][col][1], cal.gen[row][col][0]);
-						$("<div>"+String(cal.gen[row][col][0])+"</div>")
-							.addClass( cal.thisMonth === cal.gen[row][col][1] ?
-								(uid+'griddate ui-corner-all ui-btn-up-'+checked.theme + (checked.ok?'':' '+uid+'griddate-disable')):
-								(uid+'griddate '+uid+'griddate-empty')
-							)
-							.jqmData('date', ((o.calWeekMode)?cal.weekMode:cal.gen[row][col][0]))
-							.jqmData('theme', cal.thisMonth === cal.gen[row][col][1] ? checked.theme : '-')
-							.jqmData('enabled', checked.ok)
-							.jqmData('month', cal.gen[row][col][1])
-							.appendTo(hRow);
+            if (cal.gen[row][col][0]) {
+							$("<div>"+String(cal.gen[row][col][0])+"</div>")
+								.addClass( cal.thisMonth === cal.gen[row][col][1] ?
+									(uid+'griddate ui-corner-all ui-btn-up-'+checked.theme + (checked.ok?'':' '+uid+'griddate-disable')):
+									(uid+'griddate '+uid+'griddate-empty')
+								)
+								.jqmData('date', ((o.calWeekMode)?cal.weekMode:cal.gen[row][col][0]))
+								.jqmData('theme', cal.thisMonth === cal.gen[row][col][1] ? checked.theme : '-')
+								.jqmData('enabled', checked.ok)
+								.jqmData('month', cal.gen[row][col][1])
+								.appendTo(hRow);
+						}
 					}
 				}
 				if ( o.calControlGroup === true ) {
