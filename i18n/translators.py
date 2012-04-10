@@ -25,5 +25,6 @@ trans = {
 	'ru': 'Alexander Zolotko <azolotko@gmail.com>',
 	'da': '--crowdin--',
 	'ro': '--crowdin--',
+	'he': 'Kobi Hikri <kobi.hikri@gmail.com>',
 	
 }

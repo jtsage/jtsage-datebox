@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-03-15 03:30+0100\n"
+"PO-Revision-Date: 2012-04-10 20:45+0200\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Chinese Simplified\n"
 "Language: \n"
@@ -20,7 +20,7 @@ msgstr "%A, %B %-d, %Y"
 #. POSIX sytle date format for returned dates
 #: generate-i18n.py:39
 msgid "%Y-%m-%d"
-msgstr "%d/%m/%Y"
+msgstr "%Y-%m-%d"
 
 #. Field order for time input (h=hour, i=minute, a=AM/PM)
 #: generate-i18n.py:37
@@ -40,7 +40,7 @@ msgstr "'y', 'm', 'd'"
 #. Clock format - either 12 or 24
 #: generate-i18n.py:34
 msgid "24"
-msgstr "12"
+msgstr "24"
 
 #. Abbreviation for the month 'April'
 #: generate-i18n.py:28
@@ -159,11 +159,11 @@ msgstr "日"
 
 #: generate-i18n.py:25
 msgid "Monday"
-msgstr "星期日"
+msgstr "星期一"
 
 #: generate-i18n.py:32
 msgid "Next Month"
-msgstr "下月"
+msgstr "下个月"
 
 #. Abbreviation for the month 'November'
 #: generate-i18n.py:28
@@ -189,7 +189,7 @@ msgstr "开放日期选取器"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
-msgstr "上月"
+msgstr "上个月"
 
 #. Abbreviation for the day 'Saturday'
 #: generate-i18n.py:26
@@ -294,15 +294,15 @@ msgstr "'d', 'h', 'i', 's'"
 
 #: generate-i18n.py:45
 msgid "AM"
-msgstr "AM"
+msgstr "上午"
 
 #: generate-i18n.py:45
 msgid "PM"
-msgstr "PM"
+msgstr "下午"
 
 #: generate-i18n.py:46
 msgid "%k:%M"
-msgstr "%l:%M %p"
+msgstr "%k:%M"
 
 #: generate-i18n.py:47
 msgid "%Dd %DA, %Dl:%DM:%DS"

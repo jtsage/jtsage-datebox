@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-03-15 03:30+0100\n"
+"PO-Revision-Date: 2012-04-10 20:45+0200\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Spanish\n"
 "Language: \n"
@@ -198,7 +198,7 @@ msgstr "Sa"
 
 #: generate-i18n.py:25
 msgid "Saturday"
-msgstr "Sabado"
+msgstr "Sábado"
 
 #: generate-i18n.py:29
 msgid "Seconds"
@@ -267,7 +267,7 @@ msgstr "Mi"
 
 #: generate-i18n.py:25
 msgid "Wednesday"
-msgstr "Miercoles"
+msgstr "Miércoles"
 
 #. Set to "true" if this language uses the Arabic/Indic numerals (not 1,2,3...)
 #: generate-i18n.py:40
