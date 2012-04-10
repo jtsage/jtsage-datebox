@@ -10,15 +10,21 @@
 		themeButton: 'a',
 		themeInput: 'e',
 		useSetButton: true,
-		validHours: false
+		validHours: false,
+		repButton: true
+		
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_dbox_run: function() {
 			var w = this;
-			
+			//console.log(w.drag.target);
 			w.drag.didRun = true;
 			w._offset(w.drag.target[0], w.drag.target[1]);
+			//clearTimeout(w.runButton);
+			//w.runButton = false;
+			
 			w.runButton = setTimeout(function() {w._dbox_run();}, 150);
+		
 		},
 		_dbox_vhour: function (delta) {
 			var w = this,
@@ -74,7 +80,7 @@
 		},
 		'datebox': function () {
 			var w = this,
-				o = this.options, i, y,
+				o = this.options, i, y, tmp,
 				uid = 'ui-datebox-',
 				divBase = $("<div>", { "class":uid+'controls' }),
 				divPlus = divBase.clone(),
@@ -82,12 +88,12 @@
 				divMinus = divBase.clone(),
 				inBase = $("<input type='"+w.inputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset '+uid+'input ui-body-'+o.themeInput),
 				inBaseT = ($.browser.msie ? inBase.clone() : inBase.clone().attr('type','text')),
-				butBase = $("<div><a href='#'></a></div>"),
+				butBase = $("<div></div>"),
 				butPTheme = {theme: o.themeButton, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true},
 				butMTheme = $.extend({}, butPTheme, {icon: 'minus', iconpos: 'top'});
 			
 			if ( typeof w.d.intHTML !== 'boolean' ) {
-				w.d.intHTML.empty();
+				w.d.intHTML.empty().remove();
 			}
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():((o.mode==='datebox')?w.__('titleDateDialogLabel'):w.__('titleTimeDialogLabel')));
@@ -197,17 +203,18 @@
 				y.appendTo(w.d.intHTML);
 			}
 			
-			
-			divPlus.on(o.clickEvent, 'div', function(e) {
-				e.preventDefault();
-				w._dbox_delta = 1;
-				w._offset($(this).jqmData('field'), $(this).jqmData('amount'));
-			});
-			divMinus.on(o.clickEvent, 'div', function(e) {
-				e.preventDefault();
-				w._dbox_delta = -1;
-				w._offset($(this).jqmData('field'), $(this).jqmData('amount')*-1);
-			});
+			if ( o.repButton === false ) {
+				divPlus.on(o.clickEvent, 'div', function(e) {
+					e.preventDefault();
+					w._dbox_delta = 1;
+					w._offset($(this).jqmData('field'), $(this).jqmData('amount'));
+				});
+				divMinus.on(o.clickEvent, 'div', function(e) {
+					e.preventDefault();
+					w._dbox_delta = -1;
+					w._offset($(this).jqmData('field'), $(this).jqmData('amount')*-1);
+				});
+			}
 			
 			divIn.on('change', 'input', function() { w._dbox_enter($(this)); });
 					
@@ -219,22 +226,29 @@
 				});
 			}
 			
-			divPlus.on(w.drag.eStart, 'div', function(e) {
-				e.preventDefault();
-				w._dbox_delta = 1;
-				w.drag.move = true;
-				w.drag.target = [$(this).jqmData('field'), $(this).jqmData('amount')];
-				w.runButton = setTimeout(function() {w._dbox_run();}, 500);
-			});
-			
-			divMinus.on(w.drag.eStart, 'div', function(e) {
-				e.preventDefault();
-				w._dbox_delta = 1;
-				w.drag.move = true;
-				w.drag.target = [$(this).jqmData('field'), $(this).jqmData('amount')*-1];
-				w.runButton = setTimeout(function() {w._dbox_run();}, 500);
-			});
-			
+			if ( o.repButton === true ) {
+				divPlus.on(w.drag.eStart, 'div', function(e) {
+					tmp = [$(this).jqmData('field'), $(this).jqmData('amount')];
+					w.drag.move = true;
+					w._dbox_delta = 1;
+					w._offset(tmp[0], tmp[1]);
+					if ( !w.runButton ) {
+						w.drag.target = tmp;
+						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
+					}
+				});
+				
+				divMinus.on(w.drag.eStart, 'div', function(e) {
+					tmp = [$(this).jqmData('field'), $(this).jqmData('amount')*-1];
+					w.drag.move = true;
+					w._dbox_delta = -1;
+					w._offset(tmp[0], tmp[1]);
+					if ( !w.runButton ) {
+						w.drag.target = tmp;
+						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
+					}
+				});
+			}
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._drag, {
@@ -245,14 +259,17 @@
 			var w = this,
 				o = this.options,
 				g = this.drag;
-				
-			$(document).on(g.eEnd, function(e) {
-				if ( g.move ) {
-					e.preventDefault();
-					clearTimeout(w.runButton);
-					g.move = false;
-				}
-			});
+			
+			if ( o.repButton === true ) {
+				$(document).on(g.eEndA, function(e) {
+					if ( g.move ) {
+						e.preventDefault();
+						clearTimeout(w.runButton);
+						w.runButton = false;
+						g.move = false;
+					}
+				});
+			}
 		}
 	});
 })( jQuery );

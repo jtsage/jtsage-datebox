@@ -582,6 +582,7 @@
 					eStart : (touch ? 'touchstart' : 'mousedown')+'.datebox',
 					eMove  : (touch ? 'touchmove' : 'mousemove')+'.datebox',
 					eEnd   : (touch ? 'touchend' : 'mouseup')+'.datebox',
+					eEndA  : (touch ? 'mouseup.datebox touchend.datebox touchcancel.datebox touchmove.datebox' : 'mouseup.datebox'),
 					move   : false,
 					start  : false,
 					end    : false,
@@ -880,6 +881,7 @@
 					
 			$(document).off(w.drag.eMove);
 			$(document).off(w.drag.eEnd);
+			$(document).off(w.drag.eEndA);
 			
 			if ( o.closeCallback !== false ) {
 				if ( ! $.isFunction(o.closeCallback) ) {
