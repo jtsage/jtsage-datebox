@@ -11,12 +11,12 @@
 		themeButton: 'a',
 		themeInput: 'e',
 		useSetButton: true,
+		repButton: true,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1}
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_durbox_run: function() {
 			var w = this;
-			
 			w.drag.didRun = true;
 			w._offset(w.drag.target[0], w.drag.target[1]);
 			w.runButton = setTimeout(function() {w._durbox_run();}, 100);
@@ -140,15 +140,16 @@
 				y.appendTo(w.d.intHTML);
 			}
 			
-			
-			divPlus.on(o.clickEvent, 'div', function(e) {
-				e.preventDefault();
-				w._offset($(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]);
-			});
-			divMinus.on(o.clickEvent, 'div', function(e) {
-				e.preventDefault();
-				w._offset($(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1);
-			});
+			if ( o.repButton === false ) {
+				divPlus.on(o.clickEvent, 'div', function(e) {
+					e.preventDefault();
+					w._offset($(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]);
+				});
+				divMinus.on(o.clickEvent, 'div', function(e) {
+					e.preventDefault();
+					w._offset($(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1);
+				});
+			}
 			
 			divIn.on('change', 'input', function() { w._durbox_enter($(this)); });
 					
@@ -159,21 +160,29 @@
 				});
 			}
 			
-			divPlus.on(w.drag.eStart, 'div', function(e) {
-				e.preventDefault();
-				w._dbox_delta = 1;
-				w.drag.move = true;
-				w.drag.target = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]];
-				w.runButton = setTimeout(function() {w._durbox_run();}, 500);
-			});
-			
-			divMinus.on(w.drag.eStart, 'div', function(e) {
-				e.preventDefault();
-				w._dbox_delta = 1;
-				w.drag.move = true;
-				w.drag.target = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1];
-				w.runButton = setTimeout(function() {w._durbox_run();}, 500);
-			});
+			if ( o.repButton === true ) {
+				divPlus.on(w.drag.eStart, 'div', function(e) {
+					tmp = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]];
+					w.drag.move = true;
+					w._dbox_delta = 1;
+					w._offset(tmp[0], tmp[1]);
+					if ( !w.runButton ) {
+						w.drag.target = tmp;
+						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
+					}
+				});
+				
+				divMinus.on(w.drag.eStart, 'div', function(e) {
+					tmp = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1];
+					w.drag.move = true;
+					w._dbox_delta = -1;
+					w._offset(tmp[0], tmp[1]);
+					if ( !w.runButton ) {
+						w.drag.target = tmp;
+						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
+					}
+				});
+			}
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._drag, {
@@ -181,14 +190,17 @@
 			var w = this,
 				o = this.options,
 				g = this.drag;
-				
-			$(document).on(g.eEnd, function(e) {
-				if ( g.move ) {
-					e.preventDefault();
-					clearTimeout(w.runButton);
-					g.move = false;
-				}
-			});
+			
+			if ( o.repButton === true ) {
+				$(document).on(g.eEndA, function(e) {
+					if ( g.move ) {
+						e.preventDefault();
+						clearTimeout(w.runButton);
+						w.runButton = false;
+						g.move = false;
+					}
+				});
+			}
 		}
 	});
 })( jQuery );

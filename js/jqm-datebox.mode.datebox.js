@@ -17,14 +17,9 @@
 	$.extend( $.mobile.datebox.prototype, {
 		_dbox_run: function() {
 			var w = this;
-			//console.log(w.drag.target);
 			w.drag.didRun = true;
 			w._offset(w.drag.target[0], w.drag.target[1]);
-			//clearTimeout(w.runButton);
-			//w.runButton = false;
-			
 			w.runButton = setTimeout(function() {w._dbox_run();}, 150);
-		
 		},
 		_dbox_vhour: function (delta) {
 			var w = this,
