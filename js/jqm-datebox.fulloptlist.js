@@ -73,6 +73,7 @@ var stuff = { // name: ['default','desc','type','mode list']
 		maxHour: [false, 'Limit times to hours *before* this hour', 'Integer', [0,0,0,0,1,1,0]],
 		validHours: [false, 'Limit times to *only* these hours (array of hours)', 'Array', [0,0,0,0,1,1,0]],
 		minuteStep: [1, 'Stepper for minutes', 'Integer', [0,0,0,1,1,1,0]],
+		minuteStepRound: [0, 'Direction to round :: -1 = Down, 1 = Up, 0 = "Standard Rounding"', 'Integer', [0,0,0,1,1,1,0]],
 		highDays: [false, 'Highlight these days (array of day indexes)', 'Array', [0,1,0,0,0,0,0]],
 		highDates: [false, 'Highlight these ISO dates (array of dates)', 'Array', [0,1,0,0,0,0,0]],
 		highDatesAlt: [false, 'Highlight these ISO dates (array of dates) (alternate)', 'Array', [0,1,0,0,0,0,0]],

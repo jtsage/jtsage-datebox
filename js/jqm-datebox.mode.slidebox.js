@@ -52,6 +52,7 @@
 			
 			w.fldOrder = w.__('slideFieldOrder');
 			w._check();
+			w._minStepFix();
 			
 			$('<div class="'+uid+'header"><h4>'+w._formatter(w.__('headerFormat'), w.theDate)+'</h4></div>').appendTo(w.d.intHTML);
 			
@@ -115,7 +116,6 @@
 						break;
 					case 'i':
 						phRow.addClass(uid+'sliderow-hi');
-						if ( o.minuteStep > 1 ) { w.theDate.set(4, (w.theDate.get(4) - (w.theDate.get(4) % o.minuteStep))); }
 						for ( i=o.slen.i*-1; i<(o.slen.i+1); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj(4,(i*o.minuteStep));

@@ -63,6 +63,7 @@
 			minHour: false,
 			maxHour: false,
 			minuteStep: 1,
+			minuteStepRound: 0,
 			
 			rolloverMode: { 'm': true, 'd': true, 'h': true, 'i': true, 's': true },
 			
@@ -385,11 +386,11 @@
 				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5a 6epoch
 					if ( exp_format[i] === '%s' )                { found_date[6] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^%.*S$/) )         { found_date[5] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*M$/) )         { found_date[4] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^%.*(H|k|I|l)$/) ) { found_date[3] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^%.*d$/) )         { found_date[2] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^%.*m$/) )         { found_date[1] = parseInt(exp_input[i],10)-1; }
 					if ( exp_format[i].match(/^%.*Y$/) )         { found_date[0] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*M$/) )         { found_date[4] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^%.*y$/) ) { 
 						if ( o.afterToday === true ) {
 							found_date[0] = parseInt('20' + exp_input[i],10);
@@ -518,6 +519,29 @@
 		},
 		_btwn: function(value, low, high) {
 			return ( value > low && value < high );
+		},
+		_minStepFix: function() {
+			var tempMin = this.theDate.get(4), tmp,
+				w = this,
+				o = this.options;
+				
+			if ( o.minuteStep > 1 && tempMin % o.minuteStep > 0 ) {
+				console.log('call');
+				if ( o.minuteStepRound < 0 ) {
+					tempMin = tempMin - (tempMin % o.minuteStep);
+				} else if ( o.minStepRound > 0 ) {
+					tempMin = tempMin + ( o.minuteStep - ( tempMin % o.minuteStep ) );
+				} else {
+					if ( tempMin % o.minuteStep < o.minuteStep / 2 ) {
+						console.log('down');
+						tempMin = tempMin - (tempMin % o.minuteStep);
+					} else {
+						console.log('up');
+						tempMin = tempMin + ( o.minuteStep - ( tempMin % o.minuteStep ) );
+					}
+				}
+			w.theDate.setMinutes(tempMin);
+			}
 		},
 		_offset: function(mode, amount, update) {
 			// Compute a date/time offset.
