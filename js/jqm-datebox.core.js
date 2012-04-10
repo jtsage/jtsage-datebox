@@ -194,7 +194,7 @@
 						$(this).trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(), w.theDate), 'date':w.theDate});
 						break;
 					case 'dooffset':
-						w._offset(p.type, p.amount, true); break;
+						if(p.type) w._offset(p.type, p.amount, true); break;
 					case 'dorefresh':
 						w.refresh(); break;
 					case 'doreset':
@@ -526,7 +526,7 @@
 				o = this.options,
 				ok = false;
 				
-			mode = mode.toLowerCase();
+			mode = (mode || "").toLowerCase();
 				
 			if ( typeof(update) === "undefined" ) { update = true; }
 			w.d.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
