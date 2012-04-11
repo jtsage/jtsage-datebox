@@ -17,13 +17,17 @@
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		'_sbox_pos': function () {
-			var w = this,
+			var w = this, 
 				ech, top, par, tot;
 			
 			w.d.intHTML.find('div.ui-datebox-sliderow-int').each(function () {
 				ech = $(this);
 				par = ech.parent().innerWidth();
-				top = ech.find('div').first();
+				if ( w.__('isRTL') ) { 
+					top = ech.find('div').last(); 
+				} else {
+					top = ech.find('div').first();
+				}
 				tot = ech.find('div').size() * top.outerWidth();
 				top.css('marginLeft', ((tot/2)-(par/2))*-1);
 			});
@@ -40,7 +44,7 @@
 				ctrl = $("<div>", {"class":uid+'slide'});
 			
 			if ( typeof w.d.intHTML !== 'boolean' ) {
-				w.d.intHTML.empty();
+				w.d.intHTML.empty().remove()
 			}
 			
 			w.d.input.on('datebox', function (e,p) {
@@ -209,7 +213,7 @@
 						e.preventDefault();
 						e.stopPropagation();
 						g.tmp = g.target.find('div').first();
-						w._offset(g.target.jqmData('rowtype'), (parseInt((g.start - g.end) / g.tmp.innerWidth(),10)));
+						w._offset(g.target.jqmData('rowtype'), ( w.__('isRTL') ? -1 : 1 )*(parseInt((g.start - g.end) / g.tmp.innerWidth(),10)));
 					}
 					g.start = false;
 					g.end = false;
