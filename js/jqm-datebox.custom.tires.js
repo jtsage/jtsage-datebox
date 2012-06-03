@@ -21,13 +21,23 @@
 		tireOutput: '%Xrr x %Xww, %XWyrs',
 		tireDefault: [17,8,5],
 		tireboxlang: {
+			// This structure interfaces with __() -> if it exists, strings are looked up here after i8n fails,
+			// and before going to 'default' - the name syntax is <mode>lang
 			'tireTitleString': 'Tire Radius, Width, and Warrenty',
 			'tireYears':'years',
 			'tireSet':'Looks Good'
 		}
 	});
 	$.extend( $.mobile.datebox.prototype, {
+		'_tireboxDoSet': function () {
+			// If this function exists, it overrides the 'doset' method of the 'datebox' event.
+			// The name syntax is _<mode>DoSet
+			var w = this, o = this.options;
+			if ( typeof w.tireChoice === 'undefined' ) { w.tireChoice = this._makeDate(this.d.input.val()); }
+			w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(o.tireOutput,w.tireChoice), 'date':w.tireChoice});
+		},
 		'_tbox_offset': function (fld, amount) {
+			// This is *not* an automatic override, used below specificly.
 			var w = this, x,
 				o = this.options,
 				witch = $.inArray(fld, ['Tr', 'Tw', 'TW']),
@@ -106,6 +116,9 @@
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._parser, {
+		// If this stucture exists, it is called instead of the usual date input parser.
+		// The name of the structure is the same as the mode name - it recieves a string
+		// as the input, which is the current value of the input element, pre-sanitized
 		'tirebox' : function ( str ) { 
 			var o = this.options, i,
 				adv = o.tireOutput,
@@ -139,6 +152,8 @@
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._customformat, {
+		// If this stucture exists, the formatter will call it when it encounters a special string
+		// %X<whatever> - it recieves the single letter operater, and the current "date" value
 		'tirebox' : function ( oper, val ) { 
 			switch ( oper ) {
 				case 'r': return val[0]; 
@@ -148,6 +163,7 @@
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
+		// This builds the actual interface, and is called on *every* refresh. (after each "movement")
 		'tirebox': function () {
 			var w = this,
 				o = this.options, i, y, hRow, tmp, lineArr,
@@ -236,7 +252,7 @@
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
 				w.d.intHTML.on('mousewheel', '.ui-overlay-shadow', function(e,d) {
 					e.preventDefault();
-					w._tbox_offset($(this).jqmData('field'), ((d<0)?-1:1)*$(this).jqmData('amount'));
+					w._tbox_offset($(this).jqmData('field'), ((d<0)?1:-1)*$(this).jqmData('amount'));
 				});
 			}
 			
@@ -263,6 +279,7 @@
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._drag, {
+		// This contains the code that the drag and drop (or touch move) code uses
 		'tirebox': function() {
 			var w = this,
 				o = this.options,

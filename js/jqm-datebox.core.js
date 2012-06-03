@@ -192,7 +192,11 @@
 						$(this).trigger('change');
 						break;
 					case 'doset':
-						$(this).trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(), w.theDate), 'date':w.theDate});
+						if ( $.isFunction(w['_'+w.options.mode+'DoSet']) ) {
+							w['_'+w.options.mode+'DoSet'].apply(w,[]);
+						} else {
+							$(this).trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(), w.theDate), 'date':w.theDate});
+						}
 						break;
 					case 'dooffset':
 						if(p.type) w._offset(p.type, p.amount, true); break;
