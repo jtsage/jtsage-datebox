@@ -224,6 +224,7 @@
 				
 			if ( typeof o[oride] !== 'undefined' ) { return o[oride]; }
 			if ( typeof o.lang[o.useLang][val] !== 'undefined' ) { return o.lang[o.useLang][val]; }
+			if ( typeof o[o.mode+'lang'][val] !== 'undefined' ) { return o[o.mode+'lang'][val]; }
 			return o.lang['default'][val];
 		},
 		__fmt: function() {
@@ -282,6 +283,9 @@
 				$(this).val(w._dRep($(this).val()));
 			});
 		},
+		_parser: {
+			'default': function (str) { return false; }
+		},
 		_makeDate: function (str) {
 			// Date Parser
 			str = $.trim(((this.__('useArabicIndic') === true)?this._dRep(str, -1):str));
@@ -296,6 +300,7 @@
 				i;
 			
 			if ( typeof o.mode === 'undefined' ) { return date; }
+			if ( typeof w._parser[o.mode] !== 'undefined' ) { return w._parser[o.mode].apply(w,[str]); }
 			
 			if ( o.mode === 'durationbox' ) {
 				adv = adv.replace(/%D([a-z])/gi, function(match, oper) {
@@ -434,15 +439,18 @@
 			return date;
 		
 		},
+		_customformat: {
+			'default': function(oper, date) { return false; }
+		},
 		_formatter: function(format, date) {
 			var w = this,
 				o = this.options,
 				dur = {
-					part: [0,0,0,0],
-					tp: this.theDate.getEpoch() - this.initDate.getEpoch()
+					part: [0,0,0,0], tp: 0
 				};
 				
 				if ( o.mode === 'durationbox' ) {
+					dur.tp = this.theDate.getEpoch() - this.initDate.getEpoch();
 					dur.part[0] = parseInt( dur.tp / (60*60*24),10); dur.tp -=(dur.part[0]*60*60*24); // Days
 					dur.part[1] = parseInt( dur.tp / (60*60),10); dur.tp -= (dur.part[1]*60*60); // Hours
 					dur.part[2] = parseInt( dur.tp / (60),10); dur.tp -= (dur.part[2]*60); // Minutes
@@ -453,7 +461,11 @@
 					if ( ! format.match(/%DM/) ) { dur.part[3] += (dur.part[2]*60);}
 				}
 				
-			format = format.replace(/%(D|0|-)*([a-zA-Z])/g, function(match, pad, oper) {
+			format = format.replace(/%(D|X|0|-)*([a-zA-Z])/g, function(match, pad, oper) {
+				if ( pad === 'X' ) {
+					if ( typeof w._customformat[o.mode] !== 'undefined' ) { return w._customformat[o.mode](oper, date); }
+					else { return match; }
+				}
 				if ( pad === 'D' ) {
 					switch ( oper ) {
 						case 'd': return dur.part[0];
