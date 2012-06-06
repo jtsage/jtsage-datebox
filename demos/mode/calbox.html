@@ -63,6 +63,17 @@
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox"}'&gt;</pre>
 				</div>
+				<div data-role="collapsible" data-collapsed="true">
+					<h2>Basic Calendar w/ Week Numbers</h2>
+					<p>To show week numbers, set 'calShowWeek' to true.</p>
+					<div data-role="fieldcontain">
+						<label for="wkcal">Some Date</label><input name="wkcal" type="date" data-role="datebox" id="wkcal" data-options='{"mode": "calbox", "calShowWeek": true}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "calShowWeek": true}'&gt;</pre>
+				</div>
 				<div data-role="collapsible">
 					<h2>Changing the start of the week (overrideCalStartDay)</h2>
 					<p>To change the start of the week, set option 'overrideCalStartDay' (or calStartDay in an i18n config file) to an integer 0-6, where 0=Sunday, 1=Monday...</p>
