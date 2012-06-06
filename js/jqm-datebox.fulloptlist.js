@@ -46,6 +46,7 @@ var stuff = { // name: ['default','desc','type','mode list']
 		slen: ["{'y': 5, 'm':6, 'd':15, 'h':12, 'i':30}", 'Length of sliders (1/2 of slider)', 'Object', [0,0,0,1,0,0,0]],
 		flen: ["{'y': 15, 'm':12, 'd':15, 'h':12, 'i':15, 'a':3}", 'Height of rollers (1/2 of roller)', 'Object', [0,0,1,0,0,1,0]],
 		calShowDays: [true, 'Show Day Labels in calendar', 'Boolean', [0,1,0,0,0,0,0]],
+		calShowWeek: [false, 'Show ISO Week number in calendar', 'Boolean', [0,1,0,0,0,0,0]],
 		calOnlyMonth: [false, 'Do not show next/previous months in calendar', 'Boolean', [0,1,0,0,0,0,0]],
 		calWeekMode: [false, 'Select by single week day in calendar', 'Boolean', [0,1,0,0,0,0,0]],
 		calWeekModeDay: [1, 'Weekday to select when in calWeekMode', 'Integer', [0,1,0,0,0,0,0]]

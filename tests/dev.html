@@ -7,7 +7,7 @@
 	<title>jQueryMobile - DateBox Demo</title>
 	<!--link href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.css" rel="stylesheet" type="text/css" /-->
 	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.css" rel="stylesheet" type="text/css" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="../css/jqm-datebox.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
@@ -34,7 +34,7 @@
 	<div data-role="content">
 		<div data-role="fieldcontain">
 			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" data-role="datebox" data-options='{"mode": "calbox"}' id="lang1" />
+			<input name="lang1" type="text" data-role="datebox" data-options='{"mode": "calbox", "calShowWeek": true, "overrideDateFormat":"%m/%d/%Y %V"}' id="lang1" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="aa1">text comparison</label>

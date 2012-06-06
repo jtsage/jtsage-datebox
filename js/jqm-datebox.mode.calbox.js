@@ -24,6 +24,7 @@
 		calWeekModeDay: 1,
 		calWeekHigh: false,
 		calControlGroup: false,
+		calShowWeek: false,
 		
 		useTodayButton: false,
 		useCollapsedBut: false,
@@ -63,6 +64,7 @@
 					cal.push(row);
 				}
 			}
+			console.log(cal);
 			return cal;
 		},
 		_cal_check : function (cal, year, month, date) {
@@ -153,13 +155,15 @@
 				'currentMonth': false, 'weekMode': 0, 'weekDays': null };
 			cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7;
 			cal.thisMonth = w.theDate.getMonth();
+			cal.wk = w.theDate.copy([0],[0,0,1]).adj(2,-1*cal.start).getISOWeek()+1;
 			cal.end = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
 			cal.lastend = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate();
 			cal.presetDate = w._makeDate(w.d.input.val());
 			cal.thisDateArr = cal.thisDate.getArray();
 			cal.theDateArr = w.theDate.getArray();
-			
 			cal.checkDates = ( $.inArray(false, [o.afterToday, o.beforeToday, o.notToday, o.maxDays, o.minDays, o.blackDates, o.blackDays]) > -1 );
+			
+			if ( cal.wk > 52 ) { cal.wk = 1; }
 			
 			w.calNext = true;
 			w.calPrev = true;
@@ -189,6 +193,9 @@
 				w._cal_days = w.__('daysOfWeekShort').concat(w.__('daysOfWeekShort'));
 				cal.weekDays = $("<div>", {'class':uid+'gridrow'}).appendTo(temp);
 				if ( w.__('isRTL') === true ) { cal.weekDays.css('direction', 'rtl'); }
+				if ( o.calShowWeek ) { 
+					$("<div>").addClass(uid+'griddate '+uid+'griddate-empty '+uid+'griddate-label').appendTo(cal.weekDays);
+				}
 				for ( i=0; i<=6;i++ ) {
 					$("<div>"+w._cal_days[(i+cal.startDay)%7]+"</div>").addClass(uid+'griddate '+uid+'griddate-empty '+uid+'griddate-label').appendTo(cal.weekDays);
 				}
@@ -198,13 +205,17 @@
 			for ( row in cal.gen ) {
 				hRow = $('<div>', {'class': uid+'gridrow'});
 				if ( w.__('isRTL') ) { hRow.css('direction', 'rtl'); }
+				if ( o.calShowWeek ) {
+						$('<div>', {'class':uid+'griddate '+uid+'griddate-empty'}).text('W'+cal.wk).appendTo(hRow);
+						cal.wk++;
+					} 
 				for ( col in cal.gen[row] ) {
 					if ( o.calWeekMode ) { cal.weekMode = cal.gen[row][o.calWeekModeDay][0]; }
 					if ( typeof cal.gen[row][col] === 'boolean' ) {
 						$('<div>', {'class':uid+'griddate '+uid+'griddate-empty'}).appendTo(hRow);
 					} else {
 						checked = w._cal_check(cal, cal.theDateArr[0], cal.gen[row][col][1], cal.gen[row][col][0]);
-            if (cal.gen[row][col][0]) {
+						if (cal.gen[row][col][0]) {
 							$("<div>"+String(cal.gen[row][col][0])+"</div>")
 								.addClass( cal.thisMonth === cal.gen[row][col][1] ?
 									(uid+'griddate ui-corner-all ui-btn-up-'+checked.theme + (checked.ok?'':' '+uid+'griddate-disable')):
@@ -223,6 +234,7 @@
 				}
 				hRow.appendTo(temp);
 			}
+			if ( o.calShowWeek ) { temp.find('.'+uid+'griddate').addClass(uid+'griddate-week'); }
 			
 			if ( o.useTodayButton || o.useClearButton ) {
 				hRow = $('<div>', {'class':uid+'controls'});

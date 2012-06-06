@@ -176,6 +176,38 @@
 				},
 				getArray: function() {
 					return [this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes(), this.getSeconds()];
+				},
+				getISOWeek: function() {
+					$y = this.getFullYear(); 
+					$m = this.getMonth() + 1; 
+					$d = this.getDate(); 
+ 
+					if ($m <= 2) { 
+						a = $y - 1; 
+						b = (a / 4 | 0) - (a / 100 | 0) + (a / 400 | 0); 
+						c = ((a - 1) / 4 | 0) - ((a - 1) / 100 | 0) + ((a - 1) / 400 | 0); 
+						s = b - c; 
+						e = 0; 
+						f = $d - 1 + (31 * ($m - 1)); 
+					} else { 
+						a = $y; 
+						b = (a / 4 | 0) - (a / 100 | 0) + (a / 400 | 0); 
+						c = ((a - 1) / 4 | 0) - ((a - 1) / 100 | 0) + ((a - 1) / 400 | 0); 
+						s = b - c; 
+						e = s + 1; 
+						f = $d + ((153 * ($m - 3) + 2) / 5) + 58 + s; 
+					} 
+					 
+					g = (a + b) % 7; 
+					d = (f + g - e) % 7; 
+					n = (f + 3 - d) | 0; 
+				
+					if (n < 0) { 
+						return 53 - ((g - s) / 5 | 0); 
+					} else if (n > 364 + s) { 
+						return 1; 
+					}
+					return (n / 7 | 0) + 1; 
 				}
 			});
 		},
@@ -351,6 +383,7 @@
 					case 'm':
 					case 'M':
 					case 'S':
+					case 'V':
 					case 'd': return '(' + match + '|' + (( pad === '-' ) ? '[0-9]{1,2}' : '[0-9]{2}') + ')';
 					case 's': return '(' + match + '|' +'[0-9]+' + ')';
 					case 'y': return '(' + match + '|' +'[0-9]{2}' + ')';
@@ -519,6 +552,8 @@
 						return date.getFullYear().toString().substr(2,2);
 					case 'Y': // Year (4 digit)
 						return date.getFullYear();
+					case 'V':
+						return (( pad === '-' ) ? date.getISOWeek() : w._zPad(date.getISOWeek()));
 					case 'o': // Ordinals
 						if ( typeof w._ord[o.useLang] !== 'undefined' ) { return w._ord[o.useLang](date.getDate()); }
 						return w._ord['default'](date.getDate());

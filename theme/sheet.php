@@ -4,6 +4,7 @@ header('Content-Type: text/css');
 $star = "*";
 $defaults = array(
 	'cgdw' => '36', // Cal box width (calbox)
+	'cgdwk' => '31', // Cal box width (calbox)
 	'cgdh' => '30', // Cal box height (calbox)
 	'cgdl' => '30', // Cal box line-height (calbox)
 	'cgfs' => '12', // Cal box font size (calbox)
@@ -76,6 +77,7 @@ echo ".ui-datebox-gridminus-rtl { float: right; }\n";
 echo ".ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; }\n";
 echo ".ui-datebox-grid { clear: both; margin-bottom: 5px; }\n";
 echo ".ui-datebox-griddate { width: {$use['cgdw']}px; height: {$use['cgdh']}px; display: inline-block; vertical-align: middle; text-align: center; line-height: {$use['cgdl']}px; font-weight: bold; font-size: {$use['cgfs']}px; zoom:1; *display: inline;}\n";
+echo ".ui-datebox-griddate { width: {$use['cgdwk']}px; height: {$use['cgdh']}px; display: inline-block; vertical-align: middle; text-align: center; line-height: {$use['cgdl']}px; font-weight: bold; font-size: {$use['cgfs']}px; zoom:1; *display: inline;}\n";
 echo ".ui-datebox-griddate-empty { border: 1px solid transparent; color: {$use['cgdec']}; }\n";
 echo ".ui-datebox-griddate-label { height: 15px !important; line-height: 15px !important; color: black;}\n";
 echo ".ui-datebox-griddate-disable { color: {$use['cgddc']}; }\n";

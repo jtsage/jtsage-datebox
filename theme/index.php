@@ -2,6 +2,7 @@
 
 $defaults = array(
 	'cgdw' => '36', // Cal box width (calbox)
+	'cgdwk' => '31', // Cal box width (calbox)
 	'cgdh' => '30', // Cal box height (calbox)
 	'cgdl' => '30', // Cal box line-height (calbox)
 	'cgfs' => '12', // Cal box font size (calbox)
@@ -126,6 +127,8 @@ foreach ( $defaults as $key => $value ) {
 			
 			<h2>CalBox</h2>
 			<div data-role="fieldcontain">
+				<label for="cgdwk">Date Width (w/ Week)</label>
+				<input name="cgdwk" id="cgdwk" value="<?php echo $use['cgdwk']; ?>" type="range" min="5" max="100">
 				<label for="cgdw">Date Width</label>
 				<input name="cgdw" id="cgdw" value="<?php echo $use['cgdw']; ?>" type="range" min="5" max="100">
 				<label for="cgdh">Date Height</label>
@@ -213,6 +216,7 @@ foreach ( $defaults as $key => $value ) {
 		</div>
 		
 		<div id="display" style="margin-left: 553px; margin-top: 180px">
+			<input name="theme1" id="theme0" type="text" data-role="datebox" data-options='{"mode":"calbox", "calShowWeek":true}' />
 			<input name="theme1" id="theme1" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
 			<input name="theme2" id="theme2" type="text" data-role="datebox" data-options='{"mode":"datebox"}' />
 			<input name="theme3" id="theme3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}' />
