@@ -194,6 +194,11 @@
 							t1 = this.copy([0,-1*this.getMonth()]).setFirstDay(1);
 							return Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
 						case 4:
+							// this line is some bullshit.  but it does work.
+							// (trap for dec 29, 30, or 31st being in the new year's week - these are the
+							//  only 3 that can possibly fall like this)
+							if ( this.getMonth() === 11 && this.getDate() > 28 ) { return 1; } 
+							
 							t1 = this.copy([0,-1*this.getMonth()],true).setFirstDay(4).adj(2,-3);
 							t2 = Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
 							
@@ -481,7 +486,7 @@
 		},
 		_formatter: function(format, date) {
 			var w = this,
-				o = this.options,
+				o = this.options, tmp,
 				dur = {
 					part: [0,0,0,0], tp: 0
 				};
@@ -563,6 +568,29 @@
 					case 'o': // Ordinals
 						if ( typeof w._ord[o.useLang] !== 'undefined' ) { return w._ord[o.useLang](date.getDate()); }
 						return w._ord['default'](date.getDate());
+					case 'j':
+						tmp = new Date(date.getFullYear(),0,1);
+						tmp = Math.ceil((date - tmp) / 86400000)+1;
+						if ( tmp < 10 ) {
+							return '00' + tmp;
+						} else if ( tmp < 100 ) {
+							return '0' + tmp;
+						}
+						return tmp;
+					case 'G':
+						if ( date.getWeek(4) === 1 && date.getMonth() > 0 ) {
+							return date.getFullYear() + 1;
+						} else if ( date.getWeek(4) > 51 && date.getMonth() < 11 ) {
+							return date.getFullYear() - 1;
+						}
+						return date.getFullYear();
+					case 'g':
+						if ( date.getWeek(4) === 1 && date.getMonth() > 0 ) {
+							return parseInt(date.getFullYear().toString().substr(2,2),10) + 1;
+						} else if ( date.getWeek(4) > 51 && date.getMonth() < 11 ) {
+							return parseInt(date.getFullYear().toString().substr(2,2),10) - 1;
+						}
+						return date.getFullYear().toString().substr(2,2);
 					default:
 						return match;
 				}
