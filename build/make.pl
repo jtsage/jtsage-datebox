@@ -20,7 +20,7 @@ $version = '';
 	'jquery.mobile.datebox.flipbox.js',
 	'jquery.mobile.datebox.durationbox.js');
 
-$slugtext = "/*\n * jQuery Mobile Framework : plugin to provide a date and time picker.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-datebox\n */\n";
+$slugtext = "/*\n * jQuery Mobile Framework : plugin to provide a date and time picker.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notification.\n * https://github.com/jtsage/jquery-mobile-datebox\n */\n";
 
 if ( $javapath eq '' ) {
 	die "Java not found, can not continue\n";
