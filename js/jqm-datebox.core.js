@@ -244,7 +244,7 @@
 					case 'doreset':
 						w.hardreset(); break;
 					case 'doclear':
-						$(this).val(''); break;
+						$(this).val('').trigger('change'); break;
 				}
 			}
 		},
