@@ -238,7 +238,7 @@
 						}
 						break;
 					case 'dooffset':
-						if(p.type) w._offset(p.type, p.amount, true); break;
+						if (p.type) { w._offset(p.type, p.amount, true); } break; 
 					case 'dorefresh':
 						w.refresh(); break;
 					case 'doreset':
@@ -329,6 +329,13 @@
 		_parser: {
 			'default': function (str) { return false; }
 		},
+		_n: function (val,def) {
+			return ( val < 0 ) ? def : val;
+		},
+		_pa: function (arr,date) {
+			if ( typeof date === 'boolean' ) { return new this._date(arr[0],arr[1],arr[2],0,0,0,0); }
+			return new this._date(date.getFullYear(), date.getMonth(), date.getDate(), arr[0], arr[1], arr[2], 0);
+		},
 		_makeDate: function (str) {
 			// Date Parser
 			str = $.trim(((this.__('useArabicIndic') === true)?this._dRep(str, -1):str));
@@ -336,12 +343,11 @@
 				o = this.options,
 				adv = w.__fmt(),
 				exp_input = null,
+				exp_names = [],
 				exp_format = null,
 				exp_temp = null,
 				date = new w._date(),
-				run = { 'date': false, 'month': false },
-				found_othr = [false, false, false],
-				found_date = [date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds(),0],
+				d = { year: -1, mont: -1, date: -1, hour: -1, mins: -1, secs: -1, week: false, wtyp: 4, wday: false, yday: false, meri: 0 },
 				i;
 			
 			if ( typeof o.mode === 'undefined' ) { return date; }
@@ -380,6 +386,7 @@
 			}
 			
 			adv = adv.replace(/%(0|-)*([a-z])/gi, function(match, pad, oper) {
+				exp_names.push(oper);
 				switch (oper) {
 					case 'p':
 					case 'P':
@@ -403,7 +410,7 @@
 					case 'y': return '(' + match + '|' + '[0-9]{2}' + ')';
 					case 'G':
 					case 'Y': return '(' + match + '|' + '[0-9]{1,4}' + ')';
-					default: return '.+?';	
+					default: exp_names.pop(); return '.+?';	
 				}
 			});
 			
@@ -413,103 +420,82 @@
 			
 			if ( exp_input === null || exp_input.length !== exp_format.length ) {
 				if ( o.defaultValue !== false ) {
-					if ( $.isArray(o.defaultValue) && o.defaultValue.length === 3 ) {
-						if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-							return new w._date(found_date[0], found_date[1], found_date[2], o.defaultValue[0], o.defaultValue[1], o.defaultValue[2], 0);
-						}
-						return new w._date(o.defaultValue[0], o.defaultValue[1], o.defaultValue[2], 0, 0, 0, 0);
-					}
-					
-					if ( typeof o.defaultValue === "number" ) {
-						return new w._date(o.defaultValue * 1000);
-					}
-					
-					if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-						exp_temp = o.defaultValue.split(':');
-						if ( exp_temp.length === 3 ) {
-							date = new w._date(found_date[0], found_date[1], found_date[2], parseInt(exp_temp[0],10),parseInt(exp_temp[1],10),parseInt(exp_temp[2],10),0);
-						}
-					}
-					else {
-						exp_temp = o.defaultValue.split('-');
-						if ( exp_temp.length === 3 ) {
-							date = new w._date(parseInt(exp_temp[0],10),parseInt(exp_temp[1],10)-1,parseInt(exp_temp[2],10),0,0,0,0);
-						}
-					}
-					if ( isNaN(date.getDate()) ) { date = new w._date(); }
-					
-				}
-			} else {
-				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5a 6epoch
-					if ( exp_format[i] === '%s' )                { found_date[6] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*S$/) )         { found_date[5] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*(H|k|I|l)$/) ) { found_date[3] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*d$/) )         { found_date[2] = parseInt(exp_input[i],10); run.date = true; }
-					if ( exp_format[i].match(/^%.*m$/) )         { found_date[1] = parseInt(exp_input[i],10)-1; run.month = true; }
-					if ( exp_format[i].match(/^%.*(Y|G)$/) )     { found_date[0] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*M$/) )         { found_date[4] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*(W|V|U)$/) )   { found_othr[0] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*(u|w)$/) )     { found_othr[1] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*j$/) )         { found_othr[2] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*(y|g)$/) ) { 
-						if ( o.afterToday === true ) {
-							found_date[0] = parseInt('20' + exp_input[i],10);
-						} else {
-							if ( parseInt(exp_input[i],10) < 38 ) {
-								found_date[0] = parseInt('20' + exp_input[i],10);
+					switch ( typeof o.defaultValue ) {
+						case 'object':
+							if ( o.defaultValue.length === 3 ) {
+								date =  w._pa(o.defaultValue,((o.mode === 'timebox' || o.mode === 'timeflipbox') ? date : false));
+							} break;
+						case 'number':
+							date =  new w._date(o.defaultValue * 1000);
+						case 'string':
+							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
+								exp_temp = o.defaultValue.split(':');
+								if ( exp_temp.length === 3 ) { date = w._pa([exp_temp[0],exp_temp[1],exp_temp[2]], date); }
 							} else {
-								found_date[0] = parseInt('19' + exp_input[i],10);
-							}
-						}
-					}
-					if ( exp_format[i].match(/^%(0|-)*(p|P)$/) ) {
-						if ( exp_input[i].toLowerCase() === w.__('meridiem')[0].toLowerCase() && found_date[3] === 12 ) {
-							found_date[3] = 0;
-						} else if ( exp_input[i].toLowerCase() === w.__('meridiem')[1].toLowerCase() && found_date[3] !== 12 ) {
-							found_date[3] = found_date[3] + 12;
-						}
-					}
-					if ( exp_format[i] === '%B' ) {
-						exp_temp = $.inArray(exp_input[i], w.__('monthsOfYear'));
-						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
-					}
-					if ( exp_format[i] === '%b' ) {
-						exp_temp = $.inArray(exp_input[i], w.__('monthsOfYearShort'));
-						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
+								exp_temp = o.defaultValue.split('-');
+								if ( exp_temp.length === 3 ) { date = w._pa([exp_temp[0],exp_temp[1],exp_temp[2]], false); }
+							} break;
 					}
 				}
-				
-				if ( exp_format[0].match(/%s/) ) {
-					return new w._date(found_date[6] * 1000);
+				if ( isNaN(date.getDate()) ) { date = new w._date(); }
+			} else {
+				for ( i=1; i<exp_input.length; i++ ) {
+					switch ( exp_names[i-1] ) {
+						case 's': return new w._date(parseInt(exp_input[i],10) * 1000);
+						case 'Y':
+						case 'G': d.year = parseInt(exp_input[i],10); break;
+						case 'y':
+						case 'g':
+							if ( o.afterToday === true || parseInt(exp_input[i],10) < 38 ) {
+								d.year = parseInt('20' + exp_input[i],10);
+							} else {
+								d.year = parseInt('19' + exp_input[i],10);
+							} break;
+						case 'm': d.mont = parseInt(exp_input[i],10)-1; break;
+						case 'd': d.date = parseInt(exp_input[i],10); break;
+						case 'H':
+						case 'k':
+						case 'I':
+						case 'l': d.hour = parseInt(exp_input[i],10); break;
+						case 'M': d.mins = parseInt(exp_input[i],10); break;
+						case 'S': d.secs = parseInt(exp_input[i],10); break;
+						case 'u': d.wday = parseInt(exp_input[i],10)-1; break;
+						case 'w': d.wday = parseInt(exp_input[i],10); break;
+						case 'j': d.yday = parseInt(exp_input[i],10); break;
+						case 'V': d.week = parseInt(exp_input[i],10); d.wtyp = 4; break;
+						case 'U': d.week = parseInt(exp_input[i],10); d.wtyp = 0; break;
+						case 'W': d.week = parseInt(exp_input[i],10); d.wtyp = 1; break;
+						case 'p':
+						case 'P': d.meri = (( exp_input[i].toLowerCase() === w.__('meridiem')[0].toLowerCase() )? -1:1); break;
+						case 'b':
+							exp_temp = $.inArray(exp_input[i], w.__('monthsOfYear'));
+							if ( exp_temp > -1 ) { d.mont = exp_temp; }
+							break;
+						case 'B':
+							exp_temp = $.inArray(exp_input[i], w.__('monthsOfYearShort'));
+							if ( exp_temp > -1 ) { d.mont = exp_temp; }
+							break;
+					}
+				}
+				if ( d.meri !== 0 ) {
+					if ( d.meri === -1 && d.hour === 12 ) { d.hour = 0; }
+					if ( d.meri === 1 && d.hour !== 12 ) { d.hour = d.hour + 12; }
 				}
 				
-				if ( exp_format[0].match(/%(.)*(I|l|H|k|s|M)/) ) { 
-					date = new w._date(found_date[0], found_date[1], found_date[2], found_date[3], found_date[4], found_date[5], 0);
-				} else {
-					date = new w._date(found_date[0], found_date[1], found_date[2], 0, 0, 0, 0); // Normalize time for raw dates
-				}
+				date = new w._date(w._n(d.year,1),w._n(d.mont,1),w._n(d.date,1),w._n(d.hour,0),w._n(d.mins,0),w._n(d.secs,0),0);
 				
-				if ( found_date[0] < 100 ) { date.setFullYear(found_date[0]); }
+				if ( d.year < 100 && d.year !== -1 ) { date.setFullYear(d.year); }
 				
-				if ( run.month === false || run.date === false ) {
-					if ( found_othr[0] !== false && run.month === false ) {
-						if ( exp_format[0].match(/%(.)*W$/) ) { date.setWeek(1,found_othr[0]); }
-						else if ( exp_format[0].match(/%(.)*U$/) ) { date.setWeek(0,found_othr[0]); }
-						else { date.setWeek(4,found_othr[0]); }
-						
-						if ( run.date === true ) { date.setDate(found_date[2]); }
-					}
-					if ( found_othr[1] !== false && run.date === false ) {
-						if ( exp_format[0].match(/%(.)*u$/) ) { date.adj(2,(found_othr[1]-1) - date.getDay()); }
-						else { date.adj(2,(found_othr[1] - date.getDay())); }
-					}
-					if ( found_othr[2] !== false && run.date === false && run.month === false ) {
-						date.set(1,0).set(2,1).adj(2,(found_othr[2]-1));
-					}
+				if ( ( d.mont > -1 && d.date > -1 ) || ( d.hour > -1 && d.mins > -1 && d.secs > -1 ) ) { return date; }
+				
+				if ( d.week !== false ) {
+					date.setWeek(d.wtyp, d.week);
+					if ( d.date > -1 ) { date.setDate(d.date); } 
 				}
+				if ( d.yday !== false ) { date.set(1,0).set(2,1).adj(2,(d.yday-1)); }
+				if ( d.wday !== false ) { date.adj(2,(d.wday - date.getDay())); }
 			}
 			return date;
-		
 		},
 		_customformat: {
 			'default': function(oper, date) { return false; }
@@ -536,7 +522,7 @@
 			format = format.replace(/%(D|X|0|-)*([a-zA-Z])/g, function(match, pad, oper) {
 				if ( pad === 'X' ) {
 					if ( typeof w._customformat[o.mode] !== 'undefined' ) { return w._customformat[o.mode](oper, date); }
-					else { return match; }
+					return match;
 				}
 				if ( pad === 'D' ) {
 					switch ( oper ) {
@@ -601,25 +587,14 @@
 					case 'j':
 						tmp = new Date(date.getFullYear(),0,1);
 						tmp = Math.ceil((date - tmp) / 86400000)+1;
-						if ( tmp < 10 ) {
-							return '00' + tmp;
-						} else if ( tmp < 100 ) {
-							return '0' + tmp;
-						}
-						return tmp;
+						return (( tmp < 100 ) ? (( tmp < 10 )? '00' : '0') : '' ) + String(tmp);
 					case 'G':
-						if ( date.getWeek(4) === 1 && date.getMonth() > 0 ) {
-							return date.getFullYear() + 1;
-						} else if ( date.getWeek(4) > 51 && date.getMonth() < 11 ) {
-							return date.getFullYear() - 1;
-						}
+						if ( date.getWeek(4) === 1 && date.getMonth() > 0 ) { return date.getFullYear() + 1; } 
+						if ( date.getWeek(4) > 51 && date.getMonth() < 11 ) { return date.getFullYear() - 1; }
 						return date.getFullYear();
 					case 'g':
-						if ( date.getWeek(4) === 1 && date.getMonth() > 0 ) {
-							return parseInt(date.getFullYear().toString().substr(2,2),10) + 1;
-						} else if ( date.getWeek(4) > 51 && date.getMonth() < 11 ) {
-							return parseInt(date.getFullYear().toString().substr(2,2),10) - 1;
-						}
+						if ( date.getWeek(4) === 1 && date.getMonth() > 0 ) { return parseInt(date.getFullYear().toString().substr(2,2),10) + 1; }
+						if ( date.getWeek(4) > 51 && date.getMonth() < 11 ) { return parseInt(date.getFullYear().toString().substr(2,2),10) - 1; }
 						return date.getFullYear().toString().substr(2,2);
 					default:
 						return match;
