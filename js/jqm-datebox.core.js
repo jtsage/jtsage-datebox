@@ -178,10 +178,15 @@
 					return [this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes(), this.getSeconds()];
 				},
 				setFirstDay: function (day) {
-					var tmp = this.copy([],[0,0,1]);
-					tmp.set(2,(tmp.getDate() + ( day - tmp.getDay())));
-					if ( tmp.get(1) !== this.get(1) ) { tmp.set(2,(tmp.get(2) + 7)); }
-					return tmp;
+					this.set(2,1).adj(2, (day - this.getDay()));
+					if ( this.get(2) > 10 ) { this.adj(2,7); }
+					return this; 
+				},
+				setWeek: function (type,num) {
+					if ( type === 4 ) {
+						return this.set(1,0).set(2,1).setFirstDay(4).adj(2,-3).adj(2,(num-1)*7);
+					}
+					return this.set(1,0).set(2,1).setFirstDay(type).adj(2,(num-1)*7);
 				},
 				getWeek: function (type) {
 					var t1, t2;
@@ -334,6 +339,8 @@
 				exp_format = null,
 				exp_temp = null,
 				date = new w._date(),
+				run = { 'date': false, 'month': false },
+				found_othr = [false, false, false],
 				found_date = [date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds(),0],
 				i;
 			
@@ -390,10 +397,13 @@
 					case 'u':
 					case 'W':
 					case 'd': return '(' + match + '|' + (( pad === '-' ) ? '[0-9]{1,2}' : '[0-9]{2}') + ')';
-					case 's': return '(' + match + '|' +'[0-9]+' + ')';
-					case 'y': return '(' + match + '|' +'[0-9]{2}' + ')';
-					case 'Y': return '(' + match + '|' +'[0-9]{1,4}' + ')';
-					default: return '.+?';
+					case 'j': return '(' + match + '|' + '[0-9]{3}' + ')';
+					case 's': return '(' + match + '|' + '[0-9]+' + ')';
+					case 'g':
+					case 'y': return '(' + match + '|' + '[0-9]{2}' + ')';
+					case 'G':
+					case 'Y': return '(' + match + '|' + '[0-9]{1,4}' + ')';
+					default: return '.+?';	
 				}
 			});
 			
@@ -434,11 +444,14 @@
 					if ( exp_format[i] === '%s' )                { found_date[6] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^%.*S$/) )         { found_date[5] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^%.*(H|k|I|l)$/) ) { found_date[3] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*d$/) )         { found_date[2] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*m$/) )         { found_date[1] = parseInt(exp_input[i],10)-1; }
-					if ( exp_format[i].match(/^%.*Y$/) )         { found_date[0] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*d$/) )         { found_date[2] = parseInt(exp_input[i],10); run.date = true; }
+					if ( exp_format[i].match(/^%.*m$/) )         { found_date[1] = parseInt(exp_input[i],10)-1; run.month = true; }
+					if ( exp_format[i].match(/^%.*(Y|G)$/) )     { found_date[0] = parseInt(exp_input[i],10); }
 					if ( exp_format[i].match(/^%.*M$/) )         { found_date[4] = parseInt(exp_input[i],10); }
-					if ( exp_format[i].match(/^%.*y$/) ) { 
+					if ( exp_format[i].match(/^%.*(W|V|U)$/) )   { found_othr[0] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*(u|w)$/) )     { found_othr[1] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*j$/) )         { found_othr[2] = parseInt(exp_input[i],10); }
+					if ( exp_format[i].match(/^%.*(y|g)$/) ) { 
 						if ( o.afterToday === true ) {
 							found_date[0] = parseInt('20' + exp_input[i],10);
 						} else {
@@ -465,7 +478,7 @@
 						if ( exp_temp > -1 ) { found_date[1] = exp_temp; }
 					}
 				}
-			
+				
 				if ( exp_format[0].match(/%s/) ) {
 					return new w._date(found_date[6] * 1000);
 				}
@@ -477,6 +490,23 @@
 				}
 				
 				if ( found_date[0] < 100 ) { date.setFullYear(found_date[0]); }
+				
+				if ( run.month === false || run.date === false ) {
+					if ( found_othr[0] !== false && run.month === false ) {
+						if ( exp_format[0].match(/%(.)*W$/) ) { date.setWeek(1,found_othr[0]); }
+						else if ( exp_format[0].match(/%(.)*U$/) ) { date.setWeek(0,found_othr[0]); }
+						else { date.setWeek(4,found_othr[0]); }
+						
+						if ( run.date === true ) { date.setDate(found_date[2]); }
+					}
+					if ( found_othr[1] !== false && run.date === false ) {
+						if ( exp_format[0].match(/%(.)*u$/) ) { date.adj(2,(found_othr[1]-1) - date.getDay()); }
+						else { date.adj(2,(found_othr[1] - date.getDay())); }
+					}
+					if ( found_othr[2] !== false && run.date === false && run.month === false ) {
+						date.set(1,0).set(2,1).adj(2,(found_othr[2]-1));
+					}
+				}
 			}
 			return date;
 		
