@@ -25,7 +25,7 @@ infile = [
 ]
 files = {}
 
-slugtext = "/*\n * jQuery Mobile Framework : plugin to provide a date and time picker.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-datebox\n */\n"
+slugtext = "/*\n * jQuery Mobile Framework : plugin to provide a date and time picker.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notification.\n * https://github.com/jtsage/jquery-mobile-datebox\n */\n"
 
 print 'jQM-DateBox Build Process'
 print '-=-=-=-=-=-=-=-=-=-=-=-=-'
