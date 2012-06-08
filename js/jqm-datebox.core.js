@@ -177,37 +177,34 @@
 				getArray: function() {
 					return [this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes(), this.getSeconds()];
 				},
-				getISOWeek: function() {
-					$y = this.getFullYear(); 
-					$m = this.getMonth() + 1; 
-					$d = this.getDate(); 
- 
-					if ($m <= 2) { 
-						a = $y - 1; 
-						b = (a / 4 | 0) - (a / 100 | 0) + (a / 400 | 0); 
-						c = ((a - 1) / 4 | 0) - ((a - 1) / 100 | 0) + ((a - 1) / 400 | 0); 
-						s = b - c; 
-						e = 0; 
-						f = $d - 1 + (31 * ($m - 1)); 
-					} else { 
-						a = $y; 
-						b = (a / 4 | 0) - (a / 100 | 0) + (a / 400 | 0); 
-						c = ((a - 1) / 4 | 0) - ((a - 1) / 100 | 0) + ((a - 1) / 400 | 0); 
-						s = b - c; 
-						e = s + 1; 
-						f = $d + ((153 * ($m - 3) + 2) / 5) + 58 + s; 
-					} 
-					 
-					g = (a + b) % 7; 
-					d = (f + g - e) % 7; 
-					n = (f + 3 - d) | 0; 
-				
-					if (n < 0) { 
-						return 53 - ((g - s) / 5 | 0); 
-					} else if (n > 364 + s) { 
-						return 1; 
+				setFirstDay: function (day) {
+					var tmp = this.copy([],[0,0,1]);
+					tmp.set(2,(tmp.getDate() + ( day - tmp.getDay())));
+					if ( tmp.get(1) !== this.get(1) ) { tmp.set(2,(tmp.get(2) + 7)); }
+					return tmp;
+				},
+				getWeek: function (type) {
+					var t1, t2;
+					
+					switch ( type ) {
+						case 0:
+							t1 = this.copy([0,-1*this.getMonth()]).setFirstDay(0);
+							return Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
+						case 1:
+							t1 = this.copy([0,-1*this.getMonth()]).setFirstDay(1);
+							return Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
+						case 4:
+							t1 = this.copy([0,-1*this.getMonth()],true).setFirstDay(4).adj(2,-3);
+							t2 = Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
+							
+							if ( t2 < 1 ) {
+								t1 = this.copy([-1,-1*this.getMonth()]).setFirstDay(4).adj(2,-3);
+								return Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
+							}
+							return t2;
+						default:
+							return 0;
 					}
-					return (n / 7 | 0) + 1; 
 				}
 			});
 		},
@@ -384,6 +381,9 @@
 					case 'M':
 					case 'S':
 					case 'V':
+					case 'U':
+					case 'u':
+					case 'W':
 					case 'd': return '(' + match + '|' + (( pad === '-' ) ? '[0-9]{1,2}' : '[0-9]{2}') + ')';
 					case 's': return '(' + match + '|' +'[0-9]+' + ')';
 					case 'y': return '(' + match + '|' +'[0-9]{2}' + ')';
@@ -546,6 +546,8 @@
 						return date.getEpoch();
 					case 'S': // Seconds
 						return (( pad === '-' ) ? date.getSeconds() : w._zPad(date.getSeconds()));
+					case 'u': // Day of week (1-7)
+						return (( pad === '-' ) ? date.getDay() + 1 : w._zPad(date.getDay() + 1));
 					case 'w': // Day of week
 						return date.getDay();
 					case 'y': // Year (2 digit)
@@ -553,7 +555,11 @@
 					case 'Y': // Year (4 digit)
 						return date.getFullYear();
 					case 'V':
-						return (( pad === '-' ) ? date.getISOWeek() : w._zPad(date.getISOWeek()));
+						return (( pad === '-' ) ? date.getWeek(4) : w._zPad(date.getWeek(4)));
+					case 'U':
+						return (( pad === '-' ) ? date.getWeek(0) : w._zPad(date.getWeek(0)));
+					case 'W':
+						return (( pad === '-' ) ? date.getWeek(1) : w._zPad(date.getWeek(1)));
 					case 'o': // Ordinals
 						if ( typeof w._ord[o.useLang] !== 'undefined' ) { return w._ord[o.useLang](date.getDate()); }
 						return w._ord['default'](date.getDate());
@@ -577,17 +583,14 @@
 				o = this.options;
 				
 			if ( o.minuteStep > 1 && tempMin % o.minuteStep > 0 ) {
-				console.log('call');
 				if ( o.minuteStepRound < 0 ) {
 					tempMin = tempMin - (tempMin % o.minuteStep);
 				} else if ( o.minStepRound > 0 ) {
 					tempMin = tempMin + ( o.minuteStep - ( tempMin % o.minuteStep ) );
 				} else {
 					if ( tempMin % o.minuteStep < o.minuteStep / 2 ) {
-						console.log('down');
 						tempMin = tempMin - (tempMin % o.minuteStep);
 					} else {
-						console.log('up');
 						tempMin = tempMin + ( o.minuteStep - ( tempMin % o.minuteStep ) );
 					}
 				}

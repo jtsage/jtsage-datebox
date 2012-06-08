@@ -64,7 +64,6 @@
 					cal.push(row);
 				}
 			}
-			console.log(cal);
 			return cal;
 		},
 		_cal_check : function (cal, year, month, date) {
@@ -155,15 +154,13 @@
 				'currentMonth': false, 'weekMode': 0, 'weekDays': null };
 			cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7;
 			cal.thisMonth = w.theDate.getMonth();
-			cal.wk = w.theDate.copy([0],[0,0,1]).adj(2,-1*cal.start).getISOWeek()+1;
+			cal.wk = w.theDate.copy([0],[0,0,1]).adj(2,(-1*cal.start)+(w.__('calStartDay')===0?1:0)).getWeek(4);
 			cal.end = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
 			cal.lastend = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate();
 			cal.presetDate = w._makeDate(w.d.input.val());
 			cal.thisDateArr = cal.thisDate.getArray();
 			cal.theDateArr = w.theDate.getArray();
 			cal.checkDates = ( $.inArray(false, [o.afterToday, o.beforeToday, o.notToday, o.maxDays, o.minDays, o.blackDates, o.blackDays]) > -1 );
-			
-			if ( cal.wk > 52 ) { cal.wk = 1; }
 			
 			w.calNext = true;
 			w.calPrev = true;
@@ -208,6 +205,7 @@
 				if ( o.calShowWeek ) {
 						$('<div>', {'class':uid+'griddate '+uid+'griddate-empty'}).text('W'+cal.wk).appendTo(hRow);
 						cal.wk++;
+						if ( cal.wk > 52 && typeof cal.gen[parseInt(row,10)+1] !== 'undefined' ) { cal.wk = new Date(cal.theDateArr[0],cal.theDateArr[1],((w.__('calStartDay')===0)?cal.gen[parseInt(row,10)+1][1][0]:cal.gen[parseInt(row,10)+1][0][0])).getWeek(4); }
 					} 
 				for ( col in cal.gen[row] ) {
 					if ( o.calWeekMode ) { cal.weekMode = cal.gen[row][o.calWeekModeDay][0]; }
