@@ -915,7 +915,7 @@
 			if ( o.dialogForce || ( o.dialogEnable && window.width() < 400 ) ) {
 				w.d.dialogPage = $("<div "+qns+"role='dialog' "+qns+"theme='"+o.theme+"' >" +
 					"<div "+qns+"role='header' "+qns+"theme='"+o.themeHeader+"'>" +
-					"<h1>"+w.d.headerText+"</h1><div "+qns+"role='content'></div></div>")
+					"<h1>"+w.d.headerText+"</h1></div><div "+qns+"role='content'></div>")
 					.appendTo( $.mobile.pageContainer )
 					.page().css('minHeight', '0px').addClass(trans);
 				w.d.dialogPage.find('.ui-header').find('a').off('click vclick').on(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
