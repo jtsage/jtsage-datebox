@@ -165,7 +165,7 @@
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
 				w.d.intHTML.on('mousewheel', '.ui-datebox-sliderow-int', function(e,d) {
 					e.preventDefault();
-					w._offset($(this).jqmData('rowtype'), (d<0)?-1:1);
+					w._offset($(this).jqmData('rowtype'), ((d<0)?-1:1)*($(this).jqmData('rowtype')==='i'?o.minuteStep:1));
 				});
 			}
 			
@@ -213,7 +213,7 @@
 						e.preventDefault();
 						e.stopPropagation();
 						g.tmp = g.target.find('div').first();
-						w._offset(g.target.jqmData('rowtype'), ( w.__('isRTL') ? -1 : 1 )*(parseInt((g.start - g.end) / g.tmp.innerWidth(),10)));
+						w._offset(g.target.jqmData('rowtype'), ( w.__('isRTL') ? -1 : 1 )*(parseInt((g.start - g.end) / g.tmp.innerWidth(),10))*(g.target.jqmData('rowtype')==='i'?o.minuteStep:1));
 					}
 					g.start = false;
 					g.end = false;
