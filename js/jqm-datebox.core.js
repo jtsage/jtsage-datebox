@@ -708,6 +708,7 @@
 			
 			o.theme = thisTheme;
 			
+			w.clearFunc = false;
 			w.disabled = false;
 			w.runButton = false;
 			w._date = window.Date;
@@ -862,6 +863,10 @@
 				qns = 'data-'+this.ns,
 				trans = o.useAnimation ? o.transition : 'none';
 			
+			if ( w.clearFunc !== false ) {
+				clearTimeout(w.clearFunc); w.clearFunc = false;
+			}
+			
 			// Call the open callback if provided. Additionally, if this
 			// returns false then the open/update will stop.
 			if ( o.openCallback !== false ) {
@@ -972,7 +977,7 @@
 				w.d.intHTML.detach().empty();
 				w.d.mainWrap.detach().empty();
 				w.d.wrap.removeClass('ui-focus');
-				setTimeout(function () { w.d.dialogPage.empty().remove(); }, 1500);
+				w.clearFunc = setTimeout(function () { w.d.dialogPage.empty().remove(); w.clearFunc = false; }, 1500);
 			} else {
 				if ( o.useModal ) {
 					w.d.screen.fadeOut('slow');
