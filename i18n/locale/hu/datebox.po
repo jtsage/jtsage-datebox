@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-04-10 20:45+0200\n"
+"PO-Revision-Date: 2012-06-12 00:35+0200\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Hungarian\n"
 "Language: \n"
@@ -20,7 +20,7 @@ msgstr "%A, %B %-d, %Y"
 #. POSIX sytle date format for returned dates
 #: generate-i18n.py:39
 msgid "%Y-%m-%d"
-msgstr "%Y.%m.%d"
+msgstr "%Y.%m.%d."
 
 #. Field order for time input (h=hour, i=minute, a=AM/PM)
 #: generate-i18n.py:37
@@ -45,7 +45,7 @@ msgstr "24"
 #. Abbreviation for the month 'April'
 #: generate-i18n.py:28
 msgid "Apr"
-msgstr "Ápr"
+msgstr "Ápr."
 
 #: generate-i18n.py:27
 msgid "April"
@@ -54,7 +54,7 @@ msgstr "Április"
 #. Abbreviation for the month 'August'
 #: generate-i18n.py:28
 msgid "Aug"
-msgstr "Aug"
+msgstr "Aug."
 
 #: generate-i18n.py:27
 msgid "August"
@@ -71,7 +71,7 @@ msgstr "Napok"
 #. Abbreviation for the month 'December'
 #: generate-i18n.py:28
 msgid "Dec"
-msgstr "Dec"
+msgstr "Dec."
 
 #: generate-i18n.py:27
 msgid "December"
@@ -80,7 +80,7 @@ msgstr "December"
 #. Abbreviation for the month 'February'
 #: generate-i18n.py:28
 msgid "Feb"
-msgstr "Feb"
+msgstr "Febr."
 
 #: generate-i18n.py:27
 msgid "February"
@@ -89,7 +89,7 @@ msgstr "Február"
 #. Abbreviation for the day 'Friday'
 #: generate-i18n.py:26
 msgid "Fr"
-msgstr "Pén"
+msgstr "P"
 
 #: generate-i18n.py:25
 msgid "Friday"
@@ -102,7 +102,7 @@ msgstr "Óra"
 #. Abbreviation for the month 'January'
 #: generate-i18n.py:28
 msgid "Jan"
-msgstr "Jan"
+msgstr "Jan."
 
 #: generate-i18n.py:27
 msgid "January"
@@ -111,7 +111,7 @@ msgstr "Január"
 #. Abreviation for the month 'July'
 #: generate-i18n.py:28
 msgid "Jul"
-msgstr "Júl"
+msgstr "Júl."
 
 #: generate-i18n.py:27
 msgid "July"
@@ -119,12 +119,12 @@ msgstr "Július"
 
 #: generate-i18n.py:22
 msgid "Jump to Today"
-msgstr "Ugrás a mai"
+msgstr "Ugrás a mai napra"
 
 #. Abbreviation for the month 'June'
 #: generate-i18n.py:28
 msgid "Jun"
-msgstr "Jún"
+msgstr "Jún."
 
 #: generate-i18n.py:27
 msgid "June"
@@ -133,7 +133,7 @@ msgstr "Június"
 #. Abbreviation for the month 'March'
 #: generate-i18n.py:28
 msgid "Mar"
-msgstr "Már"
+msgstr "Márc."
 
 #: generate-i18n.py:27
 msgid "March"
@@ -142,7 +142,7 @@ msgstr "Március"
 #. Abbreviation for the month 'May'
 #: generate-i18n.py:28
 msgid "Ma"
-msgstr "Máj"
+msgstr "Máj."
 
 #: generate-i18n.py:27
 msgid "May"
@@ -155,7 +155,7 @@ msgstr "Perc"
 #. Abbreviation for the day 'Monday'
 #: generate-i18n.py:26
 msgid "Mo"
-msgstr "Hét"
+msgstr "H"
 
 #: generate-i18n.py:25
 msgid "Monday"
@@ -163,12 +163,12 @@ msgstr "Hétfő"
 
 #: generate-i18n.py:32
 msgid "Next Month"
-msgstr "Előre"
+msgstr "Köv. hónap"
 
 #. Abbreviation for the month 'November'
 #: generate-i18n.py:28
 msgid "Nov"
-msgstr "Nov"
+msgstr "Nov."
 
 #: generate-i18n.py:27
 msgid "November"
@@ -177,7 +177,7 @@ msgstr "November"
 #. Abbreviation for the month 'October'
 #: generate-i18n.py:28
 msgid "Oct"
-msgstr "Okt"
+msgstr "Okt."
 
 #: generate-i18n.py:27
 msgid "October"
@@ -185,11 +185,11 @@ msgstr "Október"
 
 #: generate-i18n.py:31
 msgid "Open Date Picker"
-msgstr "Nyitott dátumválasztó"
+msgstr "Dátumválasztó megnyitása"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
-msgstr "Vissza"
+msgstr "Előző hónap"
 
 #. Abbreviation for the day 'Saturday'
 #: generate-i18n.py:26
@@ -207,7 +207,7 @@ msgstr "Másodperc"
 #. Abbreviation for the month 'September'
 #: generate-i18n.py:28
 msgid "Sep"
-msgstr "Szep"
+msgstr "Szept."
 
 #: generate-i18n.py:27
 msgid "September"
@@ -215,7 +215,7 @@ msgstr "Szeptember"
 
 #: generate-i18n.py:19
 msgid "Set Date"
-msgstr "Bezár"
+msgstr "Dátum választása"
 
 #: generate-i18n.py:23
 msgid "Choose Date"
@@ -223,20 +223,20 @@ msgstr "Dátum kiválasztása"
 
 #: generate-i18n.py:21
 msgid "Set Duration"
-msgstr "Bezár"
+msgstr "Időtartam beállítása"
 
 #: generate-i18n.py:20 generate-i18n.py:24
 msgid "Set Time"
-msgstr "Bezár"
+msgstr "Idő választása"
 
 #: generate-i18n.py:24
 msgid "Choose Time"
-msgstr "Válassza az idő"
+msgstr "Idő kiválasztása"
 
 #. Abbreviation for the day 'Sunday'
 #: generate-i18n.py:26
 msgid "Su"
-msgstr "Vas"
+msgstr "V"
 
 #: generate-i18n.py:25
 msgid "Sunday"
@@ -245,7 +245,7 @@ msgstr "Vasárnap"
 #. Abbreviation for the day 'Thursday'
 #: generate-i18n.py:26
 msgid "Th"
-msgstr "Csü"
+msgstr "Cs"
 
 #: generate-i18n.py:25
 msgid "Thursday"
@@ -254,7 +254,7 @@ msgstr "Csütörtök"
 #. Abbreviation for the day 'Tuesday'
 #: generate-i18n.py:26
 msgid "Tu"
-msgstr "Ked"
+msgstr "K"
 
 #: generate-i18n.py:25
 msgid "Tuesday"
@@ -282,11 +282,11 @@ msgstr "false"
 #. Set to the start day of the calendar (0=Sunday)
 #: generate-i18n.py:42
 msgid "0"
-msgstr "0"
+msgstr "1"
 
 #: generate-i18n.py:43
 msgid "Clear"
-msgstr "Világos"
+msgstr "Törlés"
 
 #: generate-i18n.py:44
 msgid "'d', 'h', 'i', 's'"
@@ -294,15 +294,15 @@ msgstr "'d', 'h', 'i', 's'"
 
 #: generate-i18n.py:45
 msgid "AM"
-msgstr "AM"
+msgstr "de."
 
 #: generate-i18n.py:45
 msgid "PM"
-msgstr "PM"
+msgstr "du."
 
 #: generate-i18n.py:46
 msgid "%k:%M"
-msgstr "%k:%M"
+msgstr "%k.%M"
 
 #: generate-i18n.py:47
 msgid "%Dd %DA, %Dl:%DM:%DS"
