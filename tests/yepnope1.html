@@ -1,0 +1,83 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>jQueryMobile - DateBox YepNope Demo</title>
+	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="../css/jqm-datebox.css" rel="stylesheet" /> 
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	
+	<script type="text/javascript" src="http://modernizr.com/downloads/modernizr-2.5.3.js"></script>
+	<script type="text/javascript" src="https://raw.github.com/SlexAxton/yepnope.js/master/yepnope.js"></script>
+	
+	
+	<script type="text/javascript">
+		yepnope({
+			test: Modernizr.inputtypes.date && Modernizr.inputtypes.time,
+			nope: ['http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css',
+				'https://raw.github.com/brandonaaron/jquery-mousewheel/master/jquery.mousewheel.js',
+				'http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.js',
+				'http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.js',
+				'http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.js',
+				'http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js'],
+			complete: function(url, result, key) {
+				
+				if (!Modernizr.inputtypes.date) {
+					// polyfill the date inputs
+					$( document ).on( "pagecreate create", function( e ){
+						$( "input[type='date']", e.target ).each(function() {
+							if ( typeof($(this).data('datebox')) === "undefined" ) {
+								$(this).datebox();
+							}
+						});
+					});
+					$("input[type='date']").each(function() {
+						if (typeof($(this).data('datebox')) === "undefined") {
+							$(this).datebox();
+						}
+					});
+				}
+			
+				if (!Modernizr.inputtypes.time) {
+					// polyfill the time inputs
+					$( document ).on( "pagecreate create", function( e ){
+						$( "input[type='time']", e.target ).each(function() {
+							if ( typeof($(this).data('datebox')) === "undefined" ) {
+								$(this).datebox();
+							}
+						});
+					});
+					$("input[type='time']").each(function() {
+						if (typeof($(this).data('datebox')) === "undefined") {
+							$(this).datebox();
+						}
+					});
+				}
+			}
+		});
+	</script>
+</head>
+<body>
+<div data-role="page" data-theme="b" id="main"> 
+	<div data-role="header" data-position="fixed"> 
+		<h1>jQueryMobile - YepNope Page 1</h1>
+	</div>
+	<div data-role="content">
+		<div data-role="fieldcontain">
+			<label for="yep1">date</label>
+			<input name="yep1" type="date" data-options='{"mode": "calbox"}' id="yep1" />
+		</div>
+		<div data-role="fieldcontain">
+			<label for="yep2">time</label>
+			<input name="yep2" type="time" data-options='{"mode": "timebox"}' id="yep2" />
+		</div>
+		<a href="yepnope2.html" data-role="button">Load Page 2 (duplicate of this).</a>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<h1>Some Footer Information or Something.</h1>
+	</div>
+</div>
+</html>
