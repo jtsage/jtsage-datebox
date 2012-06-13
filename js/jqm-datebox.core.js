@@ -863,6 +863,7 @@
 				qns = 'data-'+this.ns,
 				trans = o.useAnimation ? o.transition : 'none';
 			
+			if ( o.useFocus === true && w.fastReopen === true ) { return false; }
 			if ( w.clearFunc !== false ) {
 				clearTimeout(w.clearFunc); w.clearFunc = false;
 			}
@@ -998,6 +999,11 @@
 			$(document).off(w.drag.eMove);
 			$(document).off(w.drag.eEnd);
 			$(document).off(w.drag.eEndA);
+			
+			if ( o.useFocus ) { 
+				w.fastReopen = true;
+				setTimeout(function(t) { return function () { t.fastReopen = false; };}(w), 300);
+			}
 			
 			if ( o.closeCallback !== false ) {
 				if ( ! $.isFunction(o.closeCallback) ) {
