@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.1.0-2012061300', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.1.0-2012061400', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -863,7 +863,7 @@
 				qns = 'data-'+this.ns,
 				trans = o.useAnimation ? o.transition : 'none';
 			
-			if ( o.useFocus === true && w.fastReopen === true ) { return false; }
+			if ( o.useFocus === true && w.fastReopen === true ) { w.d.input.blur(); return false; }
 			if ( w.clearFunc !== false ) {
 				clearTimeout(w.clearFunc); w.clearFunc = false;
 			}
