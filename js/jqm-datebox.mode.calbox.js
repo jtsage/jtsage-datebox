@@ -117,7 +117,7 @@
 				temp = false, row = false, col = false, hRow = false, checked = false;
 				
 			if ( typeof w.d.intHTML !== 'boolean' ) {
-				w.d.intHTML.empty();
+				w.d.intHTML.remove();
 			}
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
