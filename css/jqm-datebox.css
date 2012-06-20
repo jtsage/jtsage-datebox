@@ -13,12 +13,12 @@
 .ui-input-datebox input { width: 100% !important; padding: 0 !important; margin-top: 5px !important; margin-right: -40px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }
 .ui-input-datebox input:focus { outline: none;}
 .ui-input-datebox .ui-btn-text {display: none;}
+.ui-input-datebox.ui-mini { min-height: 30px; font-size: 14px; }
+.ui-input-datebox.ui-mini .ui-btn-icon-notext { margin-top: 2px !important; margin-bottom: 2px !important; }
 
 @media all and (min-width: 450px){
   .ui-field-contain .ui-input-datebox { width: 75%; display: inline-block; } 
   .ui-hide-label .ui-input-datebox { width: 100%; }
-  
-  /*.ui-input-datebox { width: 77%; display: inline-block; zoom:1; *display: inline; }*/
 }
 
 /* Full width if in a grid, ignore the media query */

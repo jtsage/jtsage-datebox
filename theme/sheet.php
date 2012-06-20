@@ -61,7 +61,9 @@ echo ".ui-input-datebox { min-height: 38px; } \n";
 echo ".ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }\n";
 echo ".ui-input-datebox input { width: 100% !important; padding: 0 !important; margin-top: 5px !important; margin-right: -40px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }\n";
 echo ".ui-input-datebox input:focus { outline: none;}\n";
-echo ".ui-input-datebox .ui-btn-text {display: none;}\n\n";
+echo ".ui-input-datebox .ui-btn-text {display: none;}\n";
+echo ".ui-input-datebox.ui-mini { min-height: 30px; font-size: 14px; }\n";
+echo ".ui-input-datebox.ui-mini .ui-btn-icon-notext { margin-top: 2px !important; margin-bottom: 2px !important; }\n\n";
 
 echo "@media all and (min-width: 450px){\n";
 echo "  .ui-field-contain .ui-input-datebox { width: 75%; display: inline-block; }\n";
