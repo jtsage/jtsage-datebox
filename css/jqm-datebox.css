@@ -15,7 +15,10 @@
 .ui-input-datebox .ui-btn-text {display: none;}
 
 @media all and (min-width: 450px){
-  .ui-input-datebox { width: 60%; display: inline-block; zoom:1; *display: inline; }
+  .ui-field-contain .ui-input-datebox { width: 75%; display: inline-block; } 
+  .ui-hide-label .ui-input-datebox { width: 100%; }
+  
+  /*.ui-input-datebox { width: 77%; display: inline-block; zoom:1; *display: inline; }*/
 }
 
 /* Full width if in a grid, ignore the media query */

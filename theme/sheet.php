@@ -64,7 +64,8 @@ echo ".ui-input-datebox input:focus { outline: none;}\n";
 echo ".ui-input-datebox .ui-btn-text {display: none;}\n\n";
 
 echo "@media all and (min-width: 450px){\n";
-echo "  .ui-input-datebox { width: 60%; display: inline-block; zoom:1; *display: inline; }\n";
+echo "  .ui-field-contain .ui-input-datebox { width: 75%; display: inline-block; }\n";
+echo "  .ui-hide-label .ui-input-datebox { width: 100%; }\n";
 echo "}\n";
 
 echo "\n\n/{$star} Calendar Mode Styles {$star}/\n";
