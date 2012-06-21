@@ -714,7 +714,7 @@
 			w._date = window.Date;
 			w._enhanceDate();
 			
-			w.theDate = new Date();
+			w.theDate = (o.defaultValue) ? w._makeDate(o.defaultValue) : new Date();
 			w.initDate = w.theDate.copy();
 			w.initDone = false;
 			

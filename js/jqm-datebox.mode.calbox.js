@@ -150,7 +150,7 @@
 				});
 			
 			cal = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'startDay': w.__('calStartDay'),
-				'thisDate': new w._date(), 'maxDate': new w._date(), 'minDate': new w._date(), 
+				'thisDate': new w._date(), 'maxDate': w.initDate.copy(), 'minDate': w.initDate.copy(),
 				'currentMonth': false, 'weekMode': 0, 'weekDays': null };
 			cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7;
 			cal.thisMonth = w.theDate.getMonth();
@@ -161,7 +161,7 @@
 			cal.thisDateArr = cal.thisDate.getArray();
 			cal.theDateArr = w.theDate.getArray();
 			cal.checkDates = ( $.inArray(false, [o.afterToday, o.beforeToday, o.notToday, o.maxDays, o.minDays, o.blackDates, o.blackDays]) > -1 );
-			
+
 			w.calNext = true;
 			w.calPrev = true;
 			
