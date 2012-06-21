@@ -32,7 +32,8 @@ var stuff = { // name: ['default','desc','type','mode list']
 		useInline: [false, 'Show control inline in the page (always visible)', 'Boolean', true],
 		useInlineBlind: [false, 'Show the control inline in the page when clicked (rolldown)', 'Boolean', true],
 		useButton: [true, 'Show a button in the Input Element to open the control', 'Boolean', true],
-		useFocus: [false, 'Open the control when the Input Element is focused', 'Boolean', true]
+		useFocus: [false, 'Open the control when the Input Element is focused', 'Boolean', true],
+		usePlaceholder: [false, 'Attempt to auto fill the placeholder text (or use the supplied custom text)', 'Boolean', true]
 	},
 	control: {
 		XXname: 'Control Options',

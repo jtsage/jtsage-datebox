@@ -45,6 +45,7 @@
 			useFocus: false,
 			useClearButton: false,
 			useCollapsedBut: false,
+			usePlaceholder: false,
 			
 			openCallback: false,
 			openCallbackArgs: [],
@@ -705,6 +706,11 @@
 				ns = (typeof $.mobile.ns !== 'undefined')?$.mobile.ns:'';
 				
 			$.extend(w, {d: d, ns: ns, drag: drag, touch:touch});
+			
+			if ( o.usePlaceholder !== false ) {
+				if ( o.usePlaceholder === true && w._grabLabel() !== false ) { w.d.input.attr('placeholder', w._grabLabel()); }
+				else { w.d.input.attr('placeholder', o.usePlaceholder); }
+			}
 			
 			o.theme = thisTheme;
 			
