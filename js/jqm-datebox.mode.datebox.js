@@ -75,15 +75,15 @@
 		},
 		'datebox': function () {
 			var w = this,
-				o = this.options, i, y, tmp,
+				o = this.options, i, y, tmp, cnt = -2,
 				uid = 'ui-datebox-',
-				divBase = $("<div>", { "class":uid+'controls' }),
-				divPlus = divBase.clone(),
+				divBase = $("<div>"),
+				divPlus = $('<fieldset>'),
 				divIn = divBase.clone(),
-				divMinus = divBase.clone(),
-				inBase = $("<input type='"+w.inputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset '+uid+'input ui-body-'+o.themeInput),
-				inBaseT = ($.browser.msie ? inBase.clone() : inBase.clone().attr('type','text')),
-				butBase = $("<div></div>"),
+				divMinus = divPlus.clone(),
+				inBase = $("<input type='"+w.inputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-body-'+o.themeInput),
+				inBaseT = inBase.clone().attr('type','text'),
+				butBase = $("<div>"),
 				butPTheme = {theme: o.themeButton, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true},
 				butMTheme = $.extend({}, butPTheme, {icon: 'minus', iconpos: 'top'});
 			
@@ -102,39 +102,43 @@
 			if ( o.mode === 'datebox' ) { $('<div class="'+uid+'header"><h4>'+w._formatter(w.__('headerFormat'), w.theDate)+'</h4></div>').appendTo(w.d.intHTML); }
 			
 			for(i=0; i<=w.fldOrder.length; i++) {
+				tmp = ['a','b','c','d','e','f'][i];
 				switch (w.fldOrder[i]) {
 					case 'y':
 					case 'm':
 					case 'd':
 					case 'h':
-						w._makeEl(inBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).appendTo(divIn);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).buttonMarkup(butPTheme).appendTo(divPlus);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).buttonMarkup(butMTheme).appendTo(divMinus);
+						$('<div>').append(w._makeEl(inBase, {'attr': {'field':w.fldOrder[i], 'amount':1}})).addClass('ui-block-'+tmp).appendTo(divIn);
+						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butPTheme).appendTo(divPlus);
+						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
+						cnt++;
 						break;
 					case 'a':
 						if ( w.__('timeFormat') === 12 ) {
-							w._makeEl(inBaseT, {'attr': {'field':w.fldOrder[i], 'amount':1}}).appendTo(divIn);
-							w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).buttonMarkup(butPTheme).appendTo(divPlus);
-							w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).buttonMarkup(butMTheme).appendTo(divMinus);
+							$('<div>').append(w._makeEl(inBaseT, {'attr': {'field':w.fldOrder[i], 'amount':1}})).addClass('ui-block-'+tmp).appendTo(divIn);
+							w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butPTheme).appendTo(divPlus);
+							w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
+							cnt++;
 						} 
 						break;
 					case 'M':
-						w._makeEl(inBaseT, {'attr': {'field':w.fldOrder[i], 'amount':1}}).appendTo(divIn);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).buttonMarkup(butPTheme).appendTo(divPlus);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).buttonMarkup(butMTheme).appendTo(divMinus);
+						$('<div>').append(w._makeEl(inBaseT, {'attr': {'field':w.fldOrder[i], 'amount':1}})).addClass('ui-block-'+tmp).appendTo(divIn);
+						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butPTheme).appendTo(divPlus);
+						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
+						cnt++;
 						break;
 					case 'i':
-						w._makeEl(inBase, {'attr': {'field':w.fldOrder[i], 'amount':o.minuteStep}}).appendTo(divIn);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':o.minuteStep}}).buttonMarkup(butPTheme).appendTo(divPlus);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':o.minuteStep}}).buttonMarkup(butMTheme).appendTo(divMinus);
+						$('<div>').append(w._makeEl(inBase, {'attr': {'field':w.fldOrder[i], 'amount':o.minuteStep}})).addClass('ui-block-'+tmp).appendTo(divIn);
+						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':o.minuteStep}}).addClass('ui-block-'+tmp).buttonMarkup(butPTheme).appendTo(divPlus);
+						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':o.minuteStep}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
+						cnt++;
 						break;
-					
 				}
 			}
 			
-			divPlus.appendTo(w.d.intHTML);
-			divIn.appendTo(w.d.intHTML);
-			divMinus.appendTo(w.d.intHTML);
+			divPlus.addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
+			divIn.addClass('ui-datebox-dboxin').addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
+			divMinus.addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
 			
 			divIn.find('input').each(function () {
 				switch ( $(this).jqmData('field') ) {
