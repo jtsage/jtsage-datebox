@@ -159,7 +159,7 @@
 				y = $('<div>', {'class':uid+'controls'});
 				
 				if ( o.useSetButton ) {
-					$('<a href="#">'+((o.mode==='datebox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))+'</a>')
+					$('<a href="#">'+((o.mode==='flipbox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))+'</a>')
 						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
