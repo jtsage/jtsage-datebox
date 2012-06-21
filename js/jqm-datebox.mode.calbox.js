@@ -130,7 +130,7 @@
 			// Previous and next month buttons, define booleans to decide if they should do anything
 			$("<div class='"+uid+"gridplus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('nextMonth')+"</a></div>")
 				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
-				.buttonMarkup({theme: o.themeDate, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
+				.buttonMarkup({theme: o.themeDate, icon: 'arrow-r', inline: true, iconpos: 'notext', corners:true, shadow:true})
 				.on(o.clickEvent, function(e) {
 					e.preventDefault();
 					if ( w.calNext ) {
@@ -140,7 +140,7 @@
 				});
 			$("<div class='"+uid+"gridminus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('prevMonth')+"</a></div>")
 				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
-				.buttonMarkup({theme: o.themeDate, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
+				.buttonMarkup({theme: o.themeDate, icon: 'arrow-l', inline: true, iconpos: 'notext', corners:true, shadow:true})
 				.on(o.clickEvent, function(e) {
 					e.preventDefault();
 					if ( w.calPrev ) {
@@ -150,7 +150,7 @@
 				});
 			
 			cal = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'startDay': w.__('calStartDay'),
-				'thisDate': new w._date(), 'maxDate': new w._date(), 'minDate': new w._date(), 
+				'thisDate': new w._date(), 'maxDate': w.initDate.copy(), 'minDate': w.initDate.copy(),
 				'currentMonth': false, 'weekMode': 0, 'weekDays': null };
 			cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7;
 			cal.thisMonth = w.theDate.getMonth();
@@ -161,7 +161,7 @@
 			cal.thisDateArr = cal.thisDate.getArray();
 			cal.theDateArr = w.theDate.getArray();
 			cal.checkDates = ( $.inArray(false, [o.afterToday, o.beforeToday, o.notToday, o.maxDays, o.minDays, o.blackDates, o.blackDays]) > -1 );
-			
+
 			w.calNext = true;
 			w.calPrev = true;
 			
