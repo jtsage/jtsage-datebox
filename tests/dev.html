@@ -18,7 +18,7 @@
 	<script type="text/javascript" src="../demos/extras.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.calbox.js"></script>
-	<script type="text/javascript" src="../js/jqm-datebox.mode.datebox.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.mode.dateboxg.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.flipbox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.durationbox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.slidebox.js"></script>
@@ -34,11 +34,11 @@
 	<div data-role="content">
 		<div data-role="fieldcontain" class="ui-hide-label">
 			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" data-role="datebox" data-options='{"usePlaceholder": "some shit", "mode": "calbox", "defaultValue":[2008,11,1], "calShowWeek": true, "overrideCalStartDay":1, "overrideDateFormat":"%G-W%V-%-u"}' id="lang1" />
+			<input name="lang1" type="text" data-mini="true" data-role="datebox" data-options='{"usePlaceholder": "some shit", "useNewStyle":true, "mode": "calbox", "defaultValue":[2008,11,1], "calShowWeek": true, "overrideCalStartDay":1, "overrideDateFormat":"%G-W%V-%-u"}' id="lang1" />
 		</div>
-		<div data-role="fieldcontain">
+		<div data-role="fieldcontain" class="ui-hide-label">
 			<label for="aa1">text comparison</label>
-			<input name="aa1" type="text" id="aa1" />
+			<input name="aa1" type="text" id="aa1" data-mini="true"/>
 		</div>
 		
 		<div data-role="fieldcontain">
@@ -55,7 +55,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="lang5">timebox</label>
-			<input name="lang5" type="text" data-role="datebox" data-options='{"mode": "timebox", "minuteStep": 10, "minuteStepRound": 0}' id="lang5" />
+			<input name="lang5" type="text" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFieldOrder":["y","m","d","h","i","a"], "minuteStep": 10, "minuteStepRound": 0}' id="lang5" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="lang6">timeflipbox</label>

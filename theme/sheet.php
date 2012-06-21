@@ -63,12 +63,32 @@ echo ".ui-input-datebox input { width: 100% !important; padding: 0 !important; m
 echo ".ui-input-datebox input:focus { outline: none;}\n";
 echo ".ui-input-datebox .ui-btn-text {display: none;}\n";
 echo ".ui-input-datebox.ui-mini { min-height: 30px; font-size: 14px; }\n";
-echo ".ui-input-datebox.ui-mini .ui-btn-icon-notext { margin-top: 2px !important; margin-bottom: 2px !important; }\n\n";
+echo ".ui-input-datebox.ui-mini .ui-btn-icon-notext { margin-top: 2px !important; margin-bottom: 2px !important; }\n";
+echo ".ui-icon-datebox { background-image: url('image/datebox.png') !important; background-repeat: no-repeat; background-position: 99% 8px; }\n";
+echo ".ui-icon-datebox-alt { background-image: url('image/datebox.png') !important; background-repeat: no-repeat; background-position: 99% -28px; }\n";
+echo ".ui-mini.ui-icon-datebox { background-position: 99% 6px; }\n";
+echo ".ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }\n\n";
 
 echo "@media all and (min-width: 450px){\n";
 echo "  .ui-field-contain .ui-input-datebox { width: 75%; display: inline-block; }\n";
 echo "  .ui-hide-label .ui-input-datebox { width: 100%; }\n";
 echo "}\n";
+
+echo "\n\n/{$star}  Full width if in a grid, ignore the media query {$star}/\n";
+echo ".ui-grid-a .ui-input-datebox { width: 97%; }\n";
+echo ".ui-grid-b .ui-input-datebox { width: 97%; }\n";
+echo ".ui-grid-c .ui-input-datebox { width: 97%; }\n";
+echo ".ui-grid-d .ui-input-datebox { width: 97%; }\n";
+echo ".ui-grid-e .ui-input-datebox { width: 97%; }\n\n";
+
+echo "\n\n/{$star}  Define a 6-part grid, just in case. {$star}/\n";
+echo ".ui-grid-e .ui-block-a, .ui-grid-e .ui-block-b, .ui-grid-e .ui-block-c, .ui-grid-e .ui-block-d, .ui-grid-e .ui-block-e, .ui-grid-e .ui-block-f { width: 16.65%; }\n";
+echo ".ui-grid-e > :nth-child(n) { width: 16.65%; }\n";
+echo ".ui-grid-e .ui-block-a { clear: left; }\n\n";
+
+echo ".ui-grid-e { overflow: hidden; }\n";
+echo ".ui-block-f { margin: 0; padding: 0; border: 0; float: left; min-height: 1px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }\n\n";
+
 
 echo "\n\n/{$star} Calendar Mode Styles {$star}/\n";
 echo ".ui-datebox-gridheader { text-align: center; }\n";
@@ -87,6 +107,8 @@ echo ".ui-datebox-griddate-disable { color: {$use['cgddc']}; }\n";
 
 echo "\n\n/{$star} Android Mode Styles {$star}/\n";
 echo ".ui-datebox-header h4 { margin-top: 5px; margin-bottom: 5px; text-align: center; }\n";
+echo ".ui-datebox-container fieldset div { margin: 0px !important; }\n";
+echo ".ui-datebox-dboxin input { text-align: center; }\n";
 echo ".ui-datebox-controls { text-align: center; }\n";
 echo ".ui-datebox-controls div { width: {$use['dcw']}px; text-align: center; display: inline-block; zoom: 1; *display: inline;}\n";
 echo ".ui-datebox-scontrols { text-align: center; }\n";

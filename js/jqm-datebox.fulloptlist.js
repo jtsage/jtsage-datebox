@@ -33,7 +33,9 @@ var stuff = { // name: ['default','desc','type','mode list']
 		useInlineBlind: [false, 'Show the control inline in the page when clicked (rolldown)', 'Boolean', true],
 		useButton: [true, 'Show a button in the Input Element to open the control', 'Boolean', true],
 		useFocus: [false, 'Open the control when the Input Element is focused', 'Boolean', true],
-		usePlaceholder: [false, 'Attempt to auto fill the placeholder text (or use the supplied custom text)', 'Boolean', true]
+		usePlaceholder: [false, 'Attempt to auto fill the placeholder text (or use the supplied custom text)', 'Boolean', true],
+		useNewStyle: [false, 'Use the new input display style (cleaner, less inconsistency)', 'Boolean', true],
+		useAltIcon: [false, 'When using useNewStyle, use a light icon rather than a dark one', 'Boolean', true]
 	},
 	control: {
 		XXname: 'Control Options',

@@ -40,6 +40,8 @@
 			useInlineBlind: false,
 			useHeader: true,
 			useImmediate: false,
+			useNewStyle: false,
+			useAltIcon: false,
 			
 			useButton: true,
 			useFocus: false,
@@ -683,9 +685,14 @@
 						o.themeDefault : this.element.parentsUntil(':jqmData(theme)').parent().jqmData('theme') )
 					: o.theme,
 				trans = o.useAnimation ? o.transition : 'none',
-				d = {
+				d = o.useNewStyle === false ? {
 					input: this.element,
 					wrap: this.element.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all '+ (this.element.jqmData("mini") === true ? 'ui-mini ':'') +'ui-body-'+ thisTheme +'"></div>').parent(),
+					mainWrap: $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden '+trans+' ui-body-'+thisTheme} ).css('zIndex', o.zindex),
+					intHTML: false
+				} : {
+					input: this.element,
+					wrap: this.element,
 					mainWrap: $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden '+trans+' ui-body-'+thisTheme} ).css('zIndex', o.zindex),
 					intHTML: false
 				},
@@ -724,7 +731,7 @@
 			w.initDate = w.theDate.copy();
 			w.initDone = false;
 			
-			if ( o.useButton === true && o.useInline === false ) {
+			if ( o.useButton === true && o.useInline === false && o.useNewStyle === false ) {
 				w.d.open = $('<a href="#" class="ui-input-clear" title="'+this.__('tooltip')+'">'+this.__('tooltip')+'</a>')
 					.on(o.clickEvent, function(e) {
 						e.preventDefault();
@@ -777,6 +784,11 @@
 				})
 				.attr("readonly", o.lockInput)
 				.on('datebox', w._event);
+			
+			if ( o.useNewStyle === true ) {
+				w.d.input.addClass('ui-shadow-inset ui-corner-all '+((o.useAltIcon===true)?'ui-icon-datebox-alt':'ui-icon-datebox'));
+				o.useFocus = true;
+			}
 			
 			// Check if mousewheel plugin is loaded
 			if ( typeof $.event.special.mousewheel !== 'undefined' ) { w.wheelExists = true; }
