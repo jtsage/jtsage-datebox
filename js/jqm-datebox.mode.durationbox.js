@@ -48,20 +48,20 @@
 	$.extend( $.mobile.datebox.prototype._build, {
 		'durationbox': function () {
 			var w = this,
-				o = this.options, i, y, cDur = [0,0,0,0],
+				o = this.options, i, y, cDur = [0,0,0,0], tmp,
 				ival = {'d': 60*60*24, 'h': 60*60, 'i': 60},
 				uid = 'ui-datebox-',
-				divBase = $("<div>", { "class":uid+'scontrols' }),
-				divPlus = divBase.clone(),
-				divIn = divBase.clone(),
-				divMinus = divBase.clone(),
+				divBase = $("<div>"),
+				divPlus = $('<fieldset>'),
+				divIn = divBase.clone().addClass('ui-datebox-dboxin'),
+				divMinus = divPlus.clone(),
 				inBase = $("<input type='"+w.inputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-body-'+o.themeInput),
 				butBase = $("<div><a href='#'></a></div>"),
 				butPTheme = {theme: o.themeButton, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true},
 				butMTheme = $.extend({}, butPTheme, {icon: 'minus', iconpos: 'top'});
 			
 			if ( typeof w.d.intHTML !== 'boolean' ) {
-				w.d.intHTML.empty();
+				w.d.intHTML.empty().remove();
 			}
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
@@ -76,9 +76,9 @@
 					case 'i':
 					case 's':
 						y = $.inArray(w.fldOrder[i], ['d','h','i','s']);
-						$('<div>', {'class': uid+'sinput'}).jqmData('field', w.fldOrder[i]).append(inBase.clone()).appendTo(divIn).prepend('<label>'+w.__('durationLabel')[y]+'</label>');
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i]}}).buttonMarkup(butPTheme).appendTo(divPlus);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i]}}).buttonMarkup(butMTheme).appendTo(divMinus);
+						$('<div>').jqmData('field', w.fldOrder[i]).addClass('ui-block-'+['a','b','c','d'][i]).append(inBase.clone()).appendTo(divIn).prepend('<label>'+w.__('durationLabel')[y]+'</label>');
+						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i]}}).addClass('ui-block-'+['a','b','c','d'][i]).buttonMarkup(butPTheme).appendTo(divPlus);
+						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i]}}).addClass('ui-block-'+['a','b','c','d'][i]).buttonMarkup(butMTheme).appendTo(divMinus);
 						break;
 				}
 			}
@@ -108,9 +108,9 @@
 				}
 			});
 			
-			divPlus.appendTo(w.d.intHTML);
-			divIn.appendTo(w.d.intHTML);
-			divMinus.appendTo(w.d.intHTML);
+			divPlus.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
+			divIn.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
+			divMinus.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
 			
 			if ( o.useSetButton || o.useClearButton ) {
 				y = $('<div>', {'class':uid+'controls'});

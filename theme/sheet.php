@@ -10,8 +10,6 @@ $defaults = array(
 	'cgfs' => '12', // Cal box font size (calbox)
 	'cgdec' => '#888', // Empty date color (calbox)
 	'cgddc' => '#888', // Disabled date color (calbox)
-	'dcw' => '77', // button width (datebox)
-	'dsiw' => '74', // input width (datebox)
 	'width' => '280', // Master Width
 	'fw' => '77', // width (flipbox)
 	'fwl' => '260', // lens width (flipbox)
@@ -109,13 +107,7 @@ echo "\n\n/{$star} Android Mode Styles {$star}/\n";
 echo ".ui-datebox-header h4 { margin-top: 5px; margin-bottom: 5px; text-align: center; }\n";
 echo ".ui-datebox-container fieldset div { margin: 0px !important; }\n";
 echo ".ui-datebox-dboxin input { text-align: center; }\n";
-echo ".ui-datebox-controls { text-align: center; }\n";
-echo ".ui-datebox-controls div { width: {$use['dcw']}px; text-align: center; display: inline-block; zoom: 1; *display: inline;}\n";
-echo ".ui-datebox-scontrols { text-align: center; }\n";
-echo ".ui-datebox-scontrols div { width: 55px; text-align: center; display: inline-block; zoom: 1; *display: inline;}\n";
-echo ".ui-datebox-scontrols .ui-datebox-sinput { width: 68px; }\n";
-echo ".ui-datebox-scontrols .ui-datebox-sinput input { width: 48px; text-align: center; margin-left: 3px; }\n";
-echo ".ui-datebox-input { width: {$use['dsiw']}px !important; margin-left: 1px; margin-right: 1px; text-align: center !important; display: inline-block !important; zoom:1; *display: inline; }\n";
+echo ".ui-datebox-dboxin label { width: 100%; text-align: center; display: block; margin-top: 5px; margin-bottom: -8px; }\n\n";
 
 echo "\n\n/{$star} Slide Mode Styles {$star}/\n";
 echo ".ui-datebox-slide { width: {$use['width']}px; margin-left: auto; margin-right: auto;}\n";

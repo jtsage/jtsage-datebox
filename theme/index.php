@@ -8,8 +8,6 @@ $defaults = array(
 	'cgfs' => '12', // Cal box font size (calbox)
 	'cgdec' => '#888', // Empty date color (calbox)
 	'cgddc' => '#888', // Disabled date color (calbox)
-	'dcw' => '77', // button width (datebox)
-	'dsiw' => '74', // input width (datebox)
 	'width' => '280', // Master Width
 	'fw' => '77', // width (flipbox)
 	'fwl' => '260', // lens width (flipbox)
@@ -139,15 +137,6 @@ foreach ( $defaults as $key => $value ) {
 				<input name="cgfs" id="cgfs" value="<?php echo $use['cgfs']; ?>" type="range" min="5" max="40">
 				<label for="cgdec">Different Month Color</label>
 				<input name="cgdec" id="cgdec" value="<?php echo $use['cgdec']; ?>" type="text">
-			</div>
-			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
-			
-			<h2>DateBox</h2>
-			<div data-role="fieldcontain">
-				<label for="dcw">Button Width</label>
-				<input name="dcw" id="dcw" value="<?php echo $use['dcw']; ?>" type="range" min="5" max="150">
-				<label for="dsiw">Input Width</label>
-				<input name="dsiw" id="dsiw" value="<?php echo $use['dsiw']; ?>" type="range" min="5" max="150">
 			</div>
 			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
 			
