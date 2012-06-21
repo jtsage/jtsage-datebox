@@ -429,7 +429,7 @@
 								date =  w._pa(o.defaultValue,((o.mode === 'timebox' || o.mode === 'timeflipbox') ? date : false));
 							} break;
 						case 'number':
-							date =  new w._date(o.defaultValue * 1000);
+							date =  new w._date(o.defaultValue * 1000); break;
 						case 'string':
 							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
 								exp_temp = o.defaultValue.split(':');
@@ -727,8 +727,8 @@
 			w._date = window.Date;
 			w._enhanceDate();
 			
+			w.initDate = new Date();
 			w.theDate = (o.defaultValue) ? w._makeDate(o.defaultValue) : new Date();
-			w.initDate = w.theDate.copy();
 			w.initDone = false;
 			
 			if ( o.useButton === true && o.useInline === false && o.useNewStyle === false ) {
