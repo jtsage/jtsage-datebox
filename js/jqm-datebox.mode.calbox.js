@@ -130,7 +130,7 @@
 			// Previous and next month buttons, define booleans to decide if they should do anything
 			$("<div class='"+uid+"gridplus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('nextMonth')+"</a></div>")
 				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
-				.buttonMarkup({theme: o.themeDate, icon: 'plus', inline: true, iconpos: 'notext', corners:true, shadow:true})
+				.buttonMarkup({theme: o.themeDate, icon: 'arrow-r', inline: true, iconpos: 'notext', corners:true, shadow:true})
 				.on(o.clickEvent, function(e) {
 					e.preventDefault();
 					if ( w.calNext ) {
@@ -140,7 +140,7 @@
 				});
 			$("<div class='"+uid+"gridminus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('prevMonth')+"</a></div>")
 				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
-				.buttonMarkup({theme: o.themeDate, icon: 'minus', inline: true, iconpos: 'notext', corners:true, shadow:true})
+				.buttonMarkup({theme: o.themeDate, icon: 'arrow-l', inline: true, iconpos: 'notext', corners:true, shadow:true})
 				.on(o.clickEvent, function(e) {
 					e.preventDefault();
 					if ( w.calPrev ) {
