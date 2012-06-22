@@ -716,7 +716,7 @@
 			
 			if ( o.usePlaceholder !== false ) {
 				if ( o.usePlaceholder === true && w._grabLabel() !== false ) { w.d.input.attr('placeholder', w._grabLabel()); }
-				else { w.d.input.attr('placeholder', o.usePlaceholder); }
+				if ( typeof o.usePlaceholder === 'string' ) { w.d.input.attr('placeholder', o.usePlaceholder); }
 			}
 			
 			o.theme = thisTheme;
