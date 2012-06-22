@@ -6,14 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>jQueryMobile - DateBox Demo</title>
 	<!--link href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.css" rel="stylesheet" type="text/css" /-->
-	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.css" rel="stylesheet" type="text/css" />
+	<link href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.css" rel="stylesheet" type="text/css" />
 	<link type="text/css" href="../css/jqm-datebox.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
 	<!--script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script-->
-	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="../demos/extras.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
@@ -23,7 +23,12 @@
 	<script type="text/javascript" src="../js/jqm-datebox.mode.durationbox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.slidebox.js"></script>
 	<script type="text/javascript" src="./jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
-	
+	<script type="text/javascript">
+		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+			'usePlaceholder': true,
+			'useNewStyle': true
+		});
+	</script>
 	
 </head>
 <body>
@@ -34,11 +39,11 @@
 	<div data-role="content">
 		<div data-role="fieldcontain">
 			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" data-mini="true" data-role="datebox" data-options='{"usePlaceholder": "some shit", "useNewStyle":true, "mode": "calbox", "defaultValue":[2008,11,1], "calShowWeek": true, "overrideCalStartDay":1, "overrideDateFormat":"%G-W%V-%-u"}' id="lang1" />
+			<input name="lang1" type="text" data-role="datebox" data-options='{"calNoHeader":true, "calUsePickers":true, "mode": "calbox"}' id="lang1" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="aa1">text comparison</label>
-			<input name="aa1" type="text" id="aa1" data-mini="true"/>
+			<input name="aa1" type="text" id="aa1"/>
 		</div>
 		
 		<div data-role="fieldcontain">

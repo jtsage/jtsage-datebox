@@ -74,6 +74,17 @@
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox", "calShowWeek": true}'&gt;</pre>
 				</div>
+				<div data-role="collapsible" data-collapsed="true">
+					<h2>Calendar w/ Pickers instead of Header</h2>
+					<p>To show week numbers, set 'calUsePickers' and 'calNoHeader' to true.</p>
+					<div data-role="fieldcontain">
+						<label for="pcal">Some Date</label><input name="pcal" type="date" data-role="datebox" id="pcal" data-options='{"mode": "calbox", "calUsePickers": true, "calNoHeader":true}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "calUsePickers": true, "calNoHeader": true}'&gt;</pre>
+				</div>
 				<div data-role="collapsible">
 					<h2>Changing the start of the week (overrideCalStartDay)</h2>
 					<p>To change the start of the week, set option 'overrideCalStartDay' (or calStartDay in an i18n config file) to an integer 0-6, where 0=Sunday, 1=Monday...</p>

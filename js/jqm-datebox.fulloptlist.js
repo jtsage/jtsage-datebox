@@ -113,6 +113,8 @@ var stuff = { // name: ['default','desc','type','mode list']
 		themeDateHigh: ['e', 'Theme swatch for highDates', 'String', [0,1,0,0,0,0,0]],
 		themeDateHighAlt: ['e', 'Theme swatch for highDatesAlt', 'String', [0,1,0,0,0,0,0]],
 		themeDate: ['d', 'Theme swatch for other dates (inherited)', 'String', [0,1,0,0,0,0,0]],
+		calUsePickers: [false, 'Use Month/Year Pickers', 'Boolean', [0,1,0,0,0,0,0]],
+		calNoHeader: [false, 'Suppress Standard Header', 'Boolean', [0,1,0,0,0,0,0]],
 		calHighToday: [true, 'Highlight today\'s date', 'Boolean', [0,1,0,0,0,0,0]],
 		calHighPick: [true, 'Highlight choosen date', 'Boolean', [0,1,0,0,0,0,0]],
 		calWeekHigh: [false, 'Highlight full week on mouseover', 'Boolean', [0,1,0,0,0,0,0]],
