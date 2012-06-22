@@ -67,6 +67,8 @@
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
 			w.d.intHTML = $('<span>');
 			
+			if ( w.inputType !== 'number' ) { inBase.attr('pattern', '[0-9]*'); }
+			
 			w.fldOrder = w.__('durationOrder');
 			
 			for(i=0; i<=w.fldOrder.length; i++) {

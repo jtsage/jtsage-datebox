@@ -94,6 +94,8 @@
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():((o.mode==='datebox')?w.__('titleDateDialogLabel'):w.__('titleTimeDialogLabel')));
 			w.d.intHTML = $('<span>');
 			
+			if ( w.inputType !== 'number' ) { inBase.attr('pattern', '[0-9]*'); }
+			
 			w.fldOrder = ((o.mode==='datebox')?w.__('dateFieldOrder'):w.__('timeFieldOrder'));
 			w._check();
 			w._minStepFix();

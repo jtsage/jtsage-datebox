@@ -748,7 +748,7 @@
 					w.d.input.trigger('datebox', {'method':'close'});
 				});
 			
-			if ( o.enhanceInput === true && navigator.userAgent.match(/Android|iPhone|iPad/i) ){
+			if ( o.enhanceInput === true && navigator.userAgent.match(/Android/i) ){
 				w.inputType = 'number';
 			} else {
 				w.inputType = 'text';
