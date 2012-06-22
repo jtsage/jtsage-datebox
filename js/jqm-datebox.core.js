@@ -772,7 +772,7 @@
 					if ( w.disabled === false && o.useFocus === true ) {
 						w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus');
 					} 
-					w.d.input.removeClass('ui-focus');
+					if ( o.useNewStyle === false ) { w.d.input.removeClass('ui-focus'); }
 				})
 				.blur(function(){
 					w.d.wrap.removeClass('ui-focus');
