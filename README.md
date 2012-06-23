@@ -52,7 +52,7 @@ All scripts are available on the cdn:
 
 DateBox uses the following version scheme:
 
-[http://dev.jtsage.com/cdn/datebox/&lt;jqm VERSION%gt;/](http://dev.jtsage.com/cdn/datebox/)
+[http://dev.jtsage.com/cdn/datebox/&lt;jqm VERSION&gt;/](http://dev.jtsage.com/cdn/datebox/)
 
 You must load:
 * jqm-datebox.core.js (or min)
