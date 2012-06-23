@@ -52,14 +52,14 @@ All scripts are available on the cdn:
 
 DateBox uses the following version scheme:
 
-http://dev.jtsage.com/cdn/datebox/<jqm VERSION>/
+[http://dev.jtsage.com/cdn/datebox/&lt;jqm VERSION%gt;/](http://dev.jtsage.com/cdn/datebox/)
 
 You must load:
 * jqm-datebox.core.js (or min)
-* AND:: jqm-datebox.mode.<yourmode>.js
+* AND:: jqm-datebox.mode.&lt;yourmode&gt;.js
 
 OR (if using only one mode)
-* jqm-datebox.comp.<yourmode>.js
+* jqm-datebox.comp.&lt;yourmode&gt;.js
 
 #### Latest Versions:
 
@@ -70,7 +70,8 @@ Suggested Use
 
 #### With Option Overrides:
 	
-	<input type="date" data-role="datebox" name="somedate" data-options='{"mode": "datebox", "overrideDateFormat": "mm/dd/YYYY"}' />
+	<input type="date" data-role="datebox" name="somedate"
+		data-options='{"mode": "datebox", "overrideDateFormat": "mm/dd/YYYY"}' />
 		
 #### Global Option Overrides:
 	
