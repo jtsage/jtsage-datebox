@@ -133,7 +133,7 @@
 			$("<div class='"+uid+"gridplus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('nextMonth')+"</a></div>")
 				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
 				.buttonMarkup({theme: o.themeDate, icon: 'arrow-r', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.on(o.clickEvent, function(e) {
+				.on(o.clickEventAlt, function(e) {
 					e.preventDefault();
 					if ( w.calNext ) {
 						if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
@@ -143,7 +143,7 @@
 			$("<div class='"+uid+"gridminus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('prevMonth')+"</a></div>")
 				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
 				.buttonMarkup({theme: o.themeDate, icon: 'arrow-l', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.on(o.clickEvent, function(e) {
+				.on(o.clickEventAlt, function(e) {
 					e.preventDefault();
 					if ( w.calPrev ) {
 						if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
