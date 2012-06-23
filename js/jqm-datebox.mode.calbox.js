@@ -275,7 +275,7 @@
 				if ( o.useClearButton ) {
 					$('<a href="#">'+w.__('clearButton')+'</a>')
 						.appendTo(hRow).buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
-						.on(o.clickEvent, function(e) {
+						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w.d.input.val('');
 							w.d.input.trigger('datebox',{'method':'clear'});
@@ -288,8 +288,8 @@
 				hRow.appendTo(temp);
 			}
 			
-			w.d.intHTML.on(o.clickEvent+' vmouseover vmouseout', 'div.'+uid+'griddate', function(e) {
-				if ( e.type === o.clickEvent ) {
+			w.d.intHTML.on(o.clickEventAlt+' vmouseover vmouseout', 'div.'+uid+'griddate', function(e) {
+				if ( e.type === o.clickEventAlt ) {
 					e.preventDefault();
 					if ( $(this).jqmData('enabled') ) {
 						w.theDate.set(2,1).set(1,$(this).jqmData('month')).set(2,$(this).jqmData('date'));

@@ -161,7 +161,7 @@
 				if ( o.useSetButton ) {
 					$('<a href="#">'+((o.mode==='flipbox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))+'</a>')
 						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-						.on(o.clickEvent, function(e) {
+						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							if ( w.dateOK === true ) {
 								w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(),w.theDate), 'date':w.theDate});
@@ -172,7 +172,7 @@
 				if ( o.useClearButton ) {
 					$('<a href="#">'+w.__('clearButton')+'</a>')
 						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
-						.on(o.clickEvent, function(e) {
+						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w.d.input.val('');
 							w.d.input.trigger('datebox',{'method':'clear'});

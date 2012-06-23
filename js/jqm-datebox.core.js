@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.1.0-2012062100', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.1.0-2012062300', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -28,6 +28,7 @@
 			
 			zindex: '500',
 			clickEvent: 'vclick',
+			clickEventAlt: 'click',
 			resizeListener: true,
 			
 			defaultValue: false,
@@ -744,7 +745,7 @@
 			
 			w.d.screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
 				.css({'z-index': o.zindex-1})
-				.on(o.clickEvent, function(e) {
+				.on(o.clickEventAlt, function(e) {
 					e.preventDefault();
 					w.d.input.trigger('datebox', {'method':'close'});
 				});
@@ -944,7 +945,7 @@
 					"<h1>"+w.d.headerText+"</h1></div><div "+qns+"role='content'></div>")
 					.appendTo( $.mobile.pageContainer )
 					.page().css('minHeight', '0px').addClass(trans);
-				w.d.dialogPage.find('.ui-header').find('a').off('click vclick').on(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
+				w.d.dialogPage.find('.ui-header').find('a').off('click vclick').on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
 				w.d.mainWrap.append(w.d.intHTML).css({'marginLeft':'auto', 'marginRight':'auto'}).removeClass('ui-datebox-hidden');
 				w.d.dialogPage.find('.ui-content').append(w.d.mainWrap);
 				w.d.input.trigger('datebox',{'method':'postrefresh'});
@@ -957,7 +958,7 @@
 					w.d.headHTML = $('<div class="ui-header ui-bar-'+o.themeHeader+'"></div>');
 					$("<a class='ui-btn-left' href='#'>Close</a>").appendTo(w.d.headHTML)
 						.buttonMarkup({ theme  : o.themeHeader, icon   : 'delete', iconpos: 'notext', corners: true, shadow : true })
-						.on(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
+						.on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
 					$('<h1 class="ui-title">'+w.d.headerText+'</h1>').appendTo(w.d.headHTML);
 					w.d.mainWrap.append(w.d.headHTML);
 				}

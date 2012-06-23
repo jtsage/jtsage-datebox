@@ -167,7 +167,7 @@
 				if ( o.useSetButton ) {
 					$('<a href="#">'+w.__('customSet')+'</a>')
 						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
-						.on(o.clickEvent, function(e) {
+						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(o.customFormat,w.customCurrent), 'date':w.tireChoice});
 							w.d.input.trigger('datebox', {'method':'close'});
