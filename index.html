@@ -20,6 +20,7 @@
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.customflip.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 	
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
@@ -65,6 +66,7 @@
 			<div data-role="collapsible-set" data-mini="true" data-theme="c" data-content-theme="d">
 				<div data-role="collapsible" data-collapsed="false">
 					<h3>Modes Available</h3>
+					<div data-role="fieldcontain">
 					<label for="mode1">CalBox</label>
 					<input name="mode1" id="mode1" type="text" data-role="datebox" data-options='{"mode":"calbox", "useNewStyle":true}' />
 					<label for="mode2">DateBox</label>
@@ -79,6 +81,9 @@
 					<input name="mode4" id="mode4" type="text" data-role="datebox" data-options='{"mode":"slidebox", "useNewStyle":true}' />
 					<label for="mode5">DurationBox</label>
 					<input name="mode5" id="mode5" type="text" data-role="datebox" data-options='{"mode":"durationbox", "useNewStyle":true}' />
+					<label for="mode6">CustomFlip</label>
+					<input name="mode6" id="mode6" type="text" data-role="datebox" data-options='{"mode":"customflip", "useNewStyle":true}' />
+					</div>
 				</div>
 				<div data-role="collapsible">
 					<h3>Mode Options w/ Demos</h3>
@@ -90,6 +95,7 @@
 						<li><a href="demos/mode/timebox.html">Time Mode</a></li> 
 						<li><a href="demos/mode/timeflipbox.html">Time Flip Mode</a></li> 
 						<li><a href="demos/mode/durationbox.html">Duration Mode</a></li>
+						<li><a href="demos/mode/customflipbox.html">Custom Flip Mode (ext)</a></li>
 					</ul>
 				</div>
 				<div data-role="collapsible">

@@ -42,6 +42,7 @@
 			useImmediate: false,
 			useNewStyle: false,
 			useAltIcon: false,
+			overrideStyleClass: false,
 			
 			useButton: true,
 			useFocus: false,
@@ -522,7 +523,7 @@
 					if ( ! format.match(/%DM/) ) { dur.part[3] += (dur.part[2]*60);}
 				}
 				
-			format = format.replace(/%(D|X|0|-)*([a-zA-Z])/g, function(match, pad, oper) {
+			format = format.replace(/%(D|X|0|-)*([1-9a-zA-Z])/g, function(match, pad, oper) {
 				if ( pad === 'X' ) {
 					if ( typeof w._customformat[o.mode] !== 'undefined' ) { return w._customformat[o.mode](oper, date); }
 					return match;
@@ -787,6 +788,7 @@
 			
 			if ( o.useNewStyle === true ) {
 				w.d.input.addClass('ui-shadow-inset ui-corner-all '+((o.useAltIcon===true)?'ui-icon-datebox-alt':'ui-icon-datebox'));
+				if ( o.overrideStyleClass !== false ) { w.d.input.addClass(o.overrideStyleClass); }
 				o.useFocus = true;
 			}
 			

@@ -120,6 +120,14 @@ var stuff = { // name: ['default','desc','type','mode list']
 		calWeekHigh: [false, 'Highlight full week on mouseover', 'Boolean', [0,1,0,0,0,0,0]],
 		calControlGroup: [false, 'Use control group buttons in calendar', 'Boolean', [0,1,0,0,0,0,0]]
 	},
+	custom: {
+		XXname: 'Custom Modes',
+		customData: ['N/A', 'Data structure for custom modes', 'Array', false],
+		themeOptPick: ['a', 'Theme for highlighted option (customflip)', 'String', false],
+		themeOpt: ['d', 'Theme for other options (customflip)', 'String', false],
+		overrideCustomSet: ['Looks Good', 'Set button for custom modes (i18n aware)', 'String', false],
+		customDefault: ['[0,0,0]', 'Array of default indexs for custom modes', 'Array', false]
+	},
 	i18n: { //Mode List: [dbox,calbox,flipbox,slidebox,timebox,timeflipbox,durationbox] or true
 		XXname: 'Internationalization / Localization',
 		'NOTE:: To override, use overrideNameOfOption - e.g. overrideTimeFormat': true,

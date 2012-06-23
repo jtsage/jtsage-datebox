@@ -1,0 +1,105 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.customflip.min.js"></script>
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
+	<script type="text/javascript" src="../extras.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="slideIndex"> 
+	<div data-role="header" data-position="fixed"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="../../" rel="external" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+			<div data-role="collapsible-set" data-mini="true" data-theme="c" data-content-theme="d">
+				<div data-role="collapsible" data-collapsed="false"> 
+					<h2>Custom Flip Mode</h2>
+					<p>Using the flip mode is as simple as setting the 'mode' option to "customflip".</p>
+					<script type="text/javascript">
+						jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+							'customData': [
+								{'name':'Letter', 'data':['a','b','c','d','e']},
+								{'name':'Text', 'data':['some','bull','shtuff','here']}
+							],
+							'useNewStyle': true,
+							'overrideStyleClass': 'ui-icon-dice'
+						});
+					</script>
+					<style>
+						.ui-icon-dice { background-image: url('../../img/dice.png') !important; background-repeat: no-repeat; background-position: 99% 50%; }
+					</style>
+					
+					<div data-role="fieldcontain">
+						<label for="cf">Custom</label>
+						<input name="cf" type="date" data-role="datebox" id="cf" data-options='{"mode": "customflip"}' />
+					</div>
+					<p>Note: this demo show the "new" style, and a custom icon style.  Source below explains their use - basically, it just applies the *extra* style - override background-image to get rid of the calendar icon</p>
+					
+					<pre class="prettyprint">
+&lt;script type="text/javascript"&gt;
+  jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+    'customData': [
+      {'name':'Letter', 'data':['a','b','c','d','e']},
+      {'name':'Text', 'data':['some','bull','shtuff','here']}
+    ],
+    'useNewStyle': true,
+    'overrideStyleClass': 'ui-icon-dice'
+  });
+&lt;/script&gt;
+&lt;style&gt;
+  .ui-icon-dice { background-image: url('../../img/dice.png') !important; background-repeat: no-repeat; background-position: 99% 50%; }
+&lt;/style&gt;
+
+&lt;div data-role="fieldcontain"&gt;
+  &lt;label for="cf"&gt;Custom&lt;/label&gt;
+  &lt;input name="cf" type="date" data-role="datebox" id="cf" data-options='{"mode": "customflip"}' /&gt;
+&lt;/div&gt;
+</pre>
+   
+				</div>
+				<div data-role="collapsible">
+					<h2>Theme Options</h2>
+					<ul data-role="listview" data-inset="true">
+						<li><h3>themeOptPick</h3><p>Theme swatch for choosen (centered) option</p></li>
+						<li><h3>themeOpt</h3><p>Theme swatch for other date elements</p></li>
+					</ul>
+				</div>
+				<div data-role="collapsible">
+					<h2>Data</h2>
+					<p>The data structure is pretty rigid.  It is an array, consisting of objects like the following:</p>
+					<pre class="prettyprint">{'name': 'The label for the roller', 'data': ['an','array','of','values']}</pre>
+					<p>If you don't wish to use labels, name must still be present - just leave it an empty string.  "Values" can be any valid HTML - customflipbox doesn't care in the least</p>
+					<p>Return values are a comma-delimeted string of INDEXES.  Your data will *never* be passed to the input, it's up to you to interpet it on the backend.</p>
+					<p>Note: each data list is probably limited to 10 items.  If you need more, send me an e-mail, and I'll walk you though raising the limit.</p>
+				</div>
+			</div>
+		
+	</div>
+	<div data-role="footer" data-position="fixed">
+	</div>
+</div>
+</html>

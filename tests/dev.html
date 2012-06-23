@@ -22,6 +22,7 @@
 	<script type="text/javascript" src="../js/jqm-datebox.mode.flipbox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.durationbox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.slidebox.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.mode.customflip.js"></script>
 	<script type="text/javascript" src="./jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
@@ -29,6 +30,9 @@
 			'useNewStyle': true
 		});
 	</script>
+	<style>
+		.ui-icon-dice { background-image: url('img/dice.png') !important; background-repeat: no-repeat; background-position: 99% 50%; }
+	</style>
 	
 </head>
 <body>
@@ -37,6 +41,10 @@
 		<h1>jQueryMobile - Dev Page</h1>
 	</div>
 	<div data-role="content">
+		<div data-role="fieldcontain">
+			<label for="c1">custom flip</label>
+			<input name="c1" type="text" data-role="datebox" data-options='{"mode": "customflip", "overrideStyleClass":"ui-icon-dice"}' id="c1" />
+		</div>
 		<div data-role="fieldcontain">
 			<label for="lang1">calbox</label>
 			<input name="lang1" type="text" data-role="datebox" data-options='{"calNoHeader":true, "calUsePickers":true, "mode": "calbox"}' id="lang1" />
