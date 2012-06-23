@@ -12,9 +12,9 @@
 		themeOpt: 'd',
 		useSetButton: true,
 		customData: [
-			{'name':'Letter', 'data':['a','b','c','d','e']},
-			{'name':'Text', 'data':['some','bull','shtuff','here']},
-			{'name':'Image', 'data':['<img src="img/slot1.png" />','<img src="img/slot2.png" />','<img src="img/slot3.png" />','<img src="img/slot4.png" />']}
+			{'input': true, 'name':'Letter', 'data':['a','b','c','d','e']},
+			{'input': true, 'name':'Text', 'data':['some','bull','shtuff','here']},
+			{'input': false, 'name':'Image', 'data':['<img src="img/slot1.png" />','<img src="img/slot2.png" />','<img src="img/slot3.png" />','<img src="img/slot4.png" />']}
 		],
 		customDefault: [0,0,0],
 		customFormat: false,

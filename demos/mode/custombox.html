@@ -15,7 +15,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.customflip.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.custombox.min.js"></script>
 	
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
 	<script type="text/javascript" src="../extras.js"></script>
@@ -37,8 +37,8 @@
 	<div data-role="content" data-theme="c">
 			<div data-role="collapsible-set" data-mini="true" data-theme="c" data-content-theme="d">
 				<div data-role="collapsible" data-collapsed="false"> 
-					<h2>Custom Flip Mode</h2>
-					<p>Using the flip mode is as simple as setting the 'mode' option to "customflip".</p>
+					<h2>Custom Box Mode</h2>
+					<p>Using the custom box mode is as simple as setting the 'mode' option to "custombox", and defining some data.</p>
 					<script type="text/javascript">
 						jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 							'customData': [
@@ -55,7 +55,7 @@
 					
 					<div data-role="fieldcontain">
 						<label for="cf">Custom</label>
-						<input name="cf" type="date" data-role="datebox" id="cf" data-options='{"mode": "customflip"}' />
+						<input name="cf" type="date" data-role="datebox" id="cf" data-options='{"mode": "custombox"}' />
 					</div>
 					<p>Note: this demo show the "new" style, and a custom icon style.  Source below explains their use - basically, it just applies the *extra* style - override background-image to get rid of the calendar icon</p>
 					
@@ -76,7 +76,7 @@
 
 &lt;div data-role="fieldcontain"&gt;
   &lt;label for="cf"&gt;Custom&lt;/label&gt;
-  &lt;input name="cf" type="date" data-role="datebox" id="cf" data-options='{"mode": "customflip"}' /&gt;
+  &lt;input name="cf" type="date" data-role="datebox" id="cf" data-options='{"mode": "custombox"}' /&gt;
 &lt;/div&gt;
 </pre>
    
@@ -93,7 +93,7 @@
 					<p>The data structure is pretty rigid.  It is an array, consisting of objects like the following:</p>
 					<pre class="prettyprint">{'input': Boolean, 'name': 'The label for the roller', 'data': ['an','array','of','values']}</pre>
 					<p>If you don't wish to use labels, name must still be present - just leave it an empty string.  "Values" can be any valid HTML - customflipbox doesn't care in the least</p>
-					<p>'input' is not used in this mode, it need not be present.</p>
+					<p>'input', when set true, lets custombox know the data list is simple strings - otherwise, it will encase in a DIV instead, to preserve formatting.</p>
 					<p>Return values are a comma-delimeted string of INDEXES.  Your data will *never* be passed to the input, it's up to you to interpet it on the backend.</p>
 					<p>Note: each data list is probably limited to 10 items.  If you need more, send me an e-mail, and I'll walk you though raising the limit.</p>
 				</div>

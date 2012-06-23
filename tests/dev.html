@@ -23,6 +23,7 @@
 	<script type="text/javascript" src="../js/jqm-datebox.mode.durationbox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.slidebox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.customflip.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.mode.custombox.js"></script>
 	<script type="text/javascript" src="./jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
@@ -41,6 +42,10 @@
 		<h1>jQueryMobile - Dev Page</h1>
 	</div>
 	<div data-role="content">
+		<div data-role="fieldcontain">
+			<label for="c2">custom box</label>
+			<input name="c2" type="text" data-role="datebox" data-options='{"mode": "custombox", "overrideStyleClass":"ui-icon-dice"}' id="c2" />
+		</div>
 		<div data-role="fieldcontain">
 			<label for="c1">custom flip</label>
 			<input name="c1" type="text" data-role="datebox" data-options='{"mode": "customflip", "overrideStyleClass":"ui-icon-dice"}' id="c1" />
