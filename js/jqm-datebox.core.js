@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.1.0-2012062301', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.1.0-2012062302', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -770,6 +770,13 @@
 		
 			w.d.input
 				.removeClass('ui-corner-all ui-shadow-inset')
+				.bind(w.touch?'touchend':'click', function(e){
+					if ( w.disabled === false && o.useNewStyle === true && o.useFocus === false ) {
+						if ( ((w.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX) - e.target.offsetLeft) > (e.target.offsetWidth - 20) ) {
+							w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus');
+						}
+					}
+				})
 				.focus(function(){
 					if ( w.disabled === false && o.useFocus === true ) {
 						w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus');
@@ -790,7 +797,6 @@
 			if ( o.useNewStyle === true ) {
 				w.d.input.addClass('ui-shadow-inset ui-corner-all '+((o.useAltIcon===true)?'ui-icon-datebox-alt':'ui-icon-datebox'));
 				if ( o.overrideStyleClass !== false ) { w.d.input.addClass(o.overrideStyleClass); }
-				o.useFocus = true;
 			}
 			
 			// Check if mousewheel plugin is loaded
