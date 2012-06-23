@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.1.0-2012062300', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.1.0-2012062301', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -729,8 +729,8 @@
 			w._date = window.Date;
 			w._enhanceDate();
 			
-			w.initDate = new Date();
-			w.theDate = (o.defaultValue) ? w._makeDate(o.defaultValue) : new Date();
+			w.initDate = new w._date();
+			w.theDate = (o.defaultValue) ? w._makeDate(o.defaultValue) : new w._date();
 			w.initDone = false;
 			
 			if ( o.useButton === true && o.useInline === false && o.useNewStyle === false ) {
