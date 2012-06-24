@@ -975,7 +975,12 @@
 				w._applyCoords({widget:w});
 				
 				if ( o.useModal === true ) { 
-					w.d.screen.fadeIn('slow'); 
+					if(o.useAnimation) {
+                        w.d.screen.fadeIn('slow');
+                    } else {
+                        w.d.screen.show();
+                    }
+
 				} else {
 					setTimeout(function () { w.d.screen.removeClass('ui-datebox-hidden');}, 500);
 				}
@@ -1008,7 +1013,12 @@
 				w.clearFunc = setTimeout(function () { w.d.dialogPage.empty().remove(); w.clearFunc = false; }, 1500);
 			} else {
 				if ( o.useModal ) {
-					w.d.screen.fadeOut('slow');
+                    if(o.useAnimation) {
+                        w.d.screen.fadeOut('slow');
+                    } else {
+                        w.d.screen.hide();
+                    }
+
 				} else {
 					w.d.screen.addClass('ui-datebox-hidden');
 				}
