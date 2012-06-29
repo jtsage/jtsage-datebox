@@ -473,11 +473,11 @@
 						case 'p':
 						case 'P': d.meri = (( exp_input[i].toLowerCase() === w.__('meridiem')[0].toLowerCase() )? -1:1); break;
 						case 'b':
-							exp_temp = $.inArray(exp_input[i], w.__('monthsOfYear'));
+							exp_temp = $.inArray(exp_input[i], w.__('monthsOfYearShort'));
 							if ( exp_temp > -1 ) { d.mont = exp_temp; }
 							break;
 						case 'B':
-							exp_temp = $.inArray(exp_input[i], w.__('monthsOfYearShort'));
+							exp_temp = $.inArray(exp_input[i], w.__('monthsOfYear'));
 							if ( exp_temp > -1 ) { d.mont = exp_temp; }
 							break;
 					}
