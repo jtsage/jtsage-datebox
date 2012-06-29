@@ -413,6 +413,7 @@
 					case 's': return '(' + match + '|' + '[0-9]+' + ')';
 					case 'g':
 					case 'y': return '(' + match + '|' + '[0-9]{2}' + ')';
+					case 'E':
 					case 'G':
 					case 'Y': return '(' + match + '|' + '[0-9]{1,4}' + ')';
 					default: exp_names.pop(); return '.+?';	
@@ -449,6 +450,7 @@
 						case 's': return new w._date(parseInt(exp_input[i],10) * 1000);
 						case 'Y':
 						case 'G': d.year = parseInt(exp_input[i],10); break;
+						case 'E': d.year = parseInt(exp_input[i],10) - 543; break;
 						case 'y':
 						case 'g':
 							if ( o.afterToday === true || parseInt(exp_input[i],10) < 38 ) {
@@ -580,6 +582,8 @@
 						return date.getFullYear().toString().substr(2,2);
 					case 'Y': // Year (4 digit)
 						return date.getFullYear();
+					case 'E': // BE (Buddist Era, 4 Digit)
+						return date.getFullYear() + 543;
 					case 'V':
 						return (( pad === '-' ) ? date.getWeek(4) : w._zPad(date.getWeek(4)));
 					case 'U':
