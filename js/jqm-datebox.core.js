@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.1.0-2012061400', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.1.0-2012062302', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -28,6 +28,7 @@
 			
 			zindex: '500',
 			clickEvent: 'vclick',
+			clickEventAlt: 'click',
 			resizeListener: true,
 			
 			defaultValue: false,
@@ -40,11 +41,15 @@
 			useInlineBlind: false,
 			useHeader: true,
 			useImmediate: false,
+			useNewStyle: false,
+			useAltIcon: false,
+			overrideStyleClass: false,
 			
 			useButton: true,
 			useFocus: false,
 			useClearButton: false,
 			useCollapsedBut: false,
+			usePlaceholder: false,
 			
 			openCallback: false,
 			openCallbackArgs: [],
@@ -408,6 +413,7 @@
 					case 's': return '(' + match + '|' + '[0-9]+' + ')';
 					case 'g':
 					case 'y': return '(' + match + '|' + '[0-9]{2}' + ')';
+					case 'E':
 					case 'G':
 					case 'Y': return '(' + match + '|' + '[0-9]{1,4}' + ')';
 					default: exp_names.pop(); return '.+?';	
@@ -426,7 +432,7 @@
 								date =  w._pa(o.defaultValue,((o.mode === 'timebox' || o.mode === 'timeflipbox') ? date : false));
 							} break;
 						case 'number':
-							date =  new w._date(o.defaultValue * 1000);
+							date =  new w._date(o.defaultValue * 1000); break;
 						case 'string':
 							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
 								exp_temp = o.defaultValue.split(':');
@@ -444,6 +450,7 @@
 						case 's': return new w._date(parseInt(exp_input[i],10) * 1000);
 						case 'Y':
 						case 'G': d.year = parseInt(exp_input[i],10); break;
+						case 'E': d.year = parseInt(exp_input[i],10) - 543; break;
 						case 'y':
 						case 'g':
 							if ( o.afterToday === true || parseInt(exp_input[i],10) < 38 ) {
@@ -519,7 +526,7 @@
 					if ( ! format.match(/%DM/) ) { dur.part[3] += (dur.part[2]*60);}
 				}
 				
-			format = format.replace(/%(D|X|0|-)*([a-zA-Z])/g, function(match, pad, oper) {
+			format = format.replace(/%(D|X|0|-)*([1-9a-zA-Z])/g, function(match, pad, oper) {
 				if ( pad === 'X' ) {
 					if ( typeof w._customformat[o.mode] !== 'undefined' ) { return w._customformat[o.mode](oper, date); }
 					return match;
@@ -575,6 +582,8 @@
 						return date.getFullYear().toString().substr(2,2);
 					case 'Y': // Year (4 digit)
 						return date.getFullYear();
+					case 'E': // BE (Buddist Era, 4 Digit)
+						return date.getFullYear() + 543;
 					case 'V':
 						return (( pad === '-' ) ? date.getWeek(4) : w._zPad(date.getWeek(4)));
 					case 'U':
@@ -682,9 +691,14 @@
 						o.themeDefault : this.element.parentsUntil(':jqmData(theme)').parent().jqmData('theme') )
 					: o.theme,
 				trans = o.useAnimation ? o.transition : 'none',
-				d = {
+				d = o.useNewStyle === false ? {
 					input: this.element,
-					wrap: this.element.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all ui-body-'+ thisTheme +'"></div>').parent(),
+					wrap: this.element.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all '+ (this.element.jqmData("mini") === true ? 'ui-mini ':'') +'ui-body-'+ thisTheme +'"></div>').parent(),
+					mainWrap: $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden '+trans+' ui-body-'+thisTheme} ).css('zIndex', o.zindex),
+					intHTML: false
+				} : {
+					input: this.element,
+					wrap: this.element,
 					mainWrap: $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden '+trans+' ui-body-'+thisTheme} ).css('zIndex', o.zindex),
 					intHTML: false
 				},
@@ -706,6 +720,11 @@
 				
 			$.extend(w, {d: d, ns: ns, drag: drag, touch:touch});
 			
+			if ( o.usePlaceholder !== false ) {
+				if ( o.usePlaceholder === true && w._grabLabel() !== false ) { w.d.input.attr('placeholder', w._grabLabel()); }
+				if ( typeof o.usePlaceholder === 'string' ) { w.d.input.attr('placeholder', o.usePlaceholder); }
+			}
+			
 			o.theme = thisTheme;
 			
 			w.clearFunc = false;
@@ -718,8 +737,8 @@
             w.applyStartOffset(w.theDate);
             w.initDate = w.theDate.copy();
 			w.initDone = false;
-
-			if ( o.useButton === true && o.useInline === false ) {
+			
+			if ( o.useButton === true && o.useInline === false && o.useNewStyle === false ) {
 				w.d.open = $('<a href="#" class="ui-input-clear" title="'+this.__('tooltip')+'">'+this.__('tooltip')+'</a>')
 					.on(o.clickEvent, function(e) {
 						e.preventDefault();
@@ -731,12 +750,12 @@
 			
 			w.d.screen = $("<div>", {'class':'ui-datebox-screen ui-datebox-hidden'+((o.useModal)?' ui-datebox-screen-modal':'')})
 				.css({'z-index': o.zindex-1})
-				.on(o.clickEvent, function(e) {
+				.on(o.clickEventAlt, function(e) {
 					e.preventDefault();
 					w.d.input.trigger('datebox', {'method':'close'});
 				});
 			
-			if ( o.enhanceInput === true && navigator.userAgent.match(/Android|iPhone|iPad/i) ){
+			if ( o.enhanceInput === true && navigator.userAgent.match(/Android/i) ){
 				w.inputType = 'number';
 			} else {
 				w.inputType = 'text';
@@ -756,11 +775,18 @@
 		
 			w.d.input
 				.removeClass('ui-corner-all ui-shadow-inset')
+				.bind(w.touch?'touchend':'click', function(e){
+					if ( w.disabled === false && o.useNewStyle === true && o.useFocus === false ) {
+						if ( ((w.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX) - e.target.offsetLeft) > (e.target.offsetWidth - 20) ) {
+							w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus');
+						}
+					}
+				})
 				.focus(function(){
 					if ( w.disabled === false && o.useFocus === true ) {
 						w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus');
 					} 
-					w.d.input.removeClass('ui-focus');
+					if ( o.useNewStyle === false ) { w.d.input.removeClass('ui-focus'); }
 				})
 				.blur(function(){
 					w.d.wrap.removeClass('ui-focus');
@@ -772,6 +798,11 @@
 				})
 				.attr("readonly", o.lockInput)
 				.on('datebox', w._event);
+			
+			if ( o.useNewStyle === true ) {
+				w.d.input.addClass('ui-shadow-inset ui-corner-all '+((o.useAltIcon===true)?'ui-icon-datebox-alt':'ui-icon-datebox'));
+				if ( o.overrideStyleClass !== false ) { w.d.input.addClass(o.overrideStyleClass); }
+			}
 			
 			// Check if mousewheel plugin is loaded
 			if ( typeof $.event.special.mousewheel !== 'undefined' ) { w.wheelExists = true; }
@@ -947,7 +978,7 @@
 					"<h1>"+w.d.headerText+"</h1></div><div "+qns+"role='content'></div>")
 					.appendTo( $.mobile.pageContainer )
 					.page().css('minHeight', '0px').addClass(trans);
-				w.d.dialogPage.find('.ui-header').find('a').off('click vclick').on(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
+				w.d.dialogPage.find('.ui-header').find('a').off('click vclick').on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
 				w.d.mainWrap.append(w.d.intHTML).css({'marginLeft':'auto', 'marginRight':'auto'}).removeClass('ui-datebox-hidden');
 				w.d.dialogPage.find('.ui-content').append(w.d.mainWrap);
 				w.d.input.trigger('datebox',{'method':'postrefresh'});
@@ -960,7 +991,7 @@
 					w.d.headHTML = $('<div class="ui-header ui-bar-'+o.themeHeader+'"></div>');
 					$("<a class='ui-btn-left' href='#'>Close</a>").appendTo(w.d.headHTML)
 						.buttonMarkup({ theme  : o.themeHeader, icon   : 'delete', iconpos: 'notext', corners: true, shadow : true })
-						.on(o.clickEvent, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
+						.on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
 					$('<h1 class="ui-title">'+w.d.headerText+'</h1>').appendTo(w.d.headHTML);
 					w.d.mainWrap.append(w.d.headHTML);
 				}

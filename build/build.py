@@ -22,6 +22,8 @@ infile = [
 	'../js/jqm-datebox.mode.durationbox.js',
 	'../js/jqm-datebox.mode.flipbox.js',
 	'../js/jqm-datebox.mode.slidebox.js',
+	'../js/jqm-datebox.mode.customflip.js',
+	'../js/jqm-datebox.mode.custombox.js',
 ]
 files = {}
 

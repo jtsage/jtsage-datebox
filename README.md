@@ -1,7 +1,7 @@
 jQuery-Mobile-DateBox
 =====================
 
-DateBox is a jQuery-mobile based date and time picker.
+DateBox is a jQuery-mobile based date and time picker. [Full Documentation and Demos](http://dev.jtsage.com/jQM-DateBox2/)
 
 DateBox Features
 ----------------
@@ -27,10 +27,8 @@ DateBox Features
   * Multiple languages can be loaded at once for dynamic reconfigure
 
 * Supports data-limiting of input:
-  * Configurable maximum and minimum years (android mode)
-  * Configurable maximum and minimum number of days from "today" (both date modes)
-  * Allows blacklisting of days of the week or specific dates (calendar mode) 
-  * Allows selecting specific day from any week selection (calendar mode)
+  * Minimum and Maximum Years, Hours, number of days, etc...
+  * Disabled days, dates, and hours, etc...
 
 * Automatically parses hand-entered or pre-entered dates on open
 
@@ -47,45 +45,50 @@ An extra special thanks to [Phill Pafford](http://stackoverflow.com/users/93966/
 
 And last but not least, thanks to all the [contributors](https://github.com/jtsage/jquery-mobile-datebox/contributors) to the project on github.
 
-Versioning
-----------
+Downloading
+-----------
+
+All scripts are available on the cdn:
 
 DateBox uses the following version scheme:
 
-jquery.mobile.datebox-&lt;jQueryMobile Major Version&gt;.&lt;jQueryMobile Minor Version&gt;.&lt;DateBox bugfix Version&gt;.js
+[http://dev.jtsage.com/cdn/datebox/&lt;jqm VERSION&gt;/](http://dev.jtsage.com/cdn/datebox/)
 
-With the speed that jQM has been moving, the bugfix version is usually either 0 or not included.
+You must load:
+* jqm-datebox.core.js (or min)
+* AND:: jqm-datebox.mode.&lt;yourmode&gt;.js
 
-When jQM releases a new version, the previous version of datebox should be considered retired - I have neither the time, nor the patience to backport features or bug fixes - however, I will do my best to keep whatever corresponds to the latest jQM up-to-date.
+OR (if using only one mode)
+* jqm-datebox.comp.&lt;yourmode&gt;.js
+
+#### Latest Versions:
+
+[cdn repo](http://dev.jtsage.com/cdn/datebox/latest/)
 
 Suggested Use
 -------------
 
-#### No Option Overrides:
-		
-	<input type="date" data-role="datebox" name="somedate" />
-		
 #### With Option Overrides:
 	
-	<input type="date" data-role="datebox" name="somedate" data-options='{"buttonTheme": "b", "dateFormat": "mm/dd/YYYY"}' />
+	<input type="date" data-role="datebox" name="somedate"
+		data-options='{"mode": "datebox", "overrideDateFormat": "mm/dd/YYYY"}' />
 		
 #### Global Option Overrides:
 	
 	// AFTER loading jQM
 	jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-		'dateFormat': 'dd.mm.yyyy',
-		'headerFormat': 'dd.mm.yyyy'
+		'overrideDateFormat': 'dd.mm.yyyy',
 	});
 
 Available Options
 -----------------
 
-Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox/demos/api/matrix.html)
+Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox2/demos/fullopt.html)
 
 Runtime Operation (Scripting / Extending)
 -----------------------------------------
 
-Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox/demos/api/events.html)
+Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox2/demos/fullopt.html)
 
 ### Just-In-Time options updating
 
@@ -102,9 +105,9 @@ The following options **can** be changed after initialization (i.e. in per-page 
   * daysOfWeek, daysOfWeekShort, monthsOfYear, monthsOfYearShort, headerFormat
   * dateFormat _(probably - it will throw off reopens though)_
   * Dialog mode forcing (either on or off)
-* Any of the calendar of slide mode themes (except the base theme) & disabledDayColor & calWeekModeHighLight
-* closeCallback
-* These require throwing the 'reset' trigger method, or hardreset() function:
+* Any of the calendar or slide mode themes (except the base theme) & disabledDayColor & calWeekModeHighLight
+* closeCallback, openCallback
+* These require throwing the 'refresh' trigger method, or refresh() function:
   * Any of the labels on buttons / window titles.
   * Any of the themes on the datebox or time modes.
   * Any of the options related to inline display
@@ -112,9 +115,8 @@ The following options **can** be changed after initialization (i.e. in per-page 
 
 The following options happen to early, and cannot be changed post-initialization by script events.
 
-* Operation mode
-* useInline or useInlineBlind
-* noButtonFocusMode, useModal, zindex, noAnimation
+* useInline, useInlineBlind, hideInput
+* useButton, useModal, zindex, useAnimation, useNewStyle, useAltIcon, overrideStyleClass
 
 
   

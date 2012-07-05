@@ -18,6 +18,8 @@
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			useModal: true,
+			useNewStyle: true,
+			usePlaceholder: true,
 			mode: 'calbox',
 			
 		});
@@ -45,7 +47,11 @@
 			<label for="calShowWeek">calShowWeek</label>
 			<input type="date" id="calShowWeek" name="calShowWeek" data-role="datebox"
 				data-options='{"calShowWeek":true}' />
-				
+			
+			<label for="calUsePickers">calUsePickers / calNoHeader</label>
+			<input type="date" id="calUsePickers" name="calUsePickers" data-role="datebox"
+				data-options='{"calUsePickers":true,"calNoHeader":true}' />
+					
 			<label for="useTodayButton">useTodayButton / useClearButton</label>
 			<input type="date" id="useTodayButton" name="useTodayButton" data-role="datebox"
 				data-options='{"useTodayButton":true,"useClearButton":true}' />

@@ -24,7 +24,8 @@ var stuff = { // name: ['default','desc','type','mode list']
 		hideInput: [false, 'Hide the Input Element', 'Boolean', true],
 		hideFixedToolbars: [false, 'Hide Fixed toolbars on open', 'Boolean', true],
 		zindex: [500, 'Z-Index of controls', 'Integer', true],
-		clickEvent: ['vclick', 'Listener event for all buttons in control', 'String', true],
+		clickEvent: ['vclick', 'Listener event for all non-closing buttons in control', 'String', true],
+		clickEventAlt: ['click', 'Listener event for all closing buttons in control', 'String', true],
 		resizeListener: [true, 'Re-Position the control on window resize', 'Boolean', true],
 		dialogEnable: [false, 'Enable the jQM Dialog mode', 'Boolean', true],
 		dialogForce: [false, 'Force use of the jQM Dialog mode', 'Boolean', true],
@@ -32,7 +33,11 @@ var stuff = { // name: ['default','desc','type','mode list']
 		useInline: [false, 'Show control inline in the page (always visible)', 'Boolean', true],
 		useInlineBlind: [false, 'Show the control inline in the page when clicked (rolldown)', 'Boolean', true],
 		useButton: [true, 'Show a button in the Input Element to open the control', 'Boolean', true],
-		useFocus: [false, 'Open the control when the Input Element is focused', 'Boolean', true]
+		useFocus: [false, 'Open the control when the Input Element is focused', 'Boolean', true],
+		usePlaceholder: [false, 'Attempt to auto fill the placeholder text (or use the supplied custom text)', 'Boolean', true],
+		useNewStyle: [false, 'Use the new input display style (cleaner, less inconsistency)', 'Boolean', true],
+		useAltIcon: [false, 'When using useNewStyle, use a light icon rather than a dark one', 'Boolean', true],
+		overrideStyleClass: [false, 'When using useNewStyle, add a custom icon class', 'String', true]
 	},
 	control: {
 		XXname: 'Control Options',
@@ -110,10 +115,20 @@ var stuff = { // name: ['default','desc','type','mode list']
 		themeDateHigh: ['e', 'Theme swatch for highDates', 'String', [0,1,0,0,0,0,0]],
 		themeDateHighAlt: ['e', 'Theme swatch for highDatesAlt', 'String', [0,1,0,0,0,0,0]],
 		themeDate: ['d', 'Theme swatch for other dates (inherited)', 'String', [0,1,0,0,0,0,0]],
+		calUsePickers: [false, 'Use Month/Year Pickers', 'Boolean', [0,1,0,0,0,0,0]],
+		calNoHeader: [false, 'Suppress Standard Header', 'Boolean', [0,1,0,0,0,0,0]],
 		calHighToday: [true, 'Highlight today\'s date', 'Boolean', [0,1,0,0,0,0,0]],
 		calHighPick: [true, 'Highlight choosen date', 'Boolean', [0,1,0,0,0,0,0]],
 		calWeekHigh: [false, 'Highlight full week on mouseover', 'Boolean', [0,1,0,0,0,0,0]],
 		calControlGroup: [false, 'Use control group buttons in calendar', 'Boolean', [0,1,0,0,0,0,0]]
+	},
+	custom: {
+		XXname: 'Custom Modes',
+		customData: ['N/A', 'Data structure for custom modes', 'Array', false],
+		themeOptPick: ['a', 'Theme for highlighted option (customflip)', 'String', false],
+		themeOpt: ['d', 'Theme for other options (customflip)', 'String', false],
+		overrideCustomSet: ['Looks Good', 'Set button for custom modes (i18n aware)', 'String', false],
+		customDefault: ['[0,0,0]', 'Array of default indexs for custom modes', 'Array', false]
 	},
 	i18n: { //Mode List: [dbox,calbox,flipbox,slidebox,timebox,timeflipbox,durationbox] or true
 		XXname: 'Internationalization / Localization',

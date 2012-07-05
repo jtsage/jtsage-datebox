@@ -25,6 +25,8 @@
 		calWeekHigh: false,
 		calControlGroup: false,
 		calShowWeek: false,
+		calUsePickers: false,
+		calNoHeader: false,
 		
 		useTodayButton: false,
 		useCollapsedBut: false,
@@ -131,7 +133,7 @@
 			$("<div class='"+uid+"gridplus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('nextMonth')+"</a></div>")
 				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
 				.buttonMarkup({theme: o.themeDate, icon: 'arrow-r', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.on(o.clickEvent, function(e) {
+				.on(o.clickEventAlt, function(e) {
 					e.preventDefault();
 					if ( w.calNext ) {
 						if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
@@ -141,20 +143,23 @@
 			$("<div class='"+uid+"gridminus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('prevMonth')+"</a></div>")
 				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
 				.buttonMarkup({theme: o.themeDate, icon: 'arrow-l', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.on(o.clickEvent, function(e) {
+				.on(o.clickEventAlt, function(e) {
 					e.preventDefault();
 					if ( w.calPrev ) {
 						if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
 						w._offset('m',-1);
 					}
 				});
-
+	
+			if ( o.calNoHeader === true ) { w.d.intHTML.find('.'+uid+'gridheader').remove(); }
+			
 			cal = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'startDay': w.__('calStartDay'),
 				'thisDate': new w._date(), 'maxDate': w.initDate.copy(), 'minDate': w.initDate.copy(),
 				'currentMonth': false, 'weekMode': 0, 'weekDays': null };
 
             cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7;
 			cal.thisMonth = w.theDate.getMonth();
+			cal.thisYear = w.theDate.getFullYear();
 			cal.wk = w.theDate.copy([0],[0,0,1]).adj(2,(-1*cal.start)+(w.__('calStartDay')===0?1:0)).getWeek(4);
 			cal.end = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
 			cal.lastend = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate();
@@ -191,6 +196,26 @@
 			if ( o.maxDays !== false ) {
 				cal.maxDate.adj(2, o.maxDays);
 				if ( cal.theDateArr[0] === cal.maxDate.getFullYear() && cal.theDateArr[1] >= cal.maxDate.getMonth() ) { w.calNext = false;}
+			}
+			
+			if ( o.calUsePickers === true ) {
+				cal.picker = $('<div>', {'class': 'ui-grid-a ui-datebox-grid','style':'padding-top: 5px; padding-bottom: 5px;'});
+				
+				cal.picker1 = $('<div class="ui-block-a"><select name=pickmon"></select></div>').appendTo(cal.picker).find('select');
+				cal.picker2 = $('<div class="ui-block-b"><select name=pickyar"></select></div>').appendTo(cal.picker).find('select');
+				
+				for ( i=0; i<=11; i++ ) {
+					cal.picker1.append($('<option value="'+i+'"'+((cal.thisMonth===i)?' selected="selected"':'')+'>'+w.__('monthsOfYear')[i]+'</option>'));
+				}
+				for ( i=(cal.thisYear-6); i<=cal.thisYear+6; i++ ) {
+					cal.picker2.append($('<option value="'+i+'"'+((cal.thisYear===i)?' selected="selected"':'')+'>'+i+'</option>'));
+				}
+				
+				cal.picker1.on('change', function () { w.theDate.setMonth($(this).val()); w.refresh(); });
+				cal.picker2.on('change', function () { w.theDate.setFullYear($(this).val()); w.refresh(); });
+				
+				cal.picker.find('select').selectmenu({mini:true, nativeMenu: true});
+				cal.picker.appendTo(w.d.intHTML);
 			}
 			
 			temp = $('<div class="'+uid+'grid">').appendTo(w.d.intHTML);
@@ -259,7 +284,7 @@
 				if ( o.useClearButton ) {
 					$('<a href="#">'+w.__('clearButton')+'</a>')
 						.appendTo(hRow).buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
-						.on(o.clickEvent, function(e) {
+						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w.d.input.val('');
 							w.d.input.trigger('datebox',{'method':'clear'});
@@ -272,8 +297,8 @@
 				hRow.appendTo(temp);
 			}
 			
-			w.d.intHTML.on(o.clickEvent+' vmouseover vmouseout', 'div.'+uid+'griddate', function(e) {
-				if ( e.type === o.clickEvent ) {
+			w.d.intHTML.on(o.clickEventAlt+' vmouseover vmouseout', 'div.'+uid+'griddate', function(e) {
+				if ( e.type === o.clickEventAlt ) {
 					e.preventDefault();
 					if ( $(this).jqmData('enabled') ) {
 						w.theDate.set(2,1).set(1,$(this).jqmData('month')).set(2,$(this).jqmData('date'));

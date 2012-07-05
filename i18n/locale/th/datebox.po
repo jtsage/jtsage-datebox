@@ -1,0 +1,310 @@
+msgid ""
+msgstr "Project-Id-Version: jquery-mobile-datebox\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-06 16:10-0500\n"
+"PO-Revision-Date: 2012-06-29 02:23+0200\n"
+"Last-Translator: jtsage <Jtsage@gmail.com>\n"
+"Language-Team: Thai\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+"X-Generator: crowdin.net\n"
+
+#. POSIX style date format for header
+#: generate-i18n.py:35
+msgid "%A, %B %-d, %Y"
+msgstr "วัน%Aที่ %-d %B %Y"
+
+#. POSIX sytle date format for returned dates
+#: generate-i18n.py:39
+msgid "%Y-%m-%d"
+msgstr "%d/%m/%Y"
+
+#. Field order for time input (h=hour, i=minute, a=AM/PM)
+#: generate-i18n.py:37
+msgid "'h', 'i', 'a'"
+msgstr "'h', 'i', 'a'"
+
+#. Field order for date input (m=month, d=day, y=year)
+#: generate-i18n.py:36
+msgid "'m', 'd', 'y'"
+msgstr "'d','m','y'"
+
+#. Field order for slide input (y=year, m=month, d=day)
+#: generate-i18n.py:38
+msgid "'y', 'm', 'd'"
+msgstr "'y', 'm', 'd'"
+
+#. Clock format - either 12 or 24
+#: generate-i18n.py:34
+msgid "24"
+msgstr "24"
+
+#. Abbreviation for the month 'April'
+#: generate-i18n.py:28
+msgid "Apr"
+msgstr "ม.ย."
+
+#: generate-i18n.py:27
+msgid "April"
+msgstr "เมษายน"
+
+#. Abbreviation for the month 'August'
+#: generate-i18n.py:28
+msgid "Aug"
+msgstr "ส.ค."
+
+#: generate-i18n.py:27
+msgid "August"
+msgstr "สิงหาคม"
+
+#: generate-i18n.py:30
+msgid "Day"
+msgstr "วัน"
+
+#: generate-i18n.py:29 generate-i18n.py:30
+msgid "Days"
+msgstr "วัน"
+
+#. Abbreviation for the month 'December'
+#: generate-i18n.py:28
+msgid "Dec"
+msgstr "ธ.ค."
+
+#: generate-i18n.py:27
+msgid "December"
+msgstr "ธันวาคม"
+
+#. Abbreviation for the month 'February'
+#: generate-i18n.py:28
+msgid "Feb"
+msgstr "ก.พ."
+
+#: generate-i18n.py:27
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+#. Abbreviation for the day 'Friday'
+#: generate-i18n.py:26
+msgid "Fr"
+msgstr "ศ"
+
+#: generate-i18n.py:25
+msgid "Friday"
+msgstr "ศุกร์"
+
+#: generate-i18n.py:29
+msgid "Hours"
+msgstr "ชั่วโมง"
+
+#. Abbreviation for the month 'January'
+#: generate-i18n.py:28
+msgid "Jan"
+msgstr "ม.ค."
+
+#: generate-i18n.py:27
+msgid "January"
+msgstr "มกราคม"
+
+#. Abreviation for the month 'July'
+#: generate-i18n.py:28
+msgid "Jul"
+msgstr "ก.ค."
+
+#: generate-i18n.py:27
+msgid "July"
+msgstr "กรกฎาคม"
+
+#: generate-i18n.py:22
+msgid "Jump to Today"
+msgstr "กลับไปวันนี้"
+
+#. Abbreviation for the month 'June'
+#: generate-i18n.py:28
+msgid "Jun"
+msgstr "มิ.ย."
+
+#: generate-i18n.py:27
+msgid "June"
+msgstr "มิถุนายน"
+
+#. Abbreviation for the month 'March'
+#: generate-i18n.py:28
+msgid "Mar"
+msgstr "มี.ค."
+
+#: generate-i18n.py:27
+msgid "March"
+msgstr "มีนาคม"
+
+#. Abbreviation for the month 'May'
+#: generate-i18n.py:28
+msgid "Ma"
+msgstr "พ.ค."
+
+#: generate-i18n.py:27
+msgid "May"
+msgstr "พฤษภาคม"
+
+#: generate-i18n.py:29
+msgid "Minutes"
+msgstr "นาที"
+
+#. Abbreviation for the day 'Monday'
+#: generate-i18n.py:26
+msgid "Mo"
+msgstr "จ"
+
+#: generate-i18n.py:25
+msgid "Monday"
+msgstr "จันทร์"
+
+#: generate-i18n.py:32
+msgid "Next Month"
+msgstr "เดือนต่อไป"
+
+#. Abbreviation for the month 'November'
+#: generate-i18n.py:28
+msgid "Nov"
+msgstr "พ.ย."
+
+#: generate-i18n.py:27
+msgid "November"
+msgstr "พฤศจิกายน"
+
+#. Abbreviation for the month 'October'
+#: generate-i18n.py:28
+msgid "Oct"
+msgstr "ต.ค."
+
+#: generate-i18n.py:27
+msgid "October"
+msgstr "ตุลาคม"
+
+#: generate-i18n.py:31
+msgid "Open Date Picker"
+msgstr "เปิดตัวเลือกวัน"
+
+#: generate-i18n.py:33
+msgid "Previous Month"
+msgstr "เดือนก่อน"
+
+#. Abbreviation for the day 'Saturday'
+#: generate-i18n.py:26
+msgid "Sa"
+msgstr "ส"
+
+#: generate-i18n.py:25
+msgid "Saturday"
+msgstr "เสาร์"
+
+#: generate-i18n.py:29
+msgid "Seconds"
+msgstr "วินาที"
+
+#. Abbreviation for the month 'September'
+#: generate-i18n.py:28
+msgid "Sep"
+msgstr "ก.ย."
+
+#: generate-i18n.py:27
+msgid "September"
+msgstr "กันยายน"
+
+#: generate-i18n.py:19
+msgid "Set Date"
+msgstr "เลือกวัน"
+
+#: generate-i18n.py:23
+msgid "Choose Date"
+msgstr "เลือกวัน"
+
+#: generate-i18n.py:21
+msgid "Set Duration"
+msgstr "เลือกระยะเวลา"
+
+#: generate-i18n.py:20 generate-i18n.py:24
+msgid "Set Time"
+msgstr "เลือกเวลา"
+
+#: generate-i18n.py:24
+msgid "Choose Time"
+msgstr "เลือกเวลา"
+
+#. Abbreviation for the day 'Sunday'
+#: generate-i18n.py:26
+msgid "Su"
+msgstr "อา"
+
+#: generate-i18n.py:25
+msgid "Sunday"
+msgstr "อาทิตย์"
+
+#. Abbreviation for the day 'Thursday'
+#: generate-i18n.py:26
+msgid "Th"
+msgstr "พฤ"
+
+#: generate-i18n.py:25
+msgid "Thursday"
+msgstr "พฤหัส"
+
+#. Abbreviation for the day 'Tuesday'
+#: generate-i18n.py:26
+msgid "Tu"
+msgstr "อ"
+
+#: generate-i18n.py:25
+msgid "Tuesday"
+msgstr "อังคาร"
+
+#. Abbreviation for the day 'Wednesday'
+#: generate-i18n.py:26
+msgid "We"
+msgstr "พ"
+
+#: generate-i18n.py:25
+msgid "Wednesday"
+msgstr "พุธ"
+
+#. Set to "true" if this language uses the Arabic/Indic numerals (not 1,2,3...)
+#: generate-i18n.py:40
+msgid "false1"
+msgstr "false"
+
+#. Set to "true" if this language runs Right->to->Left
+#: generate-i18n.py:41
+msgid "false2"
+msgstr "false"
+
+#. Set to the start day of the calendar (0=Sunday)
+#: generate-i18n.py:42
+msgid "0"
+msgstr "0"
+
+#: generate-i18n.py:43
+msgid "Clear"
+msgstr "ลบ"
+
+#: generate-i18n.py:44
+msgid "'d', 'h', 'i', 's'"
+msgstr "'d', 'h', 'i', 's'"
+
+#: generate-i18n.py:45
+msgid "AM"
+msgstr "AM"
+
+#: generate-i18n.py:45
+msgid "PM"
+msgstr "PM"
+
+#: generate-i18n.py:46
+msgid "%k:%M"
+msgstr "%k:%M"
+
+#: generate-i18n.py:47
+msgid "%Dd %DA, %Dl:%DM:%DS"
+msgstr "%Dd %DA, %Dl:%DM:%DS"
+
