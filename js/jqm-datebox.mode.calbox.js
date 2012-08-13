@@ -192,8 +192,8 @@
 			if ( o.calUsePickers === true ) {
 				cal.picker = $('<div>', {'class': 'ui-grid-a ui-datebox-grid','style':'padding-top: 5px; padding-bottom: 5px;'});
 				
-				cal.picker1 = $('<div class="ui-block-a"><select name=pickmon"></select></div>').appendTo(cal.picker).find('select');
-				cal.picker2 = $('<div class="ui-block-b"><select name=pickyar"></select></div>').appendTo(cal.picker).find('select');
+				cal.picker1 = $('<div class="ui-block-a"><select name="pickmon"></select></div>').appendTo(cal.picker).find('select');
+				cal.picker2 = $('<div class="ui-block-b"><select name="pickyar"></select></div>').appendTo(cal.picker).find('select');
 				
 				for ( i=0; i<=11; i++ ) {
 					cal.picker1.append($('<option value="'+i+'"'+((cal.thisMonth===i)?' selected="selected"':'')+'>'+w.__('monthsOfYear')[i]+'</option>'));
