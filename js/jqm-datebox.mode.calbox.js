@@ -224,7 +224,7 @@
 			}
 			
 			cal.gen = w._cal_gen(cal.start, cal.lastend, cal.end, !o.calOnlyMonth, w.theDate.getMonth());
-			for ( row in cal.gen ) {
+			for ( var row=0, rows=cal.gen.length; row < rows; row++ ) {
 				hRow = $('<div>', {'class': uid+'gridrow'});
 				if ( w.__('isRTL') ) { hRow.css('direction', 'rtl'); }
 				if ( o.calShowWeek ) {
@@ -232,7 +232,7 @@
 						cal.wk++;
 						if ( cal.wk > 52 && typeof cal.gen[parseInt(row,10)+1] !== 'undefined' ) { cal.wk = new Date(cal.theDateArr[0],cal.theDateArr[1],((w.__('calStartDay')===0)?cal.gen[parseInt(row,10)+1][1][0]:cal.gen[parseInt(row,10)+1][0][0])).getWeek(4); }
 					} 
-				for ( col in cal.gen[row] ) {
+				for ( var col=0, cols=cal.gen[row].length; col<cols; col++ ) {
 					if ( o.calWeekMode ) { cal.weekMode = cal.gen[row][o.calWeekModeDay][0]; }
 					if ( typeof cal.gen[row][col] === 'boolean' ) {
 						$('<div>', {'class':uid+'griddate '+uid+'griddate-empty'}).appendTo(hRow);
