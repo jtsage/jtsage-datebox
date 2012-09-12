@@ -199,10 +199,12 @@
 					switch ( type ) {
 						case 0:
 							t1 = this.copy([0,-1*this.getMonth()]).setFirstDay(0);
-							return Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
+							return Math.floor((this.getTime() - ( t1.getTime() + (( this.getTimezoneOffset() - t1.getTimezoneOffset()) * 60000))) / 6048e5) + 1;
+							//return Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
 						case 1:
 							t1 = this.copy([0,-1*this.getMonth()]).setFirstDay(1);
-							return Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
+							return Math.floor((this.getTime() - ( t1.getTime() + (( this.getTimezoneOffset() - t1.getTimezoneOffset()) * 60000))) / 6048e5) + 1;
+							//return Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
 						case 4:
 							// this line is some bullshit.  but it does work.
 							// (trap for dec 29, 30, or 31st being in the new year's week - these are the
@@ -210,7 +212,7 @@
 							if ( this.getMonth() === 11 && this.getDate() > 28 ) { return 1; } 
 							
 							t1 = this.copy([0,-1*this.getMonth()],true).setFirstDay(4).adj(2,-3);
-							t2 = Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
+							t2 = Math.floor((this.getTime() - ( t1.getTime() + (( this.getTimezoneOffset() - t1.getTimezoneOffset()) * 60000))) / 6048e5) + 1;
 							
 							if ( t2 < 1 ) {
 								t1 = this.copy([-1,-1*this.getMonth()]).setFirstDay(4).adj(2,-3);
