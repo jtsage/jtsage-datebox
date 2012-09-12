@@ -125,7 +125,7 @@
 							testDate.adj(4,(i*o.minuteStep));
 							tmp = (i!==0)?o.themeDate:o.themeDatePick;
 							$('<div>', {'class':uid+'slidemins ui-corner-all ui-btn-up-'+tmp})
-								.html(w._zPad(testDate.get(4))).jqmData('offset', i).jqmData('theme', tmp).appendTo(hRow);
+								.html(w._zPad(testDate.get(4))).jqmData('offset', i*o.minuteStep).jqmData('theme', tmp).appendTo(hRow);
 						}
 						break;
 				}
