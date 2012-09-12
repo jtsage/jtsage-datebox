@@ -6,6 +6,7 @@
  */
 /* Options Documentation */
 
+//all = ['Date','Cal','Flip','Slide','Time','TimeFlip','Dur'];  (mode list)
 
 var stuff = { // name: ['default','desc','type','mode list']
 	common: {
@@ -70,8 +71,8 @@ var stuff = { // name: ['default','desc','type','mode list']
 		notToday: [false, 'Limit all dates selected to *not* today\'s date', 'Boolean', [1,1,1,1,0,0,0]],
 		maxDays: [false, 'Limit all dates selected to before today + ## days', 'Integer', [1,1,1,1,0,0,0]],
 		minDays: [false, 'Limit all dates selected to after today - ## days', 'Integer', [1,1,1,1,0,0,0]],
-		maxYear: [false, 'Limit all dates selected to before this year', 'Integer', [1,1,1,1,0,0,0]],
-		minYear: [false, 'Limit all dates selected to after this year', 'Integer', [1,1,1,1,0,0,0]],
+		maxYear: [false, 'Limit all dates selected to before this year', 'Integer', [1,0,1,1,0,0,0]],
+		minYear: [false, 'Limit all dates selected to after this year', 'Integer', [1,0,1,1,0,0,0]],
 		blackDates: [false, 'Do not allow these ISO dates to be selected (array of dates)', 'Array', [1,1,1,1,0,0,0]],
 		blackDays: [false, 'Do not allow these days to be selected (array of day indexes)', 'Array', [1,1,1,1,0,0,0]],
 		enableDates: [false, 'Allow *only* these ISO dates to be sleected (array of dates)', 'Array', [0,1,0,0,0,0,0]],
