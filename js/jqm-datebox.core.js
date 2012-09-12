@@ -250,6 +250,8 @@
 						w.hardreset(); break;
 					case 'doclear':
 						$(this).val('').trigger('change'); break;
+					case 'clear':
+						$(this).trigger('change');
 				}
 			}
 		},
