@@ -31,6 +31,7 @@ $(":jqmData(role)=page").live('pageinit', function(e) {
 				'<li><a href="linksel.html">Linking w/ a Custom Select</a></li>' +
 				'<li><a href="start.html">Dynamic Start Date</a></li>' +
 				'<li><a href="maxdays.html">Dynamic Ending Date</a></li>' +
+				'<li><a href="split.html">Different Display and Submit Formats</a></li>' +
 				'<li><a href="convert.html">Using DateBox as a Conversion Library</a></li>' )
 		},
 	sidebarstart = $('<ul data-corners="false" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"></ul>');
