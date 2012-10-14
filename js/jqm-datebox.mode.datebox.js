@@ -82,7 +82,7 @@
 				divIn = divBase.clone(),
 				divMinus = divPlus.clone(),
 				inBase = $("<input type='"+w.inputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-body-'+o.themeInput),
-				inBaseT = inBase.clone().attr('type','text'),
+				if (!$.browser.msie) inBaseT = inBase.clone().attr('type','text'),
 				butBase = $("<div>"),
 				butPTheme = {theme: o.themeButton, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true},
 				butMTheme = $.extend({}, butPTheme, {icon: 'minus', iconpos: 'top'});
