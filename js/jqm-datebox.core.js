@@ -226,7 +226,7 @@
 			});
 		},
 		_event: function(e, p) {
-			var w = $(this).data('datebox');
+			var w = $(this).data('datebox') || $(this).data('mobile-datebox');
 			if ( ! e.isPropagationStopped() ) {
 				switch (p.method) {
 					case 'close':
@@ -1135,8 +1135,8 @@
 				
 			if ( typeof o.overrideDialogLabel === 'undefined' ) {
 				if ( typeof w.d.input.attr('title') !== 'undefined' ) { return w.d.input.attr('title'); }
-				if ( w.d.wrap.parent().find('label[for='+w.d.input.attr('id')+']').text() !== '' ) {
-					return w.d.wrap.parent().find('label[for='+w.d.input.attr('id')+']').text();
+				if ( w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text() !== '' ) {
+					return w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text();
 				}
 				return false;
 			}
@@ -1205,7 +1205,7 @@
 	$( document ).on( "pagecreate create", function( e ){
 		$( document ).trigger( "dateboxbeforecreate" );
 		$( ":jqmData(role='datebox')", e.target ).each(function() {
-			if ( typeof($(this).data('datebox')) === "undefined" ) {
+			if ( typeof($(this).data('datebox')) === "undefined" || typeof($(this).data('mobile-datebox')) === "undefined" ) {
 				$(this).datebox();
 			}
 		});
