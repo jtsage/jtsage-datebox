@@ -1135,8 +1135,8 @@
 				
 			if ( typeof o.overrideDialogLabel === 'undefined' ) {
 				if ( typeof w.d.input.attr('title') !== 'undefined' ) { return w.d.input.attr('title'); }
-				if ( w.d.wrap.parent().find('label[for='+w.d.input.attr('id')+']').text() !== '' ) {
-					return w.d.wrap.parent().find('label[for='+w.d.input.attr('id')+']').text();
+				if ( w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text() !== '' ) {
+					return w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text();
 				}
 				return false;
 			}
