@@ -235,7 +235,7 @@
 						w.open(); break;
 					case 'set':
 						$(this).val(p.value);
-						$(this).trigger('change');
+						$(this).trigger('change', p);
 						break;
 					case 'doset':
 						if ( $.isFunction(w['_'+w.options.mode+'DoSet']) ) {
@@ -738,8 +738,9 @@
 			w._date = window.Date;
 			w._enhanceDate();
 			
-			w.initDate = new w._date();
-			w.theDate = (o.defaultValue) ? w._makeDate(o.defaultValue) : new w._date();
+			w.theDate = (o.defaultValue) ? w._makeDate(o.defaultValue) : new Date();
+            w.applyStartOffset(w.theDate);
+            w.initDate = w.theDate.copy();
 			w.initDone = false;
 			
 			if ( o.useButton === true && o.useInline === false && o.useNewStyle === false ) {
@@ -895,6 +896,21 @@
 		_drag: {
 			'default': function () { return false; }
 		},
+        applyStartOffset: function (date) {
+            var o = this.options;
+
+            if(o.startOffsetYears){
+                date.adj(0, o.startOffsetYears);
+            }
+            if(o.startOffsetMonths){
+                date.adj(1, o.startOffsetMonths);
+            }
+            if(o.startOffsetDays){
+                date.adj(2, o.startOffsetDays);
+            }
+
+            return date;
+        },
 		open: function () {
 			var w = this,
 				o = this.options,
@@ -918,9 +934,16 @@
 				}
 				if ( o.openCallback.apply(w, $.merge([w.theDate],o.openCallbackArgs)) === false ) { return false; }
 			}
-				
-			w.theDate = w._makeDate(w.d.input.val());
-			w.d.input.blur();
+
+            //Adjust only initial start date, not any selected dates.
+			if(w.d.input.val() === ""){
+                w.theDate = w._makeDate(w.d.input.val());
+                w.applyStartOffset(w.theDate);
+            } else {
+                w.theDate = w._makeDate(w.d.input.val());
+            }
+
+            w.d.input.blur();
 			
 			if ( typeof w._build[o.mode] === 'undefined' ) {
 				w._build['default'].apply(w,[]);

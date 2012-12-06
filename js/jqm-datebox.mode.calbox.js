@@ -150,20 +150,29 @@
 						w._offset('m',-1);
 					}
 				});
-				
+	
 			if ( o.calNoHeader === true ) { w.d.intHTML.find('.'+uid+'gridheader').remove(); }
 			
 			cal = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'startDay': w.__('calStartDay'),
 				'thisDate': new w._date(), 'maxDate': w.initDate.copy(), 'minDate': w.initDate.copy(),
 				'currentMonth': false, 'weekMode': 0, 'weekDays': null };
-			cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7;
+
+            cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7;
 			cal.thisMonth = w.theDate.getMonth();
 			cal.thisYear = w.theDate.getFullYear();
 			cal.wk = w.theDate.copy([0],[0,0,1]).adj(2,(-1*cal.start)+(w.__('calStartDay')===0?1:0)).getWeek(4);
 			cal.end = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
 			cal.lastend = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate();
-			cal.presetDate = w._makeDate(w.d.input.val());
-			cal.thisDateArr = cal.thisDate.getArray();
+
+			//Adjust only initial start date, not any selected dates.
+            if(w.d.input.val() === ""){
+                cal.presetDate = w._makeDate(w.d.input.val());
+                w.applyStartOffset(cal.presetDate);
+            } else {
+                cal.presetDate = w._makeDate(w.d.input.val());
+            }
+
+            cal.thisDateArr = cal.thisDate.getArray();
 			cal.theDateArr = w.theDate.getArray();
 			cal.checkDates = ( $.inArray(false, [o.afterToday, o.beforeToday, o.notToday, o.maxDays, o.minDays, o.blackDates, o.blackDays]) > -1 );
 
