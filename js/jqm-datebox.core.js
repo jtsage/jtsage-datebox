@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.2.0-2012120601', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.2.0-2012120602', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -745,7 +745,7 @@
 				w.d.open = $('<a href="#" class="ui-input-clear" title="'+this.__('tooltip')+'">'+this.__('tooltip')+'</a>')
 					.on(o.clickEvent, function(e) {
 						e.preventDefault();
-						if ( !w.disabled ) { w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus'); }
+						if ( !w.disabled ) { w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus'); w.d.input.parent().removeClass('ui-focus'); }
 						setTimeout( function() { $(e.target).closest('a').removeClass($.mobile.activeBtnClass); }, 300);
 					}).appendTo(w.d.wrap).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
 					.css({'vertical-align': 'middle', 'display': 'inline-block'});
@@ -776,7 +776,6 @@
 				}
 			});
 		
-			console.log(w.d.input);
 			w.d.input
 				.removeClass('ui-corner-all ui-shadow-inset')
 				.bind(w.touch?'touchend':'click', function(e){
@@ -1196,6 +1195,19 @@
 		_setOption: function() {
 			$.Widget.prototype._setOption.apply( this, arguments );
 			this.refresh();
+		},
+		getTheDate: function() {
+			return this.theDate;
+		},
+		getLastDur: function() {
+			return this.lastDuration;
+		},
+		setTheDate: function(newDate) {
+			this.theDate = newDate;
+			this.refresh();
+		},
+		callFormat: function(format, date) {
+			return this._formatter(format, date);
 		}
 	});
 	  
