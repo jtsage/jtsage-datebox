@@ -288,6 +288,7 @@
 				case 'timeflipbox':
 					return w.__('timeOutput');
 				case 'durationbox':
+				case 'durationflipbox':
 					return w.__('durationFormat');
 				default:
 					return w.__('dateFormat');
@@ -362,7 +363,7 @@
 			if ( typeof o.mode === 'undefined' ) { return date; }
 			if ( typeof w._parser[o.mode] !== 'undefined' ) { return w._parser[o.mode].apply(w,[str]); }
 			
-			if ( o.mode === 'durationbox' ) {
+			if ( o.mode === 'durationbox' || o.mode === 'durationflipbox' ) {
 				adv = adv.replace(/%D([a-z])/gi, function(match, oper) {
 					switch (oper) {
 						case 'd':
@@ -518,7 +519,7 @@
 					part: [0,0,0,0], tp: 0
 				};
 				
-				if ( o.mode === 'durationbox' ) {
+				if ( o.mode === 'durationbox' || o.mode === 'durationflipbox' ) {
 					dur.tp = this.theDate.getEpoch() - this.initDate.getEpoch();
 					dur.part[0] = parseInt( dur.tp / (60*60*24),10); dur.tp -=(dur.part[0]*60*60*24); // Days
 					dur.part[1] = parseInt( dur.tp / (60*60),10); dur.tp -= (dur.part[1]*60*60); // Hours
@@ -1118,7 +1119,7 @@
 				if ( w.theDate < td ) { w.theDate = td; }
 			}
 			
-			if ( $.inArray(o.mode, ['timebox','durationbox','timeflipbox']) > -1 ) { 
+			if ( $.inArray(o.mode, ['timebox','durationbox','durationflipbox','timeflipbox']) > -1 ) { 
 				if ( o.mode === 'timeflipbox' && o.validHours !== false ) {
 					if ( $.inArray(w.theDate.getHours(), o.validHours) < 0 ) { w.dateOK = false; }
 				}
