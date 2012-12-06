@@ -37,7 +37,7 @@
 		'slidebox': function () {
 			var w = this,
 				o = this.options, i, y, hRow, phRow, tmp, testDate,
-				iDate = this._makeDate(this.d.input.val()),
+				iDate = (w.d.input.val() === "") ? w._startOffset(w._makeDate(w.d.input.val())) : w._makeDate(w.d.input.val()),
 				uid = 'ui-datebox-',
 				slideBase = $("<div class='"+uid+"sliderow-int'></div>"),
 				phBase = $('<div>'),

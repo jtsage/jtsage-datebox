@@ -14,7 +14,10 @@ var stuff = { // name: ['default','desc','type','mode list']
 		mode: ['', 'Mode of operations', 'String', true],
 		lockInput: [true, 'Lock the Input Element from manual input', 'Boolean', true],
 		enhanceInput: [true, 'Enhance Numeric Inputs on Mobile', 'Boolean', [1,0,0,0,1,0,0]],
-		defaultValue: [false, 'Default value for the date - e.g. [2001,1,1] or 13:42', 'Array/String', true]
+		defaultValue: [false, 'Default value for the date - e.g. [2001,1,1] or 13:42', 'Array/String', true],
+		startOffsetYears: [false, 'Offset the start year by # - pile on to defaultVale', 'Integer', [1,1,1,1,0,0,0]],
+		startOffsetMonths: [false, 'Offset the start month by # - pile on to defaultVale', 'Integer', [1,1,1,1,0,0,0]],
+		startOffsetDays: [false, 'Offset the start day by # - pile on to defaultVale', 'Integer', [1,1,1,1,0,0,0]],
 	},
 	display: {
 		XXname: 'Display Options',

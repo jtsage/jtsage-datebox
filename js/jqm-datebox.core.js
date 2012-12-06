@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.2.0-2012120604', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.2.0-2012120605', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -56,6 +56,9 @@
 			closeCallback: false,
 			closeCallbackArgs: [],
 			
+			startOffsetYears: false,
+			startOffsetMonths: false,
+			startOffsetDays: false,
 			afterToday: false,
 			beforeToday: false,
 			notToday: false,
@@ -685,6 +688,20 @@
 			if ( update === true ) { w.refresh(); }
 			if ( o.useImmediate ) { w.d.input.trigger('datebox', {'method':'doset'}); }
 		},
+		_startOffset: function(date) {
+			var o = this.options;
+			
+			if ( o.startOffsetYears !== false ) {
+				date.adj(0, o.startOffsetYears);
+			}
+			if ( o.startOffsetMonths !== false ) {
+				date.adj(1, o.startOffsetMonths);
+			}
+			if ( o.startOffsetDays !== false ) {
+				date.adj(2, o.startOffsetDays);
+			}
+			return date;
+		},
 		_create: function() {
 			// Create the widget, called automatically by widget system
 			$( document ).trigger( "dateboxcreate" );
@@ -920,6 +937,7 @@
 			}
 				
 			w.theDate = w._makeDate(w.d.input.val());
+			if ( w.d.input.val() === "" ) { w._startOffset(w.theDate); }
 			w.d.input.blur();
 			
 			if ( typeof w._build[o.mode] === 'undefined' ) {

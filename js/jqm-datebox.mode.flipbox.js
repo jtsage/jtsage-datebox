@@ -44,7 +44,7 @@
 		'flipbox': function () {
 			var w = this,
 				o = this.options, i, y, hRow, tmp, testDate,
-				iDate = this._makeDate(this.d.input.val()),
+				iDate = (w.d.input.val() === "") ? w._startOffset(w._makeDate(w.d.input.val())) : w._makeDate(w.d.input.val()),
 				uid = 'ui-datebox-',
 				flipBase = $("<div class='ui-overlay-shadow'><ul></ul></div>"),
 				ctrl = $("<div>", {"class":uid+'flipcontent'});
