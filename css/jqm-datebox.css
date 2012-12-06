@@ -90,6 +90,7 @@
 /* Flip Mode Styles */
 .ui-datebox-flipcontent { text-align: center; height: 125px; margin-bottom: -40px;}
 .ui-datebox-flipcontent div { margin-left: 3px; margin-right: 3px; width: 77px; height: 120px; display: inline-block; text-align: center; zoom: 1; *display: inline; overflow: hidden;}
+.ui-datebox-flipcontentd div { width: 60px; }
 .ui-datebox-flipcenter { border: 1px solid #eee; height: 40px; margin-left: 10px; width: 260px; margin-right: auto; margin-left: auto; position: relative; top: -45px;}
 .ui-datebox-flipcontent ul { list-style-type: none; display: inline; }
 .ui-datebox-flipcontent li { height: 30px; }

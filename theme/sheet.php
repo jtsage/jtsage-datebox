@@ -126,6 +126,7 @@ echo ".ui-datebox-slidewday { font-size: {$use['swdf']}px; font-weight: normal; 
 echo "\n\n/{$star} Flip Mode Styles {$star}/\n";
 echo ".ui-datebox-flipcontent { text-align: center; height: {$use['fch']}px; margin-bottom: -{$use['fhl']}px;}\n";
 echo ".ui-datebox-flipcontent div { margin-left: 3px; margin-right: 3px; width: {$use['fw']}px; height: {$use['fcsh']}px; display: inline-block; text-align: center; zoom: 1; *display: inline; overflow: hidden;}\n";
+echo ".ui-datebox-flipcontentd div { width: 60px; }\n";
 echo ".ui-datebox-flipcenter { border: 1px solid #eee; height: ${use['fhl']}px; margin-left: 10px; width: {$use['fwl']}px; margin-right: auto; margin-left: auto; position: relative; top: -45px;}\n";
 echo ".ui-datebox-flipcontent ul { list-style-type: none; display: inline; }\n";
 echo ".ui-datebox-flipcontent li { height: {$use['fh']}px; }\n";
