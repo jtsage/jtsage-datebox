@@ -95,7 +95,7 @@
 				}
 			}
 			if ( ret.ok ) {
-				if ( o.calHighPick && date === cal.presetDay ) {
+				if ( o.calHighPick && date === cal.presetDay && w.d.input.val()) {
 					ret.theme = o.themeDatePick;
 				} else if ( o.calHighToday && ret.comp === cal.thisDate.comp() ) {
 					ret.theme = o.themeDateToday;
