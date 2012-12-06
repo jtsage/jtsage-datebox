@@ -226,7 +226,7 @@
 			});
 		},
 		_event: function(e, p) {
-			var w = $(this).data('datebox');
+			var w = parseInt($.mobile.version.replace(/\./g,''),10) > 110 ? $(this).data('mobileDatebox') : $(this).data('datebox');
 			if ( ! e.isPropagationStopped() ) {
 				switch (p.method) {
 					case 'close':
@@ -1205,7 +1205,8 @@
 	$( document ).on( "pagecreate create", function( e ){
 		$( document ).trigger( "dateboxbeforecreate" );
 		$( ":jqmData(role='datebox')", e.target ).each(function() {
-			if ( typeof($(this).data('datebox')) === "undefined" ) {
+			var defed = parseInt($.mobile.version.replace(/\./g,''),10) > 110 ? typeof($(this).data('mobileDatebox')) : typeof($(this).data('datebox'));
+			if ( defed === "undefined" ) {
 				$(this).datebox();
 			}
 		});
