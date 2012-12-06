@@ -20,6 +20,7 @@ infile = [
 	'../js/jqm-datebox.mode.calbox.js',
 	'../js/jqm-datebox.mode.datebox.js',
 	'../js/jqm-datebox.mode.durationbox.js',
+	'../js/jqm-datebox.mode.durationflipbox.js',
 	'../js/jqm-datebox.mode.flipbox.js',
 	'../js/jqm-datebox.mode.slidebox.js',
 	'../js/jqm-datebox.mode.customflip.js',
