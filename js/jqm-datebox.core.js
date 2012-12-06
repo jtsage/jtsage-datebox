@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.2.0-2012120600', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.2.0-2012120601', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -776,12 +776,13 @@
 				}
 			});
 		
+			console.log(w.d.input);
 			w.d.input
 				.removeClass('ui-corner-all ui-shadow-inset')
 				.bind(w.touch?'touchend':'click', function(e){
 					if ( w.disabled === false && o.useNewStyle === true && o.useFocus === false ) {
 						if ( ((w.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX) - e.target.offsetLeft) > (e.target.offsetWidth - 20) ) {
-							w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus');
+							w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus'); w.d.input.removeClass('ui-focus');
 						}
 					}
 				})
@@ -803,8 +804,10 @@
 				.on('datebox', w._event);
 			
 			if ( o.useNewStyle === true ) {
-				w.d.input.addClass('ui-shadow-inset ui-corner-all '+((o.useAltIcon===true)?'ui-icon-datebox-alt':'ui-icon-datebox'));
+				w.d.input.addClass('ui-corner-all '+((o.useAltIcon===true)?'ui-icon-datebox-alt':'ui-icon-datebox'));
 				if ( o.overrideStyleClass !== false ) { w.d.input.addClass(o.overrideStyleClass); }
+			} else {
+				w.d.input.parent().css('border', 'none').removeClass('ui-shadow-inset');
 			}
 			
 			// Check if mousewheel plugin is loaded

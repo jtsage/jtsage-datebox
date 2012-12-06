@@ -56,14 +56,14 @@ echo "\n\n/{$star} Base input element Styles {$star}/\n";
 
 echo ".ui-input-datebox { width: 97%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; padding-top: 0px; padding-bottom: 0px; } \n";
 echo ".ui-input-datebox { min-height: 38px; } \n";
-echo ".ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }\n";
+//echo ".ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }\n";
 echo ".ui-input-datebox input { width: 100% !important; padding: 0 !important; margin-top: 5px !important; margin-right: -40px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }\n";
 echo ".ui-input-datebox input:focus { outline: none;}\n";
 echo ".ui-input-datebox .ui-btn-text {display: none;}\n";
 echo ".ui-input-datebox.ui-mini { min-height: 30px; font-size: 14px; }\n";
 echo ".ui-input-datebox.ui-mini .ui-btn-icon-notext { margin-top: 2px !important; margin-bottom: 2px !important; }\n";
-echo ".ui-icon-datebox { background-image: url('image/datebox.png') !important; background-repeat: no-repeat; background-position: 99% 8px; }\n";
-echo ".ui-icon-datebox-alt { background-image: url('image/datebox.png') !important; background-repeat: no-repeat; background-position: 99% -28px; }\n";
+echo ".ui-icon-datebox { background-image: url('image/datebox.png') !important; background-repeat: no-repeat !important; background-position: 99% 8px !important; }\n";
+echo ".ui-icon-datebox-alt { background-image: url('image/datebox.png') !important; background-repeat: no-repeat !important; background-position: 99% -28px !important; }\n";
 echo ".ui-mini.ui-icon-datebox { background-position: 99% 6px; }\n";
 echo ".ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }\n\n";
 
@@ -106,7 +106,7 @@ echo ".ui-datebox-griddate-disable { color: {$use['cgddc']}; }\n";
 echo "\n\n/{$star} Android Mode Styles {$star}/\n";
 echo ".ui-datebox-header h4 { margin-top: 5px; margin-bottom: 5px; text-align: center; }\n";
 echo ".ui-datebox-container fieldset div { margin: 0px !important; }\n";
-echo ".ui-datebox-dboxin input { text-align: center; }\n";
+echo ".ui-datebox-dboxin input { text-align: center; padding: .4em 0 !important; }\n";
 echo ".ui-datebox-dboxin label { width: 100%; text-align: center; display: block; margin-top: 5px; margin-bottom: -8px; }\n\n";
 
 echo "\n\n/{$star} Slide Mode Styles {$star}/\n";

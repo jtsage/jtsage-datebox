@@ -9,14 +9,14 @@
 
 .ui-input-datebox { width: 97%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; padding-top: 0px; padding-bottom: 0px; } 
 .ui-input-datebox { min-height: 38px; } /* Fix for IE8 */
-.ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }
+/*.ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }*/
 .ui-input-datebox input { width: 100% !important; padding: 0 !important; margin-top: 5px !important; margin-right: -40px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }
 .ui-input-datebox input:focus { outline: none;}
 .ui-input-datebox .ui-btn-text {display: none;}
 .ui-input-datebox.ui-mini { min-height: 30px; font-size: 14px; }
 .ui-input-datebox.ui-mini .ui-btn-icon-notext { margin-top: 2px !important; margin-bottom: 2px !important; }
-.ui-icon-datebox { background-image: url('image/datebox.png') !important; background-repeat: no-repeat; background-position: 99% 8px; }
-.ui-icon-datebox-alt { background-image: url('image/datebox.png') !important; background-repeat: no-repeat; background-position: 99% -28px; }
+.ui-icon-datebox { background-image: url('image/datebox.png') !important; background-repeat: no-repeat !important; background-position: 99% 8px !important; }
+.ui-icon-datebox-alt { background-image: url('image/datebox.png') !important; background-repeat: no-repeat !important; background-position: 99% -28px !important; }
 .ui-mini.ui-icon-datebox { background-position: 99% 6px; }
 .ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }
 
@@ -61,7 +61,7 @@
 
 .ui-datebox-header h4 { margin-top: 5px; margin-bottom: 5px; text-align: center; }
 .ui-datebox-container fieldset div { margin: 0px !important; }
-.ui-datebox-dboxin input { text-align: center; }
+.ui-datebox-dboxin input { padding: .4em 0 !important; text-align: center; }
 .ui-datebox-dboxin label { width: 100%; text-align: center; display: block; margin-top: 5px; margin-bottom: -8px; }
 .ui-datebox-controls { text-align: center; }
 .ui-datebox-controls div { width: 77px; text-align: center; display: inline-block; zoom: 1; *display: inline;}
