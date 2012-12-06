@@ -46,25 +46,25 @@
 		$(document).delegate('#pickopt', 'change', function() {
 			switch ( parseInt($('#pickopt').val(), 10) ) {
 				case 0:
-					$('#lang1').data('datebox').options.enableDates = false;
-					$('#lang1').data('datebox').refresh();
+					$('#lang1').data('mobileDatebox').options.enableDates = false;
+					$('#lang1').data('mobileDatebox').refresh();
 					break;
 				case 1: // Every other wednesday (3)
-					$('#lang1').data('datebox').options.enableDates = new Array(
-						$('#lang1').data('datebox')._getRecDays(null, null, 3)[0],
-						$('#lang1').data('datebox')._getRecDays(null, null, 3)[2],
-						$('#lang1').data('datebox')._getRecDays(null, null, 3)[4]
+					$('#lang1').data('mobileDatebox').options.enableDates = new Array(
+						$('#lang1').data('mobileDatebox')._getRecDays(null, null, 3)[0],
+						$('#lang1').data('mobileDatebox')._getRecDays(null, null, 3)[2],
+						$('#lang1').data('mobileDatebox')._getRecDays(null, null, 3)[4]
 					);
-					$('#lang1').data('datebox').refresh();
+					$('#lang1').data('mobileDatebox').refresh();
 					break;
 				case 2:
-					$('#lang1').data('datebox').options.enableDates = new Array(
-						$('#lang1').data('datebox')._getRecDays(null, null, 6)[1],
-						$('#lang1').data('datebox')._getRecDays(null, null, 6)[2],
-						$('#lang1').data('datebox')._getRecDays(null, null, 6)[3],
-						$('#lang1').data('datebox')._getRecDays(null, null, 6)[4]
+					$('#lang1').data('mobileDatebox').options.enableDates = new Array(
+						$('#lang1').data('mobileDatebox')._getRecDays(null, null, 6)[1],
+						$('#lang1').data('mobileDatebox')._getRecDays(null, null, 6)[2],
+						$('#lang1').data('mobileDatebox')._getRecDays(null, null, 6)[3],
+						$('#lang1').data('mobileDatebox')._getRecDays(null, null, 6)[4]
 					);
-					$('#lang1').data('datebox').refresh();
+					$('#lang1').data('mobileDatebox').refresh();
 					break;
 			}
 		});

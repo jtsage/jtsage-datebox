@@ -65,7 +65,7 @@
 						$('#split1').live('datebox', function(e,p) {
 							if ( p.method === 'set') {
 								$('#split2').val(
-									$('#split1').data('datebox')._formatter('%Y-%m-%d', p.date)
+									$('#split1').datebox('callFormat','%Y-%m-%d', p.date)
 								);
 							}
 						});
@@ -83,7 +83,7 @@
 					<pre class="prettyprint">$('#split1').live('datebox', function(e,p) {
   if ( p.method === 'set') {
     $('#split2').val(
-      $('#split1').data('datebox')._formatter('%Y-%m-%d', p.date)
+      $('#split1').datebox('callFormat','%Y-%m-%d', p.date)
     );
   }  
 });

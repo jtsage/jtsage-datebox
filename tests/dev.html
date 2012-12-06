@@ -28,7 +28,7 @@
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			'usePlaceholder': true,
-			'useNewStyle': true
+			'useNewStyle': false
 		});
 	</script>
 	<style>
@@ -43,6 +43,10 @@
 	</div>
 	<div data-role="content">
 		<div data-role="fieldcontain">
+			<label for="lang1">calbox</label>
+			<input name="lang1" type="text" value="3/6/2012" data-role="datebox" data-options='{"calShowWeek":true, "calUsePickers":true, "mode": "calbox"}' id="lang1" />
+		</div>
+		<div data-role="fieldcontain">
 			<label for="c2">custom box</label>
 			<input name="c2" type="text" data-role="datebox" data-options='{"mode": "custombox", "overrideStyleClass":"ui-icon-dice"}' id="c2" />
 		</div>
@@ -50,10 +54,7 @@
 			<label for="c1">custom flip</label>
 			<input name="c1" type="text" data-role="datebox" data-options='{"mode": "customflip", "overrideStyleClass":"ui-icon-dice"}' id="c1" />
 		</div>
-		<div data-role="fieldcontain">
-			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" value="3/6/2012" data-role="datebox" data-options='{"calShowWeek":true, "calUsePickers":true, "mode": "calbox"}' id="lang1" />
-		</div>
+		
 		<div data-role="fieldcontain">
 			<label for="aa1">text comparison</label>
 			<input name="aa1" type="text" id="aa1"/>

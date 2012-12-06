@@ -66,11 +66,11 @@
 				
 					<script type="text/javascript">
 						function dooffset() { // This does the actual work.  if you wanted based on "now", startdate should be = new Date();
-							var startdate = $('#link1').data('datebox').theDate,
-								offsetsec = $('#link2').data('datebox').lastDuration,
+							var startdate = $('#link1').datebox('getTheDate'),
+								offsetsec = $('#link2').datebox('getLastDur'),
 								enddate = new Date(startdate.getFullYear(), startdate.getMonth(), startdate.getDate(), startdate.getHours(), startdate.getMinutes(), startdate.getSeconds(), 0);
 							enddate.setSeconds(enddate.getSeconds() + offsetsec);
-							$('#link3').data('datebox').theDate = enddate;
+							$('#link3').datebox('setTheDate', enddate);
 							$('#link3').trigger('datebox', {'method':'doset'});
 						}
 						$('#link1').live('change', function() {
@@ -94,12 +94,12 @@
 					<strong>jQuery</strong>
 					<pre class="prettyprint">
 function dooffset() { // This does the actual work.  if you wanted based on "now", startdate should be = new Date();
-  var startdate = $('#link1').data('datebox').theDate,
-    offsetsec = $('#link2').data('datebox').lastDuration,
+  var startdate = $('#link1').datebox('getTheDate'),
+    offsetsec = $('#link2').datebox('getLastDur'),
     enddate = new Date(startdate.getFullYear(), startdate.getMonth(), startdate.getDate(), startdate.getHours(), startdate.getMinutes(), startdate.getSeconds(), 0);
 
   enddate.setSeconds(enddate.getSeconds() + offsetsec);
-  $('#link3').data('datebox').theDate = enddate;
+  $('#link3').datebox('setTheDate', enddate);
   $('#link3').trigger('datebox', {'method':'doset'});
 }
 $('#link1').live('change', function() {

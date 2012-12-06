@@ -65,8 +65,8 @@
 							var todaysDate = new Date();
 							var lengthOfDay = 24 * 60 * 60 * 1000;
 							var diff = parseInt((((presetDate.getTime() - todaysDate.getTime()) / lengthOfDay))*-1,10);
-							$('#dynstart').data('datebox').options.defaultValue = defaultPickerValue;
-							$('#dynstart').data('datebox').options.minDays = diff;
+							$('#dynstart').datebox({'defaultValue': defaultPickerValue});
+							$('#dynstart').datebox({'minDays': diff});
 						});
 					</script>
 						

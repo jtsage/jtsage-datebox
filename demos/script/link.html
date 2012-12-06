@@ -104,7 +104,7 @@
 						$('#checkoutput').text($('#checklinkform input').serialize());
 						
 						if ( name === "checkin" ) {
-							$('#checkout').data('datebox').theDate = nextday;
+							$('#checkout').datebox('setTheDate', nextday);
 							$('#checkout').trigger('datebox', {'method':'doset'});
 							$('#checkout').datebox({"minDays": diffstrt});
 							$('#checkout').datebox('open');
@@ -158,7 +158,7 @@ linkedCheckin = function (date, name) {
   if ( name === "checkin" ) {
     // Ok, so in steps: (nuke the comments)
     // Set the (internal) checkout date to be whatever was picking in checkin +1 day
-    $('#checkout').data('datebox').theDate = nextday;
+    $('#checkout').datebox('setTheDate', nextday);
     // Show that to the user
     $('#checkout').trigger('datebox', {'method':'doset'});
     // Make sure that minDays won't let them check out same day or earlier

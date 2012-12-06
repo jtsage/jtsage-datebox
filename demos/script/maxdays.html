@@ -56,21 +56,21 @@
 					<h2>Dynamic Start Date</h2>
 						
 					<div data-role="fieldcontain">
-						<label for="dynend">Only till Jun 30</label>
+						<label for="dynend">Only till Jun 15</label>
 						<input name="dynend" type="text" data-role="datebox" data-options='{"mode": "calbox", "maxDays" : 30}' id="dynend" />
 					</div>
 					<script type="text/javascript">
 						function getdays() { 
 							var rightnow = new Date()
 								today = new Date(rightnow.getFullYear(), rightnow.getMonth(), rightnow.getDate(), 0,0,0,0)
-								maxdate = new Date(2012, 5, 30, 0,0,0,0)
+								maxdate = new Date(2013, 5, 15, 0,0,0,0)
 								
 								daysuntil = ( maxdate - today ) / ( 1000 * 60 * 60 * 24 )
 								
 								return parseInt(daysuntil,10)
 						}
 						$('#dynend').live('dateboxcreate', function() {
-							$('#dynend').data('datebox').options.maxDays = getdays()
+							$('#dynend').datebox({'maxDays': getdays()});
 						});
 					</script>
 						
@@ -92,7 +92,7 @@
 }
 
 $('#dynend').live('dateboxcreate', function() {
-  $('#dynend').data('datebox').options.maxDays = getdays()
+  $('#dynend').datebox({'maxDays': getdays()});
 });</pre>
 				</div>
 			</div>
