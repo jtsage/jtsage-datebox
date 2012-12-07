@@ -44,7 +44,8 @@ def doTrans(lang,name):
 	outtext += "\t\tdurationOrder: ["+ _("'d', 'h', 'i', 's'") + "],\n"
 	outtext += "\t\tmeridiem: [\""+_('AM')+"\", \""+_('PM')+"\"],\n"
 	outtext += "\t\ttimeOutput: \""+_('%k:%M')+"\",\n"
-	outtext += "\t\tdurationFormat: \""+_('%Dd %DA, %Dl:%DM:%DS')+"\"\n"
+	outtext += "\t\tdurationFormat: \""+_('%Dd %DA, %Dl:%DM:%DS')+"\",\n"
+	outtext += "\t\calDateListLabel: \""+_('Other Dates')+"\"\n"
 	outtext += "\t}\n});\n"
 	outtext += "jQuery.extend(jQuery.mobile.datebox.prototype.options, {\n\tuseLang: '" + lang + "'\n});\n"
 	return outtext

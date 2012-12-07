@@ -25,5 +25,6 @@ trans = {
 	'he': 'Kobi Hikri <kobi.hikri@gmail.com>',
 	'da': 'Jnyrup <crowdin>',
 	'hu': 'titititatatatititi <crowdin>',
-	'th': 'tiratat.patana-anake <tiratat.patana-anake@accenture.com>'
+	'th': 'tiratat.patana-anake <tiratat.patana-anake@accenture.com>',
+	'bg': 'How Bizarre <how@errazib.com>'
 }

@@ -308,3 +308,7 @@ msgstr "%k:%M"
 msgid "%Dd %DA, %Dl:%DM:%DS"
 msgstr "%Dd %DA, %Dl:%DM:%DS"
 
+#: generate-i18n.py:48
+msgid "Other Dates"
+msgstr "Other Dates"
+

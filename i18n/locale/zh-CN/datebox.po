@@ -2,10 +2,10 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-06-29 02:23+0200\n"
+"PO-Revision-Date: 2012-12-07 21:02+0100\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Chinese Simplified\n"
-"Language: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -155,7 +155,7 @@ msgstr "分钟"
 #. Abbreviation for the day 'Monday'
 #: generate-i18n.py:26
 msgid "Mo"
-msgstr "日"
+msgstr "一"
 
 #: generate-i18n.py:25
 msgid "Monday"
@@ -185,7 +185,7 @@ msgstr "十月"
 
 #: generate-i18n.py:31
 msgid "Open Date Picker"
-msgstr "开放日期选取器"
+msgstr "开启日期选取器"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
@@ -286,7 +286,7 @@ msgstr "0"
 
 #: generate-i18n.py:43
 msgid "Clear"
-msgstr "明确"
+msgstr "清除"
 
 #: generate-i18n.py:44
 msgid "'d', 'h', 'i', 's'"
@@ -307,4 +307,8 @@ msgstr "%k:%M"
 #: generate-i18n.py:47
 msgid "%Dd %DA, %Dl:%DM:%DS"
 msgstr "%Dd %DA, %Dl:%DM:%DS"
+
+#: generate-i18n.py:48
+msgid "Other Dates"
+msgstr "其他日期"
 
