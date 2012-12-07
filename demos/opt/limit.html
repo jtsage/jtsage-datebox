@@ -280,6 +280,22 @@ $('#drorangedays').live('change', function() {
    data-options='{"mode": "calbox", "blackDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
 				</div>
 				<div data-role="collapsible">
+					<h2>Blacklisted Recurring Dates</h2>
+					<p>Example shows all Christmas, New Years, 15th of month disabled.</p>
+					<p>Given as an array of 3 element arrays - [year,month,day] - use "-1" for "all"</p>
+					<p>NOTE: month is zero-offset (0=Jan, 11=Dec)</p>
+				
+					<div data-role="fieldcontain">
+						<label for="calblackdaterec">Some Date</label>
+						<input value="12/1/2011" name="calblackdaterec" type="date" data-role="datebox" id="calblackdaterec" data-options='{"mode": "calbox", "blackDatesRec": [[-1,11,24],[-1,11,25],[-1,0,1],[-1,-1,15]]}'/>
+					</div>
+				
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "blackDatesRec": [[-1,11,24],[-1,11,25],[-1,0,1],[-1,-1,15]]}'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
 					<h2>Exclusive Dates</h2>
 					<p>Example shows only Christmas enabled.</p>
 				
@@ -306,6 +322,22 @@ $('#drorangedays').live('change', function() {
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox", "highDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Highlighted Recurring Dates</h2>
+					<p>Example shows all Christmas, New Years, 15th of month highlighted.</p>
+					<p>Given as an array of 3 element arrays - [year,month,day] - use "-1" for "all"</p>
+					<p>NOTE: month is zero-offset (0=Jan, 11=Dec)</p>
+				
+					<div data-role="fieldcontain">
+						<label for="calhighdaterec">Some Date</label>
+						<input value="12/1/2011" name="calhighdaterec" type="date" data-role="datebox" id="calhighdaterec" data-options='{"mode": "calbox", "highDatesRec": [[-1,11,24],[-1,11,25],[-1,0,1],[-1,-1,15]]}'/>
+					</div>
+				
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "highDatesRec": [[-1,11,24],[-1,11,25],[-1,0,1],[-1,-1,15]]}'&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Valid Hours</h2>

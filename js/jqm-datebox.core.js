@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.2.0-2012120701', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.2.0-2012120702', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -67,6 +67,7 @@
 			maxYear: false,
 			minYear: false,
 			blackDates: false,
+			blackDatesRec: false,
 			blackDays: false,
 			minHour: false,
 			maxHour: false,
@@ -1161,6 +1162,15 @@
 					if ( $.inArray(w.theDate.getHours(), o.validHours) < 0 ) { w.dateOK = false; }
 				}
 			} else {
+				if ( o.blackDatesRec !== false ) {
+					for ( i=0; i<o.blackDatesRec.length; i++ ) {
+						if ( 
+							( o.blackDatesRec[i][0] === -1 || o.blackDatesRec[i][0] === year ) &&
+							( o.blackDatesRec[i][1] === -1 || o.blackDatesRec[i][1] === month ) &&
+							( o.blackDatesRec[i][2] === -1 || o.blackDatesRec[i][2] === date )
+						) { w.dateOK = false; } 
+					}
+				}	
 				if ( o.blackDates !== false ) {
 					if ( $.inArray(w.theDate.iso(), o.blackDates) > -1 ) { w.dateOK = false; }
 				}

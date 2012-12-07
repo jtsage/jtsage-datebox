@@ -13,6 +13,7 @@
 		themeDatePick: 'a',
 		themeDateHigh: 'e',
 		themeDateHighAlt: 'e',
+		themeDateHighRec: 'e',
 		themeDate: 'd',
 		
 		calHighToday: true,
@@ -33,6 +34,7 @@
 		
 		highDays: false,
 		highDates: false,
+		highDatesRec: false,
 		highDatesAlt: false,
 		enableDates: false,
 		calDateList: false,
@@ -71,20 +73,32 @@
 			return cal;
 		},
 		_cal_check : function (cal, year, month, date) {
-			var w = this,
+			var w = this, i,
 				o = this.options,
 				ret = {},
 				day = new this._date(year,month,date,0,0,0,0).getDay();
 				
 			ret.ok = true;
 			ret.iso = year + '-' + w._zPad(month+1) + '-' + w._zPad(date);
-			ret.comp = parseInt(ret.iso.replace(/-/g,''),10);
 			ret.theme = o.themeDate;
+			ret.recok = true;
+			ret.rectheme = false;
+			
+			if ( o.blackDatesRec !== false ) {
+				for ( i=0; i<o.blackDatesRec.length; i++ ) {
+					if ( 
+						( o.blackDatesRec[i][0] === -1 || o.blackDatesRec[i][0] === year ) &&
+						( o.blackDatesRec[i][1] === -1 || o.blackDatesRec[i][1] === month ) &&
+						( o.blackDatesRec[i][2] === -1 || o.blackDatesRec[i][2] === date )
+					) { ret.recok = false; } 
+				}
+			}
 			
 			if ( $.isArray(o.enableDates) && $.inArray(ret.iso, o.enableDates) < 0 ) {
 				ret.ok = false;
 			} else if ( cal.checkDates ) {
 				if (
+					( ret.recok !== true ) ||
 					( o.afterToday === true && cal.thisDate.comp() > ret.comp ) ||
 					( o.beforeToday === true && cal.thisDate.comp() < ret.comp ) ||
 					( o.notToday === true && cal.thisDate.comp() === ret.comp ) ||
@@ -97,6 +111,16 @@
 				}
 			}
 			if ( ret.ok ) {
+				if ( o.highDatesRec !== false ) {
+					for ( i=0; i<o.highDatesRec.length; i++ ) {
+						if ( 
+							( o.highDatesRec[i][0] === -1 || o.highDatesRec[i][0] === year ) &&
+							( o.highDatesRec[i][1] === -1 || o.highDatesRec[i][1] === month ) &&
+							( o.highDatesRec[i][2] === -1 || o.highDatesRec[i][2] === date )
+						) { ret.rectheme = true; } 
+					}
+				}
+				
 				if ( o.calHighPick && date === cal.presetDay && w.d.input.val()) {
 					ret.theme = o.themeDatePick;
 				} else if ( o.calHighToday && ret.comp === cal.thisDate.comp() ) {
@@ -107,6 +131,8 @@
 					ret.theme = o.themeDateHigh;
 				} else if ( $.isArray(o.highDays) && ($.inArray(day, o.highDays) > -1) ) {
 					ret.theme = o.themeDayHigh;
+				} else if ( $.isArray(o.highDatesRec) && ret.rectheme === true ) {
+					ret.theme = o.themeDateHighRec;
 				}
 			}
 			return ret;
