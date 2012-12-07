@@ -27,6 +27,7 @@
 		calShowWeek: false,
 		calUsePickers: false,
 		calNoHeader: false,
+		calShowSpecialDates: false,
 		
 		useTodayButton: false,
 		useCollapsedBut: false,
@@ -34,7 +35,8 @@
 		highDays: false,
 		highDates: false,
 		highDatesAlt: false,
-		enableDates: false
+		enableDates: false,
+		specialDates: false
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_cal_gen: function (start,prev,last,other,month) {
@@ -259,6 +261,31 @@
 			}
 			if ( o.calShowWeek ) { temp.find('.'+uid+'griddate').addClass(uid+'griddate-week'); }
 			
+            // Handle special dates.
+            if ( o.calShowSpecialDates && $.isArray(o.specialDates) ) {
+                cal.specialDates = $('<div>', {'class':uid+'gridrow'});
+                cal.specialDay = $('<select name="pickspecial" data-native-menu="false"><option data-placeholder="true">'+w.__('calSpecialDateLabel')+'</option></select>').appendTo(cal.specialDates);
+                
+                for ( var h, i=0, j = o.specialDates.length; i<j; i++ ) {
+                    h = o.specialDates[i];
+                    cal.specialDay.append($('<option value="'+h.date+'"'+((w.theDate.iso()===h.date)?' selected="selected"':'')+'>'+h.description+'</option>'));
+                }
+                
+                cal.specialDay.on('change', function (e) {
+                    e.preventDefault();
+                    var dt = $(this).val();
+                    if ( o.enableDates.indexOf(dt) < 0 ) {
+                        o.enableDates.push(dt);
+                    }
+                    w.theDate = w._makeDate(dt); 
+                    w.theDate = new w._date(w.theDate.getFullYear(), w.theDate.getMonth(), w.theDate.getDate(),0,0,0,0);
+                    w.d.input.trigger('datebox',{'method':'doset'});
+                });
+                
+                cal.specialDates.find('select').selectmenu({nativeMenu:false, mini:true});
+                cal.specialDates.appendTo(temp);
+            }
+            
 			if ( o.useTodayButton || o.useClearButton ) {
 				hRow = $('<div>', {'class':uid+'controls'});
 				
