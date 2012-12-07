@@ -70,6 +70,7 @@ goodLang = {
 	"en": "English US",
 	"af": "Afrikaans",
 	"ar": "Arabic",
+	"bg": "Bulgarian",
 	"ca": "Catalan",
 	"cs": "Czech",
 	"da": "Danish",
@@ -81,6 +82,7 @@ goodLang = {
 	"he": "Hebrew",
 	"hr": "Croatian",
 	"hu": "Hungarian",
+	"id": "Indonesian",
 	"it": "Italian",
 	"ja": "Japanese",
 	"ko": "Korean",
@@ -94,6 +96,7 @@ goodLang = {
 	"ru": "Russian",
 	"sr": "Serbian",
 	"sv-SE": "Swedish",
+	"th": "Thai",
 	"tr": "Turkish",
 	"uk": "Ukrainian",
 	"vi": "Vietnamese",
@@ -115,8 +118,8 @@ $('.opt-pop-lang').live('change', function() {
 			eval(data);
 			var x = $.mobile.datebox.prototype.options.lang[newLang];
 			$(document).find('[data-role=datebox]').each(function () {
-				$(this).data('datebox').options.lang[newLang] = x;
-				$(this).data('datebox').options.useLang = newLang;
+				$(this).data('mobileDatebox').options.lang[newLang] = x;
+				$(this).data('mobileDatebox').options.useLang = newLang;
 			});
 		}
 	});
