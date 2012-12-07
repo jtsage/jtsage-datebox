@@ -29,7 +29,6 @@
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			'usePlaceholder': true,
 			'useNewStyle': false,
-			'startOffsetYears': 2,
 			'startOffsetMonths': 1,
 		});
 	</script>
@@ -46,7 +45,7 @@
 	<div data-role="content">
 		<div data-role="fieldcontain">
 			<label for="l1">l1</label>
-			<input name="l1" type="text" value="" data-role="datebox" data-options='{"mode": "timeflipbox", "useFocus": true, "centerHoriz":true, "themeHeader":"b", "themeDatePick":"b", "overrideTimeOutput": "%-I:%M %p"}' id="l1" />
+			<input name="l1" type="text" value="" min="2013-01-01" max="2013-02-02" data-role="datebox" data-options='{"mode": "calbox"}' id="l1" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="lang1">calbox</label>

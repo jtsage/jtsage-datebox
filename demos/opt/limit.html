@@ -70,6 +70,8 @@
 						<li><h3>highDates</h3><p>An array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"]) (calbox)</p></li>
 						<li><h3>highDatesAlt</h3><p>An second, alternate array of ISO 8601 Dates to highlight. (e.g. ["2011-01-01", "2011-12-25"]) (calbox)</p></li>
 						<li><h3>validHours</h3><p>An array of valid hours of the day for the picker (e.g [9,10,11,13,14,15,16]) (all time modes)</p></li>
+						<li><h3>min (attr)</h3><p>ISO Min Date (in element attribute) (all date modes)</p></li>
+						<li><h3>max (attr)</h3><p>ISO Max Date (in element attribute) (all date modes)</p></li>
 					</ul>
 				</div>
 				<div data-role="collapsible">
@@ -86,6 +88,20 @@
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox", "afterToday": true, "maxDays": 60}'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
+					<h2>Limit between Two Dates (2001-01-02 &amp; 2001-01-25)</h2>
+					<p>Limit the valid dates between two named dates, using the min/max HTML5 attributes.</p>
+				
+					<div data-role="fieldcontain">
+						<label for="minmax">Some Date</label>
+						<input name="minmax" min="2001-01-02" max="2001-01-25" type="date" data-role="datebox" data-options='{"mode": "calbox", "defaultValue": [2001,0,15]}' id="minmax" />
+					</div>
+					
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+    min="2001-01-02" max="2001-01-25" data-options='{"mode": "calbox"}'&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Limit between 2009 and 2019</h2>

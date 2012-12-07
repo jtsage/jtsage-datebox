@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.2.0-2012120605', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.2.0-2012120700', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -738,6 +738,7 @@
 					delta  : false,
 					tmp    : false
 				},
+				calc = { },
 				ns = (typeof $.mobile.ns !== 'undefined')?$.mobile.ns:'';
 				
 			$.extend(w, {d: d, ns: ns, drag: drag, touch:touch});
@@ -836,6 +837,23 @@
 			}
 			
 			if ( o.useInline === true || o.useInlineBlind ) { w.open(); }
+			
+			if ( o.minDays === false && typeof(w.d.input.attr('min')) !== 'undefined' ) {
+				calc.today  = new w._date();
+				calc.lod    = 24 * 60 * 60 * 1000;
+				calc.todayc = new w._date(calc.today.getFullYear(), calc.today.getMonth(), calc.today.getDate(), 0,0,0,0);
+				calc.fromel = w.d.input.attr('min').split('-');
+				calc.compdt  = new w._date(calc.fromel[0],calc.fromel[1]-1,calc.fromel[2],0,0,0,0);
+				o.minDays = parseInt((((calc.compdt.getTime() - calc.todayc.getTime()) / calc.lod))*-1,10);
+			}
+			if ( o.maxDays === false && typeof(w.d.input.attr('max')) !== 'undefined' ) {
+				calc.today  = new w._date();
+				calc.lod    = 24 * 60 * 60 * 1000;
+				calc.todayc = new w._date(calc.today.getFullYear(), calc.today.getMonth(), calc.today.getDate(), 0,0,0,0);
+				calc.fromel = w.d.input.attr('max').split('-');
+				calc.compdt  = new w._date(calc.fromel[0],calc.fromel[1]-1,calc.fromel[2],0,0,0,0);
+				o.maxDays = parseInt((((calc.compdt.getTime() - calc.todayc.getTime()) / calc.lod)),10);
+			}
 			
 			//Throw dateboxinit event
 			$( document ).trigger( "dateboxaftercreate" );
@@ -1094,7 +1112,7 @@
 		},
 		_check: function() {
 			var w = this,
-				td = null,
+				td = null, 
 				o = this.options;
 			
 			w.dateOK = true;
