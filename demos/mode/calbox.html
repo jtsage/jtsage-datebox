@@ -132,6 +132,25 @@
    data-options='{"mode": "calbox", "useTodayButton": true}'&gt;</pre>
 				</div>
 				<div data-role="collapsible">
+					<h2>Showing a picklist of special dates (calShowDateList)</h2>
+					<p>To show a list of special dates, below the calendar, you need to both turn 'calShowDateList' on, and provide the list of dates.</p>
+					<p>The list of dates is an array of arrays - each element of the array needs to be a 2 element array, with the date and the text to display.</p>
+					
+					<pre class="prettyprint">[
+    ["2013-01-01", "New Years Day"],
+    ["2013-02-14", "Valentines Day"],
+    ["2013-04-25", "JT's B-Day"]
+]</pre>
+					
+					<div data-role="fieldcontain">
+						<label for="caldatelist">Some Date</label><input name="caldatelist" type="date" data-role="datebox" id="caldatelist" data-options='{"mode": "calbox", "calDateList": [["2013-01-01","New Years Day"],["2013-02-14","Valentines Day"],["2013-04-25","JTs B-Day"]], "calShowDateList":true}'/>
+					</div>
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "calDateList": [["2013-01-01","New Years Day"],["2013-02-14","Valentines Day"],["2013-04-25","JTs B-Day"], "calShowDateList":true}'&gt;</pre>
+				</div>
+				<div data-role="collapsible">
 					<h2>Hide day labels (calShowDays)</h2>
 					<p>To hide day labels, set 'calShowDays' to false</p>
 					

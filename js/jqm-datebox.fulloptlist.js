@@ -87,6 +87,8 @@ var stuff = { // name: ['default','desc','type','mode list']
 		highDays: [false, 'Highlight these days (array of day indexes)', 'Array', [0,1,0,0,0,0,0]],
 		highDates: [false, 'Highlight these ISO dates (array of dates)', 'Array', [0,1,0,0,0,0,0]],
 		highDatesAlt: [false, 'Highlight these ISO dates (array of dates) (alternate)', 'Array', [0,1,0,0,0,0,0]],
+		calShowDateList: [false, 'Show Special Date List Picker', 'Boolean', [0,1,0,0,0,0,0]],
+		calDateList: [false, 'Array of 2 Element Arrays (each w/ an ISO date and a desc)', 'Array', [0,1,0,0,0,0,0]],
 		durationSteppers: ["{'d': 1, 'h': 1, 'i': 1, 's': 1}", 'Steppers for the duration elements', 'Object', [0,0,0,0,0,0,1]]
 	},
 	themes: {
@@ -165,7 +167,8 @@ var stuff = { // name: ['default','desc','type','mode list']
 		durationOrder: ["['d', 'h', 'i', 's']", 'Field order for duration entry', 'Array', [0,0,0,0,0,0,1]],
 		meridiem: ["['AM', 'PM']", 'Name of meridiems, if used', 'Array', true],
 		timeOutput: ['%k:%M', 'Format for returned time', 'String', [0,0,0,0,1,1,0]],
-		durationFormat: ['%Dd %DA, %Dl:%DM:%DS', 'Format for returned duration', 'String', [0,0,0,0,0,0,1]]
+		durationFormat: ['%Dd %DA, %Dl:%DM:%DS', 'Format for returned duration', 'String', [0,0,0,0,0,0,1]],
+		calDateListLabel: ['Other Dates', 'Text for other dates dropdown', 'String', [0,1,0,0,0,0,0]]
 	}
 };
 

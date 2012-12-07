@@ -34,7 +34,9 @@
 		highDays: false,
 		highDates: false,
 		highDatesAlt: false,
-		enableDates: false
+		enableDates: false,
+		calDateList: false,
+		calShowDateList: false
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_cal_gen: function (start,prev,last,other,month) {
@@ -258,6 +260,25 @@
 				hRow.appendTo(temp);
 			}
 			if ( o.calShowWeek ) { temp.find('.'+uid+'griddate').addClass(uid+'griddate-week'); }
+			
+			if ( o.calShowDateList === true && o.calDateList !== false ) {
+				cal.datelist = $('<div>');
+				cal.datelistpick = $('<select name="pickdate"></select>').appendTo(cal.datelist);
+				
+				cal.datelistpick.append('<option value="false" selected="selected">'+w.__('calDateListLabel')+'</option>');
+				for ( i=0; i<o.calDateList.length; i++ ) {
+					cal.datelistpick.append($('<option value="'+o.calDateList[i][0]+'">'+o.calDateList[i][1]+'</option>'));
+				}
+				
+				cal.datelistpick.on('change', function() {
+					cal.datelistdate = $(this).val().split('-');
+					w.theDate = new w._date(cal.datelistdate[0], cal.datelistdate[1]-1, cal.datelistdate[2], 0,0,0,0);
+					w.d.input.trigger('datebox',{'method':'doset'});
+				});
+				
+				cal.datelist.find('select').selectmenu({mini:true, nativeMenu:true});
+				cal.datelist.appendTo(w.d.intHTML);
+			}
 			
 			if ( o.useTodayButton || o.useClearButton ) {
 				hRow = $('<div>', {'class':uid+'controls'});
