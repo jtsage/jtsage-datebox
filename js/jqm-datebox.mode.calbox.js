@@ -121,7 +121,7 @@
 					}
 				}
 				
-				if ( o.calHighPick && date === cal.presetDay && w.d.input.val()) {
+				if ( o.calHighPick && date === cal.presetDay && ( w.d.input.val() !== "" | o.defaultValue !== false )) {
 					ret.theme = o.themeDatePick;
 				} else if ( o.calHighToday && ret.comp === cal.thisDate.comp() ) {
 					ret.theme = o.themeDateToday;
