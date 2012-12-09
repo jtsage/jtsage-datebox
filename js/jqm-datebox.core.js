@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.2.0-2012120702', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.2.0-2012120900', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -447,6 +447,7 @@
 							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
 								exp_temp = o.defaultValue.split(':');
 								if ( exp_temp.length === 3 ) { date = w._pa([exp_temp[0],exp_temp[1],exp_temp[2]], date); }
+								else if ( exp_temp.length === 2 ) { data = w._pa([exp_temp[0],exp_temp[1],0, date); }
 							} else {
 								exp_temp = o.defaultValue.split('-');
 								if ( exp_temp.length === 3 ) { date = w._pa([exp_temp[0],exp_temp[1]-1,exp_temp[2]], false); }
