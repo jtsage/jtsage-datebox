@@ -80,6 +80,7 @@
 				
 			ret.ok = true;
 			ret.iso = year + '-' + w._zPad(month+1) + '-' + w._zPad(date);
+			ret.comp = parseInt(ret.iso.replace(/-/g, ''),10);
 			ret.theme = o.themeDate;
 			ret.recok = true;
 			ret.rectheme = false;
