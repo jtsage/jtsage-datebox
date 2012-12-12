@@ -1048,7 +1048,7 @@
 				o = this.options;
 			
 			if ( o.useInlineBlind === true ) { w.d.mainWrap.slideUp(); return true;}
-			if ( o.useInline === true ) { return true; }
+			if ( o.useInline === true || w.d.intHTML === false ) { return true; }
 
 			if ( w.d.dialogPage !== false ) {
 				$(w.d.dialogPage).dialog('close');
