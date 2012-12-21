@@ -447,7 +447,7 @@
 							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
 								exp_temp = o.defaultValue.split(':');
 								if ( exp_temp.length === 3 ) { date = w._pa([exp_temp[0],exp_temp[1],exp_temp[2]], date); }
-								else if ( exp_temp.length === 2 ) { data = w._pa([exp_temp[0],exp_temp[1],0], date); }
+								else if ( exp_temp.length === 2 ) { date = w._pa([exp_temp[0],exp_temp[1],0], date); }
 							} else {
 								exp_temp = o.defaultValue.split('-');
 								if ( exp_temp.length === 3 ) { date = w._pa([exp_temp[0],exp_temp[1]-1,exp_temp[2]], false); }
