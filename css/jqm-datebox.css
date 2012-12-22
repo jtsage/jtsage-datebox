@@ -21,7 +21,7 @@
 .ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }
 
 @media all and (min-width: 450px){
-  .ui-field-contain .ui-input-datebox { width: 75%; display: inline-block; } 
+  .ui-field-contain .ui-input-datebox { width: 74.7%; display: inline-block; } 
   .ui-hide-label .ui-input-datebox { width: 100%; }
 }
 
