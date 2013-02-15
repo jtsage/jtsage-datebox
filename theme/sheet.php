@@ -68,7 +68,7 @@ echo ".ui-mini.ui-icon-datebox { background-position: 99% 6px; }\n";
 echo ".ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }\n\n";
 
 echo "@media all and (min-width: 450px){\n";
-echo "  .ui-field-contain .ui-input-datebox { width: 75%; display: inline-block; }\n";
+echo "  .ui-field-contain .ui-input-datebox { width: 74.7%; display: inline-block; }\n";
 echo "  .ui-hide-label .ui-input-datebox { width: 100%; }\n";
 echo "}\n";
 
