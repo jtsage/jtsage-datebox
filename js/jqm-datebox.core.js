@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.2.0-2012120900', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.2.0-2012021400', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			theme: false,
 			themeDefault: 'c',
 			themeHeader: 'a',
@@ -841,7 +841,20 @@
 			
 			if ( o.useInline === true || o.useInlineBlind ) { w.open(); }
 			
-			if ( o.minDays === false && typeof(w.d.input.attr('min')) !== 'undefined' ) {
+			w.applyMinMax(false, false);
+			
+			//Throw dateboxinit event
+			$( document ).trigger( "dateboxaftercreate" );
+		},
+		applyMinMax: function(refresh, override) {
+			var w = this,
+					o = this.options,
+					calc = {};
+					
+			if ( typeof refresh === 'undefined' ) { refresh = false; }
+			if ( typeof override === 'undefined' ) { override = true; }
+			
+			if ( ( override === true || o.minDays === false ) && typeof(w.d.input.attr('min')) !== 'undefined' ) {
 				calc.today  = new w._date();
 				calc.lod    = 24 * 60 * 60 * 1000;
 				calc.todayc = new w._date(calc.today.getFullYear(), calc.today.getMonth(), calc.today.getDate(), 0,0,0,0);
@@ -849,7 +862,7 @@
 				calc.compdt  = new w._date(calc.fromel[0],calc.fromel[1]-1,calc.fromel[2],0,0,0,0);
 				o.minDays = parseInt((((calc.compdt.getTime() - calc.todayc.getTime()) / calc.lod))*-1,10);
 			}
-			if ( o.maxDays === false && typeof(w.d.input.attr('max')) !== 'undefined' ) {
+			if ( ( override === true || o.maxDays === false ) && typeof(w.d.input.attr('max')) !== 'undefined' ) {
 				calc.today  = new w._date();
 				calc.lod    = 24 * 60 * 60 * 1000;
 				calc.todayc = new w._date(calc.today.getFullYear(), calc.today.getMonth(), calc.today.getDate(), 0,0,0,0);
@@ -858,8 +871,7 @@
 				o.maxDays = parseInt((((calc.compdt.getTime() - calc.todayc.getTime()) / calc.lod)),10);
 			}
 			
-			//Throw dateboxinit event
-			$( document ).trigger( "dateboxaftercreate" );
+			if ( refresh === true ) { w.refresh(); }
 		},
 		_build: {
 			'default': function () {
