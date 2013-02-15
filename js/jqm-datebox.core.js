@@ -1282,7 +1282,7 @@
 	$( document ).on( "pagecreate create", function( e ){
 		$( document ).trigger( "dateboxbeforecreate" );
 		$( ":jqmData(role='datebox')", e.target ).each(function() {
-			var defed = parseInt($.mobile.version.replace(/\./g,''),10) > 110 ? typeof($(this).data('mobileDatebox')) : typeof($(this).data('datebox'));
+			var defed = parseInt($.mobile.version.replace(/\./g,''),10) > 111 ? typeof($(this).data('mobileDatebox')) : typeof($(this).data('datebox'));
 			if ( defed === "undefined" ) {
 				$(this).datebox();
 			}
