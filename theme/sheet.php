@@ -133,7 +133,7 @@ echo ".ui-datebox-flipcontent li { height: {$use['fh']}px; }\n";
 echo ".ui-datebox-flipcontent li span { margin-top: 7px; display: block; }\n";
 
 echo "\n\n/{$star} Shared Styles {$star}/\n";
-echo ".ui-datebox-container { border: 5px solid #111 !important; width: {$use['width']}px; }\n";
+echo ".ui-datebox-container { border: 5px solid #111 !important; width: {$use['width']}px; -webkit-transform:translate3d(0,0,0); }\n";
 echo ".ui-datebox-screen { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; }\n";
 echo ".ui-datebox-screen-modal { background-color: black; -moz-opacity: 0.8; opacity:.80; filter: alpha(opacity=80); }\n";
 echo ".ui-datebox-hidden { display: none; }\n";
