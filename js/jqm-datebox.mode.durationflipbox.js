@@ -79,7 +79,7 @@
 			
 			tmp = $('<div class="'+uid+'header ui-grid-'+[0,0,'a','b','c'][w.fldOrder.length]+'"></div>');
 			for ( y=0; y<w.fldOrder.length; y++ ) {
-				$('<div class="ui-block-'+['a','b','c','d'][y]+'">'+w.__('durationLabel')[y]+'</div>').css('textAlign','center').appendTo(tmp);
+				$('<div class="ui-block-'+['a','b','c','d'][y]+'">'+w.__('durationLabel')[jQuery.inArray(w.fldOrder[y],['d','h','i','s'])]+'</div>').css('textAlign','center').appendTo(tmp);
 			}
 			tmp.appendTo(w.d.intHTML);
 			
