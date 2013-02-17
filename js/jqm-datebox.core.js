@@ -35,7 +35,7 @@
 			
 			dialogEnable: false,
 			dialogForce: false,
-			enablePopup: true,
+			enablePopup: false,
 			
 			popupPosition: false,
 			popupForceX: false,
