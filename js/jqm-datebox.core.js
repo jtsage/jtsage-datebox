@@ -953,7 +953,9 @@
 		},
 		open: function () {
 			var w = this,
-				o = this.options, popopts = {},
+				o = this.options, 
+				popopts = {},
+				basepop = {'history':false},
 				qns = 'data-'+this.ns,
 				trans = o.useAnimation ? o.transition : 'none';
 			
@@ -1048,7 +1050,9 @@
 					}
 				}
 				
-				w.d.mainWrap.removeClass('ui-datebox-hidden').popup({ history: false }).popup("open", popopts);
+				if ( o.useModal = true ) { basepop.overlayTheme = "a"; }
+				
+				w.d.mainWrap.removeClass('ui-datebox-hidden').popup(basepop).popup("open", popopts);
 				w.refresh();
 			} else {
 				if ( o.dialogForce || ( o.dialogEnable && window.width() < 400 ) ) {
