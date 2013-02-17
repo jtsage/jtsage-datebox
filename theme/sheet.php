@@ -10,7 +10,7 @@ $defaults = array(
 	'cgfs' => '12', // Cal box font size (calbox)
 	'cgdec' => '#888', // Empty date color (calbox)
 	'cgddc' => '#888', // Disabled date color (calbox)
-	'width' => '290', // Master Width
+	'width' => '280', // Master Width
 	'fw' => '77', // width (flipbox)
 	'fwl' => '260', // lens width (flipbox)
 	'fh' => '30', // cell heigh (flipbox)
@@ -138,6 +138,8 @@ echo ".ui-datebox-screen { position: absolute; top: 0px; left: 0px; width: 100%;
 echo ".ui-datebox-screen-modal { background-color: black; -moz-opacity: 0.8; opacity:.80; filter: alpha(opacity=80); }\n";
 echo ".ui-datebox-hidden { display: none; }\n";
 echo ".ui-dialog .ui-datebox-container { border: none !important; }\n";
+echo ".ui-popup-container .ui-datebox-container { border: none !important; }\n";
+echo ".ui-popup-container .ui-datebox-gridrow { margin-left: 0px; margin-right: 0px; }\n";
 echo ".ui-datebox-collapse a { display: inline-block; width: 45% }\n";
 echo "\n.ui-datebox-inline { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto; margin-right: auto; text-align: center; }\n";
 echo ".ui-datebox-inlineblind { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto; margin-right: auto; text-align: center; }\n";
