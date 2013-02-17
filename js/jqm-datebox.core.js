@@ -763,6 +763,7 @@
 			w.runButton = false;
 			w._date = window.Date;
 			w._enhanceDate();
+			w.baseID = w.d.input.attr('id');
 			
 			w.initDate = new w._date();
 			w.theDate = (o.defaultValue) ? w._makeDate(o.defaultValue) : new w._date();
@@ -952,7 +953,7 @@
 		},
 		open: function () {
 			var w = this,
-				o = this.options,
+				o = this.options, popopts = {},
 				qns = 'data-'+this.ns,
 				trans = o.useAnimation ? o.transition : 'none';
 			
@@ -1013,6 +1014,40 @@
 			if ( w.d.intHTML.is(':visible') ) { return false; } // Ignore if already open
 				
 			if ( o.enablePopup === true ) {
+				console.log('gereg');
+				w.d.dialogPage = false;
+				w.d.mainWrap.empty();
+				if ( o.useHeader === true ) {
+					w.d.headHTML = $('<div class="ui-header ui-bar-'+o.themeHeader+'"></div>');
+					$("<a class='ui-btn-left' href='#'>Close</a>").appendTo(w.d.headHTML)
+						.buttonMarkup({ theme  : o.themeHeader, icon   : 'delete', iconpos: 'notext', corners: true, shadow : true })
+						.on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.mainWrap.popup('close'); }); //w.d.input.trigger('datebox', {'method':'close'}); });
+					$('<h1 class="ui-title">'+w.d.headerText+'</h1>').appendTo(w.d.headHTML);
+					w.d.mainWrap.append(w.d.headHTML);
+				}
+				w.d.mainWrap.append(w.d.intHTML).css('zIndex', o.zindex);
+				w.d.input.trigger('datebox',{'method':'postrefresh'});
+				
+				if ( o.useAnimation === true ) {
+					popopts.transition = o.transition;
+				} else {
+					popopts.transition = "none";
+				}
+				
+				if ( o.popupForceX !== false && o.popupForceY !== false ) {
+					popopts.x = o.popupForceX;
+					popopts.y = o.popupForceY;
+				}
+				
+				if ( o.popupPosition !== false ) {
+					popopts.positionTo = o.popupPosition;
+				} else {
+					popopts.positionTo = '#' + w.baseID;
+				}
+				
+				w.d.mainWrap.removeClass('ui-datebox-hidden').popup().popup("open", popopts);
+				w.refresh();
+					
 				// Use the builtin popup mode.
 			} else {
 				if ( o.dialogForce || ( o.dialogEnable && window.width() < 400 ) ) {
@@ -1083,12 +1118,11 @@
 				w.clearFunc = setTimeout(function () { w.d.dialogPage.empty().remove(); w.clearFunc = false; }, 1500);
 			} else {
 				if ( o.useModal ) {
-                    if(o.useAnimation) {
-                        w.d.screen.fadeOut('slow');
-                    } else {
-                        w.d.screen.hide();
-                    }
-
+					if(o.useAnimation) {
+						w.d.screen.fadeOut('slow');
+					} else {
+						w.d.screen.hide();
+					}
 				} else {
 					w.d.screen.addClass('ui-datebox-hidden');
 				}

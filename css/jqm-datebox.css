@@ -97,11 +97,12 @@
 .ui-datebox-flipcontent li span { margin-top: 7px; display: block; }
 /* Shared Styles */
 
-.ui-datebox-container { border: 5px solid #111 !important; width: 280px; -webkit-transform:translate3d(0,0,0); }
+.ui-datebox-container { border: 5px solid #111 !important; width: 290px; -webkit-transform:translate3d(0,0,0); }
 .ui-datebox-screen { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; }
 .ui-datebox-screen-modal { background-color: black; -moz-opacity: 0.8; opacity:.80; filter: alpha(opacity=80); }
 .ui-datebox-hidden { display: none; }
 .ui-dialog .ui-datebox-container { border: none !important; }
+.ui-popup-container .ui-datebox-container { border: none !important; }
 .ui-datebox-collapse a { display: inline-block; width: 45% }
 
 .ui-datebox-inline { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto; margin-right: auto; text-align: center; }
