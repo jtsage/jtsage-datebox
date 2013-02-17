@@ -35,6 +35,11 @@
 			
 			dialogEnable: false,
 			dialogForce: false,
+			enablePopup: true,
+			
+			popupPosition: false,
+			popupForceX: false,
+			popupForceY: false,
 			
 			useModal: false,
 			useInline: false,
@@ -1007,51 +1012,54 @@
 			}
 			if ( w.d.intHTML.is(':visible') ) { return false; } // Ignore if already open
 				
-			if ( o.dialogForce || ( o.dialogEnable && window.width() < 400 ) ) {
-				w.d.dialogPage = $("<div "+qns+"role='dialog' "+qns+"theme='"+o.theme+"' >" +
-					"<div "+qns+"role='header' "+qns+"theme='"+o.themeHeader+"'>" +
-					"<h1>"+w.d.headerText+"</h1></div><div "+qns+"role='content'></div>")
-					.appendTo( $.mobile.pageContainer )
-					.page().css('minHeight', '0px').addClass(trans);
-				w.d.dialogPage.find('.ui-header').find('a').off('click vclick').on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
-				w.d.mainWrap.append(w.d.intHTML).css({'marginLeft':'auto', 'marginRight':'auto'}).removeClass('ui-datebox-hidden');
-				w.d.dialogPage.find('.ui-content').append(w.d.mainWrap);
-				w.d.input.trigger('datebox',{'method':'postrefresh'});
-				$.mobile.activePage.off( "pagehide.remove" );
-				$.mobile.changePage(w.d.dialogPage, {'transition': trans});
+			if ( o.enablePopup === true ) {
+				// Use the builtin popup mode.
 			} else {
-				w.d.dialogPage = false;
-				w.d.mainWrap.empty();
-				if ( o.useHeader === true ) {
-					w.d.headHTML = $('<div class="ui-header ui-bar-'+o.themeHeader+'"></div>');
-					$("<a class='ui-btn-left' href='#'>Close</a>").appendTo(w.d.headHTML)
-						.buttonMarkup({ theme  : o.themeHeader, icon   : 'delete', iconpos: 'notext', corners: true, shadow : true })
-						.on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
-					$('<h1 class="ui-title">'+w.d.headerText+'</h1>').appendTo(w.d.headHTML);
-					w.d.mainWrap.append(w.d.headHTML);
-				}
-				w.d.mainWrap.append(w.d.intHTML).css('zIndex', o.zindex);
-				w.d.mainWrap.appendTo($.mobile.activePage);
-				w.d.screen.appendTo($.mobile.activePage);
-				w.d.input.trigger('datebox',{'method':'postrefresh'});
-				w._applyCoords({widget:w});
-				
-				if ( o.useModal === true ) { 
-					if(o.useAnimation) {
-                        w.d.screen.fadeIn('slow');
-                    } else {
-                        w.d.screen.show();
-                    }
-
+				if ( o.dialogForce || ( o.dialogEnable && window.width() < 400 ) ) {
+					w.d.dialogPage = $("<div "+qns+"role='dialog' "+qns+"theme='"+o.theme+"' >" +
+						"<div "+qns+"role='header' "+qns+"theme='"+o.themeHeader+"'>" +
+						"<h1>"+w.d.headerText+"</h1></div><div "+qns+"role='content'></div>")
+						.appendTo( $.mobile.pageContainer )
+						.page().css('minHeight', '0px').addClass(trans);
+					w.d.dialogPage.find('.ui-header').find('a').off('click vclick').on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
+					w.d.mainWrap.append(w.d.intHTML).css({'marginLeft':'auto', 'marginRight':'auto'}).removeClass('ui-datebox-hidden');
+					w.d.dialogPage.find('.ui-content').append(w.d.mainWrap);
+					w.d.input.trigger('datebox',{'method':'postrefresh'});
+					$.mobile.activePage.off( "pagehide.remove" );
+					$.mobile.changePage(w.d.dialogPage, {'transition': trans});
 				} else {
-					setTimeout(function () { w.d.screen.removeClass('ui-datebox-hidden');}, 500);
-				}
-				
-				w.d.mainWrap.addClass('ui-overlay-shadow in').removeClass('ui-datebox-hidden');
-				
-				$(document).on('orientationchange.datebox', {widget:w}, function(e) { w._applyCoords(e.data); });
-				if ( o.resizeListener === true ) {
-					$(window).on('resize.datebox', {widget:w}, function (e) { w._applyCoords(e.data); });
+					w.d.dialogPage = false;
+					w.d.mainWrap.empty();
+					if ( o.useHeader === true ) {
+						w.d.headHTML = $('<div class="ui-header ui-bar-'+o.themeHeader+'"></div>');
+						$("<a class='ui-btn-left' href='#'>Close</a>").appendTo(w.d.headHTML)
+							.buttonMarkup({ theme  : o.themeHeader, icon   : 'delete', iconpos: 'notext', corners: true, shadow : true })
+							.on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
+						$('<h1 class="ui-title">'+w.d.headerText+'</h1>').appendTo(w.d.headHTML);
+						w.d.mainWrap.append(w.d.headHTML);
+					}
+					w.d.mainWrap.append(w.d.intHTML).css('zIndex', o.zindex);
+					w.d.mainWrap.appendTo($.mobile.activePage);
+					w.d.screen.appendTo($.mobile.activePage);
+					w.d.input.trigger('datebox',{'method':'postrefresh'});
+					w._applyCoords({widget:w});
+					
+					if ( o.useModal === true ) { 
+						if(o.useAnimation) {
+							w.d.screen.fadeIn('slow');
+						} else {
+							w.d.screen.show();
+						}
+					} else {
+						setTimeout(function () { w.d.screen.removeClass('ui-datebox-hidden');}, 500);
+					}
+					
+					w.d.mainWrap.addClass('ui-overlay-shadow in').removeClass('ui-datebox-hidden');
+					
+					$(document).on('orientationchange.datebox', {widget:w}, function(e) { w._applyCoords(e.data); });
+					if ( o.resizeListener === true ) {
+						$(window).on('resize.datebox', {widget:w}, function (e) { w._applyCoords(e.data); });
+					}
 				}
 			}
 		},
