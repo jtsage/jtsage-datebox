@@ -1014,14 +1014,13 @@
 			if ( w.d.intHTML.is(':visible') ) { return false; } // Ignore if already open
 				
 			if ( o.enablePopup === true ) {
-				console.log('gereg');
 				w.d.dialogPage = false;
 				w.d.mainWrap.empty();
 				if ( o.useHeader === true ) {
 					w.d.headHTML = $('<div class="ui-header ui-bar-'+o.themeHeader+'"></div>');
 					$("<a class='ui-btn-left' href='#'>Close</a>").appendTo(w.d.headHTML)
 						.buttonMarkup({ theme  : o.themeHeader, icon   : 'delete', iconpos: 'notext', corners: true, shadow : true })
-						.on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.mainWrap.popup('close'); }); //w.d.input.trigger('datebox', {'method':'close'}); });
+						.on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
 					$('<h1 class="ui-title">'+w.d.headerText+'</h1>').appendTo(w.d.headHTML);
 					w.d.mainWrap.append(w.d.headHTML);
 				}
@@ -1042,13 +1041,15 @@
 				if ( o.popupPosition !== false ) {
 					popopts.positionTo = o.popupPosition;
 				} else {
-					popopts.positionTo = '#' + w.baseID;
+					if ( typeof w.baseID !== undefined ) {
+						popopts.positionTo = '#' + w.baseID;
+					} else {
+						popopts.positionTo = 'window';
+					}
 				}
 				
-				w.d.mainWrap.removeClass('ui-datebox-hidden').popup().popup("open", popopts);
+				w.d.mainWrap.removeClass('ui-datebox-hidden').popup({ history: false }).popup("open", popopts);
 				w.refresh();
-					
-				// Use the builtin popup mode.
 			} else {
 				if ( o.dialogForce || ( o.dialogEnable && window.width() < 400 ) ) {
 					w.d.dialogPage = $("<div "+qns+"role='dialog' "+qns+"theme='"+o.theme+"' >" +
@@ -1117,23 +1118,28 @@
 				w.d.wrap.removeClass('ui-focus');
 				w.clearFunc = setTimeout(function () { w.d.dialogPage.empty().remove(); w.clearFunc = false; }, 1500);
 			} else {
-				if ( o.useModal ) {
-					if(o.useAnimation) {
-						w.d.screen.fadeOut('slow');
-					} else {
-						w.d.screen.hide();
-					}
+				if ( o.enablePopup === true ) {
+					w.d.mainWrap.popup('close');
+					w.d.wrap.removeClass('ui-focus');
 				} else {
-					w.d.screen.addClass('ui-datebox-hidden');
-				}
-				w.d.screen.detach();
-				w.d.mainWrap.addClass('ui-datebox-hidden').removeAttr('style').removeClass('in ui-overlay-shadow').empty().detach();
-				w.d.intHTML.detach();
-				w.d.wrap.removeClass('ui-focus');
-				
-				$(document).off('orientationchange.datebox');
-				if ( o.resizeListener === true ) {
-					$(window).off('resize.datebox');
+					if ( o.useModal ) {
+						if(o.useAnimation) {
+							w.d.screen.fadeOut('slow');
+						} else {
+							w.d.screen.hide();
+						}
+					} else {
+						w.d.screen.addClass('ui-datebox-hidden');
+					}
+					w.d.screen.detach();
+					w.d.mainWrap.addClass('ui-datebox-hidden').removeAttr('style').removeClass('in ui-overlay-shadow').empty().detach();
+					w.d.intHTML.detach();
+					w.d.wrap.removeClass('ui-focus');
+					
+					$(document).off('orientationchange.datebox');
+					if ( o.resizeListener === true ) {
+						$(window).off('resize.datebox');
+					}
 				}
 			}
 					
