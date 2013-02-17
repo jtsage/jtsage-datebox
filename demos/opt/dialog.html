@@ -66,6 +66,20 @@
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
    data-options='{"mode": "calbox"}'&gt;</pre>
 				</div>
+				<div data-role="collapsible" data-collapsed="true">
+					<h2>Built-In Popup Mode</h2>
+					<p>You can use jQM's builtin popup plugin as well.  Set 'enablePopup' to true.</p>
+					<p>Other related options are 'popupForceX' and 'popupForceY' which, when used together can force the absolute position of the opened popup.  'popupPosition' can be left false, and the popup will center over the associated input element, or set to 'window', and it will be centered in the window (with scroll position intact).</p>
+					
+					<div data-role="fieldcontain">
+						<label for="newpop">Some Date</label><input name="newpop" type="date" data-role="datebox" id="newpop" data-options='{"mode": "calbox", "enablePopup": true}' />
+					</div>
+				
+					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+
+&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+   data-options='{"mode": "calbox", "enablePopup": true}'&gt;</pre>
+				</div>
 				<div data-role="collapsible">
 					<h2>Forced Dialog Mode</h2>
 					<p>You can force the dialog mode on with 'dialogForce' set to 'true'</p>
