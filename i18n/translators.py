@@ -26,5 +26,6 @@ trans = {
 	'da': 'Jnyrup <crowdin>',
 	'hu': 'titititatatatititi <crowdin>',
 	'th': 'tiratat.patana-anake <tiratat.patana-anake@accenture.com>',
-	'bg': 'How Bizarre <how@errazib.com>'
+	'bg': 'How Bizarre <how@errazib.com>',
+	'zh-TW': 'Ethan Chen <ethan42411@gmail.com>'
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2012-12-07 20:39+0100\n"
+"PO-Revision-Date: 2013-04-03 22:10+0200\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -40,7 +40,7 @@ msgstr "'y', 'm', 'd'"
 #. Clock format - either 12 or 24
 #: generate-i18n.py:34
 msgid "24"
-msgstr "12"
+msgstr "24"
 
 #. Abbreviation for the month 'April'
 #: generate-i18n.py:28
@@ -223,7 +223,7 @@ msgstr "Elija fecha"
 
 #: generate-i18n.py:21
 msgid "Set Duration"
-msgstr "Guardar Duracion"
+msgstr "Guardar Duración"
 
 #: generate-i18n.py:20 generate-i18n.py:24
 msgid "Set Time"
@@ -231,7 +231,7 @@ msgstr "Guardar Hora"
 
 #: generate-i18n.py:24
 msgid "Choose Time"
-msgstr "Elegir el tiempo"
+msgstr "Elegir Hora"
 
 #. Abbreviation for the day 'Sunday'
 #: generate-i18n.py:26
@@ -286,7 +286,7 @@ msgstr "0"
 
 #: generate-i18n.py:43
 msgid "Clear"
-msgstr "Claro"
+msgstr "Borrar"
 
 #: generate-i18n.py:44
 msgid "'d', 'h', 'i', 's'"
