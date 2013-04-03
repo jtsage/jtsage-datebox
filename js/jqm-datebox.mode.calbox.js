@@ -276,7 +276,7 @@
 								.jqmData('date', ((o.calWeekMode)?cal.weekMode:cal.gen[row][col][0]))
 								.jqmData('theme', cal.thisMonth === cal.gen[row][col][1] ? checked.theme : '-')
 								.jqmData('enabled', checked.ok)
-								.jqmData('month', cal.gen[row][col][1])
+								.jqmData('month', cal.gen[row][((o.calWeekMode)?o.calWeekModeDay:col)][1])
 								.appendTo(hRow);
 						}
 					}
