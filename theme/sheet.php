@@ -54,8 +54,9 @@ echo " {$star}/\n";
 
 echo "\n\n/{$star} Base input element Styles {$star}/\n";
 
-echo ".ui-input-datebox { width: 97%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; padding-top: 0px; padding-bottom: 0px; } \n";
+echo ".ui-input-datebox { width: 97%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; padding-top: 0px; padding-bottom: 0px; background-color: transparent; } \n";
 echo ".ui-input-datebox { min-height: 38px; } \n";
+echo ".ui-datebox-container > .ui-header:first-child { -webkit-border-top-left-radius: 3px; border-top-left-radius: 3px;  -webkit-border-top-right-radius: 3px; border-top-right-radius: 3px; }\n";
 //echo ".ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }\n";
 echo ".ui-input-datebox input { width: 100% !important; padding: 0 !important; margin-top: 5px !important; margin-right: -40px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }\n";
 echo ".ui-input-datebox input:focus { outline: none;}\n";
