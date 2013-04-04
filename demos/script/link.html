@@ -113,6 +113,8 @@
 					</script>
 					<strong>RESULT</strong>
 					<pre class="prettyprint"><span id="checkoutput"> </span></pre>
+					<a href="#sourceADVLINKHTML" data-rel="popup" data-role="button" data-theme="e" data-inline="true" data-mini="true" data-transition="pop">HTML Source</a>
+                    <div data-role="popup" id="sourceADVLINKHTML" class="ui-content">
 					<strong>HTML</strong><pre class="prettyprint">
 &lt;div id="checklinkform" data-role="fieldcontain"&gt;
   &lt;label for="checkin"&gt;Check-in:&lt;/label&gt;
@@ -129,7 +131,9 @@
   &lt;input name="checkout_monthday" type="hidden" size="2" id="checkout_monthday" /&gt;
   &lt;input name="checkout_year_month" type="hidden" size="7" id="checkout_year_month" /&gt;
 &lt;/div&gt;</pre>
-
+					</div>
+					<a href="#sourceADVLINKJQ" data-rel="popup" data-role="button" data-theme="e" data-inline="true" data-mini="true" data-transition="pop">jQuery Source</a>
+                    <div data-role="popup" id="sourceADVLINKJQ" class="ui-content">
 					<strong>jQuery</strong>
 					<pre class="prettyprint">
 linkedCheckin = function (date, name) {
@@ -167,6 +171,7 @@ linkedCheckin = function (date, name) {
     $('#checkout').datebox('open');
   }
 }</pre>
+					</div>
 					</div>
 				</div>
 			</div>
