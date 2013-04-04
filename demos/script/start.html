@@ -99,10 +99,10 @@
   var diff = parseInt((((presetDate.getTime() - todaysDate.getTime()) / lengthOfDay)+1)*-1,10); 
     
   // Set the origin date
-  $('#mydate').data('datebox').options.defaultPickerValue = defaultPickerValue;
+  $('#mydate').datebox({'defaultValue': defaultPickerValue});
     
   // Set minDays to disallow anything earlier
-  $('#mydate').data('datebox').options.minDays = diff; 
+  $('#mydate').datebox({'minDays': diff});
 });</pre>
 				</div>
 				</div>

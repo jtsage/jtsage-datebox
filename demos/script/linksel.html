@@ -79,7 +79,7 @@
 						
 						// Update the datebox object with the highlighted dates
 						function updateHighDates() {
-							$('#datetime').data('datebox').options.highDates = timeOptionDates;
+							$('#datetime').datebox({'highDates': timeOptionDates});
 							$('#datetime').trigger('datebox', {'method':'dorefresh'});
 						}
 						
@@ -87,7 +87,7 @@
 						// ajax to somehow update the list of valid dates and times, it would need to be 
 						// refreshed.
 						$(document).bind('pageshow', function() {
-//							updateHighDates();
+							updateHighDates();
 						});
 						
 						// Bind the datebox event, and...
