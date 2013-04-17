@@ -127,12 +127,12 @@
 						$('#calrlimit1').live('change', function() {
 							$('#calrlimit2').val($('#calrlimit1').val());
 							var temp = new Date(),
-								diff = parseInt(($('#calrlimit1').data('datebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
+								diff = parseInt(($('#calrlimit1').data('mobileDatebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
 								diffstrt = (diff * -1)-1; // If you want a minimum of 1 day between, make this -2 instead of -1
 								diffend = diff + 11; // Why 11 instead of 10?  No idea...
 						
-							$('#calrlimit2').data('datebox').options.minDays = diffstrt;
-							$('#calrlimit2').data('datebox').options.maxDays = diffend;
+							$('#calrlimit2').data('mobileDatebox').options.minDays = diffstrt;
+							$('#calrlimit2').data('mobileDatebox').options.maxDays = diffend;
 						});
 					</script>
 					
@@ -157,12 +157,12 @@
 					<pre class="prettyprint">$('#calrlimit1').live('change', function() {
     $('#calrlimit2').val($('#calrlimit1').val());
     var temp = new Date(),
-        diff = parseInt(($('#calrlimit1').data('datebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
+        diff = parseInt(($('#calrlimit1').data('mobileDatebox').theDate - temp) / ( 1000 * 60 * 60 * 24 ));
         diffstrt = (diff * -1)-1; // If you want a minimum of 1 day between, make this -2 instead of -1
         diffend = diff + 11; // Why 11 instead of 10?  No idea...
 
-    $('#calrlimit2').data('datebox').options.minDays = diffstrt;
-    $('#calrlimit2').data('datebox').options.maxDays = diffend;
+    $('#calrlimit2').data('mobileDatebox').options.minDays = diffstrt;
+    $('#calrlimit2').data('mobileDatebox').options.maxDays = diffend;
 });</pre>
 				</div>
 				</div>
@@ -171,7 +171,7 @@
 					<p>Demonstrates using date picker and a text box to enter a date range (customizable)</p>
 					<script type="text/javascript">
 						function updateEndDate() { 
-							var newdate = new Date($('#drorangestart').data('datebox').theDate);
+							var newdate = new Date($('#drorangestart').data('mobileDatebox').theDate);
 							if ( newdate.getDate() ) { 
 								newdate.setDate(newdate.getDate() + parseInt($('#drorangedays').val()));
 								
@@ -230,7 +230,7 @@
 
 					<strong>jQuery</strong>
 					<pre class="prettyprint">function updateEndDate() { 
-  var newdate = new Date($('#drorangestart').data('datebox').theDate);
+  var newdate = new Date($('#drorangestart').data('mobileDatebox').theDate);
   if ( newdate.getDate() ) { 
     newdate.setDate(newdate.getDate() + parseInt($('#drorangedays').val()));
         
