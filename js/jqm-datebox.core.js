@@ -1113,7 +1113,7 @@
 			if ( w.d.dialogPage !== false ) {
 				$(w.d.dialogPage).dialog('close');
 				
-				if ( ! $.mobile.activePage.jqmData('page').options.domCache ) {
+				if ( ! $.mobile.activePage.data('mobilePage').options.domCache ) {
 					$.mobile.activePage.on('pagehide.remove', function () { $(this).remove(); });
 				}
 				
