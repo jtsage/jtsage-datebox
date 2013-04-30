@@ -1050,7 +1050,7 @@
 					}
 				}
 				
-				if ( o.useModal = true ) { basepop.overlayTheme = "a"; }
+				if ( o.useModal === true ) { basepop.overlayTheme = "a"; }
 				
 				w.d.mainWrap.removeClass('ui-datebox-hidden').popup(basepop).popup("open", popopts);
 				w.refresh();
