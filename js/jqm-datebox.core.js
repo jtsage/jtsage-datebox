@@ -545,7 +545,7 @@
 				
 			format = format.replace(/%(D|X|0|-)*([1-9a-zA-Z])/g, function(match, pad, oper) {
 				if ( pad === 'X' ) {
-					if ( typeof w._customformat[o.mode] !== 'undefined' ) { return w._customformat[o.mode](oper, date); }
+					if ( typeof w._customformat[o.mode] !== 'undefined' ) { return w._customformat[o.mode](oper, date, o); }
 					return match;
 				}
 				if ( pad === 'D' ) {

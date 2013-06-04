@@ -94,8 +94,8 @@
 					<pre class="prettyprint">{'input': Boolean, 'name': 'The label for the roller', 'data': ['an','array','of','values']}</pre>
 					<p>If you don't wish to use labels, name must still be present - just leave it an empty string.  "Values" can be any valid HTML - customflipbox doesn't care in the least</p>
 					<p>'input' is not used in this mode, it need not be present.</p>
-					<p>Return values are a comma-delimeted string of INDEXES.  Your data will *never* be passed to the input, it's up to you to interpet it on the backend.</p>
-					<p>Note: each data list is probably limited to 10 items.  If you need more, send me an e-mail, and I'll walk you though raising the limit.</p>
+					<p>Return value can be customized with "customFormat" - %X1 = Index of first data element, %Xa = NAME of first data element, etc.  Note, that if you use names, and the include your field delimiter, I've no idea if the parser will like it.  Indexes are much, much safer.</p>
+					<p>Note: each data list is probably limited to 10 items.  If you need more, send me an e-mail, and I'll walk you though raising the limit. (function _curbox_arr - change all instances of '10' to something else probably.  Not tested.)</p>
 				</div>
 			</div>
 		

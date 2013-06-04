@@ -95,14 +95,68 @@
 		// The name of the structure is the same as the mode name - it recieves a string
 		// as the input, which is the current value of the input element, pre-sanitized
 		'customflip' : function ( str ) { 
-			return ( str.length < 1 || ! str.match(/,/) ) ? this.options.customDefault : str.split(",");
+			var w = this,
+				o = this.options,
+				adv = o.customFormat,
+				exp_input, exp_format, tmp, tmp2, retty_val=[0,0,0,0,0,0];
+
+			if ( typeof(adv) !== 'string' ) { adv = ''; }
+
+			adv = adv.replace(/%X([0-9a-f])/gi, function(match, oper) {
+	          	switch (oper) {
+    		    	case 'a':
+					case 'b':
+					case 'c':
+					case 'd':
+					case 'e':
+					case 'f':
+						return '(' + match + '|' + '.+?' + ')'; break;
+					case '0':
+					case '1':
+					case '2':
+					case '3':
+					case '4':
+					case '5':
+						return '(' + match + '|' + '[0-9]+' + ')'; break;
+          			default:
+						return '.+?';
+          		}
+        	});
+
+			adv = new RegExp('^' + adv + '$');
+			exp_input = adv.exec(str);
+			exp_format = adv.exec(o.customFormat);
+
+			if ( exp_input !== null ) {
+				for ( var x = 1; x<exp_input.length; x++ ) {
+					tmp = exp_format[x].charAt(2);
+					console.log(tmp);
+					if ( isNaN(parseInt(tmp)) ) {
+						tmp2 = $.inArray(tmp, ['a','b','c','d','e','f']);
+						retty_val[tmp2] = $.inArray(exp_input[x], o.customData[tmp2].data);
+					} else {
+						retty_val[parseInt(tmp)-1] = parseInt(exp_input[x]);
+					}
+				}
+			}
+
+			//outputty = { 'in': exp_input, 'fmt': o.customFormat, 'str': str, 'format': exp_format, 'retty': retty_val };
+			return ( str.length < 1 || retty_val.length < 1 ) ? this.options.customDefault : retty_val;
+
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._customformat, {
 		// If this stucture exists, the formatter will call it when it encounters a special string
 		// %X<whatever> - it recieves the single letter operater, and the current "date" value
-		'customflip' : function ( oper, val ) { 
-			return val[oper-1];
+		'customflip' : function ( oper, val, o ) {
+			var per = parseInt(oper), tmp;
+
+			if ( typeof(per) === 'number' && !isNaN(per) ) {
+				return val[oper-1];
+			} else {
+				tmp = $.inArray(oper, ['a','b','c','d','e','f']);
+				return o.customData[tmp].data[val[tmp]];
+			}
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
