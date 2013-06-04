@@ -236,7 +236,7 @@
 			});
 		},
 		_event: function(e, p) {
-			var w = parseInt($.mobile.version.replace(/\./g,''),10) > 110 ? $(this).data('mobileDatebox') : $(this).data('datebox');
+			var w = $(this).data(parseInt($.mobile.version.replace(/\./g,''),10) > 110 ? 'mobile-datebox' : 'datebox');
 			if ( ! e.isPropagationStopped() ) {
 				switch (p.method) {
 					case 'close':
@@ -1113,7 +1113,7 @@
 			if ( w.d.dialogPage !== false ) {
 				$(w.d.dialogPage).dialog('close');
 				
-				if ( ! $.mobile.activePage.jqmData('page').options.domCache ) {
+				if ( ! $.mobile.activePage.jqmData('mobile-page').options.domCache ) {
 					$.mobile.activePage.on('pagehide.remove', function () { $(this).remove(); });
 				}
 				
@@ -1334,7 +1334,7 @@
 	$( document ).on( "pagecreate create", function( e ){
 		$( document ).trigger( "dateboxbeforecreate" );
 		$( ":jqmData(role='datebox')", e.target ).each(function() {
-			var defed = parseInt($.mobile.version.replace(/\./g,''),10) > 111 ? typeof($(this).data('mobileDatebox')) : typeof($(this).data('datebox'));
+			var defed = typeof ($(this).data(parseInt($.mobile.version.replace(/\./g,''),10) > 111 ? 'mobile-datebox' : 'datebox'));
 			if ( defed === "undefined" ) {
 				$(this).datebox();
 			}
