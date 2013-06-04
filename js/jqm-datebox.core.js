@@ -32,6 +32,7 @@
 			resizeListener: true,
 			
 			defaultValue: false,
+			showInitialValue: false,
 			
 			dialogEnable: false,
 			dialogForce: false,
@@ -768,6 +769,10 @@
 			w.initDate = new w._date();
 			w.theDate = (o.defaultValue) ? w._makeDate(o.defaultValue) : new w._date();
 			w.initDone = false;
+
+			if ( o.showInitialValue === true ) {
+				w.d.input.val(w._formatter(w.__fmt(), w.theDate));
+			}
 			
 			if ( o.useButton === true && o.useInline === false && o.useNewStyle === false ) {
 				w.d.open = $('<a href="#" class="ui-input-clear" title="'+this.__('tooltip')+'">'+this.__('tooltip')+'</a>')
