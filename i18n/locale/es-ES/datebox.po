@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2013-04-03 22:10+0200\n"
+"PO-Revision-Date: 2013-06-04 19:41+0200\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -172,7 +172,7 @@ msgstr "Nov"
 
 #: generate-i18n.py:27
 msgid "November"
-msgstr "Noviemebre"
+msgstr "Noviembre"
 
 #. Abbreviation for the month 'October'
 #: generate-i18n.py:28
