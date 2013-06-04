@@ -1741,7 +1741,7 @@
 			
 		/* BEGIN:DATETIME */
 		if ( o.mode === 'datebox' || o.mode === 'timebox' ) {
-			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(self.pickerContent).find("h4");
+			controlsHeader = $("<div class='ui-datebox-header'><h4>Uninitialized</h4></div>").appendTo(self.pickerContent).find("h4");
 			controlsPlus = templControls.clone().appendTo(self.pickerContent);
 			controlsInput = templControls.clone().appendTo(self.pickerContent);
 			controlsMinus = templControls.clone().appendTo(self.pickerContent);
@@ -1932,7 +1932,7 @@
 		
 		/* BEGIN:SLIDEBOX */
 		if ( o.mode === 'slidebox' ) {
-			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(self.pickerContent).find("h4");
+			controlsHeader = $("<div class='ui-datebox-header'><h4>Uninitialized</h4></div>").appendTo(self.pickerContent).find("h4");
 			controlsInput = $('<div>').addClass('ui-datebox-slide').appendTo(self.pickerContent);
 			controlsSet = $("<div>", { "class":'ui-datebox-controls'}).appendTo(self.pickerContent);
 				
@@ -1959,7 +1959,7 @@
 		
 		/* BEGIN:FLIPBOX */
 		if ( o.mode === 'flipbox' || o.mode === 'timeflipbox' ) {
-			controlsHeader = $("<div class='ui-datebox-header'><h4>Unitialized</h4></div>").appendTo(self.pickerContent).find("h4");
+			controlsHeader = $("<div class='ui-datebox-header'><h4>Uninitialized</h4></div>").appendTo(self.pickerContent).find("h4");
 			controlsInput = $("<div>", {"class":'ui-datebox-flipcontent'}).appendTo(self.pickerContent);
 			controlsPlus = $("<div>", {"class":'ui-datebox-flipcenter ui-overlay-shadow'}).css('pointerEvents', 'none').appendTo(self.pickerContent);
 			controlsSet = templControls.clone().appendTo(self.pickerContent);
