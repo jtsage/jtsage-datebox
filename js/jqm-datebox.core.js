@@ -799,7 +799,6 @@
 			
 			if ( o.hideInput ) { w.d.wrap.hide(); }
 		
-			$('label[for=\''+w.d.input.attr('id')+'\']').addClass('ui-input-text').css('verticalAlign', 'middle');
 
 			w.d.wrap.on(o.clickEvent, function() {
 				if ( !w.disabled && ( o.noButtonFocusMode || o.focusMode ) ) { 
