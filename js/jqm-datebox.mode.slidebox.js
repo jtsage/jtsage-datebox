@@ -8,9 +8,9 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeDateHigh: 'e',
-		themeDatePick: 'a',
-		themeDate: 'd',
+		themeDateHigh: 'b',
+		themeDatePick: 'b',
+		themeDate: 'a',
 		useSetButton: true,
 		validHours: false,
 		slen: {'y': 5, 'm':6, 'd':15, 'h':12, 'i':30}
@@ -39,6 +39,7 @@
 				o = this.options, i, y, hRow, phRow, tmp, testDate,
 				iDate = (w.d.input.val() === "") ? w._startOffset(w._makeDate(w.d.input.val())) : w._makeDate(w.d.input.val()),
 				uid = 'ui-datebox-',
+				thMod = (( this.options.mobVer < 140 ) ? 'up-' : ''),
 				slideBase = $("<div class='"+uid+"sliderow-int'></div>"),
 				phBase = $('<div>'),
 				ctrl = $("<div>", {"class":uid+'slide'});
@@ -72,7 +73,7 @@
 						phRow.addClass(uid+'sliderow-ym');
 						for ( i=o.slen.y*-1; i<(o.slen.y+1); i++ ) {
 							tmp = (i!==0)?((iDate.get(0) === (w.theDate.get(0) + i))?o.themeDateHigh:o.themeDate):o.themeDatePick;
-							$('<div>', {'class':uid+'slideyear ui-corner-all ui-btn-up-'+tmp})
+							$('<div>', {'class':uid+'slideyear ui-corner-all ui-btn ui-btn-'+thMod+tmp})
 								.html(w.theDate.get(0)+i).jqmData('offset', i).jqmData('theme', tmp).appendTo(hRow);
 						}
 						break;
@@ -82,7 +83,7 @@
 							testDate = w.theDate.copy([0],[0,0,1]);
 							testDate.adj(1,i);
 							tmp = (i!==0)?((iDate.get(1) === testDate.get(1) && iDate.get(0) === testDate.get(0))?o.themeDateHigh:o.themeDate):o.themeDatePick;
-							$('<div>', {'class':uid+'slidemonth ui-corner-all ui-btn-up-'+tmp})
+							$('<div>', {'class':uid+'slidemonth ui-corner-all ui-btn ui-btn-'+thMod+tmp})
 								.html(String(w.__('monthsOfYearShort')[testDate.get(1)]))
 								.jqmData('offset', i)
 								.jqmData('theme', tmp).appendTo(hRow);
@@ -99,7 +100,7 @@
 								( o.blackDays !== false && $.inArray(testDate.getDay(), o.blackDays) > -1 ) ) {
 								tmp += ' '+uid+'griddate-disable';
 							}
-							$('<div>', {'class':uid+'slideday ui-corner-all ui-btn-up-'+tmp})
+							$('<div>', {'class':uid+'slideday ui-corner-all ui-btn ui-btn-'+thMod+tmp})
 								.html(testDate.get(2) + '<br /><span class="'+uid+'slidewday">' + w.__('daysOfWeekShort')[testDate.getDay()] + '</span>')
 								.jqmData('offset', i).jqmData('theme', tmp).appendTo(hRow);
 						}
@@ -113,7 +114,7 @@
 							if ( o.validHours !== false && $.inArray(testDate.get(3), o.validHours) < 0 ) {
 								tmp += ' '+uid+'griddate-disable';
 							}
-							$('<div>', {'class':uid+'slidehour ui-corner-all ui-btn-up-'+tmp})
+							$('<div>', {'class':uid+'slidehour ui-corner-all ui-btn ui-btn-'+thMod+tmp})
 								.html( w.__('timeFormat') === 12 ? w._formatter('%I<span class="'+uid+'slidewday">%p</span>', testDate) : testDate.get(3) )
 								.jqmData('offset', i).jqmData('theme', tmp).appendTo(hRow);
 						}
@@ -124,7 +125,7 @@
 							testDate = w.theDate.copy();
 							testDate.adj(4,(i*o.minuteStep));
 							tmp = (i!==0)?o.themeDate:o.themeDatePick;
-							$('<div>', {'class':uid+'slidemins ui-corner-all ui-btn-up-'+tmp})
+							$('<div>', {'class':uid+'slidemins ui-corner-all ui-btn ui-btn-'+thMod+tmp})
 								.html(w._zPad(testDate.get(4))).jqmData('offset', i*o.minuteStep).jqmData('theme', tmp).appendTo(hRow);
 						}
 						break;

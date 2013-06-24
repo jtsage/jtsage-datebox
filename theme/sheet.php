@@ -115,6 +115,7 @@ echo ".ui-datebox-slide { width: {$use['width']}px; margin-left: auto; margin-ri
 echo ".ui-datebox-sliderow-d { margin-bottom: 5px; text-align: center; height: 40px; width: {$use['width']}px; overflow: hidden;}\n";
 echo ".ui-datebox-sliderow-ym { margin-bottom: 5px; text-align: center; height: 32px; width: {$use['width']}px; overflow: hidden;}\n";
 echo ".ui-datebox-sliderow-hi { text-align: center; height: 32px; width: {$use['width']}px; overflow: hidden;}\n";
+echo ".ui-datebox-slide .ui-btn { margin: 0px; padding: 0px 1em; }\n";
 echo ".ui-datebox-sliderow-int { display: inline-block; white-space: nowrap;}\n";
 echo ".ui-datebox-slideyear { text-align: center; display: inline-block; zoom:1; *display:inline; width: {$use['ssyw']}px; vertical-align: middle; line-height: {$use['ssyl']}px; height: {$use['ssyh']}px; font-size: {$use['ssyf']}px; font-weight: bold; }\n";
 echo ".ui-datebox-slidemonth { text-align: center; display: inline-block; zoom:1; *display:inline; width: {$use['ssmw']}px; vertical-align: middle; line-height: {$use['ssml']}px; height: {$use['ssmh']}px; font-size: {$use['ssmf']}px; font-weight: bold; }\n";

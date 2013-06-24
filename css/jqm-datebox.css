@@ -79,6 +79,7 @@
 .ui-datebox-sliderow-ym { margin-bottom: 5px; text-align: center; height: 32px; width: 280px; overflow: hidden;}
 .ui-datebox-sliderow-hi { text-align: center; height: 32px; width: 280px; overflow: hidden;}
 .ui-datebox-sliderow-int { display: inline-block; white-space: nowrap;}
+.ui-datebox-slide .ui-btn { margin: 0px; padding: 0px 1em; }
 
 .ui-datebox-slideyear { text-align: center; display: inline-block; zoom:1; *display:inline; width: 84px; vertical-align: middle; line-height: 30px; height: 30px; font-size: 14px; font-weight: bold; }
 .ui-datebox-slidemonth { text-align: center; display: inline-block; zoom:1; *display:inline; width: 51px; vertical-align: middle; line-height: 30px; height: 30px; font-size: 12px; font-weight: bold; }
