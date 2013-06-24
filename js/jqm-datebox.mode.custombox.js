@@ -8,7 +8,7 @@
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
 		themeButton: 'a',
-		themeInput: 'e',
+		themeInput: 'a',
 		useSetButton: true,
 		customData: [
 			{'input': true, 'name':'Letter', 'data':['a','b','c','d','e']},
@@ -102,6 +102,11 @@
 			divPlus.addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
 			divIn.addClass('ui-datebox-dboxin').addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
 			divMinus.addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
+
+			if (o.mobVer >= 140) {
+				divMinus.find('div').css({'min-height': '2.3em'});
+				divPlus.find('div').css({'min-height': '2.3em'});
+			}
 
 			if (o.mobVer >= 140) {
 				divMinus.find('div').css({'min-height': '2.3em'});
