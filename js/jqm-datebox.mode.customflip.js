@@ -8,8 +8,8 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeOptPick: 'a',
-		themeOpt: 'd',
+		themeOptPick: 'b',
+		themeOpt: 'a',
 		useSetButton: true,
 		customData: [
 			{'input': true, 'name':'Letter', 'data':['a','b','c','d','e']},

@@ -8,9 +8,9 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeDateHigh: 'e',
-		themeDatePick: 'a',
-		themeDate: 'd',
+		themeDateHigh: 'b',
+		themeDatePick: 'b',
+		themeDate: 'a',
 		useSetButton: true,
 		validHours: false,
 		flen: {'y': 15, 'm':12, 'd':15, 'h':12, 'i':15, 'a':3}

@@ -8,8 +8,8 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeDatePick: 'a',
-		themeDate: 'd',
+		themeDatePick: 'b',
+		themeDate: 'a',
 		useSetButton: true,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1}
 	});
