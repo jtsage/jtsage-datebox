@@ -10,9 +10,10 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.3.0-2013060400', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.0-2013062400', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
 			theme: false,
-			themeDefault: 'c',
+			themeDefault: 'a',
 			themeHeader: 'a',
 			mode: false,
 			
@@ -799,7 +800,9 @@
 			
 			if ( o.hideInput ) { w.d.wrap.hide(); }
 		
-			$('label[for=\''+w.d.input.attr('id')+'\']').addClass('ui-input-text').css('verticalAlign', 'middle');
+			if ( o.mobVer < 140 ) {
+				$('label[for=\''+w.d.input.attr('id')+'\']').addClass('ui-input-text').css('verticalAlign', 'middle');
+			}
 
 			w.d.wrap.on(o.clickEvent, function() {
 				if ( !w.disabled && ( o.noButtonFocusMode || o.focusMode ) ) { 
@@ -887,7 +890,7 @@
 		_build: {
 			'default': function () {
 				this.d.headerText = "Error";
-				this.d.intHTML = $("<div class='ui-body-e'><h2 style='text-align:center'>There is no mode by that name loaded / mode not given</h2></div>");
+				this.d.intHTML = $("<div class='ui-body-b'><h2 style='text-align:center'>There is no mode by that name loaded / mode not given</h2></div>");
 			}
 		},
 		_applyCoords: function(e) {
