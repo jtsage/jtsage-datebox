@@ -34,7 +34,7 @@
 	
 </head>
 <body>
-<div data-role="page" data-theme="c" id="apiConfig"> 
+<div data-role="page" id="apiConfig"> 
 	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - DateBox</h1>
 		<a href="../../" data-icon="home" data-iconpos="notext">Home</a>
@@ -45,8 +45,7 @@
 		<p>Configuration details can be overridden site wide if you wish.  After loading jQueryMobile, run:</p>
 		
 		<pre class="prettyprint">jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-    'overrideDateFormat': 'dd.mm.YYYY',
-    'overrideHeaderFormat': 'dd.mm.YYYY'
+    'overrideDateFormat': '%d.%m.%Y',
 });</pre>
 		
 	</div>

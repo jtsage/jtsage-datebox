@@ -1,7 +1,7 @@
 //do nothing for now.
 $(":jqmData(role)=page").live('pageinit', function(e) {
 	var currentPage = $(e.target),
-		headerButton = $('<a href="#" data-icon="grid" class="opt-pop ui-btn-right ui-btn ui-btn-icon-left ui-btn-corner-all ui-shadow ui-btn-up-a" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Options</span><span class="ui-icon ui-icon-grid ui-icon-shadow"></span></span></a>'),
+		headerButton = $('<a href="#" data-icon="grid" class="opt-pop ui-btn-right ui-btn ui-btn-icon-left ui-btn-corner-all ui-shadow ui-btn-a" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Options</span><span class="ui-icon ui-icon-grid ui-icon-shadow"></span></span></a>'),
 		footerAll = $('<div data-role="footer">' +
 			'<div data-role="controlgroup" data-mini="true" data-type="horizontal">' +
 				'<a data-role="button" data-mini="true" data-theme="a" rel="external" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a>' +
@@ -34,7 +34,7 @@ $(":jqmData(role)=page").live('pageinit', function(e) {
 				'<li><a href="split.html">Different Display and Submit Formats</a></li>' +
 				'<li><a href="convert.html">Using DateBox as a Conversion Library</a></li>' )
 		},
-	sidebarstart = $('<ul data-corners="false" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"></ul>');
+	sidebarstart = $('<ul data-corners="false" data-role="listview" data-inset="true"></ul>');
 	
 		
 		
