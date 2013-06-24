@@ -9,7 +9,7 @@
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
 		themeButton: 'a',
-		themeInput: 'e',
+		themeInput: 'a',
 		useSetButton: true,
 		repButton: true,
 		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1}
@@ -56,7 +56,7 @@
 				divIn = divBase.clone().addClass('ui-datebox-dboxin'),
 				divMinus = divPlus.clone(),
 				inBase = $("<input type='"+w.inputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-body-'+o.themeInput),
-				butBase = $("<div><a href='#'></a></div>"),
+				butBase = $("<div><a href='#'> </a></div>"),
 				butPTheme = {theme: o.themeButton, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true},
 				butMTheme = $.extend({}, butPTheme, {icon: 'minus', iconpos: 'top'});
 			
@@ -113,6 +113,11 @@
 			divPlus.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
 			divIn.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
 			divMinus.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
+
+			if (o.mobVer >= 140) {
+				divMinus.find('div').css({'min-height': '2.3em'});
+				divPlus.find('div').css({'min-height': '2.3em'});
+			}
 			
 			if ( o.useSetButton || o.useClearButton ) {
 				y = $('<div>', {'class':uid+'controls'});

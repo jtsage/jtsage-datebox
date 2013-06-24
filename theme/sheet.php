@@ -107,7 +107,7 @@ echo ".ui-datebox-griddate-disable { color: {$use['cgddc']}; }\n";
 echo "\n\n/{$star} Android Mode Styles {$star}/\n";
 echo ".ui-datebox-header h4 { margin-top: 5px; margin-bottom: 5px; text-align: center; }\n";
 echo ".ui-datebox-container fieldset div { margin: 0px !important; }\n";
-echo ".ui-datebox-dboxin input { text-align: center; padding: .4em 0 !important; }\n";
+echo ".ui-datebox-dboxin input { text-align: center; padding: .4em 0 !important; width:95%; }\n";
 echo ".ui-datebox-dboxin label { width: 100%; text-align: center; display: block; margin-top: 5px; margin-bottom: -8px; }\n\n";
 
 echo "\n\n/{$star} Slide Mode Styles {$star}/\n";

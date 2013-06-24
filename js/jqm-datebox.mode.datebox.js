@@ -8,7 +8,7 @@
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
 		themeButton: 'a',
-		themeInput: 'e',
+		themeInput: 'a',
 		useSetButton: true,
 		validHours: false,
 		repButton: true
@@ -83,8 +83,8 @@
 				divMinus = divPlus.clone(),
 				inBase = $("<input type='"+w.inputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-body-'+o.themeInput),
 				inBaseT = $("<input type='text' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-body-'+o.themeInput),
-				butBase = $("<div>"),
-				butPTheme = {theme: o.themeButton, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true},
+				butBase = $("<div></div>"),
+				butPTheme = {theme: o.themeButton, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true, inline:true},
 				butMTheme = $.extend({}, butPTheme, {icon: 'minus', iconpos: 'top'});
 			
 			if ( typeof w.d.intHTML !== 'boolean' ) {
@@ -141,6 +141,11 @@
 			divPlus.addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
 			divIn.addClass('ui-datebox-dboxin').addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
 			divMinus.addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
+
+			if ( o.mobVer >= 140 ) {
+				divMinus.find('div').css({'min-height':'2.3em'});
+				divPlus.find('div').css({'min-height':'2.3em'});
+			}
 			
 			divIn.find('input').each(function () {
 				switch ( $(this).jqmData('field') ) {

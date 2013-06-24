@@ -62,7 +62,7 @@
 
 .ui-datebox-header h4 { margin-top: 5px; margin-bottom: 5px; text-align: center; }
 .ui-datebox-container fieldset div { margin: 0px !important; }
-.ui-datebox-dboxin input { padding: .4em 0 !important; text-align: center; }
+.ui-datebox-dboxin input { padding: .4em 0 !important; text-align: center; width:95%; }
 .ui-datebox-dboxin label { width: 100%; text-align: center; display: block; margin-top: 5px; margin-bottom: -8px; }
 .ui-datebox-controls { text-align: center; }
 .ui-datebox-controls div { width: 77px; text-align: center; display: inline-block; zoom: 1; *display: inline;}
