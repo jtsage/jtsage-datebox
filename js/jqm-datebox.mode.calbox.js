@@ -5,16 +5,17 @@
  * https://github.com/jtsage/jquery-mobile-datebox
  */
 /* CALBOX Mode */
+// Version Notes: <140 :: New button theme method, still use _hoover
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeDateToday: 'a',
-		themeDayHigh: 'e',
-		themeDatePick: 'a',
-		themeDateHigh: 'e',
-		themeDateHighAlt: 'e',
-		themeDateHighRec: 'e',
-		themeDate: 'd',
+		themeDateToday: 'b',
+		themeDayHigh: 'b',
+		themeDatePick: 'b',
+		themeDateHigh: 'b',
+		themeDateHighAlt: 'b',
+		themeDateHighRec: 'b',
+		themeDate: 'a',
 		
 		calHighToday: true,
 		calHighPick: true,
@@ -38,7 +39,7 @@
 		highDatesAlt: false,
 		enableDates: false,
 		calDateList: false,
-		calShowDateList: false
+		calShowDateList: false,
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_cal_gen: function (start,prev,last,other,month) {
@@ -270,7 +271,7 @@
 						if (cal.gen[row][col][0]) {
 							$("<div>"+String(cal.gen[row][col][0])+"</div>")
 								.addClass( cal.thisMonth === cal.gen[row][col][1] ?
-									(uid+'griddate ui-corner-all ui-btn-up-'+checked.theme + (checked.ok?'':' '+uid+'griddate-disable')):
+									(uid+'griddate ui-corner-all ui-btn ui-btn-'+(o.mobVer<140?'up-':'')+checked.theme + (checked.ok?'':' '+uid+'griddate-disable')):
 									(uid+'griddate '+uid+'griddate-empty')
 								)
 								.jqmData('date', ((o.calWeekMode)?cal.weekMode:cal.gen[row][col][0]))
@@ -345,7 +346,7 @@
 						w.d.input.trigger('datebox', {'method':'close'});
 					}
 				} else {
-					if ( $(this).jqmData('enabled') && typeof $(this).jqmData('theme') !== 'undefined' ) {
+					if ( $(this).jqmData('enabled') && typeof $(this).jqmData('theme') !== 'undefined' && o.mobVer < 140 ) {
 						if ( o.calWeekMode !== false && o.calWeekHigh === true ) {
 							$(this).parent().find('div').each(function() { w._hoover(this); });
 						} else { w._hoover(this); }
