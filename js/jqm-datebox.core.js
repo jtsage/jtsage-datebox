@@ -779,7 +779,7 @@
 				w.d.open = $('<a href="#" class="ui-input-clear" title="'+this.__('tooltip')+'">'+this.__('tooltip')+'</a>')
 					.on(o.clickEvent, function(e) {
 						e.preventDefault();
-						if ( !w.disabled ) { w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus'); w.d.input.parent().removeClass('ui-focus'); }
+						if ( !w.disabled ) { w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.parent().addClass('ui-focus'); w.d.input.parent().removeClass('ui-focus'); }
 						setTimeout( function() { $(e.target).closest('a').removeClass($.mobile.activeBtnClass); }, 300);
 					}).appendTo(w.d.wrap).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
 					.css({'vertical-align': 'middle', 'display': 'inline-block'});
@@ -811,7 +811,7 @@
 					w.d.input.removeClass('ui-focus');
 				}
 			});
-		
+
 			w.d.input
 				.removeClass('ui-corner-all ui-shadow-inset')
 				.bind(w.touch?'touchend':'click', function(e){
@@ -824,7 +824,8 @@
 				})
 				.focus(function(){
 					if ( w.disabled === false && o.useFocus === true ) {
-						w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus');
+						w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus'); w.d.input.removeClass('ui-focus');
+						if ( o.useNewStyle === false ) { w.d.input.parent().removeClass('ui-focus'); w.d.wrap.parent().addClass('ui-focus'); }
 					} 
 					if ( o.useNewStyle === false ) { w.d.input.removeClass('ui-focus'); }
 				})
@@ -846,6 +847,16 @@
 				w.d.input.parent().css('border', 'none').removeClass('ui-shadow-inset');
 			}
 			
+			w.d.wrap.parent().on(o.clickEvent, function() {
+				if ( !w.disabled && o.useFocus === true && o.useNewStyle === false ) {
+					w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.addClass('ui-focus'); w.d.input.removeClass('ui-focus');
+					setTimeout(function(){
+						w.d.wrap.removeClass('ui-focus');
+						w.d.wrap.parent().addClass('ui-focus');
+					}, 500);
+				}
+			});
+
 			// Check if mousewheel plugin is loaded
 			if ( typeof $.event.special.mousewheel !== 'undefined' ) { w.wheelExists = true; }
 		
@@ -1155,6 +1166,7 @@
 					}
 				}
 			}
+			if ( o.useNewStyle === false ) { w.d.wrap.parent().removeClass('ui-focus'); }
 					
 			$(document).off(w.drag.eMove);
 			$(document).off(w.drag.eEnd);
