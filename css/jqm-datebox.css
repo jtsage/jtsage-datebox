@@ -50,7 +50,7 @@
 .ui-datebox-gridminus { float: left; }
 .ui-datebox-gridplus-rtl { float: left; }
 .ui-datebox-gridminus-rtl { float: right; }
-.ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; }
+.ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; margin-bottom: -7px; }
 .ui-datebox-grid { clear: both; margin-bottom: 5px; }
 .ui-datebox-griddate { width: 36px; height: 30px; padding: 0px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; zoom:1; *display: inline;}
 .ui-datebox-griddate-week { width: 31px; height: 30px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; zoom:1; *display: inline;}

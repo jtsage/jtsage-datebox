@@ -96,7 +96,7 @@ echo ".ui-datebox-gridplus { float: right; }\n";
 echo ".ui-datebox-gridminus { float: left; }\n";
 echo ".ui-datebox-gridplus-rtl { float: left; }\n";
 echo ".ui-datebox-gridminus-rtl { float: right; }\n";
-echo ".ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; }\n";
+echo ".ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; margin-bottom: -7px; }\n";
 echo ".ui-datebox-grid { clear: both; margin-bottom: 5px; }\n";
 echo ".ui-datebox-griddate { padding: 0px; width: {$use['cgdw']}px; height: {$use['cgdh']}px; display: inline-block; vertical-align: middle; text-align: center; line-height: {$use['cgdl']}px; font-weight: bold; font-size: {$use['cgfs']}px; zoom:1; *display: inline;}\n";
 echo ".ui-datebox-griddate-week { width: {$use['cgdwk']}px; height: {$use['cgdh']}px; display: inline-block; vertical-align: middle; text-align: center; line-height: {$use['cgdl']}px; font-weight: bold; font-size: {$use['cgfs']}px; zoom:1; *display: inline;}\n";
