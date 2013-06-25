@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.4.0-2013062501', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.0-2013062502', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
 			theme: false,
 			themeDefault: 'a',
@@ -158,7 +158,7 @@
 					}
 					return this;
 				},
-				set: function(type, amount) {
+				setD: function(type, amount) {
 					/* A chainable version of setWhatever() */
 					switch ( type ) {
 						case 0: this.setFullYear(amount); break;
@@ -195,17 +195,17 @@
 					return [this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes(), this.getSeconds()];
 				},
 				setFirstDay: function (day) {
-					this.set(2,1).adj(2, (day - this.getDay()));
+					this.setD(2,1).adj(2, (day - this.getDay()));
 					if ( this.get(2) > 10 ) { this.adj(2,7); }
 					return this; 
 				},
-				setWeek: function (type,num) {
+				setDWeek: function (type,num) {
 					if ( type === 4 ) {
-						return this.set(1,0).set(2,1).setFirstDay(4).adj(2,-3).adj(2,(num-1)*7);
+						return this.setD(1,0).setD(2,1).setFirstDay(4).adj(2,-3).adj(2,(num-1)*7);
 					}
-					return this.set(1,0).set(2,1).setFirstDay(type).adj(2,(num-1)*7);
+					return this.setD(1,0).setD(2,1).setFirstDay(type).adj(2,(num-1)*7);
 				},
-				getWeek: function (type) {
+				getDWeek: function (type) {
 					var t1, t2;
 					
 					switch ( type ) {
@@ -514,10 +514,10 @@
 				if ( ( d.mont > -1 && d.date > -1 ) || ( d.hour > -1 && d.mins > -1 && d.secs > -1 ) ) { return date; }
 				
 				if ( d.week !== false ) {
-					date.setWeek(d.wtyp, d.week);
+					date.setDWeek(d.wtyp, d.week);
 					if ( d.date > -1 ) { date.setDate(d.date); } 
 				}
-				if ( d.yday !== false ) { date.set(1,0).set(2,1).adj(2,(d.yday-1)); }
+				if ( d.yday !== false ) { date.setD(1,0).setD(2,1).adj(2,(d.yday-1)); }
 				if ( d.wday !== false ) { date.adj(2,(d.wday - date.getDay())); }
 			}
 			return date;
@@ -603,11 +603,11 @@
 					case 'E': // BE (Buddist Era, 4 Digit)
 						return date.getFullYear() + 543;
 					case 'V':
-						return (( pad === '-' ) ? date.getWeek(4) : w._zPad(date.getWeek(4)));
+						return (( pad === '-' ) ? date.getDWeek(4) : w._zPad(date.getDWeek(4)));
 					case 'U':
-						return (( pad === '-' ) ? date.getWeek(0) : w._zPad(date.getWeek(0)));
+						return (( pad === '-' ) ? date.getDWeek(0) : w._zPad(date.getDWeek(0)));
 					case 'W':
-						return (( pad === '-' ) ? date.getWeek(1) : w._zPad(date.getWeek(1)));
+						return (( pad === '-' ) ? date.getDWeek(1) : w._zPad(date.getDWeek(1)));
 					case 'o': // Ordinals
 						if ( typeof w._ord[o.useLang] !== 'undefined' ) { return w._ord[o.useLang](date.getDate()); }
 						return w._ord['default'](date.getDate());
@@ -616,12 +616,12 @@
 						tmp = Math.ceil((date - tmp) / 86400000)+1;
 						return (( tmp < 100 ) ? (( tmp < 10 )? '00' : '0') : '' ) + String(tmp);
 					case 'G':
-						if ( date.getWeek(4) === 1 && date.getMonth() > 0 ) { return date.getFullYear() + 1; } 
-						if ( date.getWeek(4) > 51 && date.getMonth() < 11 ) { return date.getFullYear() - 1; }
+						if ( date.getDWeek(4) === 1 && date.getMonth() > 0 ) { return date.getFullYear() + 1; } 
+						if ( date.getDWeek(4) > 51 && date.getMonth() < 11 ) { return date.getFullYear() - 1; }
 						return date.getFullYear();
 					case 'g':
-						if ( date.getWeek(4) === 1 && date.getMonth() > 0 ) { return parseInt(date.getFullYear().toString().substr(2,2),10) + 1; }
-						if ( date.getWeek(4) > 51 && date.getMonth() < 11 ) { return parseInt(date.getFullYear().toString().substr(2,2),10) - 1; }
+						if ( date.getDWeek(4) === 1 && date.getMonth() > 0 ) { return parseInt(date.getFullYear().toString().substr(2,2),10) + 1; }
+						if ( date.getDWeek(4) > 51 && date.getMonth() < 11 ) { return parseInt(date.getFullYear().toString().substr(2,2),10) - 1; }
 						return date.getFullYear().toString().substr(2,2);
 					default:
 						return match;

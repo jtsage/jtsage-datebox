@@ -189,7 +189,7 @@
 			cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7;
 			cal.thisMonth = w.theDate.getMonth();
 			cal.thisYear = w.theDate.getFullYear();
-			cal.wk = w.theDate.copy([0],[0,0,1]).adj(2,(-1*cal.start)+(w.__('calStartDay')===0?1:0)).getWeek(4);
+			cal.wk = w.theDate.copy([0],[0,0,1]).adj(2,(-1*cal.start)+(w.__('calStartDay')===0?1:0)).getDWeek(4);
 			cal.end = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
 			cal.lastend = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate();
 			cal.presetDate = (w.d.input.val() === "") ? w._startOffset(w._makeDate(w.d.input.val())) : w._makeDate(w.d.input.val());
@@ -260,7 +260,7 @@
 				if ( o.calShowWeek ) {
 						$('<div>', {'class':uid+'griddate '+uid+'griddate-empty'}).text('W'+cal.wk).appendTo(hRow);
 						cal.wk++;
-						if ( cal.wk > 52 && typeof cal.gen[parseInt(row,10)+1] !== 'undefined' ) { cal.wk = new Date(cal.theDateArr[0],cal.theDateArr[1],((w.__('calStartDay')===0)?cal.gen[parseInt(row,10)+1][1][0]:cal.gen[parseInt(row,10)+1][0][0])).getWeek(4); }
+						if ( cal.wk > 52 && typeof cal.gen[parseInt(row,10)+1] !== 'undefined' ) { cal.wk = new Date(cal.theDateArr[0],cal.theDateArr[1],((w.__('calStartDay')===0)?cal.gen[parseInt(row,10)+1][1][0]:cal.gen[parseInt(row,10)+1][0][0])).getDWeek(4); }
 					} 
 				for ( var col=0, cols=cal.gen[row].length; col<cols; col++ ) {
 					if ( o.calWeekMode ) { cal.weekMode = cal.gen[row][o.calWeekModeDay][0]; }
@@ -341,7 +341,7 @@
 				if ( e.type === o.clickEventAlt ) {
 					e.preventDefault();
 					if ( $(this).jqmData('enabled') ) {
-						w.theDate.set(2,1).set(1,$(this).jqmData('month')).set(2,$(this).jqmData('date'));
+						w.theDate.setD(2,1).setD(1,$(this).jqmData('month')).setD(2,$(this).jqmData('date'));
 						w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(),w.theDate), 'date':w.theDate});
 						w.d.input.trigger('datebox', {'method':'close'});
 					}
@@ -361,11 +361,11 @@
 				w.d.intHTML.on('mousewheel', function(e,d) {
 					e.preventDefault();
 					if ( d > 0 && w.calNext ) { 
-						w.theDate.set(2,1);
+						w.theDate.setD(2,1);
 						w._offset('m', 1);
 					}
 					if ( d < 0 && w.calPrev ) {
-						w.theDate.set(2,1);
+						w.theDate.setD(2,1);
 						w._offset('m', -1);
 					}
 				});
