@@ -1166,7 +1166,7 @@
 					}
 				}
 			}
-			if ( o.useNewStyle === false ) { w.d.wrap.parent().removeClass('ui-focus'); }
+			w.d.wrap.parent().removeClass('ui-focus');
 					
 			$(document).off(w.drag.eMove);
 			$(document).off(w.drag.eEnd);
