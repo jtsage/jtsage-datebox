@@ -139,6 +139,8 @@
 					<div data-role="fieldcontain">
 						<label for="calrlimit1">Beginning Date</label>
 						<input name="calrlimit1" type="date" data-role="datebox" id="calrlimit1" data-options='{"mode": "calbox", "afterToday": true, "maxDays": 10}'/>
+					</div>
+					<div data-role="fieldcontain">
 						<label for="calrlimit2">Ending Date</label>
 						<input name="calrlimit2" type="date" data-role="datebox" data-options='{"minDays": -10, "maxDays": 10, "mode": "calbox"}' id="calrlimit2" />
 					</div>
@@ -194,6 +196,8 @@
 					<div data-role="fieldcontain">
 						<label for="drorangestart">Start Date:</label>
 						<input name="drorangestart" type="date" data-role="datebox" data-options='{"mode":"datebox"}' id="drorangestart" />
+					</div>
+					<div data-role="fieldcontain">
 						<label for='drorangedays'>Number of Days:</label>
 						<select data-native-menu="false" name='drorangedays' id='drorangedays' >
 							<option value='7' selected="selected">1 Week</option>
@@ -204,6 +208,8 @@
 							<option value='2'>2 Days</option>
 							<option value='1'>1 Day</option>
 						</select>
+					</div>
+					<div data-role="fieldcontain">
 						<label for="drorangeend">End Date:</label>
 						<input id="drorangeend" type="text" />
 					</div>
@@ -257,10 +263,16 @@ $('#drorangedays').live('change', function() {
 					<div data-role="fieldcontain">
 						<label for="calblackday">Some Date (calbox)</label>
 						<input name="calblackday" type="date" data-role="datebox" id="calblackday" data-options='{"mode": "calbox", "blackDays": [2], "highDays": [6] }'/>
+					</div>
+					<div data-role="fieldcontain">
 						<label for="andblackday">Some Date (datebox)</label>
 						<input name="andblackday" type="date" data-role="datebox" id="andblackday" data-options='{"mode": "datebox", "blackDays": [2], "highDays": [6] }'/>
+					</div>
+					<div data-role="fieldcontain">
 						<label for="fliblackday">Some Date (flipbox)</label>
 						<input name="fliblackday" type="date" data-role="datebox" id="fliblackday" data-options='{"mode": "flipbox", "blackDays": [2], "highDays": [6] }'/>
+					</div>
+					<div data-role="fieldcontain">
 						<label for="sliblackday">Some Date (slidebox)</label>
 						<input name="sliblackday" type="date" data-role="datebox" id="sliblackday" data-options='{"mode": "slidebox", "blackDays": [2], "highDays": [6] }'/>
 					</div>
