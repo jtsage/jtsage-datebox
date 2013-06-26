@@ -58,6 +58,8 @@
 					<div data-role="fieldcontain">
 						<label for="datetime">Date</label>
 						<input data-options='{"mode":"calbox","overrideDateFormat":"%Y-%m-%d", "defaultValue":[2001,0,1], "calHighPicked":false, "calHighToday":false, "calHighPicked": false}' data-role="datebox" id="datetime" name="datetime" type="date"/>
+					</div>
+					<div data-role="fieldcontain">
 						<label for="timeselect">Time</label>
 						<select name="timeselect" id="timeselect" data-native-menu="false">
 							<option>Please choose a valid date first.</option>
@@ -117,12 +119,17 @@
 					<a href="#sourceLINKSEL" data-rel="popup" data-role="button" data-inline="true" data-mini="true" data-transition="pop">Source Code</a>
                     <div data-role="popup" id="sourceLINKSEL" class="ui-content">	
 					<strong>HTML</strong>
-					<pre class="prettyprint">&lt;label for="datetime"&gt;Date&lt;/label&gt;
-&lt;input data-options='{"mode":"calbox", "overrideDateFormat":"%Y-%m-%d", "defaultValue":[2001,0,1], "calHighPicked":false, "calHighToday":false, "calHighPicked": false}' data-role="datebox" id="datetime" name="datetime" type="date" /&gt;
-&lt;label for="timeselect"&gt;Time&lt;/label&gt;
-&lt;select name="timeselect" id="timeselect" data-native-menu="false"&gt;
-  &lt;option&gt;Please choose a valid date first.&lt;/option&gt;
-&lt;/select&gt;
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="datetime"&gt;Date&lt;/label&gt;
+    &lt;input data-options='{"mode":"calbox", "overrideDateFormat":"%Y-%m-%d", "defaultValue":[2001,0,1], "calHighPicked":false, "calHighToday":false, "calHighPicked": false}' data-role="datebox" id="datetime" name="datetime" type="date" /&gt;
+&lt;div data-role="fieldcontain"&gt;
+&lt;/div&gt;
+    &lt;label for="timeselect"&gt;Time&lt;/label&gt;
+    &lt;select name="timeselect" id="timeselect" data-native-menu="false"&gt;
+        &lt;option&gt;Please choose a valid date first.&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
 </pre>
 
 					<strong>jQuery</strong>
