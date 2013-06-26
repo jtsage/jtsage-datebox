@@ -84,10 +84,12 @@
 						<input name="callimit1" type="date" data-role="datebox" data-options='{"afterToday": true, "maxDays": 60, "mode": "calbox"}' id="callimit1" />
 					</div>
 				
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "afterToday": true, "maxDays": 60}'&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+    &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+        data-options='{"mode": "calbox", "afterToday": true, "maxDays": 60}'&gt;
+&lt;/div&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Limit between Two Dates (2001-01-02 &amp; 2001-01-25)</h2>
@@ -98,10 +100,12 @@
 						<input name="minmax" min="2001-01-02" max="2001-01-25" type="date" data-role="datebox" data-options='{"mode": "calbox", "defaultValue": [2001,0,15]}' id="minmax" />
 					</div>
 					
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-    min="2001-01-02" max="2001-01-25" data-options='{"mode": "calbox"}'&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+    &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+        min="2001-01-02" max="2001-01-25" data-options='{"mode": "calbox"}'&gt;
+&lt;/div&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Limit between 2009 and 2019</h2>
@@ -113,10 +117,12 @@
 						<input name="drolimit2" type="date" data-role="datebox" data-options='{"minYear": 2009, "maxYear": 2019, "mode": "datebox"}' id="drolimit2" />
 					</div>
 					
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "datebox", "minYear": 2009, "maxYear": 2019}'&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+    &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+        data-options='{"mode": "datebox", "minYear": 2009, "maxYear": 2019}'&gt;
+&lt;/div&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Limit to today + 10 days, then based on start.</h2>
@@ -147,14 +153,17 @@
 					<a href="#sourceCALRLIMIT" data-rel="popup" data-role="button" data-inline="true" data-mini="true" data-transition="pop">Source Code</a>
                     <div data-role="popup" id="sourceCALRLIMIT" class="ui-content">	
 					<strong>HTML</strong>
-					<pre class="prettyprint">&lt;label for="calrlimit1"&gt;Beginning Date&lt;/label&gt;
-&lt;input name="calrlimit1" type="date" data-role="datebox" id="calrlimit1" 
-    data-options='{"mode": "calbox", "afterToday": true, "maxDays": 10}' /&gt;
-
-&lt;label for="calrlimit2"&gt;Ending Date&lt;/label&gt;
-&lt;input name="calrlimit2" type="date" data-role="datebox" id="calrlimit2"
-    data-options='{"minDays": -10, "maxDays": 10, "mode": "calbox"}' /&gt;</pre>
-
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="calrlimit1"&gt;Beginning Date&lt;/label&gt;
+    &lt;input name="calrlimit1" type="date" data-role="datebox" id="calrlimit1" 
+        data-options='{"mode": "calbox", "afterToday": true, "maxDays": 10}' /&gt;
+&lt;/div&gt;
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="calrlimit2"&gt;Ending Date&lt;/label&gt;
+    &lt;input name="calrlimit2" type="date" data-role="datebox" id="calrlimit2"
+        data-options='{"minDays": -10, "maxDays": 10, "mode": "calbox"}' /&gt;
+&lt;/div&gt;</pre>
 					<strong>JQuery</strong>
 					<pre class="prettyprint">$('#calrlimit1').live('change', function() {
     $('#calrlimit2').val($('#calrlimit1').val());
@@ -217,22 +226,27 @@
 					<a href="#sourceDRORANGE" data-rel="popup" data-role="button" data-inline="true" data-mini="true" data-transition="pop">Source Code</a>
                     <div data-role="popup" id="sourceDRORANGE" class="ui-content">
 					<strong>HTML</strong>
-					<pre class="prettyprint">&lt;label for="drorangestart"&gt;Start Date:&lt;/label&gt;
-&lt;input name="drorangestart" type="date" data-role="datebox" id="drorangestart"/&gt;
-    
-&lt;label for='drorangedays'&gt;Number of Days:&lt;/label&gt;
-&lt;select data-native-menu="false" name='drorangedays' id='drorangedays' &gt;
-  &lt;option value='7' selected="selected"&gt;1 Week&lt;/option&gt;
-  &lt;option value='6'&gt;6 Days&lt;/option&gt;
-  &lt;option value='5'&gt;5 Days&lt;/option&gt;
-  &lt;option value='4'&gt;4 Days&lt;/option&gt;
-  &lt;option value='3'&gt;3 Days&lt;/option&gt;
-  &lt;option value='2'&gt;2 Days&lt;/option&gt;
-  &lt;option value='1'&gt;1 Day&lt;/option&gt;
-&lt;/select&gt;
-
-&lt;label for="drorangeend"&gt;End Date:&lt;/label&gt;
-&lt;input id="drorangeend" type="text" /&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="drorangestart"&gt;Start Date:&lt;/label&gt;
+    &lt;input name="drorangestart" type="date" data-role="datebox" id="drorangestart"/&gt;
+&lt;/div&gt;
+&lt;div data-role="fieldcontain"&gt;    
+    &lt;label for='drorangedays'&gt;Number of Days:&lt;/label&gt;
+    &lt;select data-native-menu="false" name='drorangedays' id='drorangedays' &gt;
+        &lt;option value='7' selected="selected"&gt;1 Week&lt;/option&gt;
+        &lt;option value='6'&gt;6 Days&lt;/option&gt;
+        &lt;option value='5'&gt;5 Days&lt;/option&gt;
+        &lt;option value='4'&gt;4 Days&lt;/option&gt;
+        &lt;option value='3'&gt;3 Days&lt;/option&gt;
+        &lt;option value='2'&gt;2 Days&lt;/option&gt;
+        &lt;option value='1'&gt;1 Day&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="drorangeend"&gt;End Date:&lt;/label&gt;
+    &lt;input id="drorangeend" type="text" /&gt;
+&lt;/div&gt;</pre>
 
 					<strong>jQuery</strong>
 					<pre class="prettyprint">function updateEndDate() { 
@@ -277,10 +291,12 @@ $('#drorangedays').live('change', function() {
 						<input name="sliblackday" type="date" data-role="datebox" id="sliblackday" data-options='{"mode": "slidebox", "blackDays": [2], "highDays": [6] }'/>
 					</div>
 				
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "blackDays": [2], "highDays": [6] }'&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+    &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+       data-options='{"mode": "calbox", "blackDays": [2], "highDays": [6] }'&gt;
+&lt;/div&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Blacklisted Dates</h2>
@@ -291,10 +307,12 @@ $('#drorangedays').live('change', function() {
 						<input value="12/1/2011" name="calblackdate" type="date" data-role="datebox" id="calblackdate" data-options='{"mode": "calbox", "blackDates": ["2011-12-24", "2011-12-25"]}'/>
 					</div>
 				
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "blackDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+    &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+        data-options='{"mode": "calbox", "blackDates": ["2011-12-24", "2011-12-25"] }'&gt;
+&lt;/div&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Blacklisted Recurring Dates</h2>
@@ -307,10 +325,12 @@ $('#drorangedays').live('change', function() {
 						<input value="12/1/2011" name="calblackdaterec" type="date" data-role="datebox" id="calblackdaterec" data-options='{"mode": "calbox", "blackDatesRec": [[-1,11,24],[-1,11,25],[-1,0,1],[-1,-1,15]]}'/>
 					</div>
 				
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "blackDatesRec": [[-1,11,24],[-1,11,25],[-1,0,1],[-1,-1,15]]}'&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+    &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+        data-options='{"mode": "calbox", "blackDatesRec": [[-1,11,24],[-1,11,25],[-1,0,1],[-1,-1,15]]}'&gt;
+&lt;/div&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Exclusive Dates</h2>
@@ -321,10 +341,12 @@ $('#drorangedays').live('change', function() {
 						<input value="12/1/2011" name="calenabledate" type="date" data-role="datebox" id="calenabledate" data-options='{"mode": "calbox", "enableDates": ["2011-12-24", "2011-12-25"]}'/>
 					</div>
 				
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "enableDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+    &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+        data-options='{"mode": "calbox", "enableDates": ["2011-12-24", "2011-12-25"] }'&gt;
+&lt;/div&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Highlighted Dates</h2>
@@ -335,10 +357,12 @@ $('#drorangedays').live('change', function() {
 						<input value="12/1/2011" name="calhighdate" type="date" data-role="datebox" id="calhighdate" data-options='{"mode": "calbox", "highDates": ["2011-12-24", "2011-12-25"]}'/>
 					</div>
 				
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "highDates": ["2011-12-24", "2011-12-25"] }'&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+    &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+        data-options='{"mode": "calbox", "highDates": ["2011-12-24", "2011-12-25"] }'&gt;
+&lt;/div&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Highlighted Recurring Dates</h2>
@@ -351,10 +375,12 @@ $('#drorangedays').live('change', function() {
 						<input value="12/1/2011" name="calhighdaterec" type="date" data-role="datebox" id="calhighdaterec" data-options='{"mode": "calbox", "highDatesRec": [[-1,11,24],[-1,11,25],[-1,0,1],[-1,-1,15]]}'/>
 					</div>
 				
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "highDatesRec": [[-1,11,24],[-1,11,25],[-1,0,1],[-1,-1,15]]}'&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+    &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+        data-options='{"mode": "calbox", "highDatesRec": [[-1,11,24],[-1,11,25],[-1,0,1],[-1,-1,15]]}'&gt;
+&lt;/div&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Valid Hours</h2>
@@ -365,10 +391,12 @@ $('#drorangedays').live('change', function() {
 						<input type="date" id="validHours" name="validHours" data-role="datebox" data-options='{"mode":"timebox", "validHours":[9,10,11,13,14,15,16]}' />
 					</div>
 					
-					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
-
-&lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode":"timebox", "validHours":[9,10,11,13,14,15,16]}'&gt;</pre>
+					<pre class="prettyprint">
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="mydate"&gt;Some Date&lt;/label&gt;
+    &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
+        data-options='{"mode":"timebox", "validHours":[9,10,11,13,14,15,16]}'&gt;
+&lt;/div&gt;</pre>
 				</div>
 			</div>
 		</div> 
