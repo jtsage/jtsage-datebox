@@ -57,38 +57,46 @@
 					<div data-role="fieldcontain">
 						<label for="linked1">Date</label>
 						<input name="linked1" type="text" data-role="datebox" data-options='{"mode": "datebox", "closeCallback": "$(\"#linked2\").datebox(\"open\");" }' id="linked1" />
+					</div>
+					<div data-role="fieldcontain">
 						<label for="linked2">Time</label>
 						<input name="linked2" type="text" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat":12}' id="linked2" />
 					</div>
 					
 					<p>You can also link inputs easily. (Show with optional 'center popup' option)</p>
 					
-					<pre class="prettyprint">&lt;label for="linked1"&gt;Date&lt;/label&gt;
-        
-&lt;input name="linked1" type="text" data-role="datebox" id="linked1" 
-    data-options='{"mode": "datebox", "closeCallback": "$(\"#linked2\").datebox(\"open\");"}' /&gt;
-    
-&lt;label for="linked2"&gt;Time&lt;/label&gt;
-        
-&lt;input name="linked2" type="text" data-role="datebox" id="linked2"
-    data-options='{"mode": "timebox", "overrideTimeFormat":12}' /&gt;</pre>
+					<pre class="prettyprint">&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="linked1"&gt;Date&lt;/label&gt;
+    &lt;input name="linked1" type="text" data-role="datebox" id="linked1" 
+        data-options='{"mode": "datebox", "closeCallback": "$(\"#linked2\").datebox(\"open\");"}' /&gt;
+&lt;/div&gt;
+&lt;div data-role="fieldcontain"&gt;
+    &lt;label for="linked2"&gt;Time&lt;/label&gt;
+    &lt;input name="linked2" type="text" data-role="datebox" id="linked2"
+        data-options='{"mode": "timebox", "overrideTimeFormat":12}' /&gt;
+&lt;/div&gt;</pre>
 				</div>
 				<div data-role="collapsible">
 					<h2>Advanced Linked Inputs</h2>
 					<p>A Form showing checkin and checkout dates.  With the addition of splitting the date into parts for the backend.</p>
 				
-					<div id="checklinkform" data-role="fieldcontain">
-						<label for="checkin">Check-in:</label>
-						<input name="checkin" id="checkin" type="date" data-role="datebox" data-options='{"closeCallback":"linkedCheckin", "closeCallbackArgs":["checkin"], "mode": "calbox", "focusMode": true, "centerWindow": true, "afterToday": true}'>
-						
-						<input name="checkin_monthday" type="hidden" size="2" id="checkin_monthday" />
-						<input name="checkin_year_month" type="hidden" size="7" id="checkin_year_month" />
-					
-						<label for="checkout">Check-out:</label>
-						<input name="checkout" id="checkout" type="date" data-role="datebox" data-options='{"calHighToday":false, "closeCallback":"linkedCheckin", "closeCallbackArgs":["checkout"], "mode": "calbox", "focusMode": true, "centerWindow": true}'>
-						
-						<input name="checkout_monthday" type="hidden" size="2" id="checkout_monthday" />
-						<input name="checkout_year_month" type="hidden" size="7" id="checkout_year_month" />
+					<div id="checklinkform">
+						<div data-role="fieldcontain">
+							<label for="checkin">Check-in:</label>
+							<input name="checkin" id="checkin" type="date" data-role="datebox" data-options='{"closeCallback":"linkedCheckin", "closeCallbackArgs":["checkin"], "mode": "calbox", "focusMode": true, "centerWindow": true, "afterToday": true}'>
+						</div>
+						<div data-role="fieldcontain">
+							<input name="checkin_monthday" type="hidden" size="2" id="checkin_monthday" />
+							<input name="checkin_year_month" type="hidden" size="7" id="checkin_year_month" />
+						</div>
+						<div data-role="fieldcontain">
+							<label for="checkout">Check-out:</label>
+							<input name="checkout" id="checkout" type="date" data-role="datebox" data-options='{"calHighToday":false, "closeCallback":"linkedCheckin", "closeCallbackArgs":["checkout"], "mode": "calbox", "focusMode": true, "centerWindow": true}'>
+						</div>
+						<div data-role="fieldcontain">
+							<input name="checkout_monthday" type="hidden" size="2" id="checkout_monthday" />
+							<input name="checkout_year_month" type="hidden" size="7" id="checkout_year_month" />
+						</div>
 					</div>
 					<script type="text/javascript">
 					linkedCheckin = function (date, name) {
@@ -116,20 +124,25 @@
 					<a href="#sourceADVLINKHTML" data-rel="popup" data-role="button" data-inline="true"  data-mini="true" data-transition="pop">HTML Source</a>
                     <div data-role="popup" id="sourceADVLINKHTML" class="ui-content">
 					<strong>HTML</strong><pre class="prettyprint">
-&lt;div id="checklinkform" data-role="fieldcontain"&gt;
-  &lt;label for="checkin"&gt;Check-in:&lt;/label&gt;
-  &lt;input name="checkin" id="checkin" type="date" data-role="datebox"
-      data-options='{"closeCallback":"linkedCheckin", "closeCallbackArgs":["checkin"], "mode": "calbox", "focusMode": true, "centerWindow": true, "afterToday": true}'&gt;
-				
-  &lt;input name="checkin_monthday" type="hidden" size="2" id="checkin_monthday" /&gt;
-  &lt;input name="checkin_year_month" type="hidden" size="7" id="checkin_year_month" /&gt;
-			
-  &lt;label for="checkout"&gt;Check-out:&lt;/label&gt;
-  &lt;input name="checkout" id="checkout" type="date" data-role="datebox" 
-      data-options='{"calHighToday":false, "closeCallback":"linkedCheckin", "closeCallbackArgs":["checkout"], "mode": "calbox", "focusMode": true, "centerWindow": true}'&gt;
-				
-  &lt;input name="checkout_monthday" type="hidden" size="2" id="checkout_monthday" /&gt;
-  &lt;input name="checkout_year_month" type="hidden" size="7" id="checkout_year_month" /&gt;
+&lt;div id="checklinkform"&gt;					
+    &lt;div data-role="fieldcontain"&gt;
+        &lt;label for="checkin"&gt;Check-in:&lt;/label&gt;
+        &lt;input name="checkin" id="checkin" type="date" data-role="datebox"
+            data-options='{"closeCallback":"linkedCheckin", "closeCallbackArgs":["checkin"], "mode": "calbox", "focusMode": true, "centerWindow": true, "afterToday": true}'&gt;
+    &lt;/div&gt;
+    &lt;div data-role="fieldcontain"&gt;
+        &lt;input name="checkin_monthday" type="hidden" size="2" id="checkin_monthday" /&gt;
+        &lt;input name="checkin_year_month" type="hidden" size="7" id="checkin_year_month" /&gt;
+    &lt;/div&gt;
+    &lt;div data-role="fieldcontain"&gt;
+        &lt;label for="checkout"&gt;Check-out:&lt;/label&gt;
+        &lt;input name="checkout" id="checkout" type="date" data-role="datebox" 
+            data-options='{"calHighToday":false, "closeCallback":"linkedCheckin", "closeCallbackArgs":["checkout"], "mode": "calbox", "focusMode": true, "centerWindow": true}'&gt;
+    &lt;/div&gt;
+    &lt;div data-role="fieldcontain"&gt;
+        &lt;input name="checkout_monthday" type="hidden" size="2" id="checkout_monthday" /&gt;
+        &lt;input name="checkout_year_month" type="hidden" size="7" id="checkout_year_month" /&gt;
+    &lt;/div&gt;
 &lt;/div&gt;</pre>
 					</div>
 					<a href="#sourceADVLINKJQ" data-rel="popup" data-role="button" data-inline="true" data-mini="true" data-transition="pop">jQuery Source</a>
