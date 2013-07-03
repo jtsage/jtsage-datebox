@@ -175,7 +175,7 @@
 					w._offset(tmp[0], tmp[1]);
 					if ( !w.runButton ) {
 						w.drag.target = tmp;
-						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
+						w.runButton = setTimeout(function() {w._durbox_run();}, 500);
 					}
 				});
 				
@@ -186,7 +186,7 @@
 					w._offset(tmp[0], tmp[1]);
 					if ( !w.runButton ) {
 						w.drag.target = tmp;
-						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
+						w.runButton = setTimeout(function() {w._durbox_run();}, 500);
 					}
 				});
 			}
