@@ -312,3 +312,7 @@ msgstr "%Dd %DA, %Dl:%DM:%DS"
 msgid "Other Dates"
 msgstr "Other Dates"
 
+#. Header format for calendar mode (usually Month Year)
+#: generate-i18n.py:49
+msgid "%B %Y"
+msgstr "%B %Y"

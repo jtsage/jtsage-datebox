@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2013-04-03 22:10+0200\n"
+"PO-Revision-Date: 2013-07-03 09:45-0400\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Bahasa Indonesia\n"
 "Language: id_ID\n"
@@ -311,4 +311,9 @@ msgstr "%Dd %DA, %Dl:%DM:%DS"
 #: generate-i18n.py:48
 msgid "Other Dates"
 msgstr "Tanggal lainnya"
+
+#. Header format for calendar mode (usually Month Year)
+#: generate-i18n.py:49
+msgid "%B %Y"
+msgstr "%B %Y"
 
