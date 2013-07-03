@@ -176,7 +176,8 @@ var stuff = { // name: ['default','desc','type','mode list']
 		meridiem: ["['AM', 'PM']", 'Name of meridiems, if used', 'Array', true],
 		timeOutput: ['%k:%M', 'Format for returned time', 'String', [0,0,0,0,1,1,0]],
 		durationFormat: ['%Dd %DA, %Dl:%DM:%DS', 'Format for returned duration', 'String', [0,0,0,0,0,0,1]],
-		calDateListLabel: ['Other Dates', 'Text for other dates dropdown', 'String', [0,1,0,0,0,0,0]]
+		calDateListLabel: ['Other Dates', 'Text for other dates dropdown', 'String', [0,1,0,0,0,0,0]],
+		calHeaderFormat: ['%B %Y', 'Header format for calendar mode', 'String', [0,1,0,0,0,0,0]]
 	}
 };
 

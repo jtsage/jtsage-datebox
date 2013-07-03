@@ -154,9 +154,9 @@
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
 			w.d.intHTML = $('<span>');
-			
+
 			$('<div class="'+uid+'gridheader"><div class="'+uid+'gridlabel"><h4>' +
-				w.__('monthsOfYear')[w.theDate.getMonth()] + " " + w.theDate.getFullYear() +
+				w._formatter(w.__('calHeaderFormat'), w.theDate) +
 				'</h4></div></div>').appendTo(w.d.intHTML);
 				
 			// Previous and next month buttons, define booleans to decide if they should do anything

@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.4.0-2013062504', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.0-2013070300', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
 			theme: false,
 			themeDefault: 'a',
@@ -115,7 +115,8 @@
 					meridiem: ['AM', 'PM'],
 					timeOutput: '%k:%M', //{ '12': '%l:%M %p', '24': '%k:%M' },
 					durationFormat: '%Dd %DA, %Dl:%DM:%DS',
-					calDateListLabel: 'Other Dates'
+					calDateListLabel: 'Other Dates',
+					calHeaderFormat: '%B %Y'
 				}
 			}
 		},
