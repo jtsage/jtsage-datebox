@@ -18,8 +18,38 @@
 		_durbox_run: function() {
 			var w = this;
 			w.drag.didRun = true;
-			w._offset(w.drag.target[0], w.drag.target[1]);
+			w._offset(w.drag.target[0], w.drag.target[1], false);
+			w._durbox_run_update();
 			w.runButton = setTimeout(function() {w._durbox_run();}, 100);
+		},
+		_durbox_run_update: function () {
+			var w = this, i, cDur = [],
+				ival = {'d': 60*60*24, 'h': 60*60, 'i': 60};
+
+			i = w.theDate.getEpoch() - w.initDate.getEpoch();
+			if ( i<0 ) { i = 0; w.theDate.setTime(w.initDate.getTime()); }
+			w.lastDuration = i; // Let the number of seconds be sort of public.
+			
+			// DAYS 
+			cDur[0] = parseInt( i / ival.d,10); i = i % ival.d;
+			// HOURS 
+			cDur[1] = parseInt( i / ival.h, 10); i = i % ival.h;
+			// MINS AND SECS 
+			cDur[2] = parseInt( i / ival.i, 10);
+			cDur[3] = i % ival.i;
+
+			w.d.divIn.find('input').each(function () {
+				switch ( $(this).parent().jqmData('field') ) {
+					case 'd':
+						$(this).val(cDur[0]); break;
+					case 'h':
+						$(this).val(cDur[1]); break;
+					case 'i':
+						$(this).val(cDur[2]); break;
+					case 's':
+						$(this).val(cDur[3]); break;
+				}
+			});
 		},
 		_durbox_valid: function (num) {
 			if ( num.toString().search(/^[0-9]+$/) === 0 ) { return parseInt(num,10); }
@@ -48,6 +78,7 @@
 	$.extend( $.mobile.datebox.prototype._build, {
 		'durationbox': function () {
 			var w = this,
+				g = this.drag,
 				o = this.options, i, y, cDur = [0,0,0,0], tmp,
 				ival = {'d': 60*60*24, 'h': 60*60, 'i': 60},
 				uid = 'ui-datebox-',
@@ -109,6 +140,8 @@
 						$(this).val(cDur[3]); break;
 				}
 			});
+
+			w.d.divIn = divIn;
 			
 			divPlus.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
 			divIn.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
@@ -172,7 +205,8 @@
 					tmp = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]];
 					w.drag.move = true;
 					w._dbox_delta = 1;
-					w._offset(tmp[0], tmp[1]);
+					w._offset(tmp[0], tmp[1], false);
+					w._durbox_run_update();
 					if ( !w.runButton ) {
 						w.drag.target = tmp;
 						w.runButton = setTimeout(function() {w._durbox_run();}, 500);
@@ -183,23 +217,23 @@
 					tmp = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1];
 					w.drag.move = true;
 					w._dbox_delta = -1;
-					w._offset(tmp[0], tmp[1]);
+					w._offset(tmp[0], tmp[1], false);
+					w._durbox_run_update();
 					if ( !w.runButton ) {
 						w.drag.target = tmp;
 						w.runButton = setTimeout(function() {w._durbox_run();}, 500);
 					}
 				});
-			}
-		}
-	});
-	$.extend( $.mobile.datebox.prototype._drag, {
-		'durationbox': function() {
-			var w = this,
-				o = this.options,
-				g = this.drag;
-			
-			if ( o.repButton === true ) {
-				$(document).on(g.eEndA, function(e) {
+				
+				divPlus.on(g.eEndA, function(e) {
+					if ( g.move ) {
+						e.preventDefault();
+						clearTimeout(w.runButton);
+						w.runButton = false;
+						g.move = false;
+					}
+				});
+				divMinus.on(g.eEndA, function(e) {
 					if ( g.move ) {
 						e.preventDefault();
 						clearTimeout(w.runButton);
