@@ -18,8 +18,44 @@
 		_dbox_run: function() {
 			var w = this;
 			w.drag.didRun = true;
-			w._offset(w.drag.target[0], w.drag.target[1]);
+			w._offset(w.drag.target[0], w.drag.target[1], false);
+			w._dbox_run_update();
 			w.runButton = setTimeout(function() {w._dbox_run();}, 150);
+		},
+		_dbox_run_update: function() {
+			var w = this,
+				o = this.options;
+			
+			if ( o.mode === 'datebox' ) {
+				w.d.intHTML.find('.ui-datebox-header').find('h4').text(w._formatter(w.__('headerFormat'), w.theDate));
+			}
+			
+			w.d.divIn.find('input').each(function () {
+				switch ( $(this).jqmData('field') ) {
+					case 'y':
+						$(this).val(w.theDate.getFullYear()); break;
+					case 'm':
+						$(this).val(w.theDate.getMonth() + 1); break;
+					case 'd':
+						$(this).val(w.theDate.getDate()); break;
+					case 'h':
+						if ( w.__('timeFormat') === 12 ) {
+							if ( w.theDate.getHours() > 12 ) {
+								$(this).val(w.theDate.getHours()-12); break;
+							} else if ( w.theDate.getHours() === 0 ) {
+								$(this).val(12); break;
+							}
+						}		
+						$(this).val(w.theDate.getHours()); break;
+					case 'i':
+						$(this).val(w._zPad(w.theDate.getMinutes())); break;
+					case 'M':
+						$(this).val(w.__('monthsOfYearShort')[w.theDate.getMonth()]); break;
+					case 'a':
+						$(this).val((w.theDate.getHours() > 11)?w.__('meridiem')[1]:w.__('meridiem')[0]);
+						break;
+				}
+			});
 		},
 		_dbox_vhour: function (delta) {
 			var w = this,
@@ -75,6 +111,7 @@
 		},
 		'datebox': function () {
 			var w = this,
+				g = this.drag,
 				o = this.options, i, y, tmp, cnt = -2,
 				uid = 'ui-datebox-',
 				divBase = $("<div>"),
@@ -93,7 +130,7 @@
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():((o.mode==='datebox')?w.__('titleDateDialogLabel'):w.__('titleTimeDialogLabel')));
 			w.d.intHTML = $('<span>');
-			
+
 			if ( w.inputType !== 'number' ) { inBase.attr('pattern', '[0-9]*'); }
 			
 			w.fldOrder = ((o.mode==='datebox')?w.__('dateFieldOrder'):w.__('timeFieldOrder'));
@@ -173,6 +210,8 @@
 						break;
 				}
 			});
+
+			w.d.divIn = divIn;
 			
 			if ( w.dateOK !== true ) {
 				divIn.find('input').addClass(uid+'griddate-disable');
@@ -238,7 +277,8 @@
 					tmp = [$(this).jqmData('field'), $(this).jqmData('amount')];
 					w.drag.move = true;
 					w._dbox_delta = 1;
-					w._offset(tmp[0], tmp[1]);
+					w._offset(tmp[0], tmp[1], false);
+					w._dbox_run_update();
 					if ( !w.runButton ) {
 						w.drag.target = tmp;
 						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
@@ -249,26 +289,23 @@
 					tmp = [$(this).jqmData('field'), $(this).jqmData('amount')*-1];
 					w.drag.move = true;
 					w._dbox_delta = -1;
-					w._offset(tmp[0], tmp[1]);
+					w._offset(tmp[0], tmp[1], false);
+					w._dbox_run_update();
 					if ( !w.runButton ) {
 						w.drag.target = tmp;
 						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
 					}
 				});
-			}
-		}
-	});
-	$.extend( $.mobile.datebox.prototype._drag, {
-		'timebox': function() {
-			this._drag.datebox.apply(this);
-		},
-		'datebox': function() {
-			var w = this,
-				o = this.options,
-				g = this.drag;
-			
-			if ( o.repButton === true ) {
-				$(document).on(g.eEndA, function(e) {
+
+				divPlus.on(g.eEndA, function(e) {
+					if ( g.move ) {
+						e.preventDefault();
+						clearTimeout(w.runButton);
+						w.runButton = false;
+						g.move = false;
+					}
+				});
+				divMinus.on(g.eEndA, function(e) {
 					if ( g.move ) {
 						e.preventDefault();
 						clearTimeout(w.runButton);
