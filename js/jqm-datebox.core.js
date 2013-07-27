@@ -1134,7 +1134,7 @@
 			if ( w.d.dialogPage !== false ) {
 				$(w.d.dialogPage).dialog('close');
 				
-				if ( ! $.mobile.activePage.jqmData('mobile-page').options.domCache ) {
+				if ( ! $.mobile.activePage.data('mobile-page').options.domCache ) {
 					$.mobile.activePage.on('pagehide.remove', function () { $(this).remove(); });
 				}
 				
