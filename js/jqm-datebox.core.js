@@ -90,6 +90,7 @@
 					setTimeButtonLabel: 'Set Time',
 					setDurationButtonLabel: 'Set Duration',
 					calTodayButtonLabel: 'Jump to Today',
+					calTomorrowButtonLabel: 'Jump to Tomorrow',
 					titleDateDialogLabel: 'Set Date',
 					titleTimeDialogLabel: 'Set Time',
 					daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
