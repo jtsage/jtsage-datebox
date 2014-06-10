@@ -232,11 +232,21 @@
 					cal.picker2.append($('<option value="'+i+'"'+((cal.thisYear===i)?' selected="selected"':'')+'>'+i+'</option>'));
 				}
 				
-				cal.picker1.on('change', function () { w.theDate.setMonth($(this).val()); w.refresh(); });
-				cal.picker2.on('change', function () { w.theDate.setFullYear($(this).val()); w.refresh(); });
-				
-				cal.picker.find('select').selectmenu({mini:true, nativeMenu: true});
-				cal.picker.appendTo(w.d.intHTML);
+				cal.picker1.on('change', function () {
+                    w.theDate.setMonth($(this).val());
+                    if (w.theDate.getMonth() !== parseInt($(this).val(), 10)) {
+                        w.theDate.setDate(0);
+                    }
+                    w.refresh();
+                });
+
+                cal.picker2.on('change', function () {
+                    w.theDate.setFullYear($(this).val());
+                    if (w.theDate.getMonth() !== parseInt(cal.picker1.val(), 10)) {
+                        w.theDate.setDate(0);
+                    }
+                    w.refresh();
+                });
 			}
 			
 			temp = $('<div class="'+uid+'grid">').appendTo(w.d.intHTML);
