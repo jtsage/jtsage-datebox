@@ -101,19 +101,19 @@
 				</div>
 				<div data-role="collapsible">
 					<h2>Selecting by week (calWeekMode)</h2>
-					<p>Using a calendar to select a specific day can be accomplished by setting option 'calWeekMode' to 'true' and 'calWeekModeFirstDay' to the day you wish to pick.  For instance, to select by week using monday:</p>
+					<p>Using a calendar to select a specific day can be accomplished by setting option 'calWeekMode' to 'true' and 'calWeekModeDay' to the day you wish to pick.  For instance, to select by week using monday:</p>
 					
 					<div data-role="fieldcontain">
-						<label for="calweekmode">Some Date</label><input name="calweekmode" type="date" data-role="datebox" id="calweekmode" data-options='{"mode": "calbox", "calWeekMode": true, "calWeekModeFirstDay": 1}'/>
+						<label for="calweekmode">Some Date</label><input name="calweekmode" type="date" data-role="datebox" id="calweekmode" data-options='{"mode": "calbox", "calWeekMode": true, "calWeekModeDay": 3}'/>
 					</div>
 					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
 &lt;input name="mydate" id="mydate" type="date" data-role="datebox"
-   data-options='{"mode": "calbox", "calWeekMode": true, "calWeekModeFirstDay": 1}'&gt;</pre>
+   data-options='{"mode": "calbox", "calWeekMode": true, "calWeekModeDay": 1}'&gt;</pre>
    
 					<p>You can also highlight the full week in this mode:</p>
 					<div data-role="fieldcontain">
-						<label for="calweekmodeh">Some Date</label><input name="calweekmodeh" type="date" data-role="datebox" id="calweekmodeh" data-options='{"mode": "calbox", "calWeekHigh": true, "calWeekMode": true, "calWeekModeFirstDay": 1}'/>
+						<label for="calweekmodeh">Some Date</label><input name="calweekmodeh" type="date" data-role="datebox" id="calweekmodeh" data-options='{"mode": "calbox", "calWeekHigh": true, "calWeekMode": true, "calWeekModeDay": 1}'/>
 					</div>
 					<pre class="prettyprint">&lt;label for="mydate"&gt;Some Date&lt;/label&gt;
 
