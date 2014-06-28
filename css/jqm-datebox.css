@@ -95,9 +95,10 @@
 .ui-datebox-flipcontent div { margin-left: 3px; margin-right: 3px; width: 77px; height: 120px; display: inline-block; text-align: center; zoom: 1; *display: inline; overflow: hidden;}
 .ui-datebox-flipcontentd div { width: 60px; }
 .ui-datebox-flipcenter { border: 1px solid #eee; height: 40px; margin-left: 10px; width: 260px; margin-right: auto; margin-left: auto; position: relative; top: -45px;}
-.ui-datebox-flipcontent ul { list-style-type: none; display: inline; }
+.ui-datebox-flipcontent ul { list-style-type: none; display: inline; border:1px solid rgba(0,0,0,0);}
 .ui-datebox-flipcontent li { height: 30px; }
 .ui-datebox-flipcontent li span { margin-top: 7px; display: block; }
+
 /* Shared Styles */
 
 .ui-datebox-container { border: 5px solid #111 !important; width: 280px; -webkit-transform:translate3d(0,0,0); }
