@@ -47,7 +47,7 @@ def doTrans(lang,name):
 	outtext += "\t\tdurationFormat: \""+_('%Dd %DA, %Dl:%DM:%DS')+"\",\n"
 	outtext += "\t\tcalDateListLabel: \""+_('Other Dates')+"\",\n"
 	outtext += "\t\tcalHeaderFormat: \""+_('%B %Y')+"\",\n"
-	outtext += "\t\calTomorrowButtonLabel: \"" + _('Jump to Tomorrow') + "\"\n"
+	outtext += "\t\tcalTomorrowButtonLabel: \"" + _('Jump to Tomorrow') + "\"\n"
 	outtext += "\t}\n});\n"
 	outtext += "jQuery.extend(jQuery.mobile.datebox.prototype.options, {\n\tuseLang: '" + lang + "'\n});\n"
 	return outtext

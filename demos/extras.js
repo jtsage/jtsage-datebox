@@ -88,6 +88,7 @@ goodLang = {
 	"ko": "Korean",
 	"lt": "Lituanian",
 	"nl": "Dutch",
+	"nl-BE": "Dutch, Belgium",
 	"no": "Norwegian",
 	"pl": "Polish",
 	"pt-BR": "Portuguese",
@@ -100,7 +101,8 @@ goodLang = {
 	"tr": "Turkish",
 	"uk": "Ukrainian",
 	"vi": "Vietnamese",
-	"zh-CN": "Chinese - Simplified"
+	"zh-CN": "Chinese - Simplified",
+	"zh-TW": "Chinese - Traditional"
 }
 
 intHTML = "<p>Choose your Language: </p><select class='opt-pop-lang'>";

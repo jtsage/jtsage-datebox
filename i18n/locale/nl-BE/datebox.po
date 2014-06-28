@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2013-07-03 09:45-0400\n"
+"PO-Revision-Date: 2014-06-28 15:55-0400\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Dutch, Belgium\n"
 "Language: nl_BE\n"
@@ -20,7 +20,7 @@ msgstr "%A, %B %-d, %Y"
 #. POSIX sytle date format for returned dates
 #: generate-i18n.py:39
 msgid "%Y-%m-%d"
-msgstr "%d-%m-%Y"
+msgstr "%d/%m/%Y"
 
 #. Field order for time input (h=hour, i=minute, a=AM/PM)
 #: generate-i18n.py:37
@@ -282,7 +282,7 @@ msgstr "false"
 #. Set to the start day of the calendar (0=Sunday)
 #: generate-i18n.py:42
 msgid "0"
-msgstr "0"
+msgstr "1"
 
 #: generate-i18n.py:43
 msgid "Clear"
@@ -316,4 +316,9 @@ msgstr "Andere datums"
 #: generate-i18n.py:49
 msgid "%B %Y"
 msgstr "%B %Y"
+
+#. Header format for calendar mode (usually Month Year)
+#: generate-i18n.py:50
+msgid "Jump to Tomorrow"
+msgstr "Springen naar morgen"
 
