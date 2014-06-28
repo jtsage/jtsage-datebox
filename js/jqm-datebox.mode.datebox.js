@@ -253,11 +253,13 @@
 			
 			if ( o.repButton === false ) {
 				divPlus.on(o.clickEvent, 'div', function(e) {
+					divIn.find(':focus').blur();
 					e.preventDefault();
 					w._dbox_delta = 1;
 					w._offset($(this).jqmData('field'), $(this).jqmData('amount'));
 				});
 				divMinus.on(o.clickEvent, 'div', function(e) {
+					divIn.find(':focus').blur();
 					e.preventDefault();
 					w._dbox_delta = -1;
 					w._offset($(this).jqmData('field'), $(this).jqmData('amount')*-1);
@@ -276,6 +278,7 @@
 			
 			if ( o.repButton === true ) {
 				divPlus.on(w.drag.eStart, 'div', function(e) {
+					divIn.find(':focus').blur();
 					tmp = [$(this).jqmData('field'), $(this).jqmData('amount')];
 					w.drag.move = true;
 					w._dbox_delta = 1;
@@ -288,6 +291,7 @@
 				});
 				
 				divMinus.on(w.drag.eStart, 'div', function(e) {
+					divIn.find(':focus').blur();
 					tmp = [$(this).jqmData('field'), $(this).jqmData('amount')*-1];
 					w.drag.move = true;
 					w._dbox_delta = -1;
