@@ -34,6 +34,7 @@
 		calYearPickMax: 6,
 		
 		useTodayButton: false,
+		useTomorrowButton: false,
 		useCollapsedBut: false,
 		
 		highDays: false,
@@ -341,7 +342,7 @@
 				cal.datelist.appendTo(w.d.intHTML);
 			}
 			
-			if ( o.useTodayButton || o.useClearButton ) {
+			if ( o.useTodayButton || o.useTomorrowButton || o.useClearButton ) {
 				hRow = $('<div>', {'class':uid+'controls'});
 				
 				if ( o.useTodayButton ) {
@@ -350,6 +351,17 @@
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = new w._date();
+							w.theDate = new w._date(w.theDate.getFullYear(), w.theDate.getMonth(), w.theDate.getDate(),0,0,0,0);
+							w.d.input.trigger('datebox',{'method':'doset'});
+						});
+				}
+				if ( o.useTomorrowButton ) {
+					$('<a href="#">'+w.__('calTomorrowButtonLabel')+'</a>')
+						.appendTo(hRow).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+						.on(o.clickEvent, function(e) {
+							e.preventDefault();
+							w.theDate = new w._date();
+							w.theDate = new w._date(w.theDate.getTime() + 24 * 60 * 60 * 1000); //tomorrow
 							w.theDate = new w._date(w.theDate.getFullYear(), w.theDate.getMonth(), w.theDate.getDate(),0,0,0,0);
 							w.d.input.trigger('datebox',{'method':'doset'});
 						});
