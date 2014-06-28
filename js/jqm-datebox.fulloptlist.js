@@ -130,6 +130,8 @@ var stuff = { // name: ['default','desc','type','mode list']
 		themeDateHighRec: ['e', 'Theme swatch for highDatesRec', 'String', [0,1,0,0,0,0,0]],
 		themeDate: ['d', 'Theme swatch for other dates (inherited)', 'String', [0,1,0,0,0,0,0]],
 		calUsePickers: [false, 'Use Month/Year Pickers', 'Boolean', [0,1,0,0,0,0,0]],
+		calYearPickMin: [-6, 'Limit for Year Picker (Int < 1800, Year, "NOW")', 'Mixed', [0,1,0,0,0,0,0]],
+		calYearPickMax: [6, 'Limit for Year Picker (Int < 1800, Year, "NOW")', 'Mixed', [0,1,0,0,0,0,0]],
 		calNoHeader: [false, 'Suppress Standard Header', 'Boolean', [0,1,0,0,0,0,0]],
 		calHighToday: [true, 'Highlight today\'s date', 'Boolean', [0,1,0,0,0,0,0]],
 		calHighPick: [true, 'Highlight choosen date', 'Boolean', [0,1,0,0,0,0,0]],

@@ -30,6 +30,9 @@
 		calUsePickers: false,
 		calNoHeader: false,
 		
+		calYearPickMin: -6,
+		calYearPickMax: 6,
+		
 		useTodayButton: false,
 		useCollapsedBut: false,
 		
@@ -146,7 +149,7 @@
 				o = this.options, i,
 				cal = false,
 				uid = 'ui-datebox-',
-				temp = false, row = false, col = false, hRow = false, checked = false;
+				temp = false, row = false, col = false, hRow = false, checked = false, prange = {};
 				
 			if ( typeof w.d.intHTML !== 'boolean' ) {
 				w.d.intHTML.remove();
@@ -220,6 +223,7 @@
 			}
 			
 			if ( o.calUsePickers === true ) {
+				console.log('a');
 				cal.picker = $('<div>', {'class': 'ui-grid-a ui-datebox-grid','style':'padding-top: 5px; padding-bottom: 5px;'});
 				
 				cal.picker1 = $('<div class="ui-block-a"><select name="pickmon"></select></div>').appendTo(cal.picker).find('select');
@@ -228,7 +232,26 @@
 				for ( i=0; i<=11; i++ ) {
 					cal.picker1.append($('<option value="'+i+'"'+((cal.thisMonth===i)?' selected="selected"':'')+'>'+w.__('monthsOfYear')[i]+'</option>'));
 				}
-				for ( i=(cal.thisYear-6); i<=cal.thisYear+6; i++ ) {
+				
+				if ( o.calYearPickMin < 1 ) { 
+					prange.sm = cal.thisYear + o.calYearPickMin;
+				} else if ( o.calYearPickMin < 1800 ) {
+					prange.sm = cal.thisYear - o.calYearPickMin;
+				} else if ( o.calYearPickMin === "NOW" ) {
+					prange.sm = cal.thisDate.getFullYear();
+				} else {
+					prange.sm = o.calYearPickMin;
+				}
+				
+				if ( o.calYearPickMax < 1800 ) {
+					prange.lg = cal.thisYear + o.calYearPickMax;
+				} else if ( o.calYearPickMax === "NOW" ) {
+					prange.lg = cal.thisDate.getFullYear();
+				} else {
+					prange.lg = o.calYearPickMax;
+				}
+				console.log(prange);
+				for ( i=prange.sm; i<=prange.lg; i++ ) {
 					cal.picker2.append($('<option value="'+i+'"'+((cal.thisYear===i)?' selected="selected"':'')+'>'+i+'</option>'));
 				}
 				
@@ -246,6 +269,9 @@
 					}
 					w.refresh();
 				});
+				
+				cal.picker.find('select').selectmenu({mini:true, nativeMenu: true});
+				cal.picker.appendTo(w.d.intHTML);
 			}
 			
 			temp = $('<div class="'+uid+'grid">').appendTo(w.d.intHTML);

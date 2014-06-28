@@ -1015,7 +1015,6 @@
 			
 			if ( ( o.useInline === true || o.useInlineBlind === true ) && w.initDone === false ) {
 				w.d.mainWrap.append(w.d.intHTML);
-				console.log(w.d.mainWrap);
 				w.d.input.parent().parent().append(w.d.mainWrap);
 				w.d.mainWrap.removeClass('ui-datebox-hidden');
 				if ( o.useInline === true ) {
