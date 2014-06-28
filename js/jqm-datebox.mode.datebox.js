@@ -32,6 +32,11 @@
 				w.d.intHTML.find('.ui-datebox-header').find('h4').text(w._formatter(w.__('headerFormat'), w.theDate));
 			}
 			
+			if ( o.useSetButton ) {
+				if ( w.dateOK === false ) { setBut.addClass('ui-disabled'); }
+				else { setBut.removeClass('ui-disabled'); }
+			}
+			
 			w.d.divIn.find('input').each(function () {
 				switch ( $(this).jqmData('field') ) {
 					case 'y':
@@ -225,7 +230,7 @@
 				y = $('<div>', {'class':uid+'controls'});
 				
 				if ( o.useSetButton ) {
-					$('<a href="#">'+((o.mode==='datebox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))+'</a>')
+					setBut = $('<a href="#">'+((o.mode==='datebox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))+'</a>')
 						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
