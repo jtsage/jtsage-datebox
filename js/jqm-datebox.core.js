@@ -1350,6 +1350,14 @@
 		},
 		callFormat: function(format, date) {
 			return this._formatter(format, date);
+		},
+		getOption: function(opt) {
+			var problang = this.__(opt);
+			if ( typeof(problang) !== 'undefined' ) {
+				return problang;
+			} else {
+				return this.options[opt];
+			}
 		}
 	});
 	  
