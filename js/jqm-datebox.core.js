@@ -1015,6 +1015,7 @@
 			
 			if ( ( o.useInline === true || o.useInlineBlind === true ) && w.initDone === false ) {
 				w.d.mainWrap.append(w.d.intHTML);
+				console.log(w.d.mainWrap);
 				w.d.input.parent().parent().append(w.d.mainWrap);
 				w.d.mainWrap.removeClass('ui-datebox-hidden');
 				if ( o.useInline === true ) {
@@ -1029,10 +1030,11 @@
 			
 			if ( o.useInline ) { return true; }
 			if ( o.useInlineBlind ) { 
-				if ( w.initDone ) { w.d.mainWrap.slideDown();  }
+				if ( w.initDone ) { w.refresh(); w.d.mainWrap.slideDown();  }
 				else { w.initDone = true; }
 				return true;
 			}
+			
 			if ( w.d.intHTML.is(':visible') ) { return false; } // Ignore if already open
 				
 			if ( o.enablePopup === true ) {
