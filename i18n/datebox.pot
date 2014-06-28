@@ -316,3 +316,8 @@ msgstr "Other Dates"
 #: generate-i18n.py:49
 msgid "%B %Y"
 msgstr "%B %Y"
+
+#. Header format for calendar mode (usually Month Year)
+#: generate-i18n.py:50
+msgid "Jump to Tomorrow"
+msgstr "Jump to Tomorrow"
