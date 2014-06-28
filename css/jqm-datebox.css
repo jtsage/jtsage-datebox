@@ -20,6 +20,7 @@
 .ui-icon-datebox-alt { background-image: url('image/datebox.png') !important; background-repeat: no-repeat !important; background-position: 99% -28px !important; }
 .ui-mini.ui-icon-datebox { background-position: 99% 6px; }
 .ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }
+.ui-input-text > .ui-input-datebox > .ui-btn.ui-input-clear {position: absolute; right: 0; top: 50%; margin: -15px .3125em 0; border: 0; background-color: transparent;}
 
 @media all and (min-width: 450px){
   .ui-field-contain .ui-input-datebox { width: 74.7%; display: inline-block; } 
