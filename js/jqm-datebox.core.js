@@ -1346,6 +1346,7 @@
 		setTheDate: function(newDate) {
 			this.theDate = newDate;
 			this.refresh();
+			this.d.input.trigger('datebox', { 'method': 'doset' });
 		},
 		callFormat: function(format, date) {
 			return this._formatter(format, date);
