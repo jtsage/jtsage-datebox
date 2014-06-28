@@ -25,7 +25,9 @@
 		_dbox_run_update: function() {
 			var w = this,
 				o = this.options;
+				
 			w._check();
+			
 			if ( o.mode === 'datebox' ) {
 				w.d.intHTML.find('.ui-datebox-header').find('h4').text(w._formatter(w.__('headerFormat'), w.theDate));
 			}
