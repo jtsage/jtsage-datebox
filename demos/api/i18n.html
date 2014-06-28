@@ -48,7 +48,7 @@
 		
 		<p>The contribution system has been moved to gettext - this streamlines the submission process significantly.  You can submit translations at <a href="http://crowdin.net/project/jquery-mobile-datebox">crowdin</a>.</p>
 		
-		<p>If you prefer, the project .pot file is here: <a href="https://github.com/jtsage/jquery-mobile-datebox/blob/master/i18n/po/datebox.pot">datebox.pot</a>
+		<p>If you prefer, the project .pot file is here: <a href="https://github.com/jtsage/jquery-mobile-datebox/blob/master/i18n/datebox.pot">datebox.pot</a>
 		
 		<p>Finally, you can generate the following:</p>
 		
@@ -84,7 +84,8 @@
         timeOutput: '%k:%M', // 12hr: '%l:%M %p', 24hr: '%k:%M',
         durationFormat: '%Dd %DA, %Dl:%DM:%DS',
         calDateListLabel: 'Other Dates',
-		calHeaderFormat: '%B %Y'
+        calHeaderFormat: '%B %Y',
+        calTomorrowButtonLabel: "Jump to Tomorrow"
     }
 });
 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
@@ -95,30 +96,35 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 		
 		<h3>Special Thanks:</h3>
 		<ul data-role="listview" data-inset="true">
-			<li><h3>zh_CH</h3><p>ChiElvis &lt;elvis311@msn.com>, josher19 &lt;crowdin></p></li>
-			<li><h3>uk</h3><p>Alexander Zolotko &lt;azolotko@gmail.com></p></li>
-			<li><h3>sv</h3><p>Henrik Ekselius &lt;henrik@xelius.net></p></li>
-			<li><h3>pt_BR</h3><p>Rodrigo Vieira &lt;rodrigovieira1994@gmail.com>, Marcelo Dezem &lt;crowdin></p></li>
-			<li><h3>pl</h3><p>Zbigniew Motyka &lt;zbigniew@motyka.net.pl></p></li>
-			<li><h3>ar</h3><p>Michael de Lara &lt;mykel1829@yahoo.com></p></li>
+			<li><h3>ar</h3><p>Michael de Lara &lt;mykel1829@yahoo.com>, Houshmand Rastin &lt;crowdin></p></li>
+			<li><h3>bg</h3><p>How Bizarre &lt;how@errazib.com></p></li>
+			<li><h3>da</h3><p>Jnyrup &lt;crowdin></p></li>
 			<li><h3>de</h3><p>Chris P. Vigelius &lt;me@cv.gd>, Pascal Hofmann &lt;crowdin></p></li>
 			<li><h3>el</h3><p>Giannis Kosmas &lt;kosmasgiannis@gmail.com></p></li>
-			<li><h3>lt</h3><p>Tadas Subonis &lt;tadas.subonis@affecto.com></p></li>
-			<li><h3>es</h3><p>Rafael Carballo Cerqueira</p></li>
-			<li><h3>es_ES</h3><p>Rafael Carballo Cerqueira</p></li>
+			<li><h3>es-ES</h3><p>Rafael Carballo Cerqueira, Josh W &lt;crowdin> Gui_gofu &lt;crowdin></p></li>
 			<li><h3>fi</h3><p>Ville Salonen &lt;ville.salonen@iki.fi></p></li>
-			<li><h3>hr</h3><p>Marko &lt;ma3ko0@gmail.com></p></li>
-			<li><h3>nl</h3><p>G. Hengeveld &lt;info@ghengeveld.nl>, Arjan ven Bentem &lt;crowdin></p></li>
-			<li><h3>ja</h3><p>Moon Dial</p></li>
-			<li><h3>it</h3><p>Giuseppe Petagine &lt;giuseppe.petagine@virgilio.it></p></li>
-			<li><h3>it_IT</h3><p>Giuseppe Petagine &lt;giuseppe.petagine@virgilio.it></p></li>
-			<li><h3>nb_NO</h3><p>Robin Heggelund Hansen &lt;skinneyz89@gmail.com></p></li>
-			<li><h3>ru</h3><p>Alexander Zolotko &lt;azolotko@gmail.com></p></li>
+			<li><h3>fr</h3><p>Jan Verhaeghe &lt;crowdin>, lgoncalves &lt;crowdin></p></li>
 			<li><h3>he</h3><p>Kobi Hikri &lt;kobi.hikri@gmail.com></p></li>
-			<li><h3>da</h3><p>Jnyrup &lt;crowdin></p></li>
+			<li><h3>hr</h3><p>Marko &lt;ma3ko0@gmail.com></p></li>
 			<li><h3>hu</h3><p>titititatatatititi &lt;crowdin></p></li>
-			<li><h3>th</h3><p>tiratat.patana-anake &lt;tiratat.patana-anake@accenture.com></p></li>
-			<li><h3>bg</h3><p>How Bizarre &lt;how@errazib.com></p></li>
+			<li><h3>id</h3><p>Sutisna &lt;crowdin>, Yashdiq Lubis &lt;crowdin></p></li>
+			<li><h3>it</h3><p>Giuseppe Petagine &lt;giuseppe.petagine@virgilio.it>, mauretto &lt;crowdin></p></li>
+			<li><h3>ja</h3><p>Moon Dial, pokutuna popopo &lt;crowdin></p></li>
+			<li><h3>ko</h3><p>mooyoul &lt;crowdin></p></li>
+			<li><h3>lt</h3><p>Tadas Subonis &lt;tadas.subonis@affecto.com></p></li>
+			<li><h3>nl</h3><p>G. Hengeveld &lt;info@ghengeveld.nl>, Arjan ven Bentem &lt;crowdin></p></li>
+			<li><h3>nl-BE</h3><p>Jan Verhaeghe &lt;crowdin></p></li>
+			<li><h3>no</h3><p>Robin Heggelund Hansen &lt;skinneyz89@gmail.com></p></li>
+			<li><h3>pt-BR</h3><p>Rodrigo Vieira &lt;rodrigovieira1994@gmail.com>, Marcelo Dezem &lt;crowdin></p></li>
+			<li><h3>pt-PT</h3><p>Marcelo Dezem &lt;crowdin>, Sergio Martins &lt;crowdin></p></li>
+			<li><h3>pl</h3><p>Zbigniew Motyka &lt;zbigniew@motyka.net.pl></p></li>
+			<li><h3>ru</h3><p>Alexander Zolotko &lt;azolotko@gmail.com></p></li>
+			<li><h3>sv-SE</h3><p>Henrik Ekselius &lt;henrik@xelius.net></p></li>
+			<li><h3>th</h3><p>tiratat.patana-anake &lt;tiratat.patana-anake@accenture.com>, bu_echo &lt;crowdin></p></li>
+			<li><h3>tr</h3><p>weli.cengiz &lt;crowdin>, zlkklm &lt;crowdin></p></li>
+			<li><h3>uk</h3><p>Alexander Zolotko &lt;azolotko@gmail.com></p></li>
+			<li><h3>zh-TW</h3><p>Ethan Chen &lt;ethan42411@gmail.com>, michelle4233536 &lt;crowdin></p></li>
+			<li><h3>zh-CN</h3><p>ChiElvis &lt;elvis311@msn.com>, Josh W &lt;crowdin>, ulone &lt;crowdin>, Fred Qiao &lt;crowdin>, Loexe_one &lt;crowdin>, share123 &lt;crowdin>, pokutuna popopo &lt;crowdin></p></li>
 		</ul>
 	</div>
 	<div data-role="footer" data-position="fixed">
