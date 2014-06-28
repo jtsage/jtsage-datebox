@@ -1268,14 +1268,17 @@
 		},
 		_grabLabel: function() {
 			var w = this,
-				o = this.options;
+				o = this.options,
+				par = {'oldd': false, 'newd': false};
 				
+			console.log('called');
 			if ( typeof o.overrideDialogLabel === 'undefined' ) {
 				if ( typeof w.d.input.attr('placeholder') !== 'undefined' ) { return w.d.input.attr('placeholder'); }
 				if ( typeof w.d.input.attr('title') !== 'undefined' ) { return w.d.input.attr('title'); }
-				if ( w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text() !== '' ) {
-					return w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text();
-				}
+				par.newd = w.d.wrap.parent().parent().find('label[for=\''+w.d.input.attr('id')+'\']').text();
+				par.oldd = w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text();
+				if ( par.oldd !== '' && par.oldd !== false ) { return par.oldd; }
+				if ( par.newd !== '' && par.newd !== false ) { return par.newd; }
 				return false;
 			}
 			return o.overrideDialogLabel;
