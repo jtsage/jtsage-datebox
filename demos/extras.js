@@ -1,5 +1,5 @@
 //do nothing for now.
-$(":jqmData(role)=page").live('pageinit', function(e) {
+$(document).on('pageinit', function(e) {
 	var currentPage = $(e.target),
 		headerButton = $('<a href="#" data-icon="grid" class="opt-pop ui-btn-right ui-btn ui-btn-icon-left ui-btn-corner-all ui-shadow ui-btn-a" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Options</span><span class="ui-icon ui-icon-grid ui-icon-shadow"></span></span></a>'),
 		footerAll = $('<div data-role="footer">' +
@@ -109,7 +109,7 @@ for (x in goodLang) {
 }
 intHTML += "</select><a data-role='button' href='#' rel='close'>Close</a>";
 
-$('.opt-pop-lang').live('change', function() {
+$(document).on('change', '.opt-pop-lang', function() {
 	// This is so much bullshit it's not funny...
 	newLang = $(this).val();
 	$.ajax({
@@ -125,7 +125,7 @@ $('.opt-pop-lang').live('change', function() {
 	});
 });
 
-$('.opt-pop').live('vclick', function() {
+$(document).on('vclick', '.opt-pop', function() {
 	var first = $('.ui-page-active').children('.ui-content:first');
 		
 	first.simpledialog({
