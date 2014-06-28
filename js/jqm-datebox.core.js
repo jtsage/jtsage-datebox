@@ -838,8 +838,9 @@
 					w.theDate = w._makeDate(w.d.input.val());
 					w.refresh();
 				})
-				.attr("readonly", o.lockInput)
 				.on('datebox', w._event);
+				
+			if ( o.lockInput === true ) { w.d.input.attr("readonly", "readonly"); }
 			
 			if ( o.useNewStyle === true ) {
 				w.d.input.addClass('ui-corner-all '+((o.useAltIcon===true)?'ui-icon-datebox-alt':'ui-icon-datebox'));
