@@ -1027,7 +1027,6 @@
 				w.d.input.trigger('datebox',{'method':'postrefresh'});
 			}
 			
-			if ( o.useImmediate ) { w.d.input.trigger('datebox', {'method':'doset'}); }
 			if ( o.useInline ) { return true; }
 			if ( o.useInlineBlind ) { 
 				if ( w.initDone ) { w.d.mainWrap.slideDown();  }
@@ -1271,7 +1270,6 @@
 				o = this.options,
 				par = {'oldd': false, 'newd': false};
 				
-			console.log('called');
 			if ( typeof o.overrideDialogLabel === 'undefined' ) {
 				if ( typeof w.d.input.attr('placeholder') !== 'undefined' ) { return w.d.input.attr('placeholder'); }
 				if ( typeof w.d.input.attr('title') !== 'undefined' ) { return w.d.input.attr('title'); }
