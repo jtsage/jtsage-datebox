@@ -223,7 +223,6 @@
 			}
 			
 			if ( o.calUsePickers === true ) {
-				console.log('a');
 				cal.picker = $('<div>', {'class': 'ui-grid-a ui-datebox-grid','style':'padding-top: 5px; padding-bottom: 5px;'});
 				
 				cal.picker1 = $('<div class="ui-block-a"><select name="pickmon"></select></div>').appendTo(cal.picker).find('select');
@@ -250,7 +249,6 @@
 				} else {
 					prange.lg = o.calYearPickMax;
 				}
-				console.log(prange);
 				for ( i=prange.sm; i<=prange.lg; i++ ) {
 					cal.picker2.append($('<option value="'+i+'"'+((cal.thisYear===i)?' selected="selected"':'')+'>'+i+'</option>'));
 				}
