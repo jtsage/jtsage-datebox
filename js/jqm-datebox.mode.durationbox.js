@@ -182,10 +182,12 @@
 			
 			if ( o.repButton === false ) {
 				divPlus.on(o.clickEvent, 'div', function(e) {
+					divIn.find(':focus').blur();
 					e.preventDefault();
 					w._offset($(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]);
 				});
 				divMinus.on(o.clickEvent, 'div', function(e) {
+					divIn.find(':focus').blur();
 					e.preventDefault();
 					w._offset($(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1);
 				});
@@ -202,6 +204,7 @@
 			
 			if ( o.repButton === true ) {
 				divPlus.on(w.drag.eStart, 'div', function(e) {
+					divIn.find(':focus').blur();
 					tmp = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]];
 					w.drag.move = true;
 					w._dbox_delta = 1;
@@ -214,6 +217,7 @@
 				});
 				
 				divMinus.on(w.drag.eStart, 'div', function(e) {
+					divIn.find(':focus').blur();
 					tmp = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1];
 					w.drag.move = true;
 					w._dbox_delta = -1;
