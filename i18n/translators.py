@@ -31,6 +31,7 @@ trans = {
 	#'ro': #Romainian
 	'ru': 'Alexander Zolotko <azolotko@gmail.com>', #Russian
 	#'sr': #Serbian 
+	'sl': 'Blaz Kristan <blaz@kristan-sp.si>', #Slovenian
 	'sv-SE': 'Henrik Ekselius <henrik@xelius.net>', #swedish
 	'th': 'tiratat.patana-anake <tiratat.patana-anake@accenture.com>, bu_echo <crowdin>', #Thai
 	'tr': 'weli.cengiz <crowdin>, zlkklm <crowdin>', #Turkish

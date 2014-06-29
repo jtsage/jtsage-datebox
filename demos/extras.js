@@ -95,6 +95,7 @@ goodLang = {
 	"pt-PT": "Portuguese",
 	"ro": "Romainian",
 	"ru": "Russian",
+	"sl": "Slovenian",
 	"sr": "Serbian",
 	"sv-SE": "Swedish",
 	"th": "Thai",
