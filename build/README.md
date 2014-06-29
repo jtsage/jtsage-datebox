@@ -28,8 +28,8 @@ Usage
 
 Usage: build.py [options]
 
-Options:
-    -h, --help           show this help message and exit
-    -b VER, --build=VER  Set version to build
-    -v, --verbose        Verbose mode
-    -q, --quiet          Quiet mode
+    Options:
+      -h, --help           show this help message and exit
+      -b VER, --build=VER  Set version to build
+      -v, --verbose        Verbose mode
+      -q, --quiet          Quiet mode
