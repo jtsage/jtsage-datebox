@@ -4,9 +4,10 @@
 	<title>Backbone.js, Require.js, and jQuery Mobile</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../../css/themes/default/jquery.mobile.css">
-	<script src="../../external/requirejs/require.js"></script>
-    <script src="../../js/requirejs.config.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+	<link type="text/css" href="../../../css/jqm-datebox.css" rel="stylesheet" /> 
+	<script src="external/requirejs/require.js"></script>
+    <script src="js/requirejs.config.js"></script>
     <script src="js/main.js"></script>
 </head>
 <body>
@@ -18,6 +19,10 @@
       </div><!-- /header -->
   
       <div role="main" class="ui-content">
+            <div data-role="fieldcontain">
+                <label for="lang1">calbox</label>
+                <input name="lang1" type="text" data-role="datebox" data-options='{"calUsePickers":true, "mode": "calbox"}' id="lang1" />
+            </div>
             <h2>Select a Category Below:</h2>
             <ul data-role="listview" data-inset="true">
                   <li><a href="#category?animals" class="animals">Animals</a></li>

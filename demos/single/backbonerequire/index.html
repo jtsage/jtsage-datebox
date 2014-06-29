@@ -1,0 +1,100 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - DateBox Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
+	<script type="text/javascript" src="../../extras.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" id="slideIndex"> 
+	<div data-role="header" data-position="fixed"> 
+		<h1>jQueryMobile - DateBox</h1>
+		<a href="../../../" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content">
+		<div class="content-secondary"> 
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="../../jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
+				<p>A Date and Time Picker plugin for jQueryMobile</p> 
+				<p>Basic Details for require.js / backbone.js</p>
+			</div> 
+			
+		</div>
+		
+		<div class="content-primary"> 
+			<div data-role="collapsible-set" data-mini="true">
+				<div data-role="collapsible" data-collapsed="false"> 
+					<h2>Overview</h2>
+					<p>This sample is directly from the main jqm repository - I only fudged the folder stucture a bit, and added an external jqm rather than all the source</p>
+					<h3>Important Authors Note:</h3>
+					<p>I am not familiar with the true workings of either of the API packages mentioned here.  I only know that I got it to work.  YYMV</p>
+					<h3>Working Link:</h3>
+					<a href="backbone-require.html" data-role="button" rel="external">Sample File</a>
+				</div>
+				<div data-role="collapsible">
+					<h2>main.js</h2>
+					<p><strong>File Definition and Build</strong></p>
+					<pre class="prettyprint">paths:: { "jqmdatebox": "external/jqmdatebox/jqm-datebox", }</pre>
+					<p>To build a combined file, take a look at the 'custombuild.py' script in the build directory - alternativly, grab the compressed or uncompressed files for the mode(s) you want, and append them to the bottom of the .core.js file - order shouldn't matter, so long as core appears first.  This file can be minimized</p>
+					<p><strong>Shim Section</strong></p>
+					<pre class="prettyprint">"jqmdatebox": {
+  "deps": ["jquery", "jquerymobile"]
+}</pre>
+					<p>Basically, Datebox has to load after jquerymobile.  There may be a better way of doing this, but I don't know it</p>
+					<p><strong>Defaults and Enhancment</strong></p>
+					<p>Just this wasn't enough, the enhancment code was loading too late - so, add this bit to the require:</p>
+					<pre class="prettyprint">require( ["jqmdatebox"] , function() {
+  jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+    'useNewStyle': true,
+    'useFocus': true,
+    'useInlineBlind': true,
+  });
+  $( ":jqmData(role='datebox')" ).each(function() {
+    var defed = typeof ($(this).data('mobile-datebox'));
+    if ( defed === "undefined" ) {
+      $(this).datebox();
+    }
+  });	
+});</pre>
+					<p>The first bit is the defaults for the datebox.  Second bit is a copy of the default auto-enhance code.</p>
+					<p>If you want to progmatically call the enhance, you can omit both these bits, so long as you still require jqmdatebox - otherwise, no script to do the enhancment</p>
+					<a href="js/main.js" data-role="button" rel="external">Full File</a>
+				</div>
+				<div data-role="collapsible">
+				</div>
+			</div>
+		</div> 
+		
+	</div>
+	<div data-role="footer" data-position="fixed">
+	</div>
+</div>
+</html>

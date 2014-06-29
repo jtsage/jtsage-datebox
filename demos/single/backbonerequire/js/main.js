@@ -1,18 +1,19 @@
 // Sets the require.js configuration for your application.
 require.config( {
 
-	baseUrl: "../../js",
+	baseUrl: "./",
 
 	// 3rd party script alias names
 	paths: {
 
 		// Core Libraries
-		"jquery": "../external/jquery/jquery",
-		"jquerymobile": "jquery.mobile",
+		"jquery": "external/jquery/jquery",
+		"jquerymobile": "external/jquerymobile/jquery.mobile",
 		"underscore": "//rawgithub.com/lodash/lodash/2.4.1/dist/lodash",
 		"backbone": "//rawgithub.com/jashkenas/backbone/0.9.2/backbone",
+		"jqmdatebox": "external/jqmdatebox/jqm-datebox",
 
-		"backbone-requirejs-demos": "../demos/backbone-requirejs/js"
+		"backbone-requirejs-demos": "./js"
 	},
 
 	// Sets the configuration for your third party scripts that are not AMD compatible
@@ -21,6 +22,9 @@ require.config( {
 		"backbone": {
 			"deps": [ "underscore", "jquery" ],
 			"exports": "Backbone"
+		},
+		"jqmdatebox": {
+			"deps": ["jquery", "jquerymobile"]
 		}
 
 	}
@@ -51,5 +55,19 @@ require([
 
 		// Instantiates a new Backbone.js Mobile Router
 		this.router = new Mobile();
+	});
+	require( ["jqmdatebox"] , function() {
+		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+			'useNewStyle': true,
+			'useFocus': true,
+			'useInlineBlind': true,
+		});
+		$( ":jqmData(role='datebox')" ).each(function() {
+			var defed = typeof ($(this).data('mobile-datebox'));
+			if ( defed === "undefined" ) {
+				$(this).datebox();
+			}
+		});
+		
 	});
 });
