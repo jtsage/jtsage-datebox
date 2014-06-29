@@ -37,11 +37,12 @@
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			//'usePlaceholder': true,
 			'useNewStyle': true,
-			'defaultValue': [2013,0,1],
+			//'defaultValue': [2013,0,1],
 			'nadda': false,
 			'lockInput': true,
 			'useFocus': true,
 			'useTomorrowButton': 'true',
+			'overrideDurationFormat': '%DM'
 			
 			//'useClearButton': true,
 		});
@@ -59,7 +60,7 @@
 	<div data-role="content">
 		<div data-role="fieldcontain">
 			<label for="l1">l1</label>
-			<input name="l1" type="text" s data-role="datebox" data-options='{"mode": "datebox", "calWeekModeDay":3, "calWeekMode": true, "showInitialValue":true}' id="l1" />
+			<input name="l1" type="text" value="120" data-role="datebox" data-options='{"mode": "durationbox", "calWeekModeDay":3, "calWeekMode": true, "showInitialValue":true}' id="l1" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="aa1">text comparison</label>
