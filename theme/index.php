@@ -7,7 +7,7 @@ $defaults = array(
 	'cgdl' => '30', // Cal box line-height (calbox)
 	'cgfs' => '12', // Cal box font size (calbox)
 	'cgdec' => '#888', // Empty date color (calbox)
-	'cgddc' => '#888', // Disabled date color (calbox)
+	'cgddc' => '#888888', // Disabled date color (calbox)
 	'width' => '280', // Master Width
 	'fw' => '77', // width (flipbox)
 	'fwl' => '260', // lens width (flipbox)
@@ -62,7 +62,8 @@ foreach ( $defaults as $key => $value ) {
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
+	<!--script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script-->
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.js"></script>

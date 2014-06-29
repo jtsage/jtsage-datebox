@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.4.2-2014062801', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.2-2014062900', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
 			theme: false,
 			themeDefault: 'a',
@@ -1020,7 +1020,11 @@
 			
 			if ( ( o.useInline === true || o.useInlineBlind === true ) && w.initDone === false ) {
 				w.d.mainWrap.append(w.d.intHTML);
-				w.d.input.parent().parent().append(w.d.mainWrap);
+				if ( o.useInline === true ) {
+					w.d.input.parent().parent().parent().append(w.d.mainWrap);
+				} else {
+					w.d.input.parent().parent().append(w.d.mainWrap);
+				}
 				w.d.mainWrap.removeClass('ui-datebox-hidden');
 				if ( o.useInline === true ) {
 					w.d.mainWrap.addClass('ui-datebox-inline');
