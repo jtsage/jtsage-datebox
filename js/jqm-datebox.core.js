@@ -400,7 +400,7 @@
 				} 
 				
 				exp_temp = w.initDate.getEpoch();
-				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
+				for ( i=1; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
 					if ( exp_format[i].match(/^%Dd$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60*24); }
 					if ( exp_format[i].match(/^%Dl$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60); }
 					if ( exp_format[i].match(/^%DM$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60); }
