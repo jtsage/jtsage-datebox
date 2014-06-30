@@ -257,14 +257,14 @@
 				cal.picker1.on('change', function () {
 					w.theDate.setMonth($(this).val());
 					if (w.theDate.getMonth() !== parseInt($(this).val(), 10)) {
-						w.theDate.setDate(1);
+						w.theDate.setDate(0);
 					}
 					w.refresh();
 				});
 				cal.picker2.on('change', function () {
 					w.theDate.setFullYear($(this).val());
 					if (w.theDate.getMonth() !== parseInt(cal.picker1.val(), 10)) {
-						w.theDate.setDate(1);
+						w.theDate.setDate(0);
 					}
 					w.refresh();
 				});
