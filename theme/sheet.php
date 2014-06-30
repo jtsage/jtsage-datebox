@@ -9,7 +9,7 @@ $defaults = array(
 	'cgdl' => '30', // Cal box line-height (calbox)
 	'cgfs' => '12', // Cal box font size (calbox)
 	'cgdec' => '#888', // Empty date color (calbox)
-	'cgddc' => '#888', // Disabled date color (calbox)
+	'cgddc' => '#888888', // Disabled date color (calbox)
 	'width' => '280', // Master Width
 	'fw' => '77', // width (flipbox)
 	'fwl' => '260', // lens width (flipbox)
@@ -46,50 +46,52 @@ foreach ( $defaults as $key => $value ) {
 	}
 }
 
-echo "/{$star} jQuery Mobile Framework : plugin to provide a date and time picker.\n";
+echo "/{$star}\n {$star} jQuery Mobile Framework : plugin to provide a date and time picker.\n";
 echo " {$star} Copyright (c) JTSage\n";
 echo " {$star} CC 3.0 Attribution.  May be relicensed without permission/notification.\n";
 echo " {$star} https://github.com/jtsage/jquery-mobile-datebox\n";
-echo " {$star}/\n";
+echo " {$star}/\n ";
 
-echo "\n\n/{$star} Base input element Styles {$star}/\n";
+echo "\n/{$star} Base input element Styles {$star}/\n\n";
 
 echo ".ui-input-datebox { width: 97%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; padding-top: 0px; padding-bottom: 0px; background-color: transparent; } \n";
-echo ".ui-input-datebox { min-height: 38px; } \n";
-echo ".ui-datebox-container > .ui-header:first-child { -webkit-border-top-left-radius: 3px; border-top-left-radius: 3px;  -webkit-border-top-right-radius: 3px; border-top-right-radius: 3px; }\n";
-//echo ".ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }\n";
+echo ".ui-input-datebox { min-height: 38px; } /* Fix for IE8 */\n";
+echo ".ui-datebox-container > .ui-header:first-child { -webkit-border-top-left-radius: 3px; border-top-left-radius: 3px;	-webkit-border-top-right-radius: 3px; border-top-right-radius: 3px; }\n";
+echo "/*.ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }*/\n";
 echo ".ui-input-datebox input { width: 100% !important; padding: 0 !important; margin-top: 5px !important; margin-right: -40px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }\n";
 echo ".ui-input-datebox input:focus { outline: none;}\n";
 echo ".ui-input-datebox .ui-btn-text {display: none;}\n";
 echo ".ui-input-datebox.ui-mini { min-height: 20px; font-size: 14px; }\n";
-//echo ".ui-input-datebox.ui-mini .ui-btn-icon-notext { margin-top: 2px !important; margin-bottom: 2px !important; }\n";
+echo "/*.ui-input-datebox.ui-mini .ui-btn-icon-notext { margin-top: 2px !important; margin-bottom: 2px !important; }*/\n";
 echo ".ui-icon-datebox { background-image: url('image/datebox.png') !important; background-repeat: no-repeat !important; background-position: 99% 8px !important; }\n";
 echo ".ui-icon-datebox-alt { background-image: url('image/datebox.png') !important; background-repeat: no-repeat !important; background-position: 99% -28px !important; }\n";
 echo ".ui-mini.ui-icon-datebox { background-position: 99% 6px; }\n";
-echo ".ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }\n\n";
+echo ".ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }\n";
+echo ".ui-input-text > .ui-input-datebox > .ui-btn.ui-input-clear {position: absolute; right: 0; top: 50%; margin: -15px .3125em 0; border: 0; background-color: transparent;}\n\n";
 
 echo "@media all and (min-width: 450px){\n";
-echo "  .ui-field-contain .ui-input-datebox { width: 74.7%; display: inline-block; }\n";
+echo "  .ui-field-contain .ui-input-datebox { width: 74.7%; display: inline-block; } \n";
 echo "  .ui-hide-label .ui-input-datebox { width: 100%; }\n";
 echo "}\n";
 
-echo "\n\n/{$star}  Full width if in a grid, ignore the media query {$star}/\n";
+echo "\n/{$star} Full width if in a grid, ignore the media query {$star}/\n";
 echo ".ui-grid-a .ui-input-datebox { width: 97%; }\n";
 echo ".ui-grid-b .ui-input-datebox { width: 97%; }\n";
 echo ".ui-grid-c .ui-input-datebox { width: 97%; }\n";
 echo ".ui-grid-d .ui-input-datebox { width: 97%; }\n";
-echo ".ui-grid-e .ui-input-datebox { width: 97%; }\n\n";
+echo ".ui-grid-e .ui-input-datebox { width: 97%; }\n";
 
-echo "\n\n/{$star}  Define a 6-part grid, just in case. {$star}/\n";
+echo "\n/{$star} Define a grid, just in case. {$star}/\n";
+echo "/{$star} grid d: 16.65/16.65/16.65/16.65/16.65/16.65 {$star}/\n";
 echo ".ui-grid-e .ui-block-a, .ui-grid-e .ui-block-b, .ui-grid-e .ui-block-c, .ui-grid-e .ui-block-d, .ui-grid-e .ui-block-e, .ui-grid-e .ui-block-f { width: 16.65%; }\n";
 echo ".ui-grid-e > :nth-child(n) { width: 16.65%; }\n";
 echo ".ui-grid-e .ui-block-a { clear: left; }\n\n";
 
 echo ".ui-grid-e { overflow: hidden; }\n";
-echo ".ui-block-f { margin: 0; padding: 0; border: 0; float: left; min-height: 1px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }\n\n";
+echo ".ui-block-f { margin: 0; padding: 0; border: 0; float: left; min-height: 1px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }\n";
 
 
-echo "\n\n/{$star} Calendar Mode Styles {$star}/\n";
+echo "\n/{$star} Calendar Mode Styles {$star}/\n\n";
 echo ".ui-datebox-gridheader { text-align: center; }\n";
 echo ".ui-datebox-gridheader h4 { text-align: center; display: inline-block; margin-top: 10px; margin-bottom: 10px; zoom:1; *display: inline;}\n";
 echo ".ui-datebox-gridplus { float: right; }\n";
@@ -98,25 +100,32 @@ echo ".ui-datebox-gridplus-rtl { float: left; }\n";
 echo ".ui-datebox-gridminus-rtl { float: right; }\n";
 echo ".ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; margin-bottom: -7px; }\n";
 echo ".ui-datebox-grid { clear: both; margin-bottom: 5px; }\n";
-echo ".ui-datebox-griddate { padding: 0px; width: {$use['cgdw']}px; height: {$use['cgdh']}px; display: inline-block; vertical-align: middle; text-align: center; line-height: {$use['cgdl']}px; font-weight: bold; font-size: {$use['cgfs']}px; zoom:1; *display: inline;}\n";
+echo ".ui-datebox-griddate { width: {$use['cgdw']}px; height: {$use['cgdh']}px; padding: 0px; display: inline-block; vertical-align: middle; text-align: center; line-height: {$use['cgdl']}px; font-weight: bold; font-size: {$use['cgfs']}px; zoom:1; *display: inline;}\n";
 echo ".ui-datebox-griddate-week { width: {$use['cgdwk']}px; height: {$use['cgdh']}px; display: inline-block; vertical-align: middle; text-align: center; line-height: {$use['cgdl']}px; font-weight: bold; font-size: {$use['cgfs']}px; zoom:1; *display: inline;}\n";
 echo ".ui-datebox-griddate-empty { border: 1px solid transparent; color: {$use['cgdec']}; }\n";
 echo ".ui-datebox-griddate-label { height: 15px !important; line-height: 15px !important; color: black;}\n";
-echo ".ui-datebox-griddate-disable { color: {$use['cgddc']}; }\n";
+echo ".ui-datebox-griddate-disable { color: {$use['cgddc']} !important; cursor: default !important; background: none repeat scroll 0 0 #F6F6F6 !important; }\n";
 
-echo "\n\n/{$star} Android Mode Styles {$star}/\n";
+echo "\n/{$star} Android Mode Styles {$star}/\n\n";
 echo ".ui-datebox-header h4 { margin-top: 5px; margin-bottom: 5px; text-align: center; }\n";
 echo ".ui-datebox-container fieldset div { margin: 0px !important; }\n";
-echo ".ui-datebox-dboxin input { text-align: center; padding: .4em 0 !important; width:95%; }\n";
-echo ".ui-datebox-dboxin label { width: 100%; text-align: center; display: block; margin-top: 5px; margin-bottom: -8px; }\n\n";
+echo ".ui-datebox-dboxin input { padding: .4em 0 !important; text-align: center; width:95%; }\n";
+echo ".ui-datebox-dboxin label { width: 100%; text-align: center; display: block; margin-top: 5px; margin-bottom: -8px; }\n";
+echo ".ui-datebox-controls { text-align: center; }\n";
+echo ".ui-datebox-controls div { width: 77px; text-align: center; display: inline-block; zoom: 1; *display: inline;}\n";
+echo ".ui-datebox-scontrols { text-align: center; }\n";
+echo ".ui-datebox-scontrols div { width: 55px; text-align: center; display: inline-block; zoom: 1; *display: inline;}\n";
+echo ".ui-datebox-scontrols .ui-datebox-sinput { width: 68px; }\n";
+echo ".ui-datebox-scontrols .ui-datebox-sinput input { width: 48px; text-align: center; margin-left: 3px; }\n";
+echo ".ui-datebox-input { width: 74px !important; margin-left: 1px; margin-right: 1px; text-align: center !important; display: inline-block !important; zoom:1; *display: inline; }\n";
 
-echo "\n\n/{$star} Slide Mode Styles {$star}/\n";
+echo "\n/{$star} Slide Mode Styles {$star}/\n\n";
 echo ".ui-datebox-slide { width: {$use['width']}px; margin-left: auto; margin-right: auto;}\n";
 echo ".ui-datebox-sliderow-d { margin-bottom: 5px; text-align: center; height: 40px; width: {$use['width']}px; overflow: hidden;}\n";
 echo ".ui-datebox-sliderow-ym { margin-bottom: 5px; text-align: center; height: 32px; width: {$use['width']}px; overflow: hidden;}\n";
 echo ".ui-datebox-sliderow-hi { text-align: center; height: 32px; width: {$use['width']}px; overflow: hidden;}\n";
-echo ".ui-datebox-slide .ui-btn { margin: 0px; padding: 0px 1em; }\n";
 echo ".ui-datebox-sliderow-int { display: inline-block; white-space: nowrap;}\n";
+echo ".ui-datebox-slide .ui-btn { margin: 0px; padding: 0px 1em; }\n\n";
 echo ".ui-datebox-slideyear { text-align: center; display: inline-block; zoom:1; *display:inline; width: {$use['ssyw']}px; vertical-align: middle; line-height: {$use['ssyl']}px; height: {$use['ssyh']}px; font-size: {$use['ssyf']}px; font-weight: bold; }\n";
 echo ".ui-datebox-slidemonth { text-align: center; display: inline-block; zoom:1; *display:inline; width: {$use['ssmw']}px; vertical-align: middle; line-height: {$use['ssml']}px; height: {$use['ssmh']}px; font-size: {$use['ssmf']}px; font-weight: bold; }\n";
 echo ".ui-datebox-slideday { text-align: center; display: inline-block; zoom:1; *display:inline; width: {$use['ssdw']}px; vertical-align: middle; line-height: {$use['ssdl']}px; height: {$use['ssdh']}px; font-size: {$use['ssdf']}px; font-weight: bold; }\n";
@@ -125,16 +134,16 @@ echo ".ui-datebox-slidemins { text-align: center; display: inline-block; zoom:1;
 echo ".ui-datebox-slidearrow { text-align: center; display: inline-block; zoom:1; *display:inline; width: 10px; vertical-align: middle; line-height: 38px; height: 38px; font-size: 10px; font-weight: bold; }\n";
 echo ".ui-datebox-slidewday { font-size: {$use['swdf']}px; font-weight: normal; }\n";
 
-echo "\n\n/{$star} Flip Mode Styles {$star}/\n";
+echo "\n/{$star} Flip Mode Styles {$star}/\n";
 echo ".ui-datebox-flipcontent { text-align: center; height: {$use['fch']}px; margin-bottom: -{$use['fhl']}px;}\n";
 echo ".ui-datebox-flipcontent div { margin-left: 3px; margin-right: 3px; width: {$use['fw']}px; height: {$use['fcsh']}px; display: inline-block; text-align: center; zoom: 1; *display: inline; overflow: hidden;}\n";
 echo ".ui-datebox-flipcontentd div { width: 60px; }\n";
 echo ".ui-datebox-flipcenter { border: 1px solid #eee; height: ${use['fhl']}px; margin-left: 10px; width: {$use['fwl']}px; margin-right: auto; margin-left: auto; position: relative; top: -45px;}\n";
-echo ".ui-datebox-flipcontent ul { list-style-type: none; display: inline; }\n";
+echo ".ui-datebox-flipcontent ul { list-style-type: none; display: inline; border:1px solid rgba(0,0,0,0);}\n";
 echo ".ui-datebox-flipcontent li { height: {$use['fh']}px; }\n";
 echo ".ui-datebox-flipcontent li span { margin-top: 7px; display: block; }\n";
 
-echo "\n\n/{$star} Shared Styles {$star}/\n";
+echo "\n/{$star} Shared Styles {$star}/\n\n";
 echo ".ui-datebox-container { border: 5px solid #111 !important; width: {$use['width']}px; -webkit-transform:translate3d(0,0,0); }\n";
 echo ".ui-datebox-screen { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; }\n";
 echo ".ui-datebox-screen-modal { background-color: black; -moz-opacity: 0.8; opacity:.80; filter: alpha(opacity=80); }\n";
@@ -143,5 +152,5 @@ echo ".ui-dialog .ui-datebox-container { border: none !important; }\n";
 echo ".ui-popup-container .ui-datebox-container { border: none !important; }\n";
 echo ".ui-popup-container .ui-datebox-gridrow { margin-left: 0px; margin-right: 0px; }\n";
 echo ".ui-datebox-collapse a { display: inline-block; width: 45% }\n";
-echo "\n.ui-datebox-inline { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto; margin-right: auto; text-align: center; }\n";
-echo ".ui-datebox-inlineblind { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto; margin-right: auto; text-align: center; }\n";
+echo "\n.ui-datebox-inline, .ui-datebox-inlineblind { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto !important; margin-right: auto !important; text-align: center;}\n";
+echo ".ui-datebox-inlineblind { width: 300px !important; float: none !important; clear: left !important; }\n\n";

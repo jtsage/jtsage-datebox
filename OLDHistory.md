@@ -1,3 +1,4 @@
+2014-06: This file is long dead.  Available via git log of github
 
 jQM-1.0.0 / 2011-12-01 
 ======================

@@ -10,20 +10,56 @@ at http://dev.jtsage.com/cdb/datebox/latest/
 
 Varients built
 --------------
- * datebox Mode Only version
- * calbox Mode Only version
- * slidebox Mode Only version
- * timebox Mode Only version
- * durationbox Mode Only version
- * Minimized version of the combined script
+ * Modules: (.mode)
+    * datebox/timebox
+	* calbox
+	* flipbox/timeflipbox
+	* durationbox
+	* durationflipbox
+	* custombox
+	* customflip
+	* slidebox
+ * Core Module
+ * Core Module paired w/ each of the base modules (.comp)
+ * Minimized Versions of Everything
  
-Usage
------
+Usage - Standard Build
+----------------------
 
-Run **make.pl** with one of the following targets:
+Usage: build.py [options]
 
- * _all_ : Build all script varients
- * _min_ : Build only mimimized combined script
- 
- * _check_ : Check build status
- * _clean_ : Remove all built scripts
+    Options:
+      -h, --help           show this help message and exit
+      -b VER, --build=VER  Set version to build
+      -v, --verbose        Verbose mode
+      -q, --quiet          Quiet mode
+
+Usage - Custom Build
+--------------------
+
+usage: custombuild.py [-h] [-v] [-q] [-f FILENAME] [--version] mods [mods ...]
+
+Make a custom datebox build
+
+    positional arguments:
+      mods
+
+    valid mods:
+      datebox / timebox
+      flipbox / timeflipbox
+      calbox
+      durationbox
+      durationflipbox
+      slidbox
+      custombox
+      customflipbox
+
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -v, --verbose         Verbose mode
+      -q, --quiet           Verbose mode
+      -f FILENAME, --file FILENAME
+                            File to output (jqm-datebox)
+      --version             show program's version number and exit
+

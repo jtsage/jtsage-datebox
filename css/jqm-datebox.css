@@ -20,6 +20,7 @@
 .ui-icon-datebox-alt { background-image: url('image/datebox.png') !important; background-repeat: no-repeat !important; background-position: 99% -28px !important; }
 .ui-mini.ui-icon-datebox { background-position: 99% 6px; }
 .ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }
+.ui-input-text > .ui-input-datebox > .ui-btn.ui-input-clear {position: absolute; right: 0; top: 50%; margin: -15px .3125em 0; border: 0; background-color: transparent;}
 
 @media all and (min-width: 450px){
   .ui-field-contain .ui-input-datebox { width: 74.7%; display: inline-block; } 
@@ -56,7 +57,7 @@
 .ui-datebox-griddate-week { width: 31px; height: 30px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; zoom:1; *display: inline;}
 .ui-datebox-griddate-empty { border: 1px solid transparent; color: #888; }
 .ui-datebox-griddate-label { height: 15px !important; line-height: 15px !important; color: black;}
-.ui-datebox-griddate-disable { color: #888; }
+.ui-datebox-griddate-disable { color: #888888 !important; cursor: default !important; background: none repeat scroll 0 0 #F6F6F6 !important; }
 
 /* Android Mode Styles */
 
@@ -94,9 +95,10 @@
 .ui-datebox-flipcontent div { margin-left: 3px; margin-right: 3px; width: 77px; height: 120px; display: inline-block; text-align: center; zoom: 1; *display: inline; overflow: hidden;}
 .ui-datebox-flipcontentd div { width: 60px; }
 .ui-datebox-flipcenter { border: 1px solid #eee; height: 40px; margin-left: 10px; width: 260px; margin-right: auto; margin-left: auto; position: relative; top: -45px;}
-.ui-datebox-flipcontent ul { list-style-type: none; display: inline; }
+.ui-datebox-flipcontent ul { list-style-type: none; display: inline; border:1px solid rgba(0,0,0,0);}
 .ui-datebox-flipcontent li { height: 30px; }
 .ui-datebox-flipcontent li span { margin-top: 7px; display: block; }
+
 /* Shared Styles */
 
 .ui-datebox-container { border: 5px solid #111 !important; width: 280px; -webkit-transform:translate3d(0,0,0); }
@@ -108,5 +110,5 @@
 .ui-popup-container .ui-datebox-gridrow { margin-left: 0px; margin-right: 0px; }
 .ui-datebox-collapse a { display: inline-block; width: 45% }
 
-.ui-datebox-inline { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto; margin-right: auto; text-align: center; }
-.ui-datebox-inlineblind { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto; margin-right: auto; text-align: center; }
+.ui-datebox-inline, .ui-datebox-inlineblind { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto !important; margin-right: auto !important; text-align: center;}
+.ui-datebox-inlineblind { width: 300px !important; float: none !important; clear: left !important; }

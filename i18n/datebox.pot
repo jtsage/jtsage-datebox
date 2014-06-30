@@ -316,3 +316,8 @@ msgstr "Other Dates"
 #: generate-i18n.py:49
 msgid "%B %Y"
 msgstr "%B %Y"
+
+#. Jump to tomorrow label
+#: generate-i18n.py:50
+msgid "Jump to Tomorrow"
+msgstr "Jump to Tomorrow"

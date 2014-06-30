@@ -30,7 +30,11 @@
 		calUsePickers: false,
 		calNoHeader: false,
 		
+		calYearPickMin: -6,
+		calYearPickMax: 6,
+		
 		useTodayButton: false,
+		useTomorrowButton: false,
 		useCollapsedBut: false,
 		
 		highDays: false,
@@ -146,7 +150,7 @@
 				o = this.options, i,
 				cal = false,
 				uid = 'ui-datebox-',
-				temp = false, row = false, col = false, hRow = false, checked = false;
+				temp = false, row = false, col = false, hRow = false, checked = false, prange = {};
 				
 			if ( typeof w.d.intHTML !== 'boolean' ) {
 				w.d.intHTML.remove();
@@ -228,25 +232,45 @@
 				for ( i=0; i<=11; i++ ) {
 					cal.picker1.append($('<option value="'+i+'"'+((cal.thisMonth===i)?' selected="selected"':'')+'>'+w.__('monthsOfYear')[i]+'</option>'));
 				}
-				for ( i=(cal.thisYear-6); i<=cal.thisYear+6; i++ ) {
+				
+				if ( o.calYearPickMin < 1 ) { 
+					prange.sm = cal.thisYear + o.calYearPickMin;
+				} else if ( o.calYearPickMin < 1800 ) {
+					prange.sm = cal.thisYear - o.calYearPickMin;
+				} else if ( o.calYearPickMin === "NOW" ) {
+					prange.sm = cal.thisDate.getFullYear();
+				} else {
+					prange.sm = o.calYearPickMin;
+				}
+				
+				if ( o.calYearPickMax < 1800 ) {
+					prange.lg = cal.thisYear + o.calYearPickMax;
+				} else if ( o.calYearPickMax === "NOW" ) {
+					prange.lg = cal.thisDate.getFullYear();
+				} else {
+					prange.lg = o.calYearPickMax;
+				}
+				for ( i=prange.sm; i<=prange.lg; i++ ) {
 					cal.picker2.append($('<option value="'+i+'"'+((cal.thisYear===i)?' selected="selected"':'')+'>'+i+'</option>'));
 				}
 				
 				cal.picker1.on('change', function () {
-                    w.theDate.setMonth($(this).val());
-                    if (w.theDate.getMonth() !== parseInt($(this).val(), 10)) {
-                        w.theDate.setDate(0);
-                    }
-                    w.refresh();
-                });
-
-                cal.picker2.on('change', function () {
-                    w.theDate.setFullYear($(this).val());
-                    if (w.theDate.getMonth() !== parseInt(cal.picker1.val(), 10)) {
-                        w.theDate.setDate(0);
-                    }
-                    w.refresh();
-                });
+					w.theDate.setMonth($(this).val());
+					if (w.theDate.getMonth() !== parseInt($(this).val(), 10)) {
+						w.theDate.setDate(1);
+					}
+					w.refresh();
+				});
+				cal.picker2.on('change', function () {
+					w.theDate.setFullYear($(this).val());
+					if (w.theDate.getMonth() !== parseInt(cal.picker1.val(), 10)) {
+						w.theDate.setDate(1);
+					}
+					w.refresh();
+				});
+				
+				cal.picker.find('select').selectmenu({mini:true, nativeMenu: true});
+				cal.picker.appendTo(w.d.intHTML);
 			}
 			
 			temp = $('<div class="'+uid+'grid">').appendTo(w.d.intHTML);
@@ -318,7 +342,7 @@
 				cal.datelist.appendTo(w.d.intHTML);
 			}
 			
-			if ( o.useTodayButton || o.useClearButton ) {
+			if ( o.useTodayButton || o.useTomorrowButton || o.useClearButton ) {
 				hRow = $('<div>', {'class':uid+'controls'});
 				
 				if ( o.useTodayButton ) {
@@ -327,6 +351,17 @@
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = new w._date();
+							w.theDate = new w._date(w.theDate.getFullYear(), w.theDate.getMonth(), w.theDate.getDate(),0,0,0,0);
+							w.d.input.trigger('datebox',{'method':'doset'});
+						});
+				}
+				if ( o.useTomorrowButton ) {
+					$('<a href="#">'+w.__('calTomorrowButtonLabel')+'</a>')
+						.appendTo(hRow).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+						.on(o.clickEvent, function(e) {
+							e.preventDefault();
+							w.theDate = new w._date();
+							w.theDate = new w._date(w.theDate.getTime() + 24 * 60 * 60 * 1000); //tomorrow
 							w.theDate = new w._date(w.theDate.getFullYear(), w.theDate.getMonth(), w.theDate.getDate(),0,0,0,0);
 							w.d.input.trigger('datebox',{'method':'doset'});
 						});

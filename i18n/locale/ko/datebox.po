@@ -2,7 +2,7 @@ msgid ""
 msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2013-07-03 09:45-0400\n"
+"PO-Revision-Date: 2014-06-28 15:55-0400\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
@@ -62,11 +62,11 @@ msgstr "8월"
 
 #: generate-i18n.py:30
 msgid "Day"
-msgstr "하루"
+msgstr "일"
 
 #: generate-i18n.py:29 generate-i18n.py:30
 msgid "Days"
-msgstr "날짜"
+msgstr "일"
 
 #. Abbreviation for the month 'December'
 #: generate-i18n.py:28
@@ -119,7 +119,7 @@ msgstr "7월"
 
 #: generate-i18n.py:22
 msgid "Jump to Today"
-msgstr "﻿오늘 이동"
+msgstr "오늘 날짜로 지정"
 
 #. Abbreviation for the month 'June'
 #: generate-i18n.py:28
@@ -185,7 +185,7 @@ msgstr "10월"
 
 #: generate-i18n.py:31
 msgid "Open Date Picker"
-msgstr "﻿오픈 날짜 선택"
+msgstr "달력 열기"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
@@ -215,7 +215,7 @@ msgstr "9월"
 
 #: generate-i18n.py:19
 msgid "Set Date"
-msgstr "닫기"
+msgstr "날짜 지정"
 
 #: generate-i18n.py:23
 msgid "Choose Date"
@@ -223,11 +223,11 @@ msgstr "날짜 선택"
 
 #: generate-i18n.py:21
 msgid "Set Duration"
-msgstr "닫기"
+msgstr "기간 설정"
 
 #: generate-i18n.py:20 generate-i18n.py:24
 msgid "Set Time"
-msgstr "닫기"
+msgstr "시간 설정"
 
 #: generate-i18n.py:24
 msgid "Choose Time"
@@ -316,4 +316,9 @@ msgstr "다른 날짜"
 #: generate-i18n.py:49
 msgid "%B %Y"
 msgstr "%B %Y"
+
+#. Header format for calendar mode (usually Month Year)
+#: generate-i18n.py:50
+msgid "Jump to Tomorrow"
+msgstr "내일 이동"
 

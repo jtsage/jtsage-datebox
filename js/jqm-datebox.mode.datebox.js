@@ -25,9 +25,16 @@
 		_dbox_run_update: function() {
 			var w = this,
 				o = this.options;
+				
 			w._check();
+			
 			if ( o.mode === 'datebox' ) {
 				w.d.intHTML.find('.ui-datebox-header').find('h4').text(w._formatter(w.__('headerFormat'), w.theDate));
+			}
+			
+			if ( o.useSetButton ) {
+				if ( w.dateOK === false ) { setBut.addClass('ui-disabled'); }
+				else { setBut.removeClass('ui-disabled'); }
 			}
 			
 			w.d.divIn.find('input').each(function () {
@@ -223,7 +230,7 @@
 				y = $('<div>', {'class':uid+'controls'});
 				
 				if ( o.useSetButton ) {
-					$('<a href="#">'+((o.mode==='datebox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))+'</a>')
+					setBut = $('<a href="#">'+((o.mode==='datebox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))+'</a>')
 						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
@@ -251,11 +258,13 @@
 			
 			if ( o.repButton === false ) {
 				divPlus.on(o.clickEvent, 'div', function(e) {
+					divIn.find(':focus').blur();
 					e.preventDefault();
 					w._dbox_delta = 1;
 					w._offset($(this).jqmData('field'), $(this).jqmData('amount'));
 				});
 				divMinus.on(o.clickEvent, 'div', function(e) {
+					divIn.find(':focus').blur();
 					e.preventDefault();
 					w._dbox_delta = -1;
 					w._offset($(this).jqmData('field'), $(this).jqmData('amount')*-1);
@@ -274,6 +283,7 @@
 			
 			if ( o.repButton === true ) {
 				divPlus.on(w.drag.eStart, 'div', function(e) {
+					divIn.find(':focus').blur();
 					tmp = [$(this).jqmData('field'), $(this).jqmData('amount')];
 					w.drag.move = true;
 					w._dbox_delta = 1;
@@ -286,6 +296,7 @@
 				});
 				
 				divMinus.on(w.drag.eStart, 'div', function(e) {
+					divIn.find(':focus').blur();
 					tmp = [$(this).jqmData('field'), $(this).jqmData('amount')*-1];
 					w.drag.move = true;
 					w._dbox_delta = -1;

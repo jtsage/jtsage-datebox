@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.4.0-2013070300', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.2-2014062900', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
 			theme: false,
 			themeDefault: 'a',
@@ -90,6 +90,7 @@
 					setTimeButtonLabel: 'Set Time',
 					setDurationButtonLabel: 'Set Duration',
 					calTodayButtonLabel: 'Jump to Today',
+					calTomorrowButtonLabel: 'Jump to Tomorrow',
 					titleDateDialogLabel: 'Set Date',
 					titleTimeDialogLabel: 'Set Time',
 					daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -399,7 +400,7 @@
 				} 
 				
 				exp_temp = w.initDate.getEpoch();
-				for ( i=0; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
+				for ( i=1; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
 					if ( exp_format[i].match(/^%Dd$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60*24); }
 					if ( exp_format[i].match(/^%Dl$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60); }
 					if ( exp_format[i].match(/^%DM$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60); }
@@ -780,7 +781,10 @@
 				w.d.open = $('<a href="#" class="ui-input-clear" title="'+this.__('tooltip')+'">'+this.__('tooltip')+'</a>')
 					.on(o.clickEvent, function(e) {
 						e.preventDefault();
-						if ( !w.disabled ) { w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.parent().addClass('ui-focus'); w.d.input.parent().removeClass('ui-focus'); }
+						if ( o.useFocus === true ) { w.d.input.focus(); }
+						else {
+							if ( !w.disabled ) { w.d.input.trigger('datebox', {'method': 'open'}); w.d.wrap.parent().addClass('ui-focus'); w.d.input.parent().removeClass('ui-focus'); }
+						}
 						setTimeout( function() { $(e.target).closest('a').removeClass($.mobile.activeBtnClass); }, 300);
 					}).appendTo(w.d.wrap).buttonMarkup({icon: 'grid', iconpos: 'notext', corners:true, shadow:true})
 					.css({'vertical-align': 'middle', 'display': 'inline-block'});
@@ -838,8 +842,9 @@
 					w.theDate = w._makeDate(w.d.input.val());
 					w.refresh();
 				})
-				.attr("readonly", o.lockInput)
 				.on('datebox', w._event);
+				
+			if ( o.lockInput === true ) { w.d.input.attr("readonly", "readonly"); }
 			
 			if ( o.useNewStyle === true ) {
 				w.d.input.addClass('ui-corner-all '+((o.useAltIcon===true)?'ui-icon-datebox-alt':'ui-icon-datebox'));
@@ -1015,7 +1020,11 @@
 			
 			if ( ( o.useInline === true || o.useInlineBlind === true ) && w.initDone === false ) {
 				w.d.mainWrap.append(w.d.intHTML);
-				w.d.input.parent().parent().append(w.d.mainWrap);
+				if ( o.useInline === true ) {
+					w.d.input.parent().parent().parent().append(w.d.mainWrap);
+				} else {
+					w.d.input.parent().parent().append(w.d.mainWrap);
+				}
 				w.d.mainWrap.removeClass('ui-datebox-hidden');
 				if ( o.useInline === true ) {
 					w.d.mainWrap.addClass('ui-datebox-inline');
@@ -1027,13 +1036,13 @@
 				w.d.input.trigger('datebox',{'method':'postrefresh'});
 			}
 			
-			if ( o.useImmediate ) { w.d.input.trigger('datebox', {'method':'doset'}); }
 			if ( o.useInline ) { return true; }
 			if ( o.useInlineBlind ) { 
-				if ( w.initDone ) { w.d.mainWrap.slideDown();  }
+				if ( w.initDone ) { w.refresh(); w.d.mainWrap.slideDown();  }
 				else { w.initDone = true; }
 				return true;
 			}
+			
 			if ( w.d.intHTML.is(':visible') ) { return false; } // Ignore if already open
 				
 			if ( o.enablePopup === true ) {
@@ -1134,7 +1143,7 @@
 			if ( w.d.dialogPage !== false ) {
 				$(w.d.dialogPage).dialog('close');
 				
-				if ( ! $.mobile.activePage.jqmData('mobile-page').options.domCache ) {
+				if ( ! $.mobile.activePage.data('mobile-page').options.domCache ) {
 					$.mobile.activePage.on('pagehide.remove', function () { $(this).remove(); });
 				}
 				
@@ -1268,14 +1277,16 @@
 		},
 		_grabLabel: function() {
 			var w = this,
-				o = this.options;
+				o = this.options,
+				par = {'oldd': false, 'newd': false};
 				
 			if ( typeof o.overrideDialogLabel === 'undefined' ) {
 				if ( typeof w.d.input.attr('placeholder') !== 'undefined' ) { return w.d.input.attr('placeholder'); }
 				if ( typeof w.d.input.attr('title') !== 'undefined' ) { return w.d.input.attr('title'); }
-				if ( w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text() !== '' ) {
-					return w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text();
-				}
+				par.newd = w.d.wrap.parent().parent().find('label[for=\''+w.d.input.attr('id')+'\']').text();
+				par.oldd = w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text();
+				if ( par.oldd !== '' && par.oldd !== false ) { return par.oldd; }
+				if ( par.newd !== '' && par.newd !== false ) { return par.newd; }
 				return false;
 			}
 			return o.overrideDialogLabel;
@@ -1340,9 +1351,18 @@
 		setTheDate: function(newDate) {
 			this.theDate = newDate;
 			this.refresh();
+			this.d.input.trigger('datebox', { 'method': 'doset' });
 		},
 		callFormat: function(format, date) {
 			return this._formatter(format, date);
+		},
+		getOption: function(opt) {
+			var problang = this.__(opt);
+			if ( typeof(problang) !== 'undefined' ) {
+				return problang;
+			} else {
+				return this.options[opt];
+			}
 		}
 	});
 	  
