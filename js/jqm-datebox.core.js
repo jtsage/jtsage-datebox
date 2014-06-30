@@ -153,10 +153,10 @@
 						case 0: this.setFullYear(this.getFullYear() + amount); break;
 						case 1: this.setMonth(this.getMonth() + amount); break;
 						case 2: this.setDate(this.getDate() + amount); break;
-						case 3: this.setHours(this.getHours() + amount); break;
-						case 4: this.setMinutes(this.getMinutes() + amount); break;
-						case 5: this.setSeconds(this.getSeconds() + amount); break;
-						case 6: this.setMilliseconds(this.getMilliseconds() + amount); break;
+						case 3: amount *= 60;
+                        case 4: amount *= 60;
+                        case 5: amount *= 1000;
+                        case 6: this.setTime(this.getTime() + amount); break;
 					}
 					return this;
 				},
