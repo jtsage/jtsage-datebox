@@ -30,7 +30,7 @@ Use the UTF-8 Version if (any):
 
 Use the Ascii Version *only* if:
 
- * None of your possible langagues use any character outside the ASCII standard (i.e. English)
+ * None of your possible languages use any character outside the ASCII standard (i.e. English)
  * You *cannot* serve the pages as UTF-8
  * You *never* return names for dates, only numbers.
 
