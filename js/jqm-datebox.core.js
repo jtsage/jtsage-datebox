@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.4.2-2014063000', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.2-2014072200', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
 			theme: false,
 			themeDefault: 'a',
@@ -27,7 +27,7 @@
 			lockInput: true,
 			enhanceInput: true,
 			
-			zindex: '500',
+			zindex: '1100',
 			clickEvent: 'vclick',
 			clickEventAlt: 'click',
 			resizeListener: true,

@@ -25,6 +25,7 @@
 	
 	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.calbox.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.mode.cccalbox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.datebox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.flipbox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.durationbox.js"></script>
@@ -37,11 +38,11 @@
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			//'usePlaceholder': true,
 			'useNewStyle': true,
+			calControlGroup: true,
 			//'defaultValue': [2013,0,1],
 			'nadda': false,
 			'lockInput': true,
 			'useFocus': true,
-			'useInlineBlind': true,
 			'overrideDurationFormat': '%DM'
 			
 			//'useClearButton': true,
@@ -60,7 +61,7 @@
 	<div data-role="content">
 		<div data-role="fieldcontain">
 			<label for="l1">l1</label>
-			<input name="l1" type="text" value="120" data-role="datebox" data-options='{"mode": "durationbox", "calWeekModeDay":3, "calWeekMode": true, "showInitialValue":true}' id="l1" />
+			<input name="l1" type="text" data-role="datebox" data-options='{"mode": "cccalbox"}' id="l1" />
 		</div>
 		<div data-role="fieldcontain">
 			<label for="aa1">text comparison</label>
