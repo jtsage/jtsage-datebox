@@ -15,7 +15,19 @@ $TOC = array(
 	array('3-1-themes.php',		"3.1. Themeing Datebox"),
 	array('3-2-locale.php',		"3.2. Localizing Datebox"),
 	array('3-3-output.php',		"3.3. Output Formats"),
-	
+	array('3-4-display.php', 	"3.4. Display Modes"),
+	array('3-5-advdisplay.php', "3.5. Display Modifiers"),
+	array('4-limits.php',		"4. Data Limiting"),
+	array('4-1-defaults.php',	"4.1. Default / Start Dates"),
+	array('4-2-limit.php',		"4.2. Excluding Dates"),
+	array('4-3-include.php',	"4.3. Including Dates"),
+	array('5-control.php',		"5. UI Controls"),
+	array('6-prog.php',			"6. Extending Datebox"),
+	array('6-1-callback.php',	"6.1. Callbacks / Listeners"),
+	array('6-2-link.php',		"6.2. Linking Dateboxes"),
+	array('6-3-func.php',		"6.3. Common Functions"),
+	array('6-4-trigger.php',	"6.4. Triggers"),
+	array('6-5-globals.php',	"6.5. Global Data")
 );
 
 $LANGS = array(
