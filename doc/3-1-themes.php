@@ -2,7 +2,6 @@
 require_once('inc/func.php');
 echo do_header("Themeing Datebox", array("3-first-datebox.php","Your FIrst Datebox"), array("3-2-locale.php","Localization"));
 ?>
-<!--
 
 <h1>Themeing Datebox</h1>
 <p>An overall theme of datebox is easy - just specify it like any other element</p>
@@ -44,7 +43,7 @@ echo do_header("Themeing Datebox", array("3-first-datebox.php","Your FIrst Dateb
 <div class="ui-field-contain"><label for="db1b">themeInput</label><select name="db1b" class="demopick" data-link="db1" data-opt="themeInput"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
 
 <div><input type="text" data-role="datebox" data-options='{"mode":"datebox"}' id="db1"></div>
--->
+
 <h1>Themeing FlipBox/TimeFlipBox</h1>
 <p>FlipBox/TimeFlipBox have a number of theme options that can be added to the "data-options" attribute, - they are:
 <ul>
@@ -59,6 +58,21 @@ echo do_header("Themeing Datebox", array("3-first-datebox.php","Your FIrst Dateb
 <div class="ui-field-contain"><label for="fb1c">themeDateHigh</label><select name="fb1c" class="demopick" data-link="fb1" data-opt="themeDateHigh"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
 
 <div><input type="text" data-role="datebox" data-options='{"mode":"flipbox"}' id="fb1"></div>
+
+<h1>Themeing SlideBox</h1>
+<p>SlideBox have a number of theme options that can be added to the "data-options" attribute, - they are:
+<ul>
+	<li><strong>themeDate</strong>: Theme for default dates</li>
+	<li><strong>themeDateHigh</strong>: Theme for "today"</li>
+	<li><strong>themeDatePick</strong>: Theme for choosen date</li>
+</ul>
+</p>
+		
+<div class="ui-field-contain"><label for="sb1a">themeDate</label><select name="sb1a" class="demopick" data-link="sb1" data-opt="themeDate"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="sb1b">themeDatePick</label><select name="sb1b" class="demopick" data-link="sb1" data-opt="themeDatePick"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="sb1c">themeDateHigh</label><select name="sb1c" class="demopick" data-link="sb1" data-opt="themeDateHigh"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
+
+<div><input type="text" data-role="datebox" data-options='{"mode":"slidebox"}' id="sb1"></div>
 
 <?php
 echo do_footer();
