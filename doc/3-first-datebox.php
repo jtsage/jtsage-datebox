@@ -1,6 +1,6 @@
 <?php
 require_once('inc/func.php');
-echo do_header("Your First Datebox", array("2-installing.php","Installation"), NULL, 'calbox');
+echo do_header("Your First Datebox", array("2-installing.php","Installation"), array("3-1-themes.php","Theming"), 'calbox');
 ?>
 
 <h1>Your First Datebox</h1>

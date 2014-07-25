@@ -11,6 +11,8 @@ $TOC = array(
 	array('index.php',			"1. Introduction"),
 	array('1-1-features.php',	"1.1. Features"),
 	array('2-installing.php',	"2. Installation"),
+	array('3-first-datebox',	"3. Your First Datebox"),
+	array('3-1-themes.php',		"3.1. Themeing Datebox"),
 	
 );
 
@@ -67,13 +69,15 @@ function mk_head($title, $mods) {
 	$t .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n";
 	$t .= "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1\">\n";
 	$t .= "<title>jQM::DateBox - {$title}</title>\n\n";
-	$t .= "<link rel=\"stylesheet\" href=\"http://code.jquery.com/mobile/{$VERSION_JQM}/jquery.mobile-{$VERSION_JQM}.min.css\" />\n";
+	$t .= "<link rel=\"stylesheet\" href=\"demos.css\" />\n"; 
+	$t .= '<link rel="stylesheet" href="jquery.mobile.icons.min.css" />' . "\n";
+	$t .= '<link rel="stylesheet" href="http://code.jquery.com/mobile/' . $VERSION_JQM . '/jquery.mobile.structure-'.$VERSION_JQM.'.min.css" />' . "\n";
 	$t .= "<link rel=\"stylesheet\" href=\"{$CSSPATH}jqm-datebox.css\" />\n";
 	$t .= "\n";
 	$t .= "<script type=\"text/javascript\" src=\"http://code.jquery.com/jquery-{$VERSION_JQ}.js\"></script>\n";
 	$t .= "<script src=\"http://code.jquery.com/mobile/{$VERSION_JQM}/jquery.mobile-{$VERSION_JQM}.min.js\"></script>\n";
 	$t .= "<script type=\"text/javascript\" src=\"http://dev.jtsage.com/jquery.mousewheel.min.js\"></script>\n\n";
-	$t .= "<script type=\"text/javascript\" src=\"{$DPATH}inc/doc.js\"></script>\n";
+	$t .= "<script type=\"text/javascript\" src=\"{$DPATH}doc.js\"></script>\n";
 	$t .= "<script type=\"text/javascript\" src=\"{$JSPATH}jqm-datebox.core.js\"></script>\n";
 	if ( $mods == "ALL" || $mods == "calbox" ) {
 		$t .= "<script type=\"text/javascript\" src=\"{$JSPATH}jqm-datebox.mode.calbox.js\"></script>\n";
