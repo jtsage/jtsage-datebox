@@ -12,9 +12,12 @@ import sys, gettext, os, translators
 
 gettext.install('datebox', './locale', unicode=1)
 
-def doTrans(lang,name):
-	outtext = "/*\n * jQuery Mobile Framework : plugin to provide a date and time picker.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-datebox\n *\n * Translation by: "+name+"\n *\n */\n\n"
-	outtext += "jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {\n"
+def doTrans(lang,name,mode):
+	if ( mode == True ) :
+		outtext = "/*\n * jQuery Mobile Framework : plugin to provide a date and time picker.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-datebox\n *\n * Translation by: "+name+"\n *\n */\n\n"
+		outtext += "jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {\n"
+	else:
+		outtext = ""
 	outtext += "\t'" + lang + "': {\n"
 	outtext += "\t\tsetDateButtonLabel: \"" + _('Set Date') + "\",\n"
 	outtext += "\t\tsetTimeButtonLabel: \"" + _('Set Time') + "\",\n"
@@ -48,16 +51,24 @@ def doTrans(lang,name):
 	outtext += "\t\tcalDateListLabel: \""+_('Other Dates')+"\",\n"
 	outtext += "\t\tcalHeaderFormat: \""+_('%B %Y')+"\",\n"
 	outtext += "\t\tcalTomorrowButtonLabel: \"" + _('Jump to Tomorrow') + "\"\n"
-	outtext += "\t}\n});\n"
-	outtext += "jQuery.extend(jQuery.mobile.datebox.prototype.options, {\n\tuseLang: '" + lang + "'\n});\n"
+	if ( mode == True ) :
+		outtext += "\t}\n});\n"
+		outtext += "jQuery.extend(jQuery.mobile.datebox.prototype.options, {\n\tuseLang: '" + lang + "'\n});\n"
+	else :
+		outtext += "\t},\n";
 	return outtext
 
 try:
 	lang = os.environ['LANG']
+	try:
+		mode = os.environ['LMODE']
+	except KeyError as e:
+		mode = True
+		
 	if ( translators.trans.has_key(lang) ):
 		transname = translators.trans[lang]
 	else:
 		transname = 'Unknown'
-	print doTrans(lang,transname).encode('utf-8')
+	print doTrans(lang,transname,mode).encode('utf-8')
 except KeyError as e:
 	print 'Lang not set!'
