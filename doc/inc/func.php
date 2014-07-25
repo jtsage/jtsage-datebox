@@ -16,6 +16,64 @@ $TOC = array(
 	
 );
 
+$LANGS = array(
+	array("en", "English US"),
+	array("af", "Afrikaans"),
+	array("ar", "Arabic"),
+	array("bg", "Bulgarian"),
+	array("ca", "Catalan"),
+	array("cs", "Czech"),
+	array("da", "Danish"),
+	array("de", "German"),
+	array("el", "Greek Modern"),
+	array("es-ES", "Spanish"),
+	array("fi", "Finnish"),
+	array("fr", "French"),
+	array("he", "Hebrew"),
+	array("hr", "Croatian"),
+	array("hu", "Hungarian"),
+	array("id", "Indonesian"),
+	array("it", "Italian"),
+	array("ja", "Japanese"),
+	array("ko", "Korean"),
+	array("lt", "Lituanian"),
+	array("nl", "Dutch"),
+	array("nl-BE", "Dutch Belgium"),
+	array("no", "Norwegian"),
+	array("pl", "Polish"),
+	array("pt-BR", "Portuguese"),
+	array("pt-PT", "Portuguese"),
+	array("ro", "Romainian"),
+	array("ru", "Russian"),
+	array("sl", "Slovenian"),
+	array("sr", "Serbian"),
+	array("sv-SE", "Swedish"),
+	array("th", "Thai"),
+	array("tr", "Turkish"),
+	array("uk", "Ukrainian"),
+	array("vi", "Vietnamese"),
+	array("zh-CN", "Chinese - Simplified"),
+	array("zh-TW", "Chinese - Traditional")
+);
+
+function do_all_lang() {
+	global $LANGS;
+	$t = "";
+	foreach ( $LANGS as $thislang ) {
+		$t .= "<script type=\"text/javascript\" src=\"http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.{$thislang[0]}.utf8.js\"></script>\n";
+	}
+	return $t;
+}
+
+function do_lang_pick() {
+	global $LANGS;
+	$t = "";
+	foreach ( $LANGS as $thislang ) {
+		$t .= "<option value=\"{$thislang[0]}\">{$thislang[1]}</option>";
+	}
+	return $t;
+}
+
 function do_header($title, $back=NULL, $fwd=NULL, $mods="ALL") {
 	$outtext  = mk_head($title, $mods);
 	$outtext .= mk_top($title, $back, $fwd);
