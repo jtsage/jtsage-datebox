@@ -13,6 +13,10 @@ echo do_all_lang();
 <select class="demopick" data-link="l1" data-opt="useLang"><?php echo do_lang_pick(); ?></select>
 <div><input type="text" id="l1" data-role="datebox" data-options='{"mode":"datebox", "useLang":"en"}'></div>
 
+<h1>Picking a Language File</h1>
+<p>Language files are available at: <a href="http://cdn.jtsage.com/datebox/i18n/">cdn.jtsage.com/datebox/i18n/</a></p>
+<p>Additionally, the file "jqm-datebox.lang.utf8.js" includes <strong>all</strong> of the current languages - be careful with using this, as it adds a bit of overhead (more than 50K - and it's all quoted strings, so minimizing will not help much)</p>
+
 <h1>Overriding just a few values</h1>
 <p>Sometimes, it is more appropriate to just override a few values - for this purpose, you can use the "override" option sequence:</p>
 <p>For a full list of localisation string names, please look below - note the use of camel case - i.e. "dateFormat" becomes "overrideDateFormat"</p>

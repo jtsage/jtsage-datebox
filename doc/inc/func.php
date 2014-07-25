@@ -13,6 +13,8 @@ $TOC = array(
 	array('2-installing.php',	"2. Installation"),
 	array('3-first-datebox',	"3. Your First Datebox"),
 	array('3-1-themes.php',		"3.1. Themeing Datebox"),
+	array('3-2-locale.php',		"3.2. Localizing Datebox"),
+	array('3-3-output.php',		"3.3. Output Formats"),
 	
 );
 
@@ -58,11 +60,7 @@ $LANGS = array(
 
 function do_all_lang() {
 	global $LANGS;
-	$t = "";
-	foreach ( $LANGS as $thislang ) {
-		$t .= "<script type=\"text/javascript\" src=\"http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.{$thislang[0]}.utf8.js\"></script>\n";
-	}
-	return $t;
+	return "<script type=\"text/javascript\" src=\"http://cdn.jtsage.com/datebox/i18n/jqm-datebox.lang.utf8.js\"></script>\n";
 }
 
 function do_lang_pick() {
