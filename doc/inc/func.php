@@ -6,6 +6,14 @@ $DPATH = $ROOT . "doc/";
 $JSPATH = $ROOT . "js/";
 $CSSPATH = $ROOT . "css/";
 
+
+$TOC = array(
+	array('index.php',			"1. Introduction"),
+	array('1-1-features.php',	"1.1. Features"),
+	array('2-installing.php',	"2. Installation"),
+	
+);
+
 function do_header($title, $back=NULL, $fwd=NULL, $mods="ALL") {
 	$outtext  = mk_head($title, $mods);
 	$outtext .= mk_top($title, $back, $fwd);
@@ -16,8 +24,21 @@ function do_footer() {
 	return "</div>\n\n".'<div data-role="footer" data-position="fixed"><div data-role="controlgroup" data-mini="true" data-type="horizontal" class="ui-mini"><a data-role="button" data-mini="true" rel="external" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" data-mini="true" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a data-role="button" data-mini="true" rel="external" href="http://crowdin.net/project/jquery-mobile-datebox">i18n Project</a><a data-role="button" data-mini="true" rel="external" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" data-mini="true" rel="external" href="http://jquerymobile.com/">jQueryMobile Homepage</a></div></div>'."\n";
 }
 
+function mk_toc() {
+	GLOBAL $TOC;
+	$t  = "<div data-role=\"panel\" data-display=\"overlay\" id=\"toc\">\n";
+	$t .= "\t<ul data-role='listview'>\n";
+	$t .= "\t\t<li data-role=\"list-divider\">Contents</li>\n";
+	foreach($TOC as $thistoc) {
+		$t .= "\t\t<li><a href='{$thistoc[0]}'>{$thistoc[1]}</a></li>\n";
+	}
+	$t .= "\t</ul>\n</div>\n";
+	return $t;
+}
+
 function mk_top($title, $back, $fwd) {
 	$t  = "<body>\n<div data-role=\"page\" id=\"main\">\n";
+	$t .= mk_toc();
 	$t .= "\t<div data-role=\"header\" data-position=\"fixed\">\n";
 	$t .= "\t\t<h1>jQMDateBox - {$title}</h1>\n";
 	$t .= "\t</div>\n";
@@ -28,7 +49,7 @@ function mk_top($title, $back, $fwd) {
 		$text = $back[1]; $href = $back[0]; $ext = "";
 	}
 	$t .= "\t\t<li><a href=\"{$href}\"{$ext} data-icon='arrow-l'>{$text}</a></li>\n";
-	$t .= "\t\t<li><a href=\"0-contents.php\" data-icon='grid'>Contents</a></li>\n";
+	$t .= "\t\t<li><a href=\"#toc\" data-icon='grid'>Contents</a></li>\n";
 	if ( is_null($fwd) ) {
 		$text = "--"; $href = "#"; $ext = " class=\"ui-state-disabled\"";
 	} else {
@@ -85,8 +106,13 @@ function mk_head($title, $mods) {
 	$t .= "<script type=\"text/javascript\">\n\tjQuery.extend(jQuery.mobile.datebox.prototype.options, {\n";
 	$t .= "\t\t'useNewStyle': true,\n\t\t'useInline':true\n";
 	$t .= "\t});\n";
-	$t .= "\t$(document).bind(\"mobileinit\", function(){\n\t\t$.mobile.ajaxEnabled = false;\n\t});\n";
-	$t .= "</script>\n</head>\n";
+	$t .= "\tjQuery.extend(jQuery.mobile, { ajaxEnabled: false });\n";
+	$t .= "</script>\n";
+	$t .= "<script type=\"text/javascript\" src=\"http://dev.jtsage.com/gpretty/prettify.js\"></script>\n";
+	$t .= "<link href=\"http://dev.jtsage.com/gpretty/prettify.css\" rel=\"stylesheet\" />\n";
+	$t .= "<script type=\"text/javascript\">\n\t$(document).on('pagecreate', function() {\n\t\t prettyPrint()\n\t });\n";
+	$t .= "</script>\n";
+	$t .= "</head>\n";
 	return $t;
 }
 	
