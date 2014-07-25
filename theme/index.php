@@ -51,7 +51,7 @@ foreach ( $defaults as $key => $value ) {
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>jQueryMobile - DateBox Demo</title>
-	<link href="http://code.jquery.com/mobile/latest/jquery.mobile.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
 	
 	<?php if ( !empty($_SERVER['QUERY_STRING']) ) {
 		echo '<link type="text/css" href="sheet.php?'.$_SERVER['QUERY_STRING'].'" rel="stylesheet" />'."\n";
@@ -60,7 +60,7 @@ foreach ( $defaults as $key => $value ) {
 	} ?>
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
-	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
 	<!--script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script-->
@@ -114,7 +114,7 @@ foreach ( $defaults as $key => $value ) {
 		</div>
 		
 		<div data-role="content">
-		<div id="ui" style="width: 550px; float: left;">
+		<div id="ui" style="width: 800px; float: left;">
 		<form id="css" style="padding-left: 30px;">
 			<div data-role="fieldcontain">
 				<label for="width">Master Width</label>
