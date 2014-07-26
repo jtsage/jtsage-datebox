@@ -17,6 +17,7 @@ $TOC = array(
 	array('3-3-output.php',		"3.3. Output Formats"),
 	array('3-4-display.php', 	"3.4. Display Modes"),
 	array('3-5-advdisplay.php', "3.5. Display Modifiers"),
+	array('3-6-open.php',		"3.6. Open Methods"),
 	array('4-limits.php',		"4. Data Limiting"),
 	array('4-1-defaults.php',	"4.1. Default / Start Dates"),
 	array('4-2-limit.php',		"4.2. Excluding Dates"),
@@ -131,7 +132,7 @@ function mk_top($title, $back, $fwd) {
 	return $t;
 }
 
-function mk_head($title, $mods) {
+function mk_head($title, $mods, $iline) {
 	GLOBAL $VERSION_JQ, $VERSION_JQM, $DPATH, $JSPATH, $CSSPATH;
 	$t  = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n";
 	$t .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n";
@@ -176,7 +177,7 @@ function mk_head($title, $mods) {
 		$t .= "<script type=\"text/javascript\" src=\"http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.{$_COOKIE['jqmdateboxlang']}.utf8.js\"></script>\n";
 	}
 	$t .= "<script type=\"text/javascript\">\n\tjQuery.extend(jQuery.mobile.datebox.prototype.options, {\n";
-	$t .= "\t\t'useNewStyle': true,\n\t\t'useInline':true\n";
+	$t .= "\t\t'useNewStyle': true,\n\t\t'useInline': true\n";
 	$t .= "\t});\n";
 	$t .= "\tjQuery.extend(jQuery.mobile, { ajaxEnabled: false });\n";
 	$t .= "</script>\n";
