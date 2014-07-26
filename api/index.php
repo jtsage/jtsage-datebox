@@ -23,7 +23,8 @@ else {
 	$thisterm = $opt[$_REQUEST['idx']][1][$_REQUEST['key']];
 	$thistext = $text[$_REQUEST['idx']][1][$_REQUEST['key']];
 	$type = "Option:: ";
-	// if ( $_REQUEST['idx'] == ?? ) // $type = FUNCTION?
+	if ( $_REQUEST['idx'] == "public" ) { $type = "Function:: "; }
+	if ( $_REQUEST['idx'] == "event" ) { $type = "Event:: "; }
 	echo "<h1>{$type}{$_REQUEST['key']}</h1>\n";
 	echo "<h3>{$thisterm[1]} (<em>{$thisterm[2]}</em>)</h3>\n";
 	echo "<p>{$thistext}</p>\n";

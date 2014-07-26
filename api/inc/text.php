@@ -142,31 +142,89 @@ $text = array(
 		'calTomorrowButtonLabel' => ""
 	)),
 	'custom' => array('CustomBox/CustomFlip Options', array(
-		'customData' => array('N/A', 'Data structure for custom modes', 'Array', false),
-		'themeOptPick' => array('a', 'Theme for highlighted option (customflip)', 'String', false),
-		'themeOpt' => array('d', 'Theme for other options (customflip)', 'String', false),
-		'overrideCustomSet' => array('Looks Good', 'Set button for custom modes (i18n aware)', 'String', false),
-		'customDefault' => array('[0,0,0]', 'Array of default indexs for custom modes', 'Array', false)
+		'customData' => "",
+		'themeOptPick' => "",
+		'themeOpt' => "",
+		'overrideCustomSet' => "",
+		'customDefault' => "",
 	)),
 	'callback' => array('Callback Options', array(
-		'openCallback' => array(false, 'Callback function to run on control open', 'Function', true),
-		'openCallbackArgs' => array("[]", 'Extra arguments to pass to open callback.', 'Array', true),
-		'closeCallback' => array(false, 'Callback function to run on control close', 'Function', true),
-		'closeCallbackArgs' => array("[]", 'Extra arguments to pass to close callback.', 'Array', true)
+		'openCallback' => "",
+		'openCallbackArgs' => "Note that 'this' in your function is the widget.  argument[0] is the date object, this starts ar argument[1]",
+		'closeCallback' => "",
+		'closeCallbackArgs' => "Note that 'this' in your function is the widget.  argument[0] is the date object, this starts ar argument[1]"
 	)),
 	'public' => array('Public Functions', array(
-		'open' => array('', 'Open the datebox control', 'Function'),
-		'close' => array('', 'Close the datebox control', 'Function'),
-		'disable' => array('', 'Disable the datebox control', 'Function'),
-		'enable' => array('', 'Enable the datebox control', 'Function'),
-		'refresh' => array('', 'Refresh the datebox control', 'Function'),
-		'getTheDate' => array('', 'Return the current date object', 'Function'),
-		'setTheDate' => array('', 'Set the date (date object)', 'Function'),
-		'getLastDur' => array('', 'Get the last set duration', 'Function'),
-		'{}' => array('', 'Set an option', 'Function'),
-		'getOption' => array('', "Retrieve an option's value", 'Function'),
-		'callFormat' => array('', 'Return a formatted date', 'Function'),
-		'applyMinMax' => array('', 'Apply new min/max attributes', 'Function')
+		'open' => "<b>Usage</b>: $(input).datebox('open');",
+		'close' => "<b>Usage</b>: $(input).datebox('close');",
+		'disable' => "<b>Usage</b>: $(input).datebox('disable');",
+		'enable' => "<b>Usage</b>: $(input).datebox('enable');",
+		'refresh' => "<b>Usage</b>: $(input).datebox('refresh');",
+		'getTheDate' => "<b>Usage</b>: $(input).datebox('getTheDate');<br><br><b>Returns</b>: a javascript date object",
+		'setTheDate' => "<b>Usage</b>: $(input).datebox('setTheDate', &lt;date>);<br><br><b>Expects</b>: a javascript date object",
+		'getLastDur' => "<b>Usage</b>: $(input).datebox('getLastDur');<br><br><b>Returns</b>: an integer of seconds",
+		'{}' => "<b>Usage</b>: $(input).datebox({&lt;opt>:&lt;value>});<br><br><b>Expects</b>: a named option, and it's new value",
+		'getOption' => "<b>Usage</b>: $(input).datebox('getOption', &lt;opt>);<br><br><b>Expects</b>: a named option<br><br><b>Returns</b>: that objects value",
+		'callFormat' => "<b>Usage</b>: $(input).datebox('callFormat', &lt;format>, &lt;date>);<br><br><b>Expects</b>: a string format representation and a javascript date object<br><br><b>Returns</b>: a string of the date",
+		'applyMinMax' => "<b>Usage</b>: $(input).datebox('applyMinMax');",
 	)),
+	/*
+	Trigger to open datebox
+
+{'method'} === open
+
+Trigger to close datebox
+
+{'method'} === close
+
+Trigger to set specified date
+
+{'method'} === set
+{'value'} === value to place in input
+{'date'} === the date object being used
+
+Trigger to refresh input date
+
+{'method'} === doset
+
+Trigger to clear input field
+
+{'method'} === doclear
+
+Trigger to refresh
+
+Note: Not used interaly.
+{'method'} === dorefresh
+
+Trigger to change date
+
+Note: Not used interaly.
+{'method'} === dooffset
+{'amount'} === Amount of change (usually +/- 1)
+{'type'} === Type of change ( 'y' = Year, 'm' = Month, 'd' = Date, 'h' = Hour, 'i' = Minute, 's' = Second, 'a' = Meridian )
+
+Event Payloads - Action causes trigger
+Triggered on datebox enable
+
+{'method'} === enable
+
+Triggered on datebox disable
+
+{'method'} === disable
+
+Triggered on every data refresh
+
+{'method'} === refresh
+
+Triggered on clear button click
+
+{'method'} === clear
+
+Triggered on date change
+
+{'method'} === offset
+{'amount'} === Amount of change (usually +/- 1)
+{'type'} === Type of change ( 'y' = Year, 'm' = Month, 'd' = Date, 'h' = Hour, 'i' = Minute, 's' = Second, 'a' = Meridian )
+* */
 );
 ?>

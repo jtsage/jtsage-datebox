@@ -158,18 +158,32 @@ $opt = array(
 		'closeCallbackArgs' => array("[]", 'Extra arguments to pass to close callback.', 'Array', true)
 	)),
 	'public' => array('Public Functions', array(
-		'open' => array('', 'Open the datebox control', 'Function'),
-		'close' => array('', 'Close the datebox control', 'Function'),
-		'disable' => array('', 'Disable the datebox control', 'Function'),
-		'enable' => array('', 'Enable the datebox control', 'Function'),
-		'refresh' => array('', 'Refresh the datebox control', 'Function'),
-		'getTheDate' => array('', 'Return the current date object', 'Function'),
-		'setTheDate' => array('', 'Set the date (date object)', 'Function'),
-		'getLastDur' => array('', 'Get the last set duration', 'Function'),
-		'{}' => array('', 'Set an option', 'Function'),
-		'getOption' => array('', "Retrieve an option's value", 'Function'),
-		'callFormat' => array('', 'Return a formatted date', 'Function'),
-		'applyMinMax' => array('', 'Apply new min/max attributes', 'Function')
+		'open' => array('', 'Open the datebox control', ''),
+		'close' => array('', 'Close the datebox control', ''),
+		'disable' => array('', 'Disable the datebox control', ''),
+		'enable' => array('', 'Enable the datebox control', ''),
+		'refresh' => array('', 'Refresh the datebox control', ''),
+		'getTheDate' => array('', 'Return the current date object', 'Object'),
+		'setTheDate' => array('', 'Set the date (date object)', ''),
+		'getLastDur' => array('', 'Get the last set duration', 'Integer'),
+		'{}' => array('', 'Set an option', ''),
+		'getOption' => array('', "Retrieve an option's value", 'Mixed'),
+		'callFormat' => array('', 'Return a formatted date', 'String'),
+		'applyMinMax' => array('', 'Apply new min/max attributes', '')
 	)),
+	'event' => array("'datebox' Listener Events (method)", array(
+		'open' => array('','Send: Open Datebox','-'),
+		'close' => array('', 'Send: Close Datebox', '-'),
+		'set' => array('', 'Send: Set the date', '2 args'),
+		'doset' => array('', 'Send: Refresh input element', '-'),
+		'doclear' => array('', 'Send: Clear input element', '-'),
+		'dorefresh' => array('', 'Send: Refresh control', '-'),
+		'dooffset' => array('', 'Send: Change the date', '2 args'),
+		'enable' => array('', 'Recieve: Datebox has been enabled', '-'),
+		'disable' => array('', 'Recieve: Datebox has been disabled', '-'),
+		'refresh' => array('', 'Recieve: Datebox has been refreshed', '-'),
+		'clear' => array('', 'Recieve: Datebox input has been cleared', '-'),
+		'offset' => array('', 'Recieve: Date has been changed', '2 args'),
+	))
 );
 ?>
