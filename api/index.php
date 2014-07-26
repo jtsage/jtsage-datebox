@@ -27,9 +27,9 @@ else {
 	echo "<h1>{$type}{$_REQUEST['key']}</h1>\n";
 	echo "<h3>{$thisterm[1]} (<em>{$thisterm[2]}</em>)</h3>\n";
 	echo "<p>{$thistext}</p>\n";
-	if ( $_REQUEST['key'] <> "public" && $_REQUEST['key'] <> "event" ) {
+	if ( ! ( $_REQUEST['idx'] == "public" || $_REQUEST['idx'] == "event" ) ) {
 		echo "<p><strong>Default</strong>: ".var_export($thisterm[0], true)."</p>\n";
-		echo "<p><strong>Modes</strong>: ";
+		echo "<p><strong>Valid Modes</strong>: ";
 		if ( $thisterm[3] === true ) {
 			echo "ALL";
 		} else {
