@@ -4,7 +4,7 @@ echo do_header("Themeing Datebox", array("3-first-datebox.php","Your FIrst Dateb
 ?>
 
 <h1>Themeing Datebox</h1>
-<p>An overall theme of datebox is easy - just specify it like any other element</p>
+<p>An overall theme of datebox is easy - just specify it like any other element.  Of course, datebox will do it's best to inherit it's theme from it's parent(s) if you don't specify, finally falling back on 'a' if none is specified anywhere.</p>
 
 <pre class="prettyprint">&lt;input type="text" data-role="datebox" data-theme="c" data-options='{"mode":"calbox"}'></pre>
 

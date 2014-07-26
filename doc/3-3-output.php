@@ -1,79 +1,188 @@
 <?php
 require_once('inc/func.php');
-echo do_header("Themeing Datebox", array("3-first-datebox.php","Your FIrst Datebox"), array("3-2-locale.php","Localization"));
+echo do_header("Output Formats", array("3-2-locale.php","Localization"), array("3-4-display.php","Display Modes"), 'calbox');
 ?>
 
-<h1>Themeing Datebox</h1>
-<p>An overall theme of datebox is easy - just specify it like any other element</p>
+<h1>Reminder about Overrides</h1>
+<p>When using the override system, note the use of camel case - i.e. "dateFormat" becomes "overrideDateFormat"</p>
 
-<pre class="prettyprint">&lt;input type="text" data-role="datebox" data-theme="c" data-options='{"mode":"calbox"}'></pre>
+<pre class="prettyprint">&lt;input type="text" data-role="datebox" data-options='{"mode":"calbox","overrideDateFormat":"%A, %B %-d, %Y"}'></pre>
 
-<div><input type="text" data-role="datebox" data-theme="c" data-options='{"mode":"calbox"}'></div>
+<div><input type="text" data-role="datebox" data-options='{"mode":"calbox","overrideDateFormat":"%A, %B %-d, %Y"}'></div>
 
-<p>The results from this are usually pretty hideous - so, DateBox provides a method in which the theme individual elements of each control, for the look you want (jQM really doesn't provide enough variations in a single theme for quick reading of compex data).  This method is used for the basic bits of each control - background, set button, etc.</p>
-
-<h1>Themeing CalBox</h1>
-<p>CalBox has a number of theme options that can be added to the "data-options" attribute, - they are:
-<ul>
-	<li><strong>themeDate</strong>: Theme for otherwise un-specified date buttons</li>
-	<li><strong>themeDateToday</strong>: Theme for "today"</li>
-	<li><strong>themeDatePick</strong>: Theme for choosen date (used last after other options fail)</li>
-	<li><strong>themeDayHigh</strong>: Theme for highlighted DAYS</li>
-	<li><strong>themeDateHigh</strong>: Theme for highlighted DATES</li>
-	<li><strong>themeDateHighAlt</strong>: Theme for highlighted ALTERNATE DATES</li>
-	<li><strong>themeDateHighRec</strong>: Theme for highlighted RECURRING DATES</li>
-</ul>
-</p>
+<style type="text/css">
+	.options h3 { display: inline; }
+	.options p { margin-top: .3em; margin-left: 2em;}
+	.options li p.desc { font-size: .9em; margin-left: .6em; }
+	.options pre { font-weight: normal; }
+	dl.option dt { display: inline; width: 60px; margin-left: 30px; }
+	dl.option dd { display: inline-block; width: 100px; font-style: italic; margin-left: 10px;}
+	dl.option { float: right; clear: right; margin-top: -1em;}
+	p code { font-size:1.2em; font-weight:bold; } 
+	dt { font-weight: bold; margin: 2em 0 .5em; }
+	dt code, dd code { font-size:1.3em; line-height:150%; }
+	pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+</style>
+<h1>Date Format Options</h1>
+<p>The date format follows the POSIX standards.  There is one extension.  By default, all numbers are zero-padded. (see modifiers section)</p>
 		
-<div class="ui-field-contain"><label for="cal1dateb">themeDate</label><select name="cal1dateb" class="demopick" data-link="cal1" data-opt="themeDate"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="cal1datec">themeDatePick</label><select name="cal1datec" class="demopick" data-link="cal1" data-opt="themeDatePick"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="cal1dated">themeDateToday</label><select name="cal1dated" class="demopick" data-link="cal1" data-opt="themeDateToday"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
-
-<div><input type="text" data-role="datebox" data-options='{"mode":"calbox"}' id="cal1"></div>
-
-<h1>Themeing DateBox/TimeBox/DurationBox</h1>
-<p>DateBox/TimeBox/DurationBox have a number of theme options that can be added to the "data-options" attribute, - they are:
-<ul>
-	<li><strong>themeButton</strong>: Theme for +/- buttons</li>
-	<li><strong>themeInput</strong>: Theme for text inputs</li>
+<ul data-role="listview" data-inset="true" class="options" data-divider-theme="b">
+	<li data-role="list-divider">Implemented Options</li>
+	<li><h3>%%</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+		<p class="desc">A Literal '%'</p>
+	</li>
+	<li><h3>%a</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+		<p class="desc">Abreviated name of day</p>
+	</li>
+	<li><h3>%A</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+		<p class="desc">Full name of day</p>
+	</li>
+	<li><h3>%b</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+		<p class="desc">Abreviated name of month</p>
+	</li>
+	<li><h3>%B</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+		<p class="desc">Full name of Month</p>
+	</li>
+	<li><h3>%C</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Centruy (First 2 digits of year)</p>
+	</li>
+	<li><h3>%d</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Day of month</p>
+	</li>
+	<li><h3>%E</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Year of the Buddhist Era (Nominally Year + 543).  Note, this may be wrong pre-1940CE</p>
+	</li>
+	<li><h3>%G</h3>
+	<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">The ISO 8601 week-based year (see NOTES) with century as a decimal number. The 4-digit year corresponding to the ISO week number (see %V). This has the same format and value as %Y, except that if the ISO week number belongs to the previous or next year, that year is used instead. (TZ)</p>
+	</li>
+	<li><h3>%g</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Like %G, but without century, that is, with a 2-digit year (00-99). (TZ)</p>
+	</li>
+	<li><h3>%H</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Hour of day (01..23)</p>
+	</li>
+	<li><h3>%I</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Hour of day (01..12)</p>
+	</li>
+	<li><h3>%j</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">The day of the year as a decimal number (range 001 to 366).</p>
+	</li>
+	<li><h3>%k</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Hour of day (01..23)</p>
+	</li>
+	<li><h3>%l</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Hour of day (01..12)</p>
+	</li>
+	<li><h3>%m</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Month of year (01..12)</p>
+	</li>
+	<li><h3>%M</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Minutes (01..59)</p>
+	</li>
+	<li><h3>%p</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+		<p class="desc">Meridian Letters (AM/PM) in uppercase</p>
+	</li>
+	<li><h3>%P</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+		<p class="desc">Meridian Letters (AM/PM) in lowercase</p>
+	</li>
+	<li><h3>%s</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">The number of seconds since the Epoch, 1970-01-01 00:00:00.</p>
+	</li>
+	<li><h3>%S</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Seconds (00..59)</p>
+	</li>
+	<li><h3>%u</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">The day of the week (1-7), 1 = Sunday</p>
+	</li>
+	<li><h3>%U</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">The week number of the current year as a decimal number, range 00 to 53, starting with the first Sunday as the first day of week 01. See also %V and %W.</p>
+	</li>
+	<li><h3>%V</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">The ISO 8601 week number of the current year as a decimal number, range 01 to 53, where week 1 is the first week that has at least 4 days in the new year.</p>
+	</li>
+	<li><h3>%w</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Day of week (0-7), 0 = Sunday</p>
+	</li>
+	<li><h3>%W</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">The week number of the current year as a decimal number, range 00 to 53, starting with the first Monday as the first day of week 01.</p>
+	</li>
+	<li><h3>%y</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Year (00-99) (2 Digit)</p>
+	</li>
+	<li><h3>%Y</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Full Year (4 Digit)</p>
+	</li>
+	<li data-role="list-divider">Extension Options</li>
+	<li><h3>%o</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+		<p class="desc">Date ordinal (st / nd / rd / th)</p>
+	</li>
+	<li><h3>%Dd</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Duration Days</p>
+	</li>
+	<li><h3>%Dl</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Duration Hours</p>
+	</li>
+	<li><h3>%DM</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Duration Minutes</p>
+	</li>
+	<li><h3>%DS</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+		<p class="desc">Duration Seconds</p>
+	</li>
+	<li><h3>%DA</h3>
+		<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+		<p class="desc">Duration Days text - e.g. Day or Days</p>
+	</li>
+	<li data-role="list-divider">Modifiers</li>
+	<li><h3>0</h3>
+		<p class="desc">Pad with zeros (the default) - e.g. 4 -> %0d -> 04 </p>
+	</li>
+	<li><h3>-</h3>
+		<p class="desc">Pad with nothing - e.g. 4 -> %-d -> 4 </p>
+	</li>
+	<li data-role="list-divider">Unimplemented Options</li>
+	<li><h3>%c, %D, %F, %r, %R, %T, %x, %X, %+</h3>
+		<p>These options all deal with "standard" full formats - which is the point of this package</p>
+	</li>
+	<li><h3>%n, %t</h3>
+		<p>Formatting options that make no sense in an HTML world</p>
+	</li>
+	<li><h3>%z, %Z</h3>
+		<p>Time zone options that are better handled server-side</p>
+	</li>
 </ul>
-</p>
-		
-<div class="ui-field-contain"><label for="db1a">themeButton</label><select name="db1a" class="demopick" data-link="db1" data-opt="themeButton"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="db1b">themeInput</label><select name="db1b" class="demopick" data-link="db1" data-opt="themeInput"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
-
-<div><input type="text" data-role="datebox" data-options='{"mode":"datebox"}' id="db1"></div>
-
-<h1>Themeing FlipBox/TimeFlipBox</h1>
-<p>FlipBox/TimeFlipBox have a number of theme options that can be added to the "data-options" attribute, - they are:
-<ul>
-	<li><strong>themeDate</strong>: Theme for default dates</li>
-	<li><strong>themeDateHigh</strong>: Theme for "today"</li>
-	<li><strong>themeDatePick</strong>: Theme for choosen date</li>
-</ul>
-</p>
-		
-<div class="ui-field-contain"><label for="fb1a">themeDate</label><select name="fb1a" class="demopick" data-link="fb1" data-opt="themeDate"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="fb1b">themeDatePick</label><select name="fb1b" class="demopick" data-link="fb1" data-opt="themeDatePick"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="fb1c">themeDateHigh</label><select name="fb1c" class="demopick" data-link="fb1" data-opt="themeDateHigh"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
-
-<div><input type="text" data-role="datebox" data-options='{"mode":"flipbox"}' id="fb1"></div>
-
-<h1>Themeing SlideBox</h1>
-<p>SlideBox have a number of theme options that can be added to the "data-options" attribute, - they are:
-<ul>
-	<li><strong>themeDate</strong>: Theme for default dates</li>
-	<li><strong>themeDateHigh</strong>: Theme for "today"</li>
-	<li><strong>themeDatePick</strong>: Theme for choosen date</li>
-</ul>
-</p>
-		
-<div class="ui-field-contain"><label for="sb1a">themeDate</label><select name="sb1a" class="demopick" data-link="sb1" data-opt="themeDate"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="sb1b">themeDatePick</label><select name="sb1b" class="demopick" data-link="sb1" data-opt="themeDatePick"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="sb1c">themeDateHigh</label><select name="sb1c" class="demopick" data-link="sb1" data-opt="themeDateHigh"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
-
-<div><input type="text" data-role="datebox" data-options='{"mode":"slidebox"}' id="sb1"></div>
-
 <?php
 echo do_footer();
 ?>
