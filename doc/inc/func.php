@@ -1,5 +1,5 @@
 <?php
-$VERSION_JQM = "1.4.2";
+$VERSION_JQM = "1.4.3";
 $VERSION_JQ = "2.1.1";
 $ROOT = "/jQM-DateBox/";
 $DPATH = $ROOT . "doc/";
