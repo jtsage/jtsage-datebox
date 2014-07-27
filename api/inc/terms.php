@@ -174,16 +174,21 @@ $opt = array(
 	'event' => array("'datebox' Listener Events (method)", array(
 		'open' => array('','Send: Open Datebox','-'),
 		'close' => array('', 'Send: Close Datebox', '-'),
-		'set' => array('', 'Send: Set the date', '2 args'),
 		'doset' => array('', 'Send: Refresh input element', '-'),
 		'doclear' => array('', 'Send: Clear input element', '-'),
 		'dorefresh' => array('', 'Send: Refresh control', '-'),
 		'dooffset' => array('', 'Send: Change the date', '2 args'),
+		'set' => array('', 'Send & Recieve: Set the date', '1 or 2 args'),
 		'enable' => array('', 'Recieve: Datebox has been enabled', '-'),
 		'disable' => array('', 'Recieve: Datebox has been disabled', '-'),
 		'refresh' => array('', 'Recieve: Datebox has been refreshed', '-'),
 		'clear' => array('', 'Recieve: Datebox input has been cleared', '-'),
 		'offset' => array('', 'Recieve: Date has been changed', '2 args'),
+	)),
+	'event2' => array('General Listener Events', array(
+		'dateboxbeforecreate' => array('', 'Triggered on every page if datebox is loaded.  Somewhat useless', ''),
+		'dateboxcreate' => array('', 'Triggered when a datebox is enhanced - but thrown prior to initialization.  Useful only to check if there *is* a datebox on the page', ''),
+		'dateboxaftercreate' => array('', 'Triggered when after a datebox is enhanced', '')
 	))
 );
 ?>
