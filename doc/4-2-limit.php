@@ -5,6 +5,7 @@ echo do_header("Excluding Dates", array('4-1-defaults.php',"Default / Start Date
 
 <h1>Overview</h1>
 <p>There are many, many ways to limit date selection in DateBox.  Rather than spend a lot of time explaining each of them, I've choosen to show groupings of similar options below, along with the links to the appropriate API documentation. Please refer to the API documentation for <em>which</em> modes are valid for each option, they are not nessisarily universal.</p>
+<p>By far the simplest method of limiting dates is to use the min/max attributes of the element.  These should be set to an ISO style date string i.e. 2000-01-01</p>
 
 <h1>Today booleans</h1>
 
@@ -25,11 +26,11 @@ echo do_header("Excluding Dates", array('4-1-defaults.php',"Default / Start Date
 <h1>Numeric Date Limits</h1>
 
 <div class="ui-field-contain">
-	<label for="cal2a"><?php api('limiting','maxDays'); ?>: ('max')</label>
+	<label for="cal2a"><?php api('limiting','maxDays'); ?>: </label>
 	<input id="cal2a" data-link="cal2" data-opt="maxDays" value="false" type="text" class="demopick">
 </div>
 <div class="ui-field-contain">
-	<label for="cal2b"><?php api('limiting','minDays'); ?>: ('min')</label>
+	<label for="cal2b"><?php api('limiting','minDays'); ?>: </label>
 	<input id="cal2b" data-link="cal2" data-opt="minDays" value="false" type="text" class="demopick">
 </div>
 <div class="ui-field-contain">
