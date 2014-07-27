@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.4.3-2014072500', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.3-2014072700', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
 			theme: false,
 			themeDefault: 'a',
@@ -1070,8 +1070,8 @@
 				}
 				
 				if ( o.popupForceX !== false && o.popupForceY !== false ) {
-					popopts.x = o.popupForceX;
-					popopts.y = o.popupForceY;
+					popopts.x = parseInt(o.popupForceX,10);
+					popopts.y = parseInt(o.popupForceY,10);
 				}
 				
 				if ( o.popupPosition !== false ) {
