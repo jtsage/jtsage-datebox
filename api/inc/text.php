@@ -13,10 +13,10 @@ $text = array(
 		'lockInput' => "Lock the original input element, disallowing direct user input - i.e. force the use of the control",
 		'enhanceInput' => "In internal control inputs, enhance the fields to only allow numeric input.  Handy for use in mobile, as it should pop up a numeric keypad rather than a full keyboard.  Somewhat less useful on tablet and desktop devices, as the input methods are usually identical",
 		'defaultValue' => "Set the default date value, or time value.  Date should be supplied as a three element array [year, month, date] - time can be supplied as a 24hr string '15:41'",
-		'showInitialValue' => "Auto-fill the input on datebox initilization - this will take into account any default value options",
-		'startOffsetYears' => "Offset the start year by X number of years.  This valuye will be added to 'defaultValue' if it is supplied",
-		'startOffsetMonths' => "Offset the start month by X number of months.  This valuye will be added to 'defaultValue' if it is supplied",
-		'startOffsetDays' => "Offset the start day by X number of days.  This valuye will be added to 'defaultValue' if it is supplied"
+		'showInitialValue' => "Auto-fill the input on datebox initialization - this will take into account any default value options",
+		'startOffsetYears' => "Offset the start year by X number of years.  This value will be added to 'defaultValue' if it is supplied",
+		'startOffsetMonths' => "Offset the start month by X number of months.  This value will be added to 'defaultValue' if it is supplied",
+		'startOffsetDays' => "Offset the start day by X number of days.  This value will be added to 'defaultValue' if it is supplied"
 	)),
 	'display' => array('Display Options', array(
 		'centerHoriz' => "When using datebox popup mode, force the control to center horizontally in the window rather than over the input element",
@@ -43,7 +43,7 @@ $text = array(
 		'usePlaceholder' => "Auto-fill the placeholder text from the input element's label if set to true.  Or, set to a string and it will use that text to set the placeholder",
 		'useNewStyle' => "Use the 'new' style for the input element - recommended, much, much cleaner",
 		'useAltIcon' => "When using 'useNewStyle', use a light colored icon instead of a dark one",
-		'overrideStyleClass' => "When using 'useNewStyle', override the default icon scheme with a css class of your own.  Usefull if you need more than a single style of datebox icon - otherwise, just override the css",
+		'overrideStyleClass' => "When using 'useNewStyle', override the default icon scheme with a css class of your own.  Useful if you need more than a single style of datebox icon - otherwise, just override the css",
 	)),
 	'control' => array('Control Options', array(
 		'useHeader' => "",
@@ -58,7 +58,7 @@ $text = array(
 		'calShowDays' => "",
 		'calShowWeek' => "",
 		'calOnlyMonth' => "Hide the previous and next month dates in calendar view - that is, the 'overflow' dates - typically the first few days of next month, and the last few days of the previous month",
-		'calWeekMode' => "When selecting a date, actually use only a single day - for instance, limit to only monday's for a payroll system of 'week beginning'",
+		'calWeekMode' => "When selecting a date, actually use only a single day - for instance, limit to only Monday's for a payroll system of 'week beginning'",
 		'calWeekModeDay' => "DAY of week to select in week mode - using a zero based array - 0=Sunday ... 6=Saturday"
 	)),
 	'limiting' => array('Data Limiting Options', array(
@@ -69,7 +69,7 @@ $text = array(
 		'minDays' => "Only accept dates that are today - # of days in teh past. (no limit on future dates)",
 		'maxYear' => "",
 		'minYear' => "",
-		'blackDatesRec' => "Array of arrays to recursivly disable - inner array is 3 elements: [year,month,day] where month is zero based (0=January..11=December). Use '-1' to specify 'ALL'<br />Example: disable christmas and christmas eve every year [[-1,11,24],[-1,11,25]]",
+		'blackDatesRec' => "Array of arrays to recursively disable - inner array is 3 elements: [year,month,day] where month is zero based (0=January..11=December). Use '-1' to specify 'ALL'<br />Example: disable Christmas and Christmas eve every year [[-1,11,24],[-1,11,25]]",
 		'blackDates' => "Array of ISO dates that are not valid and should be disabled",
 		'blackDays' => "Array of days (0=Sunday ... 6=Saturday) that are not valid and should be disabled",
 		'enableDates' => "Array of ISO dates that are the *only* valid dates, and everything else should be disabled",
@@ -80,7 +80,7 @@ $text = array(
 		'minuteStepRound' => "Control rounding of minutes when invalid minute is entered. That is, minuteStep=5 and you enter 3 direct to the element",
 		'highDays' => "Array of days to highlight, zero based (0=Sunday...6=Saturday)",
 		'highDates' => "Array of ISO dates to highlight",
-		'highDatesRec' => "Array of arrays to recursivly highlihgt - inner array is 3 elements: [year,month,day] where month is zero based (0=January..11=December). Use '-1' to specify 'ALL'<br />Example: higlight christmas and christmas eve every year [[-1,11,24],[-1,11,25]]",
+		'highDatesRec' => "Array of arrays to recursively highlight - inner array is 3 elements: [year,month,day] where month is zero based (0=January..11=December). Use '-1' to specify 'ALL'<br />Example: highlight Christmas and Christmas eve every year [[-1,11,24],[-1,11,25]]",
 		'highDatesAlt' => "Array of ISO dates to highlight, alternate theme",
 		'calShowDateList' => "",
 		'calDateList' => "Array of 2-element arrays to show in a special pick list.  Array structure is [ISO-Date, Description]",
@@ -112,8 +112,8 @@ $text = array(
 		'setTimeButtonLabel' => "",
 		'setDurationButtonLabel' => "",
 		'calTodayButtonLabel' => "",
-		'titleDateDialogLabel' => "Fallback when there is no associated label element",
-		'titleTimeDialogLabel' => "Fallback when there is no associated label element",
+		'titleDateDialogLabel' => "Fall-back when there is no associated label element",
+		'titleTimeDialogLabel' => "Fall-back when there is no associated label element",
 		'daysOfWeek' => "",
 		'daysOfWeekShort' => "",
 		'monthsOfYear' => "",
@@ -150,9 +150,9 @@ $text = array(
 	)),
 	'callback' => array('Callback Options', array(
 		'openCallback' => "",
-		'openCallbackArgs' => "Note that 'this' in your function is the widget.  argument[0] is the date object, this starts ar argument[1]",
+		'openCallbackArgs' => "Note that 'this' in your function is the widget.  argument[0] is the date object, this starts on argument[1]",
 		'closeCallback' => "",
-		'closeCallbackArgs' => "Note that 'this' in your function is the widget.  argument[0] is the date object, this starts ar argument[1]"
+		'closeCallbackArgs' => "Note that 'this' in your function is the widget.  argument[0] is the date object, this starts on argument[1]"
 	)),
 	'public' => array('Public Functions', array(
 		'open' => "<b>Usage</b>: $(input).datebox('open');",
@@ -171,74 +171,16 @@ $text = array(
 	'event' => array("'datebox' Listener Events (method)", array(
 		'open' => "This trigger will open the datebox control<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'open'})",
 		'close' => "This trigger will close the datebox control<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'close'})",
-		'set' => "<h3>Send</h3>This trigger will set the datebox value.  It will not automatically call the refresh method. Functionally similar to the 'setTheDate' function, however this function expects a formatted date string, not a javascript date object.  The same as setting the input value and then calling 'change' on the input<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'set', 'value': &lt;date string>})<br><br><b>Expects</b>: <em>'value'</em>: A formatted date string (format to match the current output format)<br><br><br><h3>Recieve</h3>This trigger is also reciceved when the datebox control sets a value.  It contains both a formatted date, and a javascript date object.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'set' ) {\n    alert('Formatted value is: ' + passed.value);\n    alert('JavaScript Date object is: ' + passed.date);\n  }\n});</pre><b>Returns</b>: <em>'value'</em>: Formatted date string<br><b>Returns</b>: <em>'date'</em>: Javascript date object",
+		'set' => "<h3>Send</h3>This trigger will set the datebox value.  It will not automatically call the refresh method. Functionally similar to the 'setTheDate' function, however this function expects a formatted date string, not a javascript date object.  The same as setting the input value and then calling 'change' on the input<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'set', 'value': &lt;date string>})<br><br><b>Expects</b>: <em>'value'</em>: A formatted date string (format to match the current output format)<br><br><br><h3>Receive</h3>This trigger is also received when the datebox control sets a value.  It contains both a formatted date, and a javascript date object.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'set' ) {\n    alert('Formatted value is: ' + passed.value);\n    alert('JavaScript Date object is: ' + passed.date);\n  }\n});</pre><b>Returns</b>: <em>'value'</em>: Formatted date string<br><b>Returns</b>: <em>'date'</em>: Javascript date object",
 		'doset' => "This trigger will refresh / populate the value of the original input<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'doset'})",
 		'doclear' => "This trigger will clear the value of the original input<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'doclear'})",
 		'dorefresh' => "This trigger will refresh the datebox control.  Functionally equivalent to the public refresh function<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'dorefresh'})",
-		'dooffset' => "This trigger will change the internal date of datebox.  Functionally identical to hitting a +/- button in the controll, or sliding/flipping a value<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'dooffset', 'amount': &lt#>, 'type': &lt;field>})<br><br><b>Expects</b>: <em>'amount'</em>: The amount of offset, typically +/-1<br><b>Expects</b>: <em>'type'</em>: Field to change, where y=Year, m=Month, d=Date, h=Hour, i=Minute, s=Second, a=Meridian (AM/PM)",
-		'enable' => "This trigger is recieved when the dateox control is enabled.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'enable' ) {\n    alert('Datebox was enabled!');\n  }\n});</pre>",
-		'disable' => "This trigger is recieved when the dateox control is disabled.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'disable' ) {\n    alert('Datebox was disabled!');\n  }\n});</pre>",
-		'refresh' => "This trigger is recieved when the dateox control is refreshed.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'refresh' ) {\n    alert('Datebox was refreshed!');\n  }\n});</pre>",
-		'clear' => "This trigger is recieved when the dateox control is cleared.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'clear' ) {\n    alert('Datebox was cleared!');\n  }\n});</pre>",
-		'offset' => "This trigger is recieved when the dateox control is changed.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'offset' ) {\n    alert('Field offset: ' + passed.type);\n    alert('Offset amount: ' + passed.amount);\n  }\n});</pre><br><br><b>Returns</b>: <em>'amount'</em>: Amount of offset, an integer<br><b>Returns</b>: <em>'type'</em>: Field changed, where y=Year, m=Month, d=Date, h=Hour, i=Minute, s=Second, a=Meridian (AM/PM)",
+		'dooffset' => "This trigger will change the internal date of datebox.  Functionally identical to hitting a +/- button in the control, or sliding/flipping a value<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'dooffset', 'amount': &lt#>, 'type': &lt;field>})<br><br><b>Expects</b>: <em>'amount'</em>: The amount of offset, typically +/-1<br><b>Expects</b>: <em>'type'</em>: Field to change, where y=Year, m=Month, d=Date, h=Hour, i=Minute, s=Second, a=Meridian (AM/PM)",
+		'enable' => "This trigger is received when the datebox control is enabled.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'enable' ) {\n    alert('Datebox was enabled!');\n  }\n});</pre>",
+		'disable' => "This trigger is received when the datebox control is disabled.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'disable' ) {\n    alert('Datebox was disabled!');\n  }\n});</pre>",
+		'refresh' => "This trigger is received when the datebox control is refreshed.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'refresh' ) {\n    alert('Datebox was refreshed!');\n  }\n});</pre>",
+		'clear' => "This trigger is received when the datebox control is cleared.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'clear' ) {\n    alert('Datebox was cleared!');\n  }\n});</pre>",
+		'offset' => "This trigger is received when the datebox control is changed.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { \n  if ( passed.method === 'offset' ) {\n    alert('Field offset: ' + passed.type);\n    alert('Offset amount: ' + passed.amount);\n  }\n});</pre><br><br><b>Returns</b>: <em>'amount'</em>: Amount of offset, an integer<br><b>Returns</b>: <em>'type'</em>: Field changed, where y=Year, m=Month, d=Date, h=Hour, i=Minute, s=Second, a=Meridian (AM/PM)",
 	))
-	/*
-	Trigger to open datebox
-
-{'method'} === open
-
-Trigger to close datebox
-
-{'method'} === close
-
-Trigger to set specified date
-
-{'method'} === set
-{'value'} === value to place in input
-{'date'} === the date object being used
-
-Trigger to refresh input date
-
-{'method'} === doset
-
-Trigger to clear input field
-
-{'method'} === doclear
-
-Trigger to refresh
-
-Note: Not used interaly.
-{'method'} === dorefresh
-
-Trigger to change date
-
-Note: Not used interaly.
-{'method'} === dooffset
-{'amount'} === Amount of change (usually +/- 1)
-{'type'} === Type of change ( 'y' = Year, 'm' = Month, 'd' = Date, 'h' = Hour, 'i' = Minute, 's' = Second, 'a' = Meridian )
-
-Event Payloads - Action causes trigger
-Triggered on datebox enable
-
-{'method'} === enable
-
-Triggered on datebox disable
-
-{'method'} === disable
-
-Triggered on every data refresh
-
-{'method'} === refresh
-
-Triggered on clear button click
-
-{'method'} === clear
-
-Triggered on date change
-
-{'method'} === offset
-{'amount'} === Amount of change (usually +/- 1)
-{'type'} === Type of change ( 'y' = Year, 'm' = Month, 'd' = Date, 'h' = Hour, 'i' = Minute, 's' = Second, 'a' = Meridian )
-* */
 );
 ?>
