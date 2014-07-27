@@ -22,6 +22,7 @@ echo do_all_lang();
 <ul>
 	<li><strong><?php api('display',"centerHoriz"); ?></strong>: Center horizontally in the window</li>
 	<li><strong><?php api('display',"centerVert"); ?></strong>: Center vertically in the window</li>
+	<li><strong><?php api('display',"useModal"); ?></strong>: Use faded modal background for control (cannot be changed post-init)</li>
 </ul></p>
 
 <div class="ui-field-contain">

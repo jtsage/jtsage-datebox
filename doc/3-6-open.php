@@ -2,6 +2,8 @@
 require_once('inc/func.php');
 echo do_header("Open Methods", array('3-5-advdisplay.php',"Display Modifiers"), array('4-limits.php',"Data Limiting"), 'calbox');
 ?>
+<h1>Original Input</h1>
+<p>If for some reason you wish you end-user to be able to directly enter a date in the input, set <?php api('common','lockInput'); ?> false</p>
 
 <h1>Input Styles</h1>
 <p>There are a number of input styles - my favorite by far is <?php api('display','useNewStyle'); ?>.  But there are other options as well, which I will demonstrate below.</p>
