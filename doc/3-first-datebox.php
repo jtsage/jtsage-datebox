@@ -4,7 +4,7 @@ echo do_header("Your First Datebox", array("2-installing.php","Installation"), a
 ?>
 
 <h1>Your First Datebox</h1>
-<p>Adding a datebox is as simple as adding a data-role to a date or text input element, and specifying the mode you wish to use.</p>
+<p>Adding a datebox is as simple as adding a data-role to a date or text input element, and specifying the <?php api('common',"mode"); ?> you wish to use.</p>
 
 <pre class="prettyprint">&lt;input type="text" data-role="datebox" data-options='{"mode":"calbox"}'></pre>
 

@@ -15,13 +15,13 @@ echo do_header("Themeing Datebox", array("3-first-datebox.php","Your FIrst Dateb
 <h1>Themeing CalBox</h1>
 <p>CalBox has a number of theme options that can be added to the "data-options" attribute, - they are:
 <ul>
-	<li><strong>themeDate</strong>: Theme for otherwise un-specified date buttons</li>
-	<li><strong>themeDateToday</strong>: Theme for "today"</li>
-	<li><strong>themeDatePick</strong>: Theme for choosen date (used last after other options fail)</li>
-	<li><strong>themeDayHigh</strong>: Theme for highlighted DAYS</li>
-	<li><strong>themeDateHigh</strong>: Theme for highlighted DATES</li>
-	<li><strong>themeDateHighAlt</strong>: Theme for highlighted ALTERNATE DATES</li>
-	<li><strong>themeDateHighRec</strong>: Theme for highlighted RECURRING DATES</li>
+	<li><strong><?php api('themes',"themeDate"); ?></strong>: Theme for otherwise un-specified date buttons</li>
+	<li><strong><?php api('themes',"themeDateToday"); ?></strong>: Theme for "today"</li>
+	<li><strong><?php api('themes',"themeDatePick"); ?></strong>: Theme for choosen date (used last after other options fail)</li>
+	<li><strong><?php api('themes',"themeDayHigh"); ?></strong>: Theme for highlighted DAYS</li>
+	<li><strong><?php api('themes',"themeDateHigh"); ?></strong>: Theme for highlighted DATES</li>
+	<li><strong><?php api('themes',"themeDateHighAlt"); ?></strong>: Theme for highlighted ALTERNATE DATES</li>
+	<li><strong><?php api('themes',"themeDateHighRec"); ?></strong>: Theme for highlighted RECURRING DATES</li>
 </ul>
 </p>
 		
@@ -34,8 +34,8 @@ echo do_header("Themeing Datebox", array("3-first-datebox.php","Your FIrst Dateb
 <h1>Themeing DateBox/TimeBox/DurationBox</h1>
 <p>DateBox/TimeBox/DurationBox have a number of theme options that can be added to the "data-options" attribute, - they are:
 <ul>
-	<li><strong>themeButton</strong>: Theme for +/- buttons</li>
-	<li><strong>themeInput</strong>: Theme for text inputs</li>
+	<li><strong><?php api('themes',"themeButton"); ?></strong>: Theme for +/- buttons</li>
+	<li><strong><?php api('themes',"themeInput"); ?></strong>: Theme for text inputs</li>
 </ul>
 </p>
 		
@@ -47,9 +47,9 @@ echo do_header("Themeing Datebox", array("3-first-datebox.php","Your FIrst Dateb
 <h1>Themeing FlipBox/TimeFlipBox</h1>
 <p>FlipBox/TimeFlipBox have a number of theme options that can be added to the "data-options" attribute, - they are:
 <ul>
-	<li><strong>themeDate</strong>: Theme for default dates</li>
-	<li><strong>themeDateHigh</strong>: Theme for "today"</li>
-	<li><strong>themeDatePick</strong>: Theme for choosen date</li>
+	<li><strong><?php api('themes',"themeDate"); ?></strong>: Theme for default dates</li>
+	<li><strong><?php api('themes',"themeDateHigh"); ?></strong>: Theme for "today"</li>
+	<li><strong><?php api('themes',"themeDatePick"); ?></strong>: Theme for choosen date</li>
 </ul>
 </p>
 		
@@ -62,9 +62,9 @@ echo do_header("Themeing Datebox", array("3-first-datebox.php","Your FIrst Dateb
 <h1>Themeing SlideBox</h1>
 <p>SlideBox have a number of theme options that can be added to the "data-options" attribute, - they are:
 <ul>
-	<li><strong>themeDate</strong>: Theme for default dates</li>
-	<li><strong>themeDateHigh</strong>: Theme for "today"</li>
-	<li><strong>themeDatePick</strong>: Theme for choosen date</li>
+	<li><strong><?php api('themes',"themeDate"); ?></strong>: Theme for default dates</li>
+	<li><strong><?php api('themes',"themeDateHigh"); ?></strong>: Theme for "today"</li>
+	<li><strong><?php api('themes',"themeDatePick"); ?></strong>: Theme for choosen date</li>
 </ul>
 </p>
 		

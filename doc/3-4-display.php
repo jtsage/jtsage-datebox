@@ -16,7 +16,7 @@ with new versions first.<p>
 <div><input type="text" data-role="datebox" data-options='{"mode":"calbox", "useFocus":true, "useInline":false}'></div>
 
 <h2>Built-In Popup</h2>
-<p>With the option "enablePopup", DateBox will use jQM's built in popup method.  It is very clean, very fast, and offers a couple of 
+<p>With the option <?php api('display',"enablePopup"); ?>, DateBox will use jQM's built in popup method.  It is very clean, very fast, and offers a couple of 
 extra options not available with DateBox's own popup method.</p>
 
 <pre class="prettyprint">&lt;input type="text" data-role="datebox" data-options='{"mode":"calbox", "enablePopup":true}'></pre>
@@ -25,9 +25,9 @@ extra options not available with DateBox's own popup method.</p>
 
 <h2>Dialog</h2>
 <p>DateBox can also take advantage of jQM's dialog pages.  Please note that this method is tested pretty much last, as it's a holdover 
-from the initial versions of jQM, and I'm not sure it has a lot of utility left.  You can enable the dialog mode with "dialogEnable" - 
+from the initial versions of jQM, and I'm not sure it has a lot of utility left.  You can enable the dialog mode with <?php api('display',"dialogEnable"); ?> - 
 which means if the window width is less than 400px (very small displays), it will use the dialog mode - otherwise it will use the DateBox 
-Popup method.  To force the control to <strong>always</strong> be in a dialog, also set "dialogForce"</p>
+Popup method.  To force the control to <strong>always</strong> be in a dialog, also set <?php api('display',"dialogForce"); ?></p>
 
 <pre class="prettyprint">&lt;input type="text" data-role="datebox" data-options='{"mode":"calbox", "dialogEnable":true, "dialogForce":true}'></pre>
 
@@ -35,14 +35,14 @@ Popup method.  To force the control to <strong>always</strong> be in a dialog, a
 
 <h2>Inline and Inline-Blind</h2>
 <p>Sometimes (such as in these documents), it is preferable to have the control simply appear inline with the rest of the form.  To 
-show the control inline, with no hiding, set "useInline".</p>
+show the control inline, with no hiding, set <?php api('display',"useInline"); ?>.</p>
 
 <pre class="prettyprint">&lt;input type="text" data-role="datebox" data-options='{"mode":"calbox", "useInline":true}'></pre>
 
 <div><input type="text" data-role="datebox" data-options='{"mode":"calbox"}'></div>
 
 <p>Or, you might want DateBox to mimic the behavior of jQuery-UI - that is, to slide down the control when you click the input.  To
-do this, set "useInlineBlind"</p>
+do this, set <?php api('display',"useInlineBlind"); ?></p>
 
 <pre class="prettyprint">&lt;input type="text" data-role="datebox" data-options='{"mode":"calbox", "useInlineBlind":true}'></pre>
 

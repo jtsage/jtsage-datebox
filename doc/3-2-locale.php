@@ -19,7 +19,7 @@ echo do_all_lang();
 
 <h1>Overriding just a few values</h1>
 <p>Sometimes, it is more appropriate to just override a few values - for this purpose, you can use the "override" option sequence:</p>
-<p>For a full list of localisation string names, please look below - note the use of camel case - i.e. "dateFormat" becomes "overrideDateFormat"</p>
+<p>For a full list of localisation string names, please look below - note the use of camel case - i.e. <?php api('i18n',"dateFormat"); ?> becomes "overrideDateFormat"</p>
 
 <pre class="prettyprint">&lt;input type="text" data-role="datebox" 
    data-options='{"mode":"datebox", "overrideSetDateButtonLabel":"Update Date"}'></pre>
@@ -72,7 +72,8 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 <p>Of particular note, the line before last, and the second line contain the language name - it can be whatever you like, but if
 you choose to load multiple files on a page, the name must be unique.  Most values are optional, if you choose not to supply them
 datebox will fall back to the default values defined in the CORE file.  This is particularly useful as you shouldn't need to track
-the main distribution to ensure your existing language files will work with new versions.</p>
+the main distribution to ensure your existing language files will work with new versions. For a complete listing of what each of
+these options means, please see the <a href="http://dev.jtsage.com/jQM-DateBox/api/">API</a>.</p>
 
 <h1>Correcting Mistakes / Submitting New Translations</h1>
 <p>If you wish to correct a mistake in the DateBox repository, or submit a language that does not already exist, you can send a merge 

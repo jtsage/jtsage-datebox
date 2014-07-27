@@ -11,7 +11,7 @@ $TOC = array(
 	array('index.php',			"1. Introduction"),
 	array('1-1-features.php',	"1.1. Features"),
 	array('2-installing.php',	"2. Installation"),
-	array('3-first-datebox',	"3. Your First Datebox"),
+	array('3-first-datebox.php',"3. Your First Datebox"),
 	array('3-1-themes.php',		"3.1. Themeing Datebox"),
 	array('3-2-locale.php',		"3.2. Localizing Datebox"),
 	array('3-3-output.php',		"3.3. Output Formats"),
@@ -28,7 +28,9 @@ $TOC = array(
 	array('6-2-link.php',		"6.2. Linking Dateboxes"),
 	array('6-3-func.php',		"6.3. Common Functions"),
 	array('6-4-trigger.php',	"6.4. Triggers"),
-	array('6-5-globals.php',	"6.5. Global Data")
+	array('6-5-globals.php',	"6.5. Global Data"),
+	array('7-demos.php',		"7. Advanced Demos"),
+	array('8-pack.php',			"8. 3rd-Party Integration")
 );
 
 $LANGS = array(
@@ -71,6 +73,11 @@ $LANGS = array(
 	array("zh-TW", "Chinese - Traditional")
 );
 
+function api($idx,$key) {
+	global $ROOT;
+	echo "\"<a href='{$ROOT}api/index.php?idx={$idx}&amp;key={$key}'>{$key}</a>\"";
+}
+
 function do_all_lang() {
 	global $LANGS;
 	return "<script type=\"text/javascript\" src=\"http://cdn.jtsage.com/datebox/i18n/jqm-datebox.lang.utf8.js\"></script>\n";
@@ -92,7 +99,7 @@ function do_header($title, $back=NULL, $fwd=NULL, $mods="ALL") {
 }
 
 function do_footer() {
-	return "</div>\n\n".'<div data-role="footer" data-position="fixed"><div data-role="controlgroup" data-mini="true" data-type="horizontal" class="ui-mini"><a data-role="button" data-mini="true" rel="external" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" data-mini="true" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a data-role="button" data-mini="true" rel="external" href="http://crowdin.net/project/jquery-mobile-datebox">i18n Project</a><a data-role="button" data-mini="true" rel="external" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" data-mini="true" rel="external" href="http://jquerymobile.com/">jQueryMobile Homepage</a></div></div>'."\n";
+	return "</div>\n\n".'<div data-role="footer" data-position="fixed"><div data-role="controlgroup" data-mini="true" data-type="horizontal" class="ui-mini"><a data-role="button" data-mini="true" rel="external" href="http://dev.jtsage.com/jQM-DateBox/api/">API Documentation</a><a data-role="button" data-mini="true" rel="external" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" data-mini="true" rel="external" href="http://dev.jtsage.com/forums/">Support Forums</a><a data-role="button" data-mini="true" rel="external" href="http://crowdin.net/project/jquery-mobile-datebox">i18n Project</a><a data-role="button" data-mini="true" rel="external" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" data-mini="true" rel="external" href="http://jquerymobile.com/">jQueryMobile Homepage</a></div></div>'."\n";
 }
 
 function mk_toc() {
@@ -138,15 +145,15 @@ function mk_head($title, $mods, $iline) {
 	$t .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n";
 	$t .= "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1\">\n";
 	$t .= "<title>jQM::DateBox - {$title}</title>\n\n";
-	$t .= "<link rel=\"stylesheet\" href=\"demos.css\" />\n"; 
-	$t .= '<link rel="stylesheet" href="jquery.mobile.icons.min.css" />' . "\n";
+	$t .= "<link rel=\"stylesheet\" href=\"css/demos.min.css\" />\n"; 
+	$t .= '<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />' . "\n";
 	$t .= '<link rel="stylesheet" href="http://code.jquery.com/mobile/' . $VERSION_JQM . '/jquery.mobile.structure-'.$VERSION_JQM.'.min.css" />' . "\n";
 	$t .= "<link rel=\"stylesheet\" href=\"{$CSSPATH}jqm-datebox.css\" />\n";
 	$t .= "\n";
 	$t .= "<script type=\"text/javascript\" src=\"http://code.jquery.com/jquery-{$VERSION_JQ}.js\"></script>\n";
 	$t .= "<script src=\"http://code.jquery.com/mobile/{$VERSION_JQM}/jquery.mobile-{$VERSION_JQM}.min.js\"></script>\n";
 	$t .= "<script type=\"text/javascript\" src=\"http://dev.jtsage.com/jquery.mousewheel.min.js\"></script>\n\n";
-	$t .= "<script type=\"text/javascript\" src=\"{$DPATH}doc.js\"></script>\n";
+	$t .= "<script type=\"text/javascript\" src=\"inc/doc.js\"></script>\n";
 	$t .= "<script type=\"text/javascript\" src=\"{$JSPATH}jqm-datebox.core.js\"></script>\n";
 	if ( $mods == "ALL" || $mods == "calbox" ) {
 		$t .= "<script type=\"text/javascript\" src=\"{$JSPATH}jqm-datebox.mode.calbox.js\"></script>\n";
