@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.4.3-2014072700', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.3-2014072701', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
 			theme: false,
 			themeDefault: 'a',
@@ -669,7 +669,6 @@
 			mode = (mode || "").toLowerCase();
 				
 			if ( typeof(update) === "undefined" ) { update = true; }
-			w.d.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount});
 			
 			if ( mode !== 'a' && ( typeof o.rolloverMode[mode] === 'undefined' || o.rolloverMode[mode] === true )) {
 				ok = $.inArray(mode, ['y','m','d','h','i','s']);
@@ -699,6 +698,8 @@
 			if ( ok !== false ) { w.theDate.adj(ok,amount); }
 			if ( update === true ) { w.refresh(); }
 			if ( o.useImmediate ) { w.d.input.trigger('datebox', {'method':'doset'}); }
+			
+			w.d.input.trigger('datebox', {'method':'offset', 'type':mode, 'amount':amount, 'newDate':w.theDate});
 		},
 		_startOffset: function(date) {
 			var o = this.options;

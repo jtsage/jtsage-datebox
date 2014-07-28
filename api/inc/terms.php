@@ -183,7 +183,7 @@ $opt = array(
 		'disable' => array('', 'Recieve: Datebox has been disabled', '-'),
 		'refresh' => array('', 'Recieve: Datebox has been refreshed', '-'),
 		'clear' => array('', 'Recieve: Datebox input has been cleared', '-'),
-		'offset' => array('', 'Recieve: Date has been changed', '2 args'),
+		'offset' => array('', 'Recieve: Date has been changed', '3 args'),
 	)),
 	'event2' => array('General Listener Events', array(
 		'dateboxbeforecreate' => array('', 'Triggered on every page if datebox is loaded.  Somewhat useless', ''),
