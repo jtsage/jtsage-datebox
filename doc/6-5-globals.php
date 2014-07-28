@@ -1,6 +1,6 @@
 <?php
 require_once('inc/func.php');
-echo do_header("Global Data", array('6-4-trigger.php',"6.4. Triggers"), array('7-demos.php',"7. Advanced Demos"), false);
+echo do_header("Global Data", array('6-4-trigger.php',"Triggers"), array('7-demos.php',"Advanced Demos"), false);
 ?>
 
 <h1>Mis-Named</h1>
