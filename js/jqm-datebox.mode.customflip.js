@@ -70,6 +70,9 @@
 			
 			return $.merge($.merge([], before), after);
 		},
+		'_cubox_range': function(i) {
+				return i?this._cubox_range(i-1).concat(i):[]
+		},
 		'_cubox_pos': function () {
 			var w = this,
 				ech = null,
@@ -189,14 +192,16 @@
 				}
 			});
 			
-			w.d.headerText = ((o.customHead !== false ) ? o.customHead : ((w._grabLabel() !== false)?w._grabLabel():w.__('tireTitleString')));
+			w.d.headerText = ((o.customHead !== false ) ? o.customHead : ((w._grabLabel() !== false)?w._grabLabel():""));
 			w.d.intHTML = $('<span>');
+
+			w.fldOrder = w._cubox_range(o.customData.length);
+
+			if ( o.customData.length === 1 ) { unclass = "XX"; } else { unclass = ""; }
 			
-			w.fldOrder = o.tireFieldOrder;
-			
-			tmp = $('<div class="'+uid+'header ui-grid-'+[0,0,'a','b','c'][o.customData.length]+'"></div>');
+			tmp = $('<div class="'+uid+'header ui-grid-'+unclass+[0,0,'a','b','c'][o.customData.length]+'"></div>');
 			for ( y=0; y<o.customData.length; y++ ) {
-				$('<div class="ui-block-'+['a','b','c','d'][y]+'">'+o.customData[y]['name']+'</div>').css('textAlign','center').appendTo(tmp);
+				$('<div class="ui-block-'+unclass+['a','b','c','d'][y]+'">'+o.customData[y]['name']+'</div>').css('textAlign','center').appendTo(tmp);
 			}
 			tmp.appendTo(w.d.intHTML);
 			
@@ -205,6 +210,7 @@
 			for ( y=0; y<o.customData.length; y++ ) {
 				lineArr = w._cubox_arr(o.customData[y]['data'], w.customCurrent[y]);
 				hRow = w._makeEl(flipBase, {'attr': {'field':y,'amount':1} });
+				if ( o.customData.length === 1 ) { hRow.css('width','90%'); }
 				for ( i in lineArr ) {
 					tmp = (i!=10)?o.themeOpt:o.themeOptPick;
 					$('<li>', {'class':'ui-body-'+tmp})
@@ -214,7 +220,7 @@
 			}
 			
 			$("<div>", {"class":uid+'flipcenter ui-overlay-shadow'}).css('pointerEvents', 'none').appendTo(w.d.intHTML);
-			
+
 			if ( o.useSetButton ) {
 				y = $('<div>', {'class':uid+'controls'});
 				
@@ -223,7 +229,7 @@
 						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
-							w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(o.customFormat,w.customCurrent), 'date':w.tireChoice});
+							w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(o.customFormat,w.customCurrent), 'date':''});
 							w.d.input.trigger('datebox', {'method':'close'});
 						});
 				}

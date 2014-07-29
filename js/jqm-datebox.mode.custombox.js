@@ -17,10 +17,11 @@
 		],
 		customDefault: [0,0,0],
 		customFormat: false,
+		customeHead: false,
 		customboxlang: {
 			// This structure interfaces with __() -> if it exists, strings are looked up here after i8n fails,
 			// and before going to 'default' - the name syntax is <mode>lang
-			'customSet':'Looks Good'
+			'customSet':'Looks Good',
 		}
 		
 	});
@@ -50,7 +51,14 @@
 		// If this stucture exists, the formatter will call it when it encounters a special string
 		// %X<whatever> - it recieves the single letter operater, and the current "date" value
 		'custombox' : function ( oper, val ) { 
-			return val[oper-1];
+			var per = parseInt(oper), tmp;
+
+			if ( typeof(per) === 'number' && !isNaN(per) ) {
+				return val[oper-1];
+			} else {
+				tmp = $.inArray(oper, ['a','b','c','d','e','f']);
+				return o.customData[tmp].data[val[tmp]];
+			}
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
@@ -83,7 +91,7 @@
 				w.d.intHTML.empty().remove();
 			}
 			
-			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():((o.mode==='datebox')?w.__('titleDateDialogLabel'):w.__('titleTimeDialogLabel')));
+			w.d.headerText = ((o.customHead !== false ) ? o.customHead : ((w._grabLabel() !== false)?w._grabLabel():""));
 			w.d.intHTML = $('<span>');
 			
 			

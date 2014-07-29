@@ -1,0 +1,72 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>jQueryMobile - DateBox Demo</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script> 
+	
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	
+	<link type="text/css" href="../css/jqm-datebox.css" rel="stylesheet" /> 
+	
+	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.mode.customflip.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.mode.custombox.js"></script>
+	<script type="text/javascript" src="./jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<script type="text/javascript">
+	var selectdata = ['Single', 'Separated', 'Involved', 'Married', 'Widowed', 'Lover', 'Other'];
+	jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+		'customData': [{
+			'input': true,
+			'name': '',
+			'data': selectdata
+		}],
+		"customDefault": [0],
+		"customHead": "Blah!",
+		"useNewStyle": true,
+		"enablePopup": false,
+		"centerHoriz": true,
+		"centerVert": true,
+		"useFocus": true,
+		"useButton": false,
+		"useHeader": true,
+		"overrideCustomSet": "Looks Good",
+		"customFormat": "%Xa"
+});
+
+$('#cf').on('datebox', function (e, p) {
+    if (p.method === 'postrefresh') {
+        $(".ui-datebox-container h1.ui-title").html("My Title");
+    }
+   
+});
+	</script>
+	<style>
+		.ui-icon-dice { background-image: url('img/dice.png') !important; background-repeat: no-repeat; background-position: 99% 50%; }
+	</style>
+	
+</head>
+<body>
+<div data-role="page" id="main"> 
+	<div data-role="header" data-position="fixed"> 
+		<h1>jQueryMobile - Dev Page</h1>
+	</div>
+	<div data-role="content">
+		<div data-role="fieldcontain">
+			<label for="cf">Custom</label>
+			<input name="cf" type="date" data-role="datebox" id="cf" data-options='{"mode": "customflip"}' />
+		</div>
+
+
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<h1>Some Footer Information or Something.</h1>
+	</div>
+</div>
+</html>
