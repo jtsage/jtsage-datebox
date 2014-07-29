@@ -11,7 +11,7 @@ echo do_all_lang();
 <ul>
 	<li><strong><?php api('display',"transition"); ?></strong>: The transition to use for display, default: <em>'pop'</em></li>
 	<li><strong><?php api('display',"useAnimation"); ?></strong>: Enable transition animations, default: <em>true</em></li>
-	<li><strong><?php api('display',"zindex"); ?></strong>: The Z-Index of the control, default: <em>1000</em></li>
+	<li><strong><?php api('display',"zindex"); ?></strong>: The Z-Index of the control, default: <em>1100</em></li>
 	<li><strong><?php api('display',"resizeListener"); ?></strong>: Re-position the control on window change (landscape/portait flip for instance), default: <em>true</em></li>
 	<li><strong><?php api('display',"hideFixedToolbars"); ?></strong>: Hide "fixed" toolbars on open, default: <em>false</em></li>
 </ul></p>
