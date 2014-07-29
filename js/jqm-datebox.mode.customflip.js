@@ -18,6 +18,7 @@
 		],
 		customDefault: [0,0,0],
 		customFormat: false,
+		customHead: false,
 		customfliplang: {
 			// This structure interfaces with __() -> if it exists, strings are looked up here after i8n fails,
 			// and before going to 'default' - the name syntax is <mode>lang
@@ -130,7 +131,6 @@
 			if ( exp_input !== null ) {
 				for ( var x = 1; x<exp_input.length; x++ ) {
 					tmp = exp_format[x].charAt(2);
-					console.log(tmp);
 					if ( isNaN(parseInt(tmp)) ) {
 						tmp2 = $.inArray(tmp, ['a','b','c','d','e','f']);
 						retty_val[tmp2] = $.inArray(exp_input[x], o.customData[tmp2].data);
@@ -189,7 +189,7 @@
 				}
 			});
 			
-			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('tireTitleString'));
+			w.d.headerText = ((o.customHead !== false ) ? o.customHead : ((w._grabLabel() !== false)?w._grabLabel():w.__('tireTitleString')));
 			w.d.intHTML = $('<span>');
 			
 			w.fldOrder = o.tireFieldOrder;
