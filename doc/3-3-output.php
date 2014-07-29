@@ -172,6 +172,9 @@ echo do_header("Output Formats", array("3-2-locale.php","Localization"), array("
 	<li><h3>-</h3>
 		<p class="desc">Pad with nothing - e.g. 4 -> %-d -> 4 </p>
 	</li>
+	<li><h3>X</h3>
+		<p class="desc">Pass to custom formatter (custombox / customflip)</p>
+	</li>
 	<li data-role="list-divider">Unimplemented Options</li>
 	<li><h3>%c, %D, %F, %r, %R, %T, %x, %X, %+</h3>
 		<p>These options all deal with "standard" full formats - which is the point of this package</p>
