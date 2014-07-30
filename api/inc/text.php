@@ -142,11 +142,13 @@ $text = array(
 		'calTomorrowButtonLabel' => ""
 	)),
 	'custom' => array('CustomBox/CustomFlip Options', array(
-		'customData' => "",
+		'customData' => "See <a href='http://dev.jtsage.com/jQM-DateBox/doc/7-x-custom.php'>dev.jtsage.com/jQM-DateBox/doc/7-x-custom.php</a> for a breakdown of how to use this option.",
 		'themeOptPick' => "",
 		'themeOpt' => "",
-		'overrideCustomSet' => "",
-		'customDefault' => "",
+		'overrideCustomSet' => "Note that this can and *should* be included in a language pack.  Of course, drop the 'override' to become 'customSet'.  It does not exist in any of the distributed language packs.",
+		'customDefault' => "The default selection for the data.  This is an array of <b>indexes</b>.  This <b>must</b> be set, as datebox can not really take a reasonable guess at your data.  By default it is [0,0,0], which will choose the first data element of up to three sources.",
+		'customHead' => "Allows you to force the header text to whatever you specify.  Leaving it false allows datebox to work as normal, grabbing either the placeholder attribute, or the label text (in that order of preference).  If neither is found, it will be blank. Note that this option is <b>not</b> i18n aware.",
+		'customFormat' => "The intended output format for the data.  At a glance, valid options are %Xa ... %Xe and %X1 ... %X6 - if numeric, it will output the <b>index</b> of the data, if alphabetic, it will be the actual data.  Note that re-opening the control when outputting the actual data is <b>very</b> error-prone, usually resulting in the control reverting to the \"default\" values. When left 'false', datebox will build an appropriate format of just the indexes.",
 	)),
 	'callback' => array('Callback Options', array(
 		'openCallback' => "",

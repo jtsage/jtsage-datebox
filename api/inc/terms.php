@@ -149,7 +149,9 @@ $opt = array(
 		'themeOptPick' => array('a', 'Theme for highlighted option (customflip)', 'String', false),
 		'themeOpt' => array('d', 'Theme for other options (customflip)', 'String', false),
 		'overrideCustomSet' => array('Looks Good', 'Set button for custom modes (i18n aware)', 'String', false),
-		'customDefault' => array('[0,0,0]', 'Array of default indexs for custom modes', 'Array', false)
+		'customDefault' => array('[0,0,0]', 'Array of default indexs for custom modes', 'Array', false),
+		'customHead' => array(false, 'Force the header text', 'String', false),
+		'customFormat' => array(false, 'Format for returned data', 'String', false),
 	)),
 	'callback' => array('Callback Options', array(
 		'openCallback' => array(false, 'Callback function to run on control open', 'Function', true),
