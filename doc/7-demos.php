@@ -8,6 +8,8 @@ echo do_header("Advanced Demos", array('6-5-globals.php',"Global Data"), array('
 
 <ul>
 	<li><a href="7-x-formats.php">Submitting Multiple Date Formats</a></li>
+	<li><a href="7-x-custom.php">CustomBox / CustomFlip</a></li>
+	<li><a href="7-x-demos.php">Demo Magic (dynamic options)</a></li>
 </ul>
 
 
