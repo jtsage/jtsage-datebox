@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.4.3-2014072701', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.3-2014073001', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
 			theme: false,
 			themeDefault: 'a',
@@ -76,6 +76,7 @@
 			blackDates: false,
 			blackDatesRec: false,
 			blackDays: false,
+			whiteDates: true,
 			minHour: false,
 			maxHour: false,
 			minuteStep: 1,
@@ -1277,6 +1278,9 @@
 				}
 				if ( o.blackDays !== false ) {
 					if ( $.inArray(w.theDate.getDay(), o.blackDays) > -1 ) { w.dateOK = false; }
+				}
+				if ( o.whiteDates !== false ) {
+					if ( $.inArray(w.theDate.iso(), o.whiteDates) > -1 ) { w.dateOK = true; }
 				}
 			}
 		},

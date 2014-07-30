@@ -81,6 +81,10 @@ echo do_header("Excluding Dates", array('4-1-defaults.php',"Default / Start Date
 	<label for="cal4d"><?php api('limiting','enableDates'); ?>: </label>
 	<input id="cal4d" data-link="cal4" data-opt="enableDates" value="false" type="text" class="demopick">
 </div>
+<div class="ui-field-contain">
+	<label for="cal4e"><?php api('limiting','whiteDates'); ?>:</label>
+	<input id="cal4e" data-link="cal4" data-opt="whiteDates" value="false" type="text" class="demopick">
+</div>
 <div class="ui-field-contain"><input type="text" id="cal4" data-role="datebox" data-options='{"mode":"calbox"}'></div>
 
 

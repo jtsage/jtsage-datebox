@@ -73,6 +73,7 @@ $text = array(
 		'blackDates' => "Array of ISO dates that are not valid and should be disabled",
 		'blackDays' => "Array of days (0=Sunday ... 6=Saturday) that are not valid and should be disabled",
 		'enableDates' => "Array of ISO dates that are the *only* valid dates, and everything else should be disabled",
+		'whiteDates' => "Always allow this list of ISO dates to be selected.  Overrides *all* of the above exclusion methods. (recurring, specific, before/after, etc)",
 		'minHour' => "",
 		'maxHour' => "",
 		'validHours' => "Array of valid hours to choose (24hr based)",

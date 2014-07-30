@@ -116,6 +116,9 @@
 					ret.ok = false;
 				}
 			}
+
+			if ( $.isArray(o.whiteDates) && $.inArray(ret.iso, o.whiteDates) > -1 ) { ret.ok = true; }
+
 			if ( ret.ok ) {
 				if ( o.highDatesRec !== false ) {
 					for ( i=0; i<o.highDatesRec.length; i++ ) {
