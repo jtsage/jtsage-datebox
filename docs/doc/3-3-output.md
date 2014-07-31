@@ -1,14 +1,17 @@
-<?php
-require_once('inc/func.php');
-echo do_header("Output Formats", array("3-2-locale.php","Localization"), array("3-4-display.php","Display Modes"), 'calbox');
-?>
+---
+title: Output Formats
+pagenum: 6
+layout: doc
+---
 
-<h1>Reminder about Overrides</h1>
-<p>When using the override system, note the use of camel case - i.e. "dateFormat" becomes "overrideDateFormat"</p>
+# Reminder about Overrides
+When using the override system, note the use of camel case - i.e. "dateFormat" becomes "overrideDateFormat"
 
-<pre class="prettyprint">&lt;input type="text" data-role="datebox" data-options='{"mode":"calbox","overrideDateFormat":"%A, %B %-d, %Y"}'></pre>
+{% highlight html %}
+<input type="text" data-role="datebox" data-options='{"mode":"calbox","overrideDateFormat":"%A, %B %-d, %Y"}'>
+{% endhighlight %}
 
-<div><input type="text" data-role="datebox" data-options='{"mode":"calbox","overrideDateFormat":"%A, %B %-d, %Y"}'></div>
+<div><input type="text" data-role="datebox" data-options='{"mode":"calbox","overrideDateFormat":"%A, %B %-d, %Y", "useInline":true}'></div>
 
 <style type="text/css">
 	.options h3 { display: inline; }
@@ -23,9 +26,12 @@ echo do_header("Output Formats", array("3-2-locale.php","Localization"), array("
 	dt code, dd code { font-size:1.3em; line-height:150%; }
 	pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
 </style>
-<h1>Date Format Options</h1>
-<p>The date format follows the POSIX standards.  There is one extension.  By default, all numbers are zero-padded. (see modifiers section)</p>
-		
+
+# Date Format Options
+
+The date format follows the POSIX standards.  There is one extension.  By default, all numbers are zero-padded. (see modifiers section)
+
+<div>		
 <ul data-role="listview" data-inset="true" class="options" data-divider-theme="b">
 	<li data-role="list-divider">Implemented Options</li>
 	<li><h3>%%</h3>
@@ -186,6 +192,4 @@ echo do_header("Output Formats", array("3-2-locale.php","Localization"), array("
 		<p>Time zone options that are better handled server-side</p>
 	</li>
 </ul>
-<?php
-echo do_footer();
-?>
+</div>
