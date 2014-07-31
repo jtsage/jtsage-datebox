@@ -1,7 +1,7 @@
 jQuery-Mobile-DateBox
 =====================
 
-DateBox is a jQuery-mobile based date and time picker. [Full Documentation and Demos](http://dev.jtsage.com/jQM-DateBox2/)
+DateBox is a jQuery-mobile based date and time picker. [Full Documentation and Demos](http://dev.jtsage.com/jQM-DateBox/)
 
 DateBox Features
 ----------------
@@ -52,7 +52,7 @@ All scripts are available on the cdn:
 
 DateBox uses the following version scheme:
 
-[http://dev.jtsage.com/cdn/datebox/&lt;jqm VERSION&gt;/](http://dev.jtsage.com/cdn/datebox/)
+[http://cdn.jtsage.com/datebox/&lt;jqm VERSION&gt;/](http//cdn.jtsage.com/datebox/)
 
 You must load:
 * jqm-datebox.core.js (or min)
@@ -63,7 +63,7 @@ OR (if using only one mode)
 
 #### Latest Versions:
 
-[cdn repo](http://dev.jtsage.com/cdn/datebox/latest/)
+[cdn repo](http://cdn.jtsage.com/datebox/latest/)
 
 Suggested Use
 -------------
@@ -83,40 +83,10 @@ Suggested Use
 Available Options
 -----------------
 
-Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox2/demos/fullopt.html)
+Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox/api/)
 
 Runtime Operation (Scripting / Extending)
 -----------------------------------------
 
-Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox2/demos/fullopt.html)
+Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox/api/)
 
-### Just-In-Time options updating
-
-The following options **can** be changed after initialization (i.e. in per-page scripts after load). Almost all will require you to refresh the control.
-
-* Data limiting:
-  * minDays & maxDays & afterToday
-  * minYear & maxYear
-  * blackDays & blackDates
-  * calWeekMode & calWeekModeFirstDay
-  * minuteStep
-* Display / Internationalization:
-  * calStartDay
-  * daysOfWeek, daysOfWeekShort, monthsOfYear, monthsOfYearShort, headerFormat
-  * dateFormat _(probably - it will throw off reopens though)_
-  * Dialog mode forcing (either on or off)
-* Any of the calendar or slide mode themes (except the base theme) & disabledDayColor & calWeekModeHighLight
-* closeCallback, openCallback
-* These require throwing the 'refresh' trigger method, or refresh() function:
-  * Any of the labels on buttons / window titles.
-  * Any of the themes on the datebox or time modes.
-  * Any of the options related to inline display
-  * timeFormat, fieldsOrder
-
-The following options happen to early, and cannot be changed post-initialization by script events.
-
-* useInline, useInlineBlind, hideInput
-* useButton, useModal, zindex, useAnimation, useNewStyle, useAltIcon, overrideStyleClass
-
-
-  
