@@ -7,7 +7,7 @@ module Jekyll
     end
 
     def render(context)
-      "\"<a href='../api/#{@text}'><b>#{@text}</b></a>\""
+      "\"<a href='#{context.registers[:site].config["basesite"]}api/#{@text}'><b>#{@text}</b></a>\""
     end
   end
 end

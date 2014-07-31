@@ -1,91 +1,98 @@
-<?php
-require_once('inc/func.php');
-echo do_header("UI Controls", array('4-3-include.php',"Including Dates"), array('6-prog.php',"Extending Datebox"));
-?>
-<h1>UI Controls</h1>
-<p>This section deals with options that change how the UI looks, feels, and acts. Although it was mentioned before briefly, <?php api('control','useImmediate'); ?> really fits into this section better.</p>
+---
+title: UI Controls
+pagenum: 14
+layout: doc
+---
 
-<h1>Buttons and Headers</h1>
-<p>There is also <?php api('control','useHeader'); ?>, which is not applicable in the "inline" context, so it is not shown here.</p>
+# UI Controls
+This section deals with options that change how the UI looks, feels, and 
+acts. Although it was mentioned before briefly, {% api_doc useImmediate %}
+really fits into this section better.
+
+# Buttons and Headers
+
+There is also {% api_doc useHeader %}, which is not applicable in the 
+"inline" context, so it is not shown here.
 
 <div class="ui-field-contain">
-	<label for="cal1b"><?php api('control','useSetButton'); ?>:</label>
+	<label for="cal1b">{% api_doc useSetButton %}</label>
 	<select id="cal1b" data-link="cal1" data-opt="useSetButton" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true" selected="selected">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal1c"><?php api('control','useClearButton'); ?>:</label>
+	<label for="cal1c">{% api_doc useClearButton %}</label>
 	<select id="cal1c" data-link="cal1" data-opt="useClearButton" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal1d"><?php api('control','useCollapsedBut'); ?>:</label>
+	<label for="cal1d">{% api_doc useCollapsedBut %}</label>
 	<select id="cal1d" data-link="cal1" data-opt="useCollapsedBut" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
-<div class="ui-field-contain"><input type="text" id="cal1" data-role="datebox" data-options='{"mode":"datebox"}'></div>
+<div class="ui-field-contain"><input type="text" id="cal1" data-role="datebox" data-options='{"mode":"datebox", "useInline" true}'></div>
 
-<h1>CalBox Specific - Display</h1>
-<p>This group of options deals with the extra information displayed on the calendar.</p>
+# CalBox Specific - Display
+
+This group of options deals with the extra information displayed on the 
+calendar.
+
 <div class="ui-field-contain">
-	<label for="cal2a"><?php api('control','calShowDays'); ?>:</label>
+	<label for="cal2a">{% api_doc calShowDays %}</label>
 	<select id="cal2a" data-link="cal2" data-opt="calShowDays" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true" selected="selected">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal2b"><?php api('control','calShowWeek'); ?>:</label>
+	<label for="cal2b">{% api_doc calShowWeek %}</label>
 	<select id="cal2b" data-link="cal2" data-opt="calShowWeek" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal2c"><?php api('control','calOnlyMonth'); ?>:</label>
+	<label for="cal2c">{% api_doc calOnlyMonth %}</label>
 	<select id="cal2c" data-link="cal2" data-opt="calOnlyMonth" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal2d"><?php api('themes','calHighToday'); ?>:</label>
+	<label for="cal2d">{% api_doc calHighToday %}</label>
 	<select id="cal2d" data-link="cal2" data-opt="calHighToday" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true" selected="selected">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal2e"><?php api('themes','calHighPick'); ?>:</label>
+	<label for="cal2e">{% api_doc calHighPick %}</label>
 	<select id="cal2e" data-link="cal2" data-opt="calHighPick" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true" selected="selected">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal2f"><?php api('themes','calWeekHigh'); ?>:</label>
+	<label for="cal2f">{% api_doc calWeekHigh %}</label>
 	<select id="cal2f" data-link="cal2" data-opt="calWeekHigh" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal2g"><?php api('themes','calControlGroup'); ?>:</label>
+	<label for="cal2g">{% api_doc calControlGroup %}</label>
 	<select id="cal2g" data-link="cal2" data-opt="calControlGroup" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
-<div class="ui-field-contain"><input type="text" id="cal2" data-role="datebox" data-options='{"mode":"calbox"}'></div>
+<div class="ui-field-contain"><input type="text" id="cal2" data-role="datebox" data-options='{"mode":"calbox", "useInline":true}'></div>
 
-<h1>CalBox Specific - Control</h1>
-<p>These options deal with how dates are selected in calbox</p>
+# CalBox Specific - Control
+
+These options deal with how dates are selected in calbox
+
 <div class="ui-field-contain">
-	<label for="cal3a"><?php api('control','useTodayButton'); ?>:</label>
+	<label for="cal3a">{% api_doc useTodayButton %}</label>
 	<select id="cal3a" data-link="cal3" data-opt="useTodayButton" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal3b"><?php api('control','calWeekMode'); ?>:</label>
+	<label for="cal3b">{% api_doc calWeekMode %}</label>
 	<select id="cal3b" data-link="cal3" data-opt="calWeekMode" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal3c"><?php api('control','calWeekModeDay'); ?>:</label>
+	<label for="cal3c">{% api_doc calWeekModeDay %}</label>
 	<input id="cal3c" data-link="cal3" data-opt="calWeekModeDay" type="text" value="1" class="demopick">
 </div>
 <div class="ui-field-contain">
-	<label for="cal3d"><?php api('themes','calUsePickers'); ?>:</label>
+	<label for="cal3d">{% api_doc calUsePickers %}</label>
 	<select id="cal3d" data-link="cal3" data-opt="calUsePickers" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal3e"><?php api('themes','calYearPickMin'); ?>:</label>
+	<label for="cal3e">{% api_doc calYearPickMin %}</label>
 	<input id="cal3e" data-link="cal3" data-opt="calYearPickMin" type="text" value="-6" class="demopick">
 </div>
 <div class="ui-field-contain">
-	<label for="cal3f"><?php api('themes','calYearPickMax'); ?>:</label>
+	<label for="cal3f">{% api_doc calYearPickMax %}</label>
 	<input id="cal3f" data-link="cal3" data-opt="calYearPickMax" type="text" value="6" class="demopick">
 </div>
 <div class="ui-field-contain">
-	<label for="cal3g"><?php api('themes','calNoHeader'); ?>:</label>
+	<label for="cal3g">{% api_doc calNoHeader %}</label>
 	<select id="cal3g" data-link="cal3" data-opt="calNoHeader" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
-<div class="ui-field-contain"><input type="text" id="cal3" data-role="datebox" data-options='{"mode":"calbox"}'></div>
-
-<?php
-echo do_footer();
-?>
+<div class="ui-field-contain"><input type="text" id="cal3" data-role="datebox" data-options='{"mode":"calbox", "useInline": true}'></div>
