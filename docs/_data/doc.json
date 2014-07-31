@@ -22,4 +22,10 @@
     { "url":"6-5-globals.html", 		"name":"6.5. Global Data"},
     { "url":"7-demos.html", 			"name":"7. Advanced Demos"},
     { "url":"8-pack.html", 			"name":"8. 3rd-Party Integration"}
-]}
+],
+"langmap": [
+	["en","English US"],["af","Afrikaans"],["ar","Arabic"],["bg","Bulgarian"],["ca","Catalan"],["cs","Czech"],["da","Danish"],["de","German"],["el","Greek Modern"],["es-ES","Spanish"],["fi","Finnish"],["fr","French"],["he","Hebrew"],["hr","Croatian"],["hu","Hungarian"],["id","Indonesian"],["it","Italian"],["ja","Japanese"],["ko","Korean"],["lt","Lituanian"],["nl","Dutch"],["nl-BE","Dutch Belgium"],["no","Norwegian"],["pl","Polish"],["pt-BR","Portuguese"],["pt-PT","Portuguese"],["ro","Romainian"],["ru","Russian"],["sl","Slovenian"],["sr","Serbian"],["sv-SE","Swedish"],["th","Thai"],["tr","Turkish"],["uk","Ukrainian"],["vi","Vietnamese"],["zh-CN","Chinese - Simplified"],["zh-TW","Chinese - Traditional"]
+]
+
+}
+
