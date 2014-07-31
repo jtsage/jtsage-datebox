@@ -1,3 +1,4 @@
-jq_ver: "2.1.1"
-jqm_ver: "1.4.3"
+jqver: "2.1.1"
+jqmver: "1.4.3"
 cdn: "http://cdn.jtsage.com/datebox/latest/"
+i18n: "http://cdn.jtsage.com/datebox/i18n/"

@@ -1,0 +1,44 @@
+---
+---
+{% include doc_head.html %}
+<div data-role="page" id="main">
+	<div data-role="panel" data-display="overlay" id="toc">
+	<ul data-role='listview'>
+		<li data-role="list-divider">Contents</li>
+		{% for docu in site.data.doc.docmap %}
+		<li><a href="{{ docu.url }}">{{ docu.name }}</a></li>
+		{% endfor %}
+	</ul>
+	</div>
+	<div data-role="header" data-position="fixed">
+		<h1>jQMDateBox - {{ page.title }}</h1>
+	</div>
+	<div data-role="navbar">
+	<ul>
+		{% if page.pagenum != 0 %}
+			{% capture lastpage %}{{ page.pagenum | minus:1 }}{% endcapture %}
+			{% for item in site.data.doc.docmap limit:1 offset:lastpage %}
+				<li><a data-icon="arrow-l" href="{{ item.url }}">{{ item.name }}</a></li>
+			{% endfor %}
+		{% else %}
+			<li><a data-icon="delete" href="#">--</a></li>
+		{% endif %}
+		<li><a href="#toc" data-icon='grid'>Contents</a></li>
+		{% if page.pagenum < site.data.doc.docmap.size %}
+			{% capture nextpage %}{{ page.pagenum | plus:1 }}{% endcapture %}
+			{% for item in site.data.doc.docmap limit:1 offset:nextpage %}
+				<li><a data-icon="arrow-r" href="{{ item.url }}">{{ item.name }}</a></li>
+			{% endfor %}
+		{% else %}
+			<li><a data-icon="delete" href="#">--</a></li>
+		{% endif %}
+	</ul>
+	</div>
+
+<div data-role="content">
+{{ content }}
+</div>
+
+{% include footer.html api="true" %}
+
+

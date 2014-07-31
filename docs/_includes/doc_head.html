@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>jQM::DateBox - {{ page.title }}</title>
+
+<link rel="stylesheet" href="../css/doc.min.css" />
+<link rel="stylesheet" href="../css/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile.structure-{{ site.jqmver }}.min.css" />
+<link rel="stylesheet" href="{{ site.cdn }}jqm-datebox.css" />
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
+<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+
+<script type="text/javascript" src="../js/doc.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.core.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.calbox.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.datebox.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.flipbox.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.durationbox.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.durationflipbox.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.slidebox.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.custombox.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.customflip.js"></script>
+<script type="text/javascript" src="{{ site.i18n }}jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+<script type="text/javascript">
+	jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+		'useNewStyle': true,
+	});
+	jQuery.extend(jQuery.mobile, { ajaxEnabled: false });
+</script>
+</head>
+<body>
+

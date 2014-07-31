@@ -6,23 +6,23 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-1.4.3.min.css" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.css" />
+	<link type="text/css" href="{{ site.cdn }}jqm-datebox.min.css" rel="stylesheet" /> 
 	
-	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox2/css/demos.css" rel="stylesheet" /> 
+	<link type="text/css" href="css/demos.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script>
-	<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.flipbox.min.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="{{ site.i18n }}jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 	
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile, { ajaxEnabled: false });
@@ -37,7 +37,7 @@
 		<div class="content-secondary"> 
 			<div id="jqm-homeheader"> 
 				<h1 id="jqm-logo"><img src="img/jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
-				<p>A Date and Time Picker plugin for jQueryMobile 1.4.0+</p> 
+				<p>A Date and Time Picker plugin for jQueryMobile {{ site.jqver }}</p> 
 				
 			</div> 
 			<ul data-role="listview" data-inset="true"> 
