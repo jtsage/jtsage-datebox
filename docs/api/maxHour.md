@@ -1,6 +1,6 @@
 ---
 title: maxHour
-short: Limit times to hours *before* this hour
+short: Maximum allowed hour
 modes: [
 	'timebox',
 	'timeflipbox',
@@ -10,6 +10,9 @@ relat: "limiting"
 layout: api
 defval: "false"
 dattype: "Integer"
+dyn: "True"
 ---
+
+Allow only hours before this to be selected.
 
 

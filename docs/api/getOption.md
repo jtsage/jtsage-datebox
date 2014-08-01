@@ -5,9 +5,14 @@ modes: [
 ]
 cats: [ 'public' ]
 relat: "public"
-layout: api
-defval: ""
-dattype: "Mixed"
+layout: func
+rettype: "Mixed"
 ---
 
-<b>Usage</b>: $(input).datebox('getOption', &lt;opt>);<br><br><b>Expects</b>: a named option<br><br><b>Returns</b>: that objects value
+This will return a specified options current value.
+
+{% highlight js %}
+$(input).datebox('getOption', <Option_Name>);
+{% endhighlight %}
+
+Option Name can be any datebox option.

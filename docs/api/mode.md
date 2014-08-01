@@ -9,13 +9,32 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'common' ]
 relat: "common"
 layout: api
 defval: ""
 dattype: "String"
+dyn: "True"
 ---
 
-Choose the mode of operation of datebox - 'datebox', 'timebox', 'calbox', 'flipbox', 'timeflipbox', 'durationbox', 'durationflipbox', or 'slidebox'
+Choose the mode of operation for datebox.
+
+### Official, Supported Versions
+
+ - datebox
+ - timebox
+ - calbox
+ - flipbox
+ - timeflipbox
+ - slidebox
+ - durationbox
+ - durationflipbox
+
+### Official, Unsupported Versions
+
+ - custombox
+ - customflip

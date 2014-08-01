@@ -1,6 +1,6 @@
 ---
 title: maxDays
-short: Limit all dates selected to before today + ## days
+short: Maximum number of days past today
 modes: [
 	'datebox',
 	'calbox',
@@ -12,6 +12,8 @@ relat: "limiting"
 layout: api
 defval: "false"
 dattype: "Integer"
+dyn: "True"
 ---
 
-Only accept dates that are today + # of days in the future. (no limit on past dates). Corresponds to the html max attribute
+Only accept dates that are today + # of days in the future. (no limit on past dates) 
+Corresponds somewhat to the html max attribute.

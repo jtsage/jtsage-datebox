@@ -1,6 +1,6 @@
 ---
 title: minYear
-short: Limit all dates selected to after this year
+short: Minimum allowed year
 modes: [
 	'datebox',
 	'flipbox',
@@ -11,6 +11,9 @@ relat: "limiting"
 layout: api
 defval: "false"
 dattype: "Integer"
+dyn: "True"
 ---
+
+Limit year select to years before this value.
 
 

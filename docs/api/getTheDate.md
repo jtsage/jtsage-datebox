@@ -5,9 +5,12 @@ modes: [
 ]
 cats: [ 'public' ]
 relat: "public"
-layout: api
-defval: ""
-dattype: "Object"
+layout: func
+rettype: "JavaScript Date() Object"
 ---
 
-<b>Usage</b>: $(input).datebox('getTheDate');<br><br><b>Returns</b>: a javascript date object
+Return the current date object for any date mode.
+
+{% highlight js %}
+$(input).datebox('getTheDate');
+{% endhighlight %}

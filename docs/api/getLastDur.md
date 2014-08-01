@@ -5,9 +5,14 @@ modes: [
 ]
 cats: [ 'public' ]
 relat: "public"
-layout: api
-defval: ""
-dattype: "Integer"
+layout: func
+rettype: "Integer"
 ---
 
-<b>Usage</b>: $(input).datebox('getLastDur');<br><br><b>Returns</b>: an integer of seconds
+Get the last set duration in a durationbox or durationflipbox.
+
+
+{% highlight js %}
+$(input).datebox('getLastDur');
+{% endhighlight %}
+

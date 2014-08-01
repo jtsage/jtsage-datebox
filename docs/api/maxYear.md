@@ -1,6 +1,6 @@
 ---
 title: maxYear
-short: Limit all dates selected to before this year
+short: Maximum allowed year
 modes: [
 	'datebox',
 	'flipbox',
@@ -11,6 +11,9 @@ relat: "limiting"
 layout: api
 defval: "false"
 dattype: "Integer"
+dyn: "True"
 ---
+
+Do not allow years beyond this one to be selected.
 
 

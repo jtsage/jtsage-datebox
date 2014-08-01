@@ -1,6 +1,6 @@
 ---
 title: minDays
-short: Limit all dates selected to after today - ## days
+short: Minimum amount of days before today
 modes: [
 	'datebox',
 	'calbox',
@@ -12,6 +12,7 @@ relat: "limiting"
 layout: api
 defval: "false"
 dattype: "Integer"
+dyn: "True"
 ---
 
-Only accept dates that are today - # of days in the past. (no limit on future dates). Corresponds to the html min attribute
+Only accept dates that are today minus(-) # of days in the past. (no limit on future dates). Corresponds somewhat to the html min attribute

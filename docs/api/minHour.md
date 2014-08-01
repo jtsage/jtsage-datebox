@@ -1,6 +1,6 @@
 ---
 title: minHour
-short: Limit times to hours *after* this hour
+short: Minimum allowed hour
 modes: [
 	'timebox',
 	'timeflipbox',
@@ -10,6 +10,9 @@ relat: "limiting"
 layout: api
 defval: "false"
 dattype: "Integer"
+dyn: "True"
 ---
+
+Do not allow hours before this hour to be selected.
 
 
