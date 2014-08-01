@@ -1,6 +1,6 @@
 ---
 title: useCollapsedBut
-short: When 2 buttons would show, collapse them into a single line
+short: Collapse multiple control buttons.
 modes: [
 	'datebox',
 	'timebox',
@@ -16,6 +16,9 @@ relat: "control"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "True"
 ---
+
+When more than one control button shows, attempt to collapse them into one line.  This may be buggy
 
 

@@ -9,13 +9,16 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "False"
 ---
 
 Open datebox control when input element is focused (and disable button)

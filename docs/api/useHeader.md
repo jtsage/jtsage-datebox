@@ -16,6 +16,9 @@ relat: "control"
 layout: api
 defval: "true"
 dattype: "Boolean"
+dyn: "True"
 ---
+
+This refers to the header with the close button and the title, not for instance {% api_doc calNoHeader %} headers.
 
 

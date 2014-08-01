@@ -9,13 +9,16 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "False"
 ---
 
 When using datebox popup mode, shade the background and force input to the control

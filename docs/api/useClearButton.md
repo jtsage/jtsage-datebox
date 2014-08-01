@@ -16,6 +16,9 @@ relat: "control"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "True"
 ---
+
+The clear button allows you the clear the original input.  It basically "unsets" the date/time
 
 

@@ -14,6 +14,7 @@ relat: "control"
 layout: api
 defval: "true"
 dattype: "Boolean"
+dyn: "False"
 ---
 
-
+This button both sets the date, and closes the control.

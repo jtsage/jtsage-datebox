@@ -16,6 +16,9 @@ relat: "control"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "True"
 ---
+
+This is particularly useful with non-setting modes (datebox for instance) coupled with {% api_doc useInline %}.
 
 

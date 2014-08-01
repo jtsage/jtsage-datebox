@@ -1,6 +1,6 @@
 ---
 title: useAltIcon
-short: useNewStyle: alternate light icon
+short: useNewStyle - alternate light icon
 modes: [
 	'datebox',
 	'timebox',
@@ -9,13 +9,16 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "False"
 ---
 
-When using 'useNewStyle', use a light colored icon instead of a dark one
+When using {% api_doc useNewStyle %}, use a light colored icon instead of a dark one

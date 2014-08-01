@@ -9,13 +9,16 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "true"
 dattype: "Boolean"
+dyn: "False"
 ---
 
 Display an open button inside the input element that will open the control

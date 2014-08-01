@@ -4,8 +4,8 @@ short: Theme for other options (customflip)
 modes: [
 	'customflip'
 ]
-cats: [ 'custom' ]
-relat: "custom"
+cats: [ 'themes' ]
+relat: "themes"
 layout: api
 defval: "d"
 dattype: "String"

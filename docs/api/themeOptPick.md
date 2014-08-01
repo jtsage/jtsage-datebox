@@ -4,8 +4,8 @@ short: Theme for highlighted option (customflip)
 modes: [
 	'customflip'
 ]
-cats: [ 'custom' ]
-relat: "custom"
+cats: [ 'themes' ]
+relat: "themes"
 layout: api
 defval: "a"
 dattype: "String"

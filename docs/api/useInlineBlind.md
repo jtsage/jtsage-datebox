@@ -9,13 +9,16 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "False"
 ---
 
 Attach the control directly to the input element, and roll it down from there when opened

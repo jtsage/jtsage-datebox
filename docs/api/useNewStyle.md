@@ -1,6 +1,6 @@
 ---
 title: useNewStyle
-short: Use the new input display style (cleaner, less inconsistency)
+short: Use the new input display style 
 modes: [
 	'datebox',
 	'timebox',
@@ -9,13 +9,16 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "False"
 ---
 
 Use the 'new' style for the input element - recommended, much, much cleaner
