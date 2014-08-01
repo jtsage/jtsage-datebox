@@ -18,7 +18,7 @@
 	<div data-role="navbar">
 	<ul>
 		<li><a href="{{ site.basesite}}api/" data-icon="home">Home</a></li>
-		<li><a href="#toc" data-icon='grid'>Related Options</a></li>
+		<li><a href="#toc" data-icon='grid'>Related Functions</a></li>
 	</ul>
 	</div>
 
@@ -28,16 +28,8 @@
 	<p>{{content}}</p>
 	
 	<ul data-role="listview" data-mini="true" data-inset="true">
-		<li data-role="list-seperator" data-theme="b">Default Value</li>
-		<li>{{ page.defval }}</li>
-		<li data-role="list-seperator" data-theme="b">Data Type Expected</li>
-		<li>{{ page.dattype }}</li>
-		<li data-role="list-seperator" data-theme="b">Option is Dynamic post-init</li>
-		<li>{{ page.dyn }}</li>
-		<li data-role="list-seperator" data-theme="b">Valid Modes</li>
-		{% for mode in page.modes %}
-		<li><a href="{{site.basesite}}api/mode{{mode}}">{{ mode }}</a></li>
-		{% endfor %}
+		<li data-role="list-seperator" data-theme="b">Return Type</li>
+		<li>{{ page.rettype }}</li>
 	</ul>
 
 </div>
