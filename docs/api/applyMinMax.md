@@ -1,13 +1,20 @@
 ---
 title: applyMinMax
-short: Apply new min/max attributes
+short: Apply min/max HTML attributes
 modes: [
 ]
 cats: [ 'public' ]
 relat: "public"
-layout: api
+layout: func
+rettype: "jQuery Object (datebox input element)"
 defval: ""
 dattype: ""
 ---
 
-<b>Usage</b>: $(input).datebox('applyMinMax');
+{% highlight js %}
+$(input).datebot('applyMinMax');
+{% endhighlight %}
+
+DateBox does not "watch" the min/max HTML attributes, other than on widget initilization.
+If you manually change them via JavaScript, you will need to run this function to
+make sure the DateBox "sees" them.

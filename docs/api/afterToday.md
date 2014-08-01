@@ -1,6 +1,6 @@
 ---
 title: afterToday
-short: Limit all dates selected to *after* today's date
+short: Limit dates after today's date
 modes: [
 	'datebox',
 	'calbox',
@@ -12,6 +12,8 @@ relat: "limiting"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "True"
 ---
 
-
+Allows those dates that are after the true value of the client's today
+(new Date(); at widget open) to be selected. 
