@@ -4,7 +4,29 @@
 <div data-role="page" id="main">
 	<div data-role="panel" data-display="overlay" id="toc">
 	<ul data-role='listview'>
-		<li data-role="list-divider">Related</li>
+		<li data-role="list-divider">Section</li>
+		{% for docu in site.pages %}
+		{% if docu.layout == "apicat" %}
+			{% if docu.sect == "cat" %}
+			<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title}}</a></li>
+			{% endif %}
+		{% endif %}
+		{% endfor %}
+		{% for docu in site.pages %}
+		{% if docu.layout == "apicat" %}
+			{% if docu.sect == "cat2" %}
+			<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title}}</a></li>
+			{% endif %}
+		{% endif %}
+		{% endfor %}
+		<li data-role="list-divider">Per-Mode Options</li>
+		{% for docu in site.pages %}
+		{% if docu.layout == "apicat" %}
+			{% if docu.sect == "mode" %}
+			<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title}}</a></li>
+			{% endif %}
+		{% endif %}
+		{% endfor %}
 	</ul>
 	</div>
 	<div data-role="header" data-position="fixed">

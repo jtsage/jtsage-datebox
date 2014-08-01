@@ -7,7 +7,7 @@
 		<li data-role="list-divider">Related</li>
 		{% for pag in site.pages %}
 		{% if pag.relat == page.relat %}
-			<li><a href="{{ site.basesite}}{{ pag.url }}">{{ pag.title }}</a></li>
+			<li><a href="{{ site.basesite}}{{ pag.url | remove_first: "/" }}">{{ pag.title }}</a></li>
 		{% endif %}
 		{% endfor %}
 	</ul>

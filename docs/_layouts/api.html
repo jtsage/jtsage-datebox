@@ -4,10 +4,10 @@
 <div data-role="page" id="main">
 	<div data-role="panel" data-display="overlay" id="toc">
 	<ul data-role='listview'>
-		<li data-role="list-divider">Related</li>
+		<li data-role="list-divider">Related - {{page.relat}}</li>
 		{% for pag in site.pages %}
 		{% if pag.relat == page.relat %}
-			<li><a href="{{ site.basesite}}{{ pag.url }}">{{ pag.title }}</a></li>
+			<li><a href="{{ site.basesite}}{{ pag.url | remove_first: "/" }}">{{ pag.title }}</a></li>
 		{% endif %}
 		{% endfor %}
 	</ul>
@@ -36,7 +36,7 @@
 		<li>{{ page.dyn }}</li>
 		<li data-role="list-seperator" data-theme="b">Valid Modes</li>
 		{% for mode in page.modes %}
-		<li><a href="{{site.basesite}}api/mode{{mode}}">{{ mode }}</a></li>
+		<li><a href="{{site.basesite}}api/mode-{{mode}}">{{ mode }}</a></li>
 		{% endfor %}
 	</ul>
 
