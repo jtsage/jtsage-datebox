@@ -1,0 +1,39 @@
+---
+---
+{% include api_head.html %}
+<div data-role="page" id="main">
+	<div data-role="panel" data-display="overlay" id="toc">
+	<ul data-role='listview'>
+		<li data-role="list-divider">Related</li>
+		{% for pag in site.pages %}
+		{% if pag.relat == page.relat %}
+			<li><a href="{{ site.basesite}}{{ pag.url }}">{{ pag.title }}</a></li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+	</div>
+	<div data-role="header" data-position="fixed">
+		<h1>jQMDateBoxAPI - {{ page.title }}</h1>
+	</div>
+	<div data-role="navbar">
+	<ul>
+		<li><a href="{{ site.basesite}}api/" data-icon="home">Home</a></li>
+		<li><a href="#toc" data-icon='grid'>Related Events</a></li>
+	</ul>
+	</div>
+
+<div data-role="content">
+	<h1>{{page.title}}</h1>
+	<h3>{{page.short}}</h3>
+	<p>{{content}}</p>
+	
+	<ul data-role="listview" data-mini="true" data-inset="true">
+		<li data-role="list-seperator" data-theme="b">Trigger / Listener</li>
+		<li>{{ page.etype }}</li>
+	</ul>
+
+</div>
+
+{% include footer.html doc="true" %}
+
+
