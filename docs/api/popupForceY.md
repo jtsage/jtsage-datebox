@@ -9,13 +9,16 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "false"
 dattype: "Number"
+dyn: "True"
 ---
 
-Force the Y position of the jqm builtin popup mode. (top left corner) - must supply both, and set 'popupPosition' to 'origin'
+Force the Y position of the jqm builtin popup mode. (top left corner) - must supply both, and set {% api_doc popupPosition %} to 'origin'

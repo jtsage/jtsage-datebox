@@ -9,13 +9,16 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "true"
 dattype: "Boolean"
+dyn: "False"
 ---
 
 Re-calculate positioning when the screen size changes - for instance when flipping from portrait to landscape mode. This only applies to datebox popup mode

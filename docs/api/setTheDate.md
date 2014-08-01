@@ -1,13 +1,16 @@
 ---
 title: setTheDate
-short: Set the date (date object)
+short: Set the date
 modes: [
 ]
 cats: [ 'public' ]
 relat: "public"
-layout: api
-defval: ""
-dattype: ""
+layout: func
+rettype: "jQuery Object (datebox input element)"
 ---
 
-<b>Usage</b>: $(input).datebox('setTheDate', &lt;date>);<br><br><b>Expects</b>: a javascript date object
+This will set the date, via a JavaScript Date() object.
+
+{% highlight js %}
+$(input).datebox('setTheDate', <Date Object>);
+{% endhighlight %}

@@ -12,7 +12,7 @@ dattype: ""
 ---
 
 {% highlight js %}
-$(input).datebot('applyMinMax');
+$(input).datebox('applyMinMax');
 {% endhighlight %}
 
 DateBox does not "watch" the min/max HTML attributes, other than on widget initilization.

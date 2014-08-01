@@ -1,6 +1,6 @@
 ---
 title: popupPosition
-short: When set to "window", center control in window
+short: Controls position of the jQM Popup
 modes: [
 	'datebox',
 	'timebox',
@@ -9,13 +9,23 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "false"
 dattype: "String"
+dyn: "True"
 ---
 
-Control how the jqm builtin popup mode positions.  Set to 'window' to center in the open window.  Set to an '#id' to center over that element. When set to false, allow datebox to center over the input element (if it has a named id), or in the window.  Set to 'origin' to use X/Y coordinates.
+With {% api_doc enablePopup %}, control how the jqm builtin popup mode positions. 
+
+Valid Options:
+
+ - *'window'* : Center in window
+ - *'origin'* : Use value of {% api_doc popupForceX %} and {% api_doc popupForceY %}
+ - *'#id'* : Center over #id element
+ - *false* : If input has a named id, center over input, otherwise, center in window

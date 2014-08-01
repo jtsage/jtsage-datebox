@@ -1,13 +1,26 @@
 ---
 title: open
-short: Send: Open Datebox
+short: Open the datebox
+short2: Trigger - Open Datebox
 modes: [
 ]
-cats: [ 'event' ]
-relat: "event"
-layout: api
-defval: ""
-dattype: "-"
+cats: [ 'event', 'public' ]
+relat: "public"
+layout: func2
+rettype: "jQuery Object (datebox input element)"
+etype: "Trigger"
 ---
 
-This trigger will open the datebox control<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'open'})
+## As a Function
+This function can be used to close the control.
+
+{% highlight js %}
+$(input).datebox('open');
+{% endhighlight %}
+
+## As a Trigger
+This trigger will close the datebox control
+
+{% highlight js %}
+$(input).trigger('datebox', {'method':'open'})
+{% endhighlight %}

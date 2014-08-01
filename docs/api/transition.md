@@ -9,13 +9,16 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "pop"
 dattype: "String"
+dyn: "False"
 ---
 
 Transition to use on datebox popup, jqm popup, and dialog display modes

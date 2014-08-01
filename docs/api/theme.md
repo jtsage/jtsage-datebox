@@ -9,13 +9,17 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'themes' ]
 relat: "themes"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "True"
 ---
 
+For more information on the themeing system, see: [Themeing DateBox]({{site.basesite}}doc/3-1-themes/)
 

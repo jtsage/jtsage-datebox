@@ -1,17 +1,30 @@
 ---
 title: refresh
-short: Recieve: Datebox has been refreshed
+short: Refresh the DateBox
+short2: Listener - Datebox has been refreshed
 modes: [
 ]
-cats: [ 'event' ]
-relat: "event"
-layout: api
-defval: ""
-dattype: "-"
+cats: [ 'event', 'public' ]
+relat: "public"
+layout: func2
+rettype: "jQuery Object (datebox input element)"
+etype: "Trigger"
 ---
 
-This trigger is received when the datebox control is refreshed.<br><br><b>Usage</b>: <pre class='prettyprint'>$(input).bind('datebox', function (e, passed) { 
+## As a Function
+This function can be used to refresh the control.
+
+{% highlight js %}
+$(input).datebox('refresh');
+{% endhighlight %}
+
+## As a Listener
+This trigger is fired when datebox has been refreshed.
+
+{% highlight js %}
+$(input).bind('datebox', function (e, passed) { 
   if ( passed.method === 'refresh' ) {
     alert('Datebox was refreshed!');
   }
-});</pre>
+});
+{% endhighlight %}

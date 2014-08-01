@@ -1,6 +1,6 @@
 ---
 title: overrideStyleClass
-short: useNewStyle: custom icon class
+short: useNewStyle - custom icon class
 modes: [
 	'datebox',
 	'timebox',
@@ -9,13 +9,18 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'custombox',
+	'customflip'
 ]
 cats: [ 'display' ]
 relat: "display"
 layout: api
 defval: "false"
 dattype: "String"
+dyn: "True"
 ---
 
-When using 'useNewStyle', override the default icon scheme with a css class of your own.  Useful if you need more than a single style of datebox icon - otherwise, just override the css
+When using {% api_doc useNewStyle %}, override the default icon scheme with a css
+class of your own.  Useful if you need more than a single style of datebox icon - otherwise
+ just override the css

@@ -1,6 +1,6 @@
 ---
 title: showInitialValue
-short: Auto-fill Input field on initialization
+short: Auto-fill Input field
 modes: [
 	'datebox',
 	'timebox',
@@ -16,6 +16,7 @@ relat: "common"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "True"
 ---
 
 Auto-fill the input on datebox initialization - this will take into account any default value options
