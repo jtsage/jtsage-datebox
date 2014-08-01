@@ -1,6 +1,6 @@
 ---
 title: calWeekModeDay
-short: Weekday to select when in calWeekMode
+short: Weekday to select for calWeekMode
 modes: [
 	'calbox',
 ]
@@ -9,6 +9,8 @@ relat: "control"
 layout: api
 defval: "1"
 dattype: "Integer"
+dyn: "True"
 ---
 
-DAY of week to select in week mode - using a zero based array - 0=Sunday ... 6=Saturday
+When using {% api_doc calWeekMode %}, this is the day to select.  Number is zero 
+based. (0=Sunday ... 6=Saturday)

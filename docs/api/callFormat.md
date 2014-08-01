@@ -1,13 +1,21 @@
 ---
 title: callFormat
-short: Return a formatted date
+short: Format a date
 modes: [
 ]
 cats: [ 'public' ]
 relat: "public"
-layout: api
+layout: func
 defval: ""
 dattype: "String"
+rettype: "String"
 ---
 
-<b>Usage</b>: $(input).datebox('callFormat', &lt;format>, &lt;date>);<br><br><b>Expects</b>: a string format representation and a javascript date object<br><br><b>Returns</b>: a string of the date
+{% highlight js %}
+$(input).datebot('callFormat', <String format>, <Date Object>);
+{% endhighlight %}
+
+This will use the DateBox formatter library to format a JavaScript Date Object to
+the specified String date format. This function returns a string.
+
+For more information on date format variables, see: [Output Formats]({{site.basesite}}doc/3-3-output/)

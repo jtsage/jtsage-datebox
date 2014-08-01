@@ -9,6 +9,7 @@ relat: "themes"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "True"
 ---
 
-Desktop operation only, as mobile devices do no generate hover events
+Desktop operation only, as mobile devices do not generate hover events.

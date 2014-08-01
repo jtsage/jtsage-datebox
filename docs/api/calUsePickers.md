@@ -1,14 +1,16 @@
 ---
 title: calUsePickers
-short: Use Month/Year Pickers
+short: Show month and year pickers
 modes: [
 	'calbox',
 ]
-cats: [ 'themes' ]
-relat: "themes"
+cats: [ 'control' ]
+relat: "control"
 layout: api
 defval: "false"
 dattype: "Boolean"
+dyn: "True"
 ---
 
-Use month and year pickers at the top of the calendar for quicker jumping around
+Show a month and year picker above the calendar for quickly moving between large 
+differences in dates.  See also: {% api_doc calYearPickMax %}, {% api_doc calYearPickMin %}.

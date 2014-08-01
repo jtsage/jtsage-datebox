@@ -1,6 +1,6 @@
 ---
 title: calShowDays
-short: Show Day Labels in calendar
+short: Show Day Labels
 modes: [
 	'calbox',
 ]
@@ -9,6 +9,9 @@ relat: "control"
 layout: api
 defval: "true"
 dattype: "Boolean"
+dyn: "True"
 ---
+
+Add the short names of the days of the week to the calendar display.
 
 
