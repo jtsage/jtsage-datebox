@@ -1,14 +1,18 @@
-<?php
-require_once('inc/func.php');
-echo do_header("Demo Magic", NULL, NULL, 'calbox');
-?>
+---
+title: Demo Magic
+pagenum: 24
+layout: doc
+---
 
-<h1>How the %^$%^ do the Demos Work?</h1>
-<p>After some though, I decided to include the annotated demo magic function here.  I doubt it's useful outside of it's purpose, 
-but it does show how to dynamically change datebox options.</p>
+# How the %^$%^ do the Demos Work?
+After some though, I decided to include the annotated demo magic function here. 
+I doubt it's useful outside of it's purpose, but it does show how to dynamically 
+change datebox options.
 
-<h3>Main Part</h3>
-<pre class="prettyprint">$(document).on('change', '.demopick', function(e){
+## Main Part
+
+{% highlight js %}
+$(document).on('change', '.demopick', function(e){
   // Listen to all elements with the "demopick" class
   
   // Set some quick links.
@@ -39,10 +43,13 @@ but it does show how to dynamically change datebox options.</p>
   // Finally update the datebox.
   $(thisBox).datebox(thisObj);
   $(thisBox).datebox('refresh');
-})</pre>
+})
+{% endhighlight %}
 
-<h3>JSON "maker"</h3>
-<pre class="prettyprint">function makeJSON(str) {
+## JSON "maker"
+
+{% highlight js %}
+function makeJSON(str) {
   try {
     // Just return the JSON.  If it's invalid, it'll throw an error.
     return jQuery.parseJSON(str);
@@ -50,8 +57,6 @@ but it does show how to dynamically change datebox options.</p>
     // In which case, the answer is false.
     return false;
   }
-}</pre>
+}
+{% endhighlight %}
 
-<?php
-echo do_footer();
-?>

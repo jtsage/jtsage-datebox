@@ -6,40 +6,22 @@ DateBox is a jQuery-mobile based date and time picker. [Full Documentation and D
 DateBox Features
 ----------------
 
-* Multiple Data-Entry Modes:
-  * Android style date picker
-  * Calendar style date picker
-  * Slide style date picker
-  * Flip Wheel style date or time picker
-  * 12 and 24 hour time picker
-  * Duration time picker
-
-* 4 Different display modes:
-  * Standard, click-outside-to-close popup mode
-  * Forced input modal popup mode
-  * Unique page dialog mode
-  * Inline mode
-
-* Fully localized:
-  * Configurable Month names
-  * Configurable Day Names
-  * All labels and buttons configuratble
-  * Multiple languages can be loaded at once for dynamic reconfigure
-
-* Supports data-limiting of input:
-  * Minimum and Maximum Years, Hours, number of days, etc...
-  * Disabled days, dates, and hours, etc...
-
-* Automatically parses hand-entered or pre-entered dates on open
-
-* Auto-bind's to data-type='datebox', options are configurable via data-options.
+ - Multiple display and entry modes for dates, times, and durations
+   - Android style
+   - Full Calendar display
+   - Flip (IOS) style
+   - Slide style
+ - Multiple window modes
+   - Popups (2 versions)
+   - Dialog (own page)
+   - Inline and Slide-Dow
+ - Fully localized - 40+ languages pre-configured
+ - Fully custiomizable output formats
+ - Supports multiple methods of limiting valid date entry
+ - Supports entry, exit, creation, selection, change, and more programming hooks
 
 Special Thanks
 --------------
-
-This is based in part on the work of Todd M. Horst, and his [Android Like Date Picker 2](http://toddmhorst.wordpress.com/2010/12/30/android-like-date-picker-with-jquery-mobile-2/)
-
-Some features inspired by [mobiscroll](http://code.google.com/p/mobiscroll/) - Specifically the IOS-ish flipbox.
 
 An extra special thanks to [Phill Pafford](http://stackoverflow.com/users/93966/phill-pafford) for answering tons of questions about DateBox, and jQueryMobile in general on StackOverflow.
 

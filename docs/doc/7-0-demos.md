@@ -1,19 +1,16 @@
-<?php
-require_once('inc/func.php');
-echo do_header("Advanced Demos", array('6-5-globals.php',"Global Data"), array('8-pack.php',"3rd-Party Integration"));
-?>
+---
+title: Advanced Demos
+pagenum: 21
+layout: doc
+---
 
-<h1>Other Demos</h1>
-<p>This section features links to other useful demos.  Others will be added as they are generated or requested - if you have a good idea, feel free to e-mail the maintainer with either the source code, or if you don't know how to make it work, just the details of an idea.</p>
+# Other Demos
 
-<ul>
-	<li><a href="7-x-formats.php">Submitting Multiple Date Formats</a></li>
-	<li><a href="7-x-custom.php">CustomBox / CustomFlip</a></li>
-	<li><a href="7-x-demos.php">Demo Magic (dynamic options)</a></li>
-</ul>
+This section features links to other useful demos.  Others will be added as they 
+are generated or requested - if you have a good idea, feel free to e-mail the 
+maintainer with either the source code, or if you don't know how to make it 
+work, just the details of an idea.
 
-
-
-<?php
-echo do_footer();
-?>
+ - [Submitting Multiple Date Formats]({{site.basesite}}doc/7-1-formats/)
+ - [CustomBox / CustomFlip]({{site.basesite}}doc/7-2-custom/)
+ - [Demo Magic (dynamic options)]({{site.basesite}}doc/7-3-demos/)

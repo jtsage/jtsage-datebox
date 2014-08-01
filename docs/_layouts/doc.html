@@ -16,16 +16,18 @@
 	<div data-role="navbar">
 	<ul>
 		{% if page.pagenum != 0 %}
-			{% capture lastpage %}{{ page.pagenum | minus:1 }}{% endcapture %}
+			{% assign lastpage = page.pagenum | minus:1 %}
 			{% for item in site.data.doc.docmap limit:1 offset:lastpage %}
 				<li><a data-icon="arrow-l" href="{{ site.basesite }}doc/{{ item.url }}">{{ item.name }}</a></li>
 			{% endfor %}
 		{% else %}
 			<li><a data-icon="delete" href="#">--</a></li>
 		{% endif %}
+		
 		<li><a href="#toc" data-icon='grid'>Contents</a></li>
-		{% if page.pagenum < site.data.doc.docmap.size %}
-			{% capture nextpage %}{{ page.pagenum | plus:1 }}{% endcapture %}
+		
+		{% assign nextpage = page.pagenum | plus:1 %}
+		{% if nextpage < site.data.doc.docmap.size %}
 			{% for item in site.data.doc.docmap limit:1 offset:nextpage %}
 				<li><a data-icon="arrow-r" href="{{ site.basesite}}doc/{{ item.url }}">{{ item.name }}</a></li>
 			{% endfor %}

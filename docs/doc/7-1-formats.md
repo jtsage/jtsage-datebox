@@ -1,10 +1,15 @@
-<?php
-require_once('inc/func.php');
-echo do_header("Multiple Format Submission", NULL, NULL, 'calbox');
-?>
+---
+title: Multiple Formats
+pagenum: 22
+layout: doc
+---
 
-<h1>Multiple Date Formats</h1>
-<p>This technique is particularly useful if you wish to show a locale oriented display to the user, but your backend has specific date format requirements.  The output of the demo here is show in "text" inputs, but it could just as easily be "hidden" inputs.</p>
+# Multiple Date Formats
+
+This technique is particularly useful if you wish to show a locale oriented 
+display to the user, but your backend has specific date format requirements.
+The output of the demo here is show in "text" inputs, but it could just as 
+easily be "hidden" inputs.
 
 <div class="ui-field-contain">
 	<label for="date">User Date</label>
@@ -20,7 +25,8 @@ echo do_header("Multiple Format Submission", NULL, NULL, 'calbox');
 	}
 </script>
 
-<h3>Extra output</h3>
+### Extra output
+
 <div class="ui-field-contain">
 	<label for="out1">ISO Format</label><input type="text" id="out1" readonly="readonly">
 </div>
@@ -35,25 +41,25 @@ echo do_header("Multiple Format Submission", NULL, NULL, 'calbox');
 </div>
 
 <h3>HTML Source</h3>
-<pre class="prettyprint">
-&lt;div class="ui-field-contain">
-  &lt;label for="date">User Date&lt;/label>
-  &lt;input type="text" id="date" data-role="datebox" data-options='{
+{% highlight html %}
+<div class="ui-field-contain">
+  <label for="date">User Date</label>
+  <input type="text" id="date" data-role="datebox" data-options='{
     "mode":"calbox",
     "closeCallback":"formatter"
   }'>
-&lt;/div>
-</pre>
+</div>
+{% endhighlight %}
 
 <h3>jQuery Source</h3>
-<pre class="prettyprint">
+{%highlight js %}
 function formatter(date) {
   $('#out1').val(this.callFormat('%Y-%m-%d', date));
   $('#out2').val(this.callFormat('%-d', date));
   $('#out3').val(this.callFormat('%-m', date));
   $('#out4').val(this.callFormat('%Y', date));
 }
-</pre>
+{% endhighlight %}
 	
 
 

@@ -1,25 +1,23 @@
-<?php
-require_once('inc/func.php');
-echo do_header("Triggers", array('6-3-func.php',"Common Functions"), array('6-5-globals.php',"Global Data"), false);
-?>
+---
+title: Triggers
+pagenum: 19
+layout: doc
+---
 
-<h1>Triggers</h1>
-<p>Datebox also contains quite a number of triggers and listeners, which are all passed as a 'method' of the 'datebox' listener/trigger. Usage of each is detailed in the API documentation, but they are:
-<ul>
-	<li><?php api('event','open'); ?></strong> :: Send: Open Datebox</li>
-	<li><?php api('event','close'); ?></strong> :: Send: Close Datebox</li>
-	<li><?php api('event','doset'); ?></strong> :: Send: Refresh input element</li>
-	<li><?php api('event','doclear'); ?></strong> :: Send: Clear input element</li>
-	<li><?php api('event','dorefresh'); ?></strong> :: Send: Refresh control</li>
-	<li><?php api('event','dooffset'); ?></strong> :: Send: Change the date</li>
-	<li><?php api('event','set'); ?></strong> :: Send &amp; Recieve: Set the date, or date has been set</li>
-	<li><?php api('event','enable'); ?></strong> :: Recieve: Datebox has been enabled</li>
-	<li><?php api('event','disable'); ?></strong> :: Recieve: Datebox has been disabled</li>
-	<li><?php api('event','refresh'); ?></strong> :: Recieve: Datebox has been refreshed</li>
-	<li><?php api('event','clear'); ?></strong> :: Recieve: Datebox input has been cleared</li>
-	<li><?php api('event','offset'); ?></strong> :: Recieve: Date has been changed</li>
-</ul>
+# Triggers
+Datebox also contains quite a number of triggers and listeners, which are all 
+passed as a 'method' of the 'datebox' listener/trigger. Usage of each is 
+detailed in the API documentation, but they are:
 
-<?php
-echo do_footer();
-?>
+ - {% api_doc open %} : Send: Open Datebox
+ - {% api_doc close %} : Send: Close Datebox
+ - {% api_doc doset %} : Send: Refresh input element
+ - {% api_doc doclear %} : Send: Clear input element
+ - {% api_doc dorefresh %} : Send: Refresh control
+ - {% api_doc dooffset %} : Send: Change the date
+ - {% api_doc set %} : Send &amp; Recieve: Set the date, or date has been set
+ - {% api_doc enable %} : Recieve: Datebox has been enabled
+ - {% api_doc disable %} : Recieve: Datebox has been disabled
+ - {% api_doc refresh %} : Recieve: Datebox has been refreshed
+ - {% api_doc clear %} : Recieve: Datebox input has been cleared
+ - {% api_doc offset %} : Recieve: Date has been changed
