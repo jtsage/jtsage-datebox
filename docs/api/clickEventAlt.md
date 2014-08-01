@@ -16,6 +16,7 @@ relat: "display"
 layout: api
 defval: "click"
 dattype: "String"
+dyn: "False"
 ---
 
 Listener event for all close-action buttons in the control

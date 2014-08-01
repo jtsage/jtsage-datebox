@@ -1,13 +1,19 @@
 ---
 title: dateboxaftercreate
-short: Triggered when after a datebox is enhanced
+short: Trigger - DateBox enhancment done
 modes: [
 ]
 cats: [ 'event2' ]
 relat: "event2"
-layout: api
-defval: ""
-dattype: ""
+layout: event
+etype: "Trigger"
 ---
 
 
+Triggered when datebox enhancment completes.
+
+{% highlight js %}
+$(document).on('dateboxaftercreate', '.ui-page-active', function() {
+  alert('A DateBox has been made');
+});
+{% endhighlight %}

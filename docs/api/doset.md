@@ -1,13 +1,16 @@
 ---
 title: doset
-short: Send: Refresh input element
+short: Trigger - Refresh input element
 modes: [
 ]
 cats: [ 'event' ]
 relat: "event"
-layout: api
-defval: ""
-dattype: "-"
+layout: event
+etype: "Trigger"
 ---
 
-This trigger will refresh / populate the value of the original input<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'doset'})
+This trigger will refresh / populate the value of the original input
+
+{% highlight js %}
+$(input).trigger('datebox', {'method':'doset'})
+{% endhighlight %}

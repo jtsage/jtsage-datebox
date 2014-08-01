@@ -1,13 +1,18 @@
 ---
 title: dateboxbeforecreate
-short: Triggered on every page if datebox is loaded.  Somewhat useless
+short: Trigger - datebox loaded
 modes: [
 ]
 cats: [ 'event2' ]
 relat: "event2"
-layout: api
-defval: ""
-dattype: ""
+layout: event
+etype: "Trigger"
 ---
 
+Triggered on every page if datebox is loaded.  Somewhat useless
 
+{% highlight js %}
+$(document).on('dateboxbeforecreate', '.ui-page-active', function() {
+  alert('DateBox is loaded?');
+});
+{% endhighlight %}

@@ -2,12 +2,18 @@
 title: customData
 short: Data structure for custom modes
 modes: [
+	'custombox',
+	'customflip'
 ]
 cats: [ 'custom' ]
 relat: "custom"
 layout: api
-defval: "N/A"
+defval: ""
 dattype: "Array"
+dyn: "True"
 ---
 
-See <a href='http://dev.jtsage.com/jQM-DateBox/doc/7-x-custom.php'>dev.jtsage.com/jQM-DateBox/doc/7-x-custom.php</a> for a breakdown of how to use this option.
+The array of data for the CustomBox/CustomFlip control.
+
+See [CustomBox / CustomFlip]({{site.basesite}}doc/7-2-custom/) for a breakdown 
+of how to use this option.

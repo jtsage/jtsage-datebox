@@ -1,13 +1,29 @@
 ---
 title: dooffset
-short: Send: Change the date
+short: Trigger -  Change the date
 modes: [
 ]
 cats: [ 'event' ]
 relat: "event"
-layout: api
-defval: ""
-dattype: "2 args"
+layout: event
+etype: "Trigger"
 ---
 
-This trigger will change the internal date of datebox.  Functionally identical to hitting a +/- button in the control, or sliding/flipping a value<br><br><b>Usage</b>: $(input).trigger('datebox', {'method':'dooffset', 'amount': &lt#>, 'type': &lt;field>})<br><br><b>Expects</b>: <em>'amount'</em>: The amount of offset, typically +/-1<br><b>Expects</b>: <em>'type'</em>: Field to change, where y=Year, m=Month, d=Date, h=Hour, i=Minute, s=Second, a=Meridian (AM/PM)
+This trigger will change the internal date of datebox.  Functionally identical 
+to hitting a +/- button in the control, or sliding/flipping a value
+
+{% highlight js %}
+$(input).trigger('datebox', {'method':'dooffset', 'amount': <INT amount>, 'type': <CHAR field>})
+{% endhighlight %}
+
+Required Arguments:
+
+ - **INT amount** : Integer amount to offset, +/-
+ - **CHAR field** : Date part to change:
+   - *y* - Year
+   - *m* - Month
+   - *d* - Date
+   - *h* - Hour
+   - *i* - Minute
+   - *s* - Second
+   

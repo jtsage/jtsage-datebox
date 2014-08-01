@@ -16,6 +16,8 @@ relat: "common"
 layout: api
 defval: "false"
 dattype: "Array/String"
+dyn: "False, True if input cleared"
 ---
 
-Set the default date value, or time value.  Date should be supplied as a three element array [year, month, date] - time can be supplied as a 24hr string '15:41'
+Set the default date value, or time value.  Date should be supplied as a three 
+element array [year, month, date] - time can be supplied as a 24hr string '15:41'

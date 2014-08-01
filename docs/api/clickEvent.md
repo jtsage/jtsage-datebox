@@ -16,6 +16,7 @@ relat: "display"
 layout: api
 defval: "vclick"
 dattype: "String"
+dyn: "False"
 ---
 
 Listener event for all non-close-action buttons in the control
