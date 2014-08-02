@@ -51,7 +51,7 @@ foreach ( $defaults as $key => $value ) {
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>jQueryMobile - DateBox Demo</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
 	
 	<?php if ( !empty($_SERVER['QUERY_STRING']) ) {
 		echo '<link type="text/css" href="sheet.php?'.$_SERVER['QUERY_STRING'].'" rel="stylesheet" />'."\n";
@@ -59,17 +59,16 @@ foreach ( $defaults as $key => $value ) {
 		echo '<link type="text/css" href="sheet.php" rel="stylesheet" />'."\n";
 	} ?>
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
-	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
-	<!--script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script-->
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.core.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.mode.flipbox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 	
 	<script type="text/javascript">
 		$(document).ready( function() {
