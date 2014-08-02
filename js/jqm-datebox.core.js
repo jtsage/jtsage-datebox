@@ -10,7 +10,7 @@
 	$.widget( "mobile.datebox", $.mobile.widget, {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.4.3-2014073001', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.3-2014080200', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
 			theme: false,
 			themeDefault: 'a',
@@ -271,10 +271,6 @@
 						$(this).trigger('change');
 				}
 			}
-		},
-		_hoover: function(item) {
-			// Hover toggle class, for calendar
-			$(item).toggleClass('ui-btn-up-'+$(item).jqmData('theme')+' ui-btn-down-'+$(item).jqmData('theme'));
 		},
 		_ord: {
 			'default': function (num) {
@@ -721,15 +717,19 @@
 			$( document ).trigger( "dateboxcreate" );
 		
 			var w = this,
-				o = $.extend(this.options, (typeof this.element.jqmData('options') !== 'undefined') ? this.element.jqmData('options') : this._getLongOptions(this.element) ),
-				thisTheme = ( o.theme === false && typeof($(this).jqmData('theme')) === 'undefined' ) ?
-					( ( typeof(this.element.parentsUntil(':jqmData(theme)').parent().jqmData('theme')) === 'undefined' ) ?
-						o.themeDefault : this.element.parentsUntil(':jqmData(theme)').parent().jqmData('theme') )
+				o = $.extend(this.options, 
+					(typeof this.element.data('options') !== 'undefined') 
+						? this.element.data('options') 
+						: this._getLongOptions(this.element) ),
+				thisTheme = ( o.theme === false && typeof($(this).data('theme')) === 'undefined' ) ?
+					( ( typeof(this.element.parentsUntil('[data-theme]').parent().data('theme')) === 'undefined' ) 
+						? o.themeDefault 
+						: this.element.parentsUntil('[data-theme]').parent().data('theme') )
 					: o.theme,
 				trans = o.useAnimation ? o.transition : 'none',
 				d = o.useNewStyle === false ? {
 					input: this.element,
-					wrap: this.element.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all '+ (this.element.jqmData("mini") === true ? 'ui-mini ':'') +'ui-body-'+ thisTheme +'"></div>').parent(),
+					wrap: this.element.wrap('<div class="ui-input-datebox ui-shadow-inset ui-corner-all '+ (this.element.data("mini") === true ? 'ui-mini ':'') +'ui-body-'+ thisTheme +'"></div>').parent(),
 					mainWrap: $("<div>", { "class": 'ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden '+trans+' ui-body-'+thisTheme} ).css('zIndex', o.zindex),
 					intHTML: false
 				} : {
@@ -917,8 +917,8 @@
 			var w = e.widget,
 				o = e.widget.options,
 				fixd = {
-					h: $.mobile.activePage.find('.ui-header').jqmData('position'),
-					f: $.mobile.activePage.find('.ui-footer').jqmData('position'),
+					h: $.mobile.activePage.find('.ui-header').data('position'),
+					f: $.mobile.activePage.find('.ui-footer').data('position'),
 					fh: $.mobile.activePage.find('.ui-footer').outerHeight(),
 					hh: $.mobile.activePage.find('.ui-header').outerHeight()
 				},
@@ -943,7 +943,7 @@
 				
 			if ( o.centerVert === false ) {
 				if ( o.hideFixedToolbars === true && ( typeof fixd.f !== 'undefined' || typeof fixd.h !== 'undefined' )) {
-					$.mobile.activePage.find(":jqmData(position='fixed')").fixedtoolbar('hide');
+					$.mobile.activePage.find("[data-position='fixed']").fixedtoolbar('hide');
 					fixd.f = undefined;
 					fixd.h = undefined;
 				}
@@ -1377,16 +1377,15 @@
 	  
 	// Degrade date inputs to text inputs, suppress standard UI functions.
 	$( document ).on( "pagebeforecreate", function( e ) {
-		$( ":jqmData(role='datebox')", e.target ).each(function() {
+		$( "[data-role='datebox']", e.target ).each(function() {
 			$(this).prop('type', 'text');
 		});
 	});
 	// Automatically bind to data-role='datebox' items.
 	$( document ).on( "pagecreate create", function( e ){
 		$( document ).trigger( "dateboxbeforecreate" );
-		$( ":jqmData(role='datebox')", e.target ).each(function() {
-			var defed = typeof ($(this).data(parseInt($.mobile.version.replace(/\./g,''),10) > 111 ? 'mobile-datebox' : 'datebox'));
-			if ( defed === "undefined" ) {
+		$( "[data-role='datebox']", e.target ).each(function() {
+			if ( typeof $(this).data('mobile-datebox') === "undefined" ) {
 				$(this).datebox();
 			}
 		});

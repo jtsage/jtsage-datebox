@@ -5,7 +5,6 @@
  * https://github.com/jtsage/jquery-mobile-datebox
  */
 /* CALBOX Mode */
-// Version Notes: <140 :: New button theme method, still use _hoover
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
