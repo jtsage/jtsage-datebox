@@ -16,11 +16,19 @@
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_dbox_run: function() {
-			var w = this;
+			var w = this,
+				timer = 150;
+				
+			if ( w.drag.cnt > 10 ) { timer = 100; }
+			if ( w.drag.cnt > 30 ) { timer = 50; }
+			if ( w.drag.cnt > 60 ) { timer = 20; }
+			
 			w.drag.didRun = true;
+			w.drag.cnt++;
+			
 			w._offset(w.drag.target[0], w.drag.target[1], false);
 			w._dbox_run_update();
-			w.runButton = setTimeout(function() {w._dbox_run();}, 150);
+			w.runButton = setTimeout(function() {w._dbox_run();}, timer);
 		},
 		_dbox_run_update: function() {
 			var w = this,
@@ -38,7 +46,7 @@
 			}
 			
 			w.d.divIn.find('input').each(function () {
-				switch ( $(this).jqmData('field') ) {
+				switch ( $(this).data('field') ) {
 					case 'y':
 						$(this).val(w.theDate.getFullYear()); break;
 					case 'm':
@@ -91,12 +99,12 @@
 		_dbox_enter: function (item) {
 			var w = this;
 			
-			if ( item.jqmData('field') === 'M' && $.inArray(item.val(), w.__('monthsOfYearShort')) > -1 ) {
+			if ( item.data('field') === 'M' && $.inArray(item.val(), w.__('monthsOfYearShort')) > -1 ) {
 				w.theDate.setMonth($.inArray(item.val(), w.__('monthsOfYearShort')));
 			}
 			
 			if ( item.val() !== '' && item.val().toString().search(/^[0-9]+$/) === 0 ) {
-				switch ( item.jqmData('field') ) {
+				switch ( item.data('field') ) {
 					case 'y':
 						w.theDate.setFullYear(parseInt(item.val(),10)); break;
 					case 'm':
@@ -192,7 +200,7 @@
 			}
 			
 			divIn.find('input').each(function () {
-				switch ( $(this).jqmData('field') ) {
+				switch ( $(this).data('field') ) {
 					case 'y':
 						$(this).val(w.theDate.getFullYear()); break;
 					case 'm':
@@ -261,13 +269,13 @@
 					divIn.find(':focus').blur();
 					e.preventDefault();
 					w._dbox_delta = 1;
-					w._offset($(this).jqmData('field'), $(this).jqmData('amount'));
+					w._offset($(this).data('field'), $(this).data('amount'));
 				});
 				divMinus.on(o.clickEvent, 'div', function(e) {
 					divIn.find(':focus').blur();
 					e.preventDefault();
 					w._dbox_delta = -1;
-					w._offset($(this).jqmData('field'), $(this).jqmData('amount')*-1);
+					w._offset($(this).data('field'), $(this).data('amount')*-1);
 				});
 			}
 			
@@ -277,15 +285,16 @@
 				divIn.on('mousewheel', 'input', function(e,d) {
 					e.preventDefault();
 					w._dbox_delta = d<0?-1:1;
-					w._offset($(this).jqmData('field'), ((d<0)?-1:1)*$(this).jqmData('amount'));
+					w._offset($(this).data('field'), ((d<0)?-1:1)*$(this).data('amount'));
 				});
 			}
 			
 			if ( o.repButton === true ) {
 				divPlus.on(w.drag.eStart, 'div', function(e) {
 					divIn.find(':focus').blur();
-					tmp = [$(this).jqmData('field'), $(this).jqmData('amount')];
+					tmp = [$(this).data('field'), $(this).data('amount')];
 					w.drag.move = true;
+					w.drag.cnt = 0;
 					w._dbox_delta = 1;
 					w._offset(tmp[0], tmp[1], false);
 					w._dbox_run_update();
@@ -297,8 +306,9 @@
 				
 				divMinus.on(w.drag.eStart, 'div', function(e) {
 					divIn.find(':focus').blur();
-					tmp = [$(this).jqmData('field'), $(this).jqmData('amount')*-1];
+					tmp = [$(this).data('field'), $(this).data('amount')*-1];
 					w.drag.move = true;
+					w.drag.cnt = 0;
 					w._dbox_delta = -1;
 					w._offset(tmp[0], tmp[1], false);
 					w._dbox_run_update();
