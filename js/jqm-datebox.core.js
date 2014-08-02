@@ -1309,7 +1309,7 @@
 			if ( typeof parts.attr !== 'undefined' ) {
 				for ( part in parts.attr ) {
 					if ( parts.attr.hasOwnProperty(part) ) {
-						retty.jqmData(part, parts.attr[part]);
+						retty.data(part, parts.attr[part]);
 					}
 				}
 			}

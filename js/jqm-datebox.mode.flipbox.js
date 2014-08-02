@@ -13,7 +13,7 @@
 		themeDate: 'a',
 		useSetButton: true,
 		validHours: false,
-		flen: {'y': 15, 'm':12, 'd':15, 'h':12, 'i':15, 'a':3}
+		flen: {'y': 15, 'm':12, 'd':20, 'h':12, 'i':15, 'a':3}
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		'_fbox_pos': function () {
@@ -33,7 +33,14 @@
 				par = ech.parent().innerHeight();
 				top = ech.find('li').first();
 				tot = ech.find('li').size() * top.outerHeight();
-				top.css('marginTop', ((tot/2)-(par/2)+(top.outerHeight()/2))*-1);
+				fixer = ech.find('li').last().offset().top - ech.find('li').first().offset().top;
+				
+				pos1 = (((tot/2)-(par/2)+(top.outerHeight()/2))*-1);
+				
+				if ( fixer > 0 ) { pos1 = ((((fixer-par) / 2) + top.outerHeight()) * -1) }
+				
+				top.css('marginTop', pos1);
+				
 			});
 		}
 	});
@@ -50,14 +57,14 @@
 				ctrl = $("<div>", {"class":uid+'flipcontent'});
 			
 			if ( typeof w.d.intHTML !== 'boolean' ) {
-				w.d.intHTML.empty();
+				w.d.intHTML.empty().remove();
+			} else {
+				w.d.input.on('datebox', function (e,p) {
+					if ( p.method === 'postrefresh' ) {
+						w._fbox_pos();
+					}
+				});
 			}
-			
-			w.d.input.on('datebox', function (e,p) {
-				if ( p.method === 'postrefresh' ) {
-					w._fbox_pos();
-				}
-			});
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():((o.mode==='flipbox')?w.__('titleDateDialogLabel'):w.__('titleTimeDialogLabel')));
 			w.d.intHTML = $('<span>')
@@ -188,7 +195,7 @@
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
 				w.d.intHTML.on('mousewheel', '.ui-overlay-shadow', function(e,d) {
 					e.preventDefault();
-					w._offset($(this).jqmData('field'), ((d<0)?-1:1)*$(this).jqmData('amount'));
+					w._offset($(this).data('field'), ((d<0)?-1:1)*$(this).data('amount'));
 				});
 			}
 			
@@ -240,7 +247,7 @@
 						e.preventDefault();
 						e.stopPropagation();
 						g.tmp = g.target.parent().parent();
-						w._offset(g.tmp.jqmData('field'), (parseInt((g.start - g.end) / g.target.innerHeight(),10) * g.tmp.jqmData('amount')));
+						w._offset(g.tmp.data('field'), (parseInt((g.start - g.end) / g.target.innerHeight(),10) * g.tmp.data('amount')));
 					}
 					g.start = false;
 					g.end = false;
