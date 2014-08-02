@@ -1,31 +1,23 @@
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
-	<!--meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /--> 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>jQueryMobile - DateBox Demo</title>
-	<!--link href="http://code.jquery.com/mobile/latest/jquery.mobile.css" rel="stylesheet" type="text/css" /--s		>
-	
 	
 	<!-- NOTE: Script load order is significant! -->
-	
-	<!--script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script--> 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script> 
-	<!--script src="http://code.jquery.com/mobile/latest/jquery.mobile.js"></script-->
 	
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 	
-
-	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="../demos/extras.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+	<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+	
+	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
 	
 	<link type="text/css" href="../css/jqm-datebox.css" rel="stylesheet" /> 
 	
 	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.calbox.js"></script>
-	<script type="text/javascript" src="../js/jqm-datebox.mode.cccalbox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.datebox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.flipbox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.durationbox.js"></script>
@@ -44,7 +36,10 @@
 			'nadda': false,
 			'lockInput': true,
 			'useFocus': true,
-			'overrideDurationFormat': '%DM'
+			useTodayButton: true,
+			useClearButton: true,
+			useCollapsedBut: true,
+			
 			
 			//'useClearButton': true,
 		});
@@ -59,12 +54,8 @@
 	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - Dev Page</h1>
 	</div>
-	<div data-role="content">
-		<div data-role="fieldcontain">
-			<label for="l1">l1</label>
-			<input name="l1" type="text" data-role="datebox" data-options='{"mode": "cccalbox"}' id="l1" />
-		</div>
-		<div data-role="fieldcontain">
+	<div class="ui-content" role="main">
+		<div class="ui-field-contain">
 			<label for="aa1">text comparison</label>
 			<input name="aa1" type="text" data-mini="true" id="aa1"/>
 		</div>
@@ -72,7 +63,7 @@
 			<label for="l7">durationbox</label>
 			<input name="l7" type="text" data-role="datebox" data-options='{"overrideDurationOrder":["h","i"], "mode": "durationflipbox"}' id="l7" />
 		</div-->
-		<div data-role="fieldcontain">
+		<div class="ui-field-contain">
 			<label for="lang1">calbox</label>
 			<input name="lang1" type="text" data-role="datebox" data-options='{"calUsePickers":true, "mode": "calbox"}' id="lang1" />
 		</div>

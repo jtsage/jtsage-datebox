@@ -313,10 +313,10 @@
 									(uid+'griddate '+uid+'griddate-empty')
 								)
 								.css(cal.extcss)
-								.jqmData('date', ((o.calWeekMode)?cal.weekMode:cal.gen[row][col][0]))
-								.jqmData('theme', cal.thisMonth === cal.gen[row][col][1] ? checked.theme : '-')
-								.jqmData('enabled', checked.ok)
-								.jqmData('month', cal.gen[row][((o.calWeekMode)?o.calWeekModeDay:col)][1])
+								.data('date', ((o.calWeekMode)?cal.weekMode:cal.gen[row][col][0]))
+								.data('theme', cal.thisMonth === cal.gen[row][col][1] ? checked.theme : '-')
+								.data('enabled', checked.ok)
+								.data('month', cal.gen[row][((o.calWeekMode)?o.calWeekModeDay:col)][1])
 								.appendTo(hRow);
 						}
 					}
@@ -387,20 +387,12 @@
 				hRow.appendTo(temp);
 			}
 			
-			w.d.intHTML.on(o.clickEventAlt+' vmouseover vmouseout', 'div.'+uid+'griddate', function(e) {
-				if ( e.type === o.clickEventAlt ) {
-					e.preventDefault();
-					if ( $(this).jqmData('enabled') ) {
-						w.theDate.setD(2,1).setD(1,$(this).jqmData('month')).setD(2,$(this).jqmData('date'));
-						w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(),w.theDate), 'date':w.theDate});
-						w.d.input.trigger('datebox', {'method':'close'});
-					}
-				} else {
-					if ( $(this).jqmData('enabled') && typeof $(this).jqmData('theme') !== 'undefined' && o.mobVer < 140 ) {
-						if ( o.calWeekMode !== false && o.calWeekHigh === true ) {
-							$(this).parent().find('div').each(function() { w._hoover(this); });
-						} else { w._hoover(this); }
-					}
+			w.d.intHTML.on(o.clickEventAlt, 'div.'+uid+'griddate', function(e) {
+				e.preventDefault();
+				if ( $(this).data('enabled') ) {
+					w.theDate.setD(2,1).setD(1,$(this).jqmData('month')).setD(2,$(this).data('date'));
+					w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(),w.theDate), 'date':w.theDate});
+					w.d.input.trigger('datebox', {'method':'close'});
 				}
 			});
 			w.d.intHTML
