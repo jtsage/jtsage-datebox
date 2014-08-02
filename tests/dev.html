@@ -31,7 +31,6 @@
 			//'usePlaceholder': true,
 			'useNewStyle': true,
 			calControlGroup: true,
-			useInlineBlind: true,
 			//'defaultValue': [2013,0,1],
 			'nadda': false,
 			'lockInput': true,
@@ -39,6 +38,7 @@
 			useTodayButton: true,
 			useClearButton: true,
 			useCollapsedBut: true,
+			overrideSlideFieldOrder: ['y','m','d','h','i']
 			
 			
 			//'useClearButton': true,
@@ -65,7 +65,7 @@
 		</div-->
 		<div class="ui-field-contain">
 			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" data-role="datebox" data-options='{"mode": "durationbox"}' id="lang1" />
+			<input name="lang1" type="text" data-role="datebox" data-options='{"mode": "slidebox"}' id="lang1" />
 		</div>
 		<!--div data-role="fieldcontain">
 			<label for="c2">custom box</label>

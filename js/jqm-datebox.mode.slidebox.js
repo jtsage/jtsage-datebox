@@ -22,14 +22,21 @@
 			
 			w.d.intHTML.find('div.ui-datebox-sliderow-int').each(function () {
 				ech = $(this);
-				par = ech.parent().innerWidth();
+				par = ech.parent().outerWidth();
+				
 				if ( w.__('isRTL') ) { 
 					top = ech.find('div').last(); 
 				} else {
 					top = ech.find('div').first();
 				}
+				
 				tot = ech.find('div').size() * top.outerWidth();
-				top.css('marginLeft', ((tot/2)-(par/2))*-1);
+				
+				fixer = ech.outerWidth();
+				
+				if ( fixer > 0 ) { tot = fixer; }
+				
+				top.css('marginLeft', (tot-par)/2*-1);
 			});
 		}
 	});
@@ -45,12 +52,13 @@
 				ctrl = $("<div>", {"class":uid+'slide'});
 			
 			if ( typeof w.d.intHTML !== 'boolean' ) {
-				w.d.intHTML.empty().remove()
+				console.log('a');
+				w.d.intHTML.remove().empty();
+			} else {
+				w.d.input.on('datebox', function (e,p) {
+					if ( p.method === 'postrefresh' ) { w._sbox_pos(); }
+				});
 			}
-			
-			w.d.input.on('datebox', function (e,p) {
-				if ( p.method === 'postrefresh' ) { w._sbox_pos(); }
-			});
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
 			w.d.intHTML = $('<span>')
@@ -64,8 +72,8 @@
 			w.d.intHTML.append(ctrl);
 			
 			for ( y=0; y<w.fldOrder.length; y++ ) {
-				phRow = phBase.clone().jqmData('rowtype', w.fldOrder[y]);
-				hRow = slideBase.clone().jqmData('rowtype', w.fldOrder[y]).appendTo(phRow);
+				phRow = phBase.clone().data('rowtype', w.fldOrder[y]);
+				hRow = slideBase.clone().data('rowtype', w.fldOrder[y]).appendTo(phRow);
 				if ( w.__('isRTL') === true ) { hRow.css('direction', 'rtl'); }
 				
 				switch (w.fldOrder[y]) {
@@ -73,8 +81,8 @@
 						phRow.addClass(uid+'sliderow-ym');
 						for ( i=o.slen.y*-1; i<(o.slen.y+1); i++ ) {
 							tmp = (i!==0)?((iDate.get(0) === (w.theDate.get(0) + i))?o.themeDateHigh:o.themeDate):o.themeDatePick;
-							$('<div>', {'class':uid+'slideyear ui-corner-all ui-btn ui-btn-'+thMod+tmp})
-								.html(w.theDate.get(0)+i).jqmData('offset', i).jqmData('theme', tmp).appendTo(hRow);
+							$('<div>', {'class':uid+'slideyear ui-btn ui-btn-'+thMod+tmp})
+								.html(w.theDate.get(0)+i).data('offset', i).data('theme', tmp).appendTo(hRow);
 						}
 						break;
 					case 'm':
@@ -83,10 +91,10 @@
 							testDate = w.theDate.copy([0],[0,0,1]);
 							testDate.adj(1,i);
 							tmp = (i!==0)?((iDate.get(1) === testDate.get(1) && iDate.get(0) === testDate.get(0))?o.themeDateHigh:o.themeDate):o.themeDatePick;
-							$('<div>', {'class':uid+'slidemonth ui-corner-all ui-btn ui-btn-'+thMod+tmp})
+							$('<div>', {'class':uid+'slidemonth ui-btn ui-btn-'+thMod+tmp})
 								.html(String(w.__('monthsOfYearShort')[testDate.get(1)]))
-								.jqmData('offset', i)
-								.jqmData('theme', tmp).appendTo(hRow);
+								.data('offset', i)
+								.data('theme', tmp).appendTo(hRow);
 						}
 						break;
 						
@@ -100,9 +108,9 @@
 								( o.blackDays !== false && $.inArray(testDate.getDay(), o.blackDays) > -1 ) ) {
 								tmp += ' '+uid+'griddate-disable';
 							}
-							$('<div>', {'class':uid+'slideday ui-corner-all ui-btn ui-btn-'+thMod+tmp})
+							$('<div>', {'class':uid+'slideday ui-btn ui-btn-'+thMod+tmp})
 								.html(testDate.get(2) + '<br /><span class="'+uid+'slidewday">' + w.__('daysOfWeekShort')[testDate.getDay()] + '</span>')
-								.jqmData('offset', i).jqmData('theme', tmp).appendTo(hRow);
+								.data('offset', i).data('theme', tmp).appendTo(hRow);
 						}
 						break;
 					case 'h':
@@ -114,9 +122,9 @@
 							if ( o.validHours !== false && $.inArray(testDate.get(3), o.validHours) < 0 ) {
 								tmp += ' '+uid+'griddate-disable';
 							}
-							$('<div>', {'class':uid+'slidehour ui-corner-all ui-btn ui-btn-'+thMod+tmp})
+							$('<div>', {'class':uid+'slidehour ui-btn ui-btn-'+thMod+tmp})
 								.html( w.__('timeFormat') === 12 ? w._formatter('%I<span class="'+uid+'slidewday">%p</span>', testDate) : testDate.get(3) )
-								.jqmData('offset', i).jqmData('theme', tmp).appendTo(hRow);
+								.data('offset', i).data('theme', tmp).appendTo(hRow);
 						}
 						break;
 					case 'i':
@@ -125,8 +133,8 @@
 							testDate = w.theDate.copy();
 							testDate.adj(4,(i*o.minuteStep));
 							tmp = (i!==0)?o.themeDate:o.themeDatePick;
-							$('<div>', {'class':uid+'slidemins ui-corner-all ui-btn ui-btn-'+thMod+tmp})
-								.html(w._zPad(testDate.get(4))).jqmData('offset', i*o.minuteStep).jqmData('theme', tmp).appendTo(hRow);
+							$('<div>', {'class':uid+'slidemins ui-btn ui-btn-'+thMod+tmp})
+								.html(w._zPad(testDate.get(4))).data('offset', i*o.minuteStep).data('theme', tmp).appendTo(hRow);
 						}
 						break;
 				}
@@ -166,16 +174,13 @@
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
 				w.d.intHTML.on('mousewheel', '.ui-datebox-sliderow-int', function(e,d) {
 					e.preventDefault();
-					w._offset($(this).jqmData('rowtype'), ((d<0)?-1:1)*($(this).jqmData('rowtype')==='i'?o.minuteStep:1));
+					w._offset($(this).data('rowtype'), ((d<0)?-1:1)*($(this).data('rowtype')==='i'?o.minuteStep:1));
 				});
 			}
 			
 			w.d.intHTML.on(o.clickEvent, '.ui-datebox-sliderow-int>div', function(e) {
 				e.preventDefault();
-				w._offset($(this).parent().jqmData('rowtype'), parseInt($(this).jqmData('offset'),10));
-			});
-			w.d.intHTML.on('vmouseover vmouseout', '.ui-datebox-sliderow-int>div', function() {
-				w._hoover(this);
+				w._offset($(this).parent().data('rowtype'), parseInt($(this).data('offset'),10));
 			});
 			
 			w.d.intHTML.on(w.drag.eStart, '.ui-datebox-sliderow-int', function(e) {
@@ -214,7 +219,7 @@
 						e.preventDefault();
 						e.stopPropagation();
 						g.tmp = g.target.find('div').first();
-						w._offset(g.target.jqmData('rowtype'), ( w.__('isRTL') ? -1 : 1 )*(parseInt((g.start - g.end) / g.tmp.innerWidth(),10))*(g.target.jqmData('rowtype')==='i'?o.minuteStep:1));
+						w._offset(g.target.data('rowtype'), ( w.__('isRTL') ? -1 : 1 )*(parseInt((g.start - g.end) / g.tmp.innerWidth(),10))*(g.target.data('rowtype')==='i'?o.minuteStep:1));
 					}
 					g.start = false;
 					g.end = false;
