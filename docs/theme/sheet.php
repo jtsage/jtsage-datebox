@@ -151,6 +151,6 @@ echo ".ui-datebox-hidden { display: none; }\n";
 echo ".ui-dialog .ui-datebox-container { border: none !important; }\n";
 echo ".ui-popup-container .ui-datebox-container { border: none !important; }\n";
 echo ".ui-popup-container .ui-datebox-gridrow { margin-left: 0px; margin-right: 0px; }\n";
-echo ".ui-datebox-collapse a { display: inline-block; width: 45% }\n";
+echo ".ui-datebox-collapse a { display: inline-block; width: 25% }\n";
 echo "\n.ui-datebox-inline, .ui-datebox-inlineblind { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto !important; margin-right: auto !important; text-align: center;}\n";
 echo ".ui-datebox-inlineblind { width: 300px !important; float: none !important; clear: left !important; }\n\n";
