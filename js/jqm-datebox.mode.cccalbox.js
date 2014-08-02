@@ -16,7 +16,7 @@
 		calCCFmt: '%m%y',
 		
 		calYearPickMin: 'NOW',
-		calYearPickMax: 8,
+		calYearPickMax: 8
 		
 	});
 	$.extend( $.mobile.datebox.prototype, {

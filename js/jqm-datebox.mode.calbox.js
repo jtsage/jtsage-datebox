@@ -43,7 +43,7 @@
 		highDatesAlt: false,
 		enableDates: false,
 		calDateList: false,
-		calShowDateList: false,
+		calShowDateList: false
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_cal_gen: function (start,prev,last,other,month) {
