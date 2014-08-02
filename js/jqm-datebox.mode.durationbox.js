@@ -16,11 +16,20 @@
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		_durbox_run: function() {
-			var w = this;
+			var w = this,
+				timer = 150;
+				
+			if ( w.drag.cnt > 10 ) { timer = 100; }
+			if ( w.drag.cnt > 30 ) { timer = 50; }
+			if ( w.drag.cnt > 60 ) { timer = 20; }
+			if ( w.drag.cnt > 120 ) { timer = 10; }
+			if ( w.drag.cnt > 240 ) { timer = 3; }
+			
+			w.drag.cnt++;
 			w.drag.didRun = true;
 			w._offset(w.drag.target[0], w.drag.target[1], false);
 			w._durbox_run_update();
-			w.runButton = setTimeout(function() {w._durbox_run();}, 100);
+			w.runButton = setTimeout(function() {w._durbox_run();}, timer);
 		},
 		_durbox_run_update: function () {
 			var w = this, i, cDur = [],
@@ -39,7 +48,7 @@
 			cDur[3] = i % ival.i;
 
 			w.d.divIn.find('input').each(function () {
-				switch ( $(this).parent().jqmData('field') ) {
+				switch ( $(this).parent().data('field') ) {
 					case 'd':
 						$(this).val(cDur[0]); break;
 					case 'h':
@@ -60,7 +69,7 @@
 				t = w.initDate.getEpoch();
 				
 			w.d.intHTML.find('input').each( function() {
-				switch ( $(this).parent().jqmData('field') ) {
+				switch ( $(this).parent().data('field') ) {
 					case 'd':
 						t += (60*60*24) * w._durbox_valid($(this).val()); break;
 					case 'h':
@@ -95,7 +104,7 @@
 				w.d.intHTML.empty().remove();
 			}
 			
-			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
+			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleTimeDialogLabel'));
 			w.d.intHTML = $('<span>');
 			
 			if ( w.inputType !== 'number' ) { inBase.attr('pattern', '[0-9]*'); }
@@ -109,7 +118,7 @@
 					case 'i':
 					case 's':
 						y = $.inArray(w.fldOrder[i], ['d','h','i','s']);
-						$('<div>').jqmData('field', w.fldOrder[i]).addClass('ui-block-'+['a','b','c','d'][i]).append(inBase.clone()).appendTo(divIn).prepend('<label>'+w.__('durationLabel')[y]+'</label>');
+						$('<div>').data('field', w.fldOrder[i]).addClass('ui-block-'+['a','b','c','d'][i]).append(inBase.clone()).appendTo(divIn).prepend('<label>'+w.__('durationLabel')[y]+'</label>');
 						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i]}}).addClass('ui-block-'+['a','b','c','d'][i]).buttonMarkup(butPTheme).appendTo(divPlus);
 						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i]}}).addClass('ui-block-'+['a','b','c','d'][i]).buttonMarkup(butMTheme).appendTo(divMinus);
 						break;
@@ -129,7 +138,7 @@
 			cDur[3] = i % ival.i;
 			
 			divIn.find('input').each(function () {
-				switch ( $(this).parent().jqmData('field') ) {
+				switch ( $(this).parent().data('field') ) {
 					case 'd':
 						$(this).val(cDur[0]); break;
 					case 'h':
@@ -184,12 +193,12 @@
 				divPlus.on(o.clickEvent, 'div', function(e) {
 					divIn.find(':focus').blur();
 					e.preventDefault();
-					w._offset($(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]);
+					w._offset($(this).data('field'), o.durationSteppers[$(this).data('field')]);
 				});
 				divMinus.on(o.clickEvent, 'div', function(e) {
 					divIn.find(':focus').blur();
 					e.preventDefault();
-					w._offset($(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1);
+					w._offset($(this).data('field'), o.durationSteppers[$(this).data('field')]*-1);
 				});
 			}
 			
@@ -198,14 +207,15 @@
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
 				divIn.on('mousewheel', 'input', function(e,d) {
 					e.preventDefault();
-					w._offset($(this).parent().jqmData('field'), ((d<0)?-1:1)*o.durationSteppers[$(this).parent().jqmData('field')]);
+					w._offset($(this).parent().data('field'), ((d<0)?-1:1)*o.durationSteppers[$(this).parent().data('field')]);
 				});
 			}
 			
 			if ( o.repButton === true ) {
 				divPlus.on(w.drag.eStart, 'div', function(e) {
 					divIn.find(':focus').blur();
-					tmp = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]];
+					tmp = [$(this).data('field'), o.durationSteppers[$(this).data('field')]];
+					w.drag.cnt = 0;
 					w.drag.move = true;
 					w._dbox_delta = 1;
 					w._offset(tmp[0], tmp[1], false);
@@ -218,8 +228,9 @@
 				
 				divMinus.on(w.drag.eStart, 'div', function(e) {
 					divIn.find(':focus').blur();
-					tmp = [$(this).jqmData('field'), o.durationSteppers[$(this).jqmData('field')]*-1];
+					tmp = [$(this).data('field'), o.durationSteppers[$(this).data('field')]*-1];
 					w.drag.move = true;
+					w.drag.cnt = 0;
 					w._dbox_delta = -1;
 					w._offset(tmp[0], tmp[1], false);
 					w._durbox_run_update();
