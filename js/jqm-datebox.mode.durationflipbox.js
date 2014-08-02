@@ -24,14 +24,20 @@
 			w.d.intHTML.find('.ui-datebox-flipcenter').each(function() {
 				ech = $(this);
 				top = ech.innerHeight();
-				ech.css('top', ((par/2)-(top/2)+4)*-1);
+				ech.css('top', ((par/2)-(top/2)-3)*-1);
 			});
 			w.d.intHTML.find('ul').each(function () {
 				ech = $(this);
 				par = ech.parent().innerHeight();
 				top = ech.find('li').first();
 				tot = ech.find('li').size() * top.outerHeight();
-				top.css('marginTop', ((tot/2)-(par/2)+(top.outerHeight()/2))*-1);
+				fixer = ech.find('li').last().offset().top - ech.find('li').first().offset().top;
+				
+				pos1 = (((tot/2)-(par/2)+(top.outerHeight()/2))*-1);
+				
+				if ( fixer > 0 ) { pos1 = ((((fixer-par) / 2) + top.outerHeight()) * -1) }
+				
+				top.css('marginTop', pos1);
 			});
 		},
 		'_durfbox_series': function (middle, side, type) {
@@ -145,7 +151,7 @@
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
 				w.d.intHTML.on('mousewheel', '.ui-overlay-shadow', function(e,d) {
 					e.preventDefault();
-					w._offset($(this).jqmData('field'), ((d<0)?-1:1)*$(this).jqmData('amount'));
+					w._offset($(this).data('field'), ((d<0)?-1:1)*$(this).data('amount'));
 				});
 			}
 			
@@ -195,7 +201,7 @@
 						e.preventDefault();
 						e.stopPropagation();
 						g.tmp = g.target.parent().parent();
-						w._offset(g.tmp.jqmData('field'), (parseInt((g.start - g.end) / g.target.innerHeight(),10) * g.tmp.jqmData('amount') *-1 ));
+						w._offset(g.tmp.data('field'), (parseInt((g.start - g.end) / g.target.innerHeight(),10) * g.tmp.data('amount') *-1 ));
 					}
 					g.start = false;
 					g.end = false;
