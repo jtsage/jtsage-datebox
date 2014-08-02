@@ -4,8 +4,7 @@ short: When button held, continue counting
 modes: [
 	'datebox',
 	'timebox',
-	'durationbox',
-	'custombox'
+	'durationbox'
 ]
 cats: [ 'control' ]
 relat: "control"

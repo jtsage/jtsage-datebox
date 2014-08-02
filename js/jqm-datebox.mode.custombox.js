@@ -153,11 +153,11 @@
 			
 			divPlus.on(o.clickEvent, 'div', function(e) {
 				e.preventDefault();
-				w._cbox_offset($(this).jqmData('field'), $(this).jqmData('amount'));
+				w._cbox_offset($(this).data('field'), $(this).data('amount'));
 			});
 			divMinus.on(o.clickEvent, 'div', function(e) {
 				e.preventDefault();
-				w._cbox_offset($(this).jqmData('field'), $(this).jqmData('amount')*-1);
+				w._cbox_offset($(this).data('field'), $(this).data('amount')*-1);
 			});
 			
 		}
