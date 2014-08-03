@@ -117,40 +117,35 @@
 		},
 		_enhanceDate: function() {
 			$.extend(this._date.prototype, {
-				copy: function(adjust, override) {
+				copy: function( adjust, override ) {
 					/* Get a modified copy of the date.
 					 * First array - Offset the new date by #  (position determines date part)
 					 * Second array - If non-zero, force the new date by # (position determines date part)
 					 */
-					if ( typeof adjust === 'undefined' ) { adjust = [0,0,0,0,0,0,0]; }
-					if ( typeof override === 'undefined' ) { override = [0,0,0,0,0,0,0]; }
-					while ( adjust.length < 7 ) { adjust.push(0); }
-					while ( override.length < 7 ) { override.push(0); }
+					adjust = $.extend( [0,0,0,0,0,0,0], adjust );
+					override = $.extend( [0,0,0,0,0,0,0], override );
 					return new Date(
-						((override[0] > 0 ) ? override[0] : this.getFullYear() + adjust[0]),
-						((override[1] > 0 ) ? override[1] : this.getMonth() + adjust[1]),
-						((override[2] > 0 ) ? override[2] : this.getDate() + adjust[2]),
-						((override[3] > 0 ) ? override[3] : this.getHours() + adjust[3]),
-						((override[4] > 0 ) ? override[4] : this.getMinutes() + adjust[4]),
-						((override[5] > 0 ) ? override[5] : this.getSeconds() + adjust[5]),
-						((override[6] > 0 ) ? override[5] : this.getMilliseconds() + adjust[6]));
+						((override[0] > 0 ) ? override[0] : this.get(0) + adjust[0]),
+						((override[1] > 0 ) ? override[1] : this.get(1) + adjust[1]),
+						((override[2] > 0 ) ? override[2] : this.get(2) + adjust[2]),
+						((override[3] > 0 ) ? override[3] : this.get(3) + adjust[3]),
+						((override[4] > 0 ) ? override[4] : this.get(4) + adjust[4]),
+						((override[5] > 0 ) ? override[5] : this.get(5) + adjust[5]),
+						((override[6] > 0 ) ? override[5] : this.get(6) + adjust[6]));
 				},
 				adj: function (type, amount) {
 					/* Adjust the date.  Yes, this is chainable */
-					if ( typeof amount !== 'number' ) {
-						throw new Error("Adjustment value not specified");
-					}
-					if ( typeof type !== 'number' ) {
-						throw new Error("Adjustment type not specified");
+					if ( typeof amount !== 'number' || typeof type !== 'number' ) {
+						throw new Error("Invalid Arguments");
 					}
 					switch ( type ) {
-						case 0: this.setFullYear(this.getFullYear() + amount); break;
-						case 1: this.setMonth(this.getMonth() + amount); break;
-						case 2: this.setDate(this.getDate() + amount); break;
+						case 0: this.setD( 0, this.get(0) + amount ); break;
+						case 1: this.setD( 1, this.get(1) + amount ); break;
+						case 2: this.setD( 2, this.get(2) + amount ); break;
 						case 3: amount *= 60;
 						case 4: amount *= 60;
 						case 5: amount *= 1000;
-						case 6: this.setTime(this.getTime() + amount); break;
+						case 6: this.setTime( this.getTime() + amount ); break;
 					}
 					return this;
 				},
@@ -168,6 +163,7 @@
 					return this;
 				},
 				get: function(type) {
+					// Chainable version of get. Also shorter.
 					switch ( type ) {
 						case 0: return this.getFullYear();
 						case 1: return this.getMonth();
@@ -175,24 +171,35 @@
 						case 3: return this.getHours();
 						case 4: return this.getMinutes();
 						case 5: return this.getSeconds();
+						case 6: return this.getMilliseconds();
 					}
 					return false;
 				},
 				iso: function() {
-					return String(this.getFullYear()) + '-' + (( this.getMonth() < 9 ) ? "0" : "") + String(this.getMonth()+1) + '-' + ((this.getDate() < 10 ) ? "0" : "") + String(this.getDate());
+					var arr = [0,0,0], i = 0;
+					for ( ; i < 3; i++ ) {
+						arr[ i ] = this.get( i );
+						if ( i == 1 ) { arr[ i ]++; }
+						if ( arr[i] < 10 ) { arr[ i ] = "0" + String( arr[ i ] ); }
+					}
+					return arr.join( "-" );
 				},
 				comp: function () {
-					return parseInt(this.iso().replace(/-/g,''),10);
+					return parseInt( this.iso().replace( /-/g, '' ), 10 );
 				},
 				getEpoch: function() {
-					return (this.getTime() - this.getMilliseconds()) / 1000;
+					return Math.floor( this.getTime() / 1000);
 				},
 				getArray: function() {
-					return [this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes(), this.getSeconds()];
+					var arr = [0,0,0,0,0,0], i = 0;
+					for ( ; i < 5; i++ ) {
+						arr[i] = this.get(i);
+					}
+					return arr;
 				},
 				setFirstDay: function (day) {
-					this.setD(2,1).adj(2, (day - this.getDay()));
-					if ( this.get(2) > 10 ) { this.adj(2,7); }
+					this.setD( 2, 1 ).adj( 2, ( day - this.getDay() ) );
+					if ( this.get( 2 ) > 10 ) { this.adj( 2, 7 ); }
 					return this;
 				},
 				setDWeek: function (type,num) {
