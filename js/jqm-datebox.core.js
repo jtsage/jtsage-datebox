@@ -1094,28 +1094,34 @@
 			}
 		},
 		_grabLabel: function() {
-			var w = this,
-				o = this.options,
-				par = {'oldd': false, 'newd': false};
+			// Get the most reasonable label for this datebox.
+			// In order of preference - placeholder, title, label for=
+			var inputPlaceholder, inputTitle,
+				w = this,
+				o = this.options;
 
-			if ( typeof o.overrideDialogLabel === 'undefined' ) {
-				if ( typeof w.d.input.attr('placeholder') !== 'undefined' ) { return w.d.input.attr('placeholder'); }
-				if ( typeof w.d.input.attr('title') !== 'undefined' ) { return w.d.input.attr('title'); }
-				par.newd = w.d.wrap.parent().parent().find('label[for=\''+w.d.input.attr('id')+'\']').text();
-				par.oldd = w.d.wrap.parent().find('label[for=\''+w.d.input.attr('id')+'\']').text();
-				if ( par.oldd !== '' && par.oldd !== false ) { return par.oldd; }
-				if ( par.newd !== '' && par.newd !== false ) { return par.newd; }
-				return false;
+			if ( typeof o.overrideDialogLabel === "undefined" ) {
+				inputPlaceholder = w.d.input.attr( "placeholder" );
+				inputTitle = w.d.input.attr( "title" );
+				
+				if ( typeof inputPlaceholder !== "undefined" ) {
+					return inputPlaceholder;
+				}
+				if ( typeof inputTitle !== "undefined" ) {
+					return inputTitle;
+				}
+				return $(document).find( "label[for='" + w.d.input.attr( "id" ) + "']" ).text();
 			}
 			return o.overrideDialogLabel;
 		},
-		_makeEl: function(source, parts) {
+		_makeEl: function( source, parts ) {
+			// Populate a source element with data parts.
 			var part = false,
 				retty = false;
 
 			retty = source.clone();
 
-			if ( typeof parts.attr !== 'undefined' ) {
+			if ( typeof parts.attr !== "undefined" ) {
 				for ( part in parts.attr ) {
 					if ( parts.attr.hasOwnProperty(part) ) {
 						retty.data(part, parts.attr[part]);
