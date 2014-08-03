@@ -11,7 +11,7 @@
 		options: {
 			// All widget options, including some internal runtime details
 			version: '2-1.4.3-2014080201-next', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
-			mobVer: parseInt($.mobile.version.replace(/\./g,'')),
+			mobVer: parseInt($.mobile.version.replace(/\./g,''),10),
 			theme: false,
 			themeDefault: 'a',
 			themeHeader: 'a',
@@ -177,9 +177,9 @@
 				},
 				iso: function() {
 					var arr = [0,0,0], i = 0;
-					for ( ; i < 3; i++ ) {
+					for ( i=0; i < 3; i++ ) {
 						arr[ i ] = this.get( i );
-						if ( i == 1 ) { arr[ i ]++; }
+						if ( i === 1 ) { arr[ i ]++; }
 						if ( arr[i] < 10 ) { arr[ i ] = "0" + String( arr[ i ] ); }
 					}
 					return arr.join( "-" );
@@ -192,7 +192,7 @@
 				},
 				getArray: function() {
 					var arr = [0,0,0,0,0,0], i = 0;
-					for ( ; i < 5; i++ ) {
+					for ( i = 0; i < 5; i++ ) {
 						arr[i] = this.get(i);
 					}
 					return arr;
@@ -282,7 +282,7 @@
 			"default": function (num) {
 				// Return an ordinal suffix (1st, 2nd, 3rd, etc)
 				var ending = num % 10;
-				if ( num > 9 && num < 21 || ending > 3 ) { return "th"; }
+				if ( ( num > 9 && num < 21 ) || ending > 3 ) { return "th"; }
 				return [ 'th', 'st', 'nd', 'rd' ][ ending ];
 			}
 		},
@@ -674,13 +674,13 @@
 				} else if ( roundDirection > 0 ) {
 					newMinute = newMinute + ( mstep - remainder );
 				} else {
-					if ( tempMin % mstep < mstep / 2 ) {
+					if ( newMinute % mstep < mstep / 2 ) {
 						newMinute = newMinute - remainder;
 					} else {
 						newMinute = newMinute + ( mstep - remainder );
 					}
 				}
-			this.theDate.setMinutes(tempMin);
+			this.theDate.setMinutes(newMinute);
 			}
 		},
 		_offset: function(mode, amount, update) {
@@ -748,8 +748,7 @@
 			// Create the widget, called automatically by widget system
 			$( document ).trigger( "dateboxcreate" );
 
-			var thisTheme,
-				w = this,
+			var w = this,
 				o = $.extend( this.options, this._getLongOptions( this.element ), this.element.data( "options" ) ),
 				thisThemeEl = this.element.data( "theme" ),
 				thisThemeNear = this.element.parentsUntil( "[data-theme]" ).parent().data( "theme" ),
@@ -801,11 +800,11 @@
 			w.baseID = w.d.input.attr( "id" );
 
 			w.initDate = new w._date();
-			w.theDate = ( o.defaultValue ) 
-				? w._makeDate( o.defaultValue ) 
-				: ( (w.d.input.val() !== "" ) 
-					? w._makeDate( w.d.input.val() ) 
-					: new w._date() );
+			w.theDate = ( o.defaultValue ) ?
+				w._makeDate( o.defaultValue ) :
+				( (w.d.input.val() !== "" ) ?
+					w._makeDate( w.d.input.val() ) :
+					new w._date() );
 
 			w.initDone = false;
 
@@ -880,8 +879,7 @@
 				w = this,
 				o = this.options,
 				today = new this._date(),
-				lod = 24 * 60 * 60 * 1000,
-				calc = {};
+				lod = 24 * 60 * 60 * 1000;
 
 			todayClean = w._pa(today, true);
 			
@@ -1109,7 +1107,7 @@
 		},
 		_check: function() {
 			// Check to see if a date is valid.
-			var td, year, month, date,
+			var td, year, month, date, i,
 				w = this,
 				o = this.options,
 				now = this.theDate;

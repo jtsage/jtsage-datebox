@@ -127,7 +127,8 @@
 		'datebox': function () {
 			var w = this,
 				g = this.drag,
-				o = this.options, i, y, tmp, cnt = -2,
+				o = this.options, i, y, tmp, cnt = -2, 
+				offAmount = 1,
 				uid = 'ui-datebox-',
 				divBase = $("<div>"),
 				divPlus = $('<fieldset>'),
@@ -158,13 +159,15 @@
 			for(i=0; i<=w.fldOrder.length; i++) {
 				tmp = ['a','b','c','d','e','f'][i];
 				switch (w.fldOrder[i]) {
+					case 'i': offAmount = o.minuteStep;
 					case 'y':
 					case 'm':
 					case 'd':
 					case 'h':
-						$('<div>').append(w._makeEl(inBase, {'attr': {'field':w.fldOrder[i], 'amount':1}})).addClass('ui-block-'+tmp).appendTo(divIn);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butPTheme).appendTo(divPlus);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
+					case 'M':
+						$('<div>').append(w._makeEl(inBaseT, {'attr': {'field':w.fldOrder[i], 'amount':offAmount}})).addClass('ui-block-'+tmp).appendTo(divIn);
+						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':offAmount}}).addClass('ui-block-'+tmp).buttonMarkup(butPTheme).appendTo(divPlus);
+						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':offAmount}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
 						cnt++;
 						break;
 					case 'a':
@@ -174,18 +177,6 @@
 							w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
 							cnt++;
 						} 
-						break;
-					case 'M':
-						$('<div>').append(w._makeEl(inBaseT, {'attr': {'field':w.fldOrder[i], 'amount':1}})).addClass('ui-block-'+tmp).appendTo(divIn);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butPTheme).appendTo(divPlus);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
-						cnt++;
-						break;
-					case 'i':
-						$('<div>').append(w._makeEl(inBase, {'attr': {'field':w.fldOrder[i], 'amount':o.minuteStep}})).addClass('ui-block-'+tmp).appendTo(divIn);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':o.minuteStep}}).addClass('ui-block-'+tmp).buttonMarkup(butPTheme).appendTo(divPlus);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':o.minuteStep}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
-						cnt++;
 						break;
 				}
 			}
