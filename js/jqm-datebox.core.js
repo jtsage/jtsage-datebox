@@ -853,145 +853,155 @@
 			if ( refresh === true ) { w.refresh(); }
 		},
 		_build: {
-			'default': function () {
+			"default": function () {
 				this.d.headerText = "Error";
 				this.d.intHTML = $("<div class='ui-body-b'><h2 style='text-align:center'>There is no mode by that name loaded / mode not given</h2></div>");
 			}
 		},
 		_drag: {
-			'default': function () { return false; }
+			"default": function () { return false; }
 		},
 		open: function () {
 			var w = this,
 				o = this.options,
-				popopts = {},
-				basepop = {'history':false},
-				qns = 'data-'+this.ns,
-				trans = o.useAnimation ? o.transition : 'none';
+				popopts = {
+					transition: (o.useAnimation ? o.transition : "none")
+				},
+				basepop = { history: false };
 
-			if ( o.useFocus === true && w.fastReopen === true ) { w.d.input.blur(); return false; }
-			if ( w.clearFunc !== false ) {
-				clearTimeout(w.clearFunc); w.clearFunc = false;
+			if ( o.useFocus === true && w.fastReopen === true ) { 
+				w.d.input.blur();
+				return false;
 			}
 
-			w.theDate = w._makeDate(w.d.input.val());
-			if ( w.d.input.val() === "" ) { w._startOffset(w.theDate); }
+			w.theDate = w._makeDate( w.d.input.val() );
+			if ( w.d.input.val() === "" ) { w._startOffset( w.theDate ); }
 			w.d.input.blur();
 
-			if ( typeof w._build[o.mode] === 'undefined' ) {
-				w._build['default'].apply(w,[]);
+			if ( typeof w._build[ o.mode ] === "undefined" ) {
+				w._build[ "default" ].apply( w, [] );
 			} else {
-				w._build[o.mode].apply(w,[]);
+				w._build[ o.mode ].apply( w, [] );
 			}
-			if ( typeof w._drag[o.mode] !== 'undefined' ) {
-				w._drag[o.mode].apply(w, []);
+			if ( typeof w._drag[ o.mode ] !== "undefined" ) {
+				w._drag[ o.mode ].apply( w, [] );
 			}
 
-			w.d.input.trigger('datebox', {'method':'refresh'});
+			w._t( { method: "refresh" } );
 
-			if ( w.__('useArabicIndic') === true ) { w._doIndic(); }
+			if ( w.__( 'useArabicIndic' ) === true ) { w._doIndic(); }
 
 			if ( ( o.useInline === true || o.useInlineBlind === true ) && w.initDone === false ) {
-				w.d.mainWrap.append(w.d.intHTML);
-				if ( o.useInline === true && o.hideInput === true ) {
-					w.d.input.parent().parent().parent().append(w.d.mainWrap);
-				} else {
-					w.d.input.parent().parent().append(w.d.mainWrap);
-				}
-				w.d.mainWrap.removeClass('ui-datebox-hidden');
+				w.d.mainWrap.append( w.d.intHTML );
+				w.d.input.parent().parent().append( w.d.mainWrap );
+				w.d.mainWrap.removeClass( "ui-datebox-hidden" );
 				if ( o.useInline === true ) {
 					if ( o.hideInput === true ) {
-						w.d.mainWrap.addClass('ui-datebox-inline');
+						w.d.mainWrap.addClass( "ui-datebox-inline" );
 					} else {
-						w.d.mainWrap.addClass('ui-datebox-inlineblind');
+						w.d.mainWrap.addClass( "ui-datebox-inlineblind" );
 					}
+					return true;
 				} else {
-					w.d.mainWrap.addClass('ui-datebox-inlineblind');
+					w.d.mainWrap.addClass( "ui-datebox-inlineblind" );
 					w.d.mainWrap.hide();
 				}
 				w.initDone = false;
-				w.d.input.trigger('datebox',{'method':'postrefresh'});
+				w._t( { method: "postrefresh" } );
 			}
 
-			if ( o.useInline ) { return true; }
 			if ( o.useInlineBlind ) {
-				if ( w.initDone ) { w.refresh(); w.d.mainWrap.slideDown();  }
-				else { w.initDone = true; }
+				if ( w.initDone ) { 
+					w.refresh();
+					w.d.mainWrap.slideDown();
+				} else { 
+					w.initDone = true; 
+				}
 				return true;
 			}
 
-			if ( w.d.intHTML.is(':visible') ) { return false; } // Ignore if already open
+			// Ignore if already open
+			if ( w.d.intHTML.is( ":visible" ) ) { return false; }
 
 			w.d.mainWrap.empty();
+
 			if ( o.useHeader === true ) {
-				w.d.headHTML = $('<div class="ui-header ui-bar-'+o.themeHeader+'"></div>');
+				w.d.headHTML = $("<div class='ui-header ui-bar-" + o.themeHeader + "'></div>");
 				$("<a class='ui-btn-left' href='#'>Close</a>").appendTo(w.d.headHTML)
-					.buttonMarkup({ theme  : o.themeHeader, icon   : 'delete', iconpos: 'notext', corners: true, shadow : true })
-					.on(o.clickEventAlt, function(e) { e.preventDefault(); w.d.input.trigger('datebox', {'method':'close'}); });
-				$('<h1 class="ui-title">'+w.d.headerText+'</h1>').appendTo(w.d.headHTML);
+					.buttonMarkup( { 
+						theme : o.themeHeader,
+						icon : "delete",
+						iconpos: "notext",
+						corners: true,
+						shadow : true
+					} )
+					.on( o.clickEventAlt, function( e ) {
+						e.preventDefault();
+						w._t( { method: "close" } );
+					} );
+				$("<h1 class='ui-title'>" + w.d.headerText + "</h1>").appendTo(w.d.headHTML);
 				w.d.mainWrap.append(w.d.headHTML);
 			}
-			w.d.mainWrap.append(w.d.intHTML).css('zIndex', o.zindex);
-			w.d.input.trigger('datebox',{'method':'postrefresh'});
-
-			if ( o.useAnimation === true ) {
-				popopts.transition = o.transition;
-			} else {
-				popopts.transition = "none";
-			}
+			
+			w.d.mainWrap.append( w.d.intHTML ).css( "zIndex", o.zindex );
+			w._t( { method: "postrefresh" } );
 
 			if ( o.popupPosition !== false ) {
 				popopts.positionTo = o.popupPosition;
 			} else {
-				if ( typeof w.baseID !== undefined ) {
-					popopts.positionTo = '#' + w.baseID;
+				if ( typeof w.baseID !== "undefined" ) {
+					popopts.positionTo = "#" + w.baseID;
 				} else {
-					popopts.positionTo = 'window';
+					popopts.positionTo = "window";
 				}
 			}
 
 			if ( o.popupForceX !== false && o.popupForceY !== false ) {
 				popopts.x = parseInt(o.popupForceX,10);
 				popopts.y = parseInt(o.popupForceY,10);
-				popopts.positionTo = 'origin';
+				popopts.positionTo = "origin";
 			}
 
 			if ( o.useModal === true ) {
 				basepop.overlayTheme = o.useModalTheme;
 				basepop.dismissible = false;
-				}
+			}
 
 			// Perpare open callback, if provided. Additionally, if this
 			// returns false then the open/update will stop.
 			if ( o.openCallback !== false ) {
-				if ( ! $.isFunction(o.openCallback) ) {
-					if ( typeof window[o.openCallback] !== 'undefined' ) {
-						o.openCallback = window[o.openCallback];
+				if ( ! $.isFunction( o.openCallback ) ) {
+					if ( typeof window[ o.openCallback ] !== "undefined" ) {
+						o.openCallback = window[ o.openCallback ];
 					} else {
-						o.openCallback = new Function(o.openCallback);
+						o.openCallback = new Function( o.openCallback );
 					}
 				}
 				basepop.afteropen = function() {
-					if ( o.openCallback.apply(w, $.merge([w.theDate],o.openCallbackArgs)) === false ) {
-						w.d.input.trigger('datebox', {'method':'close'});
+					if ( o.openCallback.apply( w, $.merge( [ w.theDate ], o.openCallbackArgs ) ) === false ) {
+						w._t( {method: "close"} );
 					}
 				};
 			}
 			// Prepare close callback.
 			if ( o.closeCallback !== false ) {
-				if ( ! $.isFunction(o.closeCallback) ) {
-					if ( typeof window[o.closeCallback] !== 'undefined' ) {
-						o.closeCallback = window[o.closeCallback];
+				if ( ! $.isFunction( o.closeCallback ) ) {
+					if ( typeof window[ o.closeCallback ] !== "undefined" ) {
+						o.closeCallback = window[ o.closeCallback ];
 					} else {
-						o.closeCallback = new Function(o.closeCallback);
+						o.closeCallback = new Function( o.closeCallback );
 					}
 				}
 				basepop.afterclose = function() {
-					o.closeCallback.apply(w, $.merge([w.theDate], o.closeCallbackArgs));
+					o.closeCallback.apply( w, $.merge( [ w.theDate ], o.closeCallbackArgs ) );
 				};
 			}
 
-			w.d.mainWrap.removeClass('ui-datebox-hidden').popup(basepop).popup("open", popopts);
+			w.d.mainWrap
+				.removeClass( "ui-datebox-hidden" )
+				.popup( basepop )
+				.popup( "open", popopts );
+
 			w.refresh();
 		},
 		close: function() {
@@ -1010,12 +1020,12 @@
 			}
 
 			// Trigger the popup to close
-			w.d.mainWrap.popup('close');
+			w.d.mainWrap.popup( "close" );
 
 			// Unbind all drag handlers.
-			$(document).off(w.drag.eMove);
-			$(document).off(w.drag.eEnd);
-			$(document).off(w.drag.eEndA);
+			$( document ).off( w.drag.eMove );
+			$( document ).off( w.drag.eEnd );
+			$( document ).off( w.drag.eEndA );
 
 			if ( o.useFocus ) {
 				w.fastReopen = true;
@@ -1037,7 +1047,7 @@
 			} else {
 				w._build[ o.mode ].apply( w, [] );
 			}
-			if ( w.__('useArabicIndic') === true ) { 
+			if ( w.__( 'useArabicIndic' ) === true ) { 
 				w._doIndic(); 
 			}
 			w.d.mainWrap.append( w.d.intHTML );
@@ -1091,7 +1101,7 @@
 			}
 
 			if ( $.inArray( o.mode, ['timebox','durationbox','durationflipbox','timeflipbox'] ) > -1 ) {
-				if ( o.mode === 'timeflipbox' && o.validHours !== false ) {
+				if ( o.mode === "timeflipbox" && o.validHours !== false ) {
 					if ( $.inArray( now.get(3), o.validHours ) < 0 ) { w.dateOK = false; }
 				}
 			} else {
