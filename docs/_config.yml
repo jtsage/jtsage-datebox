@@ -6,3 +6,5 @@ highlighter: pygments
 markdown: kramdown
 permalink: pretty
 basesite: "http://dev.jtsage.com/jQM-DateBox/"
+min: ".min"
+

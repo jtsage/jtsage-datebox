@@ -5,8 +5,10 @@ sect: none
 ---
 
 # DateBox Complete Option List
-
-<ul data-role="listview" data-autodividers="true" data-filter="true" data-inset="true">
+<form class="ui-filterable">
+<input id="filter-input" data-type="search">
+</form>
+<ul data-role="listview" data-filter="true" data-input="#filter-input" data-autodividers="true" data-inset="true">
 	{% for docu in site.pages %}
 	{% if docu.layout == "api" %}
 	<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}"><h2>{{docu.title}}</h2><p class="ui-li-count">{{docu.relat}}</p><p>{{docu.short}}</p></a></li>
