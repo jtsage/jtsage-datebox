@@ -825,32 +825,36 @@
 			//Throw dateboxinit event
 			$( document ).trigger( "dateboxaftercreate" );
 		},
-		applyMinMax: function(refresh, override) {
-			var w = this,
-					o = this.options,
-					calc = {};
+		applyMinMax: function( refresh, override ) {
+			// PUBLIC function to apply min/max attributes
+			var todayClean, fromEl, fromElDate, daysRaw,
+				w = this,
+				o = this.options,
+				today = new this._date(),
+				lod = 24 * 60 * 60 * 1000,
+				calc = {};
 
-			if ( typeof refresh === 'undefined' ) { refresh = false; }
-			if ( typeof override === 'undefined' ) { override = true; }
+			todayClean = w._pa(today, true);
+			
+			if ( typeof refresh === "undefined" ) { refresh = true; }
+			if ( typeof override === "undefined" ) { override = true; }
 
-			if ( ( override === true || o.minDays === false ) && typeof(w.d.input.attr('min')) !== 'undefined' ) {
-				calc.today  = new w._date();
-				calc.lod    = 24 * 60 * 60 * 1000;
-				calc.todayc = new w._date(calc.today.getFullYear(), calc.today.getMonth(), calc.today.getDate(), 0,0,0,0);
-				calc.fromel = w.d.input.attr('min').split('-');
-				calc.compdt  = new w._date(calc.fromel[0],calc.fromel[1]-1,calc.fromel[2],0,0,0,0);
-				o.minDays = parseInt((((calc.compdt.getTime() - calc.todayc.getTime()) / calc.lod))*-1,10);
+			if ( ( override === true || o.minDays === false ) && typeof w.d.input.attr( "min" ) !== "undefined" ) {
+				fromEl =  w.d.input.attr( "min" ).split( "-" );
+				fromElDate = new w._date( fromEl[0], fromEl[1], fromEl[2], 0, 0, 0, 0 );
+				daysRaw = ( fromEl.getTime() - todayClean.getTime() ) / lod;
+				o.minDays = parseInt( daysRaw * -1 , 10 );
 			}
-			if ( ( override === true || o.maxDays === false ) && typeof(w.d.input.attr('max')) !== 'undefined' ) {
-				calc.today  = new w._date();
-				calc.lod    = 24 * 60 * 60 * 1000;
-				calc.todayc = new w._date(calc.today.getFullYear(), calc.today.getMonth(), calc.today.getDate(), 0,0,0,0);
-				calc.fromel = w.d.input.attr('max').split('-');
-				calc.compdt  = new w._date(calc.fromel[0],calc.fromel[1]-1,calc.fromel[2],0,0,0,0);
-				o.maxDays = parseInt((((calc.compdt.getTime() - calc.todayc.getTime()) / calc.lod)),10);
+			if ( ( override === true || o.maxDays === false ) && typeof w.d.input.attr( "max" ) !== "undefined" ) {
+				fromEl = w.d.input.attr( "max" ).split( "-" );
+				fromElDate = new w._date( fromEl[0], fromEl[1], fromEl[2], 0, 0, 0, 0 );
+				daysRaw = ( fromEl.getTime() - todayClean.getTime() ) / lod;
+				o.maxDays = parseInt( daysRaw, 10 );
 			}
 
-			if ( refresh === true ) { w.refresh(); }
+			if ( refresh === true ) { 
+				w._t( { method: "refresh" } );
+			}
 		},
 		_build: {
 			"default": function () {
@@ -862,6 +866,7 @@
 			"default": function () { return false; }
 		},
 		open: function () {
+			// PUBLIC function to open the control
 			var w = this,
 				o = this.options,
 				popopts = {
