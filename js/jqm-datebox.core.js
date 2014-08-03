@@ -631,23 +631,25 @@
 			return ( value > low && value < high );
 		},
 		_minStepFix: function() {
-			var tempMin = this.theDate.get(4), tmp,
-				w = this,
-				o = this.options;
+			// Round "extra" minutes when using a stepper.
+			var newMinute = this.theDate.get(4), 
+				mstep = this.options.minuteStep,
+				roundDirection = this.options.minStepRound,
+				remainder = newMinute % mstep;
 
-			if ( o.minuteStep > 1 && tempMin % o.minuteStep > 0 ) {
-				if ( o.minuteStepRound < 0 ) {
-					tempMin = tempMin - (tempMin % o.minuteStep);
-				} else if ( o.minStepRound > 0 ) {
-					tempMin = tempMin + ( o.minuteStep - ( tempMin % o.minuteStep ) );
+			if ( mstep > 1 && remainder > 0 ) {
+				if ( roundDirection < 0 ) {
+					newMinute = newMinute - remainder;
+				} else if ( roundDirection > 0 ) {
+					newMinute = newMinute + ( mstep - remainder );
 				} else {
-					if ( tempMin % o.minuteStep < o.minuteStep / 2 ) {
-						tempMin = tempMin - (tempMin % o.minuteStep);
+					if ( tempMin % mstep < mstep / 2 ) {
+						newMinute = newMinute - remainder;
 					} else {
-						tempMin = tempMin + ( o.minuteStep - ( tempMin % o.minuteStep ) );
+						newMinute = newMinute + ( mstep - remainder );
 					}
 				}
-			w.theDate.setMinutes(tempMin);
+			this.theDate.setMinutes(tempMin);
 			}
 		},
 		_offset: function(mode, amount, update) {
