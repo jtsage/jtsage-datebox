@@ -31,13 +31,15 @@
 			calControlGroup: true,
 			lockInput: true,
 			useFocus: false,
-			buttonIcon: "grid",
+			closeCallback: function(a,b) { console.log(a); console.log(b); },
+			closeCallbackArgs: ['hi'],
+			openCallback: function() { console.log('b'); },
+			useModalTheme: 'a',
+			useModal: false,
+			
 			overrideSlideFieldOrder: ['y','m','d','h','i']
 		});
 	</script>
-	<style>
-		.ui-icon-dice { background-image: url('img/dice.png') !important; background-repeat: no-repeat; background-position: 99% 50%; }
-	</style>
 	
 </head>
 <body>
