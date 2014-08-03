@@ -1124,37 +1124,36 @@
 			}
 			return retty;
 		},
-		_getLongOptions: function(element) {
-			var key, retty = {}, prefix, temp;
-
-			if ( $.mobile.ns === "" ) {
-				prefix = "datebox";
-			} else {
-				prefix = $.mobile.ns.substr(0, $.mobile.ns.length - 1) + 'Datebox';
-			}
+		_getLongOptions: function( element ) {
+			// Pull "long" options from the element, i.e.
+			// data-datebox-mode="datebox" --> options.mode
+			var key, temp,
+				returnObj = {},
+				prefix = "datebox",
+				prefixLength = 7;
 
 			for ( key in element.data() ) {
-				if ( key.substr(0, prefix.length) === prefix && key.length > prefix.length ) {
-					temp = key.substr(prefix.length);
-					temp = temp.charAt(0).toLowerCase() + temp.slice(1);
-					retty[temp] = element.data(key);
+				if ( key.substr( 0, prefixLength ) === prefix && key.length > prefixLength ) {
+					temp = key.substr( prefixLength );
+					temp = temp.charAt( 0 ).toLowerCase() + temp.slice( 1 );
+					returnObj[ temp ] = element.data( key );
 				}
 			}
-			return retty;
+			return returnObj;
 		},
 		disable: function() {
 			// Provide a PUBLIC function to Disable the element
 			this.d.input.attr( "disabled", true );
 			this.d.wrap.addClass( "ui-state-disabled" ).blur();
 			this.disabled = true;
-			this.d.input.trigger( "datebox", { method: "disable"});
+			this._t( { method: "disable"});
 		},
 		enable: function() {
 			// Provide a PUBLIC function to Enable the element
 			this.d.input.attr( "disabled", false );
 			this.d.wrap.removeClass( "ui-state-disabled" );
 			this.disabled = false;
-			this.d.input.trigger( "datebox", { method: "enable"});
+			this._t( { method: "enable"});
 		},
 		_setOption: function() {
 			$.Widget.prototype._setOption.apply( this, arguments );
@@ -1177,7 +1176,7 @@
 				this.theDate = this._makeDate( newDate );
 			}
 			this.refresh();
-			this.d.input.trigger("datebox", { method: "doset" });
+			this._t( { method: "doset" });
 		},
 		callFormat: function( format, date ) {
 			// Provide a PUBLIC function to get a formatted date
@@ -1191,6 +1190,9 @@
 			} else {
 				return this.options[ opt ];
 			}
+		},
+		_t: function ( obj ) {
+			this.d.input.trigger( "datebox", obj );
 		}
 	});
 
