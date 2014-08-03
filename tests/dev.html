@@ -28,20 +28,11 @@
 	<script type="text/javascript" src="./jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-			//'usePlaceholder': true,
-			'useNewStyle': true,
 			calControlGroup: true,
-			//'defaultValue': [2013,0,1],
-			'nadda': false,
-			'lockInput': true,
-			'useFocus': true,
-			useTodayButton: true,
-			useClearButton: true,
-			useCollapsedBut: true,
+			lockInput: true,
+			useFocus: false,
+			buttonIcon: "grid",
 			overrideSlideFieldOrder: ['y','m','d','h','i']
-			
-			
-			//'useClearButton': true,
 		});
 	</script>
 	<style>
@@ -59,13 +50,10 @@
 			<label for="aa1">text comparison</label>
 			<input name="aa1" type="text" data-mini="true" id="aa1"/>
 		</div>
-		<!--div data-role="fieldcontain">
-			<label for="l7">durationbox</label>
-			<input name="l7" type="text" data-role="datebox" data-options='{"overrideDurationOrder":["h","i"], "mode": "durationflipbox"}' id="l7" />
-		</div-->
+
 		<div class="ui-field-contain">
 			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" data-role="datebox" data-options='{"mode": "durationflipbox"}' id="lang1" />
+			<input name="lang1" type="text" data-role="datebox" data-options='{"mode": "calbox"}' id="lang1" />
 		</div>
 		<!--div data-role="fieldcontain">
 			<label for="c2">custom box</label>

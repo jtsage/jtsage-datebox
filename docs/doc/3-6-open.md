@@ -11,28 +11,27 @@ input, set {% api_doc lockInput %} false.
 
 # Input Styles
 
-There are a number of input styles - my favorite by far is {% api_doc useNewStyle %}.
-But there are other options as well, which I will demonstrate below.
+There are a number of input styles, which I will demonstrate below.
 
-## Default Display
+### Default Display
 
-Note that the button will not display correctly if the input does not have a named ID
+Note that the button may not display correctly if the input does not have a named ID
 
 <div class="ui-field-contain"><input id="cal1" type="text" data-role="datebox" data-options='{"mode":"calbox","useNewStyle":false}'></div>
 
-
-### {% api_doc useNewStyle %} coupled with {% api_doc useFocus %}
-
-You *can* use this mode without 'useFocus', however I find the button to be too small
-to acurately click
-
-<div><input type="text" data-role="datebox" data-options='{"mode":"calbox","useFocus":true}'></div>
 
 ### {% api_doc useButton %} false with {% api_doc useFocus %}
 
 Setting 'useButton' off will prevent the button decoration
 
-<div><input type="text" data-role="datebox" data-options='{"mode":"calbox","useFocus":true,"useNewStyle":false,"useButton":false}'></div>
+<div><input type="text" data-role="datebox" data-options='{"mode":"calbox","useFocus":true,"useButton":false}'></div>
+
+### {% api_doc buttonIcon %} 
+
+Setting 'buttonIcon' to a different class will result in a different button
+
+<div><input type="text" data-role="datebox" data-options='{"mode":"calbox","useFocus":true,"buttonIcon":"grid"}'></div>
+
 
 ### {% api_doc hideInput %} and opening with a link or button
 
@@ -47,16 +46,6 @@ This is where the options {% api_doc centerHoriz %} and {% api_doc centerVert %}
 {% endhighlight %}
 
 # Fine-Tuning Input styling
-
-### {% api_doc useNewStyle %} and {% api_doc useAltIcon %}
-
-Depending on your theme choice, it may be preferable to use a light colored icon
-rather than a dark one.
-
-If this is still not enough, the option {% api_doc overrideStyleClass %} allows you
-to pass your own icon theme to the control.
-
-<div><input data-theme="b" type="text" data-role="datebox" data-options='{"mode":"calbox","useInline":false,"useFocus":true,"useAltIcon":true}'></div>
 
 ### {% api_doc usePlaceholder %}
 
