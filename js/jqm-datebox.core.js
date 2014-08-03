@@ -946,8 +946,6 @@
 				qns = 'data-'+this.ns,
 				trans = o.useAnimation ? o.transition : 'none';
 			
-			console.log('open!');
-			
 			if ( o.useFocus === true && w.fastReopen === true ) { w.d.input.blur(); return false; }
 			if ( w.clearFunc !== false ) {
 				clearTimeout(w.clearFunc); w.clearFunc = false;

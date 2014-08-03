@@ -52,7 +52,6 @@
 				ctrl = $("<div>", {"class":uid+'slide'});
 			
 			if ( typeof w.d.intHTML !== 'boolean' ) {
-				console.log('a');
 				w.d.intHTML.remove().empty();
 			} else {
 				w.d.input.on('datebox', function (e,p) {
