@@ -1161,25 +1161,35 @@
 			this.refresh();
 		},
 		getTheDate: function() {
+			// Provide a PUBLIC function to get the current date.
 			return this.theDate;
 		},
 		getLastDur: function() {
+			// Provide a PUBLIC function to get the last entered duration
 			return this.lastDuration;
 		},
-		setTheDate: function(newDate) {
-			this.theDate = newDate;
-			this.refresh();
-			this.d.input.trigger('datebox', { 'method': 'doset' });
-		},
-		callFormat: function(format, date) {
-			return this._formatter(format, date);
-		},
-		getOption: function(opt) {
-			var problang = this.__(opt);
-			if ( typeof(problang) !== 'undefined' ) {
-				return problang;
+		setTheDate: function( newDate ) {
+			// Provide a PUBLIC function to set the date
+			// ACCEPTS: Date Object or String in proper output format
+			if ( typeof( newDate ) === "object" ) {
+				this.theDate = newDate;
 			} else {
-				return this.options[opt];
+				this.theDate = this._makeDate( newDate );
+			}
+			this.refresh();
+			this.d.input.trigger("datebox", { "method": "doset" });
+		},
+		callFormat: function( format, date ) {
+			// Provide a PUBLIC function to get a formatted date
+			return this._formatter( format, date );
+		},
+		getOption: function( opt ) {
+			// Provide a PUBLIC function to get a defined option or i18n member
+			var i18nTester = this.__(opt);
+			if ( typeof( i18nTester ) !== "undefined" ) {
+				return i18nTester;
+			} else {
+				return this.options[ opt ];
 			}
 		}
 	});
