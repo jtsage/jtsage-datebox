@@ -23,7 +23,6 @@
 		calOnlyMonth: false,
 		calWeekMode: false,
 		calWeekModeDay: 1,
-		calWeekHigh: false,
 		calControlGroup: false,
 		calShowWeek: false,
 		calUsePickers: false,
@@ -76,39 +75,46 @@
 			}
 			return cal;
 		},
-		_cal_check : function (cal, year, month, date) {
+		_cal_check : function (checkDates, year, month, date, done) {
 			var w = this, i,
 				o = this.options,
-				ret = {},
-				day = new this._date(year,month,date,0,0,0,0).getDay();
+				maxDate = done.x,
+				minDate = done.i,
+				thisDate = done.t,
+				presetDay = done.p,
+				day = new this._date(year,month,date,0,0,0,0).getDay(),
+				bdRec = o.blackDatesRec,
+				hdRec = o.highDatesRec,
+				ret = {
+					ok: true,
+					iso: year + '-' + w._zPad(month+1) + '-' + w._zPad(date),
+					theme: o.themeDate,
+					recok: true,
+					rectheme: false
+				};
 				
-			ret.ok = true;
-			ret.iso = year + '-' + w._zPad(month+1) + '-' + w._zPad(date);
 			ret.comp = parseInt(ret.iso.replace(/-/g, ''),10);
-			ret.theme = o.themeDate;
-			ret.recok = true;
-			ret.rectheme = false;
 			
-			if ( o.blackDatesRec !== false ) {
-				for ( i=0; i<o.blackDatesRec.length; i++ ) {
+			if ( bdRec !== false ) {
+				for ( i=0; i<o.bdRec.length; i++ ) {
 					if ( 
-						( o.blackDatesRec[i][0] === -1 || o.blackDatesRec[i][0] === year ) &&
-						( o.blackDatesRec[i][1] === -1 || o.blackDatesRec[i][1] === month ) &&
-						( o.blackDatesRec[i][2] === -1 || o.blackDatesRec[i][2] === date )
+						( bdRec[i][0] === -1 || bdRec[i][0] === year ) &&
+						( bdRec[i][1] === -1 || bdRec[i][1] === month ) &&
+						( bdRec[i][2] === -1 || bdRec[i][2] === date )
 					) { ret.recok = false; } 
 				}
 			}
 			
-			if ( $.isArray(o.enableDates) && $.inArray(ret.iso, o.enableDates) < 0 ) {
+			if ( $.isArray( o.enableDates ) && $.inArray( ret.iso, o.enableDates ) < 0 ) {
 				ret.ok = false;
-			} else if ( cal.checkDates ) {
+			} else if ( checkDates ) {
 				if (
 					( ret.recok !== true ) ||
-					( o.afterToday === true && cal.thisDate.comp() > ret.comp ) ||
-					( o.beforeToday === true && cal.thisDate.comp() < ret.comp ) ||
-					( o.notToday === true && cal.thisDate.comp() === ret.comp ) ||
-					( o.maxDays !== false && cal.maxDate.comp() < ret.comp ) ||
-					( o.minDays !== false && cal.minDate.comp() > ret.comp ) ||
+					( o.afterToday === true && thisDate.comp() > ret.comp ) ||
+					( o.beforeToday === true && thisDate.comp() < ret.comp ) ||
+					( o.notToday === true && thisDate.comp() === ret.comp ) ||
+					( o.maxDays !== false && maxDate.comp() < ret.comp ) ||
+					( o.minDays !== false && minDate.comp() > ret.comp ) ||
 					( $.isArray(o.blackDays) && $.inArray(day, o.blackDays) > -1 ) ||
 					( $.isArray(o.blackDates) && $.inArray(ret.iso, o.blackDates) > -1 ) 
 				) {
@@ -119,19 +125,19 @@
 			if ( $.isArray(o.whiteDates) && $.inArray(ret.iso, o.whiteDates) > -1 ) { ret.ok = true; }
 
 			if ( ret.ok ) {
-				if ( o.highDatesRec !== false ) {
-					for ( i=0; i<o.highDatesRec.length; i++ ) {
+				if ( hdRec !== false ) {
+					for ( i=0; i < hdRec.length; i++ ) {
 						if ( 
-							( o.highDatesRec[i][0] === -1 || o.highDatesRec[i][0] === year ) &&
-							( o.highDatesRec[i][1] === -1 || o.highDatesRec[i][1] === month ) &&
-							( o.highDatesRec[i][2] === -1 || o.highDatesRec[i][2] === date )
+							( hdRec[i][0] === -1 || hdRec[i][0] === year ) &&
+							( hdRec[i][1] === -1 || hdRec[i][1] === month ) &&
+							( hdRec[i][2] === -1 || hdRec[i][2] === date )
 						) { ret.rectheme = true; } 
 					}
 				}
 				
-				if ( o.calHighPick && date === cal.presetDay && ( w.d.input.val() !== "" | o.defaultValue !== false )) {
+				if ( o.calHighPick && date === presetDay && ( w.d.input.val() !== "" || o.defaultValue !== false )) {
 					ret.theme = o.themeDatePick;
-				} else if ( o.calHighToday && ret.comp === cal.thisDate.comp() ) {
+				} else if ( o.calHighToday && ret.comp === thisDate.comp() ) {
 					ret.theme = o.themeDateToday;
 				} else if ( $.isArray(o.highDatesAlt) && ($.inArray(ret.iso, o.highDatesAlt) > -1) ) {
 					ret.theme = o.themeDateHighAlt;
@@ -148,22 +154,44 @@
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
 		'calbox': function () {
-			var w = this,
-				o = this.options, i,
-				cal = false,
-				uid = 'ui-datebox-',
-				temp = false, row = false, col = false, hRow = false, checked = false, prange = {};
+			var tempVal, pickerControl, calContent, genny, weekdayControl, listControl,
+				row, col, rows, cols, htmlRow, i, prangeS, prangeL,
+				w = this,
+				o = this.options,
+				dList = o.calDateList,
+				uid = "ui-datebox-",
+				curDate = w.theDate,
+				checked = false,
+				checkDatesObj = {},
+				minDate = w.initDate.copy(),
+				maxDate = w.initDate.copy(),
+				cStartDay = (curDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7,
+				curMonth = curDate.get(1),
+				curYear = curDate.get(0),
+				curDateArr = curDate.getArray(),
+				presetDate = (w.d.input.val() === "") ? w._startOffset(w._makeDate(w.d.input.val())) : w._makeDate(w.d.input.val()),
+				presetDay = -1,
+				cTodayDate = new w._date(),
+				cTodayDateArr = cTodayDate.getArray(),
+				weekNum = curDate.copy([0],[0,0,1]).adj(2,(-1*cStartDay)+(w.__('calStartDay')===0?1:0)).getDWeek(4),
+				weekModeSel = 0,
+				isTrueMonth = false,
+				isTrueYear = false,
+				cMonthEnd = 32 - w.theDate.copy([0],[0,0,32,13]).getDate(),
+				cPrevMonthEnd = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate(),
+				checkDates = ( o.afterToday || o.beforeToday || o.notToday || o.maxDays || o.minDays || o.blackDays || o.blackDates ) ? true : false;
 				
-			if ( typeof w.d.intHTML !== 'boolean' ) {
-				w.d.intHTML.remove();
-			}
+			
+				
+			if ( typeof w.d.intHTML !== 'boolean' ) { w.d.intHTML.remove(); }
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
 			w.d.intHTML = $('<span>');
 
-			$('<div class="'+uid+'gridheader"><div class="'+uid+'gridlabel"><h4>' +
-				w._formatter(w.__('calHeaderFormat'), w.theDate) +
-				'</h4></div></div>').appendTo(w.d.intHTML);
+			$("<div class='" + uid + "gridheader'><div class='" + uid + "gridlabel'><h4>" +
+				w._formatter( w.__( 'calHeaderFormat' ), w.theDate ) +
+				"</h4></div></div>")
+					.appendTo(w.d.intHTML);
 				
 			// Previous and next month buttons, define booleans to decide if they should do anything
 			$("<div class='"+uid+"gridplus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('nextMonth')+"</a></div>")
@@ -189,217 +217,239 @@
 				
 			if ( o.calNoHeader === true ) { w.d.intHTML.find('.'+uid+'gridheader').remove(); }
 			
-			cal = {'today': -1, 'highlightDay': -1, 'presetDay': -1, 'startDay': w.__('calStartDay'),
-				'thisDate': new w._date(), 'maxDate': w.initDate.copy(), 'minDate': w.initDate.copy(),
-				'currentMonth': false, 'weekMode': 0, 'weekDays': null };
-			cal.start = (w.theDate.copy([0],[0,0,1]).getDay() - w.__('calStartDay') + 7) % 7;
-			cal.thisMonth = w.theDate.getMonth();
-			cal.thisYear = w.theDate.getFullYear();
-			cal.wk = w.theDate.copy([0],[0,0,1]).adj(2,(-1*cal.start)+(w.__('calStartDay')===0?1:0)).getDWeek(4);
-			cal.end = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
-			cal.lastend = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate();
-			cal.presetDate = (w.d.input.val() === "") ? w._startOffset(w._makeDate(w.d.input.val())) : w._makeDate(w.d.input.val());
-			cal.thisDateArr = cal.thisDate.getArray();
-			cal.theDateArr = w.theDate.getArray();
-			cal.checkDates = ( $.inArray(false, [o.afterToday, o.beforeToday, o.notToday, o.maxDays, o.minDays, o.blackDates, o.blackDays]) > -1 );
-
 			w.calNext = true;
 			w.calPrev = true;
 			
-			if ( cal.thisDateArr[0] === cal.theDateArr[0] && cal.thisDateArr[1] === cal.theDateArr[1] ) { cal.currentMonth = true; } 
-			if ( cal.presetDate.comp() === w.theDate.comp() ) { cal.presetDay = cal.presetDate.getDate(); }
+			if ( Math.floor(cTodayDate.comp() / 100)  === Math.floor(curDate.comp() / 100) ) { isTrueMonth = true; }
+			if ( Math.floor(cTodayDate.comp() / 10000)  === Math.floor(curDate.comp() / 10000) ) { isTrueYear = true; }
+			if ( presetDate.comp() === curDate.comp() ) { presetDay = presetDate.get(2); }
 			
-			if ( o.afterToday === true && 
-				( cal.currentMonth === true || ( cal.thisDateArr[1] >= cal.theDateArr[1] && cal.theDateArr[0] === cal.thisDateArr[0] ) ) ) { 
+			if ( o.afterToday === true && ( isTrueMonth || ( isTrueYear && cTodayDateArr[1] >= curDateArr[1] ) ) ) {
 				w.calPrev = false; }
-			if ( o.beforeToday === true &&
-				( cal.currentMonth === true || ( cal.thisDateArr[1] <= cal.theDateArr[1] && cal.theDateArr[0] === cal.thisDateArr[0] ) ) ) {
+			if ( o.beforeToday === true && ( isTrueMonth || ( isTrueYear && cTodayDateArr[1] <= curDateArr[1] ) ) ) {
 				w.calNext = false; }
 			
 			if ( o.minDays !== false ) {
-				cal.minDate.adj(2, -1*o.minDays);
-				if ( cal.theDateArr[0] === cal.minDate.getFullYear() && cal.theDateArr[1] <= cal.minDate.getMonth() ) { w.calPrev = false;}
+				minDate.adj( 2, o.minDays * -1 );
+				tempVal = minDate.getArray();
+				if ( curDateArr[0] === tempVal[0] && curDateArr[1] <= tempVal[1] ) { w.calPrev = false;}
 			}
 			if ( o.maxDays !== false ) {
-				cal.maxDate.adj(2, o.maxDays);
-				if ( cal.theDateArr[0] === cal.maxDate.getFullYear() && cal.theDateArr[1] >= cal.maxDate.getMonth() ) { w.calNext = false;}
+				maxDate.adj( 2, o.maxDays );
+				tempVal = minDate.getArray();
+				if ( curDateArr[0] === tempVal[0] && curDateArr[1] >= tempVal[1] ) { w.calNext = false;}
 			}
 			
 			if ( o.calUsePickers === true ) {
-				cal.picker = $('<div>', {'class': 'ui-grid-a ui-datebox-grid','style':'padding-top: 5px; padding-bottom: 5px;'});
+				pickerControl = $("<div>", {
+					"class": "ui-grid-a ui-datebox-grid",
+					style: "padding-top: 5px; padding-bottom: 5px;"
+				});
 				
-				cal.picker1 = $('<div class="ui-block-a"><select name="pickmon"></select></div>').appendTo(cal.picker).find('select');
-				cal.picker2 = $('<div class="ui-block-b"><select name="pickyar"></select></div>').appendTo(cal.picker).find('select');
+				pickerControl.a = $("<div class='ui-block-a'><select name='pickmon'></select></div>").appendTo(pickerControl).find('select');
+				pickerControl.b = $("<div class='ui-block-b'><select name='pickyar'></select></div>").appendTo(pickerControl).find('select');
 				
 				for ( i=0; i<=11; i++ ) {
-					cal.picker1.append($('<option value="'+i+'"'+((cal.thisMonth===i)?' selected="selected"':'')+'>'+w.__('monthsOfYear')[i]+'</option>'));
+					pickerControl.a.append(
+						$( "<option value='" + i + "'" + ( ( curMonth === i ) ? " selected='selected'" : "" ) + ">" +
+						w.__( 'monthsOfYear' )[ i ] + "</option>" ) );
 				}
 				
 				if ( o.calYearPickMin < 1 ) { 
-					prange.sm = cal.thisYear + o.calYearPickMin;
+					prangeS = curYear + o.calYearPickMin;
 				} else if ( o.calYearPickMin < 1800 ) {
-					prange.sm = cal.thisYear - o.calYearPickMin;
+					prangeS = curYear - o.calYearPickMin;
 				} else if ( o.calYearPickMin === "NOW" ) {
-					prange.sm = cal.thisDate.getFullYear();
+					prangeS = cTodayDateArr[0];
 				} else {
-					prange.sm = o.calYearPickMin;
+					prangeS = o.calYearPickMin;
 				}
 				
 				if ( o.calYearPickMax < 1800 ) {
-					prange.lg = cal.thisYear + o.calYearPickMax;
+					prangeL = curYear + o.calYearPickMax;
 				} else if ( o.calYearPickMax === "NOW" ) {
-					prange.lg = cal.thisDate.getFullYear();
+					prangeL = cTodayDateArr[0];
 				} else {
-					prange.lg = o.calYearPickMax;
+					prangeL = o.calYearPickMax;
 				}
-				for ( i=prange.sm; i<=prange.lg; i++ ) {
-					cal.picker2.append($('<option value="'+i+'"'+((cal.thisYear===i)?' selected="selected"':'')+'>'+i+'</option>'));
+				for ( i = prangeS; i <= prangeL; i++ ) {
+					pickerControl.b.append(
+						$( "<option value='" + i + "'" + ( ( curYear===i ) ? " selected='selected'" : "" ) + ">" + i + "</option>" ) );
 				}
 				
-				cal.picker1.on('change', function () {
-					w.theDate.setMonth($(this).val());
-					if (w.theDate.getMonth() !== parseInt($(this).val(), 10)) {
-						w.theDate.setDate(0);
+				pickerControl.a.on('change', function () {
+					w.theDate.setD( 1, $( this ).val() );
+					if ( w.theDate.get(1) !== parseInt( $( this ).val(), 10 ) ) {
+						w.theDate.setD( 2, 0 );
 					}
 					w.refresh();
 				});
-				cal.picker2.on('change', function () {
-					w.theDate.setFullYear($(this).val());
-					if (w.theDate.getMonth() !== parseInt(cal.picker1.val(), 10)) {
-						w.theDate.setDate(0);
+				pickerControl.b.on('change', function () {
+					w.theDate.setD( 0, $( this ).val() );
+					if (w.theDate.get(1) !== parseInt( pickerControl.a.val(), 10)) {
+						w.theDate.setD( 2, 0 );
 					}
 					w.refresh();
 				});
 				
-				cal.picker.find('select').selectmenu({mini:true, nativeMenu: true});
-				cal.picker.appendTo(w.d.intHTML);
+				pickerControl.find( "select" ).selectmenu( { mini: true, nativeMenu: true } );
+				pickerControl.appendTo( w.d.intHTML );
 			}
 			
-			temp = $('<div class="'+uid+'grid">').appendTo(w.d.intHTML);
+			calContent = $("<div class='" + uid + "grid'>" ).appendTo( w.d.intHTML );
 			
 			if ( o.calShowDays ) {
 				w._cal_days = w.__('daysOfWeekShort').concat(w.__('daysOfWeekShort'));
-				cal.weekDays = $("<div>", {'class':uid+'gridrow'}).appendTo(temp);
-				if ( w.__('isRTL') === true ) { cal.weekDays.css('direction', 'rtl'); }
+				weekdayControl = $( "<div>", { "class": uid + "gridrow" } ).appendTo( calContent );
+				if ( w.__('isRTL') === true ) { weekdayControl.css( "direction", "rtl" ); }
 				if ( o.calShowWeek ) { 
-					$("<div>").addClass(uid+'griddate '+uid+'griddate-empty '+uid+'griddate-label').appendTo(cal.weekDays);
+					$("<div>")
+						.addClass( uid + "griddate " + uid + "griddate-empty " + uid + "griddate-label" )
+						.appendTo( weekdayControl );
 				}
 				for ( i=0; i<=6;i++ ) {
-					$("<div>"+w._cal_days[(i+cal.startDay)%7]+"</div>").addClass(uid+'griddate '+uid+'griddate-empty '+uid+'griddate-label').appendTo(cal.weekDays);
+					$( "<div>" )
+						.text( w._cal_days[ ( i + cStartDay ) % 7 ] )
+						.addClass( uid + "griddate " + uid + "griddate-empty " + uid + "griddate-label" )
+						.appendTo( weekdayControl );
 				}
 			}
-			
-			cal.gen = w._cal_gen(cal.start, cal.lastend, cal.end, !o.calOnlyMonth, w.theDate.getMonth());
-			for ( var row=0, rows=cal.gen.length; row < rows; row++ ) {
-				hRow = $('<div>', {'class': uid+'gridrow'});
-				if ( w.__('isRTL') ) { hRow.css('direction', 'rtl'); }
+
+			checkDatesObj = { i: minDate, x: maxDate, t: cTodayDate, p: presetDay };
+			genny = w._cal_gen( cStartDay, cPrevMonthEnd, cMonthEnd, !o.calOnlyMonth, curDate.get(1) );
+
+			for ( row = 0, rows = genny.length; row < rows; row++ ) {
+				htmlRow = $("<div>", { "class": uid + "gridrow" } );
+				if ( w.__( 'isRTL' ) ) { htmlRow.css( "direction", "rtl" ); }
 				if ( o.calShowWeek ) {
-						$('<div>', {'class':uid+'griddate '+uid+'griddate-empty'}).text('W'+cal.wk).appendTo(hRow);
-						cal.wk++;
-						if ( cal.wk > 52 && typeof cal.gen[parseInt(row,10)+1] !== 'undefined' ) { cal.wk = new Date(cal.theDateArr[0],cal.theDateArr[1],((w.__('calStartDay')===0)?cal.gen[parseInt(row,10)+1][1][0]:cal.gen[parseInt(row,10)+1][0][0])).getDWeek(4); }
-					} 
-				for ( var col=0, cols=cal.gen[row].length; col<cols; col++ ) {
-					if ( o.calWeekMode ) { cal.weekMode = cal.gen[row][o.calWeekModeDay][0]; }
-					if ( typeof cal.gen[row][col] === 'boolean' ) {
-						$('<div>', {'class':uid+'griddate '+uid+'griddate-empty'}).appendTo(hRow);
+						$("<div>", { "class": uid + "griddate " + uid + "griddate-empty" } )
+							.text( "W" + weekNum )
+							.appendTo( htmlRow );
+						weekNum++;
+						if ( weekNum > 52 && typeof(genny[ row + 1 ]) !== "undefined" ) { 
+							weekNum = new w._date(
+								curDateArr[0],
+								curDateArr[1],
+								( w.__('calStartDay')===0 ) ? genny[ row + 1 ][ 1 ][ 0 ] : genny[ row + 1 ][ 0 ][ 0 ],
+								0, 0, 0, 0
+							).getDWeek( 4 ); }
+					}
+				for ( col=0, cols = genny[row].length; col < cols; col++ ) {
+					if ( o.calWeekMode ) { 
+						weekModeSel = genny[row][o.calWeekModeDay][0]; 
+					}
+					if ( typeof genny[row][col] === "boolean" ) {
+						$("<div>", { "class": uid + "griddate " + uid + "griddate-empty" } ).appendTo( htmlRow );
 					} else {
-						checked = w._cal_check(cal, cal.theDateArr[0], cal.gen[row][col][1], cal.gen[row][col][0]);
-						if (cal.gen[row][col][0]) {
-							cal.extcss = ( cal.thisMonth !== cal.gen[row][col][1] && !o.calOnlyMonth ) ? {'cursor':'pointer'} : {};
-							$("<div>"+String(cal.gen[row][col][0])+"</div>")
-								.addClass( cal.thisMonth === cal.gen[row][col][1] ?
-									(uid+'griddate ui-corner-all ui-btn ui-btn-'+(o.mobVer<140?'up-':'')+checked.theme + (checked.ok?'':' '+uid+'griddate-disable')):
-									(uid+'griddate '+uid+'griddate-empty')
+						checked = w._cal_check( checkDates, curDateArr[0], genny[row][col][1], genny[row][col][0], checkDatesObj );
+						if ( genny[row][col][0]) {
+							$("<div>")
+								.text( String( genny[row][col][0] ) )
+								.addClass( curMonth === genny[row][col][1] ?
+									( uid + "griddate ui-corner-all ui-btn ui-btn-" + checked.theme + ( checked.ok ? "" : " ui-state-disabled" ) ):
+									( uid + "griddate " + uid + "griddate-empty" )
 								)
-								.css(cal.extcss)
-								.data('date', ((o.calWeekMode)?cal.weekMode:cal.gen[row][col][0]))
-								.data('theme', cal.thisMonth === cal.gen[row][col][1] ? checked.theme : '-')
-								.data('enabled', checked.ok)
-								.data('month', cal.gen[row][((o.calWeekMode)?o.calWeekModeDay:col)][1])
-								.appendTo(hRow);
+								.css(( curMonth !== genny[row][col][1] && !o.calOnlyMonth ) ? { cursor: "pointer" } : {})
+								.data( "date", 
+									( ( o.calWeekMode ) ? weekModeSel : genny[row][col][0] ) )
+								.data( "enabled", checked.ok)
+								.data( "month", genny[row][((o.calWeekMode)?o.calWeekModeDay:col)][1])
+								.appendTo(htmlRow);
 						}
 					}
 				}
 				if ( o.calControlGroup === true ) {
-					hRow.find('.ui-corner-all').removeClass('ui-corner-all').eq(0).addClass('ui-corner-left').end().last().addClass('ui-corner-right').addClass('ui-controlgroup-last');
+					htmlRow
+						.find( ".ui-corner-all" )
+						.removeClass( "ui-corner-all" )
+						.eq(0)
+							.addClass("ui-corner-left")
+							.end()
+						.last()
+							.addClass( "ui-corner-right" )
+							.addClass( "ui-controlgroup-last" );
 				}
-				hRow.appendTo(temp);
+				htmlRow.appendTo(calContent);
 			}
-			if ( o.calShowWeek ) { temp.find('.'+uid+'griddate').addClass(uid+'griddate-week'); }
+			if ( o.calShowWeek ) { calContent.find( "." + uid + "griddate" ).addClass( uid + "griddate-week" ); }
 			
-			if ( o.calShowDateList === true && o.calDateList !== false ) {
-				cal.datelist = $('<div>');
-				cal.datelistpick = $('<select name="pickdate"></select>').appendTo(cal.datelist);
+			if ( o.calShowDateList === true && dList !== false ) {
+				listControl = $( "<div>" );
+				listControl.a = $( "<select name='pickdate'></select>" ).appendTo(listControl);
 				
-				cal.datelistpick.append('<option value="false" selected="selected">'+w.__('calDateListLabel')+'</option>');
-				for ( i=0; i<o.calDateList.length; i++ ) {
-					cal.datelistpick.append($('<option value="'+o.calDateList[i][0]+'">'+o.calDateList[i][1]+'</option>'));
+				listControl.a.append("<option value='false' selected='selected'>" + w.__( 'calDateListLabel' ) + "</option>" );
+				for ( i = 0; i < dList.length; i++ ) {
+					listControl.a.append( $( "<option value='" + dList[i][0] + "'>" + dList[i][1] + "</option>" ) );
 				}
 				
-				cal.datelistpick.on('change', function() {
-					cal.datelistdate = $(this).val().split('-');
-					w.theDate = new w._date(cal.datelistdate[0], cal.datelistdate[1]-1, cal.datelistdate[2], 0,0,0,0);
-					w.d.input.trigger('datebox',{'method':'doset'});
+				listControl.a.on( "change", function() {
+					tempVal = $(this).val().split('-');
+					w.theDate = new w._date(tempVal[0], tempVal[1]-1, tempVal[2], 0,0,0,0);
+					w._t( { method: "doset" } );
 				});
 				
-				cal.datelist.find('select').selectmenu({mini:true, nativeMenu:true});
-				cal.datelist.appendTo(w.d.intHTML);
+				listControl.find( "select" ).selectmenu( { mini: true, nativeMenu: true } );
+				listControl.appendTo( calContent );
 			}
 			
 			if ( o.useTodayButton || o.useTomorrowButton || o.useClearButton ) {
-				hRow = $('<div>', {'class':uid+'controls'});
+				htmlRow = $("<div>", { "class": uid + "controls" } );
 				
 				if ( o.useTodayButton ) {
-					$('<a href="#">'+w.__('calTodayButtonLabel')+'</a>')
-						.appendTo(hRow).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#'>" + w.__( 'calTodayButtonLabel' ) + "</a>" )
+						.appendTo(htmlRow)
+						.buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
-							w.theDate = new w._date();
-							w.theDate = new w._date(w.theDate.getFullYear(), w.theDate.getMonth(), w.theDate.getDate(),0,0,0,0);
-							w.d.input.trigger('datebox',{'method':'doset'});
+							w.theDate = w._pa([0,0,0], new w._date());
+							w._t( { method: "doset" } );
 						});
 				}
 				if ( o.useTomorrowButton ) {
-					$('<a href="#">'+w.__('calTomorrowButtonLabel')+'</a>')
-						.appendTo(hRow).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#'>" + w.__( 'calTomorrowButtonLabel' ) + "</a>" )
+						.appendTo(htmlRow)
+						.buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
-							w.theDate = new w._date();
-							w.theDate = new w._date(w.theDate.getTime() + 24 * 60 * 60 * 1000); //tomorrow
-							w.theDate = new w._date(w.theDate.getFullYear(), w.theDate.getMonth(), w.theDate.getDate(),0,0,0,0);
-							w.d.input.trigger('datebox',{'method':'doset'});
+							w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
+							w._t( { method: "doset" } );
 						});
 				}
 				if ( o.useClearButton ) {
-					$('<a href="#">'+w.__('clearButton')+'</a>')
-						.appendTo(hRow).buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#'>" + w.__( 'clearButton' ) + "</a>" )
+						.appendTo(htmlRow)
+						.buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w.d.input.val('');
-							w.d.input.trigger('datebox',{'method':'clear'});
-							w.d.input.trigger('datebox',{'method':'close'});
+							w._t( { method: "clear" } );
+							w._t( { method: "close" } );
 						});
 				}
 				if ( o.useCollapsedBut ) {
-					hRow.addClass('ui-datebox-collapse');
+					htmlRow.addClass( "ui-datebox-collapse" );
 				}
-				hRow.appendTo(temp);
+				htmlRow.appendTo( calContent );
 			}
 			
-			w.d.intHTML.on(o.clickEventAlt, 'div.'+uid+'griddate', function(e) {
+			w.d.intHTML.on(o.clickEventAlt, "div." + uid + "griddate", function(e) {
 				e.preventDefault();
-				if ( $(this).data('enabled') ) {
-					w.theDate.setD(2,1).setD(1,$(this).jqmData('month')).setD(2,$(this).data('date'));
-					w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(),w.theDate), 'date':w.theDate});
-					w.d.input.trigger('datebox', {'method':'close'});
+				if ( $( this ).data( "enabled" ) ) {
+					w.theDate.setD(2,1).setD(1,$(this).jqmData( "month" )).setD(2,$(this).data( "date" ));
+					w._t( {
+						method: "set",
+						value: w._formatter( w.__fmt(),w.theDate ),
+						date: w.theDate
+					} );
+					w._t( { method: "close" } );
 				}
 			});
 			w.d.intHTML
-				.on('swipeleft', function() { if ( w.calNext ) { w._offset('m', 1); } })
-				.on('swiperight', function() { if ( w.calPrev ) { w._offset('m', -1); } });
+				.on( "swipeleft", function() { if ( w.calNext ) { w._offset( 'm', 1 ); } } )
+				.on( "swiperight", function() { if ( w.calPrev ) { w._offset( 'm', -1 ); } } );
 			
 			if ( w.wheelExists) { // Mousewheel operations, if plugin is loaded
-				w.d.intHTML.on('mousewheel', function(e,d) {
+				w.d.intHTML.on( "mousewheel", function(e,d) {
 					e.preventDefault();
 					if ( d > 0 && w.calNext ) { 
 						w.theDate.setD(2,1);
