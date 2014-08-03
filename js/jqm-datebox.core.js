@@ -234,7 +234,8 @@
 			});
 		},
 		_event: function(e, p) {
-			var w = $(this).data('mobile-datebox');
+			var tmp,
+				w = $( this ).data( "mobile-datebox" );
 			if ( ! e.isPropagationStopped() ) {
 				switch (p.method) {
 					case 'close':
@@ -243,46 +244,51 @@
 					case 'open':
 						w.open(); break;
 					case 'set':
-						$(this).val(p.value);
-						$(this).trigger('change');
+						if ( typeof p.value === "object" ) {
+							w.theDate = p.value;
+							w._t( { method: "doset" } );
+						} else {
+							$( this ).val( p.value );
+							$( this ).trigger( "change" );
+						}
 						break;
 					case 'doset':
-						if ( $.isFunction(w['_'+w.options.mode+'DoSet']) ) {
-							w['_'+w.options.mode+'DoSet'].apply(w,[]);
+						tmp = "_" + w.options.mode + "DoSet";
+						if ( $.isFunction( w[ tmp ] ) ) {
+							w[ tmp ].apply( w, [] );
 						} else {
-							$(this).trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(), w.theDate), 'date':w.theDate});
+							w._t( { method: "set", value: w._formatter( w.__fmt(), w.theDate ), date: w.theDate } );
 						}
 						break;
 					case 'dooffset':
-						if (p.type) { w._offset(p.type, p.amount, true); } break;
+						if ( p.type ) { w._offset( p.type, p.amount, true ); } break;
 					case 'dorefresh':
 						w.refresh(); break;
-					case 'doreset':
-						w.hardreset(); break;
 					case 'doclear':
-						$(this).val('').trigger('change'); break;
+						$( this ).val( "" ).trigger( "change" ); break;
 					case 'clear':
-						$(this).trigger('change');
+						$( this ).trigger( "change" );
 				}
 			}
 		},
 		_ord: {
-			'default': function (num) {
+			"default": function (num) {
 				// Return an ordinal suffix (1st, 2nd, 3rd, etc)
 				var ending = num % 10;
-				if ( num > 9 && num < 21 ) { return 'th'; }
-				if ( ending > 3 ) { return 'th'; }
-				return ['th','st','nd','rd'][ending];
+				if ( num > 9 && num < 21 || ending > 3 ) { return "th"; }
+				return [ 'th', 'st', 'nd', 'rd' ][ ending ];
 			}
 		},
 		__ : function(val) {
 			var o = this.options,
-				oride = 'override' + val.charAt(0).toUpperCase() + val.slice(1);
+				lang = o.lang[o.useLang],
+				mode = o[ o.mode + "lang"],
+				oride = "override" + val.charAt(0).toUpperCase() + val.slice(1);
 
-			if ( typeof o[oride] !== 'undefined' ) { return o[oride]; }
-			if ( typeof o.lang[o.useLang][val] !== 'undefined' ) { return o.lang[o.useLang][val]; }
-			if ( typeof o[o.mode+'lang'] !== 'undefined' && typeof o[o.mode+'lang'][val] !== 'undefined' ) { return o[o.mode+'lang'][val]; }
-			return o.lang['default'][val];
+			if ( typeof o[ oride ] !== "undefined" ) { return o[ oride ]; }
+			if ( typeof lang[ val ] !== "undefined" ) { return lang[ val ]; }
+			if ( typeof mode !== "undefined" && typeof mode[ val ] !== "undefined" ) { return mode[ val ]; }
+			return o.lang[ "default" ][ val ];
 		},
 		__fmt: function() {
 			var w = this,
@@ -300,13 +306,15 @@
 			}
 		},
 		_zPad: function(number) {
-			return (( number < 10 ) ? '0' + String(number) : String(number));
+			// Zero pad a number.
+			return ( number < 10 ? "0" : "" ) + String( number );
 		},
-		_dRep: function(oper, direction) {
+		_dRep: function( oper, direction ) {
+			// Digit replacement Indic/Arabic
 			var start = 48,
 				end = 57,
 				adder = 1584,
-				i = null,
+				i = 0,
 				ch = null,
 				newd = '';
 
@@ -315,30 +323,28 @@
 				end += adder;
 				adder = -1584;
 			}
-
-			for ( i=0; i<oper.length; i++ ) {
-				ch = oper.charCodeAt(i);
+			for ( i = 0; i < oper.length; i++ ) {
+				ch = oper.charCodeAt( i );
 				if ( ch >= start && ch <= end ) {
-					newd = newd + String.fromCharCode(ch+adder);
+					newd = newd + String.fromCharCode( ch+adder );
 				} else {
-					newd = newd + String.fromCharCode(ch);
+					newd = newd + String.fromCharCode( ch );
 				}
 			}
-
 			return newd;
 		},
 		_doIndic: function() {
 			var w = this;
 
-			w.d.intHTML.find('*').each(function() {
-				if ( $(this).children().length < 1 ) {
-					$(this).text(w._dRep($(this).text()));
-				} else if ( $(this).hasClass('ui-datebox-slideday') ) {
-					$(this).html(w._dRep($(this).html()));
+			w.d.intHTML.find( '*' ).each( function() {
+				if ( $( this ).children().length < 1 ) {
+					$( this ).text( w._dRep( $( this ).text() ) );
+				} else if ( $( this ).hasClass("ui-datebox-slideday") ) {
+					$( this ).html( w._dRep( $( this ).html() ) );
 				}
 			});
-			w.d.intHTML.find('input').each(function() {
-				$(this).val(w._dRep($(this).val()));
+			w.d.intHTML.find("input").each(function() {
+				$( this ).val( w._dRep( $( this ).val() ) );
 			});
 		},
 		_parser: {
