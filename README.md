@@ -1,10 +1,6 @@
 jQuery-Mobile-DateBox
 =====================
 
-Branch Note: this is optimized for 1.4.0, and will work with 1.5.0
-
-IT WILL NOT WORK WITH OLD VERSIONS!!
-
 DateBox is a jQuery-mobile based date and time picker. [Full Documentation and Demos](http://dev.jtsage.com/jQM-DateBox/)
 
 DateBox Features
