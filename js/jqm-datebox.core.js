@@ -1142,19 +1142,19 @@
 			}
 			return retty;
 		},
-		disable: function(){
-			// Disable the element
-			this.d.input.attr("disabled",true);
-			this.d.wrap.addClass("ui-disabled").blur();
+		disable: function() {
+			// Provide a PUBLIC function to Disable the element
+			this.d.input.attr( "disabled", true );
+			this.d.wrap.addClass( "ui-state-disabled" ).blur();
 			this.disabled = true;
-			this.d.input.trigger('datebox', {'method':'disable'});
+			this.d.input.trigger( "datebox", { method: "disable"});
 		},
-		enable: function(){
-			// Enable the element
-			this.d.input.attr("disabled", false);
-			this.d.wrap.removeClass("ui-disabled");
+		enable: function() {
+			// Provide a PUBLIC function to Enable the element
+			this.d.input.attr( "disabled", false );
+			this.d.wrap.removeClass( "ui-state-disabled" );
 			this.disabled = false;
-			this.d.input.trigger('datebox', {'method':'enable'});
+			this.d.input.trigger( "datebox", { method: "enable"});
 		},
 		_setOption: function() {
 			$.Widget.prototype._setOption.apply( this, arguments );
@@ -1177,7 +1177,7 @@
 				this.theDate = this._makeDate( newDate );
 			}
 			this.refresh();
-			this.d.input.trigger("datebox", { "method": "doset" });
+			this.d.input.trigger("datebox", { method: "doset" });
 		},
 		callFormat: function( format, date ) {
 			// Provide a PUBLIC function to get a formatted date
