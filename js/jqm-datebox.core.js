@@ -342,18 +342,22 @@
 			});
 		},
 		_parser: {
-			'default': function (str) { return false; }
+			// Custom Parser Definitions.
+			"default": function ( str ) { return false; }
 		},
-		_n: function (val,def) {
+		_n: function ( val, def ) {
+			// Don't allow negative values, use a default instead
 			return ( val < 0 ) ? def : val;
 		},
 		_pa: function (arr,date) {
-			if ( typeof date === 'boolean' ) { return new this._date(arr[0],arr[1],arr[2],0,0,0,0); }
-			return new this._date(date.getFullYear(), date.getMonth(), date.getDate(), arr[0], arr[1], arr[2], 0);
+			// "Clean" a date for use.
+			if ( typeof date === "boolean" ) { 
+				return new this._date( arr[0], arr[1], arr[2], 0, 0, 0, 0 );
+			}
+			return new this._date( date.get(0), date.get(1), date.get(2), arr[0], arr[1], arr[2], 0);
 		},
-		_makeDate: function (str) {
+		_makeDate: function ( str ) {
 			// Date Parser
-			str = $.trim(((this.__('useArabicIndic') === true)?this._dRep(str, -1):str));
 			var w = this,
 				o = this.options,
 				adv = w.__fmt(),
@@ -364,18 +368,22 @@
 				date = new w._date(),
 				d = { year: -1, mont: -1, date: -1, hour: -1, mins: -1, secs: -1, week: false, wtyp: 4, wday: false, yday: false, meri: 0 },
 				i;
+				
+			str = $.trim( ( ( w.__( 'useArabicIndic' ) === true ) ? w._dRep( str, -1 ) : str ) );
 
-			if ( typeof o.mode === 'undefined' ) { return date; }
-			if ( typeof w._parser[o.mode] !== 'undefined' ) { return w._parser[o.mode].apply(w,[str]); }
+			if ( typeof o.mode === "undefined" ) { return date; }
+			if ( typeof w._parser[ o.mode ] !== "undefined" ) { 
+				return w._parser[ o.mode ].apply( w, [ str ] ); 
+			}
 
-			if ( o.mode === 'durationbox' || o.mode === 'durationflipbox' ) {
-				adv = adv.replace(/%D([a-z])/gi, function(match, oper) {
-					switch (oper) {
+			if ( o.mode === "durationbox" || o.mode === "durationflipbox" ) {
+				adv = adv.replace(/%D([a-z])/gi, function( match, oper ) {
+					switch ( oper ) {
 						case 'd':
 						case 'l':
 						case 'M':
-						case 'S': return '(' + match + '|' +'[0-9]+' + ')';
-						default: return '.+?';
+						case 'S': return "(" + match + "|[0-9]+)";
+						default: return ".+?";
 					}
 				});
 
@@ -385,28 +393,30 @@
 
 				if ( exp_input === null || exp_input.length !== exp_format.length ) {
 					if ( typeof o.defaultValue === "number" && o.defaultValue > 0 ) {
-						return new w._date((w.initDate.getEpoch() + parseInt(o.defaultValue,10))*1000);
+						// defaultValue is an integer
+						return new w._date( ( w.initDate.getEpoch() + parseInt( o.defaultValue,10 ) ) * 1000 );
 					}
-					return new w._date(w.initDate.getTime());
+					// No default, use ZERO.
+					return new w._date( w.initDate.getTime() );
 				}
 
 				exp_temp = w.initDate.getEpoch();
-				for ( i=1; i<exp_input.length; i++ ) { //0y 1m 2d 3h 4i 5s
-					if ( exp_format[i].match(/^%Dd$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60*24); }
-					if ( exp_format[i].match(/^%Dl$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60*60); }
-					if ( exp_format[i].match(/^%DM$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)*60); }
-					if ( exp_format[i].match(/^%DS$/i) )   { exp_temp = exp_temp + (parseInt(exp_input[i],10)); }
+				for ( i=1; i<exp_input.length; i++ ) {
+					if ( exp_format[i].match(/^%Dd$/i) ) { exp_temp = exp_temp + ( parseInt( exp_input[i], 10 ) * 86400 ); }
+					if ( exp_format[i].match(/^%Dl$/i) ) { exp_temp = exp_temp + ( parseInt( exp_input[i], 10 ) * 3600 ); }
+					if ( exp_format[i].match(/^%DM$/i) ) { exp_temp = exp_temp + ( parseInt( exp_input[i], 10 ) * 60 ); }
+					if ( exp_format[i].match(/^%DS$/i) ) { exp_temp = exp_temp + ( parseInt( exp_input[i], 10 ) ); }
 				}
-				return new w._date((exp_temp*1000));
+				return new w._date( exp_temp * 1000 );
 			}
 
-			adv = adv.replace(/%(0|-)*([a-z])/gi, function(match, pad, oper) {
-				exp_names.push(oper);
-				switch (oper) {
+			adv = adv.replace(/%(0|-)*([a-z])/gi, function( match, pad, oper ) {
+				exp_names.push( oper );
+				switch ( oper ) {
 					case 'p':
 					case 'P':
 					case 'b':
-					case 'B': return '(' + match + '|' +'.+?' + ')';
+					case 'B': return "(" + match + "|.+?)";
 					case 'H':
 					case 'k':
 					case 'I':
@@ -418,19 +428,19 @@
 					case 'U':
 					case 'u':
 					case 'W':
-					case 'd': return '(' + match + '|' + (( pad === '-' ) ? '[0-9]{1,2}' : '[0-9]{2}') + ')';
-					case 'j': return '(' + match + '|' + '[0-9]{3}' + ')';
-					case 's': return '(' + match + '|' + '[0-9]+' + ')';
+					case 'd': return "(" + match + "|[0-9]{" + (( pad === "-" ) ? "1," : "" ) + "2})";
+					case 'j': return "(" + match + "|[0-9]{3})";
+					case 's': return "(" + match + "|[0-9]+)";
 					case 'g':
-					case 'y': return '(' + match + '|' + '[0-9]{2}' + ')';
+					case 'y': return "(" + match + "|[0-9]{2})";
 					case 'E':
 					case 'G':
-					case 'Y': return '(' + match + '|' + '[0-9]{1,4}' + ')';
-					default: exp_names.pop(); return '.+?';
+					case 'Y': return "(" + match + "|[0-9]{1,4})";
+					default: exp_names.pop(); return ".+?";
 				}
 			});
 
-			adv = new RegExp('^' + adv + '$');
+			adv = new RegExp( "^" + adv + "$" );
 			exp_input = adv.exec(str);
 			exp_format = adv.exec(w.__fmt());
 
@@ -439,18 +449,18 @@
 					switch ( typeof o.defaultValue ) {
 						case 'object':
 							if ( o.defaultValue.length === 3 ) {
-								date =  w._pa(o.defaultValue,((o.mode === 'timebox' || o.mode === 'timeflipbox') ? date : false));
+								date =  w._pa( o.defaultValue, ( o.mode.substr(4) === "time" ? date : false ) );
 							} break;
 						case 'number':
-							date =  new w._date(o.defaultValue * 1000); break;
+							date =  new w._date( o.defaultValue * 1000 ); break;
 						case 'string':
-							if ( o.mode === 'timebox' || o.mode === 'timeflipbox' ) {
-								exp_temp = o.defaultValue.split(':');
-								if ( exp_temp.length === 3 ) { date = w._pa([exp_temp[0],exp_temp[1],exp_temp[2]], date); }
-								else if ( exp_temp.length === 2 ) { date = w._pa([exp_temp[0],exp_temp[1],0], date); }
+							if ( o.mode.substr(4) === "time" ) {
+								exp_temp = $.extend( [0,0,0], o.defaultValue.split( ":" ) ).slice( 0, 3 );
+								date = w._pa( exp_temp, date ); 
 							} else {
-								exp_temp = o.defaultValue.split('-');
-								if ( exp_temp.length === 3 ) { date = w._pa([exp_temp[0],exp_temp[1]-1,exp_temp[2]], false); }
+								exp_temp = $.extend( [0,0,0], o.defaultValue.split( "-" ) ).slice( 0, 3 );
+								exp_temp[1]--;
+								date = w._pa( exp_temp, false ); 
 							} break;
 					}
 				}
@@ -458,39 +468,39 @@
 			} else {
 				for ( i=1; i<exp_input.length; i++ ) {
 					switch ( exp_names[i-1] ) {
-						case 's': return new w._date(parseInt(exp_input[i],10) * 1000);
+						case 's': return new w._date( parseInt( exp_input[i], 10 ) * 1000 );
 						case 'Y':
-						case 'G': d.year = parseInt(exp_input[i],10); break;
-						case 'E': d.year = parseInt(exp_input[i],10) - 543; break;
+						case 'G': d.year = parseInt( exp_input[i], 10 ); break;
+						case 'E': d.year = parseInt( exp_input[i], 10 ) - 543; break;
 						case 'y':
 						case 'g':
-							if ( o.afterToday === true || parseInt(exp_input[i],10) < 38 ) {
-								d.year = parseInt('20' + exp_input[i],10);
+							if ( o.afterToday === true || parseInt( exp_input[i], 10 ) < 38 ) {
+								d.year = 2000 + parseInt( exp_input[i], 10 );
 							} else {
-								d.year = parseInt('19' + exp_input[i],10);
+								d.year = 1900 + parseInt( exp_input[i], 10 );
 							} break;
-						case 'm': d.mont = parseInt(exp_input[i],10)-1; break;
-						case 'd': d.date = parseInt(exp_input[i],10); break;
+						case 'm': d.mont = parseInt( exp_input[i], 10 ) - 1; break;
+						case 'd': d.date = parseInt( exp_input[i], 10 ); break;
 						case 'H':
 						case 'k':
 						case 'I':
-						case 'l': d.hour = parseInt(exp_input[i],10); break;
-						case 'M': d.mins = parseInt(exp_input[i],10); break;
-						case 'S': d.secs = parseInt(exp_input[i],10); break;
-						case 'u': d.wday = parseInt(exp_input[i],10)-1; break;
-						case 'w': d.wday = parseInt(exp_input[i],10); break;
-						case 'j': d.yday = parseInt(exp_input[i],10); break;
-						case 'V': d.week = parseInt(exp_input[i],10); d.wtyp = 4; break;
-						case 'U': d.week = parseInt(exp_input[i],10); d.wtyp = 0; break;
-						case 'W': d.week = parseInt(exp_input[i],10); d.wtyp = 1; break;
+						case 'l': d.hour = parseInt( exp_input[i], 10 ); break;
+						case 'M': d.mins = parseInt( exp_input[i], 10 ); break;
+						case 'S': d.secs = parseInt( exp_input[i], 10 ); break;
+						case 'u': d.wday = parseInt( exp_input[i], 10 ) - 1; break;
+						case 'w': d.wday = parseInt( exp_input[i], 10 ); break;
+						case 'j': d.yday = parseInt( exp_input[i], 10 ); break;
+						case 'V': d.week = parseInt( exp_input[i], 10 ); d.wtyp = 4; break;
+						case 'U': d.week = parseInt( exp_input[i], 10 ); d.wtyp = 0; break;
+						case 'W': d.week = parseInt( exp_input[i], 10 ); d.wtyp = 1; break;
 						case 'p':
-						case 'P': d.meri = (( exp_input[i].toLowerCase() === w.__('meridiem')[0].toLowerCase() )? -1:1); break;
+						case 'P': d.meri = (( exp_input[i].toLowerCase() === w.__( 'meridiem' )[0].toLowerCase() ) ? -1 : 1 ); break;
 						case 'b':
-							exp_temp = $.inArray(exp_input[i], w.__('monthsOfYearShort'));
+							exp_temp = $.inArray( exp_input[i], w.__( 'monthsOfYearShort' ) );
 							if ( exp_temp > -1 ) { d.mont = exp_temp; }
 							break;
 						case 'B':
-							exp_temp = $.inArray(exp_input[i], w.__('monthsOfYear'));
+							exp_temp = $.inArray( exp_input[i], w.__( 'monthsOfYear' ) );
 							if ( exp_temp > -1 ) { d.mont = exp_temp; }
 							break;
 					}
@@ -500,23 +510,31 @@
 					if ( d.meri === 1 && d.hour !== 12 ) { d.hour = d.hour + 12; }
 				}
 
-				date = new w._date(w._n(d.year,0),w._n(d.mont,0),w._n(d.date,1),w._n(d.hour,0),w._n(d.mins,0),w._n(d.secs,0),0);
+				date = new w._date(
+					w._n( d.year, 0 ),
+					w._n( d.mont, 0 ),
+					w._n( d.date, 1 ),
+					w._n( d.hour, 0 ),
+					w._n( d.mins, 0 ),
+					w._n( d.secs, 0 ),
+					0
+				);
 
 				if ( d.year < 100 && d.year !== -1 ) { date.setFullYear(d.year); }
 
 				if ( ( d.mont > -1 && d.date > -1 ) || ( d.hour > -1 && d.mins > -1 && d.secs > -1 ) ) { return date; }
 
 				if ( d.week !== false ) {
-					date.setDWeek(d.wtyp, d.week);
-					if ( d.date > -1 ) { date.setDate(d.date); }
+					date.setDWeek( d.wtyp, d.week );
+					if ( d.date > -1 ) { date.setDate( d.date ); }
 				}
-				if ( d.yday !== false ) { date.setD(1,0).setD(2,1).adj(2,(d.yday-1)); }
-				if ( d.wday !== false ) { date.adj(2,(d.wday - date.getDay())); }
+				if ( d.yday !== false ) { date.setD( 1, 0 ).setD( 2, 1 ).adj( 2, ( d.yday - 1 ) ); }
+				if ( d.wday !== false ) { date.adj( 2 , ( d.wday - date.getDay() ) ); }
 			}
 			return date;
 		},
 		_customformat: {
-			'default': function(oper, date) { return false; }
+			"default": function(oper, date) { return false; }
 		},
 		_formatter: function(format, date) {
 			var w = this,
@@ -525,7 +543,7 @@
 					part: [0,0,0,0], tp: 0
 				};
 
-				if ( o.mode === 'durationbox' || o.mode === 'durationflipbox' ) {
+				if ( o.mode.substr(4) === "dura" ) {
 					dur.tp = this.theDate.getEpoch() - this.initDate.getEpoch();
 					dur.part[0] = parseInt( dur.tp / (60*60*24),10); dur.tp -=(dur.part[0]*60*60*24); // Days
 					dur.part[1] = parseInt( dur.tp / (60*60),10); dur.tp -= (dur.part[1]*60*60); // Hours
