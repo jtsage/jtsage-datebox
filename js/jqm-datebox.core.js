@@ -995,85 +995,111 @@
 			w.refresh();
 		},
 		close: function() {
+			// Provide a PUBLIC function to close the element.
 			var w = this,
 				o = this.options;
 
-			if ( o.useInlineBlind === true ) { w.d.mainWrap.slideUp(); return true;}
-			if ( o.useInline === true || w.d.intHTML === false ) { return true; }
+			if ( o.useInlineBlind === true ) { 
+				// Slide up useInlineBlind
+				w.d.mainWrap.slideUp();
+				return true;
+			}
+			if ( o.useInline === true || w.d.intHTML === false ) { 
+				// Do nothing for useInline or empty.
+				return true;
+			}
 
+			// Trigger the popup to close
 			w.d.mainWrap.popup('close');
 
+			// Unbind all drag handlers.
 			$(document).off(w.drag.eMove);
 			$(document).off(w.drag.eEnd);
 			$(document).off(w.drag.eEndA);
 
 			if ( o.useFocus ) {
 				w.fastReopen = true;
-				setTimeout(function(t) { return function () { t.fastReopen = false; };}(w), 300);
+				setTimeout( function( t ) { 
+					return function () { 
+						t.fastReopen = false; 
+					};
+				}( w ), 300 );
 			}
 
 		},
 		refresh: function() {
-			if ( typeof this._build[this.options.mode] === 'undefined' ) {
-				this._build['default'].apply(this,[]);
+			// Provide a PUBLIC function to Refresh the element
+			var w = this,
+				o = this.options;
+			
+			if ( typeof w._build[ o.mode ] === "undefined" ) {
+				w._build[ "default" ].apply( w, [] );
 			} else {
-				this._build[this.options.mode].apply(this,[]);
+				w._build[ o.mode ].apply( w, [] );
 			}
-			if ( this.__('useArabicIndic') === true ) { this._doIndic(); }
-			this.d.mainWrap.append(this.d.intHTML);
-			this.d.input.trigger('datebox',{'method':'postrefresh'});
+			if ( w.__('useArabicIndic') === true ) { 
+				w._doIndic(); 
+			}
+			w.d.mainWrap.append( w.d.intHTML );
+			w._t( {method: "postrefresh"});
 		},
 		_check: function() {
-			var w = this,
-				td = null,
-				o = this.options;
+			// Check to see if a date is valid.
+			var td, year, month, date,
+				w = this,
+				o = this.options,
+				now = this.theDate;
 
 			w.dateOK = true;
 
 			if ( o.afterToday !== false ) {
 				td = new w._date();
-				if ( w.theDate < td ) { w.theDate = td; }
+				if ( now < td ) { now = td; }
 			}
 			if ( o.beforeToday !== false ) {
 				td = new w._date();
-				if ( w.theDate > td ) { w.theDate = td; }
+				if ( now > td ) { now = td; }
 			}
 			if ( o.maxDays !== false ) {
 				td = new w._date();
-				td.adj(2, o.maxDays);
-				if ( w.theDate > td ) { w.theDate = td; }
+				td.adj( 2, o.maxDays );
+				if ( now > td ) { now = td; }
 			}
 			if ( o.minDays !== false ) {
 				td = new w._date();
-				td.adj(2, -1*o.minDays);
-				if ( w.theDate < td ) { w.theDate = td; }
+				td.adj( 2, -1 * o.minDays );
+				if ( now < td ) { now = td; }
 			}
 			if ( o.minHour !== false ) {
-				if ( w.theDate.getHours() < o.minHour ) {
-					w.theDate.setHours(o.minHour);
+				if ( now.get(3) < o.minHour ) {
+					now.setD( 3, o.minHour );
 				}
 			}
 			if ( o.maxHour !== false ) {
-				if ( w.theDate.getHours() > o.maxHour ) {
-					w.theDate.setHours(o.maxHour);
+				if ( now.get(3) > o.maxHour ) {
+					now.setD( 3, o.maxHour );
 				}
 			}
 			if ( o.maxYear !== false ) {
-				td = new w._date(o.maxYear, 0, 1);
+				td = new w._date( o.maxYear, 0, 1 );
 				td.adj(2, -1);
-				if ( w.theDate > td ) { w.theDate = td; }
+				if ( now > td ) { now = td; }
 			}
 			if ( o.minYear !== false ) {
-				td = new w._date(o.minYear, 0, 1);
-				if ( w.theDate < td ) { w.theDate = td; }
+				td = new w._date( o.minYear, 0, 1 );
+				if ( now < td ) { now = td; }
 			}
 
-			if ( $.inArray(o.mode, ['timebox','durationbox','durationflipbox','timeflipbox']) > -1 ) {
+			if ( $.inArray( o.mode, ['timebox','durationbox','durationflipbox','timeflipbox'] ) > -1 ) {
 				if ( o.mode === 'timeflipbox' && o.validHours !== false ) {
-					if ( $.inArray(w.theDate.getHours(), o.validHours) < 0 ) { w.dateOK = false; }
+					if ( $.inArray( now.get(3), o.validHours ) < 0 ) { w.dateOK = false; }
 				}
 			} else {
 				if ( o.blackDatesRec !== false ) {
+					year = now.get(0);
+					month = now.get(1);
+					date = now.get(2);
+
 					for ( i=0; i<o.blackDatesRec.length; i++ ) {
 						if (
 							( o.blackDatesRec[i][0] === -1 || o.blackDatesRec[i][0] === year ) &&
@@ -1083,15 +1109,22 @@
 					}
 				}
 				if ( o.blackDates !== false ) {
-					if ( $.inArray(w.theDate.iso(), o.blackDates) > -1 ) { w.dateOK = false; }
+					if ( $.inArray( now.iso(), o.blackDates ) > -1 ) { 
+						w.dateOK = false; 
+					}
 				}
 				if ( o.blackDays !== false ) {
-					if ( $.inArray(w.theDate.getDay(), o.blackDays) > -1 ) { w.dateOK = false; }
+					if ( $.inArray( now.getDay(), o.blackDays ) > -1 ) { 
+						w.dateOK = false; 
+					}
 				}
 				if ( o.whiteDates !== false ) {
-					if ( $.inArray(w.theDate.iso(), o.whiteDates) > -1 ) { w.dateOK = true; }
+					if ( $.inArray( now.iso(), o.whiteDates ) > -1 ) { 
+						w.dateOK = true; 
+					}
 				}
 			}
+			w.theDate = now;
 		},
 		_grabLabel: function() {
 			// Get the most reasonable label for this datebox.
