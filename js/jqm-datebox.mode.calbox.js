@@ -183,7 +183,10 @@
 				
 			
 				
-			if ( typeof w.d.intHTML !== 'boolean' ) { w.d.intHTML.remove(); }
+			if ( typeof w.d.intHTML !== 'boolean' ) { 
+				w.d.intHTML.remove(); 
+				w.d.intHTML = null;
+			}
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
 			w.d.intHTML = $('<span>');
@@ -195,25 +198,27 @@
 				
 			// Previous and next month buttons, define booleans to decide if they should do anything
 			$("<div class='"+uid+"gridplus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('nextMonth')+"</a></div>")
-				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
-				.buttonMarkup({theme: o.themeDate, icon: 'arrow-r', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.on(o.clickEventAlt, function(e) {
-					e.preventDefault();
-					if ( w.calNext ) {
-						if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
-						w._offset('m',1);
-					}
+				.prependTo(w.d.intHTML.find( "." + uid + "gridheader" ) )
+				.find('a')
+					.addClass( "ui-btn-inline ui-link ui-btn ui-btn-" + o.themeDate + " ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all" )
+					.on(o.clickEventAlt, function(e) {
+						e.preventDefault();
+						if ( w.calNext ) {
+							if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
+							w._offset('m',1);
+						}
 				});
 			$("<div class='"+uid+"gridminus"+(w.__('isRTL')?'-rtl':'')+"'><a href='#'>"+w.__('prevMonth')+"</a></div>")
-				.prependTo(w.d.intHTML.find('.'+uid+'gridheader'))
-				.buttonMarkup({theme: o.themeDate, icon: 'arrow-l', inline: true, iconpos: 'notext', corners:true, shadow:true})
-				.on(o.clickEventAlt, function(e) {
-					e.preventDefault();
-					if ( w.calPrev ) {
-						if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
-						w._offset('m',-1);
-					}
-				});
+				.prependTo(w.d.intHTML.find( "." + uid + "gridheader" ) )
+				.find('a')
+					.addClass( "ui-btn-inline ui-link ui-btn ui-btn-" + o.themeDate + " ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all" )
+					.on(o.clickEventAlt, function(e) {
+						e.preventDefault();
+						if ( w.calPrev ) {
+							if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
+							w._offset('m',-1);
+						}
+					});
 				
 			if ( o.calNoHeader === true ) { w.d.intHTML.find('.'+uid+'gridheader').remove(); }
 			
@@ -396,9 +401,9 @@
 				htmlRow = $("<div>", { "class": uid + "controls" } );
 				
 				if ( o.useTodayButton ) {
-					$( "<a href='#'>" + w.__( 'calTodayButtonLabel' ) + "</a>" )
+					$( "<a href='#' role='button'>" + w.__( 'calTodayButtonLabel' ) + "</a>" )
 						.appendTo(htmlRow)
-						.buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-action ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = w._pa([0,0,0], new w._date());
@@ -406,9 +411,9 @@
 						});
 				}
 				if ( o.useTomorrowButton ) {
-					$( "<a href='#'>" + w.__( 'calTomorrowButtonLabel' ) + "</a>" )
+					$( "<a href='#' role='button'>" + w.__( 'calTomorrowButtonLabel' ) + "</a>" )
 						.appendTo(htmlRow)
-						.buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-action ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
@@ -416,9 +421,9 @@
 						});
 				}
 				if ( o.useClearButton ) {
-					$( "<a href='#'>" + w.__( 'clearButton' ) + "</a>" )
+					$( "<a href='#' role='button'>" + w.__( 'clearButton' ) + "</a>" )
 						.appendTo(htmlRow)
-						.buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w.d.input.val('');
@@ -448,7 +453,7 @@
 				.on( "swipeleft", function() { if ( w.calNext ) { w._offset( 'm', 1 ); } } )
 				.on( "swiperight", function() { if ( w.calPrev ) { w._offset( 'm', -1 ); } } );
 			
-			if ( w.wheelExists) { // Mousewheel operations, if plugin is loaded
+			if ( w.wheelExists ) { // Mousewheel operations, if plugin is loaded
 				w.d.intHTML.on( "mousewheel", function(e,d) {
 					e.preventDefault();
 					if ( d > 0 && w.calNext ) { 

@@ -22,6 +22,7 @@
 .ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }
 .ui-input-text > .ui-input-datebox > .ui-btn.ui-input-clear {position: absolute; right: 0; top: 50%; margin: -15px .3125em 0; border: 0; background-color: transparent;}
 
+
 @media all and (min-width: 450px){
   .ui-field-contain .ui-input-datebox { width: 74.7%; display: inline-block; } 
   .ui-hide-label .ui-input-datebox { width: 100%; }
@@ -51,6 +52,10 @@
 .ui-datebox-gridminus { float: left; }
 .ui-datebox-gridplus-rtl { float: left; }
 .ui-datebox-gridminus-rtl { float: right; }
+
+/* NEW 1.5.0 */
+.ui-datebox-gridheader .ui-btn-inline { margin-right: 0; }
+
 .ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; margin-bottom: -7px; }
 .ui-datebox-grid { clear: both; margin-bottom: 5px; }
 .ui-datebox-griddate { width: 36px; height: 30px; padding: 0px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; zoom:1; *display: inline;}

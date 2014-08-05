@@ -1084,7 +1084,6 @@
 					};
 				}( w ), 300 );
 			}
-
 		},
 		refresh: function() {
 			// Provide a PUBLIC function to Refresh the element
