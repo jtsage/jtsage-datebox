@@ -7,10 +7,10 @@
 /* CORE Functions */
 
 (function($) {
-	$.widget( "mobile.datebox", $.mobile.widget, {
+	$.widget( "mobile.datebox", {
 		options: {
 			// All widget options, including some internal runtime details
-			version: '2-1.4.3-2014080201-next', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: '2-1.4.3-2014080301-next', // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
 			mobVer: parseInt($.mobile.version.replace(/\./g,''),10),
 			theme: false,
 			themeDefault: 'a',
@@ -914,7 +914,8 @@
 		},
 		open: function () {
 			// PUBLIC function to open the control
-			var w = this,
+			var builder, 
+				w = this,
 				o = this.options,
 				popopts = {
 					transition: (o.useAnimation ? o.transition : "none")
@@ -978,21 +979,17 @@
 			w.d.mainWrap.empty();
 
 			if ( o.useHeader === true ) {
-				w.d.headHTML = $("<div class='ui-header ui-bar-" + o.themeHeader + "'></div>");
-				$("<a class='ui-btn-left' href='#'>Close</a>").appendTo(w.d.headHTML)
-					.buttonMarkup( { 
-						theme : o.themeHeader,
-						icon : "delete",
-						iconpos: "notext",
-						corners: true,
-						shadow : true
-					} )
+				w.d.mainWrap.append( $( "<a href='#'>Close</a>" )
+					.addClass( "ui-btn-left ui-link ui-btn ui-btn-a ui-icon-delete ui-btn-icon-notext ui-shadow ui-corner-all" )
 					.on( o.clickEventAlt, function( e ) {
 						e.preventDefault();
 						w._t( { method: "close" } );
-					} );
-				$("<h1 class='ui-title'>" + w.d.headerText + "</h1>").appendTo(w.d.headHTML);
-				w.d.mainWrap.append(w.d.headHTML);
+					} )
+				);
+				w.d.mainWrap.append( $( "<div class='ui-header ui-bar-" + o.themeHeader + "'>" + 
+					"<h1 class='ui-title'>" + w.d.headerText + "</h1>" +
+					"</div>" )
+				);
 			}
 			
 			w.d.mainWrap.append( w.d.intHTML ).css( "zIndex", o.zindex );
