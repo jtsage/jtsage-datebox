@@ -24,7 +24,7 @@
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		'_fbox_pos': function () {
-			var pos1, ech, top,
+			var pos1, ech, top, fixer,
 				w = this,
 				par = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
 				
@@ -38,7 +38,7 @@
 				par = ech.parent().innerHeight();
 				top = ech.find( "li" ).first();
 				fixer = ech.find( "li" ).last().offset().top - ech.find( "li" ).first().offset().top;
-				pos1 = ( ( ( fixer-par ) / 2 ) + top.outerHeight() ) * -1
+				pos1 = ( ( ( fixer-par ) / 2 ) + top.outerHeight() ) * -1;
 				top.css( "marginTop", pos1 );
 			});
 		}
@@ -75,7 +75,7 @@
 			);
 			w.d.intHTML = $( "<span>" );
 
-			$(document).one( "popupafteropen", function( event, ui ) { 
+			$(document).one( "popupafteropen", function() { 
 				// This fixes bad positioning on initial open - have not found a way around this yet.
 				w._fbox_pos(); 
 			});

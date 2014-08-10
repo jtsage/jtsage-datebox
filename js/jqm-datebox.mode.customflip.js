@@ -8,20 +8,17 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeOptPick: 'b',
-		themeOpt: 'a',
+		themeOptPick: "b",
+		themeOpt: "a",
 		useSetButton: true,
-		customData: [
-			{'input': true, 'name':'Letter', 'data':['a','b','c','d','e']},
-			{'input': true, 'name':'Text', 'data':['some','bull','shtuff','here']},
-			{'input': false, 'name':'Image', 'data':['<img src="img/slot1.png" />','<img src="img/slot2.png" />','<img src="img/slot3.png" />','<img src="img/slot4.png" />']}
-		],
+		customData: [ ],
 		customDefault: [0,0,0],
 		customFormat: false,
 		customHead: false,
 		customfliplang: {
-			// This structure interfaces with __() -> if it exists, strings are looked up here after i8n fails,
-			// and before going to 'default' - the name syntax is <mode>lang
+			// This structure interfaces with __() -> if it exists, strings are 
+			// looked up here after i8n fails, and before going to 'default' - 
+			// the name syntax is <mode>lang
 			'customSet':'Looks Good'
 		}
 	});
@@ -31,18 +28,29 @@
 			// The name syntax is _<mode>DoSet
 			var w = this, o = this.options;
 			if ( typeof w.customCurrent === 'undefined' ) { w.customCurrent = this._makeDate(this.d.input.val()); }
-			w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(o.customFormat,w.customCurrent), 'date':w.customCurrent});
+			w._t( { 
+				method: "set",
+				value: w._formatter( o.customFormat, w.customCurrent ),
+				custom: w.customCurrent
+			});
 		},
 		'_cubox_offset': function (fld, amount) {
 			// This is *not* an automatic override, used below specificly.
-			var w = this, x,
+			var w = this, tmp,
 				o = this.options;
 				
-			tmp = (w.customCurrent[fld] + amount) % o.customData[fld]['data'].length;
-			if ( tmp < 0 ) { tmp = o.customData[fld]['data'].length + tmp; }
+			tmp = (w.customCurrent[fld] + amount) % o.customData[fld][ "data" ].length;
+			if ( tmp < 0 ) { tmp = o.customData[fld][ "data" ].length + tmp; }
 			
 			w.customCurrent[fld] = tmp;
-			if ( o.useImmediate ) { w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(o.customFormat,w.customCurrent), 'date':w.customCurrent}); }
+			
+			if ( o.useImmediate ) { 
+				w._t( { 
+					method: "set",
+					value: w._formatter( o.customFormat, w.customCurrent ),
+					custom: w.customCurrent
+				});
+			}
 			w.refresh();
 		},
 		'_cubox_arr': function (data, choice) {
@@ -71,28 +79,25 @@
 			return $.merge($.merge([], before), after);
 		},
 		'_cubox_range': function(i) {
-				return i?this._cubox_range(i-1).concat(i):[]
+				return i?this._cubox_range(i-1).concat(i):[];
 		},
 		'_cubox_pos': function () {
-			var w = this,
-				ech = null,
-				top = null,
-				par = this.d.intHTML.find('.ui-datebox-flipcontent').innerHeight(),
-				tot = null;
+			var pos1, ech, top, fixer,
+				w = this,
+				par = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
 				
-			w.d.intHTML.find('.ui-datebox-flipcenter').each(function() {
-				ech = $(this);
+			w.d.intHTML.find( ".ui-datebox-flipcenter" ).each(function() {
+				ech = $( this );
 				top = ech.innerHeight();
-				ech.css('top', ((par/2)-(top/2)-3)*-1);
+				ech.css( "top", ( ( par / 2 ) - ( top / 2 ) - 3 ) * -1 );
 			});
 			w.d.intHTML.find('ul').each(function () {
-				ech = $(this);
+				ech = $( this );
 				par = ech.parent().innerHeight();
-				top = ech.find('li').first();
-				tot = ech.find('li').size() * top.outerHeight();
-				fixer = ech.find('li').last().offset().top - ech.find('li').first().offset().top;
-				pos1 = ((((fixer-par) / 2) + top.outerHeight()) * -1) 
-				top.css('marginTop', pos1);
+				top = ech.find( "li" ).first();
+				fixer = ech.find( "li" ).last().offset().top - ech.find( "li" ).first().offset().top;
+				pos1 = ( ( ( fixer-par ) / 2 ) + top.outerHeight() ) * -1;
+				top.css( "marginTop", pos1 );
 			});
 		}
 	});
@@ -101,33 +106,32 @@
 		// The name of the structure is the same as the mode name - it recieves a string
 		// as the input, which is the current value of the input element, pre-sanitized
 		'customflip' : function ( str ) { 
-			var w = this,
-				o = this.options,
+			var o = this.options,
 				adv = o.customFormat,
 				exp_input, exp_format, tmp, tmp2, retty_val=[0,0,0,0,0,0];
 
 			if ( typeof(adv) !== 'string' ) { adv = ''; }
 
-			adv = adv.replace(/%X([0-9a-f])/gi, function(match, oper) {
-	          	switch (oper) {
-    		    	case 'a':
+			adv = adv.replace(/%X([0-5a-f])/gi, function(match, oper) {
+				switch (oper) {
+					case 'a':
 					case 'b':
 					case 'c':
 					case 'd':
 					case 'e':
 					case 'f':
-						return '(' + match + '|' + '.+?' + ')'; break;
+						return '(' + match + '|' + '.+?' + ')';
 					case '0':
 					case '1':
 					case '2':
 					case '3':
 					case '4':
 					case '5':
-						return '(' + match + '|' + '[0-9]+' + ')'; break;
-          			default:
+						return '(' + match + '|' + '[0-9]+' + ')';
+					default:
 						return '.+?';
-          		}
-        	});
+				}
+			});
 
 			adv = new RegExp('^' + adv + '$');
 			exp_input = adv.exec(str);
@@ -145,8 +149,7 @@
 				}
 			}
 
-			//outputty = { 'in': exp_input, 'fmt': o.customFormat, 'str': str, 'format': exp_format, 'retty': retty_val };
-			return ( str.length < 1 || retty_val.length < 1 ) ? this.options.customDefault : retty_val;
+			return ( str.length < 1 || retty_val.length < 1 ) ? o.customDefault : retty_val;
 
 		}
 	});
@@ -167,8 +170,9 @@
 	$.extend( $.mobile.datebox.prototype._build, {
 		// This builds the actual interface, and is called on *every* refresh. (after each "movement")
 		'customflip': function () {
-			var w = this,
-				o = this.options, i, y, hRow, tmp, lineArr,
+			var i, y, hRow, hRowIn, tmp, lineArr,
+				w = this,
+				o = this.options,
 				uid = 'ui-datebox-',
 				customCurrent = this._makeDate(this.d.input.val()),
 				flipBase = $("<div class='ui-overlay-shadow'><ul></ul></div>"),
@@ -197,47 +201,68 @@
 			w.d.headerText = ((o.customHead !== false ) ? o.customHead : ((w._grabLabel() !== false)?w._grabLabel():""));
 			w.d.intHTML = $('<span>');
 
-			$(document).one( "popupafteropen", function( event, ui ) { 
+			$(document).one( "popupafteropen", function() { 
 				// This fixes bad positioning on initial open - have not found a way around this yet.
 				w._fbox_pos(); 
 			});
 
 			w.fldOrder = w._cubox_range(o.customData.length);
-
-			if ( o.customData.length === 1 ) { unclass = "XX"; } else { unclass = ""; }
 			
-			tmp = $('<div class="'+uid+'header ui-grid-'+unclass+[0,0,'a','b','c'][o.customData.length]+'"></div>');
+			tmp = $("<div class='" + uid + "header'>");
+			if ( o.customData.length > 1 ) { 
+				tmp.addClass("ui-grid-" + [0,0,'a','b','c'][o.customData.length] );
+			}
 			for ( y=0; y<o.customData.length; y++ ) {
-				$('<div class="ui-block-'+unclass+['a','b','c','d'][y]+'">'+o.customData[y]['name']+'</div>').css('textAlign','center').appendTo(tmp);
+				$( "<div>" )
+					.addClass( ( o.customData.length > 1 ) ?
+						"ui-block-" + ['a','b','c','d'][y] :
+						""
+					)
+					.text( o.customData[ y ][ "name" ] )
+					.css( "textAlign", "center")
+					.appendTo( tmp );
 			}
 			tmp.appendTo(w.d.intHTML);
 			
 			w.d.intHTML.append(ctrl);
 			
-			for ( y=0; y<o.customData.length; y++ ) {
-				lineArr = w._cubox_arr(o.customData[y]['data'], w.customCurrent[y]);
-				hRow = w._makeEl(flipBase, {'attr': {'field':y,'amount':1} });
-				if ( o.customData.length === 1 ) { hRow.css('width','90%'); }
+			for ( y = 0; y < o.customData.length; y++ ) {
+				lineArr = w._cubox_arr( o.customData[ y ][ "data" ], w.customCurrent[ y ] );
+				hRow = w._makeEl( flipBase, { "attr": {
+					"field": y,
+					"amount": 1
+				} });
+				hRowIn = hRow.find( "ul" );
+				if ( o.customData.length === 1 ) { hRow.css( "width", "90%" ); }
 				for ( i in lineArr ) {
-					tmp = (i!=10)?o.themeOpt:o.themeOptPick;
-					$('<li>', {'class':'ui-body-'+tmp})
-						.html('<span>'+lineArr[i]+'</span>').appendTo(hRow.find('ul'));
+					tmp = ( i != 10 ) ? o.themeOpt : o.themeOptPick;
+					$( "<li>", { "class": "ui-body-" + tmp } )
+						.html( "<span>" + lineArr[i] + "</span>" )
+						.appendTo( hRowIn );
 					} 
 					hRow.appendTo(ctrl);
 			}
 			
-			$("<div>", {"class":uid+'flipcenter ui-overlay-shadow'}).css('pointerEvents', 'none').appendTo(w.d.intHTML);
+			$("<div>", { "class": uid + "flipcenter ui-overlay-shadow" } )
+				.css( "pointerEvents", "none")
+				.appendTo( w.d.intHTML );
 
 			if ( o.useSetButton ) {
-				y = $('<div>', {'class':uid+'controls'});
+				y = $( "<div>", { "class": uid + "controls" } );
 				
 				if ( o.useSetButton ) {
-					$('<a href="#">'+w.__('customSet')+'</a>')
-						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#' role='button'>" )
+						.appendTo(y)
+						.text( w.__('customSet') )
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
-							w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(o.customFormat,w.customCurrent), 'date':''});
-							w.d.input.trigger('datebox', {'method':'close'});
+							w._t( { 
+								method: "set", 
+								value: w._formatter( o.customFormat, w.customCurrent ),
+								custom: w.customCurrent,
+							} );
+							w._t( { method: "close" } );
 						});
 				}
 				y.appendTo(w.d.intHTML);

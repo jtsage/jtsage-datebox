@@ -20,7 +20,7 @@
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		'_durfbox_pos': function () {
-				var pos1, ech, top,
+				var pos1, ech, top, fixer,
 				w = this,
 				par = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
 				
@@ -34,13 +34,12 @@
 				par = ech.parent().innerHeight();
 				top = ech.find( "li" ).first();
 				fixer = ech.find( "li" ).last().offset().top - ech.find( "li" ).first().offset().top;
-				pos1 = ( ( ( fixer-par ) / 2 ) + top.outerHeight() ) * -1
+				pos1 = ( ( ( fixer-par ) / 2 ) + top.outerHeight() ) * -1;
 				top.css( "marginTop", pos1 );
 			});
 		},
 		'_durfbox_series': function (middle, side, type) {
 			var nxt, prv,
-				w = this, 
 				o = this.options,
 				ret = [ [ middle.toString(), middle ] ];
 			 
@@ -59,7 +58,7 @@
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
 		'durationflipbox': function () {
-			var  i, y, hRow, tmp, testDate, stdPos, curFld,
+			var  i, y, hRow, hRowIn, tmp, stdPos, curFld,
 				w = this,
 				o = this.options,
 				sel = ["d", "h", "i", "s"],
@@ -90,7 +89,7 @@
 			);
 			w.d.intHTML = $( "<span>" );
 
-			$(document).one( "popupafteropen", function( event, ui ) { 
+			$(document).one( "popupafteropen", function() { 
 				// This fixes bad positioning on initial open - have not found a way around this yet.
 				w._fbox_pos(); 
 			});
@@ -100,7 +99,7 @@
 			tmp = $( "<div class='" + uid + "header ui-grid-" + gridLab[w.fldOrder.length] + "'></div>");
 			for ( y = 0; y < w.fldOrder.length; y++ ) {
 				$("<div class='ui-block-" + blockLab[ y ] + "'>" + 
-						w.__('durationLabel')[ jQuery.inArray( w.fldOrder[y], sel ) ] + 
+						w.__('durationLabel')[ $.inArray( w.fldOrder[y], sel ) ] + 
 						"</div>"
 					)
 					.css( "textAlign", "center")
@@ -127,7 +126,7 @@
 			
 			for ( y = 0; y < w.fldOrder.length; y++ ) {
 				stdPos = w.fldOrder[ y ];
-				curFld = cDur[ jQuery.inArray( stdPos, sel ) ];
+				curFld = cDur[ $.inArray( stdPos, sel ) ];
 
 				hRow = w._makeEl( flipBase, { "attr": { 
 					"field": stdPos,

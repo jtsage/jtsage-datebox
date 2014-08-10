@@ -29,12 +29,20 @@
 	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 	
 	<script type="text/javascript">
+		var selectdata = ['Single', 'Separated', 'Involved', 'Married', 'Widowed', 'Lover', 'Other'];
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+			customData: [{
+				'input': true,
+				'name': '',
+				'data': selectdata
+			}],
+			customDefault: [0],
+			customHead: "Blah!",
 			calControlGroup: true,
 			lockInput: true,
 			useFocus: false,
 			//calUsePickers: true,
-			closeCallback: function(a) { console.log(a); },
+			closeCallback: function(a, b) { console.log(a); console.log(b); },
 			closeCallbackArgs: ['hi'],
 			openCallback: function(a) { console.log(a); },
 			//useModalTheme: 'a',
@@ -63,12 +71,14 @@
 
 		<div class="ui-field-contain">
 			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="durationflipbox" id="lang1" />
+			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="flipbox" id="lang1" />
 		</div>
+<!--
 		<div class="ui-field-contain">
 			<label for="lang2">calbox</label>
 			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="durationbox"  id="lang2" />
 		</div>
+-->
 		<!--div data-role="fieldcontain">
 			<label for="c2">custom box</label>
 			<input name="c2" type="text" data-role="datebox" data-options='{"mode": "custombox", "overrideStyleClass":"ui-icon-dice"}' id="c2" />

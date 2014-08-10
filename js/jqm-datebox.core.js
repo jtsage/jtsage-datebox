@@ -804,7 +804,6 @@
 			w.baseID = w.d.input.attr( "id" );
 
 			w.initDate = new w._date();
-			w.lastDuration = 0;
 			w.theDate = ( o.defaultValue ) ?
 				w._makeDate( o.defaultValue ) :
 				( (w.d.input.val() !== "" ) ?
@@ -926,8 +925,7 @@
 		},
 		open: function () {
 			// PUBLIC function to open the control
-			var builder, 
-				w = this,
+			var w = this,
 				o = this.options,
 				popopts = {
 					transition: (o.useAnimation ? o.transition : "none")
@@ -1042,7 +1040,7 @@
 					}
 				}
 				basepop.afteropen = function() {
-					if ( o.openCallback.apply( w, [{ initDate: w.initDate, date: w.theDate, duration: w.lastDuration, cbArgs: o.openCallbackArgs }] ) === false ) {
+					if ( o.openCallback.apply( w, $.merge([{ custom: w.customCurrent, initDate: w.initDate, date: w.theDate, duration: w.lastDuration}], o.openCallbackArgs ) ) === false ) {
 						w._t( {method: "close"} );
 					}
 				};
@@ -1057,7 +1055,7 @@
 					}
 				}
 				basepop.afterclose = function() {
-					o.closeCallback.apply( w, [{ initDate: w.initDate, date: w.theDate, duration: w.lastDuration, cbArgs: o.closeCallbackArgs }] );
+					o.closeCallback.apply( w, $.merge([{ custom: w.customCurrent, initDate: w.initDate, date: w.theDate, duration: w.lastDuration}], o.closeCallbackArgs ) );
 				};
 			}
 
