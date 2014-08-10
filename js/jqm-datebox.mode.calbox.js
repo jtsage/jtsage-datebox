@@ -403,7 +403,7 @@
 				if ( o.useTodayButton ) {
 					$( "<a href='#' role='button'>" + w.__( 'calTodayButtonLabel' ) + "</a>" )
 						.appendTo(htmlRow)
-						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-action ui-btn-icon-left ui-shadow ui-corner-all" )
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-navigation ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = w._pa([0,0,0], new w._date());
@@ -413,7 +413,7 @@
 				if ( o.useTomorrowButton ) {
 					$( "<a href='#' role='button'>" + w.__( 'calTomorrowButtonLabel' ) + "</a>" )
 						.appendTo(htmlRow)
-						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-action ui-btn-icon-left ui-shadow ui-corner-all" )
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-navigation ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );

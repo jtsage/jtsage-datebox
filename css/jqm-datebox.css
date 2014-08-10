@@ -4,29 +4,6 @@
  * CC 3.0 Attribution.  May be relicensed without permission/notification.
  * https://github.com/jtsage/jquery-mobile-datebox
  */
- 
-/* Base input element Styles */
-
-.ui-input-datebox { width: 97%; background-image: none; padding: .4em; line-height: 1.4; font-size: 16px; display: block; padding-top: 0px; padding-bottom: 0px; background-color: transparent; } 
-.ui-input-datebox { min-height: 38px; } /* Fix for IE8 */
-.ui-datebox-container > .ui-header:first-child { -webkit-border-top-left-radius: 3px; border-top-left-radius: 3px;	-webkit-border-top-right-radius: 3px; border-top-right-radius: 3px; }
-/*.ui-input-datebox .ui-btn-icon-notext { margin-top: 5px !important; margin-bottom: 5px !important; }*/
-.ui-input-datebox input { width: 100% !important; padding: 0 !important; margin-top: 5px !important; margin-right: -40px !important; border: 1px solid transparent !important; vertical-align: middle; display: inline-block !important; background-color: transparent; zoom: 1; *display: inline; }
-.ui-input-datebox input:focus { outline: none;}
-.ui-input-datebox .ui-btn-text {display: none;}
-.ui-input-datebox.ui-mini { min-height: 20px; font-size: 14px; }
-/*.ui-input-datebox.ui-mini .ui-btn-icon-notext { margin-top: 2px !important; margin-bottom: 2px !important; }*/
-.ui-icon-datebox { background-image: url('image/datebox.png') !important; background-repeat: no-repeat !important; background-position: 99% 8px !important; }
-.ui-icon-datebox-alt { background-image: url('image/datebox.png') !important; background-repeat: no-repeat !important; background-position: 99% -28px !important; }
-.ui-mini.ui-icon-datebox { background-position: 99% 6px; }
-.ui-mini.ui-icon-datebox-alt { background-position: 99% -30px; }
-.ui-input-text > .ui-input-datebox > .ui-btn.ui-input-clear {position: absolute; right: 0; top: 50%; margin: -15px .3125em 0; border: 0; background-color: transparent;}
-
-
-@media all and (min-width: 450px){
-  .ui-field-contain .ui-input-datebox { width: 74.7%; display: inline-block; } 
-  .ui-hide-label .ui-input-datebox { width: 100%; }
-}
 
 /* Full width if in a grid, ignore the media query */
 .ui-grid-a .ui-input-datebox { width: 97%; }
@@ -46,16 +23,13 @@
 
 /* Calendar Mode Styles */
 
+.ui-datebox-gridheader .ui-btn-inline { margin-right: 0; }
 .ui-datebox-gridheader { text-align: center; }
 .ui-datebox-gridheader h4 { text-align: center; display: inline-block; margin-top: 10px; margin-bottom: 10px; zoom:1; *display: inline;}
 .ui-datebox-gridplus { float: right; }
 .ui-datebox-gridminus { float: left; }
 .ui-datebox-gridplus-rtl { float: left; }
 .ui-datebox-gridminus-rtl { float: right; }
-
-/* NEW 1.5.0 */
-.ui-datebox-gridheader .ui-btn-inline { margin-right: 0; }
-
 .ui-datebox-gridrow { margin-left: 5px; margin-right: 5px; margin-bottom: -7px; }
 .ui-datebox-grid { clear: both; margin-bottom: 5px; }
 .ui-datebox-griddate { width: 36px; height: 30px; padding: 0px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; zoom:1; *display: inline;}
@@ -106,13 +80,10 @@
 
 /* Shared Styles */
 
-.ui-datebox-container { border: 5px solid #111 !important; width: 280px; -webkit-transform:translate3d(0,0,0); }
-.ui-datebox-screen { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; }
-.ui-datebox-screen-modal { background-color: black; -moz-opacity: 0.8; opacity:.80; filter: alpha(opacity=80); }
-.ui-datebox-hidden { display: none; }
-.ui-dialog .ui-datebox-container { border: none !important; }
-.ui-popup-container .ui-datebox-container { border: none !important; }
+.ui-datebox-container { width: 280px; -webkit-transform:translate3d(0,0,0); }
+
 .ui-popup-container .ui-datebox-gridrow { margin-left: 0px; margin-right: 0px; }
+
 .ui-datebox-collapse a { display: inline-block; width: 25% }
 
 .ui-datebox-inline, .ui-datebox-inlineblind { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto !important; margin-right: auto !important; text-align: center;}

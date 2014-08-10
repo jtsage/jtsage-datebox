@@ -17,7 +17,7 @@
 			themeHeader: 'a',
 			mode: false,
 
-			transition: 'pop',
+			transition: 'fade',
 			useAnimation: true,
 			hideInput: false,
 			hideContainer: false,
@@ -929,7 +929,10 @@
 				popopts = {
 					transition: (o.useAnimation ? o.transition : "none")
 				},
-				basepop = { history: false };
+				basepop = { 
+					history: false,
+					transition: (o.useAnimation ? o.transition : "none")
+				};
 
 			if ( o.useFocus === true && w.fastReopen === true ) { 
 				w.d.input.blur();
