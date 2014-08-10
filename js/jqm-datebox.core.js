@@ -24,7 +24,6 @@
 			hideFixedToolbars: false,
 
 			lockInput: true,
-			enhanceInput: true,
 
 			zindex: '1100',
 			clickEvent: 'vclick',
@@ -837,13 +836,6 @@
 							if ( !w.disabled ) { w._t( { method: "open" } ); }
 						}
 					});
-			}
-
-
-			if ( o.enhanceInput === true && navigator.userAgent.match(/Android/i) ){
-				w.inputType = "number";
-			} else {
-				w.inputType = "text";
 			}
 
 			if ( o.hideInput === true ) { w.d.wrap.hide(); }

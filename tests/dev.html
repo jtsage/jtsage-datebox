@@ -48,10 +48,12 @@
 			//useModalTheme: 'a',
 			//useModal: false,
 			useTodayButton: true,
-			useInline: true,
+			useInline: false,
 			useTomorrowButton: true,
 			useClearButton: true,
 			minuteStep: 2,
+			repButton: true,
+			overrideTimeFormat: 24,
 			
 			
 			overrideSlideFieldOrder: ['y','m','d','h','i']
@@ -67,19 +69,17 @@
 	<div class="ui-content" role="main">
 		<div class="ui-field-contain">
 			<label for="aa1">text comparison</label>
-			<input name="aa1" type="text" data-mini="true" id="aa1"/>
+			<input name="aa1" type="text" data-theme="b" data-mini="true" id="aa1"/>
 		</div>
 
 		<div class="ui-field-contain">
 			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="flipbox" id="lang1" />
+			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="datebox" id="lang1" />
 		</div>
-<!--
 		<div class="ui-field-contain">
 			<label for="lang2">calbox</label>
-			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="durationbox"  id="lang2" />
+			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="timebox"  id="lang2" />
 		</div>
--->
 		<!--div data-role="fieldcontain">
 			<label for="c2">custom box</label>
 			<input name="c2" type="text" data-role="datebox" data-options='{"mode": "custombox", "overrideStyleClass":"ui-icon-dice"}' id="c2" />

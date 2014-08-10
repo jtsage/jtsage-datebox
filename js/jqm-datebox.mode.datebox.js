@@ -7,8 +7,8 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeButton: 'a',
-		themeInput: 'a',
+		themeButton: "a",
+		themeInput: "a",
 		useSetButton: true,
 		validHours: false,
 		repButton: true
@@ -17,57 +17,64 @@
 	$.extend( $.mobile.datebox.prototype, {
 		_dbox_run: function() {
 			var w = this,
+				g = this.drag,
 				timer = 150;
 				
-			if ( w.drag.cnt > 10 ) { timer = 100; }
-			if ( w.drag.cnt > 30 ) { timer = 50; }
-			if ( w.drag.cnt > 60 ) { timer = 20; }
+			if ( g.cnt > 10 ) { timer = 100; }
+			if ( g.cnt > 30 ) { timer = 50; }
+			if ( g.cnt > 60 ) { timer = 20; }
 			
-			w.drag.didRun = true;
-			w.drag.cnt++;
+			g.didRun = true;
+			g.cnt++;
 			
-			w._offset(w.drag.target[0], w.drag.target[1], false);
+			w._offset( g.target[0], g.target[1], false );
 			w._dbox_run_update();
 			w.runButton = setTimeout(function() {w._dbox_run();}, timer);
 		},
-		_dbox_run_update: function() {
+		_dbox_run_update: function(short) {
 			var w = this,
 				o = this.options;
 				
-			w._check();
+			if ( short !== true ) {
+				w._check();
 			
-			if ( o.mode === 'datebox' ) {
-				w.d.intHTML.find('.ui-datebox-header').find('h4').text(w._formatter(w.__('headerFormat'), w.theDate));
+				if ( o.mode === "datebox" ) {
+					w.d.intHTML
+						.find( ".ui-datebox-header" )
+							.find( "h4" )
+								.text( w._formatter( w.__( 'headerFormat' ), w.theDate ) );
+				}
+				
+				if ( o.useSetButton ) {
+					if ( w.dateOK === false ) { 
+						w.setBut.addClass( "ui-state-disabled" );
+					} else {
+						w.setBut.removeClass( "ui-state-disabled" );
+					}
+				}
 			}
 			
-			if ( o.useSetButton ) {
-				if ( w.dateOK === false ) { setBut.addClass('ui-disabled'); }
-				else { setBut.removeClass('ui-disabled'); }
-			}
-			
-			w.d.divIn.find('input').each(function () {
-				switch ( $(this).data('field') ) {
+			w.d.divIn.find( "input" ).each(function () {
+				switch ( $(this).data( "field" ) ) {
 					case 'y':
-						$(this).val(w.theDate.getFullYear()); break;
+						$(this).val(w.theDate.get(0)); break;
 					case 'm':
-						$(this).val(w.theDate.getMonth() + 1); break;
+						$(this).val(w.theDate.get(1) + 1); break;
 					case 'd':
-						$(this).val(w.theDate.getDate()); break;
+						$(this).val(w.theDate.get(2)); break;
 					case 'h':
 						if ( w.__('timeFormat') === 12 ) {
-							if ( w.theDate.getHours() > 12 ) {
-								$(this).val(w.theDate.getHours()-12); break;
-							} else if ( w.theDate.getHours() === 0 ) {
-								$(this).val(12); break;
-							}
-						}		
-						$(this).val(w.theDate.getHours()); break;
+							$(this).val(w.theDate.get12hr());
+						} else {
+							$(this).val(w.theDate.get(3)); 
+						} 
+						break;
 					case 'i':
-						$(this).val(w._zPad(w.theDate.getMinutes())); break;
+						$(this).val(w._zPad(w.theDate.get(4))); break;
 					case 'M':
-						$(this).val(w.__('monthsOfYearShort')[w.theDate.getMonth()]); break;
+						$(this).val(w.__('monthsOfYearShort')[w.theDate.get(1)]); break;
 					case 'a':
-						$(this).val((w.theDate.getHours() > 11)?w.__('meridiem')[1]:w.__('meridiem')[0]);
+						$(this).val((w.theDate.get(3) > 11)?w.__('meridiem')[1]:w.__('meridiem')[0]);
 						break;
 				}
 			});
@@ -97,24 +104,26 @@
 			else { w.theDate.setHours(closenay[1]); }
 		},
 		_dbox_enter: function (item) {
-			var w = this;
+			var tmp,
+				w = this;
 			
-			if ( item.data('field') === 'M' && $.inArray(item.val(), w.__('monthsOfYearShort')) > -1 ) {
-				w.theDate.setMonth($.inArray(item.val(), w.__('monthsOfYearShort')));
+			if ( item.data( "field" ) === 'M' ) {
+				tmp = $.inArray( item.val(), w.__('monthsOfYearShort') );
+				if ( tmp > -1 ) { w.theDate.setMonth( tmp ); }
 			}
 			
 			if ( item.val() !== '' && item.val().toString().search(/^[0-9]+$/) === 0 ) {
-				switch ( item.data('field') ) {
+				switch ( item.data( "field" ) ) {
 					case 'y':
-						w.theDate.setFullYear(parseInt(item.val(),10)); break;
+						w.theDate.setD( 0, parseInt(item.val(),10)); break;
 					case 'm':
-						w.theDate.setMonth(parseInt(item.val(),10)-1); break;
+						w.theDate.setD( 1, parseInt(item.val(),10)-1); break;
 					case 'd':
-						w.theDate.setDate(parseInt(item.val(),10)); break;
+						w.theDate.setD( 2, parseInt(item.val(),10)); break;
 					case 'h':
-						w.theDate.setHours(parseInt(item.val(),10)); break;
+						w.theDate.setD( 3, parseInt(item.val(),10)); break;
 					case 'i':
-						w.theDate.setMinutes(parseInt(item.val(),10)); break;
+						w.theDate.setD( 4, parseInt(item.val(),10)); break;
 				}
 			}
 			w.refresh();
@@ -125,128 +134,118 @@
 			this._build.datebox.apply(this,[]);
 		},
 		'datebox': function () {
-			var w = this,
+			var offAmount, i, y, tmp, 
+				w = this,
 				g = this.drag,
-				o = this.options, i, y, tmp, cnt = -2, 
-				offAmount = 1,
-				uid = 'ui-datebox-',
-				divBase = $("<div>"),
-				divPlus = $('<fieldset>'),
+				o = this.options, 
+				cnt = -2, 
+				uid = "ui-datebox-",
+				divBase = $( "<div>" ),
+				divPlus = $( "<fieldset>" ),
 				divIn = divBase.clone(),
 				divMinus = divPlus.clone(),
-				inBase = $("<input type='"+w.inputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-body-'+o.themeInput),
-				inBaseT = $("<input type='text' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-body-'+o.themeInput),
-				butBase = $("<div></div>"),
-				butPTheme = {theme: o.themeButton, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true, inline:true},
-				butMTheme = $.extend({}, butPTheme, {icon: 'minus', iconpos: 'top'});
+				inBase = $("<input type='text'>")
+					.addClass( "ui-input-text ui-corner-all ui-shadow-inset ui-body-" + o.themeInput ),
+				butBase = $( "<div></div>" ),
+				butClass = "ui-btn-inline ui-link ui-btn ui-btn-" + o.themeButton + " ui-btn-icon-notext ui-shadow ui-corner-all";
 			
-			if ( typeof w.d.intHTML !== 'boolean' ) {
+			if ( typeof w.d.intHTML !== "boolean" ) {
 				w.d.intHTML.empty().remove();
 			}
 			
-			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():((o.mode==='datebox')?w.__('titleDateDialogLabel'):w.__('titleTimeDialogLabel')));
-			w.d.intHTML = $('<span>');
-
-			if ( w.inputType !== 'number' ) { inBase.attr('pattern', '[0-9]*'); }
+			w.d.headerText = ( ( w._grabLabel() !== false ) ?
+				w._grabLabel() : 
+				( ( o.mode === "datebox" ) ? 
+					w.__('titleDateDialogLabel') :
+					w.__('titleTimeDialogLabel')
+				)
+			);
+			w.d.intHTML = $( "<span>" );
 			
-			w.fldOrder = ((o.mode==='datebox')?w.__('dateFieldOrder'):w.__('timeFieldOrder'));
+			w.fldOrder = ( ( o.mode === "datebox" ) ? w.__('dateFieldOrder') : w.__('timeFieldOrder') );
 			w._check();
 			w._minStepFix();
-			w._dbox_vhour(typeof w._dbox_delta !== 'undefined'?w._dbox_delta:1);
+			w._dbox_vhour(typeof w._dbox_delta !== "undefined" ? w._dbox_delta : 1 );
 			
-			if ( o.mode === 'datebox' ) { $('<div class="'+uid+'header"><h4>'+w._formatter(w.__('headerFormat'), w.theDate)+'</h4></div>').appendTo(w.d.intHTML); }
+			if ( o.mode === "datebox" ) { 
+				$( "<div class='" + uid + "header'><h4>" + w._formatter( w.__('headerFormat'), w.theDate ) + "</h4></div>")
+					.appendTo(w.d.intHTML); 
+			}
 			
-			for(i=0; i<=w.fldOrder.length; i++) {
+			for(i = 0; i < w.fldOrder.length; i++) {
 				tmp = ['a','b','c','d','e','f'][i];
-				switch (w.fldOrder[i]) {
-					case 'i': offAmount = o.minuteStep;
-					case 'y':
-					case 'm':
-					case 'd':
-					case 'h':
-					case 'M':
-						$('<div>').append(w._makeEl(inBaseT, {'attr': {'field':w.fldOrder[i], 'amount':offAmount}})).addClass('ui-block-'+tmp).appendTo(divIn);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':offAmount}}).addClass('ui-block-'+tmp).buttonMarkup(butPTheme).appendTo(divPlus);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':offAmount}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
-						cnt++;
-						break;
-					case 'a':
-						if ( w.__('timeFormat') === 12 ) {
-							$('<div>').append(w._makeEl(inBaseT, {'attr': {'field':w.fldOrder[i], 'amount':1}})).addClass('ui-block-'+tmp).appendTo(divIn);
-							w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butPTheme).appendTo(divPlus);
-							w._makeEl(butBase, {'attr': {'field':w.fldOrder[i], 'amount':1}}).addClass('ui-block-'+tmp).buttonMarkup(butMTheme).appendTo(divMinus);
-							cnt++;
-						} 
-						break;
+				if ( w.fldOrder[i] === "i" ) { 
+					offAmount = o.minuteStep; 
+				} else { 
+					offAmount = 1;
+				}
+				if ( w.fldOrder[i] !== "a" || w.__('timeFormat') === 12 ) {
+					$('<div>')
+						.append( w._makeEl(inBase, {"attr": {
+							"field": w.fldOrder[i],
+							"amount": offAmount
+						} } ) )
+						.addClass('ui-block-'+tmp)
+						.appendTo(divIn);
+					w._makeEl( butBase, {"attr": {
+							"field": w.fldOrder[i],
+							"amount": offAmount 
+						} } )
+						.addClass( uid + "cbut ui-block-" + tmp + " ui-icon-plus " + butClass)
+						.appendTo( divPlus );
+					w._makeEl( butBase, {"attr": {
+							"field": w.fldOrder[i],
+							"amount": offAmount  * -1
+						} } )
+						.addClass( uid + "cbut ui-block-" + tmp + " ui-icon-minus " + butClass)
+						.appendTo( divMinus );
+					cnt++;
 				}
 			}
 			
 			divPlus.addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
 			divIn.addClass('ui-datebox-dboxin').addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
 			divMinus.addClass('ui-grid-'+['a','b','c','d','e'][cnt]).appendTo(w.d.intHTML);
-
-			if ( o.mobVer >= 140 ) {
-				divMinus.find('div').css({'min-height':'2.3em'});
-				divPlus.find('div').css({'min-height':'2.3em'});
-			}
 			
-			divIn.find('input').each(function () {
-				switch ( $(this).data('field') ) {
-					case 'y':
-						$(this).val(w.theDate.getFullYear()); break;
-					case 'm':
-						$(this).val(w.theDate.getMonth() + 1); break;
-					case 'd':
-						$(this).val(w.theDate.getDate()); break;
-					case 'h':
-						if ( w.__('timeFormat') === 12 ) {
-							if ( w.theDate.getHours() > 12 ) {
-								$(this).val(w.theDate.getHours()-12); break;
-							} else if ( w.theDate.getHours() === 0 ) {
-								$(this).val(12); break;
-							}
-						}		
-						$(this).val(w.theDate.getHours()); break;
-					case 'i':
-						$(this).val(w._zPad(w.theDate.getMinutes())); break;
-					case 'M':
-						$(this).val(w.__('monthsOfYearShort')[w.theDate.getMonth()]); break;
-					case 'a':
-						$(this).val((w.theDate.getHours() > 11)?w.__('meridiem')[1]:w.__('meridiem')[0]);
-						break;
-				}
-			});
-
 			w.d.divIn = divIn;
+			w._dbox_run_update(true);
 			
 			if ( w.dateOK !== true ) {
-				divIn.find('input').addClass(uid+'griddate-disable');
+				divIn.find( "input" ).addClass( "ui-state-disable" );
 			} else {
-				divIn.find('.'+uid+'griddate-disable').removeClass(uid+'griddate-disable');
+				divIn.find( ".ui-state-disable" ).removeClass( "ui-state-disable" );
 			}
 			
 			if ( o.useSetButton || o.useClearButton ) {
-				y = $('<div>', {'class':uid+'controls'});
+				y = $( "<div>", { "class": uid + "controls" } );
 				
 				if ( o.useSetButton ) {
-					setBut = $('<a href="#">'+((o.mode==='datebox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))+'</a>')
-						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					w.setBut = $( "<a href='#' role='button'>" )
+						.appendTo(y)
+						.text((o.mode==='datebox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							if ( w.dateOK === true ) {
-								w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(),w.theDate), 'date':w.theDate});
-								w.d.input.trigger('datebox', {'method':'close'});
+								w._t( { 
+									method: "set", 
+									value: w._formatter(w.__fmt(),w.theDate),
+									date: w.theDate
+								} );
+								w._t( { method: "close" } );
 							}
+							
 						});
 				}
 				if ( o.useClearButton ) {
-					$('<a href="#">'+w.__('clearButton')+'</a>')
-						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#' role='button'>" + w.__( 'clearButton' ) + "</a>" )
+						.appendTo(y)
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w.d.input.val('');
-							w.d.input.trigger('datebox',{'method':'clear'});
-							w.d.input.trigger('datebox',{'method':'close'});
+							w._t( { method: "clear" } );
+							w._t( { method: "close" } );
 						});
 				}
 				if ( o.useCollapsedBut ) {
@@ -256,17 +255,12 @@
 			}
 			
 			if ( o.repButton === false ) {
-				divPlus.on(o.clickEvent, 'div', function(e) {
+				w.d.intHTML.on(o.clickEvent, "."+ uid + "cbut", function(e) {
+					console.log('a');
 					divIn.find(':focus').blur();
 					e.preventDefault();
-					w._dbox_delta = 1;
+					w._dbox_delta = ($(this).data('amount')>1) ? 1 : -1;
 					w._offset($(this).data('field'), $(this).data('amount'));
-				});
-				divMinus.on(o.clickEvent, 'div', function(e) {
-					divIn.find(':focus').blur();
-					e.preventDefault();
-					w._dbox_delta = -1;
-					w._offset($(this).data('field'), $(this).data('amount')*-1);
 				});
 			}
 			
@@ -281,43 +275,20 @@
 			}
 			
 			if ( o.repButton === true ) {
-				divPlus.on(w.drag.eStart, 'div', function(e) {
+				w.d.intHTML.on(g.eStart, "."+ uid + "cbut", function(e) {
 					divIn.find(':focus').blur();
 					tmp = [$(this).data('field'), $(this).data('amount')];
-					w.drag.move = true;
-					w.drag.cnt = 0;
-					w._dbox_delta = 1;
+					g.move = true;
+					g.cnt = 0;
+					w._dbox_delta = ($(this).data('amount')>1) ? 1 : -1;
 					w._offset(tmp[0], tmp[1], false);
 					w._dbox_run_update();
 					if ( !w.runButton ) {
-						w.drag.target = tmp;
+						g.target = tmp;
 						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
 					}
 				});
-				
-				divMinus.on(w.drag.eStart, 'div', function(e) {
-					divIn.find(':focus').blur();
-					tmp = [$(this).data('field'), $(this).data('amount')*-1];
-					w.drag.move = true;
-					w.drag.cnt = 0;
-					w._dbox_delta = -1;
-					w._offset(tmp[0], tmp[1], false);
-					w._dbox_run_update();
-					if ( !w.runButton ) {
-						w.drag.target = tmp;
-						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
-					}
-				});
-
-				divPlus.on(g.eEndA, function(e) {
-					if ( g.move ) {
-						e.preventDefault();
-						clearTimeout(w.runButton);
-						w.runButton = false;
-						g.move = false;
-					}
-				});
-				divMinus.on(g.eEndA, function(e) {
+				w.d.intHTML.on(g.eEndA, "."+ uid + "cbut", function(e) {
 					if ( g.move ) {
 						e.preventDefault();
 						clearTimeout(w.runButton);
