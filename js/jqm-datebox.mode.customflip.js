@@ -91,11 +91,7 @@
 				top = ech.find('li').first();
 				tot = ech.find('li').size() * top.outerHeight();
 				fixer = ech.find('li').last().offset().top - ech.find('li').first().offset().top;
-				
-				pos1 = (((tot/2)-(par/2)+(top.outerHeight()/2))*-1);
-				
-				if ( fixer > 0 ) { pos1 = ((((fixer-par) / 2) + top.outerHeight()) * -1) }
-				
+				pos1 = ((((fixer-par) / 2) + top.outerHeight()) * -1) 
 				top.css('marginTop', pos1);
 			});
 		}
@@ -197,9 +193,14 @@
 					}
 				});
 			}
-			
+
 			w.d.headerText = ((o.customHead !== false ) ? o.customHead : ((w._grabLabel() !== false)?w._grabLabel():""));
 			w.d.intHTML = $('<span>');
+
+			$(document).one( "popupafteropen", function( event, ui ) { 
+				// This fixes bad positioning on initial open - have not found a way around this yet.
+				w._fbox_pos(); 
+			});
 
 			w.fldOrder = w._cubox_range(o.customData.length);
 

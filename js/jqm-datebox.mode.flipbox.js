@@ -62,8 +62,6 @@
 				});
 			}
 			
-			
-			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():((o.mode==='flipbox')?w.__('titleDateDialogLabel'):w.__('titleTimeDialogLabel')));
 			w.d.intHTML = $('<span>');
 			
