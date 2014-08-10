@@ -15,4 +15,12 @@
 		console.log(fulllist.join("   "));
 		
 	}
+	window.timetext = function(x, func) {
+		var y, outTime, inTime = new Date();
+		for ( y = 0; y < x; y++ ) {
+			func.apply();
+		}
+		outTime = new Date();
+		console.log( outTime.getTime() - inTime.getTime() );
+	}
 })( jQuery );

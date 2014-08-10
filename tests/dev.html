@@ -34,16 +34,15 @@
 			lockInput: true,
 			useFocus: false,
 			//calUsePickers: true,
-			//closeCallback: function(a,b) { console.log(a); console.log(b); },
-			//closeCallbackArgs: ['hi'],
-			//openCallback: function() { console.log('b'); },
+			closeCallback: function(a) { console.log(a); },
+			closeCallbackArgs: ['hi'],
+			openCallback: function(a) { console.log(a); },
 			//useModalTheme: 'a',
 			//useModal: false,
 			useTodayButton: true,
 			useTomorrowButton: true,
 			useClearButton: true,
 			minuteStep: 2,
-			transition: "fade",
 			
 			
 			overrideSlideFieldOrder: ['y','m','d','h','i']
@@ -64,7 +63,11 @@
 
 		<div class="ui-field-contain">
 			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="flipbox" data-options='{"afterToday": true}' id="lang1" />
+			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="durationflipbox" id="lang1" />
+		</div>
+		<div class="ui-field-contain">
+			<label for="lang2">calbox</label>
+			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="durationbox"  id="lang2" />
 		</div>
 		<!--div data-role="fieldcontain">
 			<label for="c2">custom box</label>

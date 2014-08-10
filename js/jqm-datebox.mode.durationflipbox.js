@@ -8,38 +8,41 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeDatePick: 'b',
-		themeDate: 'a',
+		themeDatePick: "b",
+		themeDate: "a",
 		useSetButton: true,
-		durationSteppers: {'d': 1, 'h': 1, 'i': 1, 's': 1}
+		durationSteppers: {
+			"d": 1,
+			"h": 1,
+			"i": 1,
+			"s": 1
+		}
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		'_durfbox_pos': function () {
-			var w = this,
-				ech = null,
-				top = null,
-				par = this.d.intHTML.find('.ui-datebox-flipcontent').innerHeight(),
-				tot = null;
+				var pos1, ech, top,
+				w = this,
+				par = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
 				
-			w.d.intHTML.find('.ui-datebox-flipcenter').each(function() {
-				ech = $(this);
+			w.d.intHTML.find( ".ui-datebox-flipcenter" ).each(function() {
+				ech = $( this );
 				top = ech.innerHeight();
-				ech.css('top', ((par/2)-(top/2)-3)*-1);
+				ech.css( "top", ( ( par / 2 ) - ( top / 2 ) - 3 ) * -1 );
 			});
 			w.d.intHTML.find('ul').each(function () {
-				ech = $(this);
+				ech = $( this );
 				par = ech.parent().innerHeight();
-				top = ech.find('li').first();
-				tot = ech.find('li').size() * top.outerHeight();
-				fixer = ech.find('li').last().offset().top - ech.find('li').first().offset().top;
-				pos1 = ((((fixer-par) / 2) + top.outerHeight()) * -1) 
-				top.css('marginTop', pos1);
+				top = ech.find( "li" ).first();
+				fixer = ech.find( "li" ).last().offset().top - ech.find( "li" ).first().offset().top;
+				pos1 = ( ( ( fixer-par ) / 2 ) + top.outerHeight() ) * -1
+				top.css( "marginTop", pos1 );
 			});
 		},
 		'_durfbox_series': function (middle, side, type) {
-			var w = this, 
+			var nxt, prv,
+				w = this, 
 				o = this.options,
-				ret = [[middle.toString(), middle]], nxt, prv;
+				ret = [ [ middle.toString(), middle ] ];
 			 
 			for ( var i = 1; i <= side; i++ ) {
 				nxt = middle + ( i * o.durationSteppers[type] );
@@ -56,26 +59,36 @@
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
 		'durationflipbox': function () {
-			var w = this,
-				o = this.options, i, y, tt, hRow, tmp, testDate,
-				sel = ['d','h','i','s'],
+			var  i, y, hRow, tmp, testDate, stdPos, curFld,
+				w = this,
+				o = this.options,
+				sel = ["d", "h", "i", "s"],
+				gridLab = [0, 0, "a", "b", "c"],
+				blockLab = ["a","b","c","d"],
 				cDur = [0,0,0,0],
 				cDurS = {},
-				ival = {'d': 60*60*24, 'h': 60*60, 'i': 60},
-				uid = 'ui-datebox-',
+				uid = "ui-datebox-",
 				flipBase = $("<div class='ui-overlay-shadow'><ul></ul></div>"),
-				ctrl = $("<div>", {"class":uid+'flipcontent'+' '+uid+'flipcontentd'});
+				ctrl = $("<div>", { "class" : uid + "flipcontent" + " " + uid + "flipcontentd" } ),
+				ival = {
+					"d": 60*60*24,
+					"h": 60*60,
+					"i": 60
+				};
 			
-			if ( typeof w.d.intHTML !== 'boolean' ) {
+			if ( typeof w.d.intHTML !== "boolean" ) {
 				w.d.intHTML.empty().remove();
 			}
 			
-			w.d.input.on('datebox', function (e,p) {
-				if ( p.method === 'postrefresh' ) { w._durfbox_pos(); }
+			w.d.input.on( "datebox", function (e,p) {
+				if ( p.method === "postrefresh" ) { w._durfbox_pos(); }
 			});
 			
-			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
-			w.d.intHTML = $('<span>');
+			w.d.headerText = ( ( w._grabLabel() !== false ) ? 
+				w._grabLabel() :
+				w.__('titleDateDialogLabel')
+			);
+			w.d.intHTML = $( "<span>" );
 
 			$(document).one( "popupafteropen", function( event, ui ) { 
 				// This fixes bad positioning on initial open - have not found a way around this yet.
@@ -84,16 +97,21 @@
 
 			w.fldOrder = w.__('durationOrder');
 			
-			tmp = $('<div class="'+uid+'header ui-grid-'+[0,0,'a','b','c'][w.fldOrder.length]+'"></div>');
-			for ( y=0; y<w.fldOrder.length; y++ ) {
-				$('<div class="ui-block-'+['a','b','c','d'][y]+'">'+w.__('durationLabel')[jQuery.inArray(w.fldOrder[y],['d','h','i','s'])]+'</div>').css('textAlign','center').appendTo(tmp);
+			tmp = $( "<div class='" + uid + "header ui-grid-" + gridLab[w.fldOrder.length] + "'></div>");
+			for ( y = 0; y < w.fldOrder.length; y++ ) {
+				$("<div class='ui-block-" + blockLab[ y ] + "'>" + 
+						w.__('durationLabel')[ jQuery.inArray( w.fldOrder[y], sel ) ] + 
+						"</div>"
+					)
+					.css( "textAlign", "center")
+					.appendTo(tmp);
 			}
 			tmp.appendTo(w.d.intHTML);
 			
 			w.d.intHTML.append(ctrl);
 			
 			i = w.theDate.getEpoch() - w.initDate.getEpoch();
-			if ( i<0 ) { i = 0; w.theDate.setTime(w.initDate.getTime()); }
+			if ( i < 0 ) { i = 0; w.theDate.setTime(w.initDate.getTime()); }
 			w.lastDuration = i; // Let the number of seconds be sort of public.
 			
 			// SPLIT TIME INTO DAYS, HRS, MIN, SEC
@@ -107,40 +125,59 @@
 			cDurS.i = w._durfbox_series(cDur[2],20,'i');
 			cDurS.s = w._durfbox_series(cDur[3],20,'s');
 			
-			for ( y=0; y<w.fldOrder.length; y++ ) {
-				tt = w.fldOrder[y];
-				sel = cDur[jQuery.inArray(tt,['d','h','i','s'])];
-				hRow = w._makeEl(flipBase, {'attr': {'field':tt,'amount':o.durationSteppers[tt]} });
-				for ( i in cDurS[tt] ) {
-					tmp = (cDurS[tt][i][1]!==sel)?o.themeDate:o.themeDatePick;
-					$("<li>", { 'class' : 'ui-body-'+tmp})
-						.html("<span>"+cDurS[tt][i][0] +"</span>").appendTo(hRow.find('ul'));
+			for ( y = 0; y < w.fldOrder.length; y++ ) {
+				stdPos = w.fldOrder[ y ];
+				curFld = cDur[ jQuery.inArray( stdPos, sel ) ];
+
+				hRow = w._makeEl( flipBase, { "attr": { 
+					"field": stdPos,
+					"amount": o.durationSteppers[ stdPos ]
+				} });
+				hRowIn = hRow.find( "ul" );
+
+				for ( i in cDurS[ stdPos ] ) {
+					tmp = (cDurS[ stdPos ][ i ][ 1 ] !== curFld ) ?
+						o.themeDate :
+						o.themeDatePick;
+					$("<li>", { "class" : "ui-body-" + tmp } )
+						.html( "<span>" + cDurS[ stdPos ][ i ][ 0 ] + "</span>" )
+						.appendTo( hRowIn );
 				}
 				hRow.appendTo(ctrl);
 			}
 			
-			$("<div>", {"class":uid+'flipcenter ui-overlay-shadow'}).css('pointerEvents', 'none').appendTo(w.d.intHTML);
+			$("<div>", { "class": uid + "flipcenter ui-overlay-shadow" } )
+				.css( "pointerEvents", "none")
+				.appendTo( w.d.intHTML );
 			
 			if ( o.useSetButton || o.useClearButton ) {
-				y = $('<div>', {'class':uid+'controls'});
+				y = $( "<div>", { "class": uid + "controls" } );
 				
 				if ( o.useSetButton ) {
-					$('<a href="#">'+w.__('setDurationButtonLabel')+'</a>')
-						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#' role='button'>" )
+						.appendTo(y)
+						.text( w.__('setDurationButtonLabel') )
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
-							w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(),w.theDate), 'date':w.theDate});
-							w.d.input.trigger('datebox', {'method':'close'});
+							w._t( { 
+								method: "set", 
+								value: w._formatter(w.__fmt(),w.theDate),
+								date: w.theDate,
+								duration: i
+							} );
+							w._t( { method: "close" } );
 						});
 				}
 				if ( o.useClearButton ) {
-					$('<a href="#">'+w.__('clearButton')+'</a>')
-						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#' role='button'>" + w.__( 'clearButton' ) + "</a>" )
+						.appendTo(y)
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w.d.input.val('');
-							w.d.input.trigger('datebox',{'method':'clear'});
-							w.d.input.trigger('datebox',{'method':'close'});
+							w._t( { method: "clear" } );
+							w._t( { method: "close" } );
 						});
 				}
 				if ( o.useCollapsedBut ) {

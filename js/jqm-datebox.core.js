@@ -177,6 +177,11 @@
 					}
 					return false;
 				},
+				get12hr: function() {
+					if ( this.get(3) === 0 ) { return 12; }
+					if ( this.get(3) < 13 ) { return this.get(3); }
+					return this.get(3) - 12;
+				},
 				iso: function() {
 					var arr = [0,0,0], i = 0;
 					for ( i=0; i < 3; i++ ) {
@@ -558,9 +563,9 @@
 					part: [0,0,0,0], tp: 0
 				};
 
-				if ( o.mode.substr(4) === "dura" ) {
+				if ( o.mode.substr( 0, 4 ) === "dura" ) {
 					dur.tp = this.theDate.getEpoch() - this.initDate.getEpoch();
-					dur.part[0] = parseInt( dur.tp / (60*60*24),10); dur.tp -=(dur.part[0]*60*60*24); // Days
+					dur.part[0] = parseInt( dur.tp / (60*60*24),10); dur.tp -= (dur.part[0]*60*60*24); // Days
 					dur.part[1] = parseInt( dur.tp / (60*60),10); dur.tp -= (dur.part[1]*60*60); // Hours
 					dur.part[2] = parseInt( dur.tp / (60),10); dur.tp -= (dur.part[2]*60); // Minutes
 					dur.part[3] = dur.tp; // Seconds
@@ -779,9 +784,6 @@
 					tmp    : false
 				};
 
-				
-// 
-
 			$.extend(w, {d: d, drag: drag, touch:touch});
 
 			if ( o.usePlaceholder !== false ) {
@@ -802,6 +804,7 @@
 			w.baseID = w.d.input.attr( "id" );
 
 			w.initDate = new w._date();
+			w.lastDuration = 0;
 			w.theDate = ( o.defaultValue ) ?
 				w._makeDate( o.defaultValue ) :
 				( (w.d.input.val() !== "" ) ?
@@ -1039,7 +1042,7 @@
 					}
 				}
 				basepop.afteropen = function() {
-					if ( o.openCallback.apply( w, $.merge( [ w.theDate ], o.openCallbackArgs ) ) === false ) {
+					if ( o.openCallback.apply( w, [{ initDate: w.initDate, date: w.theDate, duration: w.lastDuration, cbArgs: o.openCallbackArgs }] ) === false ) {
 						w._t( {method: "close"} );
 					}
 				};
@@ -1054,7 +1057,7 @@
 					}
 				}
 				basepop.afterclose = function() {
-					o.closeCallback.apply( w, $.merge( [ w.theDate ], o.closeCallbackArgs ) );
+					o.closeCallback.apply( w, [{ initDate: w.initDate, date: w.theDate, duration: w.lastDuration, cbArgs: o.closeCallbackArgs }] );
 				};
 			}
 

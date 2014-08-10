@@ -35,6 +35,7 @@
 	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/<?php echo $verB; ?>/jqm-datebox-<?php echo $verB; ?>.mode.durationflipbox.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/<?php echo $verB; ?>/jqm-datebox-<?php echo $verB; ?>.mode.slidebox.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox-devtool.js"></script>
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			nadda: "nope",
