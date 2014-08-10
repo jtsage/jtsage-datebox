@@ -36,7 +36,6 @@
 .ui-datebox-griddate-week { width: 31px; height: 30px; display: inline-block; vertical-align: middle; text-align: center; line-height: 30px; font-weight: bold; font-size: 12px; zoom:1; *display: inline;}
 .ui-datebox-griddate-empty { border: 1px solid transparent; color: #888; }
 .ui-datebox-griddate-label { height: 15px !important; line-height: 15px !important; color: black;}
-.ui-datebox-griddate-disable { color: #888888 !important; cursor: default !important; background: none repeat scroll 0 0 #F6F6F6 !important; }
 
 /* Android Mode Styles */
 
@@ -86,5 +85,5 @@
 
 .ui-datebox-collapse a { display: inline-block; width: 25% }
 
-.ui-datebox-inline, .ui-datebox-inlineblind { margin-top: 5px; border: 5px solid #111111 !important; margin-left: auto !important; margin-right: auto !important; text-align: center;}
+.ui-datebox-inline, .ui-datebox-inlineblind { margin-top: 5px;  margin-left: auto !important; margin-right: auto !important; text-align: center;}
 .ui-datebox-inlineblind { width: 300px !important; float: none !important; clear: left !important; }

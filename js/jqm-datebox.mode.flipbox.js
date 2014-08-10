@@ -41,6 +41,7 @@
 				pos1 = ( ( ( fixer-par ) / 2 ) + top.outerHeight() ) * -1;
 				top.css( "marginTop", pos1 );
 			});
+			
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._build, {

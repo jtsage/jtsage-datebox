@@ -967,6 +967,13 @@
 					} else {
 						w.d.mainWrap.addClass( "ui-datebox-inlineblind" );
 					}
+					// This is really hacky.  I hate it, but I don't have a 
+					// better idea right now.  Cleans up position on flip variants.
+					setTimeout( function(w) { 
+						return function() {
+							w._t( { method: "postrefresh" } );
+						}
+					}(w), 100);
 					return true;
 				} else {
 					w.d.mainWrap.addClass( "ui-datebox-inlineblind" );
@@ -980,6 +987,7 @@
 				if ( w.initDone ) { 
 					w.refresh();
 					w.d.mainWrap.slideDown();
+					w._t( { method: "postrefresh" } );
 				} else { 
 					w.initDone = true; 
 				}
@@ -1254,18 +1262,22 @@
 			return returnObj;
 		},
 		disable: function() {
+			var w = this;
 			// Provide a PUBLIC function to Disable the element
-			this.d.input.attr( "disabled", true );
-			this.d.wrap.addClass( "ui-state-disabled" ).blur();
-			this.disabled = true;
-			this._t( { method: "disable"});
+			w.d.input.attr( "disabled", true );
+			w.d.wrap.addClass( "ui-state-disabled" ).blur();
+			w.disabled = true;
+			w.d.mainWrap.addClass('ui-state-disabled');
+			w._t( { method: "disable"});
 		},
 		enable: function() {
+			var w = this;
 			// Provide a PUBLIC function to Enable the element
-			this.d.input.attr( "disabled", false );
-			this.d.wrap.removeClass( "ui-state-disabled" );
-			this.disabled = false;
-			this._t( { method: "enable"});
+			w.d.input.attr( "disabled", false );
+			w.d.wrap.removeClass( "ui-state-disabled" );
+			w.disabled = false;
+			w.d.mainWrap.removeClass('ui-state-disabled');
+			w._t( { method: "enable"});
 		},
 		_setOption: function() {
 			$.Widget.prototype._setOption.apply( this, arguments );
