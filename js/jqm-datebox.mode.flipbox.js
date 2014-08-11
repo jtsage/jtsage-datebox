@@ -136,10 +136,11 @@
 									o.themeDate
 								) :
 								o.themeDatePick;
-							if ( ( o.blackDates !== false && $.inArray(testDate.iso(), o.blackDates) > -1 ) ||
-								( o.blackDays !== false && $.inArray(testDate.getDay(), o.blackDays) > -1 ) ) {
-								tmp += " " + uid + "griddate-disable";
-							}
+							if ( 
+								( $.inArray(testDate.iso(), o.blackDates) > -1 || $.inArray(testDate.getDay(), o.blackDays) > -1 )
+								&& ( $.inArray(testDate.iso(), o.whiteDates) < 0 ) 
+							) { tmp += " ui-state-disabled"; }
+							
 							$("<li>", { "class" : "ui-body-" + tmp } )
 								.html( "<span>" + testDate.getDate() + "</span>" )
 								.appendTo( hRowIn );
