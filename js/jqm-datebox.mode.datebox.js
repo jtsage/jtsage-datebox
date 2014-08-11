@@ -31,11 +31,11 @@
 			w._dbox_run_update();
 			w.runButton = setTimeout(function() {w._dbox_run();}, timer);
 		},
-		_dbox_run_update: function(short) {
+		_dbox_run_update: function(shortRun) {
 			var w = this,
 				o = this.options;
 				
-			if ( short !== true ) {
+			if ( shortRun !== true ) {
 				w._check();
 			
 				if ( o.mode === "datebox" ) {

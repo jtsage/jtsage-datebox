@@ -112,14 +112,17 @@
 			
 			for(i = 0; i < w.fldOrder.length; i++) {
 				tmp = ['a','b','c','d','e','f'][i];
+				y = $.inArray(w.fldOrder[i], ['d','h','i','s']);
 				offAmount = o.durationSteppers[w.fldOrder[i]];
+				
 				$('<div>')
 					.append( w._makeEl(inBase, {"attr": {
 						"field": w.fldOrder[i],
 						"amount": offAmount
 					} } ) )
 					.addClass('ui-block-'+tmp)
-					.appendTo(divIn);
+					.appendTo(divIn)
+					.prepend( "<label>" + w.__('durationLabel')[y] + "</label>");
 				w._makeEl( butBase, {"attr": {
 						"field": w.fldOrder[i],
 						"amount": 1 * offAmount
