@@ -17,17 +17,18 @@
 	$.extend( $.mobile.datebox.prototype, {
 		_durbox_run: function() {
 			var w = this,
+				g = this.drag,
 				timer = 150;
 				
-			if ( w.drag.cnt > 10 ) { timer = 100; }
-			if ( w.drag.cnt > 30 ) { timer = 50; }
-			if ( w.drag.cnt > 60 ) { timer = 20; }
-			if ( w.drag.cnt > 120 ) { timer = 10; }
-			if ( w.drag.cnt > 240 ) { timer = 3; }
+			if ( g.cnt > 10 ) { timer = 100; }
+			if ( g.cnt > 30 ) { timer = 50; }
+			if ( g.cnt > 60 ) { timer = 20; }
+			if ( g.cnt > 120 ) { timer = 10; }
+			if ( g.cnt > 240 ) { timer = 3; }
 			
-			w.drag.cnt++;
-			w.drag.didRun = true;
-			w._offset(w.drag.target[0], w.drag.target[1], false);
+			g.cnt++;
+			g.didRun = true;
+			w._offset(g.target[0], g.target[1], false);
 			w._durbox_run_update();
 			w.runButton = setTimeout(function() {w._durbox_run();}, timer);
 		},
@@ -48,7 +49,7 @@
 			cDur[3] = i % ival.i;
 
 			w.d.divIn.find('input').each(function () {
-				switch ( $(this).parent().data('field') ) {
+				switch ( $(this).data('field') ) {
 					case 'd':
 						$(this).val(cDur[0]); break;
 					case 'h':
@@ -69,7 +70,7 @@
 				t = w.initDate.getEpoch();
 				
 			w.d.intHTML.find('input').each( function() {
-				switch ( $(this).parent().data('field') ) {
+				switch ( $(this).data('field') ) {
 					case 'd':
 						t += (60*60*24) * w._durbox_valid($(this).val()); break;
 					case 'h':
@@ -86,103 +87,90 @@
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
 		'durationbox': function () {
-			var w = this,
+			var i, y, tmp, offAmount,
+				w = this,
 				g = this.drag,
-				o = this.options, i, y, cDur = [0,0,0,0], tmp,
-				ival = {'d': 60*60*24, 'h': 60*60, 'i': 60},
+				o = this.options,
 				uid = 'ui-datebox-',
-				divBase = $("<div>"),
-				divPlus = $('<fieldset>'),
+				divBase = $( "<div>" ),
+				divPlus = $( "<fieldset>" ),
 				divIn = divBase.clone().addClass('ui-datebox-dboxin'),
 				divMinus = divPlus.clone(),
-				inBase = $("<input type='"+w.inputType+"' />").addClass('ui-input-text ui-corner-all ui-shadow-inset ui-body-'+o.themeInput),
-				butBase = $("<div><a href='#'> </a></div>"),
-				butPTheme = {theme: o.themeButton, icon: 'plus', iconpos: 'bottom', corners:true, shadow:true},
-				butMTheme = $.extend({}, butPTheme, {icon: 'minus', iconpos: 'top'});
+				inBase = $("<input type='text'>")
+					.addClass( "ui-input-text ui-corner-all ui-shadow-inset ui-body-" + o.themeInput ),
+				butBase = $( "<div></div>" ),
+				butClass = "ui-btn-inline ui-link ui-btn ui-btn-" + o.themeButton + " ui-btn-icon-notext ui-shadow ui-corner-all";
 			
-			if ( typeof w.d.intHTML !== 'boolean' ) {
+			if ( typeof w.d.intHTML !== "boolean" ) {
 				w.d.intHTML.empty().remove();
 			}
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleTimeDialogLabel'));
-			w.d.intHTML = $('<span>');
-			
-			if ( w.inputType !== 'number' ) { inBase.attr('pattern', '[0-9]*'); }
+			w.d.intHTML = $( "<span>" );
 			
 			w.fldOrder = w.__('durationOrder');
 			
-			for(i=0; i<=w.fldOrder.length; i++) {
-				switch (w.fldOrder[i]) {
-					case 'd':
-					case 'h':
-					case 'i':
-					case 's':
-						y = $.inArray(w.fldOrder[i], ['d','h','i','s']);
-						$('<div>').data('field', w.fldOrder[i]).addClass('ui-block-'+['a','b','c','d'][i]).append(inBase.clone()).appendTo(divIn).prepend('<label>'+w.__('durationLabel')[y]+'</label>');
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i]}}).addClass('ui-block-'+['a','b','c','d'][i]).buttonMarkup(butPTheme).appendTo(divPlus);
-						w._makeEl(butBase, {'attr': {'field':w.fldOrder[i]}}).addClass('ui-block-'+['a','b','c','d'][i]).buttonMarkup(butMTheme).appendTo(divMinus);
-						break;
-				}
+			for(i = 0; i < w.fldOrder.length; i++) {
+				tmp = ['a','b','c','d','e','f'][i];
+				offAmount = o.durationSteppers[w.fldOrder[i]];
+				$('<div>')
+					.append( w._makeEl(inBase, {"attr": {
+						"field": w.fldOrder[i],
+						"amount": offAmount
+					} } ) )
+					.addClass('ui-block-'+tmp)
+					.appendTo(divIn);
+				w._makeEl( butBase, {"attr": {
+						"field": w.fldOrder[i],
+						"amount": 1 * offAmount
+					} } )
+					.addClass( uid + "cbut ui-block-" + tmp + " ui-icon-plus " + butClass)
+					.appendTo( divPlus );
+				w._makeEl( butBase, {"attr": {
+						"field": w.fldOrder[i],
+						"amount": -1 * offAmount
+					} } )
+					.addClass( uid + "cbut ui-block-" + tmp + " ui-icon-minus " + butClass)
+					.appendTo( divMinus );
 			}
-			
-			i = w.theDate.getEpoch() - w.initDate.getEpoch();
-			if ( i<0 ) { i = 0; w.theDate.setTime(w.initDate.getTime()); }
-			w.lastDuration = i; // Let the number of seconds be sort of public.
-			
-			// DAYS 
-			cDur[0] = parseInt( i / ival.d,10); i = i % ival.d;
-			// HOURS 
-			cDur[1] = parseInt( i / ival.h, 10); i = i % ival.h;
-			// MINS AND SECS 
-			cDur[2] = parseInt( i / ival.i, 10);
-			cDur[3] = i % ival.i;
-			
-			divIn.find('input').each(function () {
-				switch ( $(this).parent().data('field') ) {
-					case 'd':
-						$(this).val(cDur[0]); break;
-					case 'h':
-						$(this).val(cDur[1]); break;
-					case 'i':
-						$(this).val(cDur[2]); break;
-					case 's':
-						$(this).val(cDur[3]); break;
-				}
-			});
 
 			w.d.divIn = divIn;
+			w._durbox_run_update();
 			
 			divPlus.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
 			divIn.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
 			divMinus.addClass('ui-grid-'+['a','b','c'][w.fldOrder.length-2]).appendTo(w.d.intHTML);
-
-			if (o.mobVer >= 140) {
-				divMinus.find('div').css({'min-height': '2.3em'});
-				divPlus.find('div').css({'min-height': '2.3em'});
-			}
 			
 			if ( o.useSetButton || o.useClearButton ) {
-				y = $('<div>', {'class':uid+'controls'});
+				y = $( "<div>", { "class": uid + "controls" } );
 				
 				if ( o.useSetButton ) {
-					$('<a href="#">'+w.__('setDurationButtonLabel')+'</a>')
-						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#' role='button'>" )
+						.appendTo(y)
+						.text( w.__('setDurationButtonLabel') )
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
-							w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(),w.theDate), 'date':w.theDate});
-							w.d.input.trigger('datebox', {'method':'close'});
+							w._t( { 
+								method: "set", 
+								value: w._formatter(w.__fmt(),w.theDate),
+								date: w.theDate
+							} );
+							w._t( { method: "close" } );
 						});
 				}
 				if ( o.useClearButton ) {
-					$('<a href="#">'+w.__('clearButton')+'</a>')
-						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#' role='button'>" + w.__( 'clearButton' ) + "</a>" )
+						.appendTo(y)
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w.d.input.val('');
-							w.d.input.trigger('datebox',{'method':'clear'});
-							w.d.input.trigger('datebox',{'method':'close'});
+							w._t( { method: "clear" } );
+							w._t( { method: "close" } );
 						});
 				}
+				
 				if ( o.useCollapsedBut ) {
 					y.addClass('ui-datebox-collapse');
 				}
@@ -190,15 +178,11 @@
 			}
 			
 			if ( o.repButton === false ) {
-				divPlus.on(o.clickEvent, 'div', function(e) {
+				w.d.intHTML.on(o.clickEvent, "."+ uid + "cbut", function(e) {
 					divIn.find(':focus').blur();
 					e.preventDefault();
-					w._offset($(this).data('field'), o.durationSteppers[$(this).data('field')]);
-				});
-				divMinus.on(o.clickEvent, 'div', function(e) {
-					divIn.find(':focus').blur();
-					e.preventDefault();
-					w._offset($(this).data('field'), o.durationSteppers[$(this).data('field')]*-1);
+					w._dbox_delta = ($(this).data('amount')>1) ? 1 : -1;
+					w._offset($(this).data('field'), $(this).data('amount'));
 				});
 			}
 			
@@ -207,48 +191,25 @@
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
 				divIn.on('mousewheel', 'input', function(e,d) {
 					e.preventDefault();
-					w._offset($(this).parent().data('field'), ((d<0)?-1:1)*o.durationSteppers[$(this).parent().data('field')]);
+					w._offset($(this).data('field'), ((d<0)?-1:1)*$(this).data('amount'));
 				});
 			}
 			
 			if ( o.repButton === true ) {
-				divPlus.on(w.drag.eStart, 'div', function(e) {
+				w.d.intHTML.on(g.eStart, "."+ uid + "cbut", function(e) {
 					divIn.find(':focus').blur();
-					tmp = [$(this).data('field'), o.durationSteppers[$(this).data('field')]];
-					w.drag.cnt = 0;
-					w.drag.move = true;
-					w._dbox_delta = 1;
+					tmp = [$(this).data('field'), $(this).data('amount')];
+					g.move = true;
+					g.cnt = 0;
+					w._dbox_delta = ($(this).data('amount')>1) ? 1 : -1;
 					w._offset(tmp[0], tmp[1], false);
 					w._durbox_run_update();
 					if ( !w.runButton ) {
-						w.drag.target = tmp;
+						g.target = tmp;
 						w.runButton = setTimeout(function() {w._durbox_run();}, 500);
 					}
 				});
-				
-				divMinus.on(w.drag.eStart, 'div', function(e) {
-					divIn.find(':focus').blur();
-					tmp = [$(this).data('field'), o.durationSteppers[$(this).data('field')]*-1];
-					w.drag.move = true;
-					w.drag.cnt = 0;
-					w._dbox_delta = -1;
-					w._offset(tmp[0], tmp[1], false);
-					w._durbox_run_update();
-					if ( !w.runButton ) {
-						w.drag.target = tmp;
-						w.runButton = setTimeout(function() {w._durbox_run();}, 500);
-					}
-				});
-				
-				divPlus.on(g.eEndA, function(e) {
-					if ( g.move ) {
-						e.preventDefault();
-						clearTimeout(w.runButton);
-						w.runButton = false;
-						g.move = false;
-					}
-				});
-				divMinus.on(g.eEndA, function(e) {
+				w.d.intHTML.on(g.eEndA, "."+ uid + "cbut", function(e) {
 					if ( g.move ) {
 						e.preventDefault();
 						clearTimeout(w.runButton);

@@ -256,7 +256,6 @@
 			
 			if ( o.repButton === false ) {
 				w.d.intHTML.on(o.clickEvent, "."+ uid + "cbut", function(e) {
-					console.log('a');
 					divIn.find(':focus').blur();
 					e.preventDefault();
 					w._dbox_delta = ($(this).data('amount')>1) ? 1 : -1;
