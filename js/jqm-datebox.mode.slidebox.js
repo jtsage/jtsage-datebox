@@ -8,132 +8,176 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeDateHigh: 'b',
-		themeDatePick: 'b',
-		themeDate: 'a',
+		themeDateHigh: "b",
+		themeDatePick: "b",
+		themeDate: "a",
 		useSetButton: true,
 		validHours: false,
-		slen: {'y': 5, 'm':6, 'd':15, 'h':12, 'i':30}
+		slen: {
+			"y": 5, 
+			"m": 6, 
+			"d": 15, 
+			"h": 12, 
+			"i":30
+		}
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		'_sbox_pos': function () {
 			var w = this, 
 				ech, top, par, tot;
 			
-			w.d.intHTML.find('div.ui-datebox-sliderow-int').each(function () {
+			w.d.intHTML.find( "div.ui-datebox-sliderow-int" ).each(function () {
 				ech = $(this);
 				par = ech.parent().outerWidth();
 				
 				if ( w.__('isRTL') ) { 
-					top = ech.find('div').last(); 
+					top = ech.find("div").last(); 
 				} else {
-					top = ech.find('div').first();
+					top = ech.find("div").first();
 				}
 				
-				tot = ech.find('div').size() * top.outerWidth();
+				tot = ech.find( "div" ).size() * top.outerWidth();
 				
 				fixer = ech.outerWidth();
 				
 				if ( fixer > 0 ) { tot = fixer; }
 				
-				top.css('marginLeft', (tot-par)/2*-1);
+				top.css( "marginLeft", ( tot - par ) / 2 * -1 );
 			});
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
 		'slidebox': function () {
-			var w = this,
-				o = this.options, i, y, hRow, phRow, tmp, testDate,
+			var i, y, hRow, phRow, tmp, testDate,
+				w = this,
+				o = this.options,
+				g = this.drag,
 				iDate = (w.d.input.val() === "") ? w._startOffset(w._makeDate(w.d.input.val())) : w._makeDate(w.d.input.val()),
-				uid = 'ui-datebox-',
-				thMod = (( this.options.mobVer < 140 ) ? 'up-' : ''),
-				slideBase = $("<div class='"+uid+"sliderow-int'></div>"),
-				phBase = $('<div>'),
-				ctrl = $("<div>", {"class":uid+'slide'});
+				uid = "ui-datebox-",
+				slideBase = $( "<div class='"+uid+"sliderow-int'></div>" ),
+				phBase = $( "<div>" ),
+				ctrl = $( "<div>", { "class": uid + "slide" } );
 			
 			if ( typeof w.d.intHTML !== 'boolean' ) {
 				w.d.intHTML.remove().empty();
 			} else {
-				w.d.input.on('datebox', function (e,p) {
-					if ( p.method === 'postrefresh' ) { w._sbox_pos(); }
+				w.d.input.on( "datebox", function (e,p) {
+					if ( p.method === "postrefresh" ) { w._sbox_pos(); }
 				});
 			}
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
-			w.d.intHTML = $('<span>')
+			w.d.intHTML = $( "<span class='" + uid + "nopad'>" )
 			
 			w.fldOrder = w.__('slideFieldOrder');
 			w._check();
 			w._minStepFix();
 			
-			$('<div class="'+uid+'header"><h4>'+w._formatter(w.__('headerFormat'), w.theDate)+'</h4></div>').appendTo(w.d.intHTML);
+			$("<div class='" + uid + "header'><h4>" + w._formatter(w.__('headerFormat'), w.theDate) + "</h4></div>")
+				.appendTo(w.d.intHTML);
 			
 			w.d.intHTML.append(ctrl);
 			
 			for ( y=0; y<w.fldOrder.length; y++ ) {
-				phRow = phBase.clone().data('rowtype', w.fldOrder[y]);
-				hRow = slideBase.clone().data('rowtype', w.fldOrder[y]).appendTo(phRow);
+				phRow = phBase
+					.clone()
+					.data( "rowtype", w.fldOrder[y]);
+				
+				hRow = slideBase
+					.clone()
+					.data( "rowtype", w.fldOrder[y])
+					.appendTo(phRow);
+					
 				if ( w.__('isRTL') === true ) { hRow.css('direction', 'rtl'); }
 				
 				switch (w.fldOrder[y]) {
 					case 'y':
-						phRow.addClass(uid+'sliderow-ym');
-						for ( i=o.slen.y*-1; i<(o.slen.y+1); i++ ) {
-							tmp = (i!==0)?((iDate.get(0) === (w.theDate.get(0) + i))?o.themeDateHigh:o.themeDate):o.themeDatePick;
-							$('<div>', {'class':uid+'slideyear ui-btn ui-btn-'+thMod+tmp})
-								.html(w.theDate.get(0)+i).data('offset', i).data('theme', tmp).appendTo(hRow);
+						phRow.addClass( uid + "sliderow-ym" );
+						for ( i = o.slen.y * -1; i < ( o.slen.y + 1 ); i++ ) {
+							tmp = ( i !== 0 ) ?
+								( ( iDate.get(0) === (w.theDate.get(0) + i) ) ?
+									o.themeDateHigh :
+									o.themeDate
+								) :
+								o.themeDatePick;
+							$( "<div>", { "class": uid + "slideyear ui-btn ui-btn-" + tmp } )
+								.text( w.theDate.get(0)+i )
+								.data( "offset", i )
+								.appendTo( hRow );
 						}
 						break;
 					case 'm':
-						phRow.addClass(uid+'sliderow-ym');
-						for ( i=o.slen.m*-1; i<(o.slen.m+1); i++ ) {
+						phRow.addClass( uid + "sliderow-ym" );
+						for ( i = o.slen.m * -1; i < ( o.slen.m + 1 ); i++ ) {
 							testDate = w.theDate.copy([0],[0,0,1]);
-							testDate.adj(1,i);
-							tmp = (i!==0)?((iDate.get(1) === testDate.get(1) && iDate.get(0) === testDate.get(0))?o.themeDateHigh:o.themeDate):o.themeDatePick;
-							$('<div>', {'class':uid+'slidemonth ui-btn ui-btn-'+thMod+tmp})
-								.html(String(w.__('monthsOfYearShort')[testDate.get(1)]))
-								.data('offset', i)
-								.data('theme', tmp).appendTo(hRow);
+							testDate.adj( 1, i );
+							tmp = ( i !== 0 ) ?
+								( ( iDate.get(1) === testDate.get(1) && iDate.get(0) === testDate.get(0) ) ?
+									o.themeDateHigh :
+									o.themeDate
+								) :
+								o.themeDatePick;
+							$( "<div>", { "class": uid + "slidemonth ui-btn ui-btn-" + tmp } )
+								.text( String(w.__('monthsOfYearShort')[testDate.get(1)]) )
+								.data( "offset", i )
+								.appendTo( hRow );
 						}
 						break;
 						
 					case 'd':
-						phRow.addClass(uid+'sliderow-d');
-						for ( i=o.slen.d*-1; i<(o.slen.d+1); i++ ) {
+						phRow.addClass( uid + "sliderow-d" );
+						for ( i = o.slen.d * -1; i < ( o.slen.d + 1 ); i++ ) {
 							testDate = w.theDate.copy();
-							testDate.adj(2,i);
-							tmp = (i!==0)?((iDate.comp() === testDate.comp())?o.themeDateHigh:o.themeDate):o.themeDatePick;
-							if ( ( o.blackDates !== false && $.inArray(testDate.iso(), o.blackDates) > -1 ) ||
-								( o.blackDays !== false && $.inArray(testDate.getDay(), o.blackDays) > -1 ) ) {
-								tmp += ' '+uid+'griddate-disable';
-							}
-							$('<div>', {'class':uid+'slideday ui-btn ui-btn-'+thMod+tmp})
-								.html(testDate.get(2) + '<br /><span class="'+uid+'slidewday">' + w.__('daysOfWeekShort')[testDate.getDay()] + '</span>')
-								.data('offset', i).data('theme', tmp).appendTo(hRow);
+							testDate.adj( 2, i );
+							tmp = ( i !== 0 ) ?
+								( ( iDate.comp() === testDate.comp() ) ?
+									o.themeDateHigh :
+									o.themeDate
+								) :
+								o.themeDatePick;
+							if ( 
+								( $.inArray(testDate.iso(), o.blackDates) > -1 || $.inArray(testDate.getDay(), o.blackDays) > -1 )
+								&& ( $.inArray(testDate.iso(), o.whiteDates) < 0 ) 
+							) { tmp += " ui-state-disabled"; }
+							
+							$( "<div>", { "class": uid + "slideday ui-btn ui-btn-" + tmp } )
+								.html( testDate.get(2) + "<br /><span class='" + uid + "slidewday'>" + w.__('daysOfWeekShort')[testDate.getDay()] + "</span>")
+								.data( "offset", i )
+								.appendTo( hRow );
 						}
 						break;
 					case 'h':
-						phRow.addClass(uid+'sliderow-hi');
-						for ( i=o.slen.h*-1; i<(o.slen.h+1); i++ ) {
+						phRow.addClass( uid + "sliderow-hi" );
+						for ( i = o.slen.h * -1; i < ( o.slen.h + 1 ); i++ ) {
 							testDate = w.theDate.copy();
-							testDate.adj(3,i);
-							tmp = (i!==0)?o.themeDate:o.themeDatePick;
-							if ( o.validHours !== false && $.inArray(testDate.get(3), o.validHours) < 0 ) {
-								tmp += ' '+uid+'griddate-disable';
+							testDate.adj( 3, i );
+							tmp = ( i !== 0 ) ?
+								o.themeDate :
+								o.themeDatePick;
+							if ( o.validHours !== false && $.inArray( testDate.get(3), o.validHours ) < 0 ) {
+								tmp += " ui-state-disabled";
 							}
-							$('<div>', {'class':uid+'slidehour ui-btn ui-btn-'+thMod+tmp})
-								.html( w.__('timeFormat') === 12 ? w._formatter('%I<span class="'+uid+'slidewday">%p</span>', testDate) : testDate.get(3) )
-								.data('offset', i).data('theme', tmp).appendTo(hRow);
+							$( "<div>", { "class": uid + "slidehour ui-btn ui-btn-" + tmp } )
+								.html( w.__('timeFormat') === 12 ?
+									w._formatter('%-I<span class="'+uid+'slidewday">%p</span>', testDate) :
+									testDate.get(3)
+								)
+								.data( "offset", i )
+								.appendTo( hRow );
 						}
 						break;
 					case 'i':
-						phRow.addClass(uid+'sliderow-hi');
-						for ( i=o.slen.i*-1; i<(o.slen.i+1); i++ ) {
+						phRow.addClass( uid + "sliderow-hi" );
+						for ( i = o.slen.i * -1; i < ( o.slen.i + 1 ); i++ ) {
 							testDate = w.theDate.copy();
-							testDate.adj(4,(i*o.minuteStep));
-							tmp = (i!==0)?o.themeDate:o.themeDatePick;
-							$('<div>', {'class':uid+'slidemins ui-btn ui-btn-'+thMod+tmp})
-								.html(w._zPad(testDate.get(4))).data('offset', i*o.minuteStep).data('theme', tmp).appendTo(hRow);
+							testDate.adj( 4, ( i * o.minuteStep ) );
+							tmp = ( i !== 0 ) ?
+								o.themeDate :
+								o.themeDatePick;
+							$( "<div>", {"class": uid + "slidemins ui-btn ui-btn-" + tmp } )
+								.text( w._zPad( testDate.get(4) ) )
+								.data( "offset", i * o.minuteStep )
+								.appendTo( hRow );
 						}
 						break;
 				}
@@ -141,27 +185,35 @@
 			}
 			
 			if ( o.useSetButton || o.useClearButton ) {
-				y = $('<div>', {'class':uid+'controls'});
+				y = $( "<div>", { "class": uid + "controls " + uid + "repad" } );
 				
 				if ( o.useSetButton ) {
-					$('<a href="#">'+w.__('setDateButtonLabel')+'</a>')
-						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#' role='button'>" )
+						.appendTo(y)
+						.text(w.__('setDateButtonLabel'))
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							if ( w.dateOK === true ) {
-								w.d.input.trigger('datebox', {'method':'set', 'value':w._formatter(w.__fmt(),w.theDate), 'date':w.theDate});
-								w.d.input.trigger('datebox', {'method':'close'});
+								w._t( { 
+									method: "set", 
+									value: w._formatter(w.__fmt(),w.theDate),
+									date: w.theDate
+								} );
+								w._t( { method: "close" } );
 							}
+							
 						});
 				}
 				if ( o.useClearButton ) {
-					$('<a href="#">'+w.__('clearButton')+'</a>')
-						.appendTo(y).buttonMarkup({theme: o.theme, icon: 'delete', iconpos: 'left', corners:true, shadow:true})
+					$( "<a href='#' role='button'>" + w.__( 'clearButton' ) + "</a>" )
+						.appendTo(y)
+						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w.d.input.val('');
-							w.d.input.trigger('datebox',{'method':'clear'});
-							w.d.input.trigger('datebox',{'method':'close'});
+							w._t( { method: "clear" } );
+							w._t( { method: "close" } );
 						});
 				}
 				if ( o.useCollapsedBut ) {
@@ -182,13 +234,13 @@
 				w._offset($(this).parent().data('rowtype'), parseInt($(this).data('offset'),10));
 			});
 			
-			w.d.intHTML.on(w.drag.eStart, '.ui-datebox-sliderow-int', function(e) {
-				if ( !w.drag.move ) {
-					w.drag.move = true;
-					w.drag.target = $(this);
-					w.drag.pos = parseInt(w.drag.target.css('marginLeft').replace(/px/i, ''),10);
-					w.drag.start = w.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX;
-					w.drag.end = false;
+			w.d.intHTML.on(g.eStart, '.ui-datebox-sliderow-int', function(e) {
+				if ( !g.move ) {
+					g.move = true;
+					g.target = $(this);
+					g.pos = parseInt(g.target.css('marginLeft').replace(/px/i, ''),10);
+					g.start = w.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX;
+					g.end = false;
 					e.stopPropagation();
 					e.preventDefault();
 				}
