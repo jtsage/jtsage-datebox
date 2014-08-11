@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - DateBox Demos</title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.css" />
-	<link type="text/css" href="{{ site.cdn }}jqm-datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="{{ site.cdn }}jqm-datebox{{site.min}}.css" rel="stylesheet" /> 
 	
 	<link type="text/css" href="css/demos.css" rel="stylesheet" /> 
 	
@@ -16,13 +16,16 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.core.min.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.calbox.min.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.datebox.min.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.flipbox.min.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.durationbox.min.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.slidebox.min.js"></script>
-	<script type="text/javascript" src="{{ site.i18n }}jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<script type="text/javascript" src="{{ site.basesite }}js/doc.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.core{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.calbox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.datebox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.flipbox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.durationbox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.durationflipbox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.slidebox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.customflip{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.i18n }}jqm-datebox.lang.utf8.js"></script>
 	
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile, { ajaxEnabled: false });
@@ -32,6 +35,7 @@
 <div data-role="page" id="main"> 
 	<div data-role="header" data-position="fixed"> 
 		<h1>jQueryMobile - DateBox</h1>
+		<a href="javascript:$('#langpicker').datebox('open')" class="ui-btn ui-icon-left ui-icon-user ui-shadow ui-corner-all">i18n</a>
 	</div>
 	<div class="ui-content" role="main">
 		<div class="content-secondary"> 
@@ -60,22 +64,22 @@
 			
 			<div class="ui-field-contain">
 				<label for="mode1">CalBox</label>
-				<input name="mode1" id="mode1" type="text" data-role="datebox" data-options='{"mode":"calbox", "useNewStyle":true}' />
+				<input name="mode1" id="mode1" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
 			</div><div class="ui-field-contain">
 				<label for="mode2">DateBox</label>
-				<input name="mode2" id="mode2" type="text" data-role="datebox" data-options='{"mode":"datebox", "useNewStyle":true}' />
+				<input name="mode2" id="mode2" type="text" data-role="datebox" data-options='{"mode":"datebox"}' />
 			</div><div class="ui-field-contain">
 				<label for="mode6">TimeBox</label>
-				<input name="mode6" id="mode6" type="text" data-role="datebox" data-options='{"mode":"timebox", "useNewStyle":true}' />
+				<input name="mode6" id="mode6" type="text" data-role="datebox" data-options='{"mode":"timebox"}' />
 			</div><div class="ui-field-contain">
 				<label for="mode3">FlipBox</label>
-				<input name="mode3" id="mode3" type="text" data-role="datebox" data-options='{"mode":"flipbox", "useNewStyle":true}' />
+				<input name="mode3" id="mode3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}' />
 			</div><div class="ui-field-contain">
 				<label for="mode4">SlideBox</label>
-				<input name="mode4" id="mode4" type="text" data-role="datebox" data-options='{"mode":"slidebox", "useNewStyle":true}' />
+				<input name="mode4" id="mode4" type="text" data-role="datebox" data-options='{"mode":"slidebox"}' />
 			</div><div class="ui-field-contain">
 				<label for="mode5">DurationBox</label>
-				<input name="mode5" id="mode5" type="text" data-role="datebox" data-options='{"mode":"durationbox", "useNewStyle":true}' />
+				<input name="mode5" id="mode5" type="text" data-role="datebox" data-options='{"mode":"durationbox"}' />
 			</div>
 		</div> 
 	</div>
