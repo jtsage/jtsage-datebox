@@ -25,34 +25,77 @@
 	<script type="text/javascript" src="../js/jqm-datebox.mode.slidebox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.customflip.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox-devtool.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jqm-datebox.lang.utf8.js"></script>
 	
 	<script type="text/javascript">
-		var selectdata = ['Single', 'Separated', 'Involved', 'Married', 'Widowed', 'Lover', 'Other'];
+		var langkeys = [], langlist = {
+			"en": "English US",
+			"af": "Afrikaans",
+			"ar": "Arabic",
+			"bg": "Bulgarian",
+			"ca": "Catalan",
+			"cs": "Czech",
+			"da": "Danish",
+			"de": "German",
+			"el": "Greek, Modern",
+			"es-ES": "Spanish",
+			"fi": "Finnish",
+			"fr": "French",
+			"he": "Hebrew",
+			"hr": "Croatian",
+			"hu": "Hungarian",
+			"id": "Indonesian",
+			"it": "Italian",
+			"ja": "Japanese",
+			"ko": "Korean",
+			"lt": "Lituanian",
+			"nl": "Dutch",
+			"no": "Norwegian",
+			"pl": "Polish",
+			"pt-BR": "Portuguese",
+			"pt-PT": "Portuguese",
+			"ro": "Romainian",
+			"ru": "Russian",
+			"sr": "Serbian",
+			"sv-SE": "Swedish",
+			"th": "Thai",
+			"tr": "Turkish",
+			"uk": "Ukrainian",
+			"vi": "Vietnamese",
+			"zh-CN": "Chinese - Simplified"
+		}
+		for ( lang in langlist ) {
+			langkeys.push(lang + ": " + langlist[lang]);
+		}
+		
+		var changeLang = function(a) {
+			var colonPos, thisLang,
+				thisLangRaw = langkeys[a.custom[0]],
+				colonPos = thisLangRaw.search(/:/),
+				thisLang = thisLangRaw.substr(0,colonPos);
+			
+			$( "[data-role='datebox']" ).each(function() {
+				if ( typeof $(this).data('mobile-datebox') !== "undefined" ) {
+					$(this).datebox({'useLang': thisLang});
+				} else {
+					$(this).attr('datebox-use-lang', thisLang);
+				}
+			});
+		};
+		
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			customData: [{
 				'input': true,
 				'name': '',
-				'data': selectdata
+				'data': langkeys
 			}],
 			customDefault: [0],
-			customHead: "Blah!",
-			calControlGroup: true,
-			lockInput: true,
-			useFocus: false,
-			//calUsePickers: true,
+			customHead: "Language",
+			overrideCustomSet: "Choose",
+			
 			closeCallback: function(a, b) { console.log(a); console.log(b); },
 			closeCallbackArgs: ['hi'],
-			openCallback: function(a) { console.log(a); },
-			//useModalTheme: 'a',
-			//useModal: false,
-			useTodayButton: true,
-			useInline: false,
-			useTomorrowButton: true,
-			useClearButton: true,
-			minuteStep: 2,
-			repButton: true,
-			overrideTimeFormat: 24,
+			useLang: "en",
 			
 			
 			overrideSlideFieldOrder: ['y','m','d','h','i']
@@ -68,16 +111,16 @@
 	<div class="ui-content" role="main">
 		<div class="ui-field-contain">
 			<label for="aa1">text comparison</label>
-			<input name="aa1" type="text" data-theme="b" data-mini="true" id="aa1"/>
+			<input name="aa1" type="text" data-mini="true" id="aa1"/>
 		</div>
 
 		<div class="ui-field-contain">
-			<label for="lang1">calbox</label>
-			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="durationbox" id="lang1" />
+			<label for="lang1">Lang Picker</label>
+			<input name="lang1" type="text" data-role="datebox" data-datebox-button-icon="user" data-datebox-close-callback="changeLang" data-datebox-mode="customflip" id="lang1" />
 		</div>
 		<div class="ui-field-contain">
 			<label for="lang2">calbox</label>
-			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="timebox"  id="lang2" />
+			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="calbox"  id="lang2" />
 		</div>
 		<!--div data-role="fieldcontain">
 			<label for="c2">custom box</label>
