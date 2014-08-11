@@ -2,7 +2,6 @@
 title: customData
 short: Data structure for custom modes
 modes: [
-	'custombox',
 	'customflip'
 ]
 cats: [ 'custom' ]

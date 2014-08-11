@@ -10,7 +10,6 @@ modes: [
 	'timeflipbox',
 	'durationbox',
 	'durationflipbox',
-	'custombox',
 	'customflip'
 ]
 cats: [ 'display' ]

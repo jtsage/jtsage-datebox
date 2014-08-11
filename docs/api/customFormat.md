@@ -2,7 +2,6 @@
 title: customFormat
 short: Format for returned data
 modes: [
-	'custombox',
 	'customflip'
 ]
 cats: [ 'custom' ]

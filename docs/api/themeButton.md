@@ -4,8 +4,7 @@ short: Theme swatch for +/- Buttons
 modes: [
 	'datebox',
 	'timebox',
-	'durationbox',
-	'custombox'
+	'durationbox'
 ]
 cats: [ 'themes' ]
 relat: "themes"

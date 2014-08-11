@@ -2,7 +2,6 @@
 title: customDefault
 short: Array of default indexs for custom modes
 modes: [
-	'custombox',
 	'customflip'
 ]
 cats: [ 'custom' ]

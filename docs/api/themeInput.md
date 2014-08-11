@@ -4,8 +4,7 @@ short: Theme swatch for input elements
 modes: [
 	'datebox',
 	'timebox',
-	'durationbox',
-	'custombox'
+	'durationbox'
 ]
 cats: [ 'themes' ]
 relat: "themes"

@@ -2,7 +2,6 @@
 title: overrideCustomSet
 short: Set button for custom modes (i18n aware)
 modes: [
-	'custombox',
 	'customflip'
 ]
 cats: [ 'custom' ]

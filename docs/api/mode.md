@@ -10,7 +10,6 @@ modes: [
 	'timeflipbox',
 	'durationbox',
 	'durationflipbox',
-	'custombox',
 	'customflip'
 ]
 cats: [ 'common' ]
@@ -36,5 +35,4 @@ Choose the mode of operation for datebox.
 
 ### Official, Unsupported Versions
 
- - custombox
  - customflip
