@@ -11,8 +11,5 @@ sect: cat2
 	{% if docu.layout == "event" %}
 		<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}"><h2>{{docu.title}}</h2><p>{{docu.short}}</p></a></li>
 	{% endif %}
-	{% if docu.layout == "event" %}
-		<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}"><h2>{{docu.title}}</h2><p>{{docu.short}}</p></a></li>
-	{% endif %}
 	{% endfor %}
 </ul>

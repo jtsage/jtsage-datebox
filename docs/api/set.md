@@ -5,7 +5,7 @@ modes: [
 ]
 cats: [ 'event' ]
 relat: "event"
-layout: eventw
+layout: event
 etype: "Trigger and Listener"
 ---
 

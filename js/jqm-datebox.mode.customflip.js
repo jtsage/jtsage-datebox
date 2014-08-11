@@ -182,6 +182,12 @@
 			
 			if ( typeof w.customCurrent === "undefined" ) { w.customCurrent = customCurrent; }
 			
+			if ( typeof o.customData === "string" && typeof window[o.customData] !== "undefined" ) {
+				// Allow the passing of a global variable name from data-options or data-datebox-custom-data
+				// The other option was to eval() the data, but that is an ugly, ugly road to walk down.
+				o.customData = window[o.customData];
+			}
+
 			if ( o.customFormat === false ) {
 				tmp = [];
 				for ( i = 0; i<o.customData.length; i++ ) {
@@ -209,7 +215,7 @@
 			});
 
 			w.fldOrder = w._cubox_range(o.customData.length);
-			
+
 			tmp = $("<div class='" + uid + "header'>");
 			if ( o.customData.length > 1 ) { 
 				tmp.addClass("ui-grid-" + [0,0,'a','b','c'][o.customData.length] );
