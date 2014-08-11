@@ -22,7 +22,7 @@
     { "url":"6-5-globals", 			"name":"6.5. Global Data"},
     { "url":"7-0-demos", 			"name":"7. Advanced Demos"},
     { "url":"7-1-formats",			"name":"7.1. Multiple Formats"},
-    { "url":"7-2-custom",			"name":"7.2. CustomBox/Flip"},
+    { "url":"7-2-custom",			"name":"7.2. CustomFlip"},
     { "url":"7-3-demos",			"name":"7.3. Demo Magic"},
     { "url":"8-0-pack", 			"name":"8. 3rd-Party Integration"}
 ],

@@ -1,5 +1,5 @@
 ---
-title: CustomBox / CustomFlip
+title: CustomFlip
 pagenum: 23
 layout: doc
 ---
@@ -24,7 +24,7 @@ layout: doc
 </script>
 
 
-# CustomBox / CustomFlip
+# CustomFlip
 
 The custom modes allow you display and select data that has absolutly nothing to 
 do with dates.  It uses the bare minimum of the datebox framework to provide the 
@@ -37,11 +37,8 @@ documentation for this mode, but it does appear in the API as well.
 
 ### Simple Options
 
- - {% api_doc themeOptPick %} : Theme for centered data (flip)
- - {% api_doc themeOpt %} : Theme for all other data (flip)
- - {% api_doc themeButton %} : Theme for +/- buttons (box)
- - {% api_doc themeInput %} : Theme for input box data (box)
- - {% api_doc useSetButton %} : Show a set button (box)
+ - {% api_doc themeOptPick %} : Theme for centered data
+ - {% api_doc themeOpt %} : Theme for all other data
 
 ### {% api_doc overrideCustomSet %}
 

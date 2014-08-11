@@ -5,7 +5,7 @@ modes: [
 ]
 cats: [ 'event' ]
 relat: "event"
-layout: event
+layout: eventw
 etype: "Trigger and Listener"
 ---
 
@@ -17,7 +17,8 @@ This will set the date for the DateBox control.
 $(input).trigger('datebox', {'method':'set', 'value':<STR Date>});
 {% endhighlight %}
 
-This is similar to {% api_doc setTheDate %}, however, this expects a **formatted date string**, not a Date() object.
+This is similar to {% api_doc setTheDate %}, however, this traditionally expects a 
+**formatted date string**, but as of 1.5.0, will accept a Date() object.
 
 ### As a listener
 

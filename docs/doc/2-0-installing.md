@@ -100,6 +100,11 @@ happens sometimes.
 ### "Stable" Versions
 Mostly "stable" versions, and past versions can be found by browsing the [CDN](http://cdn.jtsage.com/datebox/).
 
+### The Version Tester
+[Version Tester](http://dev.jtsage.com/jQM-DateBox/tests/dev.php?ver=1.4.3&verB=1.4.3) allows you to test different 
+versions of jQM (ver) against DateBox (verB).  Chances are if you understand why this might be helpful, you also know
+how to edit a query string.  This is mentioned here only as a time saver.
+
 ### Compiled Single Modes
 If you only plan to *ever* use one mode, you can find complied versions by browsing
 the [CDN](http://cdn.jtsage.com/datebox/) - they have "COMP" in the filename, and

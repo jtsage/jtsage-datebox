@@ -382,6 +382,7 @@
 			// Date Parser
 			var w = this,
 				o = this.options,
+				defVal = this.options.defaultValue,
 				adv = w.__fmt(),
 				exp_input = null,
 				exp_names = [],
@@ -414,9 +415,9 @@
 				exp_format = adv.exec(w.__fmt());
 
 				if ( exp_input === null || exp_input.length !== exp_format.length ) {
-					if ( typeof o.defaultValue === "number" && o.defaultValue > 0 ) {
+					if ( typeof defVal === "number" && defVal > 0 ) {
 						// defaultValue is an integer
-						return new w._date( ( w.initDate.getEpoch() + parseInt( o.defaultValue,10 ) ) * 1000 );
+						return new w._date( ( w.initDate.getEpoch() + parseInt( defVal,10 ) ) * 1000 );
 					}
 					// No default, use ZERO.
 					return new w._date( w.initDate.getTime() );
@@ -467,20 +468,25 @@
 			exp_format = adv.exec(w.__fmt());
 
 			if ( exp_input === null || exp_input.length !== exp_format.length ) {
-				if ( o.defaultValue !== false ) {
-					switch ( typeof o.defaultValue ) {
+				if ( defVal !== false ) {
+					switch ( typeof defVal ) {
 						case 'object':
-							if ( o.defaultValue.length === 3 ) {
-								date =  w._pa( o.defaultValue, ( o.mode.substr(4) === "time" ? date : false ) );
-							} break;
+							if ( $.isFunction( defVal.getDay ) ) {
+								date = defVal;
+							} else {
+								if ( defVal.length === 3 ) {
+									date =  w._pa( defVal, ( o.mode.substr(0,4) === "time" ? date : false ) );
+								}
+							} 
+							break;
 						case 'number':
-							date =  new w._date( o.defaultValue * 1000 ); break;
+							date =  new w._date( defVal * 1000 ); break;
 						case 'string':
-							if ( o.mode.substr(4) === "time" ) {
-								exp_temp = $.extend( [0,0,0], o.defaultValue.split( ":" ) ).slice( 0, 3 );
+							if ( o.mode.substr(0,4) === "time" ) {
+								exp_temp = $.extend( [0,0,0], defVal.split( ":" ) ).slice( 0, 3 );
 								date = w._pa( exp_temp, date ); 
 							} else {
-								exp_temp = $.extend( [0,0,0], o.defaultValue.split( "-" ) ).slice( 0, 3 );
+								exp_temp = $.extend( [0,0,0], defVal.split( "-" ) ).slice( 0, 3 );
 								exp_temp[1]--;
 								date = w._pa( exp_temp, false ); 
 							} break;
@@ -807,7 +813,7 @@
 
 			w.initDate = new w._date();
 			w.theDate = ( o.defaultValue ) ?
-				w._makeDate( o.defaultValue ) :
+				w._makeDate() :
 				( (w.d.input.val() !== "" ) ?
 					w._makeDate( w.d.input.val() ) :
 					new w._date() );

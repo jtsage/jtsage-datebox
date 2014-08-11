@@ -15,9 +15,10 @@ modes: [
 cats: [ 'display' ]
 relat: "display"
 layout: api
-defval: "calendar"
+defval: "false"
 dattype: "String"
 dyn: "False"
 ---
 
-This is the class of the button in the input element.  Any valid ui-icon-&lt;name> is fine.
+This is the class of the button in the input element.  Any valid ui-icon-&lt;name> is fine. The default
+of "false" will cause DateBox to use "ui-icon-calendar" for date based modes, and "ui-icon-clock" for time or duration modes.
