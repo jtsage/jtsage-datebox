@@ -13,6 +13,7 @@
 		useSetButton: true,
 		customData: [ ],
 		customDefault: [0,0,0],
+		customDataLen: 25,
 		customFormat: false,
 		customHead: false,
 		customfliplang: {
@@ -55,24 +56,25 @@
 		},
 		'_cubox_arr': function (data, choice) {
 			var base = data, x,
+				len = this.options.customDataLen,
 				before = data.slice(0,choice),
 				after = data.slice(choice+1);
 			
-			while ( before.length < 10 ) {
+			while ( before.length < len ) {
 				for ( x = base.length; x > 0; x-- ) {
 					before.unshift(base[x-1]);
 				}
 			}
-			while ( before.length > 10 ) {
+			while ( before.length > len ) {
 				before.shift();
 			}
 			
-			while ( after.length < 10 ) {
+			while ( after.length < len ) {
 				for ( x = 0; x < base.length; x++ ) {
 					after.push(base[x]);
 				}
 			}
-			after.length = 10;
+			after.length = len;
 			
 			before.push(data[choice]);
 			
@@ -235,7 +237,7 @@
 				hRowIn = hRow.find( "ul" );
 				if ( o.customData.length === 1 ) { hRow.css( "width", "90%" ); }
 				for ( i in lineArr ) {
-					tmp = ( i != 10 ) ? o.themeOpt : o.themeOptPick;
+					tmp = ( i != o.customDataLen ) ? o.themeOpt : o.themeOptPick;
 					$( "<li>", { "class": "ui-body-" + tmp } )
 						.html( "<span>" + lineArr[i] + "</span>" )
 						.appendTo( hRowIn );
