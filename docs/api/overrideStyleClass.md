@@ -9,9 +9,10 @@ layout: api
 defval: "--"
 dattype: "--"
 dyn: "--"
+depre: "true"
 ---
 
-** OPTION REMOVED **
+**OPTION DEPRECIATED AND REMOVED**
 
 When using {% api_doc useNewStyle %}, override the default icon scheme with a css
 class of your own.  Useful if you need more than a single style of datebox icon - otherwise

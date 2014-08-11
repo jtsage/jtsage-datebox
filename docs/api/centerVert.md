@@ -15,9 +15,12 @@ modes: [
 cats: [ 'display' ]
 relat: "display"
 layout: api
-defval: "false"
-dattype: "Boolean"
-dyn: "True"
+defval: "--"
+dattype: "--"
+dyn: "--"
+depre: "true"
 ---
 
-When using datebox popup mode, force the control to center vertically in the window rather then over the input element
+**OPTION DEPRECIATED AND REMOVED**
+
+For position options, see {% api_doc popupForceX %}, {% api_doc popupForceY %}, and {% api_doc popupPosition %}

@@ -15,9 +15,9 @@ modes: [
 cats: [ 'display' ]
 relat: "display"
 layout: api
-defval: "false"
+defval: "true"
 dattype: "Boolean"
 dyn: "False"
 ---
 
-When using datebox popup mode, shade the background and force input to the control
+Shade the background and force input to the control - do not allow outside clicks to close the control. This is the default.

@@ -15,9 +15,12 @@ modes: [
 cats: [ 'display' ]
 relat: "display"
 layout: api
-defval: "false"
-dattype: "Boolean"
-dyn: "True"
+defval: "--"
+dattype: "--"
+dyn: "--"
+depre: "true"
 ---
 
-Force datebox to always use jqm builtin dialog mode.
+**OPTION DEPRECIATED AND REMOVED**
+
+jQM Dialog's Mode has been deprecitated, and will be removed completely in jQM-1.5.0

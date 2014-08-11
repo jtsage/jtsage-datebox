@@ -9,9 +9,10 @@ layout: api
 defval: "--"
 dattype: "--"
 dyn: "--"
+depre: "true"
 ---
 
-**OPTION REMOVED**
+**OPTION DEPRECIATED AND REMOVED**
 
 New way is much better, and it doesn't require any extra image files.
 

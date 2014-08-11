@@ -9,8 +9,9 @@ layout: api
 defval: "--"
 dattype: "--"
 dyn: "--"
+depre: "true"
 ---
 
-** OPTION REMOVED **
+**OPTION DEPRECIATED AND REMOVED**
 
 When using {% api_doc useNewStyle %}, use a light colored icon instead of a dark one

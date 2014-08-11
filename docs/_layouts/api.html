@@ -23,7 +23,9 @@
 	</div>
 
 <div class="ui-content" role="main">
-	<h1>{{page.title}}</h1>
+	
+	{% capture style %}{% if page.depre == "true" %} style="color:red"{% endif %}{% endcapture %}
+	<h1{{style}}>{{page.title}}</h1>
 	<h3>{{page.short}}</h3>
 	{{content}}
 	

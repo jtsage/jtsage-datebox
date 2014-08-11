@@ -15,9 +15,12 @@ modes: [
 cats: [ 'display' ]
 relat: "display"
 layout: api
-defval: "true"
-dattype: "Boolean"
-dyn: "False"
+defval: "--"
+dattype: "--"
+dyn: "--"
+depre: "true"
 ---
 
-Re-calculate positioning when the screen size changes - for instance when flipping from portrait to landscape mode. This only applies to datebox popup mode
+**OPTION DEPRECIATED AND REMOVED**
+
+Base popup code handles this transparently now.

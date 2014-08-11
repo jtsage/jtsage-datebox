@@ -15,9 +15,9 @@ modes: [
 cats: [ 'display' ]
 relat: "display"
 layout: api
-defval: "pop"
+defval: "fade"
 dattype: "String"
 dyn: "False"
 ---
 
-Transition to use on datebox popup, jqm popup, and dialog display modes
+Transition to use on popup

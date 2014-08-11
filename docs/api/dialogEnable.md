@@ -15,9 +15,12 @@ modes: [
 cats: [ 'display' ]
 relat: "display"
 layout: api
-defval: "false"
-dattype: "Boolean"
-dyn: "False"
+defval: "--"
+dattype: "--"
+dyn: "--"
+depre: "true"
 ---
 
-Allow the use of jqm builtin dialog mode.  When not forced, dialog will be enabled when screen size is less than 400px
+**OPTION DEPRECIATED AND REMOVED**
+
+jQM Dialog's Mode has been deprecitated, and will be removed completely in jQM-1.5.0
