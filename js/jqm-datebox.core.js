@@ -144,8 +144,11 @@
 						case 1: this.setD( 1, this.get(1) + amount ); break;
 						case 2: this.setD( 2, this.get(2) + amount ); break;
 						case 3: amount *= 60;
+							/* falls through */
 						case 4: amount *= 60;
+							/* falls through */
 						case 5: amount *= 1000;
+							/* falls through */
 						case 6: this.setTime( this.getTime() + amount ); break;
 					}
 					return this;
@@ -362,7 +365,7 @@
 		},
 		_parser: {
 			// Custom Parser Definitions.
-			"default": function ( str ) { return false; }
+			"default": function () { return false; } // Arguments is STR
 		},
 		_n: function ( val, def ) {
 			// Don't allow negative values, use a default instead
@@ -553,7 +556,7 @@
 			return date;
 		},
 		_customformat: {
-			"default": function(oper, date) { return false; }
+			"default": function() { return false; } // Arguments are OPER, DATE
 		},
 		_formatter: function(format, date) {
 			var w = this,
@@ -964,7 +967,7 @@
 					setTimeout( function(w) { 
 						return function() {
 							w._t( { method: "postrefresh" } );
-						}
+						};
 					}(w), 100);
 					return true;
 				} else {
@@ -1033,10 +1036,8 @@
 			// returns false then the open/update will stop.
 			if ( o.openCallback !== false ) {
 				if ( ! $.isFunction( o.openCallback ) ) {
-					if ( typeof window[ o.openCallback ] !== "undefined" ) {
+					if ( typeof window[ o.openCallback ] === "function" ) {
 						o.openCallback = window[ o.openCallback ];
-					} else {
-						o.openCallback = new Function( o.openCallback );
 					}
 				}
 				basepop.afteropen = function() {
@@ -1048,10 +1049,8 @@
 			// Prepare close callback.
 			if ( o.closeCallback !== false ) {
 				if ( ! $.isFunction( o.closeCallback ) ) {
-					if ( typeof window[ o.closeCallback ] !== "undefined" ) {
+					if ( typeof window[ o.closeCallback ] === "function" ) {
 						o.closeCallback = window[ o.closeCallback ];
-					} else {
-						o.closeCallback = new Function( o.closeCallback );
 					}
 				}
 				basepop.afterclose = function() {

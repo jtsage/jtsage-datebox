@@ -40,8 +40,8 @@
 			var w = this, tmp,
 				o = this.options;
 				
-			tmp = (w.customCurrent[fld] + amount) % o.customData[fld][ "data" ].length;
-			if ( tmp < 0 ) { tmp = o.customData[fld][ "data" ].length + tmp; }
+			tmp = (w.customCurrent[fld] + amount) % o.customData[fld].data.length;
+			if ( tmp < 0 ) { tmp = o.customData[fld].data.length + tmp; }
 			
 			w.customCurrent[fld] = tmp;
 			
@@ -220,7 +220,7 @@
 						"ui-block-" + ['a','b','c','d'][y] :
 						""
 					)
-					.text( o.customData[ y ][ "name" ] )
+					.text( o.customData[ y ].name )
 					.css( "textAlign", "center")
 					.appendTo( tmp );
 			}
@@ -229,7 +229,7 @@
 			w.d.intHTML.append(ctrl);
 			
 			for ( y = 0; y < o.customData.length; y++ ) {
-				lineArr = w._cubox_arr( o.customData[ y ][ "data" ], w.customCurrent[ y ] );
+				lineArr = w._cubox_arr( o.customData[ y ].data, w.customCurrent[ y ] );
 				hRow = w._makeEl( flipBase, { "attr": {
 					"field": y,
 					"amount": 1

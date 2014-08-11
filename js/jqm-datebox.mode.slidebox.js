@@ -23,8 +23,8 @@
 	});
 	$.extend( $.mobile.datebox.prototype, {
 		'_sbox_pos': function () {
-			var w = this, 
-				ech, top, par, tot;
+			var fixer, ech, top, par, tot,
+				w = this;
 			
 			w.d.intHTML.find( "div.ui-datebox-sliderow-int" ).each(function () {
 				ech = $(this);
@@ -67,7 +67,7 @@
 			}
 			
 			w.d.headerText = ((w._grabLabel() !== false)?w._grabLabel():w.__('titleDateDialogLabel'));
-			w.d.intHTML = $( "<span class='" + uid + "nopad'>" )
+			w.d.intHTML = $( "<span class='" + uid + "nopad'>" );
 			
 			w.fldOrder = w.__('slideFieldOrder');
 			w._check();
@@ -135,10 +135,8 @@
 									o.themeDate
 								) :
 								o.themeDatePick;
-							if ( 
-								( $.inArray(testDate.iso(), o.blackDates) > -1 || $.inArray(testDate.getDay(), o.blackDays) > -1 )
-								&& ( $.inArray(testDate.iso(), o.whiteDates) < 0 ) 
-							) { tmp += " ui-state-disabled"; }
+							if ( ( $.inArray(testDate.iso(), o.blackDates) > -1 || $.inArray(testDate.getDay(), o.blackDays) > -1 ) && ( $.inArray(testDate.iso(), o.whiteDates) < 0 ) ) { 
+								tmp += " ui-state-disabled"; }
 							
 							$( "<div>", { "class": uid + "slideday ui-btn ui-btn-" + tmp } )
 								.html( testDate.get(2) + "<br /><span class='" + uid + "slidewday'>" + w.__('daysOfWeekShort')[testDate.getDay()] + "</span>")

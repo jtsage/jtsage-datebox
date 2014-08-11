@@ -274,7 +274,7 @@
 			}
 			
 			if ( o.repButton === true ) {
-				w.d.intHTML.on(g.eStart, "."+ uid + "cbut", function(e) {
+				w.d.intHTML.on(g.eStart, "."+ uid + "cbut", function() {
 					divIn.find(':focus').blur();
 					tmp = [$(this).data('field'), $(this).data('amount')];
 					g.move = true;

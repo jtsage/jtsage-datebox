@@ -65,7 +65,7 @@
 			if ( num.toString().search(/^[0-9]+$/) === 0 ) { return parseInt(num,10); }
 			return 0;
 		},
-		_durbox_enter: function (item) {
+		_durbox_enter: function () {
 			var w = this,
 				t = w.initDate.getEpoch();
 				
@@ -199,7 +199,7 @@
 			}
 			
 			if ( o.repButton === true ) {
-				w.d.intHTML.on(g.eStart, "."+ uid + "cbut", function(e) {
+				w.d.intHTML.on(g.eStart, "."+ uid + "cbut", function() {
 					divIn.find(':focus').blur();
 					tmp = [$(this).data('field'), $(this).data('amount')];
 					g.move = true;

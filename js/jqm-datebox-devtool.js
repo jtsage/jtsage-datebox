@@ -8,13 +8,13 @@
 
 (function($) {
 	window.clogall = function(listarg) {
-		var fulllist = [];
+		var key, fulllist = [];
 		for ( key in listarg ) {
 			fulllist.push(key + ": " + listarg[key]);
 		}
 		console.log(fulllist.join("   "));
 		
-	}
+	};
 	window.timetext = function(x, func) {
 		var y, outTime, inTime = new Date();
 		for ( y = 0; y < x; y++ ) {
@@ -22,5 +22,5 @@
 		}
 		outTime = new Date();
 		console.log( outTime.getTime() - inTime.getTime() );
-	}
+	};
 })( jQuery );
