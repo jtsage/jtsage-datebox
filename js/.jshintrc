@@ -9,7 +9,7 @@
 	"immed": true,
 	"noarg": true,
 	"onevar": true,
-//	"quotmark": "double",
+	"quotmark": "double",
 	"smarttabs": true,
 	"trailing": true,
 
