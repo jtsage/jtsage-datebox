@@ -226,12 +226,13 @@
 				},
 				getArray: function() {
 					var arr = [0,0,0,0,0,0], i = 0;
-					for ( i = 0; i < 5; i++ ) {
+					for ( i = 0; i < 6; i++ ) {
 						arr[i] = this.get(i);
 					}
 					return arr;
 				},
 				setFirstDay: function (day) {
+					// Grabs first valid (day) of current month
 					this.setD( 2, 1 ).adj( 2, ( day - this.getDay() ) );
 					if ( this.get( 2 ) > 10 ) { this.adj( 2, 7 ); }
 					return this;
@@ -1008,6 +1009,8 @@
 					w._makeDate( w.d.input.val() ) :
 					new w._date() );
 
+			if ( w.d.input.val() === "" ) { w._startOffset( w.theDate ); }
+
 			w.initDone = false;
 
 			if ( o.showInitialValue === true ) {
@@ -1072,11 +1075,11 @@
 				w.disable();
 			}
 
+			w.applyMinMax(false, false);
+
 			if ( o.useInline === true || o.useInlineBlind === true ) {
 				w.open();
 			}
-
-			w.applyMinMax(false, false);
 
 			//Throw dateboxinit event
 			$( document ).trigger( "dateboxaftercreate" );
@@ -1341,6 +1344,7 @@
 				now = this.theDate;
 
 			w.dateOK = true;
+			if ( typeof o.mode === "undefined") { return true; }
 
 			if ( o.afterToday !== false ) {
 				td = new w._date();
