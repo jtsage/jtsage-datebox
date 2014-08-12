@@ -6,11 +6,15 @@
  */
 /* CORE Functions */
 
-(function($) {
+(function( $, undefined ) {
+
 	$.widget( "mobile.datebox", {
 		options: {
 			// All widget options, including some internal runtime details
-			version: "2-1.4.3-2014080301-next", // jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+
+			// jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
+			version: "2-1.4.3-2014080301-next", 
+
 			mobVer: parseInt( $.mobile.version.replace( /\./g, "" ), 10 ),
 			theme: false,
 			themeDefault: "a",
@@ -94,10 +98,20 @@
 					calTomorrowButtonLabel: "Jump to Tomorrow",
 					titleDateDialogLabel: "Set Date",
 					titleTimeDialogLabel: "Set Time",
-					daysOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+					daysOfWeek: [
+						"Sunday", "Monday", "Tuesday", 
+						"Wednesday", "Thursday", "Friday", 
+						"Saturday"
+					],
 					daysOfWeekShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-					monthsOfYear: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-					monthsOfYearShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					monthsOfYear: [
+						"January", "February", "March", "April", "May", "June",
+						"July", "August", "September", "October", "November", "December"
+					],
+					monthsOfYearShort: [
+						"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+						"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+					],
 					durationLabel: ["Days", "Hours", "Minutes", "Seconds"],
 					durationDays: ["Day", "Days"],
 					timeFormat: 24,
@@ -115,7 +129,10 @@
 					clearButton: "Clear",
 					durationOrder: ["d", "h", "i", "s"],
 					meridiem: ["AM", "PM"],
-					timeOutput: "%k:%M", //{ "12": "%l:%M %p", "24": "%k:%M" },
+
+					// 12HR: "%l:%M %p"
+					// 24HR: "%k:%M" 
+					timeOutput: "%k:%M", 
 					durationFormat: "%Dd %DA, %Dl:%DM:%DS",
 					calDateListLabel: "Other Dates",
 					calHeaderFormat: "%B %Y"
@@ -125,10 +142,12 @@
 		_enhanceDate: function() {
 			$.extend(this._date.prototype, {
 				copy: function( adjust, override ) {
-					/* Get a modified copy of the date.
-					 * First array - Offset the new date by #  (position determines date part)
-					 * Second array - If non-zero, force the new date by # (position determines date part)
-					 */
+					// Get a modified copy of the date.
+					// First array - Offset the new date by #  
+					//    (position determines date part)
+					// Second array - If non-zero, force the new date by # 
+					//    (position determines date part)
+					
 					adjust = $.extend( [0,0,0,0,0,0,0], adjust );
 					override = $.extend( [0,0,0,0,0,0,0], override );
 					return new Date(
@@ -141,7 +160,7 @@
 						((override[6] > 0 ) ? override[5] : this.get(6) + adjust[6]));
 				},
 				adj: function (type, amount) {
-					/* Adjust the date.  Yes, this is chainable */
+					// Adjust the date.  Yes, this is chainable 
 					if ( typeof amount !== "number" || typeof type !== "number" ) {
 						throw new Error( "Invalid Arguments" );
 					}
@@ -160,7 +179,7 @@
 					return this;
 				},
 				setD: function(type, amount) {
-					/* A chainable version of setWhatever() */
+					// A chainable version of setWhatever() 
 					switch ( type ) {
 						case 0: this.setFullYear(amount); break;
 						case 1: this.setMonth(amount); break;
@@ -229,12 +248,16 @@
 					switch ( type ) {
 						case 0:
 							t1 = this.copy([0,-1*this.getMonth()]).setFirstDay(0);
-							return Math.floor((this.getTime() - ( t1.getTime() + (( this.getTimezoneOffset() - t1.getTimezoneOffset()) * 60000))) / 6048e5) + 1;
-							//return Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
+							return Math.floor(
+								( this.getTime() - ( t1.getTime() + (
+									( this.getTimezoneOffset() - t1.getTimezoneOffset() ) * 60000
+								))) / 6048e5 ) + 1;
 						case 1:
 							t1 = this.copy([0,-1*this.getMonth()]).setFirstDay(1);
-							return Math.floor((this.getTime() - ( t1.getTime() + (( this.getTimezoneOffset() - t1.getTimezoneOffset()) * 60000))) / 6048e5) + 1;
-							//return Math.floor((this.getTime() - t1.getTime()) / 6048e5) + 1;
+							return Math.floor(
+								( this.getTime() - ( t1.getTime() + (
+									( this.getTimezoneOffset() - t1.getTimezoneOffset() ) * 60000
+								))) / 6048e5 ) + 1;
 						case 4:
 							// this line is some bullshit.  but it does work.
 							// (trap for dec 29, 30, or 31st being in the new year's week - these are the
@@ -242,7 +265,10 @@
 							if ( this.getMonth() === 11 && this.getDate() > 28 ) { return 1; }
 
 							t1 = this.copy([0,-1*this.getMonth()],true).setFirstDay(4).adj(2,-3);
-							t2 = Math.floor((this.getTime() - ( t1.getTime() + (( this.getTimezoneOffset() - t1.getTimezoneOffset()) * 60000))) / 6048e5) + 1;
+							t2 = Math.floor(
+								( this.getTime() - ( t1.getTime() + (
+									( this.getTimezoneOffset() - t1.getTimezoneOffset() ) * 60000
+								))) / 6048e5 ) + 1;
 
 							if ( t2 < 1 ) {
 								t1 = this.copy([-1,-1*this.getMonth()]).setFirstDay(4).adj(2,-3);
@@ -279,17 +305,27 @@
 						if ( $.isFunction( w[ tmp ] ) ) {
 							w[ tmp ].apply( w, [] );
 						} else {
-							w._t( { method: "set", value: w._formatter( w.__fmt(), w.theDate ), date: w.theDate } );
+							w._t( { 
+								method: "set",
+								value: w._formatter( w.__fmt(), w.theDate ),
+								date: w.theDate
+							} );
 						}
 						break;
 					case "dooffset":
-						if ( p.type ) { w._offset( p.type, p.amount, true ); } break;
+						if ( p.type ) { 
+							w._offset( p.type, p.amount, true );
+						} 
+						break;
 					case "dorefresh":
-						w.refresh(); break;
+						w.refresh();
+						break;
 					case "doclear":
-						$( this ).val( "" ).trigger( "change" ); break;
+						$( this ).val( "" ).trigger( "change" );
+						break;
 					case "clear":
 						$( this ).trigger( "change" );
+						break;
 				}
 			}
 		},
@@ -307,9 +343,15 @@
 				mode = o[ o.mode + "lang"],
 				oride = "override" + val.charAt(0).toUpperCase() + val.slice(1);
 
-			if ( typeof o[ oride ] !== "undefined" ) { return o[ oride ]; }
-			if ( typeof lang[ val ] !== "undefined" ) { return lang[ val ]; }
-			if ( typeof mode !== "undefined" && typeof mode[ val ] !== "undefined" ) { return mode[ val ]; }
+			if ( typeof o[ oride ] !== "undefined" ) {
+				return o[ oride ]; 
+			}
+			if ( typeof lang[ val ] !== "undefined" ) {
+				return lang[ val ];
+			}
+			if ( ( typeof mode !== "undefined" ) && ( typeof mode[ val ] !== "undefined" ) ) { 
+				return mode[ val ]; 
+			}
 			return o.lang[ "default" ][ val ];
 		},
 		__fmt: function() {
@@ -381,23 +423,44 @@
 			if ( typeof date === "boolean" ) { 
 				return new this._date( arr[0], arr[1], arr[2], 0, 0, 0, 0 );
 			}
-			return new this._date( date.get(0), date.get(1), date.get(2), arr[0], arr[1], arr[2], 0);
+			return new this._date( 
+				date.get(0),
+				date.get(1),
+				date.get(2),
+				arr[0],
+				arr[1],
+				arr[2],
+				0
+			);
 		},
 		_makeDate: function ( str ) {
 			// Date Parser
-			var w = this,
+			var i,  exp_temp, exp_format, grbg,
+				w = this,
 				o = this.options,
 				defVal = this.options.defaultValue,
 				adv = w.__fmt(),
 				exp_input = null,
 				exp_names = [],
-				exp_format = null,
-				exp_temp = null,
 				date = new w._date(),
-				d = { year: -1, mont: -1, date: -1, hour: -1, mins: -1, secs: -1, week: false, wtyp: 4, wday: false, yday: false, meri: 0 },
-				i;
+				d = { 
+					year: -1,
+					mont: -1,
+					date: -1,
+					hour: -1,
+					mins: -1,
+					secs: -1,
+					week: false,
+					wtyp: 4,
+					wday: false,
+					yday: false,
+					meri: 0
+				};
 				
-			str = $.trim( ( ( w.__( "useArabicIndic" ) === true ) ? w._dRep( str, -1 ) : str ) );
+			str = $.trim( ( ( w.__( "useArabicIndic" ) === true ) ? 
+					w._dRep( str, -1 ) : 
+					str 
+				) );
 
 			if ( typeof o.mode === "undefined" ) { return date; }
 			if ( typeof w._parser[ o.mode ] !== "undefined" ) { 
@@ -430,10 +493,20 @@
 
 				exp_temp = w.initDate.getEpoch();
 				for ( i=1; i<exp_input.length; i++ ) {
-					if ( exp_format[i].match( /^%Dd$/i ) ) { exp_temp = exp_temp + ( parseInt( exp_input[i], 10 ) * 86400 ); }
-					if ( exp_format[i].match( /^%Dl$/i ) ) { exp_temp = exp_temp + ( parseInt( exp_input[i], 10 ) * 3600 ); }
-					if ( exp_format[i].match( /^%DM$/i ) ) { exp_temp = exp_temp + ( parseInt( exp_input[i], 10 ) * 60 ); }
-					if ( exp_format[i].match( /^%DS$/i ) ) { exp_temp = exp_temp + ( parseInt( exp_input[i], 10 ) ); }
+					grbg = parseInt( exp_input[i], 10);
+
+					if ( exp_format[i].match( /^%Dd$/i ) ) { 
+						exp_temp = exp_temp + ( grbg * 86400 );
+					}
+					if ( exp_format[i].match( /^%Dl$/i ) ) { 
+						exp_temp = exp_temp + ( grbg * 3600 );
+					}
+					if ( exp_format[i].match( /^%DM$/i ) ) { 
+						exp_temp = exp_temp + ( grbg * 60 );
+					}
+					if ( exp_format[i].match( /^%DS$/i ) ) { 
+						exp_temp = exp_temp + ( grbg ); 
+					}
 				}
 				return new w._date( exp_temp * 1000 );
 			}
@@ -456,7 +529,9 @@
 					case "U":
 					case "u":
 					case "W":
-					case "d": return "(" + match + "|[0-9]{" + (( pad === "-" ) ? "1," : "" ) + "2})";
+					case "d": 
+						return "(" + match + "|[0-9]{" + 
+							(( pad === "-" ) ? "1," : "" ) + "2})";
 					case "j": return "(" + match + "|[0-9]{3})";
 					case "s": return "(" + match + "|[0-9]+)";
 					case "g":
@@ -488,10 +563,16 @@
 							date =  new w._date( defVal * 1000 ); break;
 						case "string":
 							if ( o.mode.substr(0,4) === "time" ) {
-								exp_temp = $.extend( [0,0,0], defVal.split( ":" ) ).slice( 0, 3 );
+								exp_temp = $.extend(
+										[0,0,0],
+										defVal.split( ":" )
+									).slice( 0, 3 );
 								date = w._pa( exp_temp, date ); 
 							} else {
-								exp_temp = $.extend( [0,0,0], defVal.split( "-" ) ).slice( 0, 3 );
+								exp_temp = $.extend( 
+										[0,0,0],
+										defVal.split( "-" )
+									).slice( 0, 3 );
 								exp_temp[1]--;
 								date = w._pa( exp_temp, false ); 
 							} break;
@@ -500,34 +581,37 @@
 				if ( isNaN(date.getDate()) ) { date = new w._date(); }
 			} else {
 				for ( i=1; i<exp_input.length; i++ ) {
+					grbg = parseInt( exp_input[i], 10);
 					switch ( exp_names[i-1] ) {
 						case "s": return new w._date( parseInt( exp_input[i], 10 ) * 1000 );
 						case "Y":
-						case "G": d.year = parseInt( exp_input[i], 10 ); break;
-						case "E": d.year = parseInt( exp_input[i], 10 ) - 543; break;
+						case "G": d.year = grbg; break;
+						case "E": d.year = grbg - 543; break;
 						case "y":
 						case "g":
-							if ( o.afterToday === true || parseInt( exp_input[i], 10 ) < 38 ) {
-								d.year = 2000 + parseInt( exp_input[i], 10 );
+							if ( o.afterToday === true || grbg < 38 ) {
+								d.year = 2000 + grbg;
 							} else {
-								d.year = 1900 + parseInt( exp_input[i], 10 );
+								d.year = 1900 + grbg;
 							} break;
-						case "m": d.mont = parseInt( exp_input[i], 10 ) - 1; break;
-						case "d": d.date = parseInt( exp_input[i], 10 ); break;
+						case "m": d.mont = grbg - 1; break;
+						case "d": d.date = grbg; break;
 						case "H":
 						case "k":
 						case "I":
-						case "l": d.hour = parseInt( exp_input[i], 10 ); break;
-						case "M": d.mins = parseInt( exp_input[i], 10 ); break;
-						case "S": d.secs = parseInt( exp_input[i], 10 ); break;
-						case "u": d.wday = parseInt( exp_input[i], 10 ) - 1; break;
-						case "w": d.wday = parseInt( exp_input[i], 10 ); break;
-						case "j": d.yday = parseInt( exp_input[i], 10 ); break;
-						case "V": d.week = parseInt( exp_input[i], 10 ); d.wtyp = 4; break;
-						case "U": d.week = parseInt( exp_input[i], 10 ); d.wtyp = 0; break;
-						case "W": d.week = parseInt( exp_input[i], 10 ); d.wtyp = 1; break;
+						case "l": d.hour = grbg; break;
+						case "M": d.mins = grbg; break;
+						case "S": d.secs = grbg; break;
+						case "u": d.wday = grbg - 1; break;
+						case "w": d.wday = grbg; break;
+						case "j": d.yday = grbg; break;
+						case "V": d.week = grbg; d.wtyp = 4; break;
+						case "U": d.week = grbg; d.wtyp = 0; break;
+						case "W": d.week = grbg; d.wtyp = 1; break;
 						case "p":
-						case "P": d.meri = (( exp_input[i].toLowerCase() === w.__( "meridiem" )[0].toLowerCase() ) ? -1 : 1 ); break;
+						case "P": 
+							d.meri = ( ( exp_input[i].toLowerCase() === w.__( "meridiem" )[0].toLowerCase() ) ? -1 : 1 );
+							break;
 						case "b":
 							exp_temp = $.inArray( exp_input[i], w.__( "monthsOfYearShort" ) );
 							if ( exp_temp > -1 ) { d.mont = exp_temp; }
@@ -578,19 +662,32 @@
 
 				if ( o.mode.substr( 0, 4 ) === "dura" ) {
 					dur.tp = this.theDate.getEpoch() - this.initDate.getEpoch();
-					dur.part[0] = parseInt( dur.tp / (60*60*24),10); dur.tp -= (dur.part[0]*60*60*24); // Days
-					dur.part[1] = parseInt( dur.tp / (60*60),10); dur.tp -= (dur.part[1]*60*60); // Hours
-					dur.part[2] = parseInt( dur.tp / (60),10); dur.tp -= (dur.part[2]*60); // Minutes
-					dur.part[3] = dur.tp; // Seconds
 
-					if ( ! format.match(/%Dd/) ) { dur.part[1] += (dur.part[0]*24);}
-					if ( ! format.match(/%Dl/) ) { dur.part[2] += (dur.part[1]*60);}
-					if ( ! format.match(/%DM/) ) { dur.part[3] += (dur.part[2]*60);}
+					// Days
+					dur.part[0] = parseInt( dur.tp / (60*60*24),10); 
+					dur.tp -= (dur.part[0]*60*60*24); 
+
+					// Hours
+					dur.part[1] = parseInt( dur.tp / (60*60),10);
+					dur.tp -= (dur.part[1]*60*60);
+
+					// Minutes
+					dur.part[2] = parseInt( dur.tp / (60),10);
+					dur.tp -= (dur.part[2]*60);
+
+					// Seconds
+					dur.part[3] = dur.tp;
+
+					if ( ! format.match( /%Dd/ ) ) { dur.part[1] += (dur.part[0]*24);}
+					if ( ! format.match( /%Dl/ ) ) { dur.part[2] += (dur.part[1]*60);}
+					if ( ! format.match( /%DM/ ) ) { dur.part[3] += (dur.part[2]*60);}
 				}
 
 			format = format.replace(/%(D|X|0|-)*([1-9a-zA-Z])/g, function(match, pad, oper) {
 				if ( pad === "X" ) {
-					if ( typeof w._customformat[o.mode] !== "undefined" ) { return w._customformat[o.mode](oper, date, o); }
+					if ( typeof w._customformat[o.mode] !== "undefined" ) { 
+						return w._customformat[o.mode](oper, date, o);
+					}
 					return match;
 				}
 				if ( pad === "D" ) {
@@ -617,17 +714,32 @@
 					case "C": // Century
 						return date.getFullYear().toString().substr(0,2);
 					case "d": // Day of month
-						return (( pad === "-" ) ? date.getDate() : w._zPad( date.getDate() ));
+						return (( pad === "-" ) ? 
+							date.getDate() :
+							w._zPad( date.getDate()
+						));
 					case "H": // Hour (01..23)
 					case "k":
-						return (( pad === "-" ) ? date.getHours() : w._zPad( date.getHours() ));
+						return (( pad === "-" ) ? 
+							date.getHours() :
+							w._zPad( date.getHours()
+						));
 					case "I": // Hour (01..12)
 					case "l":
-						return (( pad === "-" ) ? date.get12hr() : w._zPad( date.get12hr() ))
+						return (( pad === "-" ) ? 
+							date.get12hr() :
+							w._zPad( date.get12hr()
+						));
 					case "m": // Month
-						return (( pad === "-" ) ? date.getMonth()+1 : w._zPad( date.getMonth()+1 ));
+						return (( pad === "-" ) ?
+							date.getMonth()+1 :
+							w._zPad( date.getMonth()+1
+						));
 					case "M": // Minutes
-						return (( pad === "-" ) ? date.getMinutes() : w._zPad( date.getMinutes() ));
+						return (( pad === "-" ) ?
+							date.getMinutes() :
+							w._zPad( date.getMinutes()
+						));
 					case "p": // AM/PM (ucase)
 						return w.__( "meridiem" )[ ( ( date.getHours() < 12 ) ? 0 : 1 ) ].toUpperCase();
 					case "P": // AM/PM (lcase)
@@ -635,9 +747,15 @@
 					case "s": // Unix Seconds
 						return date.getEpoch();
 					case "S": // Seconds
-						return (( pad === "-" ) ? date.getSeconds() : w._zPad( date.getSeconds() ));
+						return (( pad === "-" ) ?
+							date.getSeconds() :
+							w._zPad( date.getSeconds()
+						));
 					case "u": // Day of week (1-7)
-						return (( pad === "-" ) ? date.getDay() + 1 : w._zPad( date.getDay() + 1 ));
+						return (( pad === "-" ) ?
+							date.getDay() + 1 :
+							w._zPad( date.getDay() + 1
+						));
 					case "w": // Day of week
 						return date.getDay();
 					case "y": // Year (2 digit)
@@ -647,25 +765,44 @@
 					case "E": // BE (Buddist Era, 4 Digit)
 						return date.getFullYear() + 543;
 					case "V":
-						return (( pad === "-" ) ? date.getDWeek(4) : w._zPad( date.getDWeek(4) ));
+						return (( pad === "-" ) ?
+							date.getDWeek(4) :
+							w._zPad( date.getDWeek(4)
+						));
 					case "U":
-						return (( pad === "-" ) ? date.getDWeek(0) : w._zPad( date.getDWeek(0) ));
+						return (( pad === "-" ) ?
+							date.getDWeek(0) :
+							w._zPad( date.getDWeek(0)
+						));
 					case "W":
-						return (( pad === "-" ) ? date.getDWeek(1) : w._zPad( date.getDWeek(1) ));
+						return (( pad === "-" ) ?
+							date.getDWeek(1) :
+							w._zPad( date.getDWeek(1)
+						));
 					case "o": // Ordinals
-						if ( typeof w._ord[o.useLang] !== "undefined" ) { return w._ord[ o.useLang ]( date.getDate() ); }
+						if ( typeof w._ord[o.useLang] !== "undefined" ) {
+							return w._ord[ o.useLang ]( date.getDate() );
+						}
 						return w._ord[ "default" ](date.getDate());
 					case "j":
 						tmp = new Date(date.getFullYear(),0,1);
 						tmp = Math.ceil((date - tmp) / 86400000)+1;
 						return (( tmp < 100 ) ? (( tmp < 10 ) ? "00" : "0" ) : "" ) + String(tmp);
 					case "G":
-						if ( date.getDWeek(4) === 1 && date.getMonth() > 0 ) { return date.getFullYear() + 1; }
-						if ( date.getDWeek(4) > 51 && date.getMonth() < 11 ) { return date.getFullYear() - 1; }
+						if ( date.getDWeek(4) === 1 && date.getMonth() > 0 ) {
+							return date.getFullYear() + 1;
+						}
+						if ( date.getDWeek(4) > 51 && date.getMonth() < 11 ) {
+							return date.getFullYear() - 1;
+						}
 						return date.getFullYear();
 					case "g":
-						if ( date.getDWeek(4) === 1 && date.getMonth() > 0 ) { return parseInt(date.getFullYear().toString().substr(2,2),10) + 1; }
-						if ( date.getDWeek(4) > 51 && date.getMonth() < 11 ) { return parseInt(date.getFullYear().toString().substr(2,2),10) - 1; }
+						if ( date.getDWeek(4) === 1 && date.getMonth() > 0 ) {
+							return parseInt(date.getFullYear().toString().substr(2,2),10) + 1;
+						}
+						if ( date.getDWeek(4) > 51 && date.getMonth() < 11 ) {
+							return parseInt(date.getFullYear().toString().substr(2,2),10) - 1;
+						}
 						return date.getFullYear().toString().substr(2,2);
 					default:
 						return match;
@@ -713,9 +850,11 @@
 
 			mode = ( mode || "" ).toLowerCase();
 
-			if ( typeof(update) === "undefined" ) { update = true; }
+			if ( typeof update === "undefined" ) { update = true; }
 
-			if ( mode !== "a" && ( typeof o.rolloverMode[ mode ] === "undefined" || o.rolloverMode[ mode ] === true )) {
+			if ( mode !== "a" && 
+					( typeof o.rolloverMode[ mode ] === "undefined" || o.rolloverMode[ mode ] === true )
+				) {
 				ok = $.inArray(mode, [ "y", "m", "d", "h", "i", "s" ]);
 			} else {
 				switch(mode) {
@@ -748,7 +887,12 @@
 			if ( update === true ) { w.refresh(); }
 			if ( o.useImmediate ) { w._t( { method: "doset" } ); }
 
-			w._t( { method: "offset", type: mode, amount: amount, newDate: w.theDate } );
+			w._t( {
+				method: "offset",
+				type: mode,
+				amount: amount,
+				newDate: w.theDate
+			} );
 		},
 		_startOffset: function(date) {
 			var o = this.options;
@@ -787,16 +931,23 @@
 			$( document ).trigger( "dateboxcreate" );
 
 			var w = this,
-				o = $.extend( this.options, this._getLongOptions( this.element ), this.element.data( "options" ) ),
-				thisThemeEl = this.element.data( "theme" ),
-				thisThemeNear = this.element.parentsUntil( "[data-theme]" ).parent().data( "theme" ),
-				thisTheme = ( o.theme === false && typeof thisThemeEl === "undefined" ) ? ( ( typeof thisThemeNear === "undefined" ) ? o.themeDefault : thisThemeNear ) : o.theme,
+				o = $.extend(
+					this.options,
+					this._getLongOptions( this.element ),
+					this.element.data( "options" )
+				),
+				thisTheme = ( ( o.theme === false ) ?
+					$.mobile.getInheritedTheme( this.element ) :
+					o.theme
+				),
 				trans = o.useAnimation ? o.transition : "none",
 				d = {
 					input: this.element,
 					wrap: this.element.parent(),
 					mainWrap: $( "<div>", { 
-						"class": "ui-datebox-container ui-overlay-shadow ui-corner-all ui-datebox-hidden " + trans + " ui-body-" + thisTheme
+						"class": "ui-datebox-container ui-overlay-shadow " + 
+							"ui-corner-all ui-datebox-hidden " + trans +
+							" ui-body-" + thisTheme
 						} ).css( "zIndex", o.zindex ),
 					intHTML: false
 				},
@@ -805,7 +956,10 @@
 					eStart : (touch ? "touchstart" : "mousedown" )+".datebox",
 					eMove  : (touch ? "touchmove" : "mousemove" )+".datebox",
 					eEnd   : (touch ? "touchend" : "mouseup" )+".datebox",
-					eEndA  : (touch ? "mouseup.datebox touchend.datebox touchcancel.datebox touchmove.datebox" : "mouseup.datebox" ),
+					eEndA  : (touch ?
+						"mouseup.datebox touchend.datebox touchcancel.datebox touchmove.datebox" :
+						"mouseup.datebox"
+					),
 					move   : false,
 					start  : false,
 					end    : false,
@@ -856,7 +1010,9 @@
 						o.buttonIcon = o.buttonIconDate;
 					}
 				}
-				$( "<a href='#' class='ui-input-clear ui-btn ui-icon-" + o.buttonIcon + " ui-btn-icon-notext ui-corner-all'></a>" )
+				$( "<a href='#' class='ui-input-clear ui-btn ui-icon-" + 
+						o.buttonIcon +
+						" ui-btn-icon-notext ui-corner-all'></a>" )
 					.attr( "title", w.__( "tooltip" ) )
 					.text( w.__( "tooltip" ) )
 					.appendTo(w.d.wrap)
@@ -894,14 +1050,18 @@
 			}
 
 			// Check if mousewheel plugin is loaded
-			if ( typeof $.event.special.mousewheel !== "undefined" ) { w.wheelExists = true; }
+			if ( typeof $.event.special.mousewheel !== "undefined" ) {
+				w.wheelExists = true;
+			}
 
 			// Disable when done if element attribute disabled is true.
 			if ( w.d.input.is( ":disabled" ) ) {
 				w.disable();
 			}
 
-			if ( o.useInline === true || o.useInlineBlind === true ) { w.open(); }
+			if ( o.useInline === true || o.useInlineBlind === true ) {
+				w.open();
+			}
 
 			w.applyMinMax(false, false);
 
@@ -921,13 +1081,13 @@
 			if ( typeof refresh === "undefined" ) { refresh = true; }
 			if ( typeof override === "undefined" ) { override = true; }
 
-			if ( ( override === true || o.minDays === false ) && typeof w.d.input.attr( "min" ) !== "undefined" ) {
+			if ( ( override === true || o.minDays === false ) && ( typeof w.d.input.attr( "min" ) !== "undefined" ) ) {
 				fromEl =  w.d.input.attr( "min" ).split( "-" );
 				fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
 				daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
 				o.minDays = parseInt( daysRaw * -1 , 10 );
 			}
-			if ( ( override === true || o.maxDays === false ) && typeof w.d.input.attr( "max" ) !== "undefined" ) {
+			if ( ( override === true || o.maxDays === false ) && ( typeof w.d.input.attr( "max" ) !== "undefined" ) ) {
 				fromEl = w.d.input.attr( "max" ).split( "-" );
 				fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
 				daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
@@ -1329,7 +1489,7 @@
 		getOption: function( opt ) {
 			// Provide a PUBLIC function to get a defined option or i18n member
 			var i18nTester = this.__(opt);
-			if ( typeof( i18nTester ) !== "undefined" ) {
+			if ( typeof i18nTester !== "undefined" ) {
 				return i18nTester;
 			} else {
 				return this.options[ opt ];
@@ -1355,4 +1515,5 @@
 			}
 		});
 	});
+
 })( jQuery );
