@@ -893,21 +893,21 @@
 				today = new this._date(),
 				lod = 24 * 60 * 60 * 1000;
 
-			todayClean = w._pa(today, true);
+			todayClean = w._pa([0,0,0], today);
 			
 			if ( typeof refresh === "undefined" ) { refresh = true; }
 			if ( typeof override === "undefined" ) { override = true; }
 
 			if ( ( override === true || o.minDays === false ) && typeof w.d.input.attr( "min" ) !== "undefined" ) {
 				fromEl =  w.d.input.attr( "min" ).split( "-" );
-				fromElDate = new w._date( fromEl[0], fromEl[1], fromEl[2], 0, 0, 0, 0 );
-				daysRaw = ( fromEl.getTime() - todayClean.getTime() ) / lod;
+				fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
+				daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
 				o.minDays = parseInt( daysRaw * -1 , 10 );
 			}
 			if ( ( override === true || o.maxDays === false ) && typeof w.d.input.attr( "max" ) !== "undefined" ) {
 				fromEl = w.d.input.attr( "max" ).split( "-" );
-				fromElDate = new w._date( fromEl[0], fromEl[1], fromEl[2], 0, 0, 0, 0 );
-				daysRaw = ( fromEl.getTime() - todayClean.getTime() ) / lod;
+				fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
+				daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
 				o.maxDays = parseInt( daysRaw, 10 );
 			}
 
