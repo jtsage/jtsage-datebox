@@ -1,3 +1,5 @@
+---
+---
 <?php
 
 $defaults = array(
@@ -62,8 +64,7 @@ foreach ( $defaults as $key => $value ) {
 	<title>jQueryMobile - DateBox Themeing</title>
 	
 	<!-- NOTE: Script load order is significant! -->
-	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.css" />
 	
 	
 	<?php if ( !empty($_SERVER['QUERY_STRING']) ) {
@@ -72,16 +73,16 @@ foreach ( $defaults as $key => $value ) {
 		echo '<link type="text/css" href="sheet.php" rel="stylesheet" />'."\n";
 	} ?>
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script> 
-	<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.core.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.calbox.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.datebox.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.flipbox.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.durationbox.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.slidebox.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.core{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.calbox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.datebox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.flipbox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.slidebox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.i18n }}jqm-datebox.lang.utf8.js"></script>
 	
 	<script type="text/javascript">
 		$(document).ready( function() {
@@ -105,17 +106,25 @@ foreach ( $defaults as $key => $value ) {
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			useInline: true,
+			hideInput: true,
 			overrideSlideFieldOrder: ['y','m','d','h','i']
 		});
 	</script>
 </head>
 <body>
 <div data-role="page">
+	<div id="display" data-role="popup">
+			<input name="theme0" id="theme0" type="text" data-role="datebox" data-options='{"mode":"calbox", "calShowWeek":true}'>
+			<input name="theme1" id="theme1" type="text" data-role="datebox" data-options='{"mode":"calbox"}'>
+			<input name="theme2" id="theme2" type="text" data-role="datebox" data-options='{"mode":"datebox"}'>
+			<input name="theme3" id="theme3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}'>
+			<input name="theme4" id="theme4" type="text" data-role="datebox" data-options='{"mode":"slidebox", "overrideSlideFieldOrder":["y","m","d","h","i"]}'>
+		</div>
 	<div data-role="header">
 		<h1>jQM-DateBox - Theme Roller</h1>
 	</div>
 	
-	<div data-role="main">
+	<div data-role="content">
 		<form id="css">
 		<?php
 			echo "\n";
@@ -125,7 +134,7 @@ foreach ( $defaults as $key => $value ) {
 					if ( $lasttype <> "" ) {
 						echo "\t\t\t</div>\n";
 						echo "\t\t\t<a href='#' class='applysheet ui-btn ui-btn-a ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all'>Apply Changes</a>\n";
-						echo "<div class='ui-field-contain'><input type='text' data-role='datebox' id='{$item[2]}' data-datebox-mode='{$item[2]}'></div>";
+						echo "\t\t\t<a data-rel='popup' href='#display' class='ui-btn ui-btn-a ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all'>Show Samples</a>\n";
 					}
 					echo "\t\t\t<h2>{$item[2]} Options</h2>\n";
 					echo "\t\t\t<div class='ui-field-contain'>\n";
@@ -140,21 +149,11 @@ foreach ( $defaults as $key => $value ) {
 			}
 			echo "\t\t\t</div>\n";
 			echo "\t\t\t<a href='#' class='applysheet ui-btn ui-btn-a ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all'>Apply Changes</a>\n";
+			echo "\t\t\t<a data-rel='popup' href='#display' class='ui-btn ui-btn-a ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all'>Show Samples</a>\n";
 		?>
-
 		</form>
 		<a id="getsheet" href="#" data-role="button" data-theme="b">Get Stylesheet</a>
 		<a id="bookmark" href="#" data-role="button" data-theme="b">Bookmark this Version</a>
-		
-		
-		<!--div id="display" style="margin-left: 553px; margin-top: 180px">
-				Howdy Ho.
-			<input name="theme1" id="theme0" type="text" data-role="datebox" data-options='{"mode":"calbox", "calShowWeek":true}' />
-			<-input name="theme1" id="theme1" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
-			<input name="theme2" id="theme2" type="text" data-role="datebox" data-options='{"mode":"datebox"}' />
-			<input name="theme3" id="theme3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}' />
-			<input name="theme4" id="theme4" type="text" data-role="datebox" data-options='{"mode":"slidebox", "overrideSlideFieldOrder":["y","m","d","h","i"], "overrideDateFormat":"%Y-%m-%d %H:%M:00"}' />
-		</div-->
 	</div>
 	<div data-role="footer">
 		<h3>jQM-DateBox (c) 2014</h3>
