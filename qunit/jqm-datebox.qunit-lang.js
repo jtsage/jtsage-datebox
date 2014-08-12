@@ -9,7 +9,7 @@
  */
 
 jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
-	'qunit': {
+	"qunit": {
 		setDateButtonLabel: "Set Date",
 		setTimeButtonLabel: "Set Time",
 		setDurationButtonLabel: "Set Duration",
@@ -26,16 +26,16 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
 		nextMonth: "Next Month",
 		prevMonth: "Previous Month",
 		timeFormat: 12,
-		headerFormat: '%A, %B %-d, %Y',
-		dateFieldOrder: ['m', 'd', 'y'],
-		timeFieldOrder: ['h', 'i', 'a'],
-		slideFieldOrder: ['y', 'm', 'd'],
+		headerFormat: "%A, %B %-d, %Y",
+		dateFieldOrder: ["m", "d", "y"],
+		timeFieldOrder: ["h", "i", "a"],
+		slideFieldOrder: ["y", "m", "d"],
 		dateFormat: "%Y-%m-%d",
 		useArabicIndic: false,
 		isRTL: false,
 		calStartDay: 0,
 		clearButton: "Clear",
-		durationOrder: ['d', 'h', 'i', 's'],
+		durationOrder: ["d", "h", "i", "s"],
 		meridiem: ["AM", "PM"],
 		timeOutput: "%k:%M",
 		durationFormat: "%Dd:%Dl:%DM:%DS",
@@ -45,6 +45,6 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
 	}
 });
 jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-	useLang: 'qunit'
+	useLang: "qunit"
 });
 
