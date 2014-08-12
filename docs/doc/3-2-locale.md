@@ -4,13 +4,14 @@ pagenum: 5
 layout: doc
 ---
 
-<script type="text/javascript" src="{{ site.i18n }}jqm-datebox.lang.utf8.js"></script>
-
 # Picking a Language on the Fly
 
 Choosing a language on the fly is possible, although it is far more recommended that
 you serve only the required language to the end-user. This method may be useful for
-a phonegap application however, where there is no central server
+a phonegap application however, where there is no central server. To play with the 
+language setting of this page, or any page in the doc site, click on the "i18n"
+button in the header.  Of Note, this actually is using the CustomFlip datebox method
+to display the list of languages - kinda cool, huh?
 
 Please note that if you load multiple files, the "default" language is whatever file
 loads last - please be sure to specify, as if a load is to hang slightly, the behavior
@@ -20,11 +21,6 @@ may be unpredictable.
 <input type="text" data-role="datebox" data-options='{"mode":"datebox", "useLang":"en"}'>
 {% endhighlight %}
 
-<div>
-<select class="demopick" data-link="l1" data-opt="useLang">
-{% for lang in site.data.doc.langmap %}<option value="{{ lang[0] }}">{{ lang[1] }}</option>{% endfor %}
-</select>
-</div>
 <div><input type="text" id="l1" data-role="datebox" data-options='{"mode":"datebox", "useLang":"en", "useInline": true}'></div>
 
 
@@ -104,7 +100,7 @@ the name must be unique.  Most values are optional, if you choose not to supply
 them datebox will fall back to the default values defined in the CORE file.  This
 is particularly useful as you shouldn't need to track the main distribution to ensure
 your existing language files will work with new versions. For a complete listing
-of what each of these options means, please see the [API](http://dev.jtsage.com/jQM-DateBox/api/).
+of what each of these options means, please see the [API](http://dev.jtsage.com/jQM-DateBox/api/cat-i18n/).
 
 # Correcting Mistakes / Submitting New Translations
 If you wish to correct a mistake in the DateBox repository, or submit a language

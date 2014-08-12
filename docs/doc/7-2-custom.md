@@ -4,7 +4,6 @@ pagenum: 23
 layout: doc
 ---
 
-<script type="text/javascript" src="/jQM-DateBox/js/jqm-datebox.mode.customflip.js"></script>
 <script type="text/javascript">
 	var selectdata = ['Single', 'Separated', 'Involved', 'Married', 'Widowed', 'Lover', 'Other'];
 	jQuery.extend(jQuery.mobile.datebox.prototype.options, {
@@ -39,6 +38,8 @@ documentation for this mode, but it does appear in the API as well.
 
  - {% api_doc themeOptPick %} : Theme for centered data
  - {% api_doc themeOpt %} : Theme for all other data
+ - {% api_doc buttonIcon %} : Theme for input button
+ - {% api_doc customDataLen %} : Length of picklist - you shouldn't need to change this.
 
 ### {% api_doc overrideCustomSet %}
 
@@ -81,6 +82,10 @@ checked, but 6 can be made to display somewhat ok).  The objects must contain:
  - **input**: Only used for customBox - show data in an input (true) or a div (false).
  - **name**: The header text for the field - can be blank.
  - **data**: A simple array of your data. Your data must be a string. Otherwise, it can be anything, including valid HTML.
+ 
+ Of particular note, if you pass this option a simple string, it will assume that 
+ it is a refernce to a global variable.  For instance, if you pass in "myDataList",
+ DateBox will attempt to read "window.myDataList".
 
 ## Working Example
 

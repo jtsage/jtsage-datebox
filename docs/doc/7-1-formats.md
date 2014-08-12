@@ -17,7 +17,8 @@ easily be "hidden" inputs.
 </div>
 
 <script type="text/javascript">
-	function formatter(date) {
+	function formatter(obby) {
+		var date = obby.date;
 		$('#out1').val(this.callFormat('%Y-%m-%d', date));
 		$('#out2').val(this.callFormat('%-d', date));
 		$('#out3').val(this.callFormat('%-m', date));
@@ -53,7 +54,8 @@ easily be "hidden" inputs.
 
 <h3>jQuery Source</h3>
 {%highlight js %}
-function formatter(date) {
+function formatter(obby) {
+  var date = obby.date;
   $('#out1').val(this.callFormat('%Y-%m-%d', date));
   $('#out2').val(this.callFormat('%-d', date));
   $('#out3').val(this.callFormat('%-m', date));

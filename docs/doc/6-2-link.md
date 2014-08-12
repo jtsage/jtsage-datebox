@@ -10,7 +10,9 @@ meaningful way - for instance a checkin and checkout date.  Below is a breif bit
 of code that does exactally that.
 
 <script type="text/javascript">
-	function linker(setDate, nextDatebox) {
+	function linker(obby, nextDatebox) {
+		var setDate = obby.date;
+		
 		setDate.adj(2,1); // Add One Day
 		
 		// Format the date for min/max attribute
@@ -60,7 +62,10 @@ of code that does exactally that.
 
 <div data-role="popup" id="jsource" class="ui-content">
 {% highlight js %}
-function linker(setDate, nextDatebox) {
+function linker(obby, nextDatebox) {
+  // Access the returned date
+  var setDate = obby.date;
+  
   // Add one day to set date
   setDate.adj(2,1);
 

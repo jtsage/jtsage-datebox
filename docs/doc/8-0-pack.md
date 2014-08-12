@@ -20,5 +20,5 @@ There is a gem created by Guidecase available on <a href="https://github.com/Gui
 # require.js / backbone.js
 
 Operation with this pair of packages is supported.  Please take a look at 
-the <a href="3rd/backbonerequire/">demo</a>.
+the <a href="../3rd/backbonerequire/">demo</a>.
 
