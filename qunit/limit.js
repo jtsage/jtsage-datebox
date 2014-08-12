@@ -8,9 +8,9 @@
 /* Data Limiting QUnit Tests */
 
 
-QUnit.module( "Relative Limits - CalBox" );
+QUnit.module( "Limits - CalBox" );
 
-QUnit.test( "beforeToday", function( assert ){
+QUnit.test( "Relative - beforeToday", function( assert ){
 	var datestr,
 		today = new Date(),
 		db = $( "<input>" ).datebox({
@@ -31,7 +31,7 @@ QUnit.test( "beforeToday", function( assert ){
 	);
 });
 
-QUnit.test( "afterToday", function( assert ){
+QUnit.test( "Relative - afterToday", function( assert ){
 	var datestr,
 		today = new Date(),
 		db = $( "<input>" ).datebox({
@@ -52,7 +52,7 @@ QUnit.test( "afterToday", function( assert ){
 	);
 });
 
-QUnit.test( "notToday", function( assert ){
+QUnit.test( "Relative - notToday", function( assert ){
 	var datestr, nextstr,
 		today = new Date(),
 		db = $( "<input>" ).datebox({
@@ -84,7 +84,7 @@ QUnit.test( "notToday", function( assert ){
 	);
 });
 
-QUnit.test( "maxDays", function( assert ){
+QUnit.test( "Relative - maxDays", function( assert ){
 	var datestr,
 		today = new Date(),
 		db = $( "<input>" ).datebox({
@@ -107,7 +107,7 @@ QUnit.test( "maxDays", function( assert ){
 	);
 });
 
-QUnit.test( "minDays", function( assert ){
+QUnit.test( "Relative - minDays", function( assert ){
 	var datestr,
 		today = new Date(),
 		db = $( "<input>" ).datebox({
@@ -130,9 +130,7 @@ QUnit.test( "minDays", function( assert ){
 		);
 });
 
-QUnit.module( "Hard Limits - CalBox" );
-
-QUnit.test( "min", function( assert ){
+QUnit.test( "Hard - min", function( assert ){
 	var today = new Date(2001,0,20,0,0,0,0),
 		db = $( "<input type='text' min='2001-01-15'>" ).datebox({
 			mode: "calbox",
@@ -151,7 +149,7 @@ QUnit.test( "min", function( assert ){
 	);
 });
 
-QUnit.test( "max", function( assert ){
+QUnit.test( "Hard - max", function( assert ){
 	var today = new Date(2001,0,10,0,0,0,0),
 		db = $( "<input type='text' max='2001-01-15'>" ).datebox({
 			mode: "calbox",
@@ -170,9 +168,7 @@ QUnit.test( "max", function( assert ){
 	);
 });
 
-QUnit.module( "Listed Limits - CalBox" );
-
-QUnit.test( "blackDates", function( assert ){
+QUnit.test( "Lists - blackDates", function( assert ){
 	var today = new Date(2001,0,1,0,0,0,0),
 		db = $( "<input type='text'>" ).datebox({
 			mode: "calbox",
@@ -191,4 +187,46 @@ QUnit.test( "blackDates", function( assert ){
 		"Not 'today' Dependant"
 	);
 });
+
+QUnit.test( "Lists - blackDatesRec", function( assert ){
+	var today = new Date(2001,0,1,0,0,0,0),
+		db = $( "<input type='text'>" ).datebox({
+			mode: "calbox",
+			blackDatesRec: [[-1,-1,10]],
+			defaultValue: "2001-01-01",
+			useInline: true
+		});
+
+	db.data( "mobile-datebox" ).d.intHTML
+		.find( "div.ui-datebox-griddate.ui-btn:contains(10)" )
+		.trigger( "click" );
+
+	assert.equal(
+		db.datebox( "getTheDate").comp(),
+		today.comp(),
+		"Not 'today' Dependant"
+	);
+});
+
+QUnit.test( "Lists - blackDays", function( assert ){
+	var today = new Date(2001,0,1,0,0,0,0),
+		db = $( "<input type='text'>" ).datebox({
+			mode: "calbox",
+			blackDays: [3],
+			defaultValue: "2001-01-01",
+			useInline: true
+		});
+
+	db.data( "mobile-datebox" ).d.intHTML
+		.find( "div.ui-datebox-griddate.ui-btn:contains(10)" )
+		.trigger( "click" );
+
+	assert.equal(
+		db.datebox( "getTheDate").comp(),
+		today.comp(),
+		"Not 'today' Dependant"
+	);
+});
+
+
 

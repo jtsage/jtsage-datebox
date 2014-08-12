@@ -36,10 +36,17 @@
 			closeCallbackArgs: ['hi'],
 			useLang: "en",
 			//calUsePickers: true,
-			//useInline: true,
+			useInline: true,
+			defaultValue: "2001-01-20",
+			blackDatesRec: [[-1,-1,10]],
 			//useInlineBlind: true,
 			overrideSlideFieldOrder: ['y','m','d','h','i']
 		});
+		var testie = function () {
+			today = new Date();
+			tomorrow = today.copy([0,0,1]);
+
+		}
 	</script>
 	
 </head>
@@ -56,12 +63,12 @@
 
 		<div class="ui-field-contain">
 			<label for="lang1">yep</label>
-			<input name="lang1" type="text" data-theme="b" data-role="datebox" data-datebox-mode="calbox" min="2014-08-02" id="lang1" />
+			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang1" />
 		</div>
-		<div class="ui-field-contain">
+		<!--div class="ui-field-contain">
 			<label for="lang2">calbox</label>
 			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="slidebox" id="lang2" />
-		</div>
+		</div-->
 		<!--div data-role="fieldcontain">
 			<label for="c2">custom box</label>
 			<input name="c2" type="text" data-role="datebox" data-options='{"mode": "custombox", "overrideStyleClass":"ui-icon-dice"}' id="c2" />
