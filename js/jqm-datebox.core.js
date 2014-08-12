@@ -759,6 +759,24 @@
 			}
 			return date;
 		},
+		_destroy: function() {
+			var w = this,
+				o = this.options,
+				button = this.d.wrap.find('a');
+
+			w.d.wrap.removeClass('ui-input-has-clear');
+			button.remove();
+
+			if ( o.lockInput === true ) {
+				w.d.input.removeAttr("readonly");
+			}
+
+			w.d.input
+				.off( "datebox" )
+				.off( "focus.datebox" )
+				.off( "blur.datebox" )
+				.off( "change.datebox" );
+		},
 		_create: function() {
 			// Create the widget, called automatically by widget system
 			$( document ).trigger( "dateboxcreate" );
@@ -779,10 +797,10 @@
 				},
 				touch = ( typeof window.ontouchstart !== "undefined" ),
 				drag = {
-					eStart : (touch ? 'touchstart' : 'mousedown')+".datebox",
-					eMove  : (touch ? 'touchmove' : 'mousemove')+".datebox",
-					eEnd   : (touch ? 'touchend' : 'mouseup')+".datebox",
-					eEndA  : (touch ? 'mouseup.datebox touchend.datebox touchcancel.datebox touchmove.datebox' : 'mouseup.datebox'),
+					eStart : (touch ? "touchstart" : "mousedown")+".datebox",
+					eMove  : (touch ? "touchmove" : "mousemove")+".datebox",
+					eEnd   : (touch ? "touchend" : "mouseup")+".datebox",
+					eEndA  : (touch ? "mouseup.datebox touchend.datebox touchcancel.datebox touchmove.datebox" : "mouseup.datebox"),
 					move   : false,
 					start  : false,
 					end    : false,
@@ -851,16 +869,16 @@
 			if ( o.hideContainer === true ) { w.d.wrap.parent().hide(); }
 
 			w.d.input
-				.focus( function(){
+				.on("focus.datebox", function(){
 					w.d.input.addClass( "ui-focus" );
 					if ( w.disabled === false && o.useFocus === true ) {
 						w._t( { method: "open" } );
 					}
 				})
-				.blur( function() { 
+				.on("blur.datebox", function() { 
 					w.d.input.removeClass( "ui-focus" ); 
 				})
-				.change( function() {
+				.on("change.datebox", function() {
 					w.theDate = w._makeDate( w.d.input.val() );
 					w.refresh();
 				})
