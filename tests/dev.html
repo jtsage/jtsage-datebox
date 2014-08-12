@@ -9,10 +9,10 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script> 
 	
 	
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css" />
-	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
-	<!--link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
-	<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script-->
+	<!--link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css" />
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script-->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+	<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
 	
 	
 	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
@@ -59,6 +59,8 @@
 			closeCallback: function(a, b) { console.log(a); console.log(b); },
 			closeCallbackArgs: ['hi'],
 			useLang: "en",
+			useInline: true,
+			//useInlineBlind: true,
 			overrideSlideFieldOrder: ['y','m','d','h','i']
 		});
 	</script>
@@ -81,7 +83,7 @@
 		</div>
 		<div class="ui-field-contain">
 			<label for="lang2">calbox</label>
-			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang2" />
+			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="slidebox" id="lang2" />
 		</div>
 		<!--div data-role="fieldcontain">
 			<label for="c2">custom box</label>

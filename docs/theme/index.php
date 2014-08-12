@@ -1,37 +1,47 @@
 <?php
 
 $defaults = array(
-	'cgdw' => '36', // Cal box width (calbox)
-	'cgdwk' => '31', // Cal box width (calbox)
-	'cgdh' => '30', // Cal box height (calbox)
-	'cgdl' => '30', // Cal box line-height (calbox)
-	'cgfs' => '12', // Cal box font size (calbox)
-	'cgdec' => '#888', // Empty date color (calbox)
-	'cgddc' => '#888888', // Disabled date color (calbox)
-	'width' => '280', // Master Width
-	'fw' => '77', // width (flipbox)
-	'fwl' => '260', // lens width (flipbox)
-	'fh' => '30', // cell heigh (flipbox)
-	'fhl' => '40', // lens height (flipbox)
-	'fch' => '125', // content height (flipbox)
-	'fcsh' => '120', // scroller height (flipbox)
-	'ssyw' => 84,
-	'ssyl' => 30,
-	'ssyh' => 30,
-	'ssyf' => 14,
-	'ssmw' => 51,
-	'ssml' => 30,
-	'ssmh' => 30,
-	'ssmf' => 12,
-	'ssdw' => 32,
-	'ssdl' => 20,
-	'ssdh' => 38,
-	'ssdf' => 14,
-	'sshw' => 32,
-	'sshl' => 22,
-	'sshh' => 24,
-	'sshf' => 14,
-	'swdf' => 10
+	// Common Options
+	'mWidth' 		=> array(280, "Widget Width", 'common', 100, 700),
+	
+	// CalBox Options
+	'cGDWidth' 		=> array(36, "Date Width", 'calbox',5 ,100),
+	'cGDHeight'		=> array(30, "Date Height", 'calbox', 5, 100),
+	'cGDLHeight'	=> array(30, "Date Line Height", 'calbox', 5, 50),
+	'cGDFont'		=> array(12, "Date Font Size", 'calbox', 5, 50),
+	'cGDWWidth'		=> array(31, "Week # Width", 'calbox', 5, 100),
+	'cGDEColor'		=> array("#888888", "Non-Month Day Color", 'calbox', false),
+	
+	// FlipBox Options
+	'fLensWidth'	=> array(260, "Lens Width", 'flipbox', 100, 700),
+	'fLensHeight'	=> array(40, "Lens Height", 'flipbox', 5, 100),
+	'fTotHeight'	=> array(125, "Scroll Box Height", 'flipbox', 50, 350),
+	'fScrHeight'	=> array(120, "Scroller Height", 'flipbox', 50, 350),
+	'fScrWidth'		=> array(77, "Scroller Width", 'flipbox', 5, 200),
+	'fDScrWidth'	=> array(60, "Scroller Width (Dur)", 'flipbox', 5, 200),
+	'fEleHeight'	=> array(30, "Date Height", 'flipbox', 5, 50),
+	
+	// SlideBox Options
+	'sYWidth'		=> array(84, "Year Width", 'slidebox', 5, 150),
+	'sMWidth'		=> array(51, "Month Width", 'slidebox', 5, 150),
+	'sDWidth'		=> array(32, "Date Width", 'slidebox', 5, 150),
+	'sHWidth'		=> array(32, "Hour Width", 'slidebox', 5, 150),
+	'sIWidth'		=> array(32, "Minute Width", 'slidebox', 5, 150),
+	
+	'sYMHigh'		=> array(30, "Year/Month Height", 'slidebox', 5, 50),
+	'sDHigh'		=> array(38, "Date Height", 'slidebox', 5, 50),
+	'sHIHigh'		=> array(24, "Hour/Min Height", 'slidebox', 5, 50),
+	
+	'sYMLHigh'		=> array(30, "Year/Month Line Height", 'slidebox', 5, 50),
+	'sDLHigh'		=> array(20, "Date Line Height", 'slidebox', 5, 50),
+	'sHILHigh'		=> array(22, "Hour/Min Line Height", 'slidebox', 5, 50),
+	
+	'sYFont'		=> array(14, "Year Font Size", 'slidebox', 5, 50),
+	'sMFont'		=> array(12, "Month Font Size", 'slidebox', 5, 50),
+	'sDFont'		=> array(14, "Date Font Size", 'slidebox', 5, 50),
+	'sHFont'		=> array(14, "Hour Font Size", 'slidebox', 5, 50),
+	'sIFont'		=> array(14, "Minute Font Size", 'slidebox', 5, 50),
+	'sSubFont'		=> array(10, "Subtitle Font Size", 'slidebox', 5, 50)
 );
 
 $use = array();
@@ -40,18 +50,21 @@ foreach ( $defaults as $key => $value ) {
 	if ( isset($_REQUEST[$key]) ) {
 		$use[$key] = $_REQUEST[$key];
 	} else {
-		$use[$key] = $value;
+		$use[$key] = $value[0];
 	}
 }
 ?>
 <!DOCTYPE html> 
-<html lang="en" class="ui-body-b"> 
+<html lang="en"> 
 <head> 
-	<!--meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /--> 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>jQueryMobile - DateBox Demo</title>
+	<title>jQueryMobile - DateBox Themeing</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script> 
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+	
 	
 	<?php if ( !empty($_SERVER['QUERY_STRING']) ) {
 		echo '<link type="text/css" href="sheet.php?'.$_SERVER['QUERY_STRING'].'" rel="stylesheet" />'."\n";
@@ -60,29 +73,24 @@ foreach ( $defaults as $key => $value ) {
 	} ?>
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script> 
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.core.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.mode.flipbox.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.core.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.calbox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.datebox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.flipbox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.durationbox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.slidebox.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 	
 	<script type="text/javascript">
 		$(document).ready( function() {
-			$('#display').find('input').val('0');
 			$('.applysheet').click(function () {
 				theList = $('#css').serialize();
 				$("link[href*=sheet\\.php]:last").after('<link href="sheet.php?' + theList + '" type="text/css" rel="Stylesheet" />');
 				if ($("link[href*=sheet\\.php]").size() > 2) {
 					$("link[href*=sheet\\.php]:first").remove();
 				}
-			});
-			
-			$('#css input[type=checkbox]').change(function() {
-				$('#' + $(this).attr('id') + 'div').toggle();
 			});
 			$('#css input').change(function() {
 				var theLink = "index.php?" + $('#css').serialize();
@@ -97,124 +105,60 @@ foreach ( $defaults as $key => $value ) {
 	<script type="text/javascript">
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			useInline: true,
-			hideInput: true,
+			overrideSlideFieldOrder: ['y','m','d','h','i']
 		});
 	</script>
-	<style>
-		label.ui-input-text { font-size: .8em !important; vertical-align: middle !important;}
-		.ui-datebox-grid { clear: right !important; }
-	</style>
-	
 </head>
 <body>
-	<div data-role="page">
-		<div data-role="header">
-			<h1>jQM-DateBox - Theme Roller</h1>
-		</div>
-		
-		<div data-role="content">
-		<div id="ui" style="width: 800px; float: left;">
-		<form id="css" style="padding-left: 30px;">
-			<div data-role="fieldcontain">
-				<label for="width">Master Width</label>
-				<input name="width" id="width" value="<?php echo $use['width']; ?>" type="range" min="10" max="700">
-				<label for="cgddc">Master Disable Date Color</label>
-				<input name="cgddc" id="cgddc" value="<?php echo $use['cgddc']; ?>" type="text">
-			</div>
-			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
-			
-			<h2>CalBox</h2>
-			<div data-role="fieldcontain">
-				<label for="cgdwk">Date Width (w/ Week)</label>
-				<input name="cgdwk" id="cgdwk" value="<?php echo $use['cgdwk']; ?>" type="range" min="5" max="100">
-				<label for="cgdw">Date Width</label>
-				<input name="cgdw" id="cgdw" value="<?php echo $use['cgdw']; ?>" type="range" min="5" max="100">
-				<label for="cgdh">Date Height</label>
-				<input name="cgdh" id="cgdh" value="<?php echo $use['cgdh']; ?>" type="range" min="5" max="100">
-				<label for="cgdl">Date Line-Height</label>
-				<input name="cgdl" id="cgdl" value="<?php echo $use['cgdl']; ?>" type="range" min="5" max="100">
-				<label for="cgfs">Date Font Size</label>
-				<input name="cgfs" id="cgfs" value="<?php echo $use['cgfs']; ?>" type="range" min="5" max="40">
-				<label for="cgdec">Different Month Color</label>
-				<input name="cgdec" id="cgdec" value="<?php echo $use['cgdec']; ?>" type="text">
-			</div>
-			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
-			
-			<h2>FlipBox</h2>
-			<div data-role="fieldcontain">
-				<label for="fw">Roller Width</label>
-				<input name="fw" id="fw" value="<?php echo $use['fw']; ?>" type="range" min="5" max="150">
-				<label for="fwl">Lens Width</label>
-				<input name="fwl" id="fwl" value="<?php echo $use['fwl']; ?>" type="range" min="5" max="550">
-				<label for="fh">Cell Height</label>
-				<input name="fh" id="fh" value="<?php echo $use['fh']; ?>" type="range" min="5" max="150">
-				<label for="fhl">Lens Height</label>
-				<input name="fhl" id="fhl" value="<?php echo $use['fhl']; ?>" type="range" min="5" max="150">
-				<label for="fch">Content Height</label>
-				<input name="fch" id="fch" value="<?php echo $use['fch']; ?>" type="range" min="5" max="350">
-				<label for="fcsh">Scroller Height (-5px from Content usually)</label>
-				<input name="fcsh" id="fcsh" value="<?php echo $use['fcsh']; ?>" type="range" min="5" max="350">
-			</div>
-			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
-
-			<h2>SlideBox</h2>
-			<div data-role="fieldcontain">
-				<label for="ssyw">Width - Year</label>
-				<input name="ssyw" id="ssyw" value="<?php echo $use['ssyw']; ?>" type="range" min="5" max="200">
-				<label for="ssmw">Width - Month</label>
-				<input name="ssmw" id="ssmw" value="<?php echo $use['ssmw']; ?>" type="range" min="5" max="200">
-				<label for="ssdw">Width - Day</label>
-				<input name="ssdw" id="ssdw" value="<?php echo $use['ssdw']; ?>" type="range" min="5" max="200">
-				<label for="sshw">Width - Time</label>
-				<input name="sshw" id="sshw" value="<?php echo $use['sshw']; ?>" type="range" min="5" max="200">
-				
-				<label for="ssyl">Line Height - Year</label>
-				<input name="ssyl" id="ssyl" value="<?php echo $use['ssyl']; ?>" type="range" min="5" max="100">
-				<label for="ssml">Line Height - Month</label>
-				<input name="ssml" id="ssml" value="<?php echo $use['ssml']; ?>" type="range" min="5" max="100">
-				<label for="ssdl">Line Height - Day</label>
-				<input name="ssdl" id="ssdl" value="<?php echo $use['ssdl']; ?>" type="range" min="5" max="100">
-				<label for="sshl">Line Height - Time</label>
-				<input name="sshl" id="sshl" value="<?php echo $use['sshl']; ?>" type="range" min="5" max="100">
-				
-				<label for="ssyh">Height - Year</label>
-				<input name="ssyh" id="ssyh" value="<?php echo $use['ssyh']; ?>" type="range" min="5" max="100">
-				<label for="ssmh">Height - Month</label>
-				<input name="ssmh" id="ssmh" value="<?php echo $use['ssmh']; ?>" type="range" min="5" max="100">
-				<label for="ssdh">Height - Day</label>
-				<input name="ssdh" id="ssdh" value="<?php echo $use['ssdh']; ?>" type="range" min="5" max="100">
-				<label for="sshh">Height - Time</label>
-				<input name="sshh" id="sshh" value="<?php echo $use['sshh']; ?>" type="range" min="5" max="100">
-				
-				<label for="ssyf">Font Size - Year</label>
-				<input name="ssyf" id="ssyf" value="<?php echo $use['ssyf']; ?>" type="range" min="5" max="50">
-				<label for="ssmf">Font Size - Month</label>
-				<input name="ssmf" id="ssmf" value="<?php echo $use['ssmf']; ?>" type="range" min="5" max="50">
-				<label for="ssdf">Font Size - Day</label>
-				<input name="ssdf" id="ssdf" value="<?php echo $use['ssdf']; ?>" type="range" min="5" max="50">
-				<label for="sshf">Font Size - Time</label>
-				<input name="sshf" id="sshf" value="<?php echo $use['sshf']; ?>" type="range" min="5" max="50">
-				<label for="swdf">Font Size - Subscripts</label>
-				<input name="swdf" id="swdf" value="<?php echo $use['swdf']; ?>" type="range" min="5" max="50">
-			</div>
-			<a class="applysheet" href="#" data-role="button" data-mini="true">Apply Changes</a>
+<div data-role="page">
+	<div data-role="header">
+		<h1>jQM-DateBox - Theme Roller</h1>
+	</div>
+	
+	<div data-role="main">
+		<form id="css">
+		<?php
+			echo "\n";
+			$lasttype = "";
+			foreach ( $defaults as $key => $item ) {
+				if ( $item[2] <> $lasttype ) {
+					if ( $lasttype <> "" ) {
+						echo "\t\t\t</div>\n";
+						echo "\t\t\t<a href='#' class='applysheet ui-btn ui-btn-a ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all'>Apply Changes</a>\n";
+						echo "<div class='ui-field-contain'><input type='text' data-role='datebox' id='{$item[2]}' data-datebox-mode='{$item[2]}'></div>";
+					}
+					echo "\t\t\t<h2>{$item[2]} Options</h2>\n";
+					echo "\t\t\t<div class='ui-field-contain'>\n";
+					$lasttype = $item[2];
+				}
+				echo "\t\t\t\t<label for='{$key}'>{$item[1]}</label>\n";
+				if ( $item[3] <> false ) {
+					echo "\t\t\t\t<input name='{$key}' id='{$key}' value='{$use[$key]}' type='range' min='{$item[3]}' max='{$item[4]}'>\n";
+				} else {
+					echo "\t\t\t\t<input name='{$key}' id='{$key}' value='{$use[$key]}' type='text'>\n";
+				}
+			}
+			echo "\t\t\t</div>\n";
+			echo "\t\t\t<a href='#' class='applysheet ui-btn ui-btn-a ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all'>Apply Changes</a>\n";
+		?>
 
 		</form>
 		<a id="getsheet" href="#" data-role="button" data-theme="b">Get Stylesheet</a>
 		<a id="bookmark" href="#" data-role="button" data-theme="b">Bookmark this Version</a>
-		</div>
 		
-		<div id="display" style="margin-left: 553px; margin-top: 180px">
+		
+		<!--div id="display" style="margin-left: 553px; margin-top: 180px">
+				Howdy Ho.
 			<input name="theme1" id="theme0" type="text" data-role="datebox" data-options='{"mode":"calbox", "calShowWeek":true}' />
-			<input name="theme1" id="theme1" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
+			<-input name="theme1" id="theme1" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
 			<input name="theme2" id="theme2" type="text" data-role="datebox" data-options='{"mode":"datebox"}' />
 			<input name="theme3" id="theme3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}' />
 			<input name="theme4" id="theme4" type="text" data-role="datebox" data-options='{"mode":"slidebox", "overrideSlideFieldOrder":["y","m","d","h","i"], "overrideDateFormat":"%Y-%m-%d %H:%M:00"}' />
-		</div>
-		</div>
-		<div data-role="footer">
-			<h3>jQM-DateBox (c) 2012</h3>
-		</div>
+		</div-->
 	</div>
+	<div data-role="footer">
+		<h3>jQM-DateBox (c) 2014</h3>
+	</div>
+</div>
 </body>
 </html>
