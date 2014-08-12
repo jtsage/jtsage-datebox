@@ -92,7 +92,7 @@
 				
 				switch (w.fldOrder[y]) {
 					case 'y':
-						phRow.addClass( uid + "sliderow-ym" );
+						phRow.addClass( uid + "sliderow " + uid + "sliderow-ym" );
 						for ( i = o.slen.y * -1; i < ( o.slen.y + 1 ); i++ ) {
 							tmp = ( i !== 0 ) ?
 								( ( iDate.get(0) === (w.theDate.get(0) + i) ) ?
@@ -100,14 +100,14 @@
 									o.themeDate
 								) :
 								o.themeDatePick;
-							$( "<div>", { "class": uid + "slideyear ui-btn ui-btn-" + tmp } )
+							$( "<div>", { "class": uid + "slidebox " + uid + "slideyear ui-btn ui-btn-" + tmp } )
 								.text( w.theDate.get(0)+i )
 								.data( "offset", i )
 								.appendTo( hRow );
 						}
 						break;
 					case 'm':
-						phRow.addClass( uid + "sliderow-ym" );
+						phRow.addClass( uid + "sliderow " + uid + "sliderow-ym" );
 						for ( i = o.slen.m * -1; i < ( o.slen.m + 1 ); i++ ) {
 							testDate = w.theDate.copy([0],[0,0,1]);
 							testDate.adj( 1, i );
@@ -117,7 +117,7 @@
 									o.themeDate
 								) :
 								o.themeDatePick;
-							$( "<div>", { "class": uid + "slidemonth ui-btn ui-btn-" + tmp } )
+							$( "<div>", { "class": uid + "slidebox " + uid + "slidemonth ui-btn ui-btn-" + tmp } )
 								.text( String(w.__('monthsOfYearShort')[testDate.get(1)]) )
 								.data( "offset", i )
 								.appendTo( hRow );
@@ -125,7 +125,7 @@
 						break;
 						
 					case 'd':
-						phRow.addClass( uid + "sliderow-d" );
+						phRow.addClass( uid + "sliderow " + uid + "sliderow-d" );
 						for ( i = o.slen.d * -1; i < ( o.slen.d + 1 ); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj( 2, i );
@@ -138,14 +138,14 @@
 							if ( ( $.inArray(testDate.iso(), o.blackDates) > -1 || $.inArray(testDate.getDay(), o.blackDays) > -1 ) && ( $.inArray(testDate.iso(), o.whiteDates) < 0 ) ) { 
 								tmp += " ui-state-disabled"; }
 							
-							$( "<div>", { "class": uid + "slideday ui-btn ui-btn-" + tmp } )
+							$( "<div>", { "class": uid + "slidebox " + uid + "slideday ui-btn ui-btn-" + tmp } )
 								.html( testDate.get(2) + "<br /><span class='" + uid + "slidewday'>" + w.__('daysOfWeekShort')[testDate.getDay()] + "</span>")
 								.data( "offset", i )
 								.appendTo( hRow );
 						}
 						break;
 					case 'h':
-						phRow.addClass( uid + "sliderow-hi" );
+						phRow.addClass( uid + "sliderow " + uid + "sliderow-hi" );
 						for ( i = o.slen.h * -1; i < ( o.slen.h + 1 ); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj( 3, i );
@@ -155,7 +155,7 @@
 							if ( o.validHours !== false && $.inArray( testDate.get(3), o.validHours ) < 0 ) {
 								tmp += " ui-state-disabled";
 							}
-							$( "<div>", { "class": uid + "slidehour ui-btn ui-btn-" + tmp } )
+							$( "<div>", { "class": uid + "slidebox " + uid + "slidehour ui-btn ui-btn-" + tmp } )
 								.html( w.__('timeFormat') === 12 ?
 									w._formatter('%-I<span class="'+uid+'slidewday">%p</span>', testDate) :
 									testDate.get(3)
@@ -165,14 +165,14 @@
 						}
 						break;
 					case 'i':
-						phRow.addClass( uid + "sliderow-hi" );
+						phRow.addClass( uid + "sliderow " + uid + "sliderow-hi" );
 						for ( i = o.slen.i * -1; i < ( o.slen.i + 1 ); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj( 4, ( i * o.minuteStep ) );
 							tmp = ( i !== 0 ) ?
 								o.themeDate :
 								o.themeDatePick;
-							$( "<div>", {"class": uid + "slidemins ui-btn ui-btn-" + tmp } )
+							$( "<div>", {"class": uid + "slidebox " + uid + "slidemins ui-btn ui-btn-" + tmp } )
 								.text( w._zPad( testDate.get(4) ) )
 								.data( "offset", i * o.minuteStep )
 								.appendTo( hRow );

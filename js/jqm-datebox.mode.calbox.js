@@ -309,13 +309,13 @@
 				if ( w.__('isRTL') === true ) { weekdayControl.css( "direction", "rtl" ); }
 				if ( o.calShowWeek ) { 
 					$("<div>")
-						.addClass( uid + "griddate " + uid + "griddate-empty " + uid + "griddate-label" )
+						.addClass( uid + "griddate " + uid + "griddate-label" )
 						.appendTo( weekdayControl );
 				}
 				for ( i=0; i<=6;i++ ) {
 					$( "<div>" )
 						.text( w._cal_days[ ( i + w.__('calStartDay') ) % 7 ] )
-						.addClass( uid + "griddate " + uid + "griddate-empty " + uid + "griddate-label" )
+						.addClass( uid + "griddate " + uid + "griddate-label" )
 						.appendTo( weekdayControl );
 				}
 			}
