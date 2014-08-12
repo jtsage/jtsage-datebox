@@ -260,8 +260,8 @@
 								))) / 6048e5 ) + 1;
 						case 4:
 							// this line is some bullshit.  but it does work.
-							// (trap for dec 29, 30, or 31st being in the new year's week - these are the
-							//  only 3 that can possibly fall like this)
+							// (trap for dec 29, 30, or 31st being in the new year's week - these
+							// are the only 3 that can possibly fall like this)
 							if ( this.getMonth() === 11 && this.getDate() > 28 ) { return 1; }
 
 							t1 = this.copy([0,-1*this.getMonth()],true).setFirstDay(4).adj(2,-3);
@@ -485,7 +485,9 @@
 				if ( exp_input === null || exp_input.length !== exp_format.length ) {
 					if ( typeof defVal === "number" && defVal > 0 ) {
 						// defaultValue is an integer
-						return new w._date( ( w.initDate.getEpoch() + parseInt( defVal,10 ) ) * 1000 );
+						return new w._date(
+							( w.initDate.getEpoch() + parseInt( defVal,10 ) ) * 1000
+						);
 					}
 					// No default, use ZERO.
 					return new w._date( w.initDate.getTime() );
@@ -555,7 +557,10 @@
 								date = defVal;
 							} else {
 								if ( defVal.length === 3 ) {
-									date =  w._pa( defVal, ( o.mode.substr(0,4) === "time" ? date : false ) );
+									date =  w._pa(
+										defVal,
+										( o.mode.substr(0,4) === "time" ? date : false )
+									);
 								}
 							} 
 							break;
@@ -610,7 +615,8 @@
 						case "W": d.week = grbg; d.wtyp = 1; break;
 						case "p":
 						case "P": 
-							d.meri = ( ( exp_input[i].toLowerCase() === w.__( "meridiem" )[0].toLowerCase() ) ? -1 : 1 );
+							grbg = new RegExp("^" + exp_input[i] + "$", "i");
+							d.meri = ( grbg.test( w.__( "meridiem" )[0] ) ? -1 : 1 );
 							break;
 						case "b":
 							exp_temp = $.inArray( exp_input[i], w.__( "monthsOfYearShort" ) );
@@ -639,14 +645,21 @@
 
 				if ( d.year < 100 && d.year !== -1 ) { date.setFullYear(d.year); }
 
-				if ( ( d.mont > -1 && d.date > -1 ) || ( d.hour > -1 && d.mins > -1 && d.secs > -1 ) ) { return date; }
+				if ( ( d.mont > -1 && d.date > -1 ) ||
+						( d.hour > -1 && d.mins > -1 && d.secs > -1 ) ) {
+					return date;
+				}
 
 				if ( d.week !== false ) {
 					date.setDWeek( d.wtyp, d.week );
 					if ( d.date > -1 ) { date.setDate( d.date ); }
 				}
-				if ( d.yday !== false ) { date.setD( 1, 0 ).setD( 2, 1 ).adj( 2, ( d.yday - 1 ) ); }
-				if ( d.wday !== false ) { date.adj( 2 , ( d.wday - date.getDay() ) ); }
+				if ( d.yday !== false ) { 
+					date.setD( 1, 0 ).setD( 2, 1 ).adj( 2, ( d.yday - 1 ) );
+				}
+				if ( d.wday !== false ) { 
+					date.adj( 2 , ( d.wday - date.getDay() ) );
+				}
 			}
 			return date;
 		},
@@ -741,9 +754,9 @@
 							w._zPad( date.getMinutes()
 						));
 					case "p": // AM/PM (ucase)
-						return w.__( "meridiem" )[ ( ( date.getHours() < 12 ) ? 0 : 1 ) ].toUpperCase();
+						return w.__( "meridiem" )[ ( ( date.get(3) < 12 ) ? 0 : 1 ) ].toUpperCase();
 					case "P": // AM/PM (lcase)
-						return w.__( "meridiem" )[ ( ( date.getHours() < 12 ) ? 0 : 1 ) ].toLowerCase();
+						return w.__( "meridiem" )[ ( ( date.get(3) < 12 ) ? 0 : 1 ) ].toLowerCase();
 					case "s": // Unix Seconds
 						return date.getEpoch();
 					case "S": // Seconds
@@ -853,7 +866,7 @@
 			if ( typeof update === "undefined" ) { update = true; }
 
 			if ( mode !== "a" && 
-					( typeof o.rolloverMode[ mode ] === "undefined" || o.rolloverMode[ mode ] === true )
+					( typeof o.rolloverMode[mode] === "undefined" || o.rolloverMode[mode] === true )
 				) {
 				ok = $.inArray(mode, [ "y", "m", "d", "h", "i", "s" ]);
 			} else {
@@ -1081,13 +1094,17 @@
 			if ( typeof refresh === "undefined" ) { refresh = true; }
 			if ( typeof override === "undefined" ) { override = true; }
 
-			if ( ( override === true || o.minDays === false ) && ( typeof w.d.input.attr( "min" ) !== "undefined" ) ) {
+			if ( ( override === true || o.minDays === false ) && 
+					( typeof w.d.input.attr( "min" ) !== "undefined" ) ) {
+
 				fromEl =  w.d.input.attr( "min" ).split( "-" );
 				fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
 				daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
 				o.minDays = parseInt( daysRaw * -1 , 10 );
 			}
-			if ( ( override === true || o.maxDays === false ) && ( typeof w.d.input.attr( "max" ) !== "undefined" ) ) {
+			if ( ( override === true || o.maxDays === false ) && 
+					( typeof w.d.input.attr( "max" ) !== "undefined" ) ) {
+
 				fromEl = w.d.input.attr( "max" ).split( "-" );
 				fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
 				daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
@@ -1101,7 +1118,8 @@
 		_build: {
 			"default": function () {
 				this.d.headerText = "Error";
-				this.d.intHTML = $("<div class='ui-body-b'><h2 style='text-align:center'>There is no mode by that name loaded / mode not given</h2></div>" );
+				this.d.intHTML = $("<div class='ui-body-b'><h2 style='text-align:center'>" + 
+					"Unknown Mode</h2></div>" );
 			}
 		},
 		_drag: {
@@ -1185,7 +1203,9 @@
 
 			if ( o.useHeader === true ) {
 				w.d.mainWrap.append( $( "<a href='#'>Close</a>" )
-					.addClass( "ui-btn-left ui-link ui-btn ui-btn-a ui-icon-delete ui-btn-icon-notext ui-shadow ui-corner-all" )
+					.addClass( "ui-btn-left ui-link ui-btn ui-btn-a ui-icon-delete " + 
+						"ui-btn-icon-notext ui-shadow ui-corner-all"
+					)
 					.on( o.clickEventAlt, function( e ) {
 						e.preventDefault();
 						w._t( { method: "close" } );
@@ -1230,7 +1250,13 @@
 					}
 				}
 				basepop.afteropen = function() {
-					if ( o.openCallback.apply( w, $.merge([{ custom: w.customCurrent, initDate: w.initDate, date: w.theDate, duration: w.lastDuration}], o.openCallbackArgs ) ) === false ) {
+					if ( o.openCallback.apply( w, $.merge([{
+								custom: w.customCurrent,
+								initDate: w.initDate,
+								date: w.theDate,
+								duration: w.lastDuration
+							}], o.openCallbackArgs ) ) === false ) {
+
 						w._t( {method: "close"} );
 					}
 				};
@@ -1243,7 +1269,12 @@
 					}
 				}
 				basepop.afterclose = function() {
-					o.closeCallback.apply( w, $.merge([{ custom: w.customCurrent, initDate: w.initDate, date: w.theDate, duration: w.lastDuration}], o.closeCallbackArgs ) );
+					o.closeCallback.apply( w, $.merge([{
+						custom: w.customCurrent,
+						initDate: w.initDate,
+						date: w.theDate,
+						duration: w.lastDuration
+					}], o.closeCallbackArgs ) );
 				};
 			}
 
@@ -1349,7 +1380,7 @@
 				if ( now < td ) { now = td; }
 			}
 
-			if ( $.inArray( o.mode, ["timebox","durationbox","durationflipbox","timeflipbox"] ) > -1 ) {
+			if ( o.mode.substr(0,4) === "time" || o.mode.substr(0,3) === "dur" ) {
 				if ( o.mode === "timeflipbox" && o.validHours !== false ) {
 					if ( $.inArray( now.get(3), o.validHours ) < 0 ) { w.dateOK = false; }
 				}
