@@ -96,12 +96,12 @@
 			ret.comp = parseInt( ret.iso.replace( /-/g, "" ), 10 );
 			
 			if ( bdRec !== false ) {
-				for ( i=0; i<o.bdRec.length; i++ ) {
+				for ( i=0; i < bdRec.length; i++ ) {
 					if ( 
 						( bdRec[i][0] === -1 || bdRec[i][0] === year ) &&
 						( bdRec[i][1] === -1 || bdRec[i][1] === month ) &&
 						( bdRec[i][2] === -1 || bdRec[i][2] === date )
-					) { ret.recok = false; } 
+					) { ret.ok = false; } 
 				}
 			}
 			
