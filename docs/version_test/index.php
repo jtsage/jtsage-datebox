@@ -35,12 +35,8 @@
 	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/<?php echo $verB; ?>/jqm-datebox-<?php echo $verB; ?>.mode.durationflipbox.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/<?php echo $verB; ?>/jqm-datebox-<?php echo $verB; ?>.mode.slidebox.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
-	<script type="text/javascript" src="../js/jqm-datebox-devtool.js"></script>
 	<script type="text/javascript">
-		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-			nadda: "nope",
-			useNewStyle: true,
-		});
+		jQuery.extend(jQuery.mobile, { ajaxEnabled: false });
 	</script>
 	
 </head>
@@ -50,6 +46,18 @@
 		<h1>jQueryMobile - Dev Page</h1>
 	</div>
 	<div class="ui-content" role="main">
+		<form method="POST" action="index.php">
+			<div class="ui-field-contain">
+				<label for="ver">jQM Version</label>
+				<input type="text" id="ver" name="ver" value="<?php echo $verA; ?>">
+			</div>
+			<div class="ui-field-contain">
+				<label for="verB">DateBox Version (or dev)</label>
+				<input type="text" id="verB" name="verB" value="<?php echo $verB; ?>">
+			</div>
+			<input type="submit" value="Set Versions">
+		</form>
+			
 		<div class="ui-field-contain">
 			<label for="aa1">text comparison</label>
 			<input name="aa1" type="text" data-mini="true" id="aa1"/>

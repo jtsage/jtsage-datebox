@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>jQueryMobile - DateBox DEV</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<!-- HUGE NOTE:  THIS FILE IS FOR DEVELOPMENT.  DON'T LINK TO THESE COPIES,
+		THEY CHANGE AND **BREAK** CONSTANTLY.  USE -latest, OR BETTER, A NUMBERED
+		VERSION -->
+		
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script> 
+	
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css" />
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<!--link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+	<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script-->
+	
+	
+	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	
+	<link type="text/css" href="http://cdn.jtsage.com/datebox/dev/jqm-datebox.css" rel="stylesheet" /> 
+	
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.core.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.calbox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.datebox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.flipbox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.durationbox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.durationflipbox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.slidebox.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox.mode.customflip.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/dev/jqm-datebox-devtool.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jqm-datebox.lang.utf8.js"></script>
+	
+	<script type="text/javascript">
+		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+			closeCallback: function(a, b) { console.log(a); console.log(b); },
+			closeCallbackArgs: ['hi'],
+			useLang: "en",
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" id="main"> 
+	<div data-role="header" data-position="fixed"> 
+		<h1>DateBox - Dev Page</h1>
+	</div>
+	<div class="ui-content" role="main">
+		<div class="ui-field-contain">
+			<label for="aa1">text comparison</label>
+			<input name="aa1" type="text" data-mini="true" id="aa1"/>
+		</div>
+
+		<div class="ui-field-contain">
+			<label for="lang1">yep</label>
+			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="datebox" id="lang1" />
+		</div>
+
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<h1>Some Footer Information or Something.</h1>
+	</div>
+</div>
+</html>
