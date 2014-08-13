@@ -2,10 +2,7 @@
 title: notToday
 short: Limit dates to *not* today's date
 modes: [
-	'datebox',
-	'calbox',
-	'flipbox',
-	'slidebox',
+	'calbox'
 ]
 cats: [ 'limiting' ]
 relat: "limiting"
