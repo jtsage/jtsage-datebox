@@ -7,7 +7,7 @@
 
 /* QUnit Tests */
 
-QUnit.module( "Date() Get Tests" );
+QUnit.module( "Date() Enhancement Tests" );
 
 QUnit.test(".get() Test", function( assert ){
 	var date = new Date(2001,1,2,12,30,55,0);
@@ -59,7 +59,6 @@ QUnit.test(".getArray() Test", function( assert ){
 	assert.deepEqual( date.getArray(), expect, "Jan 1, 2001");
 });
 
-QUnit.module( "Date() Set Tests" );
 QUnit.test(".setD() Test", function( assert ){
 	var date = new Date(2001,0,1,0,0,0,0);
 
@@ -113,7 +112,6 @@ QUnit.test(".copy() Test", function( assert ){
 	assert.deepEqual( newd.getArray(), [2003,5,5,10,6,30], "Override + Adjustment");
 });
 
-QUnit.module( "Date() Other Tests" );
 QUnit.test(".setFirstDay() Test", function( assert ){
 	var date = new Date(2014,0,1,0,0,0,0);
 
@@ -281,24 +279,21 @@ QUnit.test( "Time String Test (3 Element)", function( assert ){
 	);
 });
 
-
-QUnit.module( "input val() Tests" );
-
-QUnit.test( "Date Test", function( assert ){
+QUnit.test( "Date input.val() Test", function( assert ){
 	var newDate = new Date(2001,0,1),
 		db = $("<input value='2001-01-01'>").datebox({
 			mode: "datebox"
 		});
 
 	assert.deepEqual(
-		db.datebox('getTheDate').comp(),
+		db.datebox( "getTheDate" ).comp(),
 		newDate.comp(),
 		"Expected (" + newDate.comp() + "), Got (" + 
-			db.datebox('getTheDate').comp() + ")"
+			db.datebox( "getTheDate" ).comp() + ")"
 	);	
 });
 
-QUnit.test( "Time Test", function( assert ){
+QUnit.test( "Time input.val() Test", function( assert ){
 	var goodDate = [1,30], gotDate,
 		db = $( "<input value='01:30'>" ).datebox({
 			mode: "timebox"
@@ -312,8 +307,6 @@ QUnit.test( "Time Test", function( assert ){
 		"Expected (" + goodDate + "), Got (" + gotDate + ")"
 	);
 });
-
-QUnit.module( "startOffset Tests" );
 
 QUnit.test( "startOffsetYears Test", function( assert ){
 	var db = $( "<input>" ).datebox({
@@ -582,4 +575,312 @@ QUnit.test( "Lists - blackDays", function( assert ){
 		today.comp(),
 		"Not 'today' Dependant"
 	);
+});
+
+QUnit.module( "Limits - DateBox/FlipBox/SlideBox" );
+
+QUnit.test( "Relative - beforeToday", function( assert ){
+	var today = new Date(),
+		db = $( "<input>" ).datebox({
+			mode: "datebox",
+			beforeToday: true,
+			defaultValue: new Date(2036,0,1),
+			useInline: true
+		});
+
+	db.datebox( "open" );
+	
+	assert.equal( 
+		db.datebox( "getTheDate" ).comp(),
+		today.comp()
+	);
+});
+
+QUnit.test( "Relative - afterToday", function( assert ){
+	var today = new Date(),
+		db = $( "<input>" ).datebox({
+			mode: "datebox",
+			afterToday: true,
+			defaultValue: new Date(2001,0,1),
+			useInline: true
+		});
+
+	db.datebox( "open" );
+	
+	assert.equal( 
+		db.datebox( "getTheDate" ).comp(),
+		today.comp()
+	);
+});
+
+QUnit.test( "Relative - maxDays", function( assert ){
+	var today = new Date(),
+		db = $( "<input>" ).datebox({
+			mode: "datebox",
+			defaultValue: new Date(2036,0,1),
+			maxDays: 2,
+			useInline: true
+		});
+
+	today.adj(2,2);
+
+	assert.equal( 
+		db.datebox( "getTheDate" ).comp(),
+		today.comp()
+	);
+});
+
+QUnit.test( "Relative - minDays", function( assert ){
+	var today = new Date(),
+		db = $( "<input>" ).datebox({
+			mode: "datebox",
+			defaultValue: new Date(2000,0,1),
+			minDays: 2,
+			useInline: true
+		});
+
+	today.adj(2,-2);
+
+	assert.equal( 
+		db.datebox( "getTheDate" ).comp(),
+		today.comp()
+	);
+});
+
+QUnit.test( "Relative - maxYear", function( assert ){
+	var today = new Date(),
+		db = $( "<input>" ).datebox({
+			mode: "datebox",
+			defaultValue: new Date(2036,0,1),
+			maxYear: 2010,
+			useInline: true
+		});
+
+	today.adj(0,2);
+
+	assert.equal( 
+		db.datebox( "getTheDate" ).comp(),
+		20101231
+	);
+});
+
+QUnit.test( "Relative - minYear", function( assert ){
+	var today = new Date(),
+		db = $( "<input>" ).datebox({
+			mode: "datebox",
+			defaultValue: new Date(2000,0,1),
+			minYear: 2010,
+			useInline: true
+		});
+
+	today.adj(0,-2);
+
+	assert.equal( 
+		db.datebox( "getTheDate" ).comp(),
+		20100101
+	);
+});
+
+QUnit.test( "Hard - min", function( assert ){
+	var db = $( "<input type='text' min='2001-01-15'>" ).datebox({
+			mode: "datebox",
+			defaultValue: "1990-01-20",
+			useInline: true
+		});
+
+	assert.equal(
+		db.datebox( "getTheDate" ).comp(),
+		20010115
+	);
+});
+
+QUnit.test( "Hard - max", function( assert ){
+	var db = $( "<input type='text' max='2001-01-15'>" ).datebox({
+			mode: "datebox",
+			defaultValue: "2020-01-10",
+			useInline: true
+		});
+		
+	assert.equal(
+		db.datebox( "getTheDate" ).comp(),
+		20010115
+	);
+});
+
+QUnit.test( "Lists - blackDates", function( assert ){
+	var db = $( "<input type='text'>" ).datebox({
+			mode: "datebox",
+			blackDates: ["2001-01-10"],
+			defaultValue: "2001-01-10",
+			useInline: true
+		});
+		
+	expect(2);
+	
+	assert.equal(
+		db.data( "mobile-datebox" ).dateOK,
+		false
+	);
+	
+	db.data( "mobile-datebox" )._offset( "d",1);
+	assert.equal(
+		db.data( "mobile-datebox" ).dateOK,
+		true
+	);
+	
+});
+
+QUnit.test( "Lists - blackDatesRec", function( assert ){
+	var db = $( "<input type='text'>" ).datebox({
+			mode: "datebox",
+			blackDatesRec: [[-1,-1,10]],
+			defaultValue: "2001-01-10",
+			useInline: true
+		});
+	
+	assert.equal(
+		db.data( "mobile-datebox" ).dateOK,
+		false
+	);
+	
+	db.data( "mobile-datebox" )._offset( "d",1);
+	assert.equal(
+		db.data( "mobile-datebox" ).dateOK,
+		true
+	);
+});
+
+QUnit.test( "Lists - blackDays", function( assert ){
+	var db = $( "<input type='text'>" ).datebox({
+			mode: "datebox",
+			blackDays: [3],
+			defaultValue: "2001-01-03",
+			useInline: true
+		});
+	
+	assert.equal(
+		db.data( "mobile-datebox" ).dateOK,
+		false
+	);
+	
+	db.data( "mobile-datebox" )._offset( "d",1);
+	assert.equal(
+		db.data( "mobile-datebox" ).dateOK,
+		true
+	);
+});
+
+QUnit.module( "Limits - TimeBox/TimeFlipBox/SlideBox" );
+
+QUnit.test( "Relative - maxHour", function( assert ){
+	var db = $( "<input>" ).datebox({
+			mode: "timebox",
+			defaultValue: "20:00",
+			maxHour: 12,
+			useInline: true
+		});
+
+	assert.equal( 
+		db.datebox( "getTheDate" ).getHours(),
+		12
+	);
+});
+
+QUnit.test( "Relative - minHour", function( assert ){
+	var db = $( "<input>" ).datebox({
+			mode: "timebox",
+			defaultValue: "6:00",
+			minHour: 12,
+			useInline: true
+		});
+
+	assert.equal( 
+		db.datebox( "getTheDate" ).getHours(),
+		12
+	);
+});
+
+QUnit.module( "Parser / Formatter" );
+
+QUnit.test( "Formatter", function( assert ){
+	var date = new Date(2001,1,3,15,30),
+		db = $( "<input>" ).datebox({
+			mode: "datebox",
+			useInline: true
+		});
+
+	expect( 26 );
+	
+	assert.equal( db.datebox( "callFormat", "some", date ) , "some", "Literal String" );
+	assert.equal( db.datebox( "callFormat", "%a", date ) , "Sa", "Short Day" );
+	assert.equal( db.datebox( "callFormat", "%A", date ) , "Saturday", "Full Day" );
+	assert.equal( db.datebox( "callFormat", "%b", date ) , "Feb", "Short Month" );
+	assert.equal( db.datebox( "callFormat", "%B", date ) , "February", "Full Month" );
+	assert.equal( db.datebox( "callFormat", "%C", date ) , "20", "Century" );
+	assert.equal( db.datebox( "callFormat", "%d", date ) , "03", "Date #" );
+	assert.equal( db.datebox( "callFormat", "%-d", date ) , "3", "Date # (no pad)" );
+	assert.equal( db.datebox( "callFormat", "%H", date ) , "15", "24 Hour" );
+	assert.equal( db.datebox( "callFormat", "%I", date ) , "03", "12 Hour" );
+	assert.equal( db.datebox( "callFormat", "%m", date ) , "02", "Month #" );
+	assert.equal( db.datebox( "callFormat", "%-m", date ) , "2", "Month # (no pad)" );
+	assert.equal( db.datebox( "callFormat", "%M", date ) , "30", "Minute" );
+	assert.equal( db.datebox( "callFormat", "%p", date ) , "PM", "Meridiem (UC)" );
+	assert.equal( db.datebox( "callFormat", "%P", date ) , "pm", "Meridiem (LC)" );
+	assert.equal( db.datebox( "callFormat", "%S", date ) , "00", "Seconds" );
+	assert.equal( db.datebox( "callFormat", "%w", date ) , "6", "Day of Week #" );
+	assert.equal( db.datebox( "callFormat", "%y", date ) , "01", "2 Digit Year" );
+	assert.equal( db.datebox( "callFormat", "%Y", date ) , "2001", "4 Digit Year" );
+	assert.equal( db.datebox( "callFormat", "%E", date ) , "2544", "Buddist Era" );
+	assert.equal( db.datebox( "callFormat", "%-V", date ) , "5", "%V Week" );
+	assert.equal( db.datebox( "callFormat", "%-U", date ) , "4", "%V Week" );
+	assert.equal( db.datebox( "callFormat", "%-W", date ) , "5", "%V Week" );
+	assert.equal( db.datebox( "callFormat", "%o", date ) , "rd", "Date Ordinal" );
+	assert.equal( db.datebox( "callFormat", "%j", date ) , "035", "Day of Year" );
+	assert.equal( db.datebox( "callFormat", "%Y-%m-%d", date ) , "2001-02-03", "ISO Test" );
+});
+
+QUnit.test( "Parser", function( assert ){
+	var goodDate, testDate,
+		db = $( "<input>" ).datebox({
+			mode: "datebox",
+			useInline: true
+		});
+
+	expect( 9 );
+	
+	goodDate = new Date( 2001,2,3 );
+	testDate = db.datebox( "parseDate", "%Y-%m-%d", "2001-03-03" );
+	assert.deepEqual( testDate.getArray(), goodDate.getArray(), "ISO Date");
+	
+	goodDate = new Date( 2001,2,3 );
+	testDate = db.datebox( "parseDate", "%-d/%-m/%Y", "3/3/2001" );
+	assert.deepEqual( testDate.getArray(), goodDate.getArray(), "American, 4 Digit Year");
+	
+	goodDate = new Date( 2001,2,3 );
+	testDate = db.datebox( "parseDate", "%-d/%-m/%y", "3/3/01" );
+	assert.deepEqual( testDate.getArray(), goodDate.getArray(), "American, 2 Digit Year");
+	
+	goodDate = new Date( 2001,2,3 );
+	testDate = db.datebox( "parseDate", "%B %-d%o, %Y", "March 3rd, 2001" );
+	assert.deepEqual( testDate.getArray(), goodDate.getArray(), "American, Text Month w/ Ordinal");
+	
+	goodDate = new Date( 2001,11,26 );
+	testDate = db.datebox( "parseDate", "%Y-%j", "2001-360" );
+	assert.deepEqual( testDate.getArray(), goodDate.getArray(), "ISO Ordinal Date");
+	
+	goodDate = new Date( 2001,4,28 );
+	testDate = db.datebox( "parseDate", "%Y-W%V-%w", "2001-W22-3" );
+	assert.deepEqual( testDate.getArray(), goodDate.getArray(), "ISO Week Date w/ Day");
+	
+	goodDate = new Date( 1900,0,1,15,30 );
+	testDate = db.datebox( "parseDate", "%H:%M", "15:30" );
+	assert.deepEqual( testDate.getArray(), goodDate.getArray(), "ISO Time");
+	
+	goodDate = new Date( 1900,0,1,15,30 );
+	testDate = db.datebox( "parseDate", "%-I:%M%p", "3:30PM" );
+	assert.deepEqual( testDate.getArray(), goodDate.getArray(), "12hr Time");
+	
+	goodDate = new Date( 2001,2,3,15,30 );
+	testDate = db.datebox( "parseDate", "%Y-%m-%dT%H:%M", "2001-03-03T15:30" );
+	assert.deepEqual( testDate.getArray(), goodDate.getArray(), "ISO Date w/ Time");
 });

@@ -19,9 +19,10 @@
 	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.datebox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.calbox.js"></script>
-	<script type="text/javascript" src="../js/jqm-datebox.mode.flipbox.js"></script>
-	<script type="text/javascript" src="../js/jqm-datebox-devtool.js"></script>
-	<script type="text/javascript" src="./jqm-datebox.qunit-lang.js"></script>	
+	<script type="text/javascript" src="./jqm-datebox.qunit-lang.js"></script>
+	<script type="text/javascript">
+		jQuery.extend(jQuery.mobile, { ajaxEnabled: false });
+</script>
 </head>
 <body>
 <div data-role="page" id="main"> 
@@ -34,6 +35,14 @@
   		<div id="qunit-fixture"></div>
   		<script src="http://code.jquery.com/qunit/qunit-1.15.0.js"></script>
   		<script src="jqm-datebox-qunit.js"></script>
+  		<h2>Test Notes</h2>
+		<ul>
+		<li><strong>CalBox</strong>: These test the actual UI. They can fail false-positive (faulty pass)</li>
+		<li><strong>DateBox / TimeBox / etc</strong>: These test the limiting logic.</li>
+		<li><strong>Parser / Formatter</strong>: These test only the parser and formatter - no other part of datebox is used.</li>
+		<li><strong>Date Enhancments</strong>: Test the enhancments to Date() - without which, DateBox will be unpredictable.</li>
+		<li><strong>DefaultValue</strong>: Test the auto-input and default formatter.</li>
+		</ul>
 	</div>
 	<div data-role="footer" data-position="fixed">
 		<h1>QUnit Testing</h1>
