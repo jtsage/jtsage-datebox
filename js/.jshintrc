@@ -14,9 +14,6 @@
 	"trailing": true,
 	"maxlen": 100,
 	"indent": 4,
-
-	
-
 	"node": true,
 	"predef": [ "jQuery", "document", "window", "setTimeout", "clearTimeout" ]
 }

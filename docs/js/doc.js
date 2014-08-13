@@ -1,8 +1,10 @@
 $(document).on('change', '.demopick', function(e){
-	thisSel = $(e.currentTarget);
-	thisBox = '#'+thisSel.data('link');
-	thisVal = thisSel.val();
-	thisJSON = makeJSON(thisVal);
+	var	thisObj, 
+		thisSel = $(e.currentTarget),
+		thisBox = '#'+thisSel.data('link'),
+		thisVal = thisSel.val(),
+		thisJSON = makeJSON(thisVal);
+		
 	if ( thisVal === "true" ) { thisVal = true; }
 	if ( thisVal === "false" ) { thisVal = false; }
 	if ( thisVal == parseInt(thisVal,10) ) { thisVal = parseInt(thisVal,10); }
@@ -10,7 +12,7 @@ $(document).on('change', '.demopick', function(e){
 	thisObj = {}; thisObj[thisSel.data('opt')] = thisVal;
 	$(thisBox).datebox(thisObj);
 	$(thisBox).datebox('refresh');
-})
+});
 
 function makeJSON(str) {
 	try {
@@ -29,8 +31,7 @@ var langs = [{"data":[
 	"zh-CN: 中文 (Simplified)", "zh-TW: 中文 (Traditional)"]}];
 		
 var changeLang = function(a) {
-	var colonPos, thisLang,
-		thisLangRaw = langs[0].data[a.custom[0]],
+	var thisLangRaw = langs[0].data[a.custom[0]],
 		colonPos = thisLangRaw.search(/:/),
 		thisLang = thisLangRaw.substr(0,colonPos);
 		

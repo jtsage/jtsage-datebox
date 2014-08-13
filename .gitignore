@@ -1,2 +1,7 @@
+
+## Grunt dependancies
 node_modules
+
+## Built Jekyll site
+docs/_site
 
