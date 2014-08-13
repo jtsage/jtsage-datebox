@@ -1,0 +1,29 @@
+{
+  "name": "jquery-mobile-datebox",
+  "title": "jQuery Mobile DateBox",
+  "description": "jQM Plugin to provide a Date and Time Picker",
+  "version": "1.5.0-pre",
+  "homepage": "http://dev.jtsage.com/jQM-DateBox/",
+  "author": {
+    "name": "JTSage and other contributors",
+    "url": "https://github.com/jtsage/jquery-mobile-datebox/graphs/contributors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jtsage/jquery-mobile-datebox.git"
+  },
+  "bugs": "https://github.com/jtsage/jquery-mobile-datebox/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jtsage/jquery-mobile-datebox/blob/master/LICENSE.txt"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">=1.8.3",
+    "jquery-mobile": ">=1.4.3"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}

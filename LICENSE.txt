@@ -1,24 +1,44 @@
 jQuery Mobile Framework : plugin to provide a date and time picker.
-Copyright (c) JTSage
-CC 3.0 Attribution.  May be relicensed without permission/notifcation.
-https://github.com/jtsage/jquery-mobile-datebox
+Copyright (c) JTSage 2011
 
-You are free:
- * to Share - to copy, distribute and transmit the work
- * to Remix - to adapt the work
- * to make commercial use of the work
+This software consists of voluntary contributions made by many
+individuals. For exact contribution history, see the revision history
+available at https://github.com/jtsage/jquery-mobile-datebox
 
-Under the following conditions:
- * Attribution - You must attribute JQM-DateBox to JTSage (with link).
+The following license applies to all parts of this software except as
+documented below:
 
-With the understanding that:
+====
 
- * Waiver - Any of the above conditions can be waived if you get permission from the copyright holder.
- * Public Domain - Where the work or any of its elements is in the public domain under applicable law, that status is in no way affected by the license.
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
 
- * Other Rights - In no way are any of the following rights affected by the license:
-   * Your fair dealing or fair use rights, or other applicable copyright exceptions and limitations;
-   * The author's moral rights;
-   * Rights other persons may have either in the work itself or in how the work is used, such as publicity or privacy rights.
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
 
- * Notice - For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a link to this web page.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+====
+
+Copyright and related rights for sample code are waived via CC0. Sample
+code is defined as all source code contained within the docs directory.
+
+CC0: http://creativecommons.org/publicdomain/zero/1.0/
+
+====
+
+All files located in the node_modules and external directories are
+externally maintained libraries used by this software which have their
+own licenses; we recommend you read them, as their terms may differ from
+the terms above.
