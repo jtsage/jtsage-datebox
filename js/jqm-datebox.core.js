@@ -359,6 +359,10 @@
 			var w = this,
 				o = this.options;
 
+			if ( typeof w.fmtOver !== "undefined" && w.fmtOver !== false ) {
+				return w.fmtOver;
+			}
+			
 			switch ( o.mode ) {
 				case "timebox":
 				case "timeflipbox":
@@ -715,8 +719,6 @@
 					}
 				}
 				switch ( oper ) {
-					case "%": // Literal %
-						return "%";
 					case "a": // Short Day
 						return w.__( "daysOfWeekShort" )[ date.getDay() ];
 					case "A": // Full Day of week
@@ -1103,7 +1105,7 @@
 				fromEl =  w.d.input.attr( "min" ).split( "-" );
 				fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
 				daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
-				o.minDays = parseInt( daysRaw * -1 , 10 );
+				o.minDays = parseInt( daysRaw * -1 , 10 ) + 1;
 			}
 			if ( ( override === true || o.maxDays === false ) && 
 					( typeof w.d.input.attr( "max" ) !== "undefined" ) ) {
@@ -1111,7 +1113,7 @@
 				fromEl = w.d.input.attr( "max" ).split( "-" );
 				fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
 				daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
-				o.maxDays = parseInt( daysRaw, 10 );
+				o.maxDays = parseInt( daysRaw, 10 ) - 1;
 			}
 
 			if ( refresh === true ) { 
@@ -1375,8 +1377,7 @@
 				}
 			}
 			if ( o.maxYear !== false ) {
-				td = new w._date( o.maxYear, 0, 1 );
-				td.adj(2, -1);
+				td = new w._date( o.maxYear, 11, 31 );
 				if ( now > td ) { now = td; }
 			}
 			if ( o.minYear !== false ) {
@@ -1516,6 +1517,16 @@
 			}
 			this.refresh();
 			this._t( { method: "doset" });
+		},
+		parseDate: function( format, strdate ) {
+			// Provide a PUBLIC function to parse a date
+			var retty,
+				w = this;
+				
+			w.fmtOver = format;
+			retty = w._makeDate( strdate );
+			w.fmtOver = false;
+			return retty;
 		},
 		callFormat: function( format, date ) {
 			// Provide a PUBLIC function to get a formatted date
