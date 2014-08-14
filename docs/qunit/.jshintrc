@@ -15,5 +15,5 @@
 	"maxlen": 100,
 	"indent": 4,
 	"node": true,
-	"predef": [ "QUnit", "$", "expect", "jQuery" ]
+	"predef": [ "QUnit", "$", "expect", "jQuery", "document", "window" ]
 }
