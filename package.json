@@ -6,7 +6,7 @@
   "homepage": "http://dev.jtsage.com/jQM-DateBox/",
   "author": {
     "name": "JTSage and other contributors",
-    "url": "https://github.com/jtsage/jquery-mobile-datebox/graphs/contributors"
+    "url": "https://github.com/jtsage/jquery-mobile-datebox/blob/master/AUTHORS.txt"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-qunit": "^0.5.2",
-    "grunt-contrib-uglify": "^0.5.1"
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-git-committers": "^0.1.2"
   }
 }

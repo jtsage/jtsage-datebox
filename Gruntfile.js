@@ -242,6 +242,13 @@ module.exports = function(grunt) {
 						"css/jqm-datebox.css"]
 				}
 			}
+		},
+		committers: {
+			options: {
+				sort: 'commits',
+				email: true,
+				nomerges: true,
+			}
 		}
 	});
 
@@ -251,7 +258,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
-	grunt.loadNpmTasks( "grunt-contrib-cssmin");
+	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
+	grunt.loadNpmTasks( "grunt-git-committers" );
 	
 	grunt.registerTask( "release", [
 		"clean:release",
@@ -265,7 +273,8 @@ module.exports = function(grunt) {
 		"copy:release",
 		"copy:release_css",
 		"uglify:release",
-		"cssmin:release"
+		"cssmin:release",
+		"committers"
 	]);
 	
 	grunt.registerTask( "latest", [
