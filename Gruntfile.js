@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 			},
 			extra: {
 				files: {
-					src: [ "docs/doc/3rd/**/*.js" ]
+					src: [ "docs/doc/3rd/backbonerequire/js/*.js" ]
 				},
 				options: {
 					undef: true,
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
 					indent: 4,
 					maxlen: 100,
 					node: true,
-					predef: ["jQuery", "document", "window", "define"]
+					predef: ["jQuery", "document", "window", "define", "requirejs"]
 				}
 			},
 			js_sane: {
@@ -171,6 +171,18 @@ module.exports = function(grunt) {
 			}
 		},
 		copy: {
+			backreq: {
+				files: [ {
+					expand: true,
+					cwd: "dist/latest",
+					src: ["*.all.js"],
+					dest: "docs/doc/3rd/backbonerequire/external/jqmdatebox/",
+					filter: "isFile",
+					rename: function(dest, src) {
+						return dest + src.replace(/.all/, "");
+					}
+				} ]
+			},
 			release: {
 				options: {
 					process: function (content) {
@@ -385,6 +397,7 @@ module.exports = function(grunt) {
 		"uglify:release",
 		"cssmin:release",
 		"committers",
+		"copy:backreq",
 		"jekyll:release",
 	] );
 	
@@ -394,7 +407,8 @@ module.exports = function(grunt) {
 		"copy:latest",
 		"copy:latest_css",
 		"uglify:latest",
-		"cssmin:latest"
+		"cssmin:latest",
+		"copy:backreq"
 	]);
 	
 

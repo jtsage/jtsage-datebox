@@ -3,7 +3,6 @@ requirejs.config({
 		// requireJS plugins
 		"text": "../external/requirejs/plugins/text",
 		"json": "../external/requirejs/plugins/json",
-
 		"jquery": "../external/jquery/jquery",
 	},
 	"shim": {

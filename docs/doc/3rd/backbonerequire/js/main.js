@@ -43,13 +43,14 @@ require([
 		// Set up the "mobileinit" handler before requiring jQuery Mobile's module
 		function () {
 
-			// Prevents all anchor click handling including the addition of active button state and alternate link bluring.
+			// Prevents all anchor click handling including the addition of active button state and
+			// alternate link bluring.
 			$.mobile.linkBindingEnabled = false;
 
 			// Disabling this will prevent jQuery Mobile from handling hash changes
 			$.mobile.hashListeningEnabled = false;
 		}
-	)
+	);
 
 	require( [ "jquerymobile" ], function () {
 
@@ -58,12 +59,10 @@ require([
 	});
 	require( ["jqmdatebox"] , function() {
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-			'useNewStyle': true,
-			'useFocus': true,
-			'useInlineBlind': true,
+			// DateBox Defaults Could Go Here.
 		});
 		$( ":jqmData(role='datebox')" ).each(function() {
-			var defed = typeof ($(this).data('mobile-datebox'));
+			var defed = typeof ($(this).data( "mobile-datebox" ));
 			if ( defed === "undefined" ) {
 				$(this).datebox();
 			}
