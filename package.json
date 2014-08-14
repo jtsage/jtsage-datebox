@@ -28,7 +28,9 @@
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-qunit": "^0.5.2",
     "grunt-contrib-uglify": "^0.5.1",
+    "grunt-contrib-watch": "^0.6.1",
     "grunt-git-committers": "^0.1.2",
+    "grunt-jekyll": "git://github.com/dannygarcia/grunt-jekyll.git",
     "node-gettext": "^0.2.14"
   }
 }
