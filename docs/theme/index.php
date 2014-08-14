@@ -77,11 +77,11 @@ foreach ( $defaults as $key => $value ) {
 	<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
 
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.core{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.calbox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.datebox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.flipbox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}jqm-datebox.mode.slidebox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.core{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.calbox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.datebox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.flipbox{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.slidebox{{site.min}}.js"></script>
 	<script type="text/javascript" src="{{ site.i18n }}jqm-datebox.lang.utf8.js"></script>
 	
 	<script type="text/javascript">

@@ -331,7 +331,10 @@ module.exports = function(grunt) {
 					"docs/api/*.md",
 					"docs/index.html",
 					"docs/_layouts/*.html",
-					"docs/_includes/*.html"
+					"docs/_includes/*.html",
+					"docs/qunit/index.php",
+					"docs/theme/*.php",
+					"docs/builder/*.php"
 				],
 				tasks: [ "jekyll:latest" ]
 			}
