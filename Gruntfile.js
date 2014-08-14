@@ -37,29 +37,6 @@ module.exports = function(grunt) {
 					jshintrc: "js/.jshintrc"
 				}
 			},
-			extra: {
-				files: {
-					src: [ "docs/doc/3rd/backbonerequire/js/*.js" ]
-				},
-				options: {
-					undef: true,
-					unused: true,
-					boss: true,
-					curly: true,
-					eqeqeq: true,
-					eqnull: true,
-					expr: true,
-					immed: true,
-					noarg: true,
-					quotmark: "double",
-					smarttabs: true,
-					trailing: true,
-					indent: 4,
-					maxlen: 100,
-					node: true,
-					predef: ["jQuery", "document", "window", "define", "requirejs"]
-				}
-			},
 			js_sane: {
 				files: {
 					src: [ "js/*.js" ]
@@ -85,7 +62,11 @@ module.exports = function(grunt) {
 			},
 			doc: {
 				files: {
-					src: [ "docs/js/*.js", "docs/qunit/*.js" ]
+					src: [
+						"docs/js/*.js",
+						"docs/qunit/*.js",
+						"docs/doc/3rd/backbonerequire/js/*.js"
+					]
 				},
 				options: {
 					jshintrc: "docs/qunit/.jshintrc"
@@ -424,8 +405,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane", "qunit"] );
 
 	grunt.registerTask( "default", "Test and Build working version", [
-		"jshint",
-		"qunit",
+		"jshint_sane",
 		"latest"
 	] );
 	
