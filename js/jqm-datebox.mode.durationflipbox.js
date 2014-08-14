@@ -1,9 +1,6 @@
-/*
- * jQuery Mobile Framework : plugin to provide a date and time picker.
- * Copyright (c) JTSage
- * https://github.com/jtsage/jquery-mobile-datebox
- */
- /* DurationFlipBox Mode */
+/* jQuery-Mobile-DateBox */
+
+/*! DurationFlipBox Mode */
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
@@ -18,7 +15,7 @@
 		}
 	});
 	$.extend( $.mobile.datebox.prototype, {
-		'_durfbox_pos': function () {
+		"_durfbox_pos": function () {
 				var pos1, ech, top, fixer,
 				w = this,
 				par = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
@@ -28,16 +25,16 @@
 				top = ech.innerHeight();
 				ech.css( "top", ( ( par / 2 ) - ( top / 2 ) - 3 ) * -1 );
 			});
-			w.d.intHTML.find('ul').each(function () {
+			w.d.intHTML.find("ul").each(function () {
 				ech = $( this );
 				par = ech.parent().innerHeight();
 				top = ech.find( "li" ).first();
-				fixer = ech.find( "li" ).last().offset().top - ech.find( "li" ).first().offset().top;
+				fixer = ech.find( "li" ).last().offset().top - ech.find("li").first().offset().top;
 				pos1 = ( ( ( fixer-par ) / 2 ) + top.outerHeight() ) * -1;
 				top.css( "marginTop", pos1 );
 			});
 		},
-		'_durfbox_series': function (middle, side, type) {
+		"_durfbox_series": function (middle, side, type) {
 			var nxt, prv,
 				o = this.options,
 				ret = [ [ middle.toString(), middle ] ];
@@ -49,14 +46,14 @@
 				if ( prv > -1 ) {
 					ret.push([prv.toString(), prv]);
 				} else {
-					ret.push(['',-1]);
+					ret.push(["",-1]);
 				}
 			}
 			return ret;
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
-		'durationflipbox': function () {
+		"durationflipbox": function () {
 			var  i, y, hRow, hRowIn, tmp, stdPos, curFld,
 				w = this,
 				o = this.options,
@@ -84,21 +81,23 @@
 			
 			w.d.headerText = ( ( w._grabLabel() !== false ) ? 
 				w._grabLabel() :
-				w.__('titleDateDialogLabel')
+				w.__("titleDateDialogLabel")
 			);
 			w.d.intHTML = $( "<span>" );
 
 			$(document).one( "popupafteropen", function() { 
-				// This fixes bad positioning on initial open - have not found a way around this yet.
+				// This fixes bad positioning on initial open - not found a way around this yet.
 				w._fbox_pos(); 
 			});
 
-			w.fldOrder = w.__('durationOrder');
+			w.fldOrder = w.__( "durationOrder" );
 			
-			tmp = $( "<div class='" + uid + "header ui-grid-" + gridLab[w.fldOrder.length] + "'></div>");
+			tmp = $( "<div class='" + uid + "header ui-grid-" +
+				gridLab[w.fldOrder.length] + "'></div>");
+				
 			for ( y = 0; y < w.fldOrder.length; y++ ) {
 				$("<div class='ui-block-" + blockLab[ y ] + "'>" + 
-						w.__('durationLabel')[ $.inArray( w.fldOrder[y], sel ) ] + 
+						w.__( "durationLabel" )[ $.inArray( w.fldOrder[y], sel ) ] + 
 						"</div>"
 					)
 					.css( "textAlign", "center")
@@ -118,10 +117,10 @@
 			cDur[2] = parseInt( i / ival.i, 10);
 			cDur[3] = i % ival.i;
 			
-			cDurS.d = w._durfbox_series(cDur[0],16,'d');
-			cDurS.h = w._durfbox_series(cDur[1],16,'h');
-			cDurS.i = w._durfbox_series(cDur[2],20,'i');
-			cDurS.s = w._durfbox_series(cDur[3],20,'s');
+			cDurS.d = w._durfbox_series(cDur[0],16,"d");
+			cDurS.h = w._durfbox_series(cDur[1],16,"h");
+			cDurS.i = w._durfbox_series(cDur[2],20,"i");
+			cDurS.s = w._durfbox_series(cDur[3],20,"s");
 			
 			for ( y = 0; y < w.fldOrder.length; y++ ) {
 				stdPos = w.fldOrder[ y ];
@@ -154,8 +153,9 @@
 				if ( o.useSetButton ) {
 					$( "<a href='#' role='button'>" )
 						.appendTo(y)
-						.text( w.__('setDurationButtonLabel') )
-						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
+						.text( w.__( "setDurationButtonLabel") )
+						.addClass( "ui-btn ui-btn-" + o.theme +
+							" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							w._t( { 
@@ -168,62 +168,54 @@
 						});
 				}
 				if ( o.useClearButton ) {
-					$( "<a href='#' role='button'>" + w.__( 'clearButton' ) + "</a>" )
+					$( "<a href='#' role='button'>" + w.__( "clearButton" ) + "</a>" )
 						.appendTo(y)
-						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" )
+						.addClass( "ui-btn ui-btn-" + o.theme +
+							" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
-							w.d.input.val('');
+							w.d.input.val("");
 							w._t( { method: "clear" } );
 							w._t( { method: "close" } );
 						});
 				}
 				if ( o.useCollapsedBut ) {
-					y.addClass('ui-datebox-collapse');
+					y.addClass( "ui-datebox-collapse" );
 				}
 				y.appendTo(w.d.intHTML);
 			}
 			
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
-				w.d.intHTML.on('mousewheel', '.ui-overlay-shadow', function(e,d) {
+				w.d.intHTML.on( "mousewheel", ".ui-overlay-shadow", function(e,d) {
 					e.preventDefault();
-					w._offset($(this).data('field'), ((d<0)?-1:1)*$(this).data('amount'));
+					w._offset($(this).data("field"), ((d<0)?-1:1)*$(this).data("amount"));
 				});
 			}
 			
-			w.d.intHTML.on(w.drag.eStart, 'ul', function(e,f) {
+			w.d.intHTML.on(w.drag.eStart, "ul", function(e,f) {
 				if ( !w.drag.move ) {
 					if ( typeof f !== "undefined" ) { e = f; }
 					w.drag.move = true;
-					w.drag.target = $(this).find('li').first();
-					w.drag.pos = parseInt(w.drag.target.css('marginTop').replace(/px/i, ''),10);
+					w.drag.target = $(this).find("li").first();
+					w.drag.pos = parseInt(w.drag.target.css("marginTop").replace(/px/i, ""),10);
 					w.drag.start = w.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
 					w.drag.end = false;
 					e.stopPropagation();
 					e.preventDefault();
 				}
 			});
-			
-			w.d.intHTML.on(w.drag.eStart, '.'+uid+'flipcenter', function(e) { // Used only on old browsers and IE.
-				if ( !w.drag.move ) {
-					w.drag.target = w.touch ? e.originalEvent.changedTouches[0].pageX - $(e.currentTarget).offset().left : e.pageX - $(e.currentTarget).offset().left;
-					w.drag.tmp = w.d.intHTML.find('.'+uid+'flipcenter').innerWidth() / (( $.inArray('a', w.fldOrder) > -1 && w.__('timeFormat') !== 12 )?w.fldOrder.length-1:w.fldOrder.length);
-					$(w.d.intHTML.find('ul').get(parseInt(w.drag.target / w.drag.tmp,10))).trigger(w.drag.eStart,e);
-				}
-			});
-			
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._drag, {
-		'durationflipbox': function() {
+		"durationflipbox": function() {
 			var w = this,
 				o = this.options,
 				g = this.drag;
 			
 			$(document).on(g.eMove, function(e) {
-				if ( g.move && o.mode === 'durationflipbox' ) {
+				if ( g.move && o.mode === "durationflipbox" ) {
 					g.end = w.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
-					g.target.css('marginTop', (g.pos + g.end - g.start) + 'px');
+					g.target.css( "marginTop", (g.pos + g.end - g.start) + "px");
 					e.preventDefault();
 					e.stopPropagation();
 					return false;
@@ -231,13 +223,16 @@
 			});
 			
 			$(document).on(g.eEnd, function(e) {
-				if ( g.move && o.mode === 'durationflipbox' ) {
+				if ( g.move && o.mode === "durationflipbox" ) {
 					g.move = false;
 					if ( g.end !== false ) {
 						e.preventDefault();
 						e.stopPropagation();
 						g.tmp = g.target.parent().parent();
-						w._offset(g.tmp.data('field'), (parseInt((g.start - g.end) / g.target.innerHeight(),10) * g.tmp.data('amount') *-1 ));
+						w._offset(
+							g.tmp.data( "field"),
+							(parseInt((g.start - g.end) / g.target.innerHeight(),10) *
+								g.tmp.data( "amount" ) *-1 ));
 					}
 					g.start = false;
 					g.end = false;

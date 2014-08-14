@@ -1,8 +1,5 @@
-/*
- * jQuery Mobile Framework : plugin to provide a date and time picker.
- * Copyright (c) JTSage
- * https://github.com/jtsage/jquery-mobile-datebox
- */
+/* jQuery-Mobile-DateBox */
+
 /* CORE Functions */
 
 (function( $, undefined ) {
@@ -11,8 +8,9 @@
 		options: {
 			// All widget options, including some internal runtime details
 
-			// jQMMajor.jQMMinor.DBoxMinor-YrMoDaySerial
-			version: "2-1.4.3-2014080301-next", 
+			// 3-jQueryMobileVersion
+			// Check Header for Build Date.
+			version: "3-1.5.0-pre", 
 
 			mobVer: parseInt( $.mobile.version.replace( /\./g, "" ), 10 ),
 			theme: false,

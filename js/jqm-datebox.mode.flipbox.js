@@ -1,9 +1,6 @@
-/*
- * jQuery Mobile Framework : plugin to provide a date and time picker.
- * Copyright (c) JTSage
- * https://github.com/jtsage/jquery-mobile-datebox
- */
-/* FLIPBOX Mode */
+/* jQuery-Mobile-DateBox */
+
+/*! FLIPBOX Mode */
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
@@ -22,7 +19,7 @@
 		}
 	});
 	$.extend( $.mobile.datebox.prototype, {
-		'_fbox_pos': function () {
+		"_fbox_pos": function () {
 			var pos1, ech, top, fixer,
 				w = this,
 				par = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
@@ -32,11 +29,11 @@
 				top = ech.innerHeight();
 				ech.css( "top", ( ( par / 2 ) - ( top / 2 ) - 3 ) * -1 );
 			});
-			w.d.intHTML.find('ul').each(function () {
+			w.d.intHTML.find( "ul" ).each(function () {
 				ech = $( this );
 				par = ech.parent().innerHeight();
 				top = ech.find( "li" ).first();
-				fixer = ech.find( "li" ).last().offset().top - ech.find( "li" ).first().offset().top;
+				fixer = ech.find( "li" ).last().offset().top - ech.find("li").first().offset().top;
 				pos1 = ( ( ( fixer-par ) / 2 ) + top.outerHeight() ) * -1;
 				top.css( "marginTop", pos1 );
 			});
@@ -44,14 +41,16 @@
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
-		'timeflipbox': function() {
+		"timeflipbox": function() {
 			this._build.flipbox.apply(this);
 		},
-		'flipbox': function () {
+		"flipbox": function () {
 			var i, y, hRow, tmp, testDate, hRowIn,
 				w = this,
 				o = this.options, 
-				iDate = (w.d.input.val() === "") ? w._startOffset(w._makeDate(w.d.input.val())) : w._makeDate(w.d.input.val()),
+				iDate = (w.d.input.val() === "") ?
+					w._startOffset(w._makeDate(w.d.input.val())) :
+					w._makeDate(w.d.input.val()),
 				uid = "ui-datebox-",
 				flipBase = $( "<div class='ui-overlay-shadow'><ul></ul></div>" ),
 				ctrl = $( "<div>", { "class": uid+"flipcontent" } );
@@ -68,24 +67,27 @@
 
 			w.d.headerText = ( ( w._grabLabel() !== false) ? 
 				w._grabLabel() : 
-				( (o.mode==='flipbox') ?
-					w.__('titleDateDialogLabel') :
-					w.__('titleTimeDialogLabel') 
+				( (o.mode === "flipbox") ?
+					w.__( "titleDateDialogLabel" ) :
+					w.__( "titleTimeDialogLabel" ) 
 				)
 			);
 			w.d.intHTML = $( "<span>" );
 
 			$(document).one( "popupafteropen", function() { 
-				// This fixes bad positioning on initial open - have not found a way around this yet.
+				// This fixes bad positioning on initial open - not found a way around this yet.
 				w._fbox_pos(); 
 			});
 
-			w.fldOrder = ( o.mode === "flipbox" ) ? w.__('dateFieldOrder') : w.__('timeFieldOrder');
+			w.fldOrder = ( o.mode === "flipbox" ) ?
+				w.__( "dateFieldOrder" ) :
+				w.__( "timeFieldOrder" );
 			w._check();
 			w._minStepFix();
 
 			if ( o.mode === "flipbox" ) { 
-				$("<div class='" + uid + "header'><h4>" + w._formatter(w.__('headerFormat'), w.theDate) + "</h4></div>")
+				$("<div class='" + uid + "header'><h4>" +
+						w._formatter(w.__( "headerFormat"), w.theDate) + "</h4></div>")
 					.appendTo(w.d.intHTML); 
 			}
 
@@ -97,7 +99,7 @@
 				hRowIn = hRow.find( "ul" );
 						
 				switch (w.fldOrder[y]) {
-					case 'y':
+					case "y":
 						for ( i = o.flen.y * -1; i < ( o.flen.y + 1 ); i++ ) {
 							tmp = ( i !== 0 ) ?
 								( ( iDate.get(0) === ( w.theDate.get(0) + i ) ) ?
@@ -110,22 +112,24 @@
 								.appendTo( hRowIn );
 						}
 						break;
-					case 'm':
+					case "m":
 						for ( i = o.flen.m * -1; i < ( o.flen.m + 1 ); i++ ) {
 							testDate = w.theDate.copy( [0], [0,0,1] );
 							testDate.adj( 1, i );
 							tmp = ( i !== 0 ) ?
-								( ( iDate.get(1) === testDate.get(1) && iDate.get(0) === testDate.get(0) ) ? 
+								( ( iDate.get(1) === testDate.get(1) &&
+										iDate.get(0) === testDate.get(0) ) ? 
 									o.themeDateHigh : 
 									o.themeDate
 								) :
 								o.themeDatePick;
 							$("<li>", { "class" : "ui-body-" + tmp } )
-								.html( "<span>" + w.__('monthsOfYearShort')[ testDate.getMonth() ] + "</span>" )
+								.html( "<span>" + w.__("monthsOfYearShort")[ testDate.getMonth() ] +
+									"</span>" )
 								.appendTo( hRowIn );
 						}
 						break;
-					case 'd':
+					case "d":
 						for ( i = o.flen.d * -1; i < ( o.flen.d + 1 ); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj( 2, i );
@@ -135,7 +139,9 @@
 									o.themeDate
 								) :
 								o.themeDatePick;
-							if ( ( $.inArray(testDate.iso(), o.blackDates) > -1 || $.inArray(testDate.getDay(), o.blackDays) > -1 ) && ( $.inArray(testDate.iso(), o.whiteDates) < 0 ) ) { 
+							if ( ( $.inArray(testDate.iso(), o.blackDates) > -1 ||
+									$.inArray(testDate.getDay(), o.blackDays) > -1 ) &&
+									( $.inArray(testDate.iso(), o.whiteDates) < 0 ) ) { 
 								tmp += " ui-state-disabled"; }
 							
 							$("<li>", { "class" : "ui-body-" + tmp } )
@@ -143,22 +149,26 @@
 								.appendTo( hRowIn );
 						}
 						break;
-					case 'h':
+					case "h":
 						for ( i = o.flen.h * -1; i < ( o.flen.h + 1 ); i++ ) {
 							testDate = w.theDate.copy();
 							testDate.adj( 3, i );
 							tmp = ( i !== 0 ) ?
 								o.themeDate :
 								o.themeDatePick;
-							if ( o.validHours !== false && $.inArray(testDate.get(3), o.validHours) < 0 ) {
+							if ( o.validHours !== false &&
+									$.inArray(testDate.get(3), o.validHours) < 0 ) {
 								tmp += " " + uid + "griddate-disable";
 							}
 							$("<li>", { "class" : "ui-body-" + tmp } )
-								.html( "<span>" + ( ( w.__('timeFormat') === 12 ) ? testDate.get12hr() : testDate.get(3) ) + "</span>" )
+								.html( "<span>" + ( ( w.__("timeFormat") === 12 ) ?
+									testDate.get12hr() :
+									testDate.get(3) ) + "</span>"
+								)
 								.appendTo( hRowIn );
 						}
 						break;
-					case 'i':
+					case "i":
 						hRow.data( "amount", o.minuteStep );
 						for ( i = o.flen.i * -1; i < ( o.flen.i + 1 ); i++ ) {
 							testDate = w.theDate.copy();
@@ -171,21 +181,23 @@
 								.appendTo( hRowIn );
 						}
 						break;
-					case 'a':
-						if ( w.__('timeFormat') !== 12 ) { hRow = false; break; }
+					case "a":
+						if ( w.__( "timeFormat" ) !== 12 ) { hRow = false; break; }
 						
-						testDate = $( "<li class='ui-body-" + o.themeDate + "'><span></span></li>" );
+						testDate = $( "<li class='ui-body-" + o.themeDate + "'><span></span></li>");
 						
 						for ( i = 0; i < o.flen.a; i++ ) { testDate.clone().appendTo( hRowIn ); }
 						if ( w.theDate.get(3) < 12 ) { testDate.clone().appendTo( hRowIn ); }
 						
-						tmp = (w.theDate.get(3) > 11) ? [o.themeDate,o.themeDatePick] : [o.themeDatePick,o.themeDate];
+						tmp = (w.theDate.get(3) > 11) ?
+							[o.themeDate,o.themeDatePick] :
+							[o.themeDatePick,o.themeDate];
 						
 						$("<li>", { "class" : "ui-body-" + tmp[0] } )
-							.html( "<span>" + w.__('meridiem')[0] + "</span>" )
+							.html( "<span>" + w.__( "meridiem" )[0] + "</span>" )
 							.appendTo( hRowIn );
 						$("<li>", { "class" : "ui-body-" + tmp[1] } )
-							.html( "<span>" + w.__('meridiem')[1] + "</span>" )
+							.html( "<span>" + w.__( "meridiem" )[1] + "</span>" )
 							.appendTo( hRowIn );
 						
 						if ( w.theDate.get(3) > 11 ) { testDate.clone().appendTo( hRowIn ); }
@@ -210,8 +222,12 @@
 				if ( o.useSetButton ) {
 					$( "<a href='#' role='button'>" )
 						.appendTo(y)
-						.text((o.mode==='flipbox')?w.__('setDateButtonLabel'):w.__('setTimeButtonLabel'))
-						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
+						.text(( o.mode === "flipbox") ?
+							w.__( "setDateButtonLabel") :
+							w.__( "setTimeButtonLabel")
+						)
+						.addClass( "ui-btn ui-btn-" + o.theme + 
+							" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							if ( w.dateOK === true ) {
@@ -227,35 +243,36 @@
 				}
 					
 				if ( o.useClearButton ) {
-					$( "<a href='#' role='button'>" + w.__( 'clearButton' ) + "</a>" )
+					$( "<a href='#' role='button'>" + w.__( "clearButton" ) + "</a>" )
 						.appendTo(y)
-						.addClass( "ui-btn ui-btn-" + o.theme + " ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" )
+						.addClass( "ui-btn ui-btn-" + o.theme +
+							" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
-							w.d.input.val('');
+							w.d.input.val( "" ); 
 							w._t( { method: "clear" } );
 							w._t( { method: "close" } );
 						});
 				}
 				if ( o.useCollapsedBut ) {
-					y.addClass('ui-datebox-collapse');
+					y.addClass( "ui-datebox-collapse" );
 				}
 				y.appendTo(w.d.intHTML);
 			}
 			
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
-				w.d.intHTML.on('mousewheel', '.ui-overlay-shadow', function(e,d) {
+				w.d.intHTML.on( "mousewheel", ".ui-overlay-shadow", function(e,d) {
 					e.preventDefault();
-					w._offset($(this).data('field'), ((d<0)?-1:1)*$(this).data('amount'));
+					w._offset($(this).data("field"), ((d<0)?-1:1)*$(this).data("amount"));
 				});
 			}
 			
-			w.d.intHTML.on(w.drag.eStart, 'ul', function(e,f) {
+			w.d.intHTML.on(w.drag.eStart, "ul", function(e,f) {
 				if ( !w.drag.move ) {
 					if ( typeof f !== "undefined" ) { e = f; }
 					w.drag.move = true;
-					w.drag.target = $(this).find('li').first();
-					w.drag.pos = parseInt(w.drag.target.css('marginTop').replace(/px/i, ''),10);
+					w.drag.target = $(this).find( "li" ).first();
+					w.drag.pos = parseInt(w.drag.target.css("marginTop").replace(/px/i, ""),10);
 					w.drag.start = w.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
 					w.drag.end = false;
 					e.stopPropagation();
@@ -263,28 +280,38 @@
 				}
 			});
 			
-			w.d.intHTML.on(w.drag.eStart, '.'+uid+'flipcenter', function(e) { // Used only on old browsers and IE.
+			// Used only on old browsers and IE.
+			w.d.intHTML.on(w.drag.eStart, "." + uid + "flipcenter", function(e) { 
 				if ( !w.drag.move ) {
-					w.drag.target = w.touch ? e.originalEvent.changedTouches[0].pageX - $(e.currentTarget).offset().left : e.pageX - $(e.currentTarget).offset().left;
-					w.drag.tmp = w.d.intHTML.find('.'+uid+'flipcenter').innerWidth() / (( $.inArray('a', w.fldOrder) > -1 && w.__('timeFormat') !== 12 )?w.fldOrder.length-1:w.fldOrder.length);
-					$(w.d.intHTML.find('ul').get(parseInt(w.drag.target / w.drag.tmp,10))).trigger(w.drag.eStart,e);
+					w.drag.target = w.touch ? 
+						e.originalEvent.changedTouches[0].pageX - $(e.currentTarget).offset().left :
+						e.pageX - $(e.currentTarget).offset().left;
+						
+					w.drag.tmp = w.d.intHTML.find("." + uid + "flipcenter").innerWidth() / 
+						(( $.inArray("a", w.fldOrder) > -1 && w.__("timeFormat") !== 12 ) ?
+							w.fldOrder.length-1 :
+							w.fldOrder.length
+						);
+						
+					$(w.d.intHTML.find("ul").get(parseInt(w.drag.target / w.drag.tmp,10)))
+						.trigger(w.drag.eStart,e);
 				}
 			});
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._drag, {
-		'timeflipbox': function() {
+		"timeflipbox": function() {
 			this._drag.flipbox.apply(this);
 		},
-		'flipbox': function() {
+		"flipbox": function() {
 			var w = this,
 				o = this.options,
 				g = this.drag;
 			
 			$(document).on(g.eMove, function(e) {
-				if ( g.move && ( o.mode === 'flipbox' || o.mode === 'timeflipbox' )) {
+				if ( g.move && ( o.mode === "flipbox" || o.mode === "timeflipbox" )) {
 					g.end = w.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
-					g.target.css('marginTop', (g.pos + g.end - g.start) + 'px');
+					g.target.css("marginTop", (g.pos + g.end - g.start) + "px");
 					e.preventDefault();
 					e.stopPropagation();
 					return false;
@@ -292,13 +319,16 @@
 			});
 			
 			$(document).on(g.eEnd, function(e) {
-				if ( g.move && (o.mode === 'flipbox' || o.mode === 'timeflipbox' )) {
+				if ( g.move && (o.mode === "flipbox" || o.mode === "timeflipbox" )) {
 					g.move = false;
 					if ( g.end !== false ) {
 						e.preventDefault();
 						e.stopPropagation();
 						g.tmp = g.target.parent().parent();
-						w._offset(g.tmp.data('field'), (parseInt((g.start - g.end) / g.target.innerHeight(),10) * g.tmp.data('amount')));
+						w._offset(
+							g.tmp.data("field"),
+							(parseInt((g.start - g.end) / g.target.innerHeight(),10) *
+								g.tmp.data( "amount" )));
 					}
 					g.start = false;
 					g.end = false;

@@ -1,9 +1,6 @@
-/* 
- * jQuery Mobile Framework : plugin to provide a date and time picker.
- * Copyright (c) JTSage
- * https://github.com/jtsage/jquery-mobile-datebox
- */
-/* SLIDEBOX Mode */
+/* jQuery-Mobile-DateBox */
+
+/*! SLIDEBOX Mode */
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
