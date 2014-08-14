@@ -12,7 +12,7 @@ rettype: "String"
 ---
 
 {% highlight js %}
-$(input).datebot('callFormat', <String format>, <Date Object>);
+$(input).datebox('callFormat', <String format>, <Date Object>);
 {% endhighlight %}
 
 This will use the DateBox formatter library to format a JavaScript Date Object to

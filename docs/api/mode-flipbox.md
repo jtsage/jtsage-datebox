@@ -12,7 +12,8 @@ mode: flipbox
 	{% if docu.layout == "api" %}
 		{% for mod in docu.modes %}
 			{% if mod == page.mode %}
-			<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}"><h2>{{docu.title}}</h2><p>{{docu.short}}</p></a></li>
+			{% capture style %}{% if docu.depre == "true" %} style="color:#ccc;text-decoration:line-through"{% endif %}{% endcapture %}
+			<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}"><h2{{style}}>{{docu.title}}</h2><p>{{docu.short}}</p></a></li>
 			{% endif %}
 		{% endfor %}
 	{% endif %}

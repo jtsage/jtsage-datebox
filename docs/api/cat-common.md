@@ -11,7 +11,8 @@ mode: common
 	{% for docu in site.pages %}
 	{% if docu.layout == "api" %}
 		{% if docu.relat == page.mode %}
-		<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}"><h2>{{docu.title}}</h2><p>{{docu.short}}</p></a></li>
+		{% capture style %}{% if docu.depre == "true" %} style="color:#ccc;text-decoration:line-through"{% endif %}{% endcapture %}
+		<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}"><h2{{style}}>{{docu.title}}</h2><p>{{docu.short}}</p></a></li>
 		{% endif %}
 	{% endif %}
 	{% endfor %}

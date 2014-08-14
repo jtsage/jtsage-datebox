@@ -18,7 +18,8 @@ $(input).trigger('datebox', {'method':'set', 'value':<STR Date>});
 {% endhighlight %}
 
 This is similar to {% api_doc setTheDate %}, however, this traditionally expects a 
-**formatted date string**, but as of 1.5.0, will accept a Date() object.
+**formatted date string**, but as of 1.5.0, will accept a Date() object.  It is far, far
+preferable to use the {% api_doc setTheDate %} function.
 
 ### As a listener
 

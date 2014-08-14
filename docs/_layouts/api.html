@@ -6,7 +6,7 @@
 	<ul data-role='listview'>
 		<li data-role="list-divider">Related - {{page.relat}}</li>
 		{% for pag in site.pages %}
-		{% if pag.relat == page.relat %}
+		{% if pag.relat == page.relat and pag.depre != "true" %}
 			<li><a href="{{ site.basesite}}{{ pag.url | remove_first: "/" }}">{{ pag.title }}</a></li>
 		{% endif %}
 		{% endfor %}
@@ -24,7 +24,7 @@
 
 <div class="ui-content" role="main">
 	
-	{% capture style %}{% if page.depre == "true" %} style="color:red"{% endif %}{% endcapture %}
+	{% capture style %}{% if page.depre == "true" %} style="color:#ccc;text-decoration:line-through"{% endif %}{% endcapture %}
 	<h1{{style}}>{{page.title}}</h1>
 	<h3>{{page.short}}</h3>
 	{{content}}
