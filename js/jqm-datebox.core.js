@@ -12,7 +12,6 @@
 			// Check Header for Build Date.
 			version: "3-1.5.0-pre", 
 
-			mobVer: parseInt( $.mobile.version.replace( /\./g, "" ), 10 ),
 			theme: false,
 			themeDefault: "a",
 			themeHeader: "a",
