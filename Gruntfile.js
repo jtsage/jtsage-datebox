@@ -56,7 +56,8 @@ module.exports = function(grunt) {
 		},
 		clean: {
 			latest: ["dist/latest/"],
-			release: ["dist/<%= pkg.version %>/"]
+			release: ["dist/<%= pkg.version %>/"],
+			i18n: ["dist/i18n"]
 		},
 		concat: {
 			options: {
@@ -213,6 +214,15 @@ module.exports = function(grunt) {
 					extDot: "last" 
 				} ]
 			},
+			i18n: {
+				files: [ {
+					expand: true,
+					src: ["dist/i18n/*.js"],
+					dest: "",
+					ext: ".min.js",
+					extDot: "last" 
+				} ]
+			},
 			latest: {
 				files: [ {
 					expand: true,
@@ -249,6 +259,11 @@ module.exports = function(grunt) {
 				email: true,
 				nomerges: true,
 			}
+		},
+		makei18n: {
+			all: {
+				src: [ "i18n/locale/*/datebox.po"]
+			}
 		}
 	});
 
@@ -261,7 +276,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
 	grunt.loadNpmTasks( "grunt-git-committers" );
 	
-	grunt.registerTask( "release", [
+	grunt.task.loadTasks( "build/tasks" );
+	
+	grunt.registerTask( "brelease", [
 		"clean:release",
 		"concat:ver_main",
 		"concat:ver_extra",
@@ -285,10 +302,14 @@ module.exports = function(grunt) {
 		"uglify:latest",
 		"cssmin:latest"
 	]);
+	
 
+	grunt.registerTask( "i18n", ["clean:i18n", "makei18n", "uglify:i18n"] );
+	
 	grunt.registerTask( "test", ["jshint", "qunit"] );
 
 	grunt.registerTask( "default", [ "jshint", "qunit", "latest" ]);
+	grunt.registerTask( "release", [ "jshint", "qunit", "brelease" ]);
 	
 
 };
