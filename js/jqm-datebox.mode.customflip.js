@@ -16,7 +16,7 @@
 			// This structure interfaces with __() -> if it exists, strings are 
 			// looked up here after i8n fails, and before going to 'default' - 
 			// the name syntax is <mode>lang
-			"customSet":"Looks Good"
+			"customSet": "Looks Good"
 		}
 	});
 	$.extend( $.mobile.datebox.prototype, {
@@ -243,8 +243,10 @@
 				} });
 				hRowIn = hRow.find( "ul" );
 				if ( o.customData.length === 1 ) { hRow.css( "width", "90%" ); }
-				for ( i in lineArr ) {
+				for ( i=0; i < lineArr.length; i++ ) {
 					tmp = ( i !== o.customDataLen ) ? o.themeOpt : o.themeOptPick;
+					console.log(i + " " + o.customDataLen);
+					console.log(typeof i + " " + typeof o.customDataLen);
 					$( "<li>", { "class": "ui-body-" + tmp } )
 						.html( "<span>" + lineArr[i] + "</span>" )
 						.appendTo( hRowIn );
