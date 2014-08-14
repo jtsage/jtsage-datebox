@@ -35,5 +35,57 @@ The largest reason for the way the data-options attribute is set up the way it i
 
 Another option is to use "long" options.  For instance, to set the mode, you would
 set the "data-datebox-mode" attribute. Camel case becomes dashes, i.e. afterToday
-=> data-datebox-after-today. Note that this is only called if the data-options attribute
-does not exist.
+=> data-datebox-after-today. This is now always called, however, data-options will override.
+
+## How about with a constructor?
+
+This method of working is also certainally possible.  When using it, do not set a data-role on the 
+input - also, using type="text" is important, as datebox will be unable to degrade the input 
+otherwise.
+
+{% highlight html %}
+<div><input id="someinput" type="text"></div>
+{% endhighlight %}
+
+Then, to enhance it, call datebox() in a script:
+
+{% highlight js %}
+$('#someinput').datebox({
+    mode: "calbox",
+    afterToday: true,
+    // ...etc...
+});
+{% endhighlight %}
+
+This of course makes re-using variables a bit easy, as variables are expanded.
+
+## What about using it as a library?
+
+Using just the datebox library parts (essentially, a detached datebox) is totally possible, with one 
+small caveat - you must use {% api_doc useInline %} - it is the act of "opening" a datebox that 
+completes initilization - also, if you do not inline it, then open it, it will still display.  Note 
+that this could be useful for programatically adding dateboxes to a page, assuming you don't need
+to submit the date directly to the server (i.e. using ajax instead). Anyway, to create a detached 
+datebox, something like this will work:
+
+{% highlight js %}
+var someDate,
+    someDateString = "2001-01-01",
+    someDateFormat = "%Y-%m-%d",
+    db = $("<input>").datebox({
+        mode: "calbox",
+        useInline: true
+    });
+
+someDate = db.datebox( "parseDate", someDateFormat, someDateString );
+{% endhighlight %}
+
+For more examples of this, check out the qunit tests in the repo, it's how most of them are done.
+
+
+
+
+
+
+
+
