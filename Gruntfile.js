@@ -37,6 +37,52 @@ module.exports = function(grunt) {
 					jshintrc: "js/.jshintrc"
 				}
 			},
+			extra: {
+				files: {
+					src: [ "docs/doc/3rd/**/*.js" ]
+				},
+				options: {
+					undef: true,
+					unused: true,
+					boss: true,
+					curly: true,
+					eqeqeq: true,
+					eqnull: true,
+					expr: true,
+					immed: true,
+					noarg: true,
+					quotmark: "double",
+					smarttabs: true,
+					trailing: true,
+					indent: 4,
+					maxlen: 100,
+					node: true,
+					predef: ["jQuery", "document", "window", "define"]
+				}
+			},
+			js_sane: {
+				files: {
+					src: [ "js/*.js" ]
+				},
+				options: {
+					"undef": true,
+					"unused": true,
+					"boss": true,
+					"curly": true,
+					"eqeqeq": true,
+					"eqnull": true,
+					"expr": true,
+					"immed": true,
+					"noarg": true,
+					"onevar": true,
+					"quotmark": true,
+					"smarttabs": true,
+					"trailing": true,
+					"indent": 4,
+					"node": true,
+					"predef": [ "jQuery", "document", "window", "setTimeout", "clearTimeout" ]
+				}
+			},
 			doc: {
 				files: {
 					src: [ "docs/js/*.js", "docs/qunit/*.js" ]
@@ -264,7 +310,39 @@ module.exports = function(grunt) {
 			all: {
 				src: [ "i18n/locale/*/datebox.po"]
 			}
-		}
+		},
+		jekyll: {
+			options: {
+				src : "docs/",
+				dest: "docs/_site"
+			},
+			latest: {
+				options: {
+					config: "docs/_config.yml,docs/_config.dev.yml"
+				}
+			},
+			release: {
+				options: {
+					config: "docs/_config.yml"
+				}
+			}
+		},
+		watch: {
+			scripts: {
+				files: [ "js/*.js" ],
+				tasks: [ "jshint:js" ]
+			},
+			web: {
+				files: [ 
+					"docs/doc/*.md",
+					"docs/api/*.md",
+					"docs/index.html",
+					"docs/_layouts/*.html",
+					"docs/_includes/*.html"
+				],
+				tasks: [ "jekyll:latest" ]
+			}
+  		}
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
@@ -275,11 +353,24 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
 	grunt.loadNpmTasks( "grunt-git-committers" );
+	grunt.loadNpmTasks( "grunt-jekyll" );
+	grunt.loadNpmTasks( "grunt-contrib-watch" );
 	
 	grunt.task.loadTasks( "build/tasks" );
 	
+	grunt.registerTask( "jshint_reg", "Run Full jsHint Testing", [
+		"jshint:grunt",
+		"jshint:doc",
+		"jshint:js"
+	]);
+	
+	grunt.registerTask( "jshint_sane", "Run jsHint with sane values", [
+		"jshint:js_sane",
+	]);
+		
+	
 	grunt.registerTask( "release", "Build a release version of DateBox", [
-		"jshint",
+		"jshint_sane",
 		"qunit",
 		"clean:release",
 		"concat:ver_main",
@@ -293,7 +384,8 @@ module.exports = function(grunt) {
 		"copy:release_css",
 		"uglify:release",
 		"cssmin:release",
-		"committers"
+		"committers",
+		"jekyll:release",
 	] );
 	
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
@@ -311,8 +403,11 @@ module.exports = function(grunt) {
 		"makei18n",
 		"uglify:i18n"
 	] );
-	
-	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint", "qunit"] );
+
+	grunt.registerTask( "web", "Build the documentation site", ["jekyll:release"] );
+	grunt.registerTask( "devweb", "Test the documentation site", ["jekyll:latest"] );
+	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg", "qunit"] );
+	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane", "qunit"] );
 
 	grunt.registerTask( "default", "Test and Build working version", [
 		"jshint",
