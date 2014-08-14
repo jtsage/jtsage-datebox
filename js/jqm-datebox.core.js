@@ -1016,28 +1016,30 @@
 			}
 
 			if ( o.useButton === true ) {
-				w.d.wrap.addClass( "ui-input-has-clear" );
-				if ( o.buttonIcon === false ) {
-					if ( o.mode.substr( 0, 4 ) === "time" || o.mode.substr( 0 ,3 ) === "dur" ) {
-						o.buttonIcon = o.buttonIconTime;
-					} else {
-						o.buttonIcon = o.buttonIconDate;
-					}
-				}
-				$( "<a href='#' class='ui-input-clear ui-btn ui-icon-" + 
-						o.buttonIcon +
-						" ui-btn-icon-notext ui-corner-all'></a>" )
-					.attr( "title", w.__( "tooltip" ) )
-					.text( w.__( "tooltip" ) )
-					.appendTo(w.d.wrap)
-					.on(o.clickEvent, function( e ) {
-						e.preventDefault();
-						if ( o.useFocus === true ) {
-							w.d.input.focus();
+				if ( o.mode !== false ) {
+					w.d.wrap.addClass( "ui-input-has-clear" );
+					if ( o.buttonIcon === false ) {
+						if ( o.mode.substr( 0, 4 ) === "time" || o.mode.substr( 0 ,3 ) === "dur" ) {
+							o.buttonIcon = o.buttonIconTime;
 						} else {
-							if ( !w.disabled ) { w._t( { method: "open" } ); }
+							o.buttonIcon = o.buttonIconDate;
 						}
-					});
+					}
+					$( "<a href='#' class='ui-input-clear ui-btn ui-icon-" + 
+							o.buttonIcon +
+							" ui-btn-icon-notext ui-corner-all'></a>" )
+						.attr( "title", w.__( "tooltip" ) )
+						.text( w.__( "tooltip" ) )
+						.appendTo(w.d.wrap)
+						.on(o.clickEvent, function( e ) {
+							e.preventDefault();
+							if ( o.useFocus === true ) {
+								w.d.input.focus();
+							} else {
+								if ( !w.disabled ) { w._t( { method: "open" } ); }
+							}
+						});
+				}
 			}
 
 			if ( o.hideInput === true ) { w.d.wrap.hide(); }

@@ -26,7 +26,7 @@ There is also {% api_doc useHeader %}, which is not applicable in the
 	<label for="cal1d">{% api_doc useCollapsedBut %}</label>
 	<select id="cal1d" data-link="cal1" data-opt="useCollapsedBut" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
-<div class="ui-field-contain"><input type="text" id="cal1" data-role="datebox" data-options='{"mode":"datebox", "useInline" true}'></div>
+<div class="ui-field-contain"><input type="text" id="cal1" data-role="datebox" data-options='{"mode":"datebox", "useInline":true}'></div>
 
 # CalBox Specific - Display
 
@@ -70,6 +70,10 @@ These options deal with how dates are selected in calbox
 <div class="ui-field-contain">
 	<label for="cal3a">{% api_doc useTodayButton %}</label>
 	<select id="cal3a" data-link="cal3" data-opt="useTodayButton" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
+</div>
+<div class="ui-field-contain">
+	<label for="cal3h">{% api_doc useTomorrowButton %}</label>
+	<select id="cal3h" data-link="cal3" data-opt="useTomorrowButton" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
 <div class="ui-field-contain">
 	<label for="cal3b">{% api_doc calWeekMode %}</label>

@@ -45,4 +45,4 @@ Note: there is no default list for this option - you must supply one.
 	<label for="cal1d">{% api_doc calDateList %}</label>
 	<input id="cal1d" data-link="cal1" data-opt="calDateList" value="false" type="text" class="demopick">
 </div>
-<div class="ui-field-contain"><input type="text" id="cal1" data-role="datebox" data-options='{"mode":"calbox". "useInline": true}'></div>
+<div class="ui-field-contain"><input type="text" id="cal1" data-role="datebox" data-options='{"mode":"calbox", "useInline": true}'></div>
