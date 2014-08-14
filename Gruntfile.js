@@ -47,7 +47,7 @@ module.exports = function(grunt) {
 			},
 			grunt: {
 				files: {
-					src: [ "Gruntfile.js" ]
+					src: [ "Gruntfile.js", "build/tasks/*.js" ]
 				},
 				options: {
 					jshintrc: ".jshintrc"
@@ -255,7 +255,7 @@ module.exports = function(grunt) {
 		},
 		committers: {
 			options: {
-				sort: 'commits',
+				sort: "commits",
 				email: true,
 				nomerges: true,
 			}
@@ -278,7 +278,9 @@ module.exports = function(grunt) {
 	
 	grunt.task.loadTasks( "build/tasks" );
 	
-	grunt.registerTask( "brelease", [
+	grunt.registerTask( "release", "Build a release version of DateBox", [
+		"jshint",
+		"qunit",
 		"clean:release",
 		"concat:ver_main",
 		"concat:ver_extra",
@@ -292,9 +294,9 @@ module.exports = function(grunt) {
 		"uglify:release",
 		"cssmin:release",
 		"committers"
-	]);
+	] );
 	
-	grunt.registerTask( "latest", [
+	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
 		"clean:latest",
 		"concat:lat_main",
 		"copy:latest",
@@ -304,12 +306,20 @@ module.exports = function(grunt) {
 	]);
 	
 
-	grunt.registerTask( "i18n", ["clean:i18n", "makei18n", "uglify:i18n"] );
+	grunt.registerTask( "i18n", "Build the i18n files", [
+		"clean:i18n",
+		"makei18n",
+		"uglify:i18n"
+	] );
 	
-	grunt.registerTask( "test", ["jshint", "qunit"] );
+	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint", "qunit"] );
 
-	grunt.registerTask( "default", [ "jshint", "qunit", "latest" ]);
-	grunt.registerTask( "release", [ "jshint", "qunit", "brelease" ]);
+	grunt.registerTask( "default", "Test and Build working version", [
+		"jshint",
+		"qunit",
+		"latest"
+	] );
+	
 	
 
 };

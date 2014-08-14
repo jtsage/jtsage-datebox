@@ -1,4 +1,4 @@
-
+/* jshint evil: true */
 
 module.exports = function(grunt) {
 	"use strict";
@@ -118,8 +118,9 @@ module.exports = function(grunt) {
 				calHeaderFormat: _(l, "%B %Y"),
 				calTomorrowButtonLabel: _(l, "Jump to Tomorrow")
 			};
-		}
-	grunt.registerMultiTask('makei18n', 'Make i18n Files', function() {
+		};
+		
+	grunt.registerMultiTask("makei18n", "Make i18n Files", function() {
 		this.files.forEach(function(file) {
 			file.src.forEach(function(afile) {
 				var lang, contents, desty;
@@ -139,6 +140,6 @@ module.exports = function(grunt) {
 		});
 		grunt.file.write("dist/i18n/jqm-datebox.lang.utf8.js", makeMultiFile( alllang ));
 	});
-}
+};
 
 
