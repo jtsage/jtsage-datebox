@@ -49,6 +49,15 @@ if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
 				echo $testfile;
 			}
 		}
+		
+		foreach ( $_REQUEST['langs'] as $lang ) {
+			$testfile = false;
+			$langfile = "http://cdn.jtsage.com/datebox/i18n/jquery.mobile.datebox.i18n.{$lang}.utf8.js";
+			$testfile = file_get_contents($langfile);
+			if ( $testfile !== false ) {
+				echo $testfile;
+			}
+		}
 		ob_end_flush();
 	}
 } else {

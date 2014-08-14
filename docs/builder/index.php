@@ -19,6 +19,16 @@ $filemap = array(
 	array( "durationflipbox", "DurationFlipBox Mode" ),
 	array( "customflip", "CustomFlip Mode")
 );
+
+$langs = json_decode('[
+	"en: English US", "af: Afrikaans", "ar: العربية", "bg: български език", "ca: Català",
+	"cs: Čeština", "da: Dansk", "de: Deutsch", "el: ελληνικά", "es-ES: Español", "fi: Suomi",
+	"fr: Français", "he: עברית", "hr: Hrvatski Jezik", "hu: Magyar", "id: Bahasa Indonesia",
+	"it: Italiano", "ja: 日本語", "ko: 한국어", "lt: Lietuvių Kalba", "nl: Nederlands",
+	"nl-BE: Nederlands, Belgium", "no: Norsk", "pl: Język Polski", "pt-BR: Português",
+	"pt-PT: Português", "ro: Limba Română", "ru: русский язык", "sl: Slovenski Jezik",
+	"sr: српски језик", "sv-SE: Svenska", "th: ไทย", "tr: Türkçe", "uk: українська мова",
+	"vi: Tiếng Việt", "zh-CN: 中文 (Simplified)", "zh-TW: 中文 (Traditional)"]');
 ?>
 <!DOCTYPE html> 
 <html lang="en"> 
@@ -43,7 +53,7 @@ $filemap = array(
 		<p>Please select the version of jQueryMobile to build against, along with components that you wish to have enabled.</p>
 		<p><i>Note: if you are using jQueryMobile 1.3.2, the 1.4.0 build will likely still work.  The 1.4.1+ builds will not.</i></p>
 		<p><strong>Using this to make the -dev version is a real bad idea.  Seriously, that version is probably broken anyway.</strong></p>
-		<form action="make.php" method="post" id="build" data-ajax="false">
+		<form action="make.php" target="_blank" method="post" id="build" data-ajax="false">
 		<?php
 			$itt = 0;
 			echo "<fieldset data-role=\"controlgroup\">\n";
@@ -61,6 +71,17 @@ $filemap = array(
 				echo "\t<input type='checkbox' value='true' name='comp-{$comp[0]}' checked='checked'>{$comp[1]}\n";
 				echo "</label>\n";
 			}
+			echo "</fieldset>\n";
+			echo "<div class='ui-field-contain'\n";
+			echo "<label for='langs'>Languages:</label>\n";
+			echo "<select name='langs[]' id='langs' multiple='multiple' data-native-menu='false'>\n";
+			echo "<option>Choose languages</option>\n";
+			foreach ( $langs as $name ) {
+				$parts = split(": ", $name);
+				$abv = $parts[0];
+				echo "<option value='{$abv}'" . (($abv == "en")?" selected='selected'":"") . ">{$name}</option>\n";
+			}
+			echo "</select></div>\n";
 		?>
 			<input type="submit" value="Download File">
 		</form>
