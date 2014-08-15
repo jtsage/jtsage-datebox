@@ -1,6 +1,6 @@
 /* jQuery-Mobile-DateBox */
 
-/*! DATEBOX mode */
+/*! DATEBOX/TIMEBOX/DURATIONBOX modes */
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
@@ -8,7 +8,8 @@
 		themeInput: "a",
 		useSetButton: true,
 		validHours: false,
-		repButton: true
+		repButton: true,
+		durationSteppers: {"d": 1, "h": 1, "i": 1, "s": 1}
 		
 	});
 	$.extend( $.mobile.datebox.prototype, {
@@ -20,6 +21,8 @@
 			if ( g.cnt > 10 ) { timer = 100; }
 			if ( g.cnt > 30 ) { timer = 50; }
 			if ( g.cnt > 60 ) { timer = 20; }
+			if ( g.cnt > 120 ) { timer = 10; }
+			if ( g.cnt > 240 ) { timer = 3; }
 			
 			g.didRun = true;
 			g.cnt++;
@@ -30,9 +33,14 @@
 		},
 		_dbox_run_update: function(shortRun) {
 			var w = this,
-				o = this.options;
+				o = this.options,
+				i = w.theDate.getTime() - w.initDate.getTime(),
+				dur = ( o.mode === "durationbox" ? true : false ),
+				cDur = w._dur( i<0 ? 0 : i );
+
+			w.lastDuration = ( i<0 ? 0 : i );
 				
-			if ( shortRun !== true ) {
+			if ( shortRun !== true && dur !== true ) {
 				w._check();
 			
 				if ( o.mode === "datebox" ) {
@@ -58,21 +66,33 @@
 					case "m":
 						$(this).val(w.theDate.get(1) + 1); break;
 					case "d":
-						$(this).val(w.theDate.get(2)); break;
+						$(this).val( ( dur ? cDur[0] : w.theDate.get(2) ) );
+						break;
 					case "h":
-						if ( w.__("timeFormat") === 12 ) {
-							$(this).val(w.theDate.get12hr());
+						if ( dur ) {
+							$(this).val(cDur[1]);
 						} else {
-							$(this).val(w.theDate.get(3)); 
-						} 
+							if ( w.__("timeFormat") === 12 ) {
+								$(this).val(w.theDate.get12hr());
+							} else {
+								$(this).val(w.theDate.get(3)); 
+							}
+						}
 						break;
 					case "i":
-						$(this).val(w._zPad(w.theDate.get(4))); break;
+						if ( dur ) {
+							$(this).val(cDur[2]);
+						} else {
+							$(this).val(w._zPad(w.theDate.get(4)));
+						} 
+						break;
 					case "M":
 						$(this).val(w.__("monthsOfYearShort")[w.theDate.get(1)]); break;
 					case "a":
 						$(this).val(w.__( "meridiem" )[ (w.theDate.get(3) > 11) ? 1 : 0 ] );
 						break;
+					case "s":
+						$(this).val(cDur[3]); break;
 				}
 			});
 		},
@@ -102,7 +122,9 @@
 		},
 		_dbox_enter: function (item) {
 			var tmp,
-				w = this;
+				w = this, 
+				t = 0, 
+				dur = ( this.options.mode === "durationbox" ? true : false );
 			
 			if ( item.data( "field" ) === "M" ) {
 				tmp = $.inArray( item.val(), w.__("monthsOfYearShort") );
@@ -116,12 +138,23 @@
 					case "m":
 						w.theDate.setD( 1, parseInt(item.val(),10)-1); break;
 					case "d":
-						w.theDate.setD( 2, parseInt(item.val(),10)); break;
+						w.theDate.setD( 2, parseInt(item.val(),10));
+						t += (60*60*24) * parseInt(item.val(),10);
+						break;
 					case "h":
-						w.theDate.setD( 3, parseInt(item.val(),10)); break;
+						w.theDate.setD( 3, parseInt(item.val(),10));
+						t += (60*60) * parseInt(item.val(),10);
+						break;
 					case "i":
-						w.theDate.setD( 4, parseInt(item.val(),10)); break;
+						w.theDate.setD( 4, parseInt(item.val(),10));
+						t += (60) * parseInt(item.val(),10);
+						break;
+					case "s":
+						t += parseInt(item.val(),10); break;
 				}
+			}
+			if ( this.options.mode === "durationbox" ) { 
+				w.theDate.setTime( w.initDate.getTime() + ( t * 1000 ) );
 			}
 			w.refresh();
 		}
@@ -130,11 +163,15 @@
 		"timebox": function () {
 			this._build.datebox.apply(this,[]);
 		},
+		"durationbox": function () {
+			this._build.datebox.apply(this,[]);
+		},
 		"datebox": function () {
 			var offAmount, i, y, tmp, 
 				w = this,
 				g = this.drag,
 				o = this.options, 
+				dur = ( o.mode === "durationbox" ? true : false ),
 				cnt = -2, 
 				uid = "ui-datebox-",
 				divBase = $( "<div>" ),
@@ -162,10 +199,14 @@
 			
 			w.fldOrder = ( ( o.mode === "datebox" ) ?
 				w.__("dateFieldOrder") :
-				w.__("timeFieldOrder") );
-			w._check();
-			w._minStepFix();
-			w._dbox_vhour(typeof w._dbox_delta !== "undefined" ? w._dbox_delta : 1 );
+				( ( dur ) ? w.__("durationOrder") : w.__("timeFieldOrder") )
+			);
+
+			if ( !dur ) {
+				w._check();
+				w._minStepFix();
+				w._dbox_vhour(typeof w._dbox_delta !== "undefined" ? w._dbox_delta : 1 );
+			}
 			
 			if ( o.mode === "datebox" ) { 
 				$( "<div class='" + uid + "header'><h4>" +
@@ -175,10 +216,14 @@
 			
 			for(i = 0; i < w.fldOrder.length; i++) {
 				tmp = ["a","b","c","d","e","f"][i];
-				if ( w.fldOrder[i] === "i" ) { 
-					offAmount = o.minuteStep; 
-				} else { 
-					offAmount = 1;
+				if ( dur ) {
+					offAmount = o.durationSteppers[w.fldOrder[i]];
+				} else {
+					if ( w.fldOrder[i] === "i" ) { 
+						offAmount = o.minuteStep; 
+					} else { 
+						offAmount = 1;
+					}
 				}
 				if ( w.fldOrder[i] !== "a" || w.__("timeFormat") === 12 ) {
 					$("<div>")
@@ -187,7 +232,8 @@
 							"amount": offAmount
 						} } ) )
 						.addClass("ui-block-"+tmp)
-						.appendTo(divIn);
+						.appendTo(divIn)
+						.prepend( ( dur ) ? "<label>" + w.__("durationLabel")[i] + "</label>" : "" );
 					w._makeEl( butBase, {"attr": {
 							"field": w.fldOrder[i],
 							"amount": offAmount 

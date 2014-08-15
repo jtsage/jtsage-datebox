@@ -335,6 +335,18 @@
 				return [ "th", "st", "nd", "rd" ][ ending ];
 			}
 		},
+		_dur: function(ms) {
+			var dur = [
+					ms / ( 60*60*1000*24 ),
+					ms / ( 60*60*1000) % 24,
+					ms / ( 60*1000) % 60,
+					ms / ( 1000 ) % 60,
+				];
+			$.each(dur, function(a,b){
+				dur[a] = parseInt(b, 10);
+			});
+			return dur;
+		},
 		__ : function(val) {
 			var o = this.options,
 				lang = o.lang[o.useLang],
