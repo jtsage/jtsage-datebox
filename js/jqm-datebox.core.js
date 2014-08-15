@@ -2,9 +2,10 @@
 
 /* CORE Functions */
 
-(function( $, undefined ) {
+(function( $ ) {
 
 	$.widget( "mobile.datebox", {
+		initSelector: "input[data-role='datebox']",
 		options: {
 			// All widget options, including some internal runtime details
 
@@ -1544,20 +1545,5 @@
 		}
 	});
 
-	// Degrade date inputs to text inputs, suppress standard UI functions.
-	$( document ).on( "pagebeforecreate", function( e ) {
-		$( "[data-role='datebox']", e.target ).each(function() {
-			$(this).prop( "type", "text" );
-		});
-	});
-	// Automatically bind to data-role='datebox' items.
-	$( document ).on( "pagecreate create", function( e ){
-		$( document ).trigger( "dateboxbeforecreate" );
-		$( "[data-role='datebox']", e.target ).each(function() {
-			if ( typeof $(this).data( "mobile-datebox" ) === "undefined" ) {
-				$(this).datebox();
-			}
-		});
-	});
 
 })( jQuery );
