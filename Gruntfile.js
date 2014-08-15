@@ -116,8 +116,7 @@ module.exports = function(grunt) {
 			ver_comp_datebox: {
 				src: [
 						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.datebox.js",
-						"js/jqm-datebox.mode.durationbox.js"
+						"js/jqm-datebox.mode.datebox.js"
 				],
 				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.comp.datebox.js"
 			},

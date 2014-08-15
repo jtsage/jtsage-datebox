@@ -123,8 +123,7 @@
 		_dbox_enter: function (item) {
 			var tmp,
 				w = this, 
-				t = 0, 
-				dur = ( this.options.mode === "durationbox" ? true : false );
+				t = 0;
 			
 			if ( item.data( "field" ) === "M" ) {
 				tmp = $.inArray( item.val(), w.__("monthsOfYearShort") );
@@ -233,7 +232,7 @@
 						} } ) )
 						.addClass("ui-block-"+tmp)
 						.appendTo(divIn)
-						.prepend( ( dur ) ? "<label>" + w.__("durationLabel")[i] + "</label>" : "" );
+						.prepend( (dur) ? "<label>" + w.__("durationLabel")[i] + "</label>" : "" );
 					w._makeEl( butBase, {"attr": {
 							"field": w.fldOrder[i],
 							"amount": offAmount 
