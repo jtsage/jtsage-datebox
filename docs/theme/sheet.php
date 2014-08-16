@@ -77,12 +77,14 @@ foreach ( $defaults as $key => $value ) {
 	-webkit-transform:translate3d(0,0,0);
 }
 .ui-popup-container .ui-datebox-gridrow { 
-	margin-left: 0px; 
-	margin-right: 0px; 
+	margin-left: 0; 
+	margin-right: 0; 
 }
-.ui-datebox-collapse a { 
-	display: inline-block; 
-	width: 25% 
+.ui-datebox-collapse { 
+	text-align: center;
+}
+.ui-datebox-collapse .ui-controlgroup-controls a { 
+	max-width: 40%;
 }
 .ui-datebox-inline, .ui-datebox-inlineblind { 
 	margin-top: 5px;
@@ -129,7 +131,7 @@ foreach ( $defaults as $key => $value ) {
 	width: <?php echo $use['cGDWidth'] ?>px;
 	height: <?php echo $use['cGDHeight'] ?>px;
 	line-height: <?php echo $use['cGDLHeight'] ?>px;
-	padding: 0px;
+	padding: 0;
 	display: inline-block;
 	vertical-align: middle;
 	text-align: center;
@@ -154,10 +156,10 @@ foreach ( $defaults as $key => $value ) {
 	border: 1px solid transparent;
 	color: <?php echo $use['cGDEColor'] ?>;
 }
-.ui-datebox-griddate-label {
+.ui-datebox-griddate.ui-datebox-griddate-label {
 	border: 1px solid transparent;
-	height: 15px !important;
-	line-height: 15px !important;
+	height: 15px;
+	line-height: 15px;
 }
 .ui-datebox-gridplus 		{ float: right; }
 .ui-datebox-gridminus 		{ float: left; }
@@ -197,7 +199,6 @@ div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
 	text-align: center;
 }
 
-
 /* 
  * Flip Mode Styles
  * 
@@ -205,6 +206,9 @@ div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
  * customflip
  */
 
+.ui-datebox-fliplab {
+	text-align: center;
+}
 .ui-datebox-flipcenter {
 	width: <?php echo $use['fLensWidth'] ?>px;
 	height: <?php echo $use['fLensHeight'] ?>px;
@@ -277,7 +281,7 @@ div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
 	height: <?php echo $use['sHIHigh'] + 8 ?>px;
 }
 .ui-datebox-slide .ui-btn {
-	margin: 0px;
+	margin: 0;
 	padding: 0px 1em;
 }
 
@@ -324,7 +328,7 @@ div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
 	font-weight: normal;
 }
 
-.ui-datebox-nopad { margin: 0 !important; }
+span.ui-datebox-nopad { margin: 0 }
 .ui-datebox-repad { margin: .5em .4375em }
 
 /*
@@ -336,7 +340,7 @@ div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
 .ui-grid-d > .ui-block-c,
 .ui-grid-d > .ui-block-d,
 .ui-grid-d > .ui-block-e,
-.ui-grid-e > .ui-block-f, {
+.ui-grid-e > .ui-block-f {
 	width: 16.65%;
 }
 .ui-grid-e { 

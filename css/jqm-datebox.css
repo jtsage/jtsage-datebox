@@ -1,6 +1,12 @@
-/* jQuery-Mobile-DateBox */
- 
 /*
+ * jQuery Mobile Framework : plugin to provide a date and time picker.
+ * Copyright (c) JTSage
+ * CC 3.0 Attribution.  May be relicensed without permission/notification.
+ * https://github.com/jtsage/jquery-mobile-datebox
+ * Generated: 2014-08-16T03:09:19-04:00 (from theme builder)
+ */
+ 
+/* 
  * Shared Styles 
  * 
  * These styles are used for the basic control,
@@ -12,12 +18,14 @@
 	-webkit-transform:translate3d(0,0,0);
 }
 .ui-popup-container .ui-datebox-gridrow { 
-	margin-left: 0px; 
-	margin-right: 0px; 
+	margin-left: 0; 
+	margin-right: 0; 
 }
-.ui-datebox-collapse a { 
-	display: inline-block; 
-	width: 25% 
+.ui-datebox-collapse { 
+	text-align: center;
+}
+.ui-datebox-collapse .ui-controlgroup-controls a { 
+	max-width: 40%;
 }
 .ui-datebox-inline, .ui-datebox-inlineblind { 
 	margin-top: 5px;
@@ -64,7 +72,7 @@
 	width: 36px;
 	height: 30px;
 	line-height: 30px;
-	padding: 0px;
+	padding: 0;
 	display: inline-block;
 	vertical-align: middle;
 	text-align: center;
@@ -89,10 +97,10 @@
 	border: 1px solid transparent;
 	color: #888888;
 }
-.ui-datebox-griddate-label {
+.ui-datebox-griddate.ui-datebox-griddate-label {
 	border: 1px solid transparent;
-	height: 15px !important;
-	line-height: 15px !important;
+	height: 15px;
+	line-height: 15px;
 }
 .ui-datebox-gridplus 		{ float: right; }
 .ui-datebox-gridminus 		{ float: left; }
@@ -105,25 +113,31 @@
  * These are specific to datebox, timebox, and durationbox
  */
 
-.ui-datebox-container fieldset div {
-	margin: 0px !important; 
+.ui-datebox-dboxin div input {
+	text-align: center;
+}
+.ui-datebox-dboxin div {
+	margin: 0 inherit 0;
+}
+.ui-datebox-dboxlab div label {
+	text-align: center;
+}
+div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-plus {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	-webkit-border-bottom-left-radius: 0;
+	height: 40px;
+}
+div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	-webkit-border-top-right-radius: 0;
+	-webkit-border-top-left-radius: 0;
+	height: 40px;
 }
 .ui-datebox-header h4 {
-	margin-top: 5px;
-	margin-bottom: 5px;
 	text-align: center;
-}
-.ui-datebox-dboxin input { 
-	padding: .4em 0 !important;
-	text-align: center;
-	width:95%;
-}
-.ui-datebox-dboxin label { 
-	width: 100%;
-	text-align: center;
-	display: block;
-	margin-top: 5px;
-	margin-bottom: -8px;
 }
 
 /* 
@@ -133,6 +147,9 @@
  * customflip
  */
 
+.ui-datebox-fliplab {
+	text-align: center;
+}
 .ui-datebox-flipcenter {
 	width: 260px;
 	height: 40px;
@@ -205,7 +222,7 @@
 	height: 32px;
 }
 .ui-datebox-slide .ui-btn {
-	margin: 0px;
+	margin: 0;
 	padding: 0px 1em;
 }
 
@@ -252,7 +269,7 @@
 	font-weight: normal;
 }
 
-.ui-datebox-nopad { margin: 0 !important; }
+span.ui-datebox-nopad { margin: 0 }
 .ui-datebox-repad { margin: .5em .4375em }
 
 /*
@@ -264,7 +281,7 @@
 .ui-grid-d > .ui-block-c,
 .ui-grid-d > .ui-block-d,
 .ui-grid-d > .ui-block-e,
-.ui-grid-e > .ui-block-f, {
+.ui-grid-e > .ui-block-f {
 	width: 16.65%;
 }
 .ui-grid-e { 
