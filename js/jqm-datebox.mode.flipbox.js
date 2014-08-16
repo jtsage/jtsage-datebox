@@ -4,7 +4,6 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeDateHigh: "b",
 		themeDatePick: "b",
 		themeDate: "a",
 		useSetButton: true,
@@ -52,16 +51,16 @@
 			var step = this.options.durationSteppers,
 				actual = this.options.durationStep;
 			
-			if ( $.inArray( "s", order ) > -1 ) {
-				step.i = 1;
-				step.s = actual;
+			if ( $.inArray( "h", order ) > -1 ) {
+				step.d = 1;
+				step.h = actual;
 			}
 			if ( $.inArray( "i", order ) > -1 ) {
 				step.h = 1;
-				step.s = actual;
+				step.i = actual;
 			}
-			if ( $.inArray( "h", order ) > -1 ) {
-				step.d = 1;
+			if ( $.inArray( "s", order ) > -1 ) {
+				step.i = 1;
 				step.s = actual;
 			}
 		},
@@ -97,7 +96,7 @@
 			this._build.flipbox.apply(this);
 		},
 		"flipbox": function () {
-			var i, y, hRow, tmp, testDate, hRowIn,
+			var i, y, hRow, tmp, testDate, hRowIn, stdPos,
 				w = this,
 				o = this.options,
 				g = this.drag,
@@ -106,17 +105,14 @@
 				blockLab = ["a","b","c","d"],
 				normDurPositions = ["d", "h", "i", "s"],
 				dur = ( o.mode === "durationflipbox" ? true : false ),
-				iDate = (w.d.input.val() === "") ?
-					w._startOffset(w._makeDate(w.d.input.val())) :
-					w._makeDate(w.d.input.val()),
 				uid = "ui-datebox-",
 				flipBase = $( "<div class='ui-overlay-shadow'><ul></ul></div>" ),
 				ctrl = $( "<div>", { "class": uid+"flipcontent" } ),
-				i = w.theDate.getTime() - w.initDate.getTime(),
-				cDur = w._dur( i<0 ? 0 : i );
+				ti = w.theDate.getTime() - w.initDate.getTime(),
+				cDur = w._dur( ti<0 ? 0 : ti ),
+				currentTerm, currentText;
 
-			console.log('hey');
-			if ( i < 0 ) {
+			if ( ti < 0 ) {
 				w.lastDuration = 0;
 				if ( dur ) { w.theDate.setTime( w.initDate.getTime() ); }
 			}
@@ -187,7 +183,7 @@
 				
 				for ( y = 0; y < w.fldOrder.length; y++ ) {
 					stdPos = w.fldOrder[ y ];
-					curFld = cDur[ $.inArray( stdPos, normDurPositions ) ];
+					currentTerm = cDur[ $.inArray( stdPos, normDurPositions ) ];
 	
 					hRow = w._makeEl( flipBase, { "attr": { 
 						"field": stdPos,
@@ -196,11 +192,11 @@
 					hRowIn = hRow.find( "ul" );
 	
 					for ( i in cDurS[ stdPos ] ) {
-						tmp = (cDurS[ stdPos ][ i ][ 1 ] !== curFld ) ?
+						tmp = (cDurS[ stdPos ][ i ][ 1 ] !== currentTerm ) ?
 							o.themeDate :
 							o.themeDatePick;
-						$("<li>", { "class" : "ui-body-" + tmp } )
-							.html( "<span>" + cDurS[ stdPos ][ i ][ 0 ] + "</span>" )
+						$("<li><span>" + cDurS[ stdPos ][ i ][ 0 ] + "</span></li>" )
+							.addClass("ui-body-" + tmp)
 							.appendTo( hRowIn );
 					}
 					hRow.appendTo(ctrl);
@@ -208,122 +204,78 @@
 			}
 
 			for ( y=0; ( y < w.fldOrder.length && !dur ); y++ ) {
+				
 				hRow = w._makeEl( flipBase, { "attr": { 
 					"field": w.fldOrder[y],
 					"amount": 1
 				} } );
 				hRowIn = hRow.find( "ul" );
 						
-				switch (w.fldOrder[y]) {
-					case "y":
-						for ( i = o.flen.y * -1; i < ( o.flen.y + 1 ); i++ ) {
-							tmp = ( i !== 0 ) ?
-								( ( iDate.get(0) === ( w.theDate.get(0) + i ) ) ?
-									o.themeDateHigh :
-									o.themeDate
-								) :
-								o.themeDatePick;
-							$( "<li>", { "class": "ui-body-" + tmp } )
-								.html( "<span>" + ( w.theDate.get(0) + i ) + "</span>" )
-								.appendTo( hRowIn );
-						}
-						break;
-					case "m":
-						for ( i = o.flen.m * -1; i < ( o.flen.m + 1 ); i++ ) {
-							testDate = w.theDate.copy( [0], [0,0,1] );
-							testDate.adj( 1, i );
-							tmp = ( i !== 0 ) ?
-								( ( iDate.get(1) === testDate.get(1) &&
-										iDate.get(0) === testDate.get(0) ) ? 
-									o.themeDateHigh : 
-									o.themeDate
-								) :
-								o.themeDatePick;
-							$("<li>", { "class" : "ui-body-" + tmp } )
-								.html( "<span>" + w.__("monthsOfYearShort")[ testDate.getMonth() ] +
-									"</span>" )
-								.appendTo( hRowIn );
-						}
-						break;
-					case "d":
-						for ( i = o.flen.d * -1; i < ( o.flen.d + 1 ); i++ ) {
-							testDate = w.theDate.copy();
-							testDate.adj( 2, i );
-							tmp = ( i !== 0 ) ?
-								( ( iDate.comp() === testDate.comp() ) ?
-									o.themeDateHigh :
-									o.themeDate
-								) :
-								o.themeDatePick;
-							if ( ( $.inArray(testDate.iso(), o.blackDates) > -1 ||
-									$.inArray(testDate.getDay(), o.blackDays) > -1 ) &&
-									( $.inArray(testDate.iso(), o.whiteDates) < 0 ) ) { 
-								tmp += " ui-state-disabled"; }
-							
-							$("<li>", { "class" : "ui-body-" + tmp } )
-								.html( "<span>" + testDate.getDate() + "</span>" )
-								.appendTo( hRowIn );
-						}
-						break;
-					case "h":
-						for ( i = o.flen.h * -1; i < ( o.flen.h + 1 ); i++ ) {
-							testDate = w.theDate.copy();
-							testDate.adj( 3, i );
-							tmp = ( i !== 0 ) ?
-								o.themeDate :
-								o.themeDatePick;
-							if ( o.validHours !== false &&
-									$.inArray(testDate.get(3), o.validHours) < 0 ) {
-								tmp += " " + uid + "griddate-disable";
-							}
-							$("<li>", { "class" : "ui-body-" + tmp } )
-								.html( "<span>" + ( ( w.__("timeFormat") === 12 ) ?
+				currentTerm = w.fldOrder[y];
+				
+				if ( currentTerm !== "a" ) {
+					for ( i = -1 * o.flen[currentTerm]; i < ( o.flen[currentTerm] + 1 ); i++ ) {
+						tmp = ( i !== 0 ) ? o.themeDate : o.themeDatePick;
+						
+						switch(currentTerm) {
+							case "y": 
+								currentText = w.theDate.get(0) + i;
+								break;
+							case "m":
+								testDate = w.theDate.copy( [0], [0,0,1] );
+								testDate.adj( 1, i );
+								currentText = w.__("monthsOfYearShort")[ testDate.get(1) ];
+								break;
+							case "d":
+								testDate = w.theDate.copy();
+								testDate.adj( 2, i );
+								currentText = testDate.get(2);
+								break;
+							case "h":
+								testDate = w.theDate.copy();
+								testDate.adj( 3, i );
+								currentText = ( ( w.__("timeFormat") === 12 ) ?
 									testDate.get12hr() :
-									testDate.get(3) ) + "</span>"
-								)
-								.appendTo( hRowIn );
+									testDate.get(3) );
+								break;
+							case "i":
+								testDate = w.theDate.copy();
+								testDate.adj( 4, ( i * o.minuteStep ) );
+								currentText = w._zPad( testDate.get( 4 ));
+								break;
+							default:
+								currentText = false;
+								break;
 						}
-						break;
-					case "i":
-						hRow.data( "amount", o.minuteStep );
-						for ( i = o.flen.i * -1; i < ( o.flen.i + 1 ); i++ ) {
-							testDate = w.theDate.copy();
-							testDate.adj( 4, ( i * o.minuteStep ) );
-							tmp = ( i !== 0 ) ?
-								o.themeDate :
-								o.themeDatePick;
-							$("<li>", { "class" : "ui-body-" + tmp } )
-								.html( "<span>" + w._zPad( testDate.get( 4 ) ) + "</span>" )
-								.appendTo( hRowIn );
-						}
-						break;
-					case "a":
-						if ( w.__( "timeFormat" ) !== 12 ) { hRow = false; break; }
 						
-						testDate = $( "<li class='ui-body-" + o.themeDate + "'><span></span></li>");
-						
-						for ( i = 0; i < o.flen.a; i++ ) { testDate.clone().appendTo( hRowIn ); }
-						if ( w.theDate.get(3) < 12 ) { testDate.clone().appendTo( hRowIn ); }
-						
-						tmp = (w.theDate.get(3) > 11) ?
-							[o.themeDate,o.themeDatePick] :
-							[o.themeDatePick,o.themeDate];
-						
-						$("<li>", { "class" : "ui-body-" + tmp[0] } )
-							.html( "<span>" + w.__( "meridiem" )[0] + "</span>" )
-							.appendTo( hRowIn );
-						$("<li>", { "class" : "ui-body-" + tmp[1] } )
-							.html( "<span>" + w.__( "meridiem" )[1] + "</span>" )
+						$("<li class='ui-body-" + tmp + "'><span>" + currentText + "</span></li>")
 							.appendTo( hRowIn );
 						
-						if ( w.theDate.get(3) > 11 ) { testDate.clone().appendTo( hRowIn ); }
-						for ( i = 0; i < o.flen.a; i++ ) { testDate.clone().appendTo( hRowIn ); }
-						
-						break;
-					default:
-						hRow = false; break;
+						if ( currentText !== false ) { hRow.appendTo( ctrl ); }
+					}
 				}
-				if ( hRow !== false ) { hRow.appendTo( ctrl ); }
+				if ( currentTerm === "a" && w.__("timeFormat") === 12 ) {
+					testDate = $( "<li class='ui-body-" + o.themeDate + "'><span></span></li>");
+					
+					tmp = (w.theDate.get(3) > 11) ?
+						[o.themeDate,o.themeDatePick,1,0] :
+						[o.themeDatePick,o.themeDate,0,1];
+						
+					for ( i = 0; i < ( o.flen.a + tmp[3] ); i++ ) { 
+							testDate.clone().appendTo( hRowIn );
+					}
+					
+					for ( i = 0; i < 2; i++ ) {
+						$("<li>", { "class" : "ui-body-" + tmp[i] } )
+							.html( "<span>" + w.__( "meridiem" )[i] + "</span>" )
+							.appendTo( hRowIn );
+					}
+					
+					for ( i = 0; i < ( o.flen.a + tmp[2] ); i++ ) { 
+						testDate.clone().appendTo( hRowIn ); 
+					}
+					hRow.appendTo( ctrl );
+				}
 			}
 			
 			w.d.intHTML.append( ctrl );
@@ -340,10 +292,14 @@
 						.appendTo(y)
 						.text(( o.mode === "flipbox") ?
 							w.__( "setDateButtonLabel") :
-							w.__( "setTimeButtonLabel")
+							( dur ) ? 
+								w.__("setDurationButtonLabel") :
+								w.__( "setTimeButtonLabel")
 						)
 						.addClass( "ui-btn ui-btn-" + o.theme + 
-							" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
+							" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" +
+							( ( w.dateOK === true ) ? "" : " ui-state-disabled" )
+						)
 						.on(o.clickEventAlt, function(e) {
 							e.preventDefault();
 							if ( w.dateOK === true ) {
@@ -371,7 +327,10 @@
 						});
 				}
 				if ( o.useCollapsedBut ) {
+					y.controlgroup({ type: "horizontal" });
 					y.addClass( "ui-datebox-collapse" );
+				} else {
+					y.controlgroup();
 				}
 				y.appendTo(w.d.intHTML);
 			}
@@ -394,24 +353,6 @@
 					g.direc = ( dur ) ? -1 : 1;
 					e.stopPropagation();
 					e.preventDefault();
-				}
-			});
-			
-			// Used only on old browsers and IE.
-			w.d.intHTML.on(w.drag.eStart, "." + uid + "flipcenter", function(e) { 
-				if ( !w.drag.move ) {
-					w.drag.target = w.touch ? 
-						e.originalEvent.changedTouches[0].pageX - $(e.currentTarget).offset().left :
-						e.pageX - $(e.currentTarget).offset().left;
-						
-					w.drag.tmp = w.d.intHTML.find("." + uid + "flipcenter").innerWidth() / 
-						(( $.inArray("a", w.fldOrder) > -1 && w.__("timeFormat") !== 12 ) ?
-							w.fldOrder.length-1 :
-							w.fldOrder.length
-						);
-						
-					$(w.d.intHTML.find("ul").get(parseInt(w.drag.target / w.drag.tmp,10)))
-						.trigger(w.drag.eStart,e);
 				}
 			});
 		}
