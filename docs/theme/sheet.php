@@ -62,6 +62,7 @@ foreach ( $defaults as $key => $value ) {
  * Copyright (c) JTSage
  * CC 3.0 Attribution.  May be relicensed without permission/notification.
  * https://github.com/jtsage/jquery-mobile-datebox
+ * Generated: <?php echo date(DATE_ATOM); ?> (from theme builder)
  */
  
 /* 
@@ -169,26 +170,33 @@ foreach ( $defaults as $key => $value ) {
  * These are specific to datebox, timebox, and durationbox
  */
 
-.ui-datebox-container fieldset div {
-	margin: 0px !important; 
+.ui-datebox-dboxin div input {
+	text-align: center;
+}
+.ui-datebox-dboxin div {
+	margin: 0 inherit 0;
+}
+.ui-datebox-dboxlab div label {
+	text-align: center;
+}
+div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-plus {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	-webkit-border-bottom-left-radius: 0;
+	height: 40px;
+}
+div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	-webkit-border-top-right-radius: 0;
+	-webkit-border-top-left-radius: 0;
+	height: 40px;
 }
 .ui-datebox-header h4 {
-	margin-top: 5px;
-	margin-bottom: 5px;
 	text-align: center;
 }
-.ui-datebox-dboxin input { 
-	padding: .4em 0 !important;
-	text-align: center;
-	width:95%;
-}
-.ui-datebox-dboxin label { 
-	width: 100%;
-	text-align: center;
-	display: block;
-	margin-top: 5px;
-	margin-bottom: -8px;
-}
+
 
 /* 
  * Flip Mode Styles
