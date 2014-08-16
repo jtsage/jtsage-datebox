@@ -14,7 +14,6 @@
 			"d": 20,
 			"h": 12,
 			"i": 15,
-			"a": 3
 		},
 		durationStep: 1,
 		durationSteppers: {
@@ -86,6 +85,27 @@
 				}
 			}
 			return ret;
+		},
+		_fbox_mktxt: {
+			y: function(i) {
+				return this.theDate.get(0) + i;
+			},
+			m: function(i) {
+				var testDate = ( this.theDate.copy( [0], [0,0,1] ) ).adj( 1, i );
+				return this.__("monthsOfYearShort")[ testDate.get(1) ];
+			},
+			d: function(i) {
+				return ( this.theDate.copy([0,0,i]) ).get(2);
+			},
+			h: function(i) {
+				var testDate = this.theDate.copy( [0,0,0,i] );
+				return ( ( this.__("timeFormat") === 12 ) ?
+					testDate.get12hr() :
+					testDate.get(3) );
+			},
+			i: function(i) {
+				return this._zPad( ( this.theDate.copy( [0,0,0,0,i] )).get(4) );
+			}
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
@@ -96,13 +116,11 @@
 			this._build.flipbox.apply(this);
 		},
 		"flipbox": function () {
-			var i, y, hRow, tmp, testDate, hRowIn, stdPos,
+			var i, y, hRow, tmp, hRowIn, stdPos,
 				w = this,
 				o = this.options,
 				g = this.drag,
 				cDurS = {},
-				gridLab = [0, 0, "a", "b", "c"],
-				blockLab = ["a","b","c","d"],
 				normDurPositions = ["d", "h", "i", "s"],
 				dur = ( o.mode === "durationflipbox" ? true : false ),
 				uid = "ui-datebox-",
@@ -162,10 +180,10 @@
 				w._fbox_fixstep(w.fldOrder);
 				
 				tmp = $( "<div class='" + uid + "header ui-grid-" +
-				gridLab[w.fldOrder.length] + "'></div>");
+					w._gridblk.g[w.fldOrder.length] + "'></div>");
 				
 				for ( y = 0; y < w.fldOrder.length; y++ ) {
-					$("<div class='" + uid + "fliplab ui-block-" + blockLab[ y ] + "'>" + 
+					$("<div class='" + uid + "fliplab ui-block-" + w._gridblk.b[ y ] + "'>" + 
 							w.__( "durationLabel" )[$.inArray( w.fldOrder[y], normDurPositions )] + 
 							"</div>"
 						)
@@ -192,11 +210,11 @@
 					hRowIn = hRow.find( "ul" );
 	
 					for ( i in cDurS[ stdPos ] ) {
-						tmp = (cDurS[ stdPos ][ i ][ 1 ] !== currentTerm ) ?
-							o.themeDate :
-							o.themeDatePick;
 						$("<li><span>" + cDurS[ stdPos ][ i ][ 0 ] + "</span></li>" )
-							.addClass("ui-body-" + tmp)
+							.addClass("ui-body-" + ((cDurS[ stdPos ][ i ][ 1 ] !== currentTerm ) ?
+								o.themeDate :
+								o.themeDatePick)
+							)
 							.appendTo( hRowIn );
 					}
 					hRow.appendTo(ctrl);
@@ -204,75 +222,39 @@
 			}
 
 			for ( y=0; ( y < w.fldOrder.length && !dur ); y++ ) {
+				currentTerm = w.fldOrder[y];
 				
 				hRow = w._makeEl( flipBase, { "attr": { 
-					"field": w.fldOrder[y],
+					"field": currentTerm,
 					"amount": 1
 				} } );
 				hRowIn = hRow.find( "ul" );
 						
-				currentTerm = w.fldOrder[y];
 				
-				if ( currentTerm !== "a" ) {
+				if ( typeof w._fbox_mktxt[currentTerm] === "function" ) {
 					for ( i = -1 * o.flen[currentTerm]; i < ( o.flen[currentTerm] + 1 ); i++ ) {
-						tmp = ( i !== 0 ) ? o.themeDate : o.themeDatePick;
-						
-						switch(currentTerm) {
-							case "y": 
-								currentText = w.theDate.get(0) + i;
-								break;
-							case "m":
-								testDate = w.theDate.copy( [0], [0,0,1] );
-								testDate.adj( 1, i );
-								currentText = w.__("monthsOfYearShort")[ testDate.get(1) ];
-								break;
-							case "d":
-								testDate = w.theDate.copy();
-								testDate.adj( 2, i );
-								currentText = testDate.get(2);
-								break;
-							case "h":
-								testDate = w.theDate.copy();
-								testDate.adj( 3, i );
-								currentText = ( ( w.__("timeFormat") === 12 ) ?
-									testDate.get12hr() :
-									testDate.get(3) );
-								break;
-							case "i":
-								testDate = w.theDate.copy();
-								testDate.adj( 4, ( i * o.minuteStep ) );
-								currentText = w._zPad( testDate.get( 4 ));
-								break;
-							default:
-								currentText = false;
-								break;
-						}
-						
-						$("<li class='ui-body-" + tmp + "'><span>" + currentText + "</span></li>")
+						$("<li class='ui-body-" + 
+								(( i !== 0 ) ? o.themeDate : o.themeDatePick) + "'><span>" + 
+								w._fbox_mktxt[currentTerm].apply(w, [i]) + "</span></li>")
 							.appendTo( hRowIn );
-						
-						if ( currentText !== false ) { hRow.appendTo( ctrl ); }
 					}
+					hRow.appendTo( ctrl );
 				}
 				if ( currentTerm === "a" && w.__("timeFormat") === 12 ) {
-					testDate = $( "<li class='ui-body-" + o.themeDate + "'><span></span></li>");
+					currentText = $( "<li class='ui-body-" + o.themeDate + "'><span></span></li>");
 					
 					tmp = (w.theDate.get(3) > 11) ?
-						[o.themeDate,o.themeDatePick,1,0] :
-						[o.themeDatePick,o.themeDate,0,1];
+						[o.themeDate,o.themeDatePick,2,5] :
+						[o.themeDatePick,o.themeDate,2,3];
 						
-					for ( i = 0; i < ( o.flen.a + tmp[3] ); i++ ) { 
-							testDate.clone().appendTo( hRowIn );
-					}
-					
-					for ( i = 0; i < 2; i++ ) {
-						$("<li>", { "class" : "ui-body-" + tmp[i] } )
-							.html( "<span>" + w.__( "meridiem" )[i] + "</span>" )
-							.appendTo( hRowIn );
-					}
-					
-					for ( i = 0; i < ( o.flen.a + tmp[2] ); i++ ) { 
-						testDate.clone().appendTo( hRowIn ); 
+					for ( i = -1 * tmp[2]; i < tmp[3]; i++ ) { 
+						if ( i < 0 || i > 1 ) {
+							currentText.clone().appendTo( hRowIn );
+						} else {
+							$("<li>", { "class" : "ui-body-" + tmp[i] } )
+								.html( "<span>" + w.__( "meridiem" )[i] + "</span>" )
+								.appendTo( hRowIn );
+						}
 					}
 					hRow.appendTo( ctrl );
 				}
@@ -343,7 +325,7 @@
 			}
 			
 			w.d.intHTML.on(g.eStart, "ul", function(e,f) {
-				if ( !w.drag.move ) {
+				if ( !g.move ) {
 					if ( typeof f !== "undefined" ) { e = f; }
 					g.move = true;
 					g.target = $(this).find( "li" ).first();
@@ -370,9 +352,7 @@
 				g = this.drag;
 			
 			$(document).on(g.eMove, function(e) {
-				if ( g.move && ( 
-						$.inArray(o.mode, [ "flipbox", "timeflipbox", "durationflipbox" ]) > -1 )) {
-							
+				if ( g.move && o.mode.slice(-7) === "flipbox" ) {
 					g.end = w.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
 					g.target.css("marginTop", (g.pos + g.end - g.start) + "px");
 					e.preventDefault();
@@ -382,9 +362,7 @@
 			});
 			
 			$(document).on(g.eEnd, function(e) {
-				if ( g.move && ( 
-						$.inArray(o.mode, [ "flipbox", "timeflipbox", "durationflipbox" ]) > -1 )) {
-							
+				if ( g.move && o.mode.slice(-7) === "flipbox" ) {
 					g.move = false;
 					if ( g.end !== false ) {
 						e.preventDefault();
@@ -392,7 +370,7 @@
 						g.tmp = g.target.parent().parent();
 						w._offset(
 							g.tmp.data("field"),
-							(parseInt((g.start - g.end) / g.target.innerHeight(),10) *
+							(parseInt((g.start - g.end) / ( g.target.outerHeight() - 2 ),10)*
 								g.tmp.data( "amount" ) * g.direc));
 					}
 					g.start = false;
