@@ -9,6 +9,7 @@
 		useSetButton: true,
 		validHours: false,
 		repButton: true,
+		durationStep: 1,
 		durationSteppers: {"d": 1, "h": 1, "i": 1, "s": 1}
 		
 	});
@@ -31,6 +32,25 @@
 			w._dbox_run_update();
 			w.runButton = setTimeout(function() {w._dbox_run();}, timer);
 		},
+		_dbox_fixstep: function( order ) {
+			// Turn back off steppers when displaying a less precise 
+			// unit in the same control.
+			var step = this.options.durationSteppers,
+				actual = this.options.durationStep;
+			
+			if ( $.inArray( "s", order ) > -1 ) {
+				step.i = 1;
+				step.s = actual;
+			}
+			if ( $.inArray( "i", order ) > -1 ) {
+				step.h = 1;
+				step.s = actual;
+			}
+			if ( $.inArray( "h", order ) > -1 ) {
+				step.d = 1;
+				step.s = actual;
+			}
+		},
 		_dbox_run_update: function(shortRun) {
 			var w = this,
 				o = this.options,
@@ -38,7 +58,10 @@
 				dur = ( o.mode === "durationbox" ? true : false ),
 				cDur = w._dur( i<0 ? 0 : i );
 
-			w.lastDuration = ( i<0 ? 0 : i );
+			if ( i < 0 ) {
+				w.lastDuration = 0;
+				if ( dur ) { w.theDate.setTime( w.initDate.getTime() ); }
+			}
 				
 			if ( shortRun !== true && dur !== true ) {
 				w._check();
@@ -177,8 +200,10 @@
 				divPlus = $( "<fieldset>" ),
 				divIn = divBase.clone(),
 				divMinus = divPlus.clone(),
-				inBase = $("<input type='text'>")
-					.addClass( "ui-input-text ui-corner-all ui-shadow-inset ui-body-"+o.themeInput),
+				divLab = divBase.clone(),
+				inBase = $("<div><input type='text'></div>")
+					.addClass( "ui-input-text ui-body-" + o.themeInput+ 
+						" ui-corner-all ui-mini ui-shadow-inset"),
 				butBase = $( "<div></div>" ),
 				butClass = "ui-btn-inline ui-link ui-btn ui-btn-" + o.themeButton +
 					" ui-btn-icon-notext ui-shadow ui-corner-all";
@@ -205,6 +230,9 @@
 				w._check();
 				w._minStepFix();
 				w._dbox_vhour(typeof w._dbox_delta !== "undefined" ? w._dbox_delta : 1 );
+			} else {
+				w.dateOK = true;
+				w._dbox_fixstep(w.fldOrder);
 			}
 			
 			if ( o.mode === "datebox" ) { 
@@ -226,19 +254,27 @@
 				}
 				if ( w.fldOrder[i] !== "a" || w.__("timeFormat") === 12 ) {
 					$("<div>")
+						.append( (dur) ? "<label>" + w.__("durationLabel")[i] + "</label>" : "" )
+						.addClass("ui-block-"+tmp)
+						.appendTo(divLab);
+					$("<div>")
 						.append( w._makeEl(inBase, {"attr": {
 							"field": w.fldOrder[i],
 							"amount": offAmount
 						} } ) )
 						.addClass("ui-block-"+tmp)
 						.appendTo(divIn)
-						.prepend( (dur) ? "<label>" + w.__("durationLabel")[i] + "</label>" : "" );
+						.find( "input" ).data({
+							"field": w.fldOrder[i],
+							"amount": offAmount
+						});
 					w._makeEl( butBase, {"attr": {
 							"field": w.fldOrder[i],
 							"amount": offAmount 
 						} } )
 						.addClass( uid + "cbut ui-block-" + tmp + " ui-icon-plus " + butClass)
-						.appendTo( divPlus );
+						.appendTo( divPlus )
+						.prepend( (dur) ? "<label>" + w.__("durationLabel")[i] + "</label>" : "" )
 					w._makeEl( butBase, {"attr": {
 							"field": w.fldOrder[i],
 							"amount": offAmount  * -1
@@ -249,13 +285,18 @@
 				}
 			}
 			
+			if ( dur ) {
+				divLab
+					.addClass("ui-datebox-dboxlab ui-grid-"+["a","b","c","d","e"][cnt])
+					.appendTo(w.d.intHTML);
+			}
+			
 			divPlus
 				.addClass("ui-grid-"+["a","b","c","d","e"][cnt])
 				.appendTo(w.d.intHTML);
 				
 			divIn
-				.addClass("ui-datebox-dboxin")
-				.addClass("ui-grid-"+["a","b","c","d","e"][cnt])
+				.addClass("ui-datebox-dboxin ui-grid-"+["a","b","c","d","e"][cnt])
 				.appendTo(w.d.intHTML);
 				
 			divMinus
@@ -279,7 +320,9 @@
 						.appendTo(y)
 						.text((o.mode==="datebox") ? 
 							w.__("setDateButtonLabel") :
-							w.__("setTimeButtonLabel"))
+							( dur ) ?
+								w.__("setDurationButtonLabel") :
+								w.__("setTimeButtonLabel"))
 						.addClass( "ui-btn ui-btn-" + o.theme +
 							" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
 						.on(o.clickEventAlt, function(e) {

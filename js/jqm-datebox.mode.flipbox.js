@@ -1,6 +1,6 @@
 /* jQuery-Mobile-DateBox */
 
-/*! FLIPBOX Mode */
+/*! FLIPBOX/TIMEFLIPBOX/DURATIONFLIPBOX Mode */
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
@@ -16,10 +16,17 @@
 			"h": 12,
 			"i": 15,
 			"a": 3
+		},
+		durationStep: 1,
+		durationSteppers: {
+			"d": 1,
+			"h": 1,
+			"i": 1,
+			"s": 1
 		}
 	});
 	$.extend( $.mobile.datebox.prototype, {
-		"_fbox_pos": function () {
+		_fbox_pos: function () {
 			var pos1, ech, top, fixer,
 				w = this,
 				par = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
@@ -38,22 +45,81 @@
 				top.css( "marginTop", pos1 );
 			});
 			
+		},
+		_fbox_fixstep: function( order ) {
+			// Turn back off steppers when displaying a less precise 
+			// unit in the same control.
+			var step = this.options.durationSteppers,
+				actual = this.options.durationStep;
+			
+			if ( $.inArray( "s", order ) > -1 ) {
+				step.i = 1;
+				step.s = actual;
+			}
+			if ( $.inArray( "i", order ) > -1 ) {
+				step.h = 1;
+				step.s = actual;
+			}
+			if ( $.inArray( "h", order ) > -1 ) {
+				step.d = 1;
+				step.s = actual;
+			}
+		},
+		_fbox_series: function (middle, side, type, neg) {
+			// This builds the series that duration uses.
+			var nxt, prv,
+				o = this.options,
+				maxval = ( type === "h" ) ? 24 : 60,
+				ret = [ [ middle.toString(), middle ] ];
+			 
+			for ( var i = 1; i <= side; i++ ) {
+				nxt = middle + ( i * o.durationSteppers[type] );
+				prv = middle - ( i * o.durationSteppers[type] );
+				ret.unshift([nxt.toString(), nxt]);
+				if ( prv > -1 ) {
+					ret.push([prv.toString(), prv]);
+				} else {
+					if ( neg ) {
+						ret.push([(maxval+prv).toString(),prv]);
+					} else {
+						ret.push(["",-1]);
+					}
+				}
+			}
+			return ret;
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
 		"timeflipbox": function() {
 			this._build.flipbox.apply(this);
 		},
+		"durationflipbox": function() {
+			this._build.flipbox.apply(this);
+		},
 		"flipbox": function () {
 			var i, y, hRow, tmp, testDate, hRowIn,
 				w = this,
-				o = this.options, 
+				o = this.options,
+				g = this.drag,
+				cDurS = {},
+				gridLab = [0, 0, "a", "b", "c"],
+				blockLab = ["a","b","c","d"],
+				normDurPositions = ["d", "h", "i", "s"],
+				dur = ( o.mode === "durationflipbox" ? true : false ),
 				iDate = (w.d.input.val() === "") ?
 					w._startOffset(w._makeDate(w.d.input.val())) :
 					w._makeDate(w.d.input.val()),
 				uid = "ui-datebox-",
 				flipBase = $( "<div class='ui-overlay-shadow'><ul></ul></div>" ),
-				ctrl = $( "<div>", { "class": uid+"flipcontent" } );
+				ctrl = $( "<div>", { "class": uid+"flipcontent" } ),
+				i = w.theDate.getTime() - w.initDate.getTime(),
+				cDur = w._dur( i<0 ? 0 : i );
+
+			console.log('hey');
+			if ( i < 0 ) {
+				w.lastDuration = 0;
+				if ( dur ) { w.theDate.setTime( w.initDate.getTime() ); }
+			}
 
 			if ( typeof w.d.intHTML !== "boolean" ) {
 				w.d.intHTML.empty().remove();
@@ -81,17 +147,67 @@
 
 			w.fldOrder = ( o.mode === "flipbox" ) ?
 				w.__( "dateFieldOrder" ) :
-				w.__( "timeFieldOrder" );
-			w._check();
-			w._minStepFix();
+				( dur ) ? 
+					w.__("durationOrder") :
+					w.__( "timeFieldOrder" );
+					
+			if ( !dur ) {
+				w._check();
+				w._minStepFix();
+			}
 
 			if ( o.mode === "flipbox" ) { 
 				$("<div class='" + uid + "header'><h4>" +
 						w._formatter(w.__( "headerFormat"), w.theDate) + "</h4></div>")
 					.appendTo(w.d.intHTML); 
 			}
+			
+			if ( dur ) {
+				w._fbox_fixstep(w.fldOrder);
+				
+				tmp = $( "<div class='" + uid + "header ui-grid-" +
+				gridLab[w.fldOrder.length] + "'></div>");
+				
+				for ( y = 0; y < w.fldOrder.length; y++ ) {
+					$("<div class='" + uid + "fliplab ui-block-" + blockLab[ y ] + "'>" + 
+							w.__( "durationLabel" )[$.inArray( w.fldOrder[y], normDurPositions )] + 
+							"</div>"
+						)
+						.appendTo(tmp);
+				}
+				tmp.appendTo(w.d.intHTML);
+				
+				w.dateOK = true;
+				cDurS.d = w._fbox_series(cDur[0],16,"d",false);
+				cDurS.h = w._fbox_series(cDur[1],16,"h",(cDur[0]>0));
+				cDurS.i = w._fbox_series(cDur[2],20,"i",(cDur[0]>0 || cDur[1]>0));
+				cDurS.s = w._fbox_series(cDur[3],20,"s",(cDur[0]>0 || cDur[1]>0 || cDur[2]>0));
+				
+				ctrl.addClass( uid + "flipcontentd" );
+				
+				for ( y = 0; y < w.fldOrder.length; y++ ) {
+					stdPos = w.fldOrder[ y ];
+					curFld = cDur[ $.inArray( stdPos, normDurPositions ) ];
+	
+					hRow = w._makeEl( flipBase, { "attr": { 
+						"field": stdPos,
+						"amount": o.durationSteppers[ stdPos ]
+					} });
+					hRowIn = hRow.find( "ul" );
+	
+					for ( i in cDurS[ stdPos ] ) {
+						tmp = (cDurS[ stdPos ][ i ][ 1 ] !== curFld ) ?
+							o.themeDate :
+							o.themeDatePick;
+						$("<li>", { "class" : "ui-body-" + tmp } )
+							.html( "<span>" + cDurS[ stdPos ][ i ][ 0 ] + "</span>" )
+							.appendTo( hRowIn );
+					}
+					hRow.appendTo(ctrl);
+				}
+			}
 
-			for ( y=0; y<w.fldOrder.length; y++ ) {
+			for ( y=0; ( y < w.fldOrder.length && !dur ); y++ ) {
 				hRow = w._makeEl( flipBase, { "attr": { 
 					"field": w.fldOrder[y],
 					"amount": 1
@@ -267,14 +383,15 @@
 				});
 			}
 			
-			w.d.intHTML.on(w.drag.eStart, "ul", function(e,f) {
+			w.d.intHTML.on(g.eStart, "ul", function(e,f) {
 				if ( !w.drag.move ) {
 					if ( typeof f !== "undefined" ) { e = f; }
-					w.drag.move = true;
-					w.drag.target = $(this).find( "li" ).first();
-					w.drag.pos = parseInt(w.drag.target.css("marginTop").replace(/px/i, ""),10);
-					w.drag.start = w.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
-					w.drag.end = false;
+					g.move = true;
+					g.target = $(this).find( "li" ).first();
+					g.pos = parseInt(g.target.css("marginTop").replace(/px/i, ""),10);
+					g.start = w.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+					g.end = false;
+					g.direc = ( dur ) ? -1 : 1;
 					e.stopPropagation();
 					e.preventDefault();
 				}
@@ -303,13 +420,18 @@
 		"timeflipbox": function() {
 			this._drag.flipbox.apply(this);
 		},
+		"durationflipbox": function() {
+			this._drag.flipbox.apply(this);
+		},
 		"flipbox": function() {
 			var w = this,
 				o = this.options,
 				g = this.drag;
 			
 			$(document).on(g.eMove, function(e) {
-				if ( g.move && ( o.mode === "flipbox" || o.mode === "timeflipbox" )) {
+				if ( g.move && ( 
+						$.inArray(o.mode, [ "flipbox", "timeflipbox", "durationflipbox" ]) > -1 )) {
+							
 					g.end = w.touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
 					g.target.css("marginTop", (g.pos + g.end - g.start) + "px");
 					e.preventDefault();
@@ -319,7 +441,9 @@
 			});
 			
 			$(document).on(g.eEnd, function(e) {
-				if ( g.move && (o.mode === "flipbox" || o.mode === "timeflipbox" )) {
+				if ( g.move && ( 
+						$.inArray(o.mode, [ "flipbox", "timeflipbox", "durationflipbox" ]) > -1 )) {
+							
 					g.move = false;
 					if ( g.end !== false ) {
 						e.preventDefault();
@@ -328,7 +452,7 @@
 						w._offset(
 							g.tmp.data("field"),
 							(parseInt((g.start - g.end) / g.target.innerHeight(),10) *
-								g.tmp.data( "amount" )));
+								g.tmp.data( "amount" ) * g.direc));
 					}
 					g.start = false;
 					g.end = false;

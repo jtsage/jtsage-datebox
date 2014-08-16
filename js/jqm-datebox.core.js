@@ -1134,6 +1134,9 @@
 		_build: {
 			"default": function () {
 				this.d.headerText = "Error";
+				if ( this.d.intHTML !== false ) {
+					this.d.intHTML.remove().empty();
+				}
 				this.d.intHTML = $("<div class='ui-body-b'><h2 style='text-align:center'>" + 
 					"Unknown Mode</h2></div>" );
 			}
@@ -1298,8 +1301,6 @@
 				.removeClass( "ui-datebox-hidden" )
 				.popup( basepop )
 				.popup( "open", popopts );
-
-			w.refresh();
 		},
 		close: function() {
 			// Provide a PUBLIC function to close the element.
