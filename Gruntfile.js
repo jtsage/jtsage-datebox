@@ -391,7 +391,6 @@ module.exports = function(grunt) {
 		"copy:latest_css",
 		"uglify:latest",
 		"cssmin:latest",
-		"copy:backreq"
 	]);
 	
 
