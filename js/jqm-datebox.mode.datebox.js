@@ -274,7 +274,7 @@
 						} } )
 						.addClass( uid + "cbut ui-block-" + tmp + " ui-icon-plus " + butClass)
 						.appendTo( divPlus )
-						.prepend( (dur) ? "<label>" + w.__("durationLabel")[i] + "</label>" : "" )
+						.prepend( (dur) ? "<label>" + w.__("durationLabel")[i] + "</label>" : "" );
 					w._makeEl( butBase, {"attr": {
 							"field": w.fldOrder[i],
 							"amount": offAmount  * -1
@@ -351,7 +351,10 @@
 						});
 				}
 				if ( o.useCollapsedBut ) {
+					y.controlgroup({ type: "horizontal" });
 					y.addClass("ui-datebox-collapse");
+				} else {
+					y.controlgroup();
 				}
 				y.appendTo(w.d.intHTML);
 			}

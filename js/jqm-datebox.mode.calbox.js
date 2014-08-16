@@ -529,7 +529,10 @@
 						});
 				}
 				if ( o.useCollapsedBut ) {
+					htmlRow.controlgroup({ type: "horizontal" });
 					htmlRow.addClass( "ui-datebox-collapse" );
+				} else {
+					htmlRow.controlgroup();
 				}
 				htmlRow.appendTo( calContent );
 			}

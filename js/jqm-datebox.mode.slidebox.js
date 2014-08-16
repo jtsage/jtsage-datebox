@@ -250,7 +250,10 @@
 						});
 				}
 				if ( o.useCollapsedBut ) {
+					y.controlgroup({ type: "horizontal" });
 					y.addClass( "ui-datebox-collapse" );
+				} else {
+					y.controlgroup();
 				}
 				y.appendTo(w.d.intHTML);
 			}
