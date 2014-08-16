@@ -86,7 +86,27 @@ foreach ( $defaults as $key => $value ) {
 .ui-datebox-collapse .ui-controlgroup-controls a { 
 	max-width: 40%;
 }
-.ui-datebox-inline, .ui-datebox-inlineblind { 
+
+
+div.ui-datebox-inline.ui-datebox-inline-has-input {
+	float: none;
+	clear: both;
+}
+.ui-field-contain div.ui-datebox-container.ui-datebox-inline {
+	margin-right: auto;
+	margin-left: auto;
+}
+div.ui-datebox-container.ui-datebox-inline {
+	width: <?php echo $use['mWidth'] ?>px;
+
+}
+.ui-datebox-inline .ui-controlgroup-controls {
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*.ui-datebox-inline, .ui-datebox-inlineblind { 
 	margin-top: 5px;
 	margin-left: auto !important;
 	margin-right: auto !important;
@@ -96,7 +116,7 @@ foreach ( $defaults as $key => $value ) {
 	width: <?php echo $use['mWidth'] + 20 ?>px !important;
 	float: none !important;
 	clear: left !important; 
-}
+}*/
 
 /* 
  * Calendar Mode Styles

@@ -347,6 +347,10 @@
 			});
 			return dur;
 		},
+		_gridblk: {
+			g: [0, 0, "a", "b", "c", "d", "e"],
+			b: ["a", "b", "c", "d", "e"]
+		},
 		__ : function(val) {
 			var o = this.options,
 				lang = o.lang[o.useLang],
@@ -1180,14 +1184,23 @@
 
 			if ( ( o.useInline === true || o.useInlineBlind === true ) && w.initDone === false ) {
 				w.d.mainWrap.append( w.d.intHTML );
-				w.d.input.parent().parent().append( w.d.mainWrap );
-				w.d.mainWrap.removeClass( "ui-datebox-hidden" );
-				if ( o.useInline === true ) {
-					if ( o.hideInput === true ) {
-						w.d.mainWrap.addClass( "ui-datebox-inline" );
-					} else {
-						w.d.mainWrap.addClass( "ui-datebox-inlineblind" );
+				
+				if ( o.hideContainer === true ) {
+					if ( o.useHeader === true ) {
+						w.d.mainWrap.prepend( $( "<div class='ui-header ui-bar-" + o.themeHeader +
+							"'>" + "<h1 class='ui-title'>" + w.d.headerText + "</h1>" + "</div>" )
+						);
 					}
+					w.d.wrap.parent().after( w.d.mainWrap );
+				} else {
+					w.d.wrap.parent().append( w.d.mainWrap );
+				}
+				w.d.mainWrap.removeClass( "ui-datebox-hidden ui-overlay-shadow" );
+				if ( o.useInline === true ) {
+					w.d.mainWrap.addClass( "ui-datebox-inline" );
+					if ( o.hideInput === false && o.hideContainer === false ) {
+						w.d.mainWrap.addClass("ui-datebox-inline-has-input");
+					} 
 					// This is really hacky.  I hate it, but I don't have a 
 					// better idea right now.  Cleans up position on flip variants.
 					setTimeout( (function(w) { 
@@ -1197,7 +1210,7 @@
 					}(w)), 100);
 					return true;
 				} else {
-					w.d.mainWrap.addClass( "ui-datebox-inlineblind" );
+					w.d.mainWrap.addClass( "ui-datebox-inline ui-datebox-inline-has-input" );
 					w.d.mainWrap.hide();
 				}
 				w.initDone = false;
