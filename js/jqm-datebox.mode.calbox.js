@@ -511,17 +511,7 @@
 						});
 				}
 				if ( o.useClearButton ) {
-					$( "<a href='#' role='button'>" + w.__( "clearButton" ) + "</a>" )
-						.appendTo(htmlRow)
-						.addClass( "ui-btn ui-btn-" + o.theme +
-							" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all"
-						)
-						.on(o.clickEventAlt, function(e) {
-							e.preventDefault();
-							w.d.input.val( "" );
-							w._t( { method: "clear" } );
-							w._t( { method: "close" } );
-						});
+					htmlRow.append(w._stdBtn.clear.apply(w));
 				}
 				if ( o.useCollapsedBut ) {
 					htmlRow.controlgroup({ type: "horizontal" });

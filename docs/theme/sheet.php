@@ -296,15 +296,6 @@ div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
 	overflow: hidden;
 	width: <?php echo $use['mWidth'] ?>px;
 }
-.ui-datebox-sliderow-d {
-	height: <?php echo $use['sDHigh'] + 2 ?>px;
-}
-.ui-datebox-sliderow-ym {
-	height: <?php echo $use['sYMHigh'] + 2 ?>px;
-}
-.ui-datebox-sliderow-hi {
-	height: <?php echo $use['sHIHigh'] + 8 ?>px;
-}
 .ui-datebox-slide .ui-btn {
 	margin: 0;
 	padding: 0px 1em;

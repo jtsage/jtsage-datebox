@@ -3,7 +3,7 @@
  * Copyright (c) JTSage
  * CC 3.0 Attribution.  May be relicensed without permission/notification.
  * https://github.com/jtsage/jquery-mobile-datebox
- * Generated: 2014-08-17T14:48:58-04:00 (from theme builder)
+ * Generated: 2014-08-17T16:34:19-04:00 (from theme builder)
  */
  
 /* 
@@ -236,15 +236,6 @@ div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
 	text-align: center;
 	overflow: hidden;
 	width: 280px;
-}
-.ui-datebox-sliderow-d {
-	height: 40px;
-}
-.ui-datebox-sliderow-ym {
-	height: 32px;
-}
-.ui-datebox-sliderow-hi {
-	height: 32px;
 }
 .ui-datebox-slide .ui-btn {
 	margin: 0;

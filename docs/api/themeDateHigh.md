@@ -1,9 +1,8 @@
 ---
 title: themeDateHigh
-short: Theme swatch for today's date
+short: Theme swatch for highDates
 modes: [
-	'calbox',
-	'slidebox',
+	'calbox'
 ]
 cats: [ 'themes' ]
 relat: "themes"

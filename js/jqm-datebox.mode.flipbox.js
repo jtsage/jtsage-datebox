@@ -270,43 +270,17 @@
 				y = $( "<div>", { "class": uid + "controls" } );
 				
 				if ( o.useSetButton ) {
-					$( "<a href='#' role='button'>" )
-						.appendTo(y)
-						.text(( o.mode === "flipbox") ?
-							w.__( "setDateButtonLabel") :
-							( dur ) ? 
+					y.append( w._stdBtn.close.apply(
+						w, [(o.mode==="datebox") ? 
+							w.__("setDateButtonLabel") :
+							( dur ) ?
 								w.__("setDurationButtonLabel") :
-								w.__( "setTimeButtonLabel")
-						)
-						.addClass( "ui-btn ui-btn-" + o.theme + 
-							" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" +
-							( ( w.dateOK === true ) ? "" : " ui-state-disabled" )
-						)
-						.on(o.clickEventAlt, function(e) {
-							e.preventDefault();
-							if ( w.dateOK === true ) {
-								w._t( { 
-									method: "set", 
-									value: w._formatter(w.__fmt(),w.theDate),
-									date: w.theDate
-								} );
-								w._t( { method: "close" } );
-							}
-							
-						});
+								w.__("setTimeButtonLabel")]
+					));
 				}
 					
 				if ( o.useClearButton ) {
-					$( "<a href='#' role='button'>" + w.__( "clearButton" ) + "</a>" )
-						.appendTo(y)
-						.addClass( "ui-btn ui-btn-" + o.theme +
-							" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" )
-						.on(o.clickEventAlt, function(e) {
-							e.preventDefault();
-							w.d.input.val( "" ); 
-							w._t( { method: "clear" } );
-							w._t( { method: "close" } );
-						});
+					y.append(w._stdBtn.clear.apply(w));
 				}
 				if ( o.useCollapsedBut ) {
 					y.controlgroup({ type: "horizontal" });

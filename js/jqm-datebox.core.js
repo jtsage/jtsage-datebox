@@ -1243,6 +1243,7 @@
 					}
 				}
 				basepop.afteropen = function() {
+					w._t( { method: "postrefresh" } );
 					if ( o.openCallback.apply( w, $.merge([{
 								custom: w.customCurrent,
 								initDate: w.initDate,
@@ -1252,6 +1253,10 @@
 
 						w._t( {method: "close"} );
 					}
+				};
+			} else {
+				basepop.afteropen = function() {
+					w._t( { method: "postrefresh" } );
 				};
 			}
 			// Prepare close callback.
@@ -1428,6 +1433,42 @@
 				return $(document).find( "label[for='" + w.d.input.attr( "id" ) + "']" ).text();
 			}
 			return o.overrideDialogLabel;
+		},
+		_stdBtn: {
+			clear: function() {
+				var w = this, o = this.options;
+				return $( "<a href='#' role='button'>" + w.__( "clearButton" ) + "</a>" )
+					.addClass( 
+						"ui-btn ui-btn-" + o.theme +
+						" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all"
+					)
+					.on(o.clickEventAlt, function(e) {
+						e.preventDefault();
+						w.d.input.val("");
+						w._t( { method: "clear" } );
+						w._t( { method: "close" } );
+					});
+			},
+			close: function(txt) {
+				var w = this, o = this.options;
+				return $( "<a href='#' role='button'>" + txt + "</a>" )
+					.addClass( "ui-btn ui-btn-" + o.theme + 
+						" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" +
+						( ( w.dateOK === true ) ? "" : " ui-state-disabled" )
+					)
+					.on(o.clickEventAlt, function(e) {
+						e.preventDefault();
+						if ( w.dateOK === true ) {
+							w._t( { 
+								method: "set", 
+								value: w._formatter(w.__fmt(),w.theDate),
+								date: w.theDate
+							} );
+							w._t( { method: "close" } );
+						}
+						
+					});
+			}
 		},
 		_makeEl: function( source, parts ) {
 			// Populate a source element with data parts.
