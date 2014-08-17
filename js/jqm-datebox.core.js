@@ -612,7 +612,7 @@
 						case "E": d.year = grbg - 543; break;
 						case "y":
 						case "g":
-							if ( o.afterToday === true || grbg < 38 ) {
+							if ( o.afterToday || grbg < 38 ) {
 								d.year = 2000 + grbg;
 							} else {
 								d.year = 1900 + grbg;
@@ -900,7 +900,7 @@
 			w.d.wrap.removeClass( "ui-input-has-clear" );
 			button.remove();
 
-			if ( o.lockInput === true ) {
+			if ( o.lockInput ) {
 				w.d.input.removeAttr( "readonly" );
 			}
 
@@ -989,11 +989,11 @@
 
 			w.initDone = false;
 
-			if ( o.showInitialValue === true ) {
+			if ( o.showInitialValue ) {
 				w.d.input.val( w._formatter( w.__fmt(), w.theDate ) );
 			}
 
-			if ( o.useButton === true ) {
+			if ( o.useButton ) {
 				if ( o.mode !== false ) {
 					w.d.wrap.addClass( "ui-input-has-clear" );
 					if ( o.buttonIcon === false ) {
@@ -1011,7 +1011,7 @@
 						.appendTo(w.d.wrap)
 						.on(o.clickEvent, function( e ) {
 							e.preventDefault();
-							if ( o.useFocus === true ) {
+							if ( o.useFocus ) {
 								w.d.input.focus();
 							} else {
 								if ( !w.disabled ) { w._t( { method: "open" } ); }
@@ -1020,13 +1020,13 @@
 				}
 			}
 
-			if ( o.hideInput === true ) { w.d.wrap.hide(); }
-			if ( o.hideContainer === true ) { w.d.wrap.parent().hide(); }
+			if ( o.hideInput ) { w.d.wrap.hide(); }
+			if ( o.hideContainer ) { w.d.wrap.parent().hide(); }
 
 			w.d.input
 				.on( "focus.datebox", function(){
 					w.d.input.addClass( "ui-focus" );
-					if ( w.disabled === false && o.useFocus === true ) {
+					if ( w.disabled === false && o.useFocus ) {
 						w._t( { method: "open" } );
 					}
 				})
@@ -1039,7 +1039,7 @@
 				})
 				.on( "datebox", w._event );
 
-			if ( o.lockInput === true ) { 
+			if ( o.lockInput ) { 
 				w.d.input.attr( "readonly", "readonly" ); 
 			}
 
@@ -1055,7 +1055,7 @@
 
 			w.applyMinMax(false, false);
 
-			if ( o.useInline === true || o.useInlineBlind === true ) {
+			if ( o.useInline || o.useInlineBlind ) {
 				w.open();
 			}
 
@@ -1121,7 +1121,7 @@
 					transition: (o.useAnimation ? o.transition : "none" )
 				};
 
-			if ( o.useFocus === true && w.fastReopen === true ) { 
+			if ( o.useFocus && w.fastReopen === true ) { 
 				w.d.input.blur();
 				return false;
 			}
@@ -1143,11 +1143,11 @@
 
 			if ( w.__( "useArabicIndic" ) === true ) { w._doIndic(); }
 
-			if ( ( o.useInline === true || o.useInlineBlind === true ) && w.initDone === false ) {
+			if ( ( o.useInline || o.useInlineBlind ) && w.initDone === false ) {
 				w.d.mainWrap.append( w.d.intHTML );
 				
-				if ( o.hideContainer === true ) {
-					if ( o.useHeader === true ) {
+				if ( o.hideContainer ) {
+					if ( o.useHeader ) {
 						w.d.mainWrap.prepend( $( "<div class='ui-header ui-bar-" + o.themeHeader +
 							"'>" + "<h1 class='ui-title'>" + w.d.headerText + "</h1>" + "</div>" )
 						);
@@ -1157,9 +1157,9 @@
 					w.d.wrap.parent().append( w.d.mainWrap );
 				}
 				w.d.mainWrap.removeClass( "ui-datebox-hidden ui-overlay-shadow" );
-				if ( o.useInline === true ) {
+				if ( o.useInline ) {
 					w.d.mainWrap.addClass( "ui-datebox-inline" );
-					if ( o.hideInput === false && o.hideContainer === false ) {
+					if ( !o.hideInput && !o.hideContainer ) {
 						w.d.mainWrap.addClass("ui-datebox-inline-has-input");
 					} 
 					// This is really hacky.  I hate it, but I don't have a 
@@ -1194,7 +1194,7 @@
 
 			w.d.mainWrap.empty();
 
-			if ( o.useHeader === true ) {
+			if ( o.useHeader ) {
 				w.d.mainWrap.append( $( "<a href='#'>Close</a>" )
 					.addClass( "ui-btn-left ui-link ui-btn ui-btn-a ui-icon-delete " + 
 						"ui-btn-icon-notext ui-shadow ui-corner-all"
@@ -1229,7 +1229,7 @@
 				popopts.positionTo = "origin";
 			}
 
-			if ( o.useModal === true ) {
+			if ( o.useModal ) {
 				basepop.overlayTheme = o.useModalTheme;
 				basepop.dismissible = false;
 			}
@@ -1281,12 +1281,12 @@
 			var w = this,
 				o = this.options;
 
-			if ( o.useInlineBlind === true ) { 
+			if ( o.useInlineBlind ) { 
 				// Slide up useInlineBlind
 				w.d.mainWrap.slideUp();
 				return true;
 			}
-			if ( o.useInline === true || w.d.intHTML === false ) { 
+			if ( o.useInline || w.d.intHTML === false ) { 
 				// Do nothing for useInline or empty.
 				return true;
 			}
@@ -1335,11 +1335,11 @@
 			w.dateOK = true;
 			if ( typeof o.mode === "undefined") { return true; }
 
-			if ( o.afterToday !== false ) {
+			if ( o.afterToday ) {
 				td = new w._date();
 				if ( now < td ) { now = td; }
 			}
-			if ( o.beforeToday !== false ) {
+			if ( o.beforeToday ) {
 				td = new w._date();
 				if ( now > td ) { now = td; }
 			}

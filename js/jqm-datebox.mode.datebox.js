@@ -359,7 +359,7 @@
 				y.appendTo(w.d.intHTML);
 			}
 			
-			if ( o.repButton === false ) {
+			if ( ! o.repButton ) {
 				w.d.intHTML.on(o.clickEvent, "."+ uid + "cbut", function(e) {
 					divIn.find(":focus").blur();
 					e.preventDefault();
@@ -378,7 +378,7 @@
 				});
 			}
 			
-			if ( o.repButton === true ) {
+			if ( o.repButton ) {
 				w.d.intHTML.on(g.eStart, "."+ uid + "cbut", function() {
 					divIn.find(":focus").blur();
 					tmp = [$(this).data("field"), $(this).data("amount")];
