@@ -106,18 +106,6 @@ div.ui-datebox-container.ui-datebox-inline {
 	margin-right: auto;
 }
 
-/*.ui-datebox-inline, .ui-datebox-inlineblind { 
-	margin-top: 5px;
-	margin-left: auto !important;
-	margin-right: auto !important;
-	text-align: center;
-}
-.ui-datebox-inlineblind { 
-	width: <?php echo $use['mWidth'] + 20 ?>px !important;
-	float: none !important;
-	clear: left !important; 
-}*/
-
 /* 
  * Calendar Mode Styles
  * 
