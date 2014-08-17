@@ -106,9 +106,9 @@
 			} else if ( checkDates ) {
 				if (
 					( ret.recok !== true ) ||
-					( o.afterToday === true && thisDate.comp() > ret.comp ) ||
-					( o.beforeToday === true && thisDate.comp() < ret.comp ) ||
-					( o.notToday === true && thisDate.comp() === ret.comp ) ||
+					( o.afterToday && thisDate.comp() > ret.comp ) ||
+					( o.beforeToday && thisDate.comp() < ret.comp ) ||
+					( o.notToday && thisDate.comp() === ret.comp ) ||
 					( o.maxDays !== false && maxDate.comp() < ret.comp ) ||
 					( o.minDays !== false && minDate.comp() > ret.comp ) ||
 					( $.isArray(o.blackDays) && $.inArray(day, o.blackDays) > -1 ) ||
@@ -244,7 +244,7 @@
 						}
 					});
 				
-			if ( o.calNoHeader === true ) { 
+			if ( o.calNoHeader ) { 
 				w.d.intHTML.find( "." + uid + "gridheader" ).remove();
 			}
 			
@@ -259,10 +259,10 @@
 			}
 			if ( presetDate.comp() === curDate.comp() ) { presetDay = presetDate.get(2); }
 			
-			if ( o.afterToday === true &&
+			if ( o.afterToday &&
 					( isTrueMonth || ( isTrueYear && cTodayDateArr[1] >= curDateArr[1] ) ) ) {
 				w.calPrev = false; }
-			if ( o.beforeToday === true &&
+			if ( o.beforeToday &&
 					( isTrueMonth || ( isTrueYear && cTodayDateArr[1] <= curDateArr[1] ) ) ) {
 				w.calNext = false; }
 			
@@ -281,7 +281,7 @@
 				}
 			}
 			
-			if ( o.calUsePickers === true ) {
+			if ( o.calUsePickers ) {
 				pickerControl = $("<div>", {
 					"class": "ui-grid-a ui-datebox-grid",
 					style: "padding-top: 5px; padding-bottom: 5px;"
@@ -359,6 +359,7 @@
 				w._cal_days = w.__( "daysOfWeekShort").concat( w.__( "daysOfWeekShort" ) );
 				weekdayControl = $( "<div>", { "class": uid + "gridrow" } ).appendTo( calContent );
 
+				if ( o.calControlGroup ) { weekdayControl.addClass( uid + "gridrow-last" ); }
 				if ( w.__( "isRTL" ) === true ) { 
 					weekdayControl.css( "direction", "rtl" );
 				}
@@ -390,6 +391,7 @@
 				if ( o.calShowWeek ) {
 						$("<div>", { "class": uid + "griddate " + uid + "griddate-empty" } )
 							.text( "W" + weekNum )
+							.css( (o.calControlGroup ? {float: "left"} : {}) )
 							.appendTo( htmlRow );
 						weekNum++;
 						if ( weekNum > 52 && typeof(genny[ row + 1 ]) !== "undefined" ) { 
@@ -421,12 +423,12 @@
 						if ( genny[row][col][0]) {
 							$("<div>")
 								.text( String( genny[row][col][0] ) )
+								.addClass( uid + "griddate ui-corner-all ui-btn")
 								.addClass( curMonth === genny[row][col][1] ?
-									( uid + "griddate ui-corner-all ui-btn ui-btn-" +
-										checked.theme +
+									( "ui-btn-" + checked.theme +
 										( checked.ok ? "" : " ui-state-disabled" )
 									) :
-									( uid + "griddate " + uid + "griddate-empty" )
+									( uid + "griddate-empty" )
 								)
 								.css(( curMonth !== genny[row][col][1] && !o.calOnlyMonth ) ?
 									{ cursor: "pointer" } :
@@ -448,24 +450,17 @@
 						}
 					}
 				}
-				if ( o.calControlGroup === true ) {
-					htmlRow
-						.find( ".ui-corner-all" )
-						.removeClass( "ui-corner-all" )
-						.eq(0)
-							.addClass("ui-corner-left")
-							.end()
-						.last()
-							.addClass( "ui-corner-right" )
-							.addClass( "ui-controlgroup-last" );
+				if ( o.calControlGroup ) {
+					htmlRow.controlgroup({type: "horizontal"});
 				}
+				if ( row === rows - 1 ) { htmlRow.addClass( uid + "gridrow-last" ); }
 				htmlRow.appendTo(calContent);
 			}
 			if ( o.calShowWeek ) { 
 				calContent.find( "." + uid + "griddate" ).addClass( uid + "griddate-week" );
 			}
 			
-			if ( o.calShowDateList === true && dList !== false ) {
+			if ( o.calShowDateList && dList !== false ) {
 				listControl = $( "<div>" );
 				listControl.a = $( "<select name='pickdate'></select>" ).appendTo(listControl);
 				

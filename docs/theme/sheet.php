@@ -87,6 +87,9 @@ foreach ( $defaults as $key => $value ) {
 	max-width: 40%;
 }
 
+.ui-datebox-controls.ui-controlgroup-vertical {
+	margin-bottom: 5px;
+}
 
 div.ui-datebox-inline.ui-datebox-inline-has-input {
 	float: none;
@@ -130,10 +133,24 @@ div.ui-datebox-container.ui-datebox-inline {
 	clear: both; 
 	margin-bottom: 5px; 
 }
+.ui-datebox-inline .ui-datebox-gridrow .ui-controlgroup-controls {
+	width: 100%;
+	text-align: center;
+}
+.ui-datebox-inline .ui-datebox-gridrow .ui-controlgroup-controls .ui-btn {
+	float: none;
+	clear: both;
+}
 .ui-datebox-gridrow { 
 	margin-left: 5px; 
 	margin-right: 5px; 
 	margin-bottom: -7px;
+}
+.ui-datebox-gridrow-last {
+	margin-bottom: 0;
+}
+.ui-datebox-inline .ui-controlgroup.ui-datebox-gridrow-last {
+	margin-bottom: 5px;
 }
 .ui-datebox-griddate { 
 	width: <?php echo $use['cGDWidth'] ?>px;
@@ -160,7 +177,7 @@ div.ui-datebox-container.ui-datebox-inline {
 	zoom: 1;
 	*display: inline;
 }
-.ui-datebox-griddate-empty { 
+.ui-datebox-gridrow div.ui-datebox-griddate-empty { 
 	border: 1px solid transparent;
 	color: <?php echo $use['cGDEColor'] ?>;
 }
