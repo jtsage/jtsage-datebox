@@ -242,7 +242,7 @@
 			}
 			
 			for(i = 0; i < w.fldOrder.length; i++) {
-				tmp = ["a","b","c","d","e","f"][i];
+				tmp = w._gridblk.b[i];
 				if ( dur ) {
 					offAmount = o.durationSteppers[w.fldOrder[i]];
 				} else {
@@ -287,20 +287,20 @@
 			
 			if ( dur ) {
 				divLab
-					.addClass("ui-datebox-dboxlab ui-grid-"+["a","b","c","d","e"][cnt])
+					.addClass("ui-datebox-dboxlab ui-grid-"+w._grdblk.b[cnt])
 					.appendTo(w.d.intHTML);
 			}
 			
 			divPlus
-				.addClass("ui-grid-"+["a","b","c","d","e"][cnt])
+				.addClass("ui-grid-"+w._gridblk.b[cnt])
 				.appendTo(w.d.intHTML);
 				
 			divIn
-				.addClass("ui-datebox-dboxin ui-grid-"+["a","b","c","d","e"][cnt])
+				.addClass("ui-datebox-dboxin ui-grid-"+w._gridblk.b[cnt])
 				.appendTo(w.d.intHTML);
 				
 			divMinus
-				.addClass("ui-grid-"+["a","b","c","d","e"][cnt])
+				.addClass("ui-grid-"+w._gridblk.b[cnt])
 				.appendTo(w.d.intHTML);
 			
 			w.d.divIn = divIn;

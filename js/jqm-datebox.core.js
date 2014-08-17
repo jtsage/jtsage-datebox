@@ -22,7 +22,6 @@
 			useAnimation: true,
 			hideInput: false,
 			hideContainer: false,
-			hideFixedToolbars: false,
 
 			lockInput: true,
 
@@ -349,7 +348,7 @@
 		},
 		_gridblk: {
 			g: [0, 0, "a", "b", "c", "d", "e"],
-			b: ["a", "b", "c", "d", "e"]
+			b: ["a", "b", "c", "d", "e", "f"]
 		},
 		__ : function(val) {
 			var o = this.options,
@@ -387,9 +386,10 @@
 					return w.__( "dateFormat" );
 			}
 		},
-		_zPad: function(number) {
+		_zPad: function(number, pad) {
 			// Zero pad a number.
-			return ( number < 10 ? "0" : "" ) + String( number );
+			if ( typeof pad !== "undefined" && pad === "-" ) { return String(number); }
+			return ( number < 10  ? "0" : "" ) + String( number );
 		},
 		_dRep: function( oper, direction ) {
 			// Digit replacement Indic/Arabic
@@ -687,31 +687,14 @@
 		_formatter: function(format, date) {
 			var w = this,
 				o = this.options, tmp,
-				dur = {
-					part: [0,0,0,0], tp: 0
-				};
+				dur = 0;
 
 				if ( o.mode.substr( 0, 4 ) === "dura" ) {
-					dur.tp = this.theDate.getEpoch() - this.initDate.getEpoch();
+					dur = w._dur(this.theDate.getTime() - this.initDate.getTime());
 
-					// Days
-					dur.part[0] = parseInt( dur.tp / (60*60*24),10); 
-					dur.tp -= (dur.part[0]*60*60*24); 
-
-					// Hours
-					dur.part[1] = parseInt( dur.tp / (60*60),10);
-					dur.tp -= (dur.part[1]*60*60);
-
-					// Minutes
-					dur.part[2] = parseInt( dur.tp / (60),10);
-					dur.tp -= (dur.part[2]*60);
-
-					// Seconds
-					dur.part[3] = dur.tp;
-
-					if ( ! format.match( /%Dd/ ) ) { dur.part[1] += (dur.part[0]*24);}
-					if ( ! format.match( /%Dl/ ) ) { dur.part[2] += (dur.part[1]*60);}
-					if ( ! format.match( /%DM/ ) ) { dur.part[3] += (dur.part[2]*60);}
+					if ( ! format.match( /%Dd/ ) ) { dur[1] += (dur[0]*24);}
+					if ( ! format.match( /%Dl/ ) ) { dur[2] += (dur[1]*60);}
+					if ( ! format.match( /%DM/ ) ) { dur[3] += (dur[2]*60);}
 				}
 
 			format = format.replace(/%(D|X|0|-)*([1-9a-zA-Z])/g, function(match, pad, oper) {
@@ -723,11 +706,11 @@
 				}
 				if ( pad === "D" ) {
 					switch ( oper ) {
-						case "d": return dur.part[0];
-						case "l": return w._zPad(dur.part[1]);
-						case "M": return w._zPad(dur.part[2]);
-						case "S": return w._zPad(dur.part[3]);
-						case "A": return w.__( "durationDays" )[ (( dur.part[0] > 1 ) ? 1 : 0 ) ];
+						case "d": return dur[0];
+						case "l": return w._zPad(dur[1]);
+						case "M": return w._zPad(dur[2]);
+						case "S": return w._zPad(dur[3]);
+						case "A": return w.__( "durationDays" )[ (( dur[0] === 1 ) ? 0 : 1 ) ];
 						default: return match;
 					}
 				}
@@ -741,73 +724,43 @@
 					case "B": // Full month
 						return w.__( "monthsOfYear" )[ date.getMonth() ];
 					case "C": // Century
-						return date.getFullYear().toString().substr(0,2);
+						return parseInt(date.getFullYear() / 100);
 					case "d": // Day of month
-						return (( pad === "-" ) ? 
-							date.getDate() :
-							w._zPad( date.getDate()
-						));
+						return w._zPad( date.getDate(), pad );
 					case "H": // Hour (01..23)
 					case "k":
-						return (( pad === "-" ) ? 
-							date.getHours() :
-							w._zPad( date.getHours()
-						));
+						return w._zPad( date.getHours(), pad );
 					case "I": // Hour (01..12)
 					case "l":
-						return (( pad === "-" ) ? 
-							date.get12hr() :
-							w._zPad( date.get12hr()
-						));
+						return w._zPad( date.get12hr(), pad );
 					case "m": // Month
-						return (( pad === "-" ) ?
-							date.getMonth()+1 :
-							w._zPad( date.getMonth()+1
-						));
+						return w._zPad( date.getMonth()+1, pad );
 					case "M": // Minutes
-						return (( pad === "-" ) ?
-							date.getMinutes() :
-							w._zPad( date.getMinutes()
-						));
+						return w._zPad( date.getMinutes(), pad );
 					case "p": // AM/PM (ucase)
-						return w.__( "meridiem" )[ ( ( date.get(3) < 12 ) ? 0 : 1 ) ].toUpperCase();
 					case "P": // AM/PM (lcase)
-						return w.__( "meridiem" )[ ( ( date.get(3) < 12 ) ? 0 : 1 ) ].toLowerCase();
+						tmp = w.__( "meridiem" )[ ( ( date.get(3) < 12 ) ? 0 : 1 ) ].toUpperCase();
+						return ( oper === "P" ? tmp.toLowerCase() : tmp );
 					case "s": // Unix Seconds
 						return date.getEpoch();
 					case "S": // Seconds
-						return (( pad === "-" ) ?
-							date.getSeconds() :
-							w._zPad( date.getSeconds()
-						));
+						return w._zPad( date.getSeconds(), pad );
 					case "u": // Day of week (1-7)
-						return (( pad === "-" ) ?
-							date.getDay() + 1 :
-							w._zPad( date.getDay() + 1
-						));
+						return w._zPad( date.getDay() + 1, pad );
 					case "w": // Day of week
 						return date.getDay();
 					case "y": // Year (2 digit)
-						return date.getFullYear().toString().substr(2,2);
+						return w._zPad(date.getFullYear() % 100);
 					case "Y": // Year (4 digit)
 						return date.getFullYear();
 					case "E": // BE (Buddist Era, 4 Digit)
 						return date.getFullYear() + 543;
 					case "V":
-						return (( pad === "-" ) ?
-							date.getDWeek(4) :
-							w._zPad( date.getDWeek(4)
-						));
+						return w._zPad( date.getDWeek(4), pad );
 					case "U":
-						return (( pad === "-" ) ?
-							date.getDWeek(0) :
-							w._zPad( date.getDWeek(0)
-						));
+						return w._zPad( date.getDWeek(0), pad );
 					case "W":
-						return (( pad === "-" ) ?
-							date.getDWeek(1) :
-							w._zPad( date.getDWeek(1)
-						));
+						return w._zPad( date.getDWeek(1), pad );
 					case "o": // Ordinals
 						if ( typeof w._ord[o.useLang] !== "undefined" ) {
 							return w._ord[ o.useLang ]( date.getDate() );
@@ -815,24 +768,26 @@
 						return w._ord[ "default" ](date.getDate());
 					case "j":
 						tmp = new Date(date.getFullYear(),0,1);
-						tmp = Math.ceil((date - tmp) / 86400000)+1;
-						return (( tmp < 100 ) ? (( tmp < 10 ) ? "00" : "0" ) : "" ) + String(tmp);
+						tmp = "000" + String(Math.ceil((date - tmp) / 86400000)+1);
+						return tmp.slice(-3);
 					case "G":
+						tmp = date.getFullYear();
 						if ( date.getDWeek(4) === 1 && date.getMonth() > 0 ) {
-							return date.getFullYear() + 1;
+							return tmp + 1;
 						}
 						if ( date.getDWeek(4) > 51 && date.getMonth() < 11 ) {
-							return date.getFullYear() - 1;
+							return tmp - 1;
 						}
-						return date.getFullYear();
+						return tmp;
 					case "g":
+						tmp = date.getFullYear % 100;
 						if ( date.getDWeek(4) === 1 && date.getMonth() > 0 ) {
-							return parseInt(date.getFullYear().toString().substr(2,2),10) + 1;
+							++tmp;
 						}
 						if ( date.getDWeek(4) > 51 && date.getMonth() < 11 ) {
-							return parseInt(date.getFullYear().toString().substr(2,2),10) - 1;
+							--tmp;
 						}
-						return date.getFullYear().toString().substr(2,2);
+						return w._zpad(tmp);
 					default:
 						return match;
 				}
@@ -954,6 +909,11 @@
 				.off( "focus.datebox" )
 				.off( "blur.datebox" )
 				.off( "change.datebox" );
+				
+			$( document )
+				.off( w.drag.eMove )
+				.off( w.drag.eEnd )
+				.off( w.drag.eEndA );
 		},
 		_create: function() {
 			// Create the widget, called automatically by widget system
@@ -980,14 +940,15 @@
 						} ).css( "zIndex", o.zindex ),
 					intHTML: false
 				},
+				evtid = ".datebox" + this.uuid,
 				touch = ( typeof window.ontouchstart !== "undefined" ),
 				drag = {
-					eStart : (touch ? "touchstart" : "mousedown" )+".datebox",
-					eMove  : (touch ? "touchmove" : "mousemove" )+".datebox",
-					eEnd   : (touch ? "touchend" : "mouseup" )+".datebox",
+					eStart : (touch ? "touchstart" : "mousedown" ) + evtid,
+					eMove  : (touch ? "touchmove" : "mousemove" ) + evtid,
+					eEnd   : (touch ? "touchend" : "mouseup" ) + evtid,
 					eEndA  : (touch ?
-						"mouseup.datebox touchend.datebox touchcancel.datebox touchmove.datebox" :
-						"mouseup.datebox"
+						(["mouseup","touchend","touchcanel","touchmove"].join(evtid+" ") + evtid) :
+						"mouseup" + evtid
 					),
 					move   : false,
 					start  : false,
@@ -1334,9 +1295,10 @@
 			w.d.mainWrap.popup( "close" );
 
 			// Unbind all drag handlers.
-			$( document ).off( w.drag.eMove );
-			$( document ).off( w.drag.eEnd );
-			$( document ).off( w.drag.eEndA );
+			$( document )
+				.off( w.drag.eMove )
+				.off( w.drag.eEnd )
+				.off( w.drag.eEndA );
 
 			if ( o.useFocus ) {
 				w.fastReopen = true;
