@@ -15,9 +15,11 @@ modes: [
 cats: [ 'display' ]
 relat: "display"
 layout: api
-defval: "false"
-dattype: "Boolean"
-dyn: "True"
+defval: "--"
+dattype: "--"
+dyn: "--"
+depre: "true"
 ---
 
-Hide fixed toolbars (if enabled) when the control opens.  Note this may be buggy on some platforms
+**OPTION DEPRECIATED AND REMOVED**
+
