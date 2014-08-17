@@ -4,28 +4,28 @@
 
 (function($) {
 	$.extend( $.mobile.datebox.prototype.options, {
-		themeDateHigh: "b",
 		themeDatePick: "b",
 		themeDate: "a",
 		useSetButton: true,
 		validHours: false,
 		slen: {
-			"y": 5, 
-			"m": 6, 
-			"d": 15, 
-			"h": 12, 
-			"i":30
+			"y": 9, 
+			"m": 14, 
+			"d": 16, 
+			"h": 16, 
+			"i": 30
 		}
 	});
 	$.extend( $.mobile.datebox.prototype, {
-		"_sbox_pos": function () {
+		_sbox_pos: function () {
 			var fixer, ech, top, par, tot,
 				w = this;
 			
 			w.d.intHTML.find( "div.ui-datebox-sliderow-int" ).each(function () {
 				ech = $(this);
 				par = ech.parent().outerWidth();
-				
+				fixer = ech.outerWidth();
+
 				if ( w.__( "isRTL" ) ) { 
 					top = ech.find("div").last(); 
 				} else {
@@ -34,26 +34,50 @@
 				
 				tot = ech.find( "div" ).size() * top.outerWidth();
 				
-				fixer = ech.outerWidth();
-				
 				if ( fixer > 0 ) { tot = fixer; }
 				
 				top.css( "marginLeft", ( tot - par ) / 2 * -1 );
 			});
+		},
+		_sbox_mktxt: {
+			y: function(i) {
+				return ["slideyear", this.theDate.get(0) + i];
+			},
+			m: function(i) {
+				var testDate = (this.theDate.copy([0],[0,0,1])).adj( 1, i );
+				return ["slidemonth", this.__( "monthsOfYearShort" )[testDate.get(1)] ];
+			},
+			d: function(i) {
+				var testDate = this.theDate.copy( [0,0,i] );
+				return ["slideday", 
+					testDate.get(2) + "<br /><span class='ui-datebox-slidewday'>" +
+					this.__( "daysOfWeekShort" )[testDate.getDay()] + "</span>"
+				];
+			},
+			h: function(i) {
+				var testDate = this.theDate.copy( [0,0,0,i] );
+				return ["slidehour", 
+					this.__( "timeFormat" ) === 12 ?
+						this._formatter( 
+							"%-I<span class='ui-datebox-slidewday'>%p</span>",
+							testDate
+						) :
+						testDate.get(3)
+				];
+			},
+			i: function(i) {
+				return [ "slidemins", this._zPad( ( this.theDate.copy( [0,0,0,0,i] )).get(4) ) ];
+			}
 		}
 	});
 	$.extend( $.mobile.datebox.prototype._build, {
 		"slidebox": function () {
-			var i, y, hRow, phRow, tmp, testDate,
+			var i, y, hRow, phRow, currentTerm, currentText,
 				w = this,
 				o = this.options,
 				g = this.drag,
-				iDate = (w.d.input.val() === "") ?
-					w._startOffset( w._makeDate( w.d.input.val() ) ) :
-					w._makeDate(w.d.input.val()
-				),
 				uid = "ui-datebox-",
-				slideBase = $( "<div class='"+uid+"sliderow-int'></div>" ),
+				slideBase = $( "<div class='" + uid + "sliderow-int'></div>" ),
 				phBase = $( "<div>" ),
 				ctrl = $( "<div>", { "class": uid + "slide" } );
 			
@@ -82,172 +106,44 @@
 			w.d.intHTML.append(ctrl);
 			
 			for ( y=0; y<w.fldOrder.length; y++ ) {
+				currentTerm = w.fldOrder[y];
+				
 				phRow = phBase
 					.clone()
-					.data( "rowtype", w.fldOrder[y]);
+					.addClass( uid + "sliderow" )
+					.data( "rowtype", currentTerm);
 				
 				hRow = slideBase
 					.clone()
-					.data( "rowtype", w.fldOrder[y])
+					.data( "rowtype", currentTerm)
 					.appendTo(phRow);
 					
 				if ( w.__( "isRTL" ) === true ) { hRow.css( "direction", "rtl" ); }
 				
-				switch (w.fldOrder[y]) {
-					case "y":
-						phRow.addClass( uid + "sliderow " + uid + "sliderow-ym" );
-						for ( i = o.slen.y * -1; i < ( o.slen.y + 1 ); i++ ) {
-							tmp = ( i !== 0 ) ?
-								( ( iDate.get(0) === (w.theDate.get(0) + i) ) ?
-									o.themeDateHigh :
-									o.themeDate
-								) :
-								o.themeDatePick;
-							$( "<div>", { 
-									"class": uid + "slidebox " + uid +
-										"slideyear ui-btn ui-btn-" + tmp
-								} )
-								.text( w.theDate.get(0)+i )
-								.data( "offset", i )
-								.appendTo( hRow );
-						}
-						break;
-					case "m":
-						phRow.addClass( uid + "sliderow " + uid + "sliderow-ym" );
-						for ( i = o.slen.m * -1; i < ( o.slen.m + 1 ); i++ ) {
-							testDate = w.theDate.copy([0],[0,0,1]);
-							testDate.adj( 1, i );
-							tmp = ( i !== 0 ) ?
-								( ( iDate.get(1) === testDate.get(1) &&
-										iDate.get(0) === testDate.get(0) ) ?
-									o.themeDateHigh :
-									o.themeDate
-								) :
-								o.themeDatePick;
-							$( "<div>", { 
-									"class": uid + "slidebox " + uid +
-										"slidemonth ui-btn ui-btn-" + tmp }
-								)
-								.text( String(w.__( "monthsOfYearShort" )[testDate.get(1)]) )
-								.data( "offset", i )
-								.appendTo( hRow );
-						}
-						break;
+				if ( typeof w._sbox_mktxt[currentTerm] === "function" ) {
+					for ( i = o.slen[currentTerm] * -1; i < ( o.slen[currentTerm] + 1 ); i++ ) {
+						currentText = w._sbox_mktxt[currentTerm].apply(w, [i]);
 						
-					case "d":
-						phRow.addClass( uid + "sliderow " + uid + "sliderow-d" );
-						for ( i = o.slen.d * -1; i < ( o.slen.d + 1 ); i++ ) {
-							testDate = w.theDate.copy();
-							testDate.adj( 2, i );
-							tmp = ( i !== 0 ) ?
-								( ( iDate.comp() === testDate.comp() ) ?
-									o.themeDateHigh :
-									o.themeDate
-								) :
-								o.themeDatePick;
-							if ( ( $.inArray(testDate.iso(), o.blackDates) > -1 ||
-									$.inArray(testDate.getDay(), o.blackDays) > -1 ) &&
-									( $.inArray(testDate.iso(), o.whiteDates) < 0 ) ) { 
-								tmp += " ui-state-disabled"; }
-							
-							$( "<div>", { 
-									"class": uid + "slidebox " + uid +
-										"slideday ui-btn ui-btn-" + tmp }
-								)
-								.html( 
-									testDate.get(2) + "<br /><span class='" + uid + "slidewday'>" +
-									w.__( "daysOfWeekShort" )[testDate.getDay()] + "</span>"
-								)
-								.data( "offset", i )
-								.appendTo( hRow );
-						}
-						break;
-					case "h":
-						phRow.addClass( uid + "sliderow " + uid + "sliderow-hi" );
-						for ( i = o.slen.h * -1; i < ( o.slen.h + 1 ); i++ ) {
-							testDate = w.theDate.copy();
-							testDate.adj( 3, i );
-							tmp = ( i !== 0 ) ?
-								o.themeDate :
-								o.themeDatePick;
-							if ( o.validHours !== false &&
-									$.inArray( testDate.get(3), o.validHours ) < 0
-								) {
-								tmp += " ui-state-disabled";
-							}
-							$( "<div>", { 
-									"class": uid + "slidebox " + uid +
-										"slidehour ui-btn ui-btn-" + tmp }
-								)
-								.html( w.__( "timeFormat" ) === 12 ?
-									w._formatter(
-										"%-I<span class='" + uid + "slidewday'>%p</span>",
-										testDate
-									) :
-									testDate.get(3)
-								)
-								.data( "offset", i )
-								.appendTo( hRow );
-						}
-						break;
-					case "i":
-						phRow.addClass( uid + "sliderow " + uid + "sliderow-hi" );
-						for ( i = o.slen.i * -1; i < ( o.slen.i + 1 ); i++ ) {
-							testDate = w.theDate.copy();
-							testDate.adj( 4, ( i * o.minuteStep ) );
-							tmp = ( i !== 0 ) ?
-								o.themeDate :
-								o.themeDatePick;
-							$( "<div>", {
-									"class": uid + "slidebox " + uid +
-									"slidemins ui-btn ui-btn-" + tmp }
-								)
-								.text( w._zPad( testDate.get(4) ) )
-								.data( "offset", i * o.minuteStep )
-								.appendTo( hRow );
-						}
-						break;
+						$( "<div>", { 
+							"class": uid + "slidebox " + uid + currentText[0] +
+								" ui-btn ui-btn-" + ( ( i === 0 ) ? o.themeDatePick : o.themeDate )
+						} )
+							.html( currentText[1] )
+							.data( "offset", i )
+							.appendTo( hRow );
+					}
+					phRow.appendTo(ctrl);
 				}
-				phRow.appendTo(ctrl);
 			}
 			
 			if ( o.useSetButton || o.useClearButton ) {
 				y = $( "<div>", { "class": uid + "controls " + uid + "repad" } );
 				
 				if ( o.useSetButton ) {
-					$( "<a href='#' role='button'>" )
-						.appendTo(y)
-						.text(w.__( "setDateButtonLabel" ))
-						.addClass(
-							"ui-btn ui-btn-" + o.theme + 
-							" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all"
-						)
-						.on(o.clickEventAlt, function(e) {
-							e.preventDefault();
-							if ( w.dateOK === true ) {
-								w._t( { 
-									method: "set", 
-									value: w._formatter(w.__fmt(),w.theDate),
-									date: w.theDate
-								} );
-								w._t( { method: "close" } );
-							}
-							
-						});
+					y.append( w._stdBtn.close.apply( w, [w.__( "setDateButtonLabel" ) ] ) );
 				}
 				if ( o.useClearButton ) {
-					$( "<a href='#' role='button'>" + w.__( "clearButton" ) + "</a>" )
-						.appendTo(y)
-						.addClass( 
-							"ui-btn ui-btn-" + o.theme +
-							" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all"
-						)
-						.on(o.clickEventAlt, function(e) {
-							e.preventDefault();
-							w.d.input.val("");
-							w._t( { method: "clear" } );
-							w._t( { method: "close" } );
-						});
+					y.append(w._stdBtn.clear.apply(w));
 				}
 				if ( o.useCollapsedBut ) {
 					y.controlgroup({ type: "horizontal" });
