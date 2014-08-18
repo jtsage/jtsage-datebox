@@ -1418,7 +1418,8 @@
 			// In order of preference - placeholder, title, label for=
 			var inputPlaceholder, inputTitle,
 				w = this,
-				o = this.options;
+				o = this.options,
+				tmp = false;
 
 			if ( typeof o.overrideDialogLabel === "undefined" ) {
 				inputPlaceholder = w.d.input.attr( "placeholder" );
@@ -1430,7 +1431,8 @@
 				if ( typeof inputTitle !== "undefined" ) {
 					return inputTitle;
 				}
-				return $(document).find( "label[for='" + w.d.input.attr( "id" ) + "']" ).text();
+				tmp = $(document).find( "label[for='" + w.d.input.attr( "id" ) + "']" ).text();
+				return ( tmp === "" ) ? false : tmp;
 			}
 			return o.overrideDialogLabel;
 		},
