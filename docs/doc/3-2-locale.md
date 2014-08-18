@@ -21,7 +21,10 @@ may be unpredictable.
 <input type="text" data-role="datebox" data-options='{"mode":"datebox", "useLang":"en"}'>
 {% endhighlight %}
 
-<div><input type="text" id="l1" data-role="datebox" data-options='{"mode":"datebox", "useLang":"en", "useInline": true}'></div>
+<div class="ui-field-contain">
+	<label for="l1">A Localizaed DateBox</label>
+	<input type="text" id="l1" data-role="datebox" data-options='{"mode":"datebox", "useLang":"en", "hideInput": true, "useInline": true}'>
+</div>
 
 
 # Picking a Language File

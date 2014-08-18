@@ -217,7 +217,7 @@
 				.find( "a" )
 					.addClass( "ui-btn-inline ui-link ui-btn ui-btn-" + 
 						o.themeDate + 
-						" ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all"
+						" ui-icon-plus ui-btn-icon-notext ui-shadow ui-corner-all"
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
@@ -232,7 +232,7 @@
 				.find( "a" )
 					.addClass( "ui-btn-inline ui-link ui-btn ui-btn-" +
 						o.themeDate +
-						" ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all"
+						" ui-icon-minus ui-btn-icon-notext ui-shadow ui-corner-all"
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();

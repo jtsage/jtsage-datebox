@@ -13,7 +13,10 @@ and specifying the {% api_doc mode %} you wish to use.
 <input type="text" data-role="datebox" data-options='{"mode":"calbox"}'>
 {% endhighlight %}
 
-<div><input type="text" data-role="datebox" data-options='{"mode":"calbox", "useInline":true}'></div>
+<div class="ui-field-contain">
+	<label for="in1">A DateBox</label>
+	<input id="in1" type="text" data-role="datebox" data-options='{"mode":"calbox", "useInline":true}'>
+</div>
 
 		
 # The "data-options" Object

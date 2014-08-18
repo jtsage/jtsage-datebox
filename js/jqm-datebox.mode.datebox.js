@@ -287,7 +287,7 @@
 			
 			if ( dur ) {
 				divLab
-					.addClass("ui-datebox-dboxlab ui-grid-"+w._grdblk.b[cnt])
+					.addClass("ui-datebox-dboxlab ui-grid-"+w._gridblk.b[cnt])
 					.appendTo(w.d.intHTML);
 			}
 			
