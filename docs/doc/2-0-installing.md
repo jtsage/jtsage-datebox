@@ -47,12 +47,12 @@ You need to include one or more of the following modes for DateBox to function
 <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
 {% endhighlight %}
 
-### DateBox / TimeBox
+### DateBox / TimeBox / DurationBox
 {% highlight html %}
 <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
 {% endhighlight %}
 
-### FlipBox / TimeFlipBox
+### FlipBox / TimeFlipBox / DurationFlipBox
 {% highlight html %}
 <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
 {% endhighlight %}
@@ -61,18 +61,6 @@ You need to include one or more of the following modes for DateBox to function
 {% highlight html %}
 <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
 {% endhighlight %}
-
-### DurationBox
-{% highlight html %}
-<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationbox.min.js"></script>
-{% endhighlight %}
-
-### DurationFlipBox
-{% highlight html %}
-<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.durationflipbox.min.js"></script>
-{% endhighlight %}
-
-
 
 ## Language File(s)
 
@@ -109,6 +97,11 @@ how to edit a query string.  This is mentioned here only as a time saver.
 If you only plan to *ever* use one mode, you can find complied versions by browsing
 the [CDN](http://cdn.jtsage.com/datebox/) - they have "COMP" in the filename, and
 include the CORE file.
+
+## Full Script
+Also in the [CDN](http://cdn.jtsage.com/datebox/) are a few "full" versions - they have .all in the 
+name.  .all.extras includes customflip, other .all's do not.  The one with .amd in the filename also
+has require.js bindings.
 
 ### Custom Builds
 Occasonally, it is prefereable to have the core script, and all of the modes you
