@@ -20,53 +20,61 @@
 		<h1>jQMDateBox - require.js</h1>
 	</div>
 <div data-role="content">
-	<h1>Details for require.js / backbone.js</h1>
+	<h1>Details for require.js</h1>
 			
 	<h2>Overview</h2>
-	<p>This sample is directly from the main jqm repository - I only fudged the folder stucture a bit, and added an external jqm rather than all the source</p>
-	<h3>Important Authors Note:</h3>
-	<p>I am not familiar with the true workings of either of the API packages mentioned here.  I only know that I got it to work.  YYMV</p>
+	<p>DateBox is mostly require.js compliant - it loads, and with a tiny little tidbit, it works
+	fine.  Now that I understand better how this whole process works, I can state with much certainty
+	that while there will always be a build with AMD hooks available, I will always discourge it's
+	use.</p>
+	
 	<h3>Working Link:</h3>
 	<a href="example.html" data-role="button" rel="external">Sample File</a>
 
 	<h2>main.js</h2>
-	<p><strong>File Definition and Build</strong></p>
+	<p>Paths are staightforward enough.</p>
 {% highlight js %}
-paths:: { "jqmdatebox": "external/jqmdatebox/jqm-datebox", }
-{% endhighlight %}
-
-	<p>To build a combined file, take a look at the download builder - alternativly, grab the compressed or uncompressed files for the mode(s) you want, and append them to the bottom of the .core.js file - order shouldn't matter, so long as core appears first.  This file can be minimized</p>
-	<p><strong>Shim Section</strong></p>
-	
-{% highlight js %}
-"jqmdatebox": {
-    "deps": ["jquery", "jquerymobile"]
-}
-{% endhighlight %}
-
-	<p>Basically, Datebox has to load after jquerymobile.  There may be a better way of doing this, but I don't know it</p>
-	<p><strong>Defaults and Enhancment</strong></p>
-	<p>Just this wasn't enough, the enhancment code was loading too late - so, add this bit to the require:</p>
-	
-{% highlight js %}
-require( ["jqmdatebox"] , function() {
-    jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-        // DateBox Default could go here.
-    });
-    
-    $( ":jqmData(role='datebox')" ).each(function() {
-        var defed = typeof ($(this).data('mobile-datebox'));
-        
-        if ( defed === "undefined" ) {
-            $(this).datebox();
-        }
-    });	
+require.config( {
+  // 3rd party script alias names
+  paths: {
+    // Core Libraries
+    "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min",
+    "jquerymobile": "//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min",
+    "jqmdatebox": "//cdn.jtsage.com/datebox/unstable/jqm-datebox.all.amd",
+  },
 });
 {% endhighlight %}
 
-	<p>The first bit is the defaults for the datebox.  Second bit is a copy of the default auto-enhance code.</p>
-	<p>If you want to progmatically call the enhance, you can omit both these bits, so long as you still require jqmdatebox - otherwise, no script to do the enhancment</p>
-	<a href="js/main.js" data-role="button" rel="external">Full File</a>
+	<p>Next, you just need to do a few housekeeping things.  I've noted where defaults for both jQM
+	and DateBox should go.</p>
+{% highlight js %}
+require(["jquery",], function ( $ ) {
+  $( document ).on( "mobileinit",
+    // Set up the "mobileinit" handler before requiring jQuery Mobile's module
+    function () {
+      // JQM Defaults here.
+    }
+  );
+
+  require( [ "jquerymobile" ], function () {
+    // JQM Stuff here.
+  });
+  
+  require( ["jqmdatebox"] , function() {
+    // Because we are hooking into jQM, possibly (and likely)
+    // after it has been executed, and because we are doing it
+    // in a non-blocking manner, we have to call the enhanceWithin
+    // below - or the inputs won't get enhanced. 
+    jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+      // DateBox Defaults Could Go Here.
+    });
+    $( ":jqmData(role='datebox')" ).parent().enhanceWithin();
+  });
+});
+
+{% endhighlight %}
+
+	<a href="main.js" data-role="button" rel="external">Full File</a>
 
 
 {% include footer.html api="true" %}

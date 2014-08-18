@@ -17,8 +17,8 @@ Documentation at the time of last working is available in the
 
 There is a gem created by Guidecase available on <a href="https://github.com/Guidecase/jquery_mobile_datebox-rails">GitHub</a>
 
-# require.js / backbone.js
+# require.js 
 
-Operation with this pair of packages is supported.  Please take a look at 
+There is a build of DateBox with AMD bindings.  Take a look at
 the <a href="../3rd/backbonerequire/">demo</a>.
 

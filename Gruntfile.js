@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 					src: [
 						"docs/js/*.js",
 						"docs/qunit/*.js",
-						"docs/doc/3rd/backbonerequire/js/*.js"
+						"docs/doc/3rd/backbonerequire/*.js"
 					]
 				},
 				options: {
@@ -97,6 +97,15 @@ module.exports = function(grunt) {
 						"js/jqm-datebox.mode.*.js"
 				],
 				dest: "dist/latest/jqm-datebox.all.js"
+			},
+			lat_amd: {
+				src: [
+						"build/wrap.begin",
+						"js/jqm-datebox.core.js",
+						"js/jqm-datebox.mode.*.js",
+						"build/wrap.end"
+				],
+				dest: "dist/latest/jqm-datebox.all.amd.js"
 			},
 			ver_main: {
 				src: [
@@ -131,7 +140,6 @@ module.exports = function(grunt) {
 				src: [
 						"js/jqm-datebox.core.js",
 						"js/jqm-datebox.mode.flipbox.js",
-						"js/jqm-datebox.mode.durationflipbox.js"
 				],
 				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.comp.flipbox.js"
 			},
@@ -151,18 +159,6 @@ module.exports = function(grunt) {
 			}
 		},
 		copy: {
-			backreq: {
-				files: [ {
-					expand: true,
-					cwd: "dist/latest",
-					src: ["*.all.js"],
-					dest: "docs/doc/3rd/backbonerequire/external/jqmdatebox/",
-					filter: "isFile",
-					rename: function(dest, src) {
-						return dest + src.replace(/.all/, "");
-					}
-				} ]
-			},
 			release: {
 				options: {
 					process: function (content) {
@@ -387,6 +383,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
 		"clean:latest",
 		"concat:lat_main",
+		"concat:lat_amd",
 		"copy:latest",
 		"copy:latest_css",
 		"uglify:latest",
