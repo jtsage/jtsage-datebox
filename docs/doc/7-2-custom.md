@@ -112,7 +112,7 @@ checked, but 6 can be made to display somewhat ok).  The objects must contain:
 		
 <div class="ui-field-contain">
 	<label for="cf">CustomFlip</label>
-	<input name="cf" type="date" data-role="datebox" id="cf" data-options='{"mode": "customflip"}' />
+	<input name="cf" type="text" data-role="datebox" id="cf" data-options='{"mode": "customflip"}' />
 </div>
 
 # Sample Data

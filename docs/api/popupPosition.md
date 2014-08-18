@@ -20,7 +20,7 @@ dattype: "String"
 dyn: "True"
 ---
 
-With {% api_doc enablePopup %}, control how the jqm builtin popup mode positions. 
+Control the placement of the pop upped control.
 
 Valid Options:
 

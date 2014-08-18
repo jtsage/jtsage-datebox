@@ -26,7 +26,10 @@ There is also {% api_doc useHeader %}, which is not applicable in the
 	<label for="cal1d">{% api_doc useCollapsedBut %}</label>
 	<select id="cal1d" data-link="cal1" data-opt="useCollapsedBut" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
-<div class="ui-field-contain"><input type="text" id="cal1" data-role="datebox" data-options='{"mode":"datebox", "useInline":true}'></div>
+<div class="ui-field-contain">
+	<label for="cal1">Buttons</label>
+	<input type="text" id="cal1" data-role="datebox" data-options='{"mode":"datebox", "useInline":true, "hideInput":true}'>
+</div>
 
 # CalBox Specific - Display
 
@@ -54,14 +57,13 @@ calendar.
 	<select id="cal2e" data-link="cal2" data-opt="calHighPick" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true" selected="selected">True</option></select>
 </div>
 <div class="ui-field-contain">
-	<label for="cal2f">{% api_doc calWeekHigh %}</label>
-	<select id="cal2f" data-link="cal2" data-opt="calWeekHigh" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
-</div>
-<div class="ui-field-contain">
 	<label for="cal2g">{% api_doc calControlGroup %}</label>
 	<select id="cal2g" data-link="cal2" data-opt="calControlGroup" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
-<div class="ui-field-contain"><input type="text" id="cal2" data-role="datebox" data-options='{"mode":"calbox", "useInline":true}'></div>
+<div class="ui-field-contain">
+	<label for="cal2">CalBox</label>
+	<input type="text" id="cal2" data-role="datebox" data-options='{"mode":"calbox", "useInline":true, "hideInput":true}'>
+</div>
 
 # CalBox Specific - Control
 
@@ -99,4 +101,7 @@ These options deal with how dates are selected in calbox
 	<label for="cal3g">{% api_doc calNoHeader %}</label>
 	<select id="cal3g" data-link="cal3" data-opt="calNoHeader" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
-<div class="ui-field-contain"><input type="text" id="cal3" data-role="datebox" data-options='{"mode":"calbox", "useInline": true}'></div>
+<div class="ui-field-contain">
+	<label for="cal3">CalBox</label>
+	<input type="text" id="cal3" data-role="datebox" data-options='{"mode":"calbox", "useInline": true, "hideInput":true }'>
+</div>

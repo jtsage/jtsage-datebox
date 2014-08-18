@@ -13,9 +13,15 @@ as there are quite a few options for the format of the default.
 
 Additionally, when setting a default, you may also want to take advantage of {% api_doc showInitialValue %}.
 
-<div><input type="text" data-role="datebox" data-options='{"mode":"calbox", "defaultValue":[2001,0,1], "showInitialValue":true, "useInline": true}'></div>
+<div class="ui-field-contain">
+	<label for="dd">Default Date</label>
+	<input id="dd" type="text" data-role="datebox" data-options='{"mode":"calbox", "defaultValue":[2001,0,1], "showInitialValue":true, "useInline": true}'>
+</div>
 
-<div><input type="text" data-role="datebox" data-options='{"mode":"timeflipbox", "defaultValue":"18:35", "showInitialValue":true, "useInline": true}'></div>
+<div class="ui-field-contain">
+	<label for="dt">Default Time</label>
+	<input id="dt" type="text" data-role="datebox" data-options='{"mode":"timeflipbox", "defaultValue":"18:35", "showInitialValue":true, "useInline": true}'>
+</div>
 
 # Other options
 

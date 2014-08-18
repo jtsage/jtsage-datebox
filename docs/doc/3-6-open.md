@@ -33,17 +33,35 @@ Setting 'buttonIcon' to a different class will result in a different button
 <div><input type="text" data-role="datebox" data-options='{"mode":"calbox","useFocus":true,"buttonIcon":"grid"}'></div>
 
 
-### {% api_doc hideInput %} and opening with a link or button
+### {% api_doc hideContainer %} and opening with a link or button
 
-<div><input id="cal2" type="text" data-role="datebox" data-options='{"mode":"calbox","centerVert":true, "centerHoriz":true,"hideInput":true}'></div>
+<div class="ui-field-contain">
+	<label for="cal2">Hidden CalBox!</label>
+	<input id="cal2" type="text" data-role="datebox" data-options='{"mode":"calbox","popupPosition":"window","hideContainer":true}'>
+</div>
 
-This is where the options {% api_doc centerHoriz %} and {% api_doc centerVert %} are most useful.
+Note, that if you use {% api_doc hideContainer %}, {% api_doc popupPosition %} = "window" is pretty much required.
+
+Also note that {% api_doc hideContainer %} can be used with {% api_doc useInline %} - it just sits on the left edge of the screen and styling it is up to you.
 
 <a href="javascript:$('#cal2').datebox('open');" data-role="button">Open Datebox</a>
 
 {% highlight html %}
 <a href="javascript:$(input).datebox('open');" data-role="button">Open Datebox</a>
 {% endhighlight %}
+
+### {% api_doc hideInput %} and {% api_doc useInline %}
+
+DateBox can be displayed right inline with other controls very prettily by combining these two options.
+
+If you are not using CalBox in this manner, you might need to investigate {% api_doc useImmediate %} to 
+make sure that when your user sets a date, that is really what gets sent to the server - particularly 
+if it is in a simple form control.
+
+<div class="ui-field-contain">
+	<label for="cal4">No Input Box</label>
+	<input id="cal4" type="text" data-role="datebox" data-options='{"mode":"calbox","useInline":true,"hideInput":true}'>
+</div>
 
 # Fine-Tuning Input styling
 

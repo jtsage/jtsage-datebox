@@ -11,7 +11,10 @@ When using the override system, note the use of camel case - i.e. "dateFormat" b
 <input type="text" data-role="datebox" data-options='{"mode":"calbox","overrideDateFormat":"%A, %B %-d, %Y"}'>
 {% endhighlight %}
 
-<div><input type="text" data-role="datebox" data-options='{"mode":"calbox","overrideDateFormat":"%A, %B %-d, %Y", "useInline":true}'></div>
+<div class="ui-field-contain">
+	<label for="outtie">Changed Output</label>
+	<input id="outtie" type="text" data-role="datebox" data-options='{"mode":"calbox","overrideDateFormat":"%A, %B %-d, %Y", "useInline":true}'>
+</div>
 
 <style type="text/css">
 	.options h3 { display: inline; }

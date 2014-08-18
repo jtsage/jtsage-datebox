@@ -48,7 +48,10 @@ camel case - i.e. {% api_doc dateFormat %} becomes "overrideDateFormat"
    data-options='{"mode":"datebox", "overrideSetDateButtonLabel":"Update Date"}'>
 {% endhighlight %}
 
-<div><input type="text" data-role="datebox" data-options='{"mode":"datebox", "useLang":"en", "overrideSetDateButtonLabel":"Update Date"}'></div>
+<div class="ui-field-contain">
+	<label for="sing">Single Override</label>
+	<input id="sing" type="text" data-role="datebox" data-options='{"useInline":true, "hideInput":true, "mode":"datebox", "useLang":"en", "overrideSetDateButtonLabel":"Update Date"}'>
+</div>
 
 
 # Customising a Language

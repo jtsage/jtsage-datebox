@@ -29,7 +29,10 @@ the element.  These should be set to an ISO style date string i.e. 2000-01-01
 	<label for="cal1c">{% api_doc notToday %}</label>
 	<select id="cal1c" data-link="cal1" data-opt="notToday" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
-<div class="ui-field-contain"><input type="text" id="cal1" data-role="datebox" data-options='{"mode":"calbox", "useInline": true}'></div>
+<div class="ui-field-contain">
+	<label for="cal1">Today's</label>
+	<input type="text" id="cal1" data-role="datebox" data-options='{"mode":"calbox", "hideInput":true, "useInline": true}'>
+</div>
 
 # Numeric Date Limits
 
@@ -49,7 +52,10 @@ the element.  These should be set to an ISO style date string i.e. 2000-01-01
 	<label for="cal2d">{% api_doc maxYear %}</label>
 	<input id="cal2d" data-link="cal2" data-opt="maxYear" value="false" type="text" class="demopick">
 </div>
-<div class="ui-field-contain"><input type="text" id="cal2" data-role="datebox" data-options='{"mode":"flipbox", "useInline": true}'></div>
+<div class="ui-field-contain">
+	<label for="cal2">Date Numbers</label>
+	<input type="text" id="cal2" data-role="datebox" data-options='{"mode":"flipbox", "hideInput": true, "useInline": true}'>
+</div>
 
 # Numeric Time Limits
 
@@ -71,7 +77,10 @@ Note: valid hours is an array.  i.e. [1,2,3,4]
 	<label for="cal3d">{% api_doc validHours %}</label>
 	<input id="cal3d" data-link="cal3" data-opt="validHours" value="false" type="text" class="demopick">
 </div>
-<div class="ui-field-contain"><input type="text" id="cal3" data-role="datebox" data-options='{"mode":"timeflipbox", "useInline":true}'></div>
+<div class="ui-field-contain">
+	<label for="cal3">Time Numbers</label>
+	<input type="text" id="cal3" data-role="datebox" data-options='{"mode":"timeflipbox", "hideInput":true, "useInline":true}'>
+</div>
 
 # Date List Limits
 
@@ -97,4 +106,7 @@ Note: Please view the API documentation for each option to understand the requir
 	<label for="cal4e">{% api_doc whiteDates %}</label>
 	<input id="cal4e" data-link="cal4" data-opt="whiteDates" value="false" type="text" class="demopick">
 </div>
-<div class="ui-field-contain"><input type="text" id="cal4" data-role="datebox" data-options='{"mode":"calbox", "useInline":true}'></div>
+<div class="ui-field-contain">
+	<label for="cal4">Lists</label>
+	<input type="text" id="cal4" data-role="datebox" data-options='{"mode":"calbox", "hideInput":true, "useInline":true}'>
+</div>
