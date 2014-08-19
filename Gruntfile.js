@@ -331,9 +331,21 @@ module.exports = function(grunt) {
 					"docs/theme/*.php",
 					"docs/builder/*.php"
 				],
-				tasks: [ "jekyll:latest" ]
+				tasks: [ "jekyll:latest", "prettify" ]
 			}
-  		}
+  		},
+		prettify: {
+			options: {
+				// Task-specific options go here.
+			},
+			all: {
+				expand: true,
+				cwd: 'docs/_site/',
+				ext: '.html',
+				src: ['**/*.html'],
+				dest: 'docs/_site/'
+			},
+		}
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
@@ -346,6 +358,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-git-committers" );
 	grunt.loadNpmTasks( "grunt-jekyll" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
+	grunt.loadNpmTasks( "grunt-prettify");
 	
 	grunt.task.loadTasks( "build/tasks" );
 	
@@ -378,6 +391,7 @@ module.exports = function(grunt) {
 		"committers",
 		"copy:backreq",
 		"jekyll:release",
+		"prettify",
 	] );
 	
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
@@ -397,8 +411,8 @@ module.exports = function(grunt) {
 		"uglify:i18n"
 	] );
 
-	grunt.registerTask( "web", "Build the documentation site", ["jekyll:release"] );
-	grunt.registerTask( "devweb", "Test the documentation site", ["jekyll:latest"] );
+	grunt.registerTask( "web", "Build the documentation site", ["jekyll:release", "prettify"] );
+	grunt.registerTask( "devweb", "Test the documentation site", ["jekyll:latest", "prettify"] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg", "qunit"] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane", "qunit"] );
 
