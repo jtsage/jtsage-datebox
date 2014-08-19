@@ -345,6 +345,19 @@ module.exports = function(grunt) {
 				src: ['**/*.html'],
 				dest: 'docs/_site/'
 			},
+		},
+		complexity: {
+			generic: {
+				src: ['js/*.js']
+			},
+			options: {
+				breakOnErrors: false,
+				cyclomatic: 60,
+				halstead: 70,
+				maintainability: 78,
+				errorsOnly: false,
+				hideComplexFunctions: false      // only display maintainability
+			}
 		}
 	});
 
@@ -358,7 +371,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-git-committers" );
 	grunt.loadNpmTasks( "grunt-jekyll" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
-	grunt.loadNpmTasks( "grunt-prettify");
+	grunt.loadNpmTasks( "grunt-prettify" );
+	grunt.loadNpmTasks( "grunt-complexity" );
 	
 	grunt.task.loadTasks( "build/tasks" );
 	

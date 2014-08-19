@@ -33,5 +33,8 @@
     "grunt-jekyll": "git://github.com/dannygarcia/grunt-jekyll.git",
     "grunt-prettify": "^0.3.5",
     "node-gettext": "^0.2.14"
+  },
+  "dependencies": {
+    "grunt-complexity": "^0.2.0"
   }
 }
