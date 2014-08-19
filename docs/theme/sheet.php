@@ -89,11 +89,14 @@ foreach ( $defaults as $key => $value ) {
 
 .ui-datebox-controls.ui-controlgroup-vertical {
 	margin-bottom: 5px;
+	margin-top: 5px;
 }
 
 div.ui-datebox-inline.ui-datebox-inline-has-input {
 	float: none;
 	clear: both;
+	position: relative;
+	top: 5px;
 }
 .ui-field-contain div.ui-datebox-container.ui-datebox-inline {
 	margin-right: auto;
@@ -351,11 +354,11 @@ span.ui-datebox-nopad { margin: 0 }
  * 6 Element Grid - Used for datebox w/ time only.
  */
 
-.ui-grid-d > .ui-block-a,
-.ui-grid-d > .ui-block-b,
-.ui-grid-d > .ui-block-c,
-.ui-grid-d > .ui-block-d,
-.ui-grid-d > .ui-block-e,
+.ui-grid-e > .ui-block-a,
+.ui-grid-e > .ui-block-b,
+.ui-grid-e > .ui-block-c,
+.ui-grid-e > .ui-block-d,
+.ui-grid-e > .ui-block-e,
 .ui-grid-e > .ui-block-f {
 	width: 16.65%;
 }
