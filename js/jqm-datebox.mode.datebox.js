@@ -118,6 +118,7 @@
 						$(this).val(cDur[3]); break;
 				}
 			});
+			if ( w.__( "useArabicIndic" ) === true ) { w._doIndic(); }
 		},
 		_dbox_vhour: function (delta) {
 			var w = this,
