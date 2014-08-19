@@ -340,15 +340,15 @@ module.exports = function(grunt) {
 			},
 			all: {
 				expand: true,
-				cwd: 'docs/_site/',
-				ext: '.html',
-				src: ['**/*.html'],
-				dest: 'docs/_site/'
+				cwd: "docs/_site/",
+				ext: ".html",
+				src: ["**/*.html"],
+				dest: "docs/_site/"
 			},
 		},
 		htmllint: {
-	        all: ["docs/_site/**/*.html"]
-	    }
+			all: ["docs/_site/**/*.html"]
+		}
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
@@ -393,7 +393,6 @@ module.exports = function(grunt) {
 		"uglify:release",
 		"cssmin:release",
 		"committers",
-		"copy:backreq",
 		"jekyll:release",
 		"prettify",
 	] );
