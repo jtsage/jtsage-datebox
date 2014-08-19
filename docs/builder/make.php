@@ -41,7 +41,11 @@ if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
 		}
 		
 		ob_clean();
-		
+		if ( isset($_POST['amd']) && $_POST['amd'] == "yes" ) {
+			$testfile = file_get_contents("http://cdn.jtsage.com/datebox/amdwrap/wrap.begin.txt");
+			echo $testfile;
+		}
+			
 		foreach ( $goodfiles as $thisfile ) {
 			$testfile = false;
 			$testfile = file_get_contents($baseurl . $thisfile);
@@ -58,6 +62,12 @@ if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
 				echo $testfile;
 			}
 		}
+		
+		if ( isset($_POST['amd']) && $_POST['amd'] == "yes" ) {
+			$testfile = file_get_contents("http://cdn.jtsage.com/datebox/amdwrap/wrap.end.txt");
+			echo $testfile;
+		}
+		
 		ob_end_flush();
 	}
 } else {
