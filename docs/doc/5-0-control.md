@@ -12,7 +12,8 @@ really fits into this section better.
 # Buttons and Headers
 
 There is also {% api_doc useHeader %}, which is not applicable in the 
-"inline" context, so it is not shown here.
+"inline" context, so it is not shown here. {% api_doc useCollapsedBut %} does
+not behave well dynamicly, so it is also not shown here.
 
 <div class="ui-field-contain">
 	<label for="cal1b">{% api_doc useSetButton %}</label>
@@ -21,10 +22,6 @@ There is also {% api_doc useHeader %}, which is not applicable in the
 <div class="ui-field-contain">
 	<label for="cal1c">{% api_doc useClearButton %}</label>
 	<select id="cal1c" data-link="cal1" data-opt="useClearButton" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
-</div>
-<div class="ui-field-contain">
-	<label for="cal1d">{% api_doc useCollapsedBut %}</label>
-	<select id="cal1d" data-link="cal1" data-opt="useCollapsedBut" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
 </div>
 <div class="ui-field-contain">
 	<label for="cal1">Buttons</label>

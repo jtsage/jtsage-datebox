@@ -1,17 +1,15 @@
 <div data-role="footer" data-position="fixed">
-	<div data-role="controlgroup" data-type="horizontal" class="ui-mini ui-btn-left">
-		<a class="ui-btn" rel="external" href="{{ site.basesite }}">Home</a>
+	<div data-role="navbar"><ul>
 		{% if include.api == "true" %}
-		<a class="ui-btn" rel="external" href="{{ site.basesite }}api/">API</a>
+		<li><a class="ui-btn" rel="external" href="{{ site.basesite }}api/">API</a></li>
 		{% endif %}
 		{%if include.doc == "true" %}
-		<a class="ui-btn" rel="external" href="{{ site.basesite }}doc/">Doc</a>
+		<li><a class="ui-btn" rel="external" href="{{ site.basesite }}doc/">Doc</a></li>
 		{% endif %}
-		<a class="ui-btn" rel="external" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub</a>
-		<a class="ui-btn" rel="external" href="http://dev.jtsage.com/forums/">Forum</a>
-		<a class="ui-btn" rel="external" href="http://crowdin.net/project/jquery-mobile-datebox">i18n</a>
-		<a class="ui-btn" rel="external" href="mailto:jtsage+datebox@gmail.com">Contact</a>
-		<a class="ui-btn" rel="external" href="http://jquerymobile.com/">jQueryMobile</a>
-	</div>
-	<h6></h6>
+		<li><a class="ui-btn" rel="external" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub</a></li>
+		<li><a class="ui-btn" rel="external" href="http://dev.jtsage.com/forums/">Forum</a></li>
+		<li><a class="ui-btn" rel="external" href="http://crowdin.net/project/jquery-mobile-datebox">i18n</a></li>
+		<li><a class="ui-btn" rel="external" href="mailto:jtsage+datebox@gmail.com">Contact</a></li>
+	</ul></div>
 </div></div>
+</body></html>

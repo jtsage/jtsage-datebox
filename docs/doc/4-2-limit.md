@@ -75,7 +75,7 @@ Note: valid hours is an array.  i.e. [1,2,3,4]
 </div>
 <div class="ui-field-contain">
 	<label for="cal3d">{% api_doc validHours %}</label>
-	<input id="cal3d" data-link="cal3" data-opt="validHours" value="false" type="text" class="demopick">
+	<input id="cal3d" data-link="cal3" data-opt="validHours" value="false" type="text" class="demopick" placeholder="[9,10,11,12,13,14,15,16] / false">
 </div>
 <div class="ui-field-contain">
 	<label for="cal3">Time Numbers</label>
@@ -88,23 +88,23 @@ Note: Please view the API documentation for each option to understand the requir
 
 <div class="ui-field-contain">
 	<label for="cal4a">{% api_doc blackDays %}</label>
-	<input id="cal4a" data-link="cal4" data-opt="blackDays" value="false" type="text" class="demopick">
+	<input id="cal4a" data-link="cal4" data-opt="blackDays" value="false" type="text" class="demopick" placeholder='[0,6] / false'>
 </div>
 <div class="ui-field-contain">
 	<label for="cal4b">{% api_doc blackDates %}</label>
-	<input id="cal4b" data-link="cal4" data-opt="blackDates" value="false" type="text" class="demopick">
+	<input id="cal4b" data-link="cal4" data-opt="blackDates" value="false" type="text" class="demopick" placeholder='["2001-01-01", "2000-12-31"] / false'>
 </div>
 <div class="ui-field-contain">
 	<label for="cal4c">{% api_doc blackDatesRec %}</label>
-	<input id="cal4c" data-link="cal4" data-opt="blackDatesRec" value="false" type="text" class="demopick">
+	<input id="cal4c" data-link="cal4" data-opt="blackDatesRec" value="false" type="text" class="demopick" placeholder='[[-1,11,25],[-1,0,1]] / false'>
 </div>
 <div class="ui-field-contain">
 	<label for="cal4d">{% api_doc enableDates %}</label>
-	<input id="cal4d" data-link="cal4" data-opt="enableDates" value="false" type="text" class="demopick">
+	<input id="cal4d" data-link="cal4" data-opt="enableDates" value="false" type="text" class="demopick" placeholder='["2001-01-01", "2000-12-31"] / false'>
 </div>
 <div class="ui-field-contain">
 	<label for="cal4e">{% api_doc whiteDates %}</label>
-	<input id="cal4e" data-link="cal4" data-opt="whiteDates" value="false" type="text" class="demopick">
+	<input id="cal4e" data-link="cal4" data-opt="whiteDates" value="false" type="text" class="demopick" placeholder='["2001-01-01", "2001-12-25"] / false'>
 </div>
 <div class="ui-field-contain">
 	<label for="cal4">Lists</label>

@@ -13,6 +13,7 @@ for full use, but at a glance they are used something like this:
  - {% api_doc close %} : Close the datebox control
  - {% api_doc disable %} : Disable the datebox control
  - {% api_doc enable %} : Enable the datebox control
+ - {% api_doc destroy %} : Destroy the datebox control / de-enhance input
  - {% api_doc refresh %} : Refresh the datebox control
  - {% api_doc getTheDate %} : Return the current date object
  - {% api_doc setTheDate %} : Set the date (date object)

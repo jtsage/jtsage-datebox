@@ -12,7 +12,9 @@
 	</div>
 	<div data-role="header" data-position="fixed">
 		<h1>jQMDateBox - {{ page.title }}</h1>
-		<a href="javascript:$('#langpicker').datebox('open')" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-user ui-shadow ui-corner-all">i18n</a>
+		<a href="{{site.basesite}}" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-user ui-shadow ui-corner-all">Home</a>
+		<a href="javascript:$('#langpicker').datebox('open')" class="ui-btn ui-btn-right ui-btn-icon-left ui-icon-user ui-shadow ui-corner-all">i18n</a>
+
 	</div>
 	<div data-role="navbar">
 	<ul>
@@ -42,6 +44,7 @@
 {{ content }}
 <div style="display:none">
 	<input name="langpicker" type="text" data-role="datebox" data-datebox-close-callback="changeLang" data-datebox-custom-data="langs" data-datebox-custom-head="Language" data-datebox-popup-position="window" data-datebox-override-custom-set="Choose" data-datebox-mode="customflip" id="langpicker" />
+</div>
 </div>
 
 {% include footer.html api="true" %}

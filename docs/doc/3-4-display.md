@@ -22,21 +22,9 @@ shown with {% api_doc useFocus %} enabled.
 
 ## Inline and Inline-Blind
 Sometimes (such as in these documents), it is preferable to have the control simply
-appear inline with the rest of the form.  To show the control inline, with no hiding
-set {% api_doc useInline %}.  Note that you will want to include the control in a "ui-field-contain"
-for optimal results.  On the next few pages we will look at the fun things you can do with original 
-input element.
+appear inline with the rest of the form. 
 
-{% highlight html %}
-<input type="text" data-role="datebox" data-options='{"mode":"calbox", "useInline":true}'>
-{% endhighlight %}
-
-<div class="ui-field-contain">
-	<label for="in1">Inline CalBox</label>
-	<input id="in1" type="text" data-role="datebox" data-options='{"mode":"calbox", "useInline": true}'>
-</div>
-
-Or, you might want DateBox to mimic the behavior of jQuery-UI - that is, to slide
+You might want DateBox to mimic the behavior of jQuery-UI - that is, to slide
 down the control when you click the input.  To do this, set {% api_doc useInlineBlind %}.
 
 {% highlight html %}
@@ -46,4 +34,18 @@ down the control when you click the input.  To do this, set {% api_doc useInline
 <div class="ui-field-contain">
 	<label for="in2">InlineBlind CalBox</label>
 	<input type="text" id="in2" data-role="datebox" data-options='{"mode":"calbox", "useInlineBlind":true, "useFocus":true}'>
+</div>
+
+
+To show the control inline, with no hiding set {% api_doc useInline %}.  Note that you will want to
+include the control in a "ui-field-contain" for optimal results.  On the next few pages we will
+look at the fun things you can do with original input element.
+
+{% highlight html %}
+<input type="text" data-role="datebox" data-options='{"mode":"calbox", "useInline":true}'>
+{% endhighlight %}
+
+<div class="ui-field-contain">
+	<label for="in1">Inline CalBox</label>
+	<input id="in1" type="text" data-role="datebox" data-options='{"mode":"calbox", "useInline": true}'>
 </div>

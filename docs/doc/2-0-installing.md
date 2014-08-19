@@ -21,7 +21,9 @@ version: '2-1.4.2-2014072200', // DateBoxVersion-jQMVersion-YrMoDaySerial
 # Script Includes
 
 You will need to include the main CSS file, the CORE DateBox file, and **each**
-of the MODE files you wish to use.
+of the MODE files you wish to use.  Alternatively, you can include only the monolithic file 
+that includes *all* modes, however, this may introduce unessesary code bloat.  Also check out
+the [Download Builder](../../builder/).
 
 ## CSS Includes
 
@@ -62,6 +64,10 @@ You need to include one or more of the following modes for DateBox to function
 <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.slidebox.min.js"></script>
 {% endhighlight %}
 
+### CustomFlip
+{% highlight html %}
+<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.customflip.min.js"></script>
+{% endhighlight %}
 ## Language File(s)
 
 You should include at least one language file - you can include multiple, and we

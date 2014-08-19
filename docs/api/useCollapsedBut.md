@@ -16,7 +16,7 @@ relat: "control"
 layout: api
 defval: "false"
 dattype: "Boolean"
-dyn: "True"
+dyn: "False (maybe)"
 ---
 
 When more than one button shows at the bottom of the control, attempt a horizontal control group.  Works with most
