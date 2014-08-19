@@ -258,6 +258,9 @@ module.exports = function(grunt) {
 				} ]
 			},
 			latest: {
+				options: {
+					sourceMap: true,
+				},
 				files: [ {
 					expand: true,
 					src: ["dist/latest/*.js"],
