@@ -64,6 +64,13 @@ $langs = json_decode('[
 				$itt++;
 			}
 			echo "</fieldset>\n";
+			echo "<fieldset data-role='controlgroup'>\n";
+			echo "<legend>AMD Bindings:</legend>";
+			echo "<input type='radio' name='amd' id='amd-1' value='no' checked='checked'>\n";
+			echo "<label for='amd-1'>NOT Included</label>\n";
+			echo "<input type='radio' name='amd' id='amd-2' value='yes'>\n";
+			echo "<label for='amd-2'>Included</label>\n";
+			echo "</fieldset>\n";
 			echo "<fieldset>\n";
 			echo "<legend>Components Enabled:</legend>\n";
 			foreach ( $filemap as $comp ) {

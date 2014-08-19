@@ -346,19 +346,9 @@ module.exports = function(grunt) {
 				dest: 'docs/_site/'
 			},
 		},
-		complexity: {
-			generic: {
-				src: ['js/*.js']
-			},
-			options: {
-				breakOnErrors: false,
-				cyclomatic: 60,
-				halstead: 70,
-				maintainability: 78,
-				errorsOnly: false,
-				hideComplexFunctions: false      // only display maintainability
-			}
-		}
+		htmllint: {
+	        all: ["docs/_site/**/*.html"]
+	    }
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
@@ -372,7 +362,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-jekyll" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 	grunt.loadNpmTasks( "grunt-prettify" );
-	grunt.loadNpmTasks( "grunt-complexity" );
+	grunt.loadNpmTasks( "grunt-html" );
 	
 	grunt.task.loadTasks( "build/tasks" );
 	

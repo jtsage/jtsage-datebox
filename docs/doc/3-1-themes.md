@@ -16,7 +16,7 @@ don't specify, finally falling back on 'a' if none is specified anywhere.
 
 <div class="ui-field-contain">
 	<label for="in1">An Ugly DateBox</label>
-	<input type="text" data-role="datebox" data-theme="c" data-options='{"mode":"calbox", "useInline":true}'>
+	<input id="in1" type="text" data-role="datebox" data-theme="c" data-options='{"mode":"calbox", "useInline":true}'>
 </div>
 
 The results from this are usually pretty hideous - so, DateBox provides a method
@@ -36,9 +36,9 @@ CalBox has a number of theme options that can be added to the "data-options" att
  - {% api_doc themeDateHighAlt %} : Theme for highlighted ALTERNATE DATES
  - {% api_doc themeDateHighRec %} : Theme for highlighted RECURRING DATES
 		
-<div class="ui-field-contain"><label for="cal1dateb">themeDate</label><select name="cal1dateb" class="demopick" data-link="cal1" data-opt="themeDate"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="cal1datec">themeDatePick</label><select name="cal1datec" class="demopick" data-link="cal1" data-opt="themeDatePick"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="cal1dated">themeDateToday</label><select name="cal1dated" class="demopick" data-link="cal1" data-opt="themeDateToday"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="cal1dateb">themeDate</label><select id="cal1dateb" class="demopick" data-link="cal1" data-opt="themeDate"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="cal1datec">themeDatePick</label><select id="cal1datec" class="demopick" data-link="cal1" data-opt="themeDatePick"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="cal1dated">themeDateToday</label><select id="cal1dated" class="demopick" data-link="cal1" data-opt="themeDateToday"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
 
 <div class="ui-field-contain">
 	<label for="cal1">A CalBox</label>
@@ -53,8 +53,8 @@ DateBox/TimeBox/DurationBox have a number of theme options that can be added to 
  - {% api_doc themeButton %} : Theme for +/- buttons
  - {% api_doc themeInput %} : Theme for text inputs
 		
-<div class="ui-field-contain"><label for="db1a">themeButton</label><select name="db1a" class="demopick" data-link="db1" data-opt="themeButton"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="db1b">themeInput</label><select name="db1b" class="demopick" data-link="db1" data-opt="themeInput"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="db1a">themeButton</label><select id="db1a" class="demopick" data-link="db1" data-opt="themeButton"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="db1b">themeInput</label><select id="db1b" class="demopick" data-link="db1" data-opt="themeInput"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
 
 <div class="ui-field-contain">
 	<label for="db1">A DateBox</label>
@@ -69,8 +69,8 @@ options" attribute, - they are:
  - {% api_doc themeDate %} : Theme for default dates
  - {% api_doc themeDatePick %} : Theme for choosen date
 		
-<div class="ui-field-contain"><label for="fb1a">themeDate</label><select name="fb1a" class="demopick" data-link="fb1" data-opt="themeDate"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="fb1b">themeDatePick</label><select name="fb1b" class="demopick" data-link="fb1" data-opt="themeDatePick"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="fb1a">themeDate</label><select id="fb1a" class="demopick" data-link="fb1" data-opt="themeDate"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="fb1b">themeDatePick</label><select id="fb1b" class="demopick" data-link="fb1" data-opt="themeDatePick"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
 
 
 <div class="ui-field-contain">
@@ -84,8 +84,8 @@ SlideBox have a number of theme options that can be added to the "data-options" 
  - {% api_doc themeDate %} : Theme for default dates
  - {% api_doc themeDatePick %} : Theme for choosen date
 		
-<div class="ui-field-contain"><label for="sb1a">themeDate</label><select name="sb1a" class="demopick" data-link="sb1" data-opt="themeDate"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
-<div class="ui-field-contain"><label for="sb1b">themeDatePick</label><select name="sb1b" class="demopick" data-link="sb1" data-opt="themeDatePick"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="sb1a">themeDate</label><select id="sb1a" class="demopick" data-link="sb1" data-opt="themeDate"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="sb1b">themeDatePick</label><select id="sb1b" class="demopick" data-link="sb1" data-opt="themeDatePick"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option><option value="d">D</option></select></div>
 
 <div class="ui-field-contain">
 	<label for="sb1">A SlideBox</label>

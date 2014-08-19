@@ -16,10 +16,6 @@ When using the override system, note the use of camel case - i.e. "dateFormat" b
 	<input id="outtie" type="text" data-role="datebox" data-options='{"mode":"calbox","overrideDateFormat":"%A, %B %-d, %Y", "useInline":true}'>
 </div>
 
-<style type="text/css">
-	ul.options p { white-space: normal; width: 90% }
-</style>
-
 # Date Format Options
 
 The date format follows the POSIX standards.  There is one extension.  By default, all numbers are zero-padded. (see modifiers section)

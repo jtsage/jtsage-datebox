@@ -64,7 +64,3 @@ function formatter(obby) {
 {% endhighlight %}
 	
 
-
-<?php
-echo do_footer();
-?>
