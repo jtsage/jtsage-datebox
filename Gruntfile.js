@@ -307,6 +307,11 @@ module.exports = function(grunt) {
 				src : "docs/",
 				dest: "docs/_site"
 			},
+			dev2: {
+				options: {
+					config: "docs/_config.yml,docs/_config.mdev.yml"
+				}
+			},
 			latest: {
 				options: {
 					config: "docs/_config.yml,docs/_config.dev.yml"
@@ -419,6 +424,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask( "web", "Build the documentation site", ["jekyll:release", "prettify"] );
 	grunt.registerTask( "devweb", "Test the documentation site", ["jekyll:latest", "prettify"] );
+	grunt.registerTask( "devweb2", "Test the documentation site", ["jekyll:dev2", "prettify"] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg", "qunit"] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane", "qunit"] );
 
