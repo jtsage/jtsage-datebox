@@ -276,7 +276,7 @@ module.exports = function(grunt) {
 					banner: "<%= txt.banner.short %>"
 				},
 				files: {
-					"dist/<%= pkg.version %>/jqm-datebox<%= pkg.version %>.min.css": [
+					"dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.min.css": [
 						"css/jqm-datebox.css"]
 				}
 			},
