@@ -1,6 +1,6 @@
 jqver: "2.1.1"
-jqmver: "1.4.3"
-dbver: "1.4.3"
+jqmver: "1.4.4"
+dbver: "1.4.4"
 cdn: "http://cdn.jtsage.com/datebox/"
 i18n: "http://cdn.jtsage.com/datebox/i18n/"
 highlighter: pygments
