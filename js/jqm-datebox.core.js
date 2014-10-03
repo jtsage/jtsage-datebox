@@ -11,7 +11,7 @@
 
 			// 3-jQueryMobileVersion
 			// Check Header for Build Date.
-			version: "3-1.4.4-00", 
+			version: "3-1.4.4-01", 
 
 			theme: false,
 			themeDefault: "a",
@@ -979,6 +979,7 @@
 			w.baseID = w.d.input.attr( "id" );
 
 			w.initDate = new w._date();
+			w.initDate.setMilliseconds(0);
 			w.theDate = ( o.defaultValue ) ?
 				w._makeDate() :
 				( (w.d.input.val() !== "" ) ?
