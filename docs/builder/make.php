@@ -4,6 +4,7 @@ ob_start();
 header('Content-Type: application/javascript');
 
 $versions = array(
+	"1.4.4",
 	"1.4.3",
 	"1.4.2",
 	"1.4.1",
