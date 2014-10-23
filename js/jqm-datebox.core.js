@@ -16,6 +16,7 @@
 			theme: false,
 			themeDefault: "a",
 			themeHeader: "a",
+			themeSetButton: "a",
 			mode: false,
 
 			transition: "fade",
@@ -1455,7 +1456,7 @@
 			close: function(txt) {
 				var w = this, o = this.options;
 				return $( "<a href='#' role='button'>" + txt + "</a>" )
-					.addClass( "ui-btn ui-btn-" + o.theme + 
+					.addClass( "ui-btn ui-btn-" + o.themeSetButton + 
 						" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" +
 						( ( w.dateOK === true ) ? "" : " ui-state-disabled" )
 					)
