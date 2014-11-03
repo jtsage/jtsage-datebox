@@ -1,6 +1,6 @@
 <?php
-	$verA = "1.4.3";
-	$verB = "1.4.3";
+	$verA = "1.4.5";
+	$verB = "1.4.5";
 	if ( isset($_REQUEST['ver']) ) {
 		$verA = $_REQUEST['ver'];
 		$verB = $_REQUEST['ver'];

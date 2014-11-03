@@ -703,7 +703,7 @@ QUnit.test( "Hard - max", function( assert ){
 		
 	assert.equal(
 		db.datebox( "getTheDate" ).comp(),
-		20010115
+		20010114
 	);
 });
 

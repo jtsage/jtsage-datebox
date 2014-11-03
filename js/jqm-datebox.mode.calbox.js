@@ -437,7 +437,7 @@
 								fmtText = o.calFormatter({
 									"Year": ( ( genny[row][col][1] > 11 ) ? curYear + 1 : 
 										( genny[row][col][1] < 0 ) ? curYear - 1 : curYear ),
-									"Month" : ( ( genny[row][col][1] == 12 ) ? 0 : 
+									"Month" : ( ( genny[row][col][1] === 12 ) ? 0 : 
 										( genny[row][col][1] === -1 ) ? 11 : genny[row][col][1] ),
 									"Date" : genny[row][col][0],
 								});

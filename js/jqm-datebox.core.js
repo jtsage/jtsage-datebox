@@ -11,7 +11,7 @@
 
 			// 3-jQueryMobileVersion
 			// Check Header for Build Date.
-			version: "3-1.4.4-01", 
+			version: "3-1.4.5-00", 
 
 			theme: false,
 			themeDefault: "a",
@@ -1084,7 +1084,7 @@
 				fromEl =  w.d.input.attr( "min" ).split( "-" );
 				fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
 				daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
-				o.minDays = parseInt( daysRaw * -1 , 10 ) + 1;
+				o.minDays = parseInt( daysRaw * -1 , 10 ) + 0;
 			}
 			if ( ( override === true || o.maxDays === false ) && 
 					( typeof w.d.input.attr( "max" ) !== "undefined" ) ) {
