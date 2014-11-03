@@ -31,7 +31,8 @@ not behave well dynamicly, so it is also not shown here.
 # CalBox Specific - Display
 
 This group of options deals with the extra information displayed on the 
-calendar.
+calendar. Perhaps the most useful of these, although it is not shown here (very hard to demo), is
+{% api_doc calFormatter %}.
 
 <div class="ui-field-contain">
 	<label for="cal2a">{% api_doc calShowDays %}</label>

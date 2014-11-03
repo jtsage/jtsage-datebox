@@ -23,6 +23,7 @@
 		calShowWeek: false,
 		calUsePickers: false,
 		calNoHeader: false,
+		calFormatter: false,
 		
 		calYearPickMin: -6,
 		calYearPickMax: 6,
@@ -40,6 +41,9 @@
 		calShowDateList: false
 	});
 	$.extend( $.mobile.datebox.prototype, {
+		_cal_formatter: function(date) {
+			return date.date;
+		},
 		_cal_gen: function (start,prev,last,other,month) {
 			var rc = 0, cc = 0, day = 1, 
 				next = 1, cal = [], row = [], stop = false;
@@ -156,7 +160,7 @@
 	$.extend( $.mobile.datebox.prototype._build, {
 		"calbox": function () {
 			var tempVal, pickerControl, calContent, genny, weekdayControl, listControl,
-				row, col, rows, cols, htmlRow, i, prangeS, prangeL,
+				row, col, rows, cols, htmlRow, i, prangeS, prangeL, fmtText,
 				w = this,
 				o = this.options,
 				dList = o.calDateList,
@@ -384,6 +388,12 @@
 				!o.calOnlyMonth,
 				curDate.get(1)
 			);
+			
+			if ( ! $.isFunction( o.calFormatter ) && 
+				o.calFormatter !== false &&
+				$.isFunction( window[ o.calFormatter ] ) ) {
+					o.calFormatter = window[ o.calFormatter ];
+			}
 
 			for ( row = 0, rows = genny.length; row < rows; row++ ) {
 				htmlRow = $("<div>", { "class": uid + "gridrow" } );
@@ -421,8 +431,19 @@
 							checkDatesObj
 						);
 						if ( genny[row][col][0]) {
+							if ( ! $.isFunction(o.calFormatter) ) {
+								fmtText = genny[row][col][0];
+							} else {
+								fmtText = o.calFormatter({
+									"Year": ( ( genny[row][col][1] > 11 ) ? curYear + 1 : 
+										( genny[row][col][1] < 0 ) ? curYear - 1 : curYear ),
+									"Month" : ( ( genny[row][col][1] == 12 ) ? 0 : 
+										( genny[row][col][1] === -1 ) ? 11 : genny[row][col][1] ),
+									"Date" : genny[row][col][0],
+								});
+							}
 							$("<div>")
-								.text( String( genny[row][col][0] ) )
+								.html( fmtText )
 								.addClass( uid + "griddate ui-corner-all ui-btn")
 								.addClass( curMonth === genny[row][col][1] ?
 									( "ui-btn-" + checked.theme +

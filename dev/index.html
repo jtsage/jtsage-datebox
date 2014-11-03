@@ -34,15 +34,24 @@
 	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jqm-datebox.lang.utf8.js"></script>
 	
 	<script type="text/javascript">
+		window.fmtMe = function(date) {
+			console.log(date);
+			if ( date.Date > 9 && date.Date < 20 ) {
+				return "<i>" + date.Date + "</i>";
+			} else {
+				return date.Date;
+			}
+		}
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			closeCallback: function(a, b) { console.log(a); console.log(b); },
 			closeCallbackArgs: ['hi'],
-			beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
+			//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
 			useLang: "en",
 			useClearButton: true,
 			useCollapsedBut: false,
 			calShowWeek: false,
-			calControlGroup: true,
+			calControlGroup: false,
+			calFormatter: "fmtMe",
 			overrideSlideFieldOrder: ["y","a","m","d","h","i"]
 		});
 	</script>
