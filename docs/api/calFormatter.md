@@ -26,8 +26,10 @@ The function must accept a single argument, which is an object of the Date:
 
 {
 	"Year" : 0, // Integer
-	"Month : 0-11, // Integer, Jan = 0 .. Dec = 11
-	"Date" : 1-31 // Integer
+	"Month" : 0-11, // Integer, Jan = 0 .. Dec = 11
+	"Date" : 1-31, // Integer
+	"ISO" : YYYY-MM-DD, // ISO Date Representation
+	"Comp" : YYYYMMDD, // Little endian date compare representation
 }
 
 {% endhighlight %}

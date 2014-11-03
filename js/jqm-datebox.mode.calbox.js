@@ -160,7 +160,7 @@
 	$.extend( $.mobile.datebox.prototype._build, {
 		"calbox": function () {
 			var tempVal, pickerControl, calContent, genny, weekdayControl, listControl,
-				row, col, rows, cols, htmlRow, i, prangeS, prangeL, fmtText,
+				row, col, rows, cols, htmlRow, i, prangeS, prangeL, fmtText, fmtObj,
 				w = this,
 				o = this.options,
 				dList = o.calDateList,
@@ -434,13 +434,16 @@
 							if ( ! $.isFunction(o.calFormatter) ) {
 								fmtText = genny[row][col][0];
 							} else {
-								fmtText = o.calFormatter({
+								fmtObj = {
 									"Year": ( ( genny[row][col][1] > 11 ) ? curYear + 1 : 
 										( genny[row][col][1] < 0 ) ? curYear - 1 : curYear ),
 									"Month" : ( ( genny[row][col][1] === 12 ) ? 0 : 
 										( genny[row][col][1] === -1 ) ? 11 : genny[row][col][1] ),
-									"Date" : genny[row][col][0],
-								});
+									"Date" : genny[row][col][0]
+								};
+								fmtObj.ISO = fmtObj.Year + "-" + w._zPad(fmtObj.Month) + "-" + w._zPad(fmtObj.Date);
+								fmtObj.Comp = String(fmtObj.Year) + w._zPad(fmtObj.Month) + w._zPad(fmtObj.Date); 
+								fmtText = o.calFormatter(fmtObj);
 							}
 							$("<div>")
 								.html( fmtText )
