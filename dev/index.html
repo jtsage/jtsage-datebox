@@ -21,7 +21,7 @@
 	
 	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
 	
-	<link type="text/css" href="http://dev.jtsage.com/datebox150/docs/theme/sheet.php" rel="stylesheet" /> 
+	<link type="text/css" href="../docs/theme/sheet.php" rel="stylesheet" /> 
 	
 	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.calbox.js"></script>
@@ -41,8 +41,8 @@
 			useLang: "en",
 			useClearButton: true,
 			useCollapsedBut: false,
-			calShowWeek: true,
-			calControlGroup: false,
+			calShowWeek: false,
+			calControlGroup: true,
 			overrideSlideFieldOrder: ["y","a","m","d","h","i"]
 		});
 	</script>
@@ -69,7 +69,7 @@
 		</div>
 		<div class="ui-field-contain">
 			<label for="lang2">yep</label>
-			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="flipbox" id="lang2" />
+			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang2" />
 		</div>
 		<div class="ui-field-contain">
 			<label for="lang3">yep</label>

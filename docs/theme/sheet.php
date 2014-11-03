@@ -5,7 +5,7 @@ $use = array();
 
 $defaults = array(
 	// Common Options
-	'mWidth' 		=> array(280, "Widget Width", 'common', 100, 700),
+	'mWidth' 		=> array(290, "Widget Width", 'common', 100, 700),
 	
 	// CalBox Options
 	'cGDWidth' 		=> array(36, "Date Width", 'calbox',5 ,100),
@@ -77,8 +77,9 @@ foreach ( $defaults as $key => $value ) {
 	-webkit-transform:translate3d(0,0,0);
 }
 .ui-popup-container .ui-datebox-gridrow { 
-	margin-left: 0; 
-	margin-right: 0; 
+	display: table;
+	margin-left: auto; 
+	margin-right: auto;
 }
 .ui-datebox-collapse { 
 	text-align: center;
