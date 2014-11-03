@@ -271,7 +271,7 @@
 				
 				if ( o.useSetButton ) {
 					y.append( w._stdBtn.close.apply(
-						w, [(o.mode==="datebox") ? 
+						w, [ ( o.mode === "flipbox" ) ? 
 							w.__("setDateButtonLabel") :
 							( dur ) ?
 								w.__("setDurationButtonLabel") :
