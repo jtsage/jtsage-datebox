@@ -52,6 +52,8 @@
 			useCollapsedBut: false,
 			usePlaceholder: false,
 
+			beforeOpenCallback: false,
+			beforeOpenCallbackArgs: [],
 			openCallback: false,
 			openCallbackArgs: [],
 			closeCallback: false,
@@ -1275,6 +1277,23 @@
 						duration: w.lastDuration
 					}], o.closeCallbackArgs ) );
 				};
+			}
+			// Perpare BEFORE open callback, if provided. Additionally, if this
+			// returns false then the open/update will stop.
+			if ( o.beforeOpenCallback !== false ) {
+				if ( ! $.isFunction( o.beforeOpenCallback ) ) {
+					if ( typeof window[ o.beforeOpenCallback ] === "function" ) {
+						o.beforeOpenCallback = window[ o.beforeOpenCallback ];
+					}
+				}
+				if ( o.beforeOpenCallback.apply( w, $.merge([{
+						custom: w.customCurrent,
+						initDate: w.initDate,
+						date: w.theDate,
+						duration: w.lastDuration
+					}], o.beforeOpenCallbackArgs ) ) === false ) {
+						return false;
+				}
 			}
 
 			w.d.mainWrap

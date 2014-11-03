@@ -37,6 +37,7 @@
 		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 			closeCallback: function(a, b) { console.log(a); console.log(b); },
 			closeCallbackArgs: ['hi'],
+			beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
 			useLang: "en",
 			useClearButton: true,
 			useCollapsedBut: false,

@@ -9,6 +9,8 @@ layout: doc
 DateBox provides both and open and close callback hook as an option.  See 
 the next page for a bit on usage, and the API documents on usage enviroment.
 
+ - {% api_doc beforeOpenCallback %} : Callback function to run BEFORE control open
+ - {% api_doc beforeOpenCallbackArgs %} : Extra arguments to pass to BEFORE open callback.
  - {% api_doc openCallback %} : Callback function to run on control open
  - {% api_doc openCallbackArgs %} : Extra arguments to pass to open callback.
  - {% api_doc closeCallback %} : Callback function to run on control close
