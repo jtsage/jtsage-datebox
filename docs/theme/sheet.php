@@ -146,8 +146,9 @@ div.ui-datebox-container.ui-datebox-inline {
 	clear: both;
 }
 .ui-datebox-gridrow { 
-	margin-left: 5px; 
-	margin-right: 5px; 
+	margin-left: auto; 
+	margin-right: auto;
+	display: table;
 	margin-bottom: -7px;
 }
 .ui-datebox-gridrow-last {

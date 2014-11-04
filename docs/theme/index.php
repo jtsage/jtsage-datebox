@@ -4,7 +4,7 @@
 
 $defaults = array(
 	// Common Options
-	'mWidth' 		=> array(280, "Widget Width", 'common', 100, 700),
+	'mWidth' 		=> array(290, "Widget Width", 'common', 100, 700),
 	
 	// CalBox Options
 	'cGDWidth' 		=> array(36, "Date Width", 'calbox',5 ,100),
@@ -113,13 +113,6 @@ foreach ( $defaults as $key => $value ) {
 </head>
 <body>
 <div data-role="page">
-	<div id="display" data-role="popup">
-			<input name="theme0" id="theme0" type="text" data-role="datebox" data-options='{"mode":"calbox", "calShowWeek":true}'>
-			<input name="theme1" id="theme1" type="text" data-role="datebox" data-options='{"mode":"calbox"}'>
-			<input name="theme2" id="theme2" type="text" data-role="datebox" data-options='{"mode":"datebox"}'>
-			<input name="theme3" id="theme3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}'>
-			<input name="theme4" id="theme4" type="text" data-role="datebox" data-options='{"mode":"slidebox", "overrideSlideFieldOrder":["y","m","d","h","i"]}'>
-		</div>
 	<div data-role="header">
 		<h1>jQM-DateBox - Theme Roller</h1>
 	</div>
@@ -129,10 +122,23 @@ foreach ( $defaults as $key => $value ) {
 		<?php
 			echo "\n";
 			$lasttype = "";
+			$intype = 0;
+			$ins = array(
+				array(array( "datebox", "", 'a' )),
+				array(array( "calbox", "", 'b'), array( "calbox", '"calShowWeek":true, ', 'c')),
+				array(array( "flipbox", "", 'd')),
+				array(array( "slidebox", "", 'e'))
+			);
 			foreach ( $defaults as $key => $item ) {
 				if ( $item[2] <> $lasttype ) {
 					if ( $lasttype <> "" ) {
+						$intype++;
+						foreach ( $ins[$intype-1] as $thisin ) {
+							echo "\t\t\t<input type='text' name='theme{$thisin[2]}' data-role='datebox' data-datebox-mode='{$thisin[0]}' data-options='{{$thisin[1]}}'>\n";
+						}
 						echo "\t\t\t</div>\n";
+						
+						
 						echo "\t\t\t<a href='#' class='applysheet ui-btn ui-btn-a ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all'>Apply Changes</a>\n";
 						echo "\t\t\t<a data-rel='popup' href='#display' class='ui-btn ui-btn-a ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all'>Show Samples</a>\n";
 					}
@@ -146,6 +152,10 @@ foreach ( $defaults as $key => $value ) {
 				} else {
 					echo "\t\t\t\t<input name='{$key}' id='{$key}' value='{$use[$key]}' type='text'>\n";
 				}
+			}
+			$intype++;
+			foreach ( $ins[$intype-1] as $thisin ) {
+				echo "\t\t\t<input type='text' name='theme{$thisin[2]}' data-role='datebox' data-datebox-mode='{$thisin[0]}' data-options='{{$thisin[1]}}'>\n";
 			}
 			echo "\t\t\t</div>\n";
 			echo "\t\t\t<a href='#' class='applysheet ui-btn ui-btn-a ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all'>Apply Changes</a>\n";
