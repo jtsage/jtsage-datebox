@@ -41,9 +41,6 @@
 		calShowDateList: false
 	});
 	$.extend( $.mobile.datebox.prototype, {
-		_cal_formatter: function(date) {
-			return date.date;
-		},
 		_cal_gen: function (start,prev,last,other,month) {
 			var rc = 0, cc = 0, day = 1, 
 				next = 1, cal = [], row = [], stop = false;
