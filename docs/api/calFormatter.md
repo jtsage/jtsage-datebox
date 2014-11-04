@@ -54,3 +54,11 @@ Then, to link it to datebox, it could be as easy as:
 <input type="text" data-role="datebox" data-datebox-mode="calbox" data-datebox-calFormatter="myFormatter">
 {% endhighlight %}
 
+Dynamically changing the function:
+
+Admittedly, the function below is probably even more useless than the first one, but it demonstrates the principle:
+
+{% highlight js %}
+$('#datebox_input_element').datebox({ 'calFormatter', function( date ) { return date.Month; } });
+{% endhighlight %}
+
