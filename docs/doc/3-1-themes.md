@@ -52,9 +52,11 @@ DateBox/TimeBox/DurationBox have a number of theme options that can be added to 
 	
  - {% api_doc themeButton %} : Theme for +/- buttons
  - {% api_doc themeInput %} : Theme for text inputs
+ - {% api_doc themeSetButton %} : Theme for set button
 		
 <div class="ui-field-contain"><label for="db1a">themeButton</label><select id="db1a" class="demopick" data-link="db1" data-opt="themeButton"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
 <div class="ui-field-contain"><label for="db1b">themeInput</label><select id="db1b" class="demopick" data-link="db1" data-opt="themeInput"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
+<div class="ui-field-contain"><label for="db1c">themeSetButton</label><select id="db1c" class="demopick" data-link="db1" data-opt="themeSetButton"><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></div>
 
 <div class="ui-field-contain">
 	<label for="db1">A DateBox</label>
