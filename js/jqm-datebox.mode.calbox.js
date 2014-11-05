@@ -157,7 +157,7 @@
 	$.extend( $.mobile.datebox.prototype._build, {
 		"calbox": function () {
 			var tempVal, pickerControl, calContent, genny, weekdayControl, listControl,
-				row, col, rows, cols, htmlRow, i, prangeS, prangeL, fmtText, fmtObj,
+				row, col, rows, cols, htmlRow, i, prangeS, prangeL, fmtRet, fmtObj,
 				w = this,
 				o = this.options,
 				dList = o.calDateList,
@@ -429,7 +429,7 @@
 						);
 						if ( genny[row][col][0]) {
 							if ( ! $.isFunction(o.calFormatter) ) {
-								fmtText = genny[row][col][0];
+								fmtRet = { text: genny[row][col][0], "class": "" };
 							} else {
 								fmtObj = {
 									"Year": ( ( genny[row][col][1] > 11 ) ? curYear + 1 : 
@@ -438,12 +438,19 @@
 										( genny[row][col][1] === -1 ) ? 11 : genny[row][col][1] ),
 									"Date" : genny[row][col][0]
 								};
-								fmtObj.ISO = fmtObj.Year + "-" + w._zPad(fmtObj.Month) + "-" + w._zPad(fmtObj.Date);
-								fmtObj.Comp = String(fmtObj.Year) + w._zPad(fmtObj.Month) + w._zPad(fmtObj.Date); 
-								fmtText = o.calFormatter(fmtObj);
+								fmtObj.ISO = fmtObj.Year + "-" + 
+									w._zPad(fmtObj.Month) + "-" + 
+									w._zPad(fmtObj.Date);
+								fmtObj.Comp = parseInt( fmtObj.ISO.replace( /-/g, "" ), 10 ); 
+								tempVal = o.calFormatter(fmtObj);
+								if ( typeof tempVal !== "object" ) {
+									fmtRet = { text: tempVal, "class": "" };
+								} else {
+									fmtRet = { text: tempVal.text, "class": tempVal.class };
+								}
 							}
 							$("<div>")
-								.html( fmtText )
+								.html( fmtRet.text )
 								.addClass( uid + "griddate ui-corner-all ui-btn")
 								.addClass( curMonth === genny[row][col][1] ?
 									( "ui-btn-" + checked.theme +
@@ -451,6 +458,7 @@
 									) :
 									( uid + "griddate-empty" )
 								)
+								.addClass( fmtRet.class )
 								.css(( curMonth !== genny[row][col][1] && !o.calOnlyMonth ) ?
 									{ cursor: "pointer" } :
 									{}

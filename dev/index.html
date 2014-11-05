@@ -37,7 +37,7 @@
 		window.fmtMe = function(date) {
 			console.log(date);
 			if ( date.Date > 9 && date.Date < 20 ) {
-				return "<i>" + date.Date + "</i>";
+				return { text: "<i>" + date.Date + "</i>", "class": "reddyred" };
 			} else {
 				return date.Date;
 			}

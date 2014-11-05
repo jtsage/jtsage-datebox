@@ -34,13 +34,28 @@ The function must accept a single argument, which is an object of the Date:
 
 {% endhighlight %}
 
-As usual, the easiest method of passing the function in is as a reference.  This sample function
+The function can return either just a String/Number, *or* an object of the type:
+
+{% highlight js %}
+
+{
+	"text": "Text or HTML to display",
+	"class": "myClass1 myClass2" // List of classes to add to grid box
+}
+
+{% endhighlight %}
+
+The return value is parsed for each value, so you can return an object only where necessary if you
+prefer. As usual, the easiest method of passing the function in is as a reference.  This sample function
 will italicize the "tens" dates (10 - 19) - although it is pretty much useless, it gives the idea:
 
 {% highlight js %}
 window.myFormatter = function( date ) {
 	if ( date.Date > 9 && date.Date < 20 ) {
-		return "<i>" + date.Date + "</i>";
+		return { 
+			text: "<i>" + date.Date + "</i>",
+			"class": "makeItRed"
+		};
 	} else {
 		return date.Date;
 	}
