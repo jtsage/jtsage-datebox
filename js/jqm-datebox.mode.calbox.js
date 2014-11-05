@@ -12,6 +12,9 @@
 		themeDateHighRec: "b",
 		themeDate: "a",
 		
+		calNextMonthIcon: "plus",
+		calPrevMonthIcon: "minus",
+		
 		calHighToday: true,
 		calHighPick: true,
 		
@@ -218,7 +221,8 @@
 				.find( "a" )
 					.addClass( "ui-btn-inline ui-link ui-btn ui-btn-" + 
 						o.themeDate + 
-						" ui-icon-plus ui-btn-icon-notext ui-shadow ui-corner-all"
+						" ui-icon-" + o.calNextMonthIcon +
+						" ui-btn-icon-notext ui-shadow ui-corner-all"
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
@@ -233,7 +237,8 @@
 				.find( "a" )
 					.addClass( "ui-btn-inline ui-link ui-btn ui-btn-" +
 						o.themeDate +
-						" ui-icon-minus ui-btn-icon-notext ui-shadow ui-corner-all"
+						" ui-icon-" + o.calPrevMonthIcon +
+						" ui-btn-icon-notext ui-shadow ui-corner-all"
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();

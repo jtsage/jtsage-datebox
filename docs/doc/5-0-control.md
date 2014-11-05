@@ -31,8 +31,7 @@ not behave well dynamicly, so it is also not shown here.
 # CalBox Specific - Display
 
 This group of options deals with the extra information displayed on the 
-calendar. Perhaps the most useful of these, although it is not shown here (very hard to demo), is
-{% api_doc calFormatter %}.
+calendar. Perhaps the most useful of these, although it is not shown here (very hard to demo), is {% api_doc calFormatter %}.
 
 <div class="ui-field-contain">
 	<label for="cal2a">{% api_doc calShowDays %}</label>
@@ -57,6 +56,14 @@ calendar. Perhaps the most useful of these, although it is not shown here (very 
 <div class="ui-field-contain">
 	<label for="cal2g">{% api_doc calControlGroup %}</label>
 	<select id="cal2g" data-link="cal2" data-opt="calControlGroup" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
+</div>
+<div class="ui-field-contain">
+	<label for="cal2h">{% api_doc calNextMonthIcon %}</label>
+	<input id="cal2h" data-link="cal2" data-opt="calNextMonthIcon" type="text" value="plus" class="demopick">
+</div>
+<div class="ui-field-contain">
+	<label for="cal2i">{% api_doc calPrevMonthIcon %}</label>
+	<input id="cal2i" data-link="cal2" data-opt="calPrevMonthIcon" type="text" value="minus" class="demopick">
 </div>
 <div class="ui-field-contain">
 	<label for="cal2">CalBox</label>
