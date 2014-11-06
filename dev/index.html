@@ -35,7 +35,7 @@
 	
 	<script type="text/javascript">
 		window.fmtMe = function(date) {
-			console.log(date);
+			//console.log(date);
 			if ( date.Date > 9 && date.Date < 20 ) {
 				return { text: "<i>" + date.Date + "</i>", "class": "reddyred" };
 			} else {
@@ -50,6 +50,9 @@
 			useClearButton: true,
 			useCollapsedBut: false,
 			calShowWeek: false,
+			calUsePickers: true,
+			calUsePickersIcons: true,
+			calNoHeader: true,
 			calControlGroup: false,
 			calFormatter: "fmtMe",
 			overrideSlideFieldOrder: ["y","a","m","d","h","i"]

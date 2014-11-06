@@ -251,7 +251,11 @@
 					});
 				
 			if ( o.calNoHeader ) { 
-				w.d.intHTML.find( "." + uid + "gridheader" ).remove();
+				if ( o.calUsePickersIcons ) {
+					w.d.intHTML.find( "." + uid + "gridlabel" ).hide();
+				} else {
+					w.d.intHTML.find( "." + uid + "gridheader" ).remove();
+				}
 			}
 			
 			w.calNext = true;
@@ -288,17 +292,14 @@
 			}
 			
 			if ( o.calUsePickers ) {
-				pickerControl = $("<div>", {
-					"class": "ui-grid-a ui-datebox-grid",
-					style: "padding-top: 5px; padding-bottom: 5px;"
-				});
+				pickerControl = $("<div>");
 				
-				pickerControl.a = $( "<div class='ui-block-a'><select></select></div>" )
-					.appendTo( pickerControl )
-					.find( "select");
-				pickerControl.b = $("<div class='ui-block-b'><select></select></div>")
-					.appendTo( pickerControl )
-					.find( "select");
+				pickerControl.i = $("<fieldset>").appendTo(pickerControl);
+				
+				pickerControl.a = $( "<select>" )
+					.appendTo( pickerControl.i );
+				pickerControl.b = $( "<select>" )
+					.appendTo( pickerControl.i );
 				
 				for ( i=0; i<=11; i++ ) {
 					pickerControl.a.append(
@@ -352,10 +353,23 @@
 					w.refresh();
 				});
 				
-				pickerControl.find( "select" ).selectmenu( {
-					mini: true,
+				pickerControl.i.controlgroup({ mini: true, type: "horizontal" });
+				pickerControl.i.find( "select" ).selectmenu( {
+					//mini: true,
 					nativeMenu: true
 				} );
+				pickerControl.i.find( ".ui-controlgroup-controls" ).css({
+					marginRight: "auto",
+					marginLeft: "auto",
+					width: "100%",
+					display: "table",
+				});
+				pickerControl.i.find( ".ui-select" ).css({
+					width: "50%"
+				});
+				if ( o.calNoHeader && o.calUsePickersIcons ) { 
+					pickerControl.i.css({ padding: "5px" });
+				}
 				pickerControl.appendTo( w.d.intHTML );
 			}
 			
