@@ -195,7 +195,8 @@
 				g = this.drag,
 				o = this.options, 
 				dur = ( o.mode === "durationbox" ? true : false ),
-				cnt = -2, 
+				cnt = -2,
+				defDurOrder = ["d","h","i","s"],
 				uid = "ui-datebox-",
 				divBase = $( "<div>" ),
 				divPlus = $( "<fieldset>" ),
@@ -253,9 +254,13 @@
 						offAmount = 1;
 					}
 				}
-				if ( w.fldOrder[i] !== "a" || w.__("timeFormat") === 12 ) {
+				if ( w.fldOrder[i] !== "a" || w.__("timeFormat") === 12 ) {					
 					$("<div>")
-						.append( (dur) ? "<label>" + w.__("durationLabel")[i] + "</label>" : "" )
+						.append( (dur) ?
+							"<label>" + 
+							w.__( "durationLabel" )[ $.inArray( w.fldOrder[i], defDurOrder ) ] +
+							"</label>" : 
+							"" )
 						.addClass("ui-block-"+tmp)
 						.appendTo(divLab);
 					$("<div>")
