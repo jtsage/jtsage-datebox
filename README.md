@@ -8,13 +8,13 @@ DateBox Features
 
  - Multiple display and entry modes for dates, times, and durations
    - Android style
-   - Full Calendar display
+   - Full Calendar display (date only)
    - Flip (IOS) style
-   - Slide style
+   - Slide style (date and time only)
  - Multiple window modes
-   - Popups (2 versions)
-   - Dialog (own page)
-   - Inline and Slide-Dow
+   - Popup
+   - Inline
+   - Inline window-blind
  - Fully localized - 40+ languages pre-configured
  - Fully custiomizable output formats
  - Supports multiple methods of limiting valid date entry
@@ -47,19 +47,24 @@ OR (if using only one mode)
 
 [cdn repo](http://cdn.jtsage.com/datebox/latest/)
 
+#### Custom Download Builder:
+
+[script](http://dev.jtsage.com/jQM-DateBox/builder/)
+[css](http://dev.jtsage.com/jQM-DateBox/theme/)
+
 Suggested Use
 -------------
 
 #### With Option Overrides:
 	
 	<input type="date" data-role="datebox" name="somedate"
-		data-options='{"mode": "datebox", "overrideDateFormat": "mm/dd/YYYY"}' />
+		data-options='{"mode": "datebox", "overrideDateFormat": "%m/%d/%Y"}' />
 		
 #### Global Option Overrides:
 	
 	// AFTER loading jQM
 	jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-		'overrideDateFormat': 'dd.mm.yyyy',
+		'overrideDateFormat': '%d.%m.%Y',
 	});
 
 Available Options
