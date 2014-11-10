@@ -367,9 +367,10 @@
 					width: "100%",
 					display: "table",
 				});
-				pickerControl.i.find( ".ui-select" ).css({
-					width: "50%"
-				});
+				pickerControl.i.find( ".ui-select" )
+					.first().css({ width: "60%" })
+					.end().last().css({ width: "40%" });
+
 				if ( o.calNoHeader && o.calUsePickersIcons ) { 
 					pickerControl.i.css({ padding: "0 10px 5px 10px" });
 				}
