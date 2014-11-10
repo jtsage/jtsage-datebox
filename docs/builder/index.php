@@ -17,8 +17,8 @@ $filemap = array(
 	array( "datebox", "DateBox and TimeBox Modes" ),
 	array( "flipbox", "FlipBox and TimeFlipBox Modes" ),
 	array( "slidebox", "SlideBox Mode" ),
-	array( "durationbox", "DurationBox Mode" ),
-	array( "durationflipbox", "DurationFlipBox Mode" ),
+	array( "durationbox", "DurationBox Mode (included in DateBox since 1.4.4)" ),
+	array( "durationflipbox", "DurationFlipBox Mode (included in FlipBox since 1.4.4)" ),
 	array( "customflip", "CustomFlip Mode")
 );
 
