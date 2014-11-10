@@ -119,6 +119,9 @@ div.ui-datebox-container.ui-datebox-inline {
  * These are specific to CalBox
  */
 
+.ui-datebox-pickicon {
+	display: inline-block; width: <?php echo $use['mWidth'] - 74; ?>px;
+}
 .ui-datebox-gridheader { 
 	text-align: center;
 }

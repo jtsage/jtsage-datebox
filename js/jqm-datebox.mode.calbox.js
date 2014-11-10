@@ -293,6 +293,9 @@
 			
 			if ( o.calUsePickers ) {
 				pickerControl = $("<div>");
+				if ( o.calNoHeader && o.calUsePickersIcons ) {
+					pickerControl.addClass( "ui-datebox-pickicon" );
+				}
 				
 				pickerControl.i = $("<fieldset>").appendTo(pickerControl);
 				
@@ -368,7 +371,7 @@
 					width: "50%"
 				});
 				if ( o.calNoHeader && o.calUsePickersIcons ) { 
-					pickerControl.i.css({ padding: "5px" });
+					pickerControl.i.css({ padding: "0 10px 5px 10px" });
 				}
 				pickerControl.appendTo( w.d.intHTML );
 			}
