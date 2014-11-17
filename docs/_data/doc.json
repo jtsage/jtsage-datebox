@@ -24,6 +24,7 @@
 	{ "url":"7-1-formats",			"name":"7.1. Multiple Formats"},
 	{ "url":"7-2-custom",			"name":"7.2. CustomFlip"},
 	{ "url":"7-3-demos",			"name":"7.3. Demo Magic"},
+	{ "url":"7-4-convert",			"name":"7.4. DateBox Conversion Lib"},
 	{ "url":"8-0-pack", 			"name":"8. 3rd-Party Integration"}
 ],
 

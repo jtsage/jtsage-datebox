@@ -14,3 +14,5 @@ work, just the details of an idea.
  - [Submitting Multiple Date Formats]({{site.basesite}}doc/7-1-formats/)
  - [CustomBox / CustomFlip]({{site.basesite}}doc/7-2-custom/)
  - [Demo Magic (dynamic options)]({{site.basesite}}doc/7-3-demos/)
+ - [DateBox Conversion Library]({{site.basesite}}doc/7-4-convert/)
+ 
