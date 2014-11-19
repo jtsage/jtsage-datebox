@@ -1,16 +1,18 @@
 msgid ""
-msgstr "Project-Id-Version: jquery-mobile-datebox\n"
+msgstr ""
+"Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2014-06-28 15:55-0400\n"
+"PO-Revision-Date: 2014-11-19 16:05-0500\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: crowdin.net\n"
+"X-Generator: crowdin.com\n"
 
 #. POSIX style date format for header
 #: generate-i18n.py:35
@@ -20,7 +22,7 @@ msgstr "%A, %B %-d, %Y"
 #. POSIX sytle date format for returned dates
 #: generate-i18n.py:39
 msgid "%Y-%m-%d"
-msgstr "%d.%m.%Y"
+msgstr "%-d.%-m.%Y"
 
 #. Field order for time input (h=hour, i=minute, a=AM/PM)
 #: generate-i18n.py:37
@@ -185,7 +187,7 @@ msgstr "Октябрь"
 
 #: generate-i18n.py:31
 msgid "Open Date Picker"
-msgstr "Открытый выбор даты"
+msgstr "Открыть выбор даты"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
@@ -282,11 +284,11 @@ msgstr "false"
 #. Set to the start day of the calendar (0=Sunday)
 #: generate-i18n.py:42
 msgid "0"
-msgstr "0"
+msgstr "1"
 
 #: generate-i18n.py:43
 msgid "Clear"
-msgstr "Ясно"
+msgstr "Очистить"
 
 #: generate-i18n.py:44
 msgid "'d', 'h', 'i', 's'"

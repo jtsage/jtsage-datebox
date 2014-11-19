@@ -97,7 +97,7 @@ module.exports = function(grunt) {
 				tooltip: _(l, "Open Date Picker"),
 				nextMonth: _(l, "Next Month"),
 				prevMonth: _(l, "Previous Month"),
-				timeFormat: parseInt(_(l, "12"), 10),
+				timeFormat: parseInt(_(l, "24"), 10),
 				headerFormat: _(l, "%A, %B %-d, %Y"),
 				dateFieldOrder: eval( "[" + _(l, "'m', 'd', 'y'") + "]" ),
 				timeFieldOrder: eval( "[" + _(l, "'h', 'i', 'a'") + "]" ),
