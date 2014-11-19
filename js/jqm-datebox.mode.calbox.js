@@ -462,7 +462,7 @@
 									"Date" : genny[row][col][0]
 								};
 								fmtObj.ISO = fmtObj.Year + "-" + 
-									w._zPad(fmtObj.Month) + "-" + 
+									w._zPad(fmtObj.Month + 1) + "-" + 
 									w._zPad(fmtObj.Date);
 								fmtObj.Comp = parseInt( fmtObj.ISO.replace( /-/g, "" ), 10 ); 
 								tempVal = o.calFormatter(fmtObj);
