@@ -421,7 +421,7 @@
 				if ( o.calShowWeek ) {
 						$("<div>", { "class": uid + "griddate " + uid + "griddate-empty" } )
 							.text( "W" + weekNum )
-							.css( (o.calControlGroup ? {float: "left"} : {}) )
+							.css( (o.calControlGroup ? {"float": "left"} : {}) )
 							.appendTo( htmlRow );
 						weekNum++;
 						if ( weekNum > 52 && typeof(genny[ row + 1 ]) !== "undefined" ) { 
@@ -469,7 +469,10 @@
 								if ( typeof tempVal !== "object" ) {
 									fmtRet = { text: tempVal, "class": "" };
 								} else {
-									fmtRet = { text: tempVal.text, "class": tempVal.class };
+									fmtRet = {
+										"text": tempVal.text,
+										"class": tempVal["class"]
+									};
 								}
 							}
 							$("<div>")
@@ -481,7 +484,7 @@
 									) :
 									( uid + "griddate-empty" )
 								)
-								.addClass( fmtRet.class )
+								.addClass( fmtRet["class"] )
 								.css(( curMonth !== genny[row][col][1] && !o.calOnlyMonth ) ?
 									{ cursor: "pointer" } :
 									{}
