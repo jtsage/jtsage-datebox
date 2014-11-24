@@ -165,7 +165,11 @@
 				o = this.options,
 				dList = o.calDateList,
 				uid = "ui-datebox-",
-				curDate = w.theDate,
+				curDate = ( ( w.calBackDate !== false && 
+					w.theDate.get(0) === w.calBackDate.get(0) && 
+					w.theDate.get(1) === w.calBackDate.get(1) ) ? 
+						new w._date(w.calBackDate.getTime()) :
+						w.theDate ),
 				checked = false,
 				checkDatesObj = {},
 				minDate = w.initDate.copy(),
@@ -195,8 +199,14 @@
 					) ?
 					true :
 					false;
-				
-			
+	
+			if ( w.calBackDate !== false ) {
+				if ( w.theDate.get(0) === w.calBackDate.get(0) && 
+					w.theDate.get(1) === w.calBackDate.get(1) ) {
+						w.theDate = new w._date(w.calBackDate.getTime());
+						w.calBackDate = false;
+				}
+			}
 				
 			if ( typeof w.d.intHTML !== "boolean" ) { 
 				w.d.intHTML.remove(); 
@@ -227,6 +237,9 @@
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
 						if ( w.calNext ) {
+							if ( w.calBackDate === false ) { 
+								w.calBackDate = new Date(w.theDate.getTime());
+							}
 							if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
 							w._offset( "m", 1 );
 						}
@@ -243,6 +256,9 @@
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
 						if ( w.calPrev ) {
+							if ( w.calBackDate === false ) { 
+								w.calBackDate = new Date(w.theDate.getTime());
+							}
 							if ( w.theDate.getDate() > 28 ) { 
 								w.theDate.setDate(1);
 							}
@@ -342,6 +358,9 @@
 				}
 				
 				pickerControl.a.on( "change", function () {
+					if ( w.calBackDate === false ) { 
+						w.calBackDate = new Date(w.theDate.getTime());
+					}
 					w.theDate.setD( 1, $( this ).val() );
 					if ( w.theDate.get(1) !== parseInt( $( this ).val(), 10 ) ) {
 						w.theDate.setD( 2, 0 );
@@ -349,6 +368,9 @@
 					w.refresh();
 				});
 				pickerControl.b.on( "change", function () {
+					if ( w.calBackDate === false ) { 
+						w.calBackDate = new Date(w.theDate.getTime());
+					}
 					w.theDate.setD( 0, $( this ).val() );
 					if (w.theDate.get(1) !== parseInt( pickerControl.a.val(), 10)) {
 						w.theDate.setD( 2, 0 );
@@ -550,6 +572,7 @@
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = w._pa([0,0,0], new w._date());
+							w.calBackDate = false;
 							w._t( { method: "doset" } );
 						});
 				}
@@ -562,6 +585,7 @@
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
+							w.calBackDate = false;
 							w._t( { method: "doset" } );
 						});
 				}
@@ -589,6 +613,7 @@
 						value: w._formatter( w.__fmt(),w.theDate ),
 						date: w.theDate
 					} );
+					w.calBackDate = false;
 					w._t( { method: "close" } );
 				}
 			});

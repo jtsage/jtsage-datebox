@@ -11,7 +11,7 @@
 
 			// 3-jQueryMobileVersion
 			// Check Header for Build Date.
-			version: "3-1.4.5-01", 
+			version: "3-1.4.5-03", 
 
 			theme: false,
 			themeDefault: "a",
@@ -975,6 +975,7 @@
 
 			o.theme = thisTheme;
 
+			w.calBackDate = false;
 			w.disabled = false;
 			w.runButton = false;
 			w._date = window.Date;
@@ -1131,6 +1132,7 @@
 			}
 
 			w.theDate = w._makeDate( w.d.input.val() );
+			w.calBackDate = false;
 			if ( w.d.input.val() === "" ) { w._startOffset( w.theDate ); }
 			w.d.input.blur();
 
@@ -1312,6 +1314,8 @@
 			var w = this,
 				o = this.options;
 
+			w.calBackDate = false;
+			
 			if ( o.useInlineBlind ) { 
 				// Slide up useInlineBlind
 				w.d.mainWrap.slideUp();
@@ -1557,6 +1561,7 @@
 		},
 		getTheDate: function() {
 			// Provide a PUBLIC function to get the current date.
+			if ( this.calBackDate !== false ) { return this.calBackDate; }
 			return this.theDate;
 		},
 		getLastDur: function() {
