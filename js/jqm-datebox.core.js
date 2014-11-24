@@ -1162,7 +1162,10 @@
 				}
 				w.d.mainWrap.removeClass( "ui-datebox-hidden ui-overlay-shadow" );
 				if ( o.useInline ) {
-					w.d.mainWrap.addClass( "ui-datebox-inline" );
+					w.d.mainWrap
+						.addClass( "ui-datebox-inline" )
+						.css( "zIndex", "auto" );
+						
 					if ( !o.hideInput && !o.hideContainer ) {
 						w.d.mainWrap.addClass("ui-datebox-inline-has-input");
 					} 
@@ -1175,7 +1178,9 @@
 					}(w)), 100);
 					return true;
 				} else {
-					w.d.mainWrap.addClass( "ui-datebox-inline ui-datebox-inline-has-input" );
+					w.d.mainWrap
+						.addClass( "ui-datebox-inline ui-datebox-inline-has-input" )
+						.css( "zIndex", "auto" );
 					w.d.mainWrap.hide();
 				}
 				w.initDone = false;
