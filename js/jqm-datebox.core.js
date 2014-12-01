@@ -874,6 +874,16 @@
 			if ( update === true ) { w.refresh(); }
 			if ( o.useImmediate ) { w._t( { method: "doset" } ); }
 
+			if ( w.calBackDate !== false ) {
+				w._t( {
+					method: "displayChange",
+					selectedDate: w.calBackDate,
+					shownDate: w.theDate,
+					thisChange: mode,
+					thisChangeAmount: amount,
+				});
+			}
+				
 			w._t( {
 				method: "offset",
 				type: mode,

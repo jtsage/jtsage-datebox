@@ -604,6 +604,7 @@
 			w.d.intHTML.on(o.clickEventAlt, "div." + uid + "griddate", function(e) {
 				e.preventDefault();
 				if ( $( this ).data( "enabled" ) ) {
+					w.calBackDate = false;
 					w.theDate
 						.setD( 2, 1 )
 						.setD( 1, $( this ).jqmData( "month" ) )
@@ -613,22 +614,41 @@
 						value: w._formatter( w.__fmt(),w.theDate ),
 						date: w.theDate
 					} );
-					w.calBackDate = false;
 					w._t( { method: "close" } );
 				}
 			});
 			w.d.intHTML
-				.on( "swipeleft", function() { if ( w.calNext ) { w._offset( "m", 1 ); } } )
-				.on( "swiperight", function() { if ( w.calPrev ) { w._offset( "m", -1 ); } } );
+				.on( "swipeleft", function() { 
+					if ( w.calNext ) { 
+						if ( w.calBackDate === false ) { 
+							w.calBackDate = new Date(w.theDate.getTime());
+						} 
+						w._offset( "m", 1 );
+					} 
+				} )
+				.on( "swiperight", function() {
+					if ( w.calPrev ) {
+						if ( w.calBackDate === false ) { 
+							w.calBackDate = new Date(w.theDate.getTime());
+						} 
+						w._offset( "m", -1 ); 
+					}
+				} );
 			
 			if ( w.wheelExists ) { // Mousewheel operations, if plugin is loaded
 				w.d.intHTML.on( "mousewheel", function(e,d) {
 					e.preventDefault();
-					if ( d > 0 && w.calNext ) { 
+					if ( d > 0 && w.calNext ) {
+						if ( w.calBackDate === false ) { 
+							w.calBackDate = new Date(w.theDate.getTime());
+						} 
 						w.theDate.setD( 2, 1 );
 						w._offset( "m", 1 );
 					}
 					if ( d < 0 && w.calPrev ) {
+						if ( w.calBackDate === false ) { 
+							w.calBackDate = new Date(w.theDate.getTime());
+						}
 						w.theDate.setD( 2, 1 );
 						w._offset( "m", -1 );
 					}

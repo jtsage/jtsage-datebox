@@ -15,9 +15,10 @@ detailed in the API documentation, but they are:
  - {% api_doc doclear %} : Send: Clear input element
  - {% api_doc dorefresh %} : Send: Refresh control
  - {% api_doc dooffset %} : Send: Change the date
- - {% api_doc set %} : Send &amp; Recieve: Set the date, or date has been set
- - {% api_doc enable %} : Recieve: Datebox has been enabled
- - {% api_doc disable %} : Recieve: Datebox has been disabled
- - {% api_doc refresh %} : Recieve: Datebox has been refreshed
- - {% api_doc clear %} : Recieve: Datebox input has been cleared
- - {% api_doc offset %} : Recieve: Date has been changed
+ - {% api_doc set %} : Send &amp; Receive: Set the date, or date has been set
+ - {% api_doc enable %} : Receive: Datebox has been enabled
+ - {% api_doc disable %} : Receive: Datebox has been disabled
+ - {% api_doc refresh %} : Receive: Datebox has been refreshed
+ - {% api_doc clear %} : Receive: Datebox input has been cleared
+ - {% api_doc offset %} : Receive: Date has been changed
+ - {% api_doc displayChange %} : Receive: Calendar date display has been changed
