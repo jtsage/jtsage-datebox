@@ -11,7 +11,7 @@
 
 			// 3-jQueryMobileVersion
 			// Check Header for Build Date.
-			version: "3-1.4.5-03", 
+			version: "3-1.4.5-04", 
 
 			theme: false,
 			themeDefault: "a",
@@ -986,6 +986,7 @@
 			o.theme = thisTheme;
 
 			w.calBackDate = false;
+			w.calDateVisible = true;
 			w.disabled = false;
 			w.runButton = false;
 			w._date = window.Date;
@@ -1577,6 +1578,10 @@
 		getLastDur: function() {
 			// Provide a PUBLIC function to get the last entered duration
 			return this.lastDuration;
+		},
+		dateVisible: function() {
+			// Provide a PUBLIC function to see if selected calendar date is visible
+			return this.calDateVisible;
 		},
 		setTheDate: function( newDate ) {
 			// Provide a PUBLIC function to set the date

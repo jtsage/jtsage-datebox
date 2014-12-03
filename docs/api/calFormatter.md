@@ -30,6 +30,7 @@ The function must accept a single argument, which is an object of the Date:
 	"Date" : 1-31, // Integer
 	"ISO" : YYYY-MM-DD, // ISO Date Representation
 	"Comp" : YYYYMMDD, // Little endian date compare representation
+	"dateVisible" : bool // Selected date is on the screen
 }
 
 {% endhighlight %}

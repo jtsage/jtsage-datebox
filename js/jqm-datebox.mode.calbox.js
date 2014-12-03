@@ -161,6 +161,7 @@
 		"calbox": function () {
 			var tempVal, pickerControl, calContent, genny, weekdayControl, listControl,
 				row, col, rows, cols, htmlRow, i, prangeS, prangeL, fmtRet, fmtObj,
+				absStartDO, absEndDO,
 				w = this,
 				o = this.options,
 				dList = o.calDateList,
@@ -356,7 +357,7 @@
 						)
 					);
 				}
-				
+			
 				pickerControl.a.on( "change", function () {
 					if ( w.calBackDate === false ) { 
 						w.calBackDate = new Date(w.theDate.getTime());
@@ -364,6 +365,15 @@
 					w.theDate.setD( 1, $( this ).val() );
 					if ( w.theDate.get(1) !== parseInt( $( this ).val(), 10 ) ) {
 						w.theDate.setD( 2, 0 );
+					}
+					if ( w.calBackDate !== false ) {
+						w._t( {
+							method: "displayChange",
+							selectedDate: w.calBackDate,
+							shownDate: w.theDate,
+							thisChange: "p",
+							thisChangeAmount: null
+						});
 					}
 					w.refresh();
 				});
@@ -374,6 +384,15 @@
 					w.theDate.setD( 0, $( this ).val() );
 					if (w.theDate.get(1) !== parseInt( pickerControl.a.val(), 10)) {
 						w.theDate.setD( 2, 0 );
+					}
+					if ( w.calBackDate !== false ) {
+						w._t( {
+							method: "displayChange",
+							selectedDate: w.calBackDate,
+							shownDate: w.theDate,
+							thisChange: "p",
+							thisChangeAmount: null
+						});
 					}
 					w.refresh();
 				});
@@ -436,7 +455,33 @@
 				$.isFunction( window[ o.calFormatter ] ) ) {
 					o.calFormatter = window[ o.calFormatter ];
 			}
-
+			
+			absStartDO = new Date(
+				w.theDate.get(0),
+				genny[0][0][1],
+				genny[0][0][0],
+				0, 0, 0, 0 );
+			absEndDO = new Date(
+				w.theDate.get(0),
+				genny[genny.length-1][6][1],
+				genny[genny.length-1][6][0],
+				0, 0, 0, 0 );
+				
+			if ( w.calBackDate === false ) {
+				w.calDateVisible = true;
+			} else {
+				if ( o.calOnlyMonth ) {
+					w.calDateVisible = false; 
+				} else {
+					if ( w.calBackDate.comp() < absStartDO.comp() || 
+							w.calBackDate.comp() > absEndDO.comp() ) {
+						w.calDateVisible = false;
+					} else {
+						w.calDateVisible = true;
+					}
+				}
+			}	
+			
 			for ( row = 0, rows = genny.length; row < rows; row++ ) {
 				htmlRow = $("<div>", { "class": uid + "gridrow" } );
 				if ( w.__( "isRTL" ) ) { htmlRow.css( "direction", "rtl" ); }
@@ -487,6 +532,7 @@
 									w._zPad(fmtObj.Month + 1) + "-" + 
 									w._zPad(fmtObj.Date);
 								fmtObj.Comp = parseInt( fmtObj.ISO.replace( /-/g, "" ), 10 ); 
+								fmtObj.dateVisible = w.calDateVisible;
 								tempVal = o.calFormatter(fmtObj);
 								if ( typeof tempVal !== "object" ) {
 									fmtRet = { text: tempVal, "class": "" };
