@@ -146,7 +146,7 @@
 				} else if ( o.calHighToday && ret.comp === thisDate.comp() ) {
 					ret.theme = o.themeDateToday;
 				} else if ( o.calHighPick && w.calDateVisible && w.calBackDate !== false &&
-						w.calBackDate.comp() == ret.comp ) {
+						w.calBackDate.comp() === ret.comp ) {
 					ret.theme = o.themeDatePick;
 					ret.force = true;
 				} else if ( $.isArray(o.highDatesAlt) && 
