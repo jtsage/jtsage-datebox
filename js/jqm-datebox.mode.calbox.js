@@ -94,7 +94,8 @@
 					rectheme: false
 				};
 			
-			if ( month === 12 ) { ret.iso = (year + 1) + "-01-" + w._zPad(date); }
+			if ( month === 12 ) { ret.iso = ( year + 1 ) + "-01-" + w._zPad(date); }
+			if ( month === -1 ) { ret.iso = ( year - 1 ) + "-12-" + w._zPad(date); }
 			
 			ret.comp = parseInt( ret.iso.replace( /-/g, "" ), 10 );
 			
