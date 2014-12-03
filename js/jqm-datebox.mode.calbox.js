@@ -89,10 +89,13 @@
 					ok: true,
 					iso: year + "-" + w._zPad(month+1) + "-" + w._zPad(date),
 					theme: o.themeDate,
+					force: false,
 					recok: true,
 					rectheme: false
 				};
-				
+			
+			if ( month === 12 ) { ret.iso = (year + 1) + "-01-" + w._zPad(date); }
+			
 			ret.comp = parseInt( ret.iso.replace( /-/g, "" ), 10 );
 			
 			if ( bdRec !== false ) {
@@ -142,6 +145,10 @@
 					ret.theme = o.themeDatePick;
 				} else if ( o.calHighToday && ret.comp === thisDate.comp() ) {
 					ret.theme = o.themeDateToday;
+				} else if ( o.calHighPick && w.calDateVisible && w.calBackDate !== false &&
+						w.calBackDate.comp() == ret.comp ) {
+					ret.theme = o.themeDatePick;
+					ret.force = true;
 				} else if ( $.isArray(o.highDatesAlt) && 
 						($.inArray(ret.iso, o.highDatesAlt) > -1)
 					) {
@@ -546,7 +553,7 @@
 							$("<div>")
 								.html( fmtRet.text )
 								.addClass( uid + "griddate ui-corner-all ui-btn")
-								.addClass( curMonth === genny[row][col][1] ?
+								.addClass( ( curMonth === genny[row][col][1] || checked.force ) ?
 									( "ui-btn-" + checked.theme +
 										( checked.ok ? "" : " ui-state-disabled" )
 									) :
