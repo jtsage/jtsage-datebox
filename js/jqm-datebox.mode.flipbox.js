@@ -168,6 +168,19 @@
 			if ( !dur ) {
 				w._check();
 				w._minStepFix();
+			} else {
+				if ( o.minDur !== false &&
+						( w.theDate.getEpoch() - w.initDate.getEpoch() ) < o.minDur ) {
+					w.theDate = new Date( w.initDate.getTime() + ( o.minDur * 1000 ) );
+					w.lastDuration = o.minDur;
+					cDur = w._dur( o.minDur * 1000 );
+				}
+				if ( o.maxDur !== false &&
+						( w.theDate.getEpoch() - w.initDate.getEpoch() ) > o.maxDur ) {
+					w.theDate = new Date( w.initDate.getTime() + ( o.maxDur * 1000 ) );
+					w.lastDuration = o.maxDur;
+					cDur = w._dur( o.maxDur * 1000 );
+				}
 			}
 
 			if ( o.mode === "flipbox" ) { 

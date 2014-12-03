@@ -76,6 +76,8 @@
 			whiteDates: true,
 			minHour: false,
 			maxHour: false,
+			maxDur: false,
+			minDur: false,
 			minuteStep: 1,
 			minuteStepRound: 0,
 
