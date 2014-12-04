@@ -39,5 +39,6 @@ $(input).bind('datebox', function (e, passed) {
    - *i* - Minute
    - *s* - Second
    - *a* - Meridiem
- - **thisChangeAmount**: Amount of change, +/-
+   - *p* - Special Case - offset changed by the picker controls (month/year)
+ - **thisChangeAmount**: Amount of change, +/- (or, in the case of thisChange === "p", it will be null)
 
