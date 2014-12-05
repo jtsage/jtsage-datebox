@@ -11,12 +11,13 @@
 
 			// 3-jQueryMobileVersion
 			// Check Header for Build Date.
-			version: "3-1.4.5-04", 
+			version: "3-1.4.5-05", 
 
 			theme: false,
 			themeDefault: "a",
 			themeHeader: "a",
 			themeSetButton: "a",
+			themeCloseButton: false,
 			mode: false,
 
 			transition: "fade",
@@ -1220,7 +1221,9 @@
 
 			if ( o.useHeader ) {
 				w.d.mainWrap.append( $( "<a href='#'>Close</a>" )
-					.addClass( "ui-btn-left ui-link ui-btn ui-btn-a ui-icon-delete " + 
+					.addClass( "ui-btn-left ui-link ui-btn ui-btn-" +
+						( ( o.themeCloseButton === false ) ? o.themeHeader : o.themeCloseButton ) +
+						" ui-icon-delete " + 
 						"ui-btn-icon-notext ui-shadow ui-corner-all"
 					)
 					.on( o.clickEventAlt, function( e ) {
