@@ -21,4 +21,4 @@ detailed in the API documentation, but they are:
  - {% api_doc refresh %} : Receive: Datebox has been refreshed
  - {% api_doc clear %} : Receive: Datebox input has been cleared
  - {% api_doc offset %} : Receive: Date has been changed
- - {% api_doc displayChange %} : Receive: Calendar date display has been changed
+ - {% api_doc displayChange %} : Receive: Calendar date display has been changed, and selected date is not in currently displayed month.
