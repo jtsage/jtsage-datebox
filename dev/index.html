@@ -29,7 +29,7 @@
 	<script type="text/javascript" src="../js/jqm-datebox.mode.flipbox.js"></script>
 	
 	<script type="text/javascript" src="../js/jqm-datebox.mode.slidebox.js"></script>
-	<script type="text/javascript" src="../js/jqm-datebox.mode.customflip.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.mode.custombox.js"></script>
 	<script type="text/javascript" src="./jqm-datebox-devtool.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/datebox/i18n/jqm-datebox.lang.utf8.js"></script>
 	
@@ -58,6 +58,11 @@
 			calFormatter: "fmtMe",
 			minDur: 34652,
 			maxDur: 34700,
+			customData: [
+				{"input": false, "name": "Wheel1", "data":["a","b","c","d"]},
+				{"input": false, "name": "Wheel2", "data":["a","b","c","d"]},
+				{"input": false, "name": "Wheel3", "data":["a","b","c","d"]},
+			],
 			overrideSlideFieldOrder: ["y","a","m","d","h","i"]
 		});
 	</script>
@@ -76,7 +81,7 @@
 
 		<div class="ui-field-contain">
 			<label for="lang1">yep</label>
-			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="durationbox" id="lang1" data-options='{"overrideDurationOrder": ["h","i","s"], "overrideDurationFormat":"%Dl:%DM:%DS"}' />
+			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="custombox" id="lang1" data-options='{"overrideDurationOrder": ["h","i","s"], "overrideDurationFormat":"%Dl:%DM:%DS"}' />
 		</div>
 		<div class="ui-field-contain">
 			<label for="ba1">text comparison</label>

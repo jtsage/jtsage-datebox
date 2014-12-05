@@ -107,6 +107,7 @@
 				( ( w._grabLabel() !== false ) ? w._grabLabel() : "" ) );
 				
 			w.d.intHTML = $( "<span>" );
+			w.dateOK = true;
 			
 			for( i = 0; i < o.customData.length; i++ ) {
 				tmp = w._gridblk.b[ i ];
@@ -138,7 +139,21 @@
 				y = $( "<div>", { "class": uid + "controls" } );
 				
 				if ( o.useSetButton ) {
-					y.append( w._stdBtn.close.apply( w, w.__( "customSet" ) ) );
+					y.append(
+						$( "<a href='#' role='button'>" + w.__( "customSet" ) + "</a>" )
+							.addClass( "ui-btn ui-btn-" + o.themeSetButton + 
+								" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all"
+							)
+							.on(o.clickEventAlt, function(e) {
+								e.preventDefault();
+								w._t( { 
+									method: "set", 
+									value: w._formatter( o.customFormat, w.customCurrent ),
+									date: w.customCurrent
+								} );
+								w._t( { method: "close" } );
+							})
+					);
 				}
 				if ( o.useClearButton ) {
 					y.append( w._stdBtn.clear.apply( w ) );
