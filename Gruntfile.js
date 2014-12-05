@@ -94,7 +94,9 @@ module.exports = function(grunt) {
 			lat_main: {
 				src: [
 						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.*.js"
+						"js/jqm-datebox.mode.*.js",
+						"!js/jqm-datebox.mode.custombox.js"
+						
 				],
 				dest: "dist/latest/jqm-datebox.all.js"
 			},
@@ -103,6 +105,7 @@ module.exports = function(grunt) {
 						"build/wrap.begin",
 						"js/jqm-datebox.core.js",
 						"js/jqm-datebox.mode.*.js",
+						"!js/jqm-datebox.mode.custombox.js",
 						"build/wrap.end"
 				],
 				dest: "dist/latest/jqm-datebox.all.amd.js"
@@ -111,6 +114,7 @@ module.exports = function(grunt) {
 				src: [
 						"js/jqm-datebox.core.js",
 						"js/jqm-datebox.mode.*.js",
+						"!js/jqm-datebox.mode.custombox.js",
 						"!js/jqm-datebox.mode.customflip.js"
 				],
 				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.all.js"
@@ -118,7 +122,8 @@ module.exports = function(grunt) {
 			ver_extra: {
 				src: [
 						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.*.js"
+						"js/jqm-datebox.mode.*.js",
+						"!js/jqm-datebox.mode.custombox.js"
 				],
 				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.allextra.js"
 			},
@@ -156,6 +161,13 @@ module.exports = function(grunt) {
 						"js/jqm-datebox.mode.customflip.js"
 				],
 				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.comp.customflip.js"
+			},
+			ver_comp_custombox: {
+				src: [
+						"js/jqm-datebox.core.js",
+						"js/jqm-datebox.mode.custombox.js"
+				],
+				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.comp.custombox.js"
 			}
 		},
 		copy: {
@@ -396,6 +408,7 @@ module.exports = function(grunt) {
 		"concat:ver_comp_flipbox",
 		"concat:ver_comp_slidebox",
 		"concat:ver_comp_customflip",
+		"concat:ver_comp_custombox",
 		"copy:release",
 		"copy:release_css",
 		"uglify:release",
