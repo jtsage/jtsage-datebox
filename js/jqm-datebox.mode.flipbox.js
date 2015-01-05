@@ -239,7 +239,7 @@
 				
 				hRow = w._makeEl( flipBase, { "attr": { 
 					"field": currentTerm,
-					"amount": 1
+					"amount": (currentTerm === "i") ? o.minuteStep : 1
 				} } );
 				hRowIn = hRow.find( "ul" );
 						
@@ -248,7 +248,10 @@
 					for ( i = -1 * o.flen[currentTerm]; i < ( o.flen[currentTerm] + 1 ); i++ ) {
 						$("<li class='ui-body-" + 
 								(( i !== 0 ) ? o.themeDate : o.themeDatePick) + "'><span>" + 
-								w._fbox_mktxt[currentTerm].apply(w, [i]) + "</span></li>")
+								w._fbox_mktxt[currentTerm].apply(
+									w,
+									[(currentTerm === "i") ? i * o.minuteStep : i]
+								) + "</span></li>")
 							.appendTo( hRowIn );
 					}
 					hRow.appendTo( ctrl );
