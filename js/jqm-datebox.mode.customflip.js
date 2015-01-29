@@ -212,7 +212,7 @@
 
 			$(document).one( "popupafteropen", function() { 
 				// This fixes bad positioning on initial open - not found a way around this yet.
-				w._fbox_pos(); 
+				w._cubox_pos(); 
 			});
 
 			w.fldOrder = w._cubox_range(o.customData.length);
