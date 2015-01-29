@@ -310,7 +310,7 @@
 			}
 			if ( o.maxDays !== false ) {
 				maxDate.adj( 2, o.maxDays );
-				tempVal = minDate.getArray();
+				tempVal = maxDate.getArray();
 				if ( curDateArr[0] === tempVal[0] && curDateArr[1] >= tempVal[1] ) {
 					w.calNext = false;
 				}
