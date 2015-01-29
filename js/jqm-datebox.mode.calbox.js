@@ -27,6 +27,7 @@
 		calUsePickers: false,
 		calNoHeader: false,
 		calFormatter: false,
+		calAlwaysValidateDates: false,
 		
 		calYearPickMin: -6,
 		calYearPickMax: 6,
@@ -203,7 +204,7 @@
 				cMonthEnd = 32 - w.theDate.copy([0],[0,0,32,13]).getDate(),
 				cPrevMonthEnd = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate(),
 				checkDates = ( 
-						o.afterToday || o.beforeToday || o.notToday || 
+						o.afterToday || o.beforeToday || o.notToday || o.calAlwaysValidateDates || 
 						o.maxDays || o.minDays || o.blackDays || o.blackDates 
 					) ?
 					true :
