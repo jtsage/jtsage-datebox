@@ -8,7 +8,7 @@ modes: [
 cats: [ 'i18n' ]
 relat: "i18n"
 layout: api
-defval: "array('m', 'd', 'y']"
+defval: "array('m', 'd', 'y')"
 dattype: "Array"
 ---
 
