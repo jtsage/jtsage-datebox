@@ -17,6 +17,10 @@ the element.  These should be set to an ISO style date string i.e. 2000-01-01
 
 # Today booleans
 
+These are *exclusive* switches - so afterToday means "selected date must be *after* today's date (or on it)", beforeToday means "selected date must be *before* today's date (or on it)",
+notToday means "slected date can not be today's date"
+
+
 <div class="ui-field-contain">
 	<label for="cal1a">{% api_doc afterToday %}</label>
 	<select id="cal1a" data-link="cal1" data-opt="afterToday" data-role="flipswitch" class="demopick"><option value="false">False</option><option value="true">True</option></select>
