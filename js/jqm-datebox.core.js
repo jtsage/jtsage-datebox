@@ -11,7 +11,7 @@
 
 			// 3-jQueryMobileVersion
 			// Check Header for Build Date.
-			version: "3-1.4.5-05", 
+			version: "3-1.4.5-06", 
 
 			theme: false,
 			themeDefault: "a",
@@ -959,10 +959,13 @@
 				evtid = ".datebox" + this.uuid,
 				touch = ( typeof window.ontouchstart !== "undefined" ),
 				drag = {
-					eStart : (touch ? "touchstart" : "mousedown" ) + evtid,
-					eMove  : (touch ? "touchmove" : "mousemove" ) + evtid,
-					eEnd   : (touch ? "touchend" : "mouseup" ) + evtid,
-					eEndA  : (touch ?
+					eStart : "touchstart" + evtid + " mousedown" + evtid,
+					// (touch ? "touchstart" : "mousedown" ) + evtid,
+					eMove  : "touchmove" + evtid + " mousemove" + evtid,
+					//(touch ? "touchmove" : "mousemove" ) + evtid,
+					eEnd   : "touchend" + evtid + " mouseup" + evtid,
+					//(touch ? "touchend" : "mouseup" ) + evtid,
+					eEndA  : (true ?
 						(["mouseup","touchend","touchcanel","touchmove"].join(evtid+" ") + evtid) :
 						"mouseup" + evtid
 					),
@@ -1382,7 +1385,7 @@
 				w = this,
 				o = this.options,
 				now = this.theDate;
-
+			
 			w.dateOK = true;
 			if ( typeof o.mode === "undefined") { return true; }
 
@@ -1452,8 +1455,9 @@
 					}
 				}
 				if ( o.whiteDates !== false ) {
-					if ( $.inArray( now.iso(), o.whiteDates ) > -1 ) { 
-						w.dateOK = true; 
+					if ( $.inArray( w.theDate.iso(), o.whiteDates ) > -1 ) { 
+						w.dateOK = true;
+						now = w.theDate;
 					}
 				}
 			}
