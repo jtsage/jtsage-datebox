@@ -177,7 +177,9 @@
 					g.move = true;
 					g.target = $(this);
 					g.pos = parseInt(g.target.css( "marginLeft" ).replace(/px/i, ""),10);
-					g.start = (e.type.substr(0,5) === "touch") ? e.originalEvent.changedTouches[0].pageX : e.pageX;
+					g.start = ( e.type.substr(0,5) === "touch" ) ? 
+						e.originalEvent.changedTouches[0].pageX : 
+						e.pageX;
 					g.end = false;
 					e.stopPropagation();
 					e.preventDefault();
@@ -193,7 +195,9 @@
 			
 			$(document).on(g.eMove, function(e) {
 				if ( g.move && o.mode === "slidebox") {
-					g.end = (e.type.substr(0,5) === "touch") ? e.originalEvent.changedTouches[0].pageX : e.pageX;
+					g.end = ( e.type.substr(0,5) === "touch" ) ? 
+						e.originalEvent.changedTouches[0].pageX : 
+						e.pageX;
 					g.target.css( "marginLeft", (g.pos + g.end - g.start) + "px" );
 					e.preventDefault();
 					e.stopPropagation();

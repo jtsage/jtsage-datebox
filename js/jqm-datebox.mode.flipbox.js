@@ -320,7 +320,9 @@
 					g.move = true;
 					g.target = $(this).find( "li" ).first();
 					g.pos = parseInt(g.target.css("marginTop").replace(/px/i, ""),10);
-					g.start = (e.type.substr(0,5) === "touch") ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+					g.start = ( e.type.substr(0,5) === "touch" ) ? 
+						e.originalEvent.changedTouches[0].pageY : 
+						e.pageY;
 					g.end = false;
 					g.direc = ( dur ) ? -1 : 1;
 					e.stopPropagation();
@@ -343,7 +345,9 @@
 			
 			$(document).on(g.eMove, function(e) {
 				if ( g.move && o.mode.slice(-7) === "flipbox" ) {
-					g.end = (e.type.substr(0,5) === "touch") ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+					g.end = ( e.type.substr(0,5) === "touch" ) ? 
+						e.originalEvent.changedTouches[0].pageY : 
+						e.pageY;
 					g.target.css("marginTop", (g.pos + g.end - g.start) + "px");
 					e.preventDefault();
 					e.stopPropagation();
