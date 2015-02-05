@@ -64,6 +64,7 @@
 			}
 			
 			if ( dur ) {
+				w.lastDuration = i / 1000;
 				if ( o.minDur !== false &&
 						( w.theDate.getEpoch() - w.initDate.getEpoch() ) < o.minDur ) {
 					w.theDate = new Date( w.initDate.getTime() + ( o.minDur * 1000 ) );

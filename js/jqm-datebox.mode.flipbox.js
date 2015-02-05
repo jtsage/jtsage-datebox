@@ -133,6 +133,8 @@
 			if ( ti < 0 ) {
 				w.lastDuration = 0;
 				if ( dur ) { w.theDate.setTime( w.initDate.getTime() ); }
+			} else {
+				if ( dur ) { w.lastDuration = ti / 1000; }
 			}
 
 			if ( typeof w.d.intHTML !== "boolean" ) {
