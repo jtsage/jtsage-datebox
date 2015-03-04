@@ -7,6 +7,7 @@
 		themeButton: "a",
 		themeInput: "a",
 		useSetButton: true,
+		useCancelButton: false,
 		validHours: false,
 		repButton: true,
 		durationStep: 1,
@@ -349,6 +350,9 @@
 				}
 				if ( o.useClearButton ) {
 					y.append(w._stdBtn.clear.apply(w));
+				}
+				if (o.useCancelButton) {
+				    y.append(w._stdBtn.cancel.apply(w))
 				}
 				if ( o.useCollapsedBut ) {
 					y.controlgroup({ type: "horizontal" });
