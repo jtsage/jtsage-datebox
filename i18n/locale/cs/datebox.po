@@ -231,7 +231,7 @@ msgstr "Nastavit čas"
 
 #: generate-i18n.py:24
 msgid "Choose Time"
-msgstr "Zvolit čas"
+msgstr "Zvolte čas"
 
 #. Abbreviation for the day 'Sunday'
 #: generate-i18n.py:26
