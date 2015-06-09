@@ -1502,18 +1502,18 @@
 			return o.overrideDialogLabel;
 		},
 		_stdBtn: {
-		    cancel: function (txt) {
-		        var w = this, o = this.options;
-		        return $("<a href='#' role='button'>" + w.__("cancelButton") + "</a>")
+			cancel: function (txt) {
+				var w = this, o = this.options;
+				return $("<a href='#' role='button'>" + w.__("cancelButton") + "</a>")
 					.addClass(
 						"ui-btn ui-btn-" + o.themeClearButton +
 						" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all"
 					)
 					.on(o.clickEventAlt, function (e) {
-					    e.preventDefault();
-					    w._t({ method: "close" });
+						e.preventDefault();
+						w._t({ method: "close" });
 					});
-		    },
+			},
 			clear: function() {
 				var w = this, o = this.options;
 				return $( "<a href='#' role='button'>" + w.__( "clearButton" ) + "</a>" )

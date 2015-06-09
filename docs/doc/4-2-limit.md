@@ -74,6 +74,14 @@ Note: valid hours is an array.  i.e. [1,2,3,4]
 	<input id="cal3b" data-link="cal3" data-opt="maxHour" value="false" type="text" class="demopick">
 </div>
 <div class="ui-field-contain">
+	<label for="cal3e">{% api_doc minTime %}</label>
+	<input id="cal3e" data-link="cal3" data-opt="minTime" value="false" type="text" class="demopick">
+</div>
+<div class="ui-field-contain">
+	<label for="cal3f">{% api_doc maxTime %}</label>
+	<input id="cal3f" data-link="cal3" data-opt="maxTime" value="false" type="text" class="demopick">
+</div>
+<div class="ui-field-contain">
 	<label for="cal3c">{% api_doc minuteStep %}</label>
 	<input id="cal3c" data-link="cal3" data-opt="minuteStep" value="1" type="text" class="demopick">
 </div>
