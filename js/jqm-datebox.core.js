@@ -1502,7 +1502,7 @@
 			return o.overrideDialogLabel;
 		},
 		_stdBtn: {
-			cancel: function (txt) {
+			cancel: function() {
 				var w = this, o = this.options;
 				return $("<a href='#' role='button'>" + w.__("cancelButton") + "</a>")
 					.addClass(

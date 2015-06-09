@@ -352,7 +352,7 @@
 					y.append(w._stdBtn.clear.apply(w));
 				}
 				if (o.useCancelButton) {
-				    y.append(w._stdBtn.cancel.apply(w))
+				    y.append(w._stdBtn.cancel.apply(w));
 				}
 				if ( o.useCollapsedBut ) {
 					y.controlgroup({ type: "horizontal" });
