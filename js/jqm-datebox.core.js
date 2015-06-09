@@ -11,7 +11,7 @@
 
 			// 3-jQueryMobileVersion
 			// Check Header for Build Date.
-			version: "3-1.4.5-06", 
+			version: "3-1.4.5-07", 
 
 			theme: false,
 			themeDefault: "a",
@@ -77,6 +77,8 @@
 			whiteDates: true,
 			minHour: false,
 			maxHour: false,
+			minTime: false,
+			maxTime: false,
 			maxDur: false,
 			minDur: false,
 			minuteStep: 1,
@@ -1382,7 +1384,7 @@
 		},
 		_check: function() {
 			// Check to see if a date is valid.
-			var td, year, month, date, i,
+			var td, year, month, date, i, tihm,
 				w = this,
 				o = this.options,
 				now = this.theDate;
@@ -1417,6 +1419,18 @@
 				if ( now.get(3) > o.maxHour ) {
 					now.setD( 3, o.maxHour );
 				}
+			}
+			if ( o.minTime !== false ) {
+				td = new w._date();
+				tihm = o.minTime.split(":"); 
+				td.setD( 3, tihm[0] ).setD( 4, tihm[1] );
+				if ( now < td ) { now = td; }
+			}
+			if ( o.maxTime !== false ) {
+				td = new w._date();
+				tihm = o.maxTime.split(":"); 
+				td.setD( 3, tihm[0] ).setD( 4, tihm[1] );
+				if ( now > td ) { now = td; }
 			}
 			if ( o.maxYear !== false ) {
 				td = new w._date( o.maxYear, 11, 31 );
