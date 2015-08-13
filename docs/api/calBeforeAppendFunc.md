@@ -26,6 +26,7 @@ Standard data on each box:
 	month: ##, // Numeric Month, zero based.
 }
 
+{% endhighlight %}
 
 {% highlight js %}
 window.printData = function( myObject ) {
