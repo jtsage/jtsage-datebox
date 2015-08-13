@@ -35,6 +35,7 @@
 			showInitialValue: false,
 
 			popupPosition: false,
+			popupButtonPosition: "left",
 			popupForceX: false,
 			popupForceY: false,
 
@@ -1231,7 +1232,7 @@
 
 			if ( o.useHeader ) {
 				w.d.mainWrap.append( $( "<a href='#'>Close</a>" )
-					.addClass( "ui-btn-left ui-link ui-btn ui-btn-" +
+					.addClass( "ui-btn-" + o.popupButtonPosition + " ui-link ui-btn ui-btn-" +
 						( ( o.themeCloseButton === false ) ? o.themeHeader : o.themeCloseButton ) +
 						" ui-icon-delete " + 
 						"ui-btn-icon-notext ui-shadow ui-corner-all"
