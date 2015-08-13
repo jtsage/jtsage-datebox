@@ -935,6 +935,8 @@
 				.off( "focus.datebox" )
 				.off( "blur.datebox" )
 				.off( "change.datebox" );
+
+			w.d.mainWrap.popup("destroy");
 				
 			$( document )
 				.off( w.drag.eMove )
