@@ -31,6 +31,8 @@
 		
 		calYearPickMin: -6,
 		calYearPickMax: 6,
+
+		calBeforeAppendFunc: function(t) { return t; },
 		
 		useTodayButton: false,
 		useTomorrowButton: false,
@@ -558,33 +560,34 @@
 									};
 								}
 							}
-							$("<div>")
-								.html( fmtRet.text )
-								.addClass( uid + "griddate ui-corner-all ui-btn")
-								.addClass( ( curMonth === genny[row][col][1] || checked.force ) ?
-									( "ui-btn-" + checked.theme +
-										( checked.ok ? "" : " ui-state-disabled" )
-									) :
-									( uid + "griddate-empty" )
-								)
-								.addClass( fmtRet["class"] )
-								.css(( curMonth !== genny[row][col][1] && !o.calOnlyMonth ) ?
-									{ cursor: "pointer" } :
-									{}
-								)
-								.data( "date", 
-									( ( o.calWeekMode ) ?
-										weekModeSel :
-										genny[row][col][0] )
-								)
-								.data( "enabled", checked.ok)
-								.data( "month",
-									genny[ row ][ ( ( o.calWeekMode ) ?
-											o.calWeekModeDay :
-											col
-										) ][1]
-								)
-								.appendTo( htmlRow );
+							o.calBeforeAppendFunc(
+								$("<div>")
+									.html( fmtRet.text )
+									.addClass( uid + "griddate ui-corner-all ui-btn")
+									.addClass( ( curMonth === genny[row][col][1] || checked.force ) ?
+										( "ui-btn-" + checked.theme +
+											( checked.ok ? "" : " ui-state-disabled" )
+										) :
+										( uid + "griddate-empty" )
+									)
+									.addClass( fmtRet["class"] )
+									.css(( curMonth !== genny[row][col][1] && !o.calOnlyMonth ) ?
+										{ cursor: "pointer" } :
+										{}
+									)
+									.data( "date", 
+										( ( o.calWeekMode ) ?
+											weekModeSel :
+											genny[row][col][0] )
+									)
+									.data( "enabled", checked.ok)
+									.data( "month",
+										genny[ row ][ ( ( o.calWeekMode ) ?
+												o.calWeekModeDay :
+												col
+											) ][1]
+									)
+								).appendTo( htmlRow );
 						}
 					}
 				}
