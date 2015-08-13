@@ -490,8 +490,8 @@
 					yday: false,
 					meri: 0
 				};
-				
-			str = $.trim( ( ( w.__( "useArabicIndic" ) === true ) ? 
+			
+			str = $.trim( ( ( w.__( "useArabicIndic" ) === true && typeof str !== "undefined" ) ? 
 					w._dRep( str, -1 ) : 
 					str 
 				) );
