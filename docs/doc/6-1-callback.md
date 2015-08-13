@@ -46,6 +46,7 @@ The first argument to any callback function, open or close, is an object of "use
  - *initDate* : The JavaScript date object that holds the widget creation time/date. Always defined.
  - *duration* : The last entered duration, in seconds for duration modes - undefined if not.
  - *custom* : The array of chosen CustomFlip indexes if appropriate, undefined if not.
+ - *cancelClose* : [Close only] - If the close action was triggered by a user cancel (true), or by setting the date (false)
 
  The second and beyond arguments are the members of the closeCallbackArgs / openCallbackArgs array.  When
  writing functions, it is important to keep in mind that openCallBackArgs[0] === arguments[1].

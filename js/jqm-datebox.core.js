@@ -294,6 +294,8 @@
 			if ( ! e.isPropagationStopped() ) {
 				switch (p.method) {
 					case "close":
+						if ( typeof p.closeCancel === "undefined" ) { p.closeCancel = false; }
+						w.cancelClose = p.closeCancel;
 						w.close();
 						break;
 					case "open":
@@ -999,6 +1001,7 @@
 
 			o.theme = thisTheme;
 
+			w.cancelClose = false;
 			w.calBackDate = false;
 			w.calDateVisible = true;
 			w.disabled = false;
@@ -1239,7 +1242,7 @@
 					)
 					.on( o.clickEventAlt, function( e ) {
 						e.preventDefault();
-						w._t( { method: "close" } );
+						w._t( { method: "close", closeCancel: true } );
 					} )
 				);
 				w.d.mainWrap.append( $( "<div class='ui-header ui-bar-" + o.themeHeader + "'>" + 
@@ -1309,7 +1312,8 @@
 						custom: w.customCurrent,
 						initDate: w.initDate,
 						date: w.theDate,
-						duration: w.lastDuration
+						duration: w.lastDuration,
+						cancelClose: w.cancelClose
 					}], o.closeCallbackArgs ) );
 				};
 			}
@@ -1516,7 +1520,7 @@
 					)
 					.on(o.clickEventAlt, function (e) {
 						e.preventDefault();
-						w._t({ method: "close" });
+						w._t({ method: "close", closeCancel: true });
 					});
 			},
 			clear: function() {
@@ -1530,7 +1534,7 @@
 						e.preventDefault();
 						w.d.input.val("");
 						w._t( { method: "clear" } );
-						w._t( { method: "close" } );
+						w._t( { method: "close", closeCancel: true } );
 					});
 			},
 			close: function(txt) {
