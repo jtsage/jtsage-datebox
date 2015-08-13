@@ -375,7 +375,7 @@
 			if ( typeof o[ oride ] !== "undefined" ) {
 				return o[ oride ]; 
 			}
-			if ( typeof lang[ val ] !== "undefined" ) {
+			if ( typeof lang !== "undefined" && typeof lang[ val ] !== "undefined" ) {
 				return lang[ val ];
 			}
 			if ( ( typeof mode !== "undefined" ) && ( typeof mode[ val ] !== "undefined" ) ) { 
