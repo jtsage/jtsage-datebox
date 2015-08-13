@@ -1,5 +1,5 @@
 457  J.T.Sage <jtsage+tdtrac@gmail.com>
-328  JTSage <jtsage+datebox@gmail.com>
+334  JTSage <jtsage+datebox@gmail.com>
 121  J.T. Sage <jtsage+github@gmail.com>
 15   Jonas Nyrup <jnyrup@gmail.com>
 10   Eduardo Malpeli <tchatcho66@hotmail.com>
@@ -45,5 +45,6 @@
 1    Zbigniew Motyka <zbigniewmotyka@o2.pl>
 1    begmandev <joel.bagley@gmail.com>
 1    ceblanda <christine.blanda@jenzabar.net>
+1    defacto133 <defacto133@gmail.com>
 1    josher19 <josher19@gmail.com>
 1    unknown <marin@.(none)>

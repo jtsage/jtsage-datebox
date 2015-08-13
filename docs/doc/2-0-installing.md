@@ -116,4 +116,15 @@ wish to use in a single file.  There is a python-based build utility specificall
 for that available [in the repository](https://github.com/jtsage/jquery-mobile-datebox/tree/master/build).
 Hopefully sometime soon there will be a web-based tool available for this purpose.
 
+### Custom jQueryMobile Builds
+As of 1.4.5, the minimum options I believe nessasary are:
+
+* Core : All
+* Events: All (added by Core::init)
+* Forms: Fieldcontainers, Controlgroups, Text Inputs & Textareas
+* Navigation: All (added by Core::init)
+* Transitions: Concurrent, Handlers, Serial, Core (added by Core::init) **AND Pop Transition**
+* Utilities: Degrade, Link, Match Media, Zoom (added by Core::init)
+* Widgets: First & Last, Loading (added by Core::init) **AND Popups**
+
 

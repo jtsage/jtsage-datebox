@@ -11,7 +11,7 @@
 
 			// 3-jQueryMobileVersion
 			// Check Header for Build Date.
-			version: "3-1.4.5-07", 
+			version: "3-1.4.5-08", 
 
 			theme: false,
 			themeDefault: "a",
