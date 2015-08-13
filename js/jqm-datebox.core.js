@@ -584,7 +584,7 @@
 			exp_format = adv.exec(w.__fmt());
 
 			if ( exp_input === null || exp_input.length !== exp_format.length ) {
-				if ( defVal !== false ) {
+				if ( defVal !== false && defVal !== "" ) {
 					switch ( typeof defVal ) {
 						case "object":
 							if ( $.isFunction( defVal.getDay ) ) {
