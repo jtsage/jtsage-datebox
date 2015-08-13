@@ -279,6 +279,8 @@
 			if ( o.calNoHeader ) { 
 				if ( o.calUsePickersIcons ) {
 					w.d.intHTML.find( "." + uid + "gridlabel" ).hide();
+					w.d.intHTML.find( "." + uid + "gridplus" ).find('.ui-btn-inline').addClass(uid + "nomargbtn");
+					w.d.intHTML.find( "." + uid + "gridminus" ).find('.ui-btn-inline').addClass(uid + "nomargbtn");
 				} else {
 					w.d.intHTML.find( "." + uid + "gridheader" ).remove();
 				}

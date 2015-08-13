@@ -126,8 +126,14 @@ div.ui-datebox-container.ui-datebox-inline {
 	text-align: center;
 }
 .ui-datebox-gridheader .ui-btn-inline { 
-	margin-right: 0;
+	margin-right: 5px;
+	margin-left: 5px;
 }
+.ui-datebox-gridheader .ui-datebox-nomargbtn { 
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
 .ui-datebox-gridheader h4 { 
 	text-align: center;
 	display: inline-block;

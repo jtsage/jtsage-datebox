@@ -3,7 +3,7 @@
  * Copyright (c) JTSage
  * CC 3.0 Attribution.  May be relicensed without permission/notification.
  * https://github.com/jtsage/jquery-mobile-datebox
- * Generated: 2014-11-10T14:32:36-05:00 (from theme builder)
+ * Generated: 2015-08-13T12:33:19-04:00 (from theme builder)
  */
  
 /* 
@@ -67,8 +67,14 @@ div.ui-datebox-container.ui-datebox-inline {
 	text-align: center;
 }
 .ui-datebox-gridheader .ui-btn-inline { 
-	margin-right: 0;
+	margin-right: 5px;
+	margin-left: 5px;
 }
+.ui-datebox-gridheader .ui-datebox-nomargbtn { 
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
 .ui-datebox-gridheader h4 { 
 	text-align: center;
 	display: inline-block;
