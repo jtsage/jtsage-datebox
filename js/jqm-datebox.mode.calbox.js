@@ -472,6 +472,12 @@
 				$.isFunction( window[ o.calFormatter ] ) ) {
 					o.calFormatter = window[ o.calFormatter ];
 			}
+
+			if ( ! $.isFunction( o.calBeforeAppendFunc ) && 
+				o.calBeforeAppendFunc !== false &&
+				$.isFunction( window[ o.calBeforeAppendFunc ] ) ) {
+					o.calBeforeAppendFunc = window[ o.calBeforeAppendFunc ];
+			}
 			
 			absStartDO = new Date(
 				w.theDate.get(0),
