@@ -351,7 +351,11 @@
 					ms / ( 1000 ) % 60,
 				];
 			$.each(dur, function(a,b){
-				dur[a] = parseInt(b, 10);
+				if ( b < 0 ) { 
+					dur[a] = 0;
+				} else { 
+					dur[a] = Math.floor(b);
+				}
 			});
 			return dur;
 		},
