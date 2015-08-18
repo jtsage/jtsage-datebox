@@ -85,7 +85,7 @@
 				minDate = done.i,
 				thisDate = done.t,
 				presetDay = done.p,
-				day = new this._date(year,month,date,0,0,0,0).getDay(),
+				day = new this._date(year,month,date,12,0,0,0).getDay(),
 				bdRec = o.blackDatesRec,
 				hdRec = o.highDatesRec,
 				ret = {
@@ -570,7 +570,7 @@
 								$("<div>")
 									.html( fmtRet.text )
 									.addClass( uid + "griddate ui-corner-all ui-btn")
-									.addClass( ( curMonth === genny[row][col][1] || checked.force ) ?
+									.addClass(( curMonth === genny[row][col][1] || checked.force) ?
 										( "ui-btn-" + checked.theme +
 											( checked.ok ? "" : " ui-state-disabled" )
 										) :

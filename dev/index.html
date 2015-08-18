@@ -51,13 +51,15 @@
 			useCollapsedBut: false,
 			calShowWeek: false,
 			themeCloseButton: "b",
-			calUsePickers: true,
-			calUsePickersIcons: true,
-			calNoHeader: true,
-			calControlGroup: false,
-			defaultValue: "",
-			calFormatter: "fmtMe",
-			popupButtonPosition: "right",
+			//calUsePickers: true,
+			//calUsePickersIcons: true,
+			//calNoHeader: true,
+			//calControlGroup: false,
+			//defaultValue: "",
+			//calFormatter: "fmtMe",
+			//popupButtonPosition: "right",
+			blackDays : [1,2,3,4,5,6],
+			overrideCalStartDay : 1,
 			//minDur: 34652,
 			//maxDur: 34700,
 			customData: [
@@ -84,7 +86,7 @@
 
 		<div class="ui-field-contain">
 			<label for="lang1">yep</label>
-			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="timeflipbox" id="lang1" data-options='{"overrideDurationOrder": ["h","i","s"], "overrideDurationFormat":"%Dl:%DM:%DS"}' />
+			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang1" data-options='{"overrideDurationOrder": ["h","i","s"], "overrideDurationFormat":"%Dl:%DM:%DS"}' />
 		</div>
 		<div class="ui-field-contain">
 			<label for="ba1">text comparison</label>
