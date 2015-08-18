@@ -16,17 +16,20 @@ This option allows you to define a custom function that is called on the **gener
 
 It provides a jQuery object, it expects you to return a jQuery object.
 
-Standard data on each box:
+The provided object (in a single argument), is the generated, **complete** jQuery object for the date box, which also has 
+the following data pre-defined:
 
 {% highlight js %}
 
 {
 	date: ##, // Numeric Date
-	enabled: true, // Date can be clicked
-	month: ##, // Numeric Month, zero based.
+	enabled: true, // Date can be selected
+	month: ##, // Numeric Month, zero based
 }
 
 {% endhighlight %}
+
+Example function:
 
 {% highlight js %}
 window.printData = function( myObject ) {
