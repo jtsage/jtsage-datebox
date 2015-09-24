@@ -4,17 +4,6 @@
 
 (function($) {
 	$.extend( $.jtsage.datebox.prototype.options, {
-		themeDateToday: "b",
-		themeDayHigh: "b",
-		themeDatePick: "b",
-		themeDateHigh: "b",
-		themeDateHighAlt: "b",
-		themeDateHighRec: "b",
-		themeDate: "a",
-		
-		calNextMonthIcon: "plus",
-		calPrevMonthIcon: "minus",
-		
 		calHighToday: true,
 		calHighPick: true,
 		
@@ -44,7 +33,7 @@
 		highDatesAlt: false,
 		enableDates: false,
 		calDateList: false,
-		calShowDateList: false
+		calShowDateList: false,
 	});
 	$.extend( $.jtsage.datebox.prototype, {
 		_cal_gen: function (start,prev,last,other,month) {
@@ -231,20 +220,25 @@
 			);
 			w.d.intHTML = $( "<span>" );
 
-			$("<div class='" + uid + "gridheader'><div class='" + uid + "gridlabel'><h4>" +
-				w._formatter( w.__( "calHeaderFormat" ), w.theDate ) +
-				"</h4></div></div>")
-					.appendTo(w.d.intHTML);
+			$( w._spf("<div class='{cl1}'><div class='{cl2}'><h4>{content}</h4></div></div>", {
+				"cl1": uid + "gridheader",
+				"cl2": uid + "gridlabel",
+				"content" : w._formatter( w.__( "calHeaderFormat" ), w.theDate )
+			})).appendTo(w.d.intHTML);
 				
 			// Previous and next month buttons, define booleans to decide if they should do anything
-			$( "<div class='" + uid + "gridplus" + ( w.__( "isRTL" ) ? "-rtl" : "") +
-					"'><a href='#'>" + w.__( "nextMonth") + "</a></div>" )
+			$( w._spf("<div class='{class}'><a href='#'>{name}</a></div>", {
+					'class': uid + "gridplus" + ( w.__( "isRTL" ) ? "-rtl" : ""),
+					'name' : w._spf( o.s.cal.nextMonth, {
+						'text': w.__("nextMonth"),
+						'icon': o.calNextMonthIcon
+					})
+				}))
 				.prependTo( w.d.intHTML.find( "." + uid + "gridheader" ) )
 				.find( "a" )
-					.addClass( "ui-btn-inline ui-link ui-btn ui-btn-" + 
-						o.themeDate + 
-						" ui-icon-" + o.calNextMonthIcon +
-						" ui-btn-icon-notext ui-shadow ui-corner-all"
+					.addClass( ""
+						+ ( w.baseMode === "jqm" ) ?
+							o.btnCls + o.themeDate + o.icnCls + o.calNextMonthIcon : ""
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
@@ -256,14 +250,19 @@
 							w._offset( "m", 1 );
 						}
 				});
-			$( "<div class='" + uid + "gridminus" + ( w.__( "isRTL" ) ? "-rtl": "" ) +
-					"'><a href='#'>" + w.__( "prevMonth") + "</a></div>" )
+
+			$( w._spf("<div class='{class}'><a href='#'>{name}</a></div>", {
+					'class': uid + "gridminus" + ( w.__( "isRTL" ) ? "-rtl" : ""),
+					'name' : w._spf( o.s.cal.prevMonth, {
+						'text': w.__("prevMonth"),
+						'icon': o.calPrevMonthIcon
+					})
+				}))
 				.prependTo( w.d.intHTML.find( "." + uid + "gridheader" ) )
 				.find( "a" )
-					.addClass( "ui-btn-inline ui-link ui-btn ui-btn-" +
-						o.themeDate +
-						" ui-icon-" + o.calPrevMonthIcon +
-						" ui-btn-icon-notext ui-shadow ui-corner-all"
+					.addClass( "" 
+						+ ( w.baseMode === "jqm" ) ? 
+							o.btnCls + o.themeDate + o.icnCls + o.calPrevMonthIcon : ""
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();

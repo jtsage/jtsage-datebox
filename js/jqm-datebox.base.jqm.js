@@ -8,6 +8,28 @@ if (
 	typeof($.jtsage.datebox) !== "undefined" && 
 	typeof($.jtsage.datebox.prototype.baseMode) === "undefined"
 ) {
+	$.extend( $.jtsage.datebox.prototype.options, {
+		themeDateToday: "b",
+		themeDayHigh: "b",
+		themeDatePick: "b",
+		themeDateHigh: "b",
+		themeDateHighAlt: "b",
+		themeDateHighRec: "b",
+		themeDate: "a",
+		
+		calNextMonthIcon: "plus",
+		calPrevMonthIcon: "minus",
+
+		btnCls: " ui-shadow ui-corner-all ui-btn-inline ui-link ui-btn ui-btn-",
+		icnCls: " ui-btn-icon-notext ui-icon-",
+
+		s: {
+			cal: {
+				prevMonth : "{text}",
+				nextMonth : "{text}",
+			}
+		},
+	});
 	$.extend( $.jtsage.datebox.prototype, {
 		baseMode: "jqm",
 		_destroy: function() {
