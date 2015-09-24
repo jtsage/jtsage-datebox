@@ -3,7 +3,7 @@
 /*! FLIPBOX/TIMEFLIPBOX/DURATIONFLIPBOX Mode */
 
 (function($) {
-	$.extend( $.mobile.datebox.prototype.options, {
+	$.extend( $.jtsage.datebox.prototype.options, {
 		themeDatePick: "b",
 		themeDate: "a",
 		useSetButton: true,
@@ -23,7 +23,7 @@
 			"s": 1
 		}
 	});
-	$.extend( $.mobile.datebox.prototype, {
+	$.extend( $.jtsage.datebox.prototype, {
 		_fbox_pos: function () {
 			var pos1, ech, top, fixer,
 				w = this,
@@ -108,7 +108,7 @@
 			}
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._build, {
+	$.extend( $.jtsage.datebox.prototype._build, {
 		"timeflipbox": function() {
 			this._build.flipbox.apply(this);
 		},
@@ -333,7 +333,7 @@
 			});
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._drag, {
+	$.extend( $.jtsage.datebox.prototype._drag, {
 		"timeflipbox": function() {
 			this._drag.flipbox.apply(this);
 		},

@@ -3,7 +3,7 @@
 /*! DATEBOX/TIMEBOX/DURATIONBOX modes */
 
 (function($) {
-	$.extend( $.mobile.datebox.prototype.options, {
+	$.extend( $.jtsage.datebox.prototype.options, {
 		themeButton: "a",
 		themeInput: "a",
 		useSetButton: true,
@@ -14,7 +14,7 @@
 		durationSteppers: {"d": 1, "h": 1, "i": 1, "s": 1}
 		
 	});
-	$.extend( $.mobile.datebox.prototype, {
+	$.extend( $.jtsage.datebox.prototype, {
 		_dbox_run: function() {
 			var w = this,
 				g = this.drag,
@@ -199,7 +199,7 @@
 			w.refresh();
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._build, {
+	$.extend( $.jtsage.datebox.prototype._build, {
 		"timebox": function () {
 			this._build.datebox.apply(this,[]);
 		},

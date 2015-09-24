@@ -4,7 +4,7 @@
 
 (function( $ ) {
 
-	$.widget( "mobile.datebox", {
+	$.widget( "jtsage.datebox", {
 		initSelector: "input[data-role='datebox']",
 		options: {
 			// All widget options, including some internal runtime details
@@ -290,7 +290,8 @@
 		},
 		_event: function(e, p) {
 			var tmp,
-				w = $( this ).data( "mobile-datebox" );
+				w = $( this ).data( "jtsage-datebox" );
+
 			if ( ! e.isPropagationStopped() ) {
 				switch (p.method) {
 					case "close":

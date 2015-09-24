@@ -3,7 +3,7 @@
 /*! SLIDEBOX Mode */
 
 (function($) {
-	$.extend( $.mobile.datebox.prototype.options, {
+	$.extend( $.jtsage.datebox.prototype.options, {
 		themeDatePick: "b",
 		themeDate: "a",
 		useSetButton: true,
@@ -16,7 +16,7 @@
 			"i": 30
 		}
 	});
-	$.extend( $.mobile.datebox.prototype, {
+	$.extend( $.jtsage.datebox.prototype, {
 		_sbox_pos: function () {
 			var fixer, ech, top, par, tot,
 				w = this;
@@ -70,7 +70,7 @@
 			}
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._build, {
+	$.extend( $.jtsage.datebox.prototype._build, {
 		"slidebox": function () {
 			var i, y, hRow, phRow, currentTerm, currentText,
 				w = this,
@@ -187,7 +187,7 @@
 			});
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._drag, {
+	$.extend( $.jtsage.datebox.prototype._drag, {
 		"slidebox": function() {
 			var w = this,
 				o = this.options,

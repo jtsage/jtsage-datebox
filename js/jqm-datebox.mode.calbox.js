@@ -3,7 +3,7 @@
 /*! CALBOX Mode */
 
 (function($) {
-	$.extend( $.mobile.datebox.prototype.options, {
+	$.extend( $.jtsage.datebox.prototype.options, {
 		themeDateToday: "b",
 		themeDayHigh: "b",
 		themeDatePick: "b",
@@ -46,7 +46,7 @@
 		calDateList: false,
 		calShowDateList: false
 	});
-	$.extend( $.mobile.datebox.prototype, {
+	$.extend( $.jtsage.datebox.prototype, {
 		_cal_gen: function (start,prev,last,other,month) {
 			var rc = 0, cc = 0, day = 1, 
 				next = 1, cal = [], row = [], stop = false;
@@ -168,7 +168,7 @@
 			return ret;
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._build, {
+	$.extend( $.jtsage.datebox.prototype._build, {
 		"calbox": function () {
 			var tempVal, pickerControl, calContent, genny, weekdayControl, listControl,
 				row, col, rows, cols, htmlRow, i, prangeS, prangeL, fmtRet, fmtObj,

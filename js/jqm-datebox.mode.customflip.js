@@ -3,7 +3,7 @@
 /*! CUSTOMFLIP Mode */
 
 (function($) {
-	$.extend( $.mobile.datebox.prototype.options, {
+	$.extend( $.jtsage.datebox.prototype.options, {
 		themeOptPick: "b",
 		themeOpt: "a",
 		useSetButton: true,
@@ -19,7 +19,7 @@
 			"customSet": "Looks Good"
 		}
 	});
-	$.extend( $.mobile.datebox.prototype, {
+	$.extend( $.jtsage.datebox.prototype, {
 		"_customflipDoSet": function () {
 			// If this function exists, it overrides the "doset" method of the "datebox" event.
 			// The name syntax is _<mode>DoSet
@@ -101,7 +101,7 @@
 			});
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._parser, {
+	$.extend( $.jtsage.datebox.prototype._parser, {
 		// If this stucture exists, it is called instead of the usual date input parser.
 		// The name of the structure is the same as the mode name - it recieves a string
 		// as the input, which is the current value of the input element, pre-sanitized
@@ -153,7 +153,7 @@
 
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._customformat, {
+	$.extend( $.jtsage.datebox.prototype._customformat, {
 		// If this stucture exists, the formatter will call it when it encounters a special string
 		// %X<whatever> - it recieves the single letter operater, and the current "date" value
 		"customflip" : function ( oper, val, o ) {
@@ -167,7 +167,7 @@
 			}
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._build, {
+	$.extend( $.jtsage.datebox.prototype._build, {
 		// This builds the actual interface, and is called on *every* refresh. (flip triggers)
 		"customflip": function () {
 			var i, y, hRow, hRowIn, tmp, lineArr,
@@ -301,7 +301,7 @@
 			});
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._drag, {
+	$.extend( $.jtsage.datebox.prototype._drag, {
 		// This contains the code that the drag and drop (or touch move) code uses
 		"customflip": function() {
 			var w = this,

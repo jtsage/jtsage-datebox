@@ -2,11 +2,11 @@
  * jQuery Mobile Framework : plugin to provide a date and time picker.
  * Copyright (c) JTSage
  * CC 3.0 Attribution.  May be relicensed without permission/notification.
- * https://github.com/jtsage/jquery-mobile-datebox
+ * https://github.com/jtsage/jquery-jtsage.datebox
  */
 
 (function($) {
-	$.extend( $.mobile.datebox.prototype.options, {
+	$.extend( $.jtsage.datebox.prototype.options, {
 		themeButton: "a",
 		themeInput: "a",
 		useSetButton: true,
@@ -21,7 +21,7 @@
 		}
 		
 	});
-	$.extend( $.mobile.datebox.prototype, {
+	$.extend( $.jtsage.datebox.prototype, {
 		_cbox_offset: function ( fld, amount ) {
 			// This is *not* an automatic override, used below specificly.
 			var w = this, tmp,
@@ -41,7 +41,7 @@
 			w.refresh();
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._parser, {
+	$.extend( $.jtsage.datebox.prototype._parser, {
 		// If this stucture exists, it is called instead of the usual date input parser.
 		// The name of the structure is the same as the mode name - it recieves a string
 		// as the input, which is the current value of the input element, pre-sanitized
@@ -51,7 +51,7 @@
 				str.split( "," );
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._customformat, {
+	$.extend( $.jtsage.datebox.prototype._customformat, {
 		// If this stucture exists, the formatter will call it when it encounters a special string
 		// %X<whatever> - it recieves the single letter operater, and the current "date" value
 		"custombox" : function ( oper, val, o ) { 
@@ -65,7 +65,7 @@
 			}
 		}
 	});
-	$.extend( $.mobile.datebox.prototype._build, {
+	$.extend( $.jtsage.datebox.prototype._build, {
 		"custombox": function () {
 			var w = this,
 				o = this.options, i, y, tmp,
