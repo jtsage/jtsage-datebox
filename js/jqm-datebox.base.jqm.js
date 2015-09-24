@@ -4,7 +4,12 @@
 
 (function( $ ) {
 
+if (
+	typeof($.jtsage.datebox) !== "undefined" && 
+	typeof($.jtsage.datebox.prototype.baseMode) === "undefined"
+) {
 	$.extend( $.jtsage.datebox.prototype, {
+		baseMode: "jqm",
 		_destroy: function() {
 			var w = this,
 				o = this.options,
@@ -436,6 +441,6 @@
 			w._t( { method: "enable" });
 		}
 	});
-
+}
 
 })( jQuery );
