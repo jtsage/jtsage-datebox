@@ -3,6 +3,9 @@ jQuery-Mobile-DateBox
 
 DateBox is a jQuery-mobile based date and time picker. [Full Documentation and Demos](http://dev.jtsage.com/jQM-DateBox/)
 
+The 'agnostic' branch is a new semi-fork, eventually to be mainline version which aims to be framework agnostic - i.e., it will 
+work just fine with jQuery-UI, or, hopefully, Bootstrap + jQuery-UI Widget Factory.  We shall see.
+
 DateBox Features
 ----------------
 
