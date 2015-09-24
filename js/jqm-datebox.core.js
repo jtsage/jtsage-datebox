@@ -700,10 +700,12 @@
 		_customformat: {
 			"default": function() { return false; } // Arguments are OPER, DATE
 		},
-		_formatter: function(format, date) {
+		_formatter: function(format, date, allowArIn) {
 			var w = this,
 				o = this.options, tmp,
 				dur = 0;
+
+				if ( typeof(allowArIn) === "undefined" ) { allowArIn = true; }
 
 				if ( o.mode.substr( 0, 4 ) === "dura" ) {
 					dur = w._dur(this.theDate.getTime() - this.initDate.getTime());
@@ -809,7 +811,7 @@
 				}
 			});
 
-			if ( w.__( "useArabicIndic" ) === true ) {
+			if ( w.__( "useArabicIndic" ) === true && allowArIn === true ) {
 				format = w._dRep(format);
 			}
 
@@ -1651,9 +1653,10 @@
 			w.fmtOver = false;
 			return retty;
 		},
-		callFormat: function( format, date ) {
+		callFormat: function( format, date, allowArIn ) {
+			if ( typeof(allowArIn) === "undefined" ) { allowArIn = false; }
 			// Provide a PUBLIC function to get a formatted date
-			return this._formatter( format, date );
+			return this._formatter( format, date, allowArIn );
 		},
 		getOption: function( opt ) {
 			// Provide a PUBLIC function to get a defined option or i18n member
