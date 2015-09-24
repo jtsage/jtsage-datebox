@@ -1,7 +1,7 @@
 <?php
 ob_start();
 
-header('Content-Type: application/javascript');
+header('Content-Type: application/javascript; charset=utf-8');
 
 $versions = array(
 	"1.4.5",
