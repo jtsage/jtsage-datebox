@@ -1240,6 +1240,13 @@
 		},
 		_t: function ( obj ) {
 			this.d.input.trigger( "datebox", obj );
+		},
+		_spf: function ( text, repl ) {
+			if ( ! $.isArray(repl) && ! $.isPlainObject(repl) ) { return text; }
+
+			return text.replace(/{(.+?)}/g, function( match, oper ) {
+				return repl[oper];
+			});
 		}
 	});
 

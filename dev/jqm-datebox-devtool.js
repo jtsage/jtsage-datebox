@@ -6,6 +6,14 @@
 /* CALBOX Mode */
 
 (function($) {
+	window.spf = function(text, repl) {
+		if ( ! $.isArray(repl) && ! $.isPlainObject(repl) ) { console.log('a'); return text; }
+		return text.replace(/{(.+?)}/g, function( match, oper ) {
+			console.log(match);
+			console.log(oper);
+			return repl[oper];
+		});
+	}
 	window.clogall = function(listarg) {
 		var key, fulllist = [];
 		for ( key in listarg ) {
