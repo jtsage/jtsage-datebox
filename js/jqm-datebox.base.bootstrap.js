@@ -16,6 +16,11 @@ if (
 		themeDateHighAlt: "b",
 		themeDateHighRec: "b",
 		themeDate: "a",
+
+		bootstrapDropdown: true,
+		bootstrapDropdownRight: true,
+
+		bootstrapModal: false,
 		
 		calNextMonthIcon: "plus",
 		calPrevMonthIcon: "minus",
@@ -30,16 +35,21 @@ if (
 			}
 		},
 
+		clickEvent: "click",
+
 	});
 	$.extend( $.jtsage.datebox.prototype, {
 		baseMode: "bootstrap",
 		_destroy: function() {
 			var w = this,
 				o = this.options,
-				button = this.d.wrap.find( "a" );
+				button = this.d.wrap.find( ".input-group-addon" );
 
-			w.d.wrap.removeClass( "ui-input-has-clear" );
-			button.remove();
+
+			if ( o.useButton === true ) {
+				button.remove();
+				w.d.input.unwrap();	
+			}
 
 			if ( o.lockInput ) {
 				w.d.input.removeAttr( "readonly" );
@@ -51,7 +61,7 @@ if (
 				.off( "blur.datebox" )
 				.off( "change.datebox" );
 
-			w.d.mainWrap.popup("destroy");
+			//w.d.mainWrap.popup("destroy");
 				
 			$( document )
 				.off( w.drag.eMove )
@@ -155,7 +165,6 @@ if (
 							"<span class='" + o.icnCls + o.buttonIcon + "'></span>" + 
 							"</div>" )
 						.attr( "title", w.__( "tooltip" ) )
-						.appendTo(w.d.wrap)
 						.on(o.clickEvent, function( e ) {
 							e.preventDefault();
 							if ( o.useFocus ) {
@@ -163,7 +172,8 @@ if (
 							} else {
 								if ( !w.disabled ) { w._t( { method: "open" } ); }
 							}
-						});
+						})
+						.appendTo(w.d.wrap);
 				}
 			}
 
@@ -213,13 +223,7 @@ if (
 			// PUBLIC function to open the control
 			var w = this,
 				o = this.options,
-				popopts = {
-					transition: (o.useAnimation ? o.transition : "none" )
-				},
-				basepop = { 
-					history: false,
-					transition: (o.useAnimation ? o.transition : "none" )
-				};
+				basepop = {};
 
 			if ( o.useFocus && w.fastReopen === true ) { 
 				w.d.input.blur();
@@ -301,46 +305,26 @@ if (
 			w.d.mainWrap.empty();
 
 			if ( o.useHeader ) {
-				w.d.mainWrap.append( $( "<a href='#'>Close</a>" )
-					.addClass( "ui-btn-" + o.popupButtonPosition + " ui-link ui-btn ui-btn-" +
-						( ( o.themeCloseButton === false ) ? o.themeHeader : o.themeCloseButton ) +
-						" ui-icon-delete " + 
-						"ui-btn-icon-notext ui-shadow ui-corner-all"
-					)
-					.on( o.clickEventAlt, function( e ) {
-						e.preventDefault();
-						w._t( { method: "close", closeCancel: true } );
-					} )
-				);
-				w.d.mainWrap.append( $( "<div class='ui-header ui-bar-" + o.themeHeader + "'>" + 
-					"<h1 class='ui-title'>" + w.d.headerText + "</h1>" +
-					"</div>" )
-				);
+
+				w.d.mainWrap.append( $(w._spf(
+						"<div class='{c1}'><h4 class='{c2}'>" +
+						"<span class='{c3}'></span>{text}</h4></div>",
+					{
+						c1: 'modal-header',
+						c2: 'modal-title text-center',
+						c3: 'closer' + o.icnCls + "remove pull-" + o.popupButtonPosition,
+						text: w.d.headerText,
+					}))
+				).find('.closer').on( o.clickEventAlt, function( e ) {
+					e.preventDefault();
+					w._t( { method: "close", closeCancel: true } );
+				} );
 			}
 			
 			w.d.mainWrap.append( w.d.intHTML ).css( "zIndex", o.zindex );
+
 			w._t( { method: "postrefresh" } );
 
-			if ( o.popupPosition !== false ) {
-				popopts.positionTo = o.popupPosition;
-			} else {
-				if ( typeof w.baseID !== "undefined" ) {
-					popopts.positionTo = "#" + w.baseID;
-				} else {
-					popopts.positionTo = "window";
-				}
-			}
-
-			if ( o.popupForceX !== false && o.popupForceY !== false ) {
-				popopts.x = parseInt(o.popupForceX,10);
-				popopts.y = parseInt(o.popupForceY,10);
-				popopts.positionTo = "origin";
-			}
-
-			if ( o.useModal ) {
-				basepop.overlayTheme = o.useModalTheme;
-				basepop.dismissible = false;
-			}
 
 			// Perpare open callback, if provided. Additionally, if this
 			// returns false then the open/update will stop.
@@ -367,7 +351,8 @@ if (
 					w._t( { method: "postrefresh" } );
 				};
 			}
-			// Prepare close callback.
+
+			// // Prepare close callback.
 			if ( o.closeCallback !== false ) {
 				if ( ! $.isFunction( o.closeCallback ) ) {
 					if ( typeof window[ o.closeCallback ] === "function" ) {
@@ -383,7 +368,12 @@ if (
 						cancelClose: w.cancelClose
 					}], o.closeCallbackArgs ) );
 				};
+			} else {
+				basepop.afteropen = function() {
+					return true;
+				};
 			}
+
 			// Perpare BEFORE open callback, if provided. Additionally, if this
 			// returns false then the open/update will stop.
 			if ( o.beforeOpenCallback !== false ) {
@@ -402,10 +392,36 @@ if (
 				}
 			}
 
-			w.d.mainWrap
-				.removeClass( "ui-datebox-hidden" )
-				.popup( basepop )
-				.popup( "open", popopts );
+			if ( o.bootstrapDropdown === true && o.bootstrapModal === false ) {
+				w.d.mainWrap
+					.addClass( "dropdown-menu" )
+					.addClass( ( o.useAnimation ? o.transition : "" ) )
+					.addClass( ( o.bootstrapDropdownRight === true ) ? "dropdown-menu-right" : "" )
+					.appendTo(w.d.wrap)
+					.on('transitionend', function() { 
+						if ( w.d.intHTML.is( ":visible" ) ) {
+							basepop.afteropen.call();
+						} else {
+							basepop.afterclose.call();
+							w.d.wrap.removeClass('open');
+						}
+					});
+
+				w.d.wrap.addClass('open');
+
+				w.d.backdrop = $("<div></div>")
+	          		.addClass('backdrop')
+	          		.css({ position: "fixed", left: 0, top: 0, bottom: 0, right: 0 })
+	          		.appendTo('body')
+	          		.on( o.clickEvent, function (e) {
+	          			e.preventDefault();
+						w._t( { method: "close", closeCancel: true } );
+					});
+
+				window.setTimeout(function () {
+	    			w.d.mainWrap.addClass('in');
+				}, 0);
+			}
 		},
 		close: function() {
 			// Provide a PUBLIC function to close the element.
@@ -425,7 +441,15 @@ if (
 			}
 
 			// Trigger the popup to close
-			w.d.mainWrap.popup( "close" );
+			if ( o.bootstrapDropdown === true && o.bootstrapModal === false ) {
+				if ( o.useAnimation === true ) {
+					w.d.mainWrap.removeClass('in');
+					w.d.backdrop.remove();
+				} else {
+					w.d.wrap.removeClass('open');
+					w.d.backdrop.remove();
+				}
+			}
 
 			// Unbind all drag handlers.
 			$( document )
@@ -446,18 +470,14 @@ if (
 			var w = this;
 			// Provide a PUBLIC function to Disable the element
 			w.d.input.attr( "disabled", true );
-			w.d.wrap.addClass( "ui-state-disabled" ).blur();
 			w.disabled = true;
-			w.d.mainWrap.addClass( "ui-state-disabled" );
 			w._t( { method: "disable"});
 		},
 		enable: function() {
 			var w = this;
 			// Provide a PUBLIC function to Enable the element
 			w.d.input.attr( "disabled", false );
-			w.d.wrap.removeClass( "ui-state-disabled" );
 			w.disabled = false;
-			w.d.mainWrap.removeClass( "ui-state-disabled" );
 			w._t( { method: "enable" });
 		}
 	});

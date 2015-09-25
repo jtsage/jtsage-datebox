@@ -292,6 +292,7 @@
 			var tmp,
 				w = $( this ).data( "jtsage-datebox" );
 
+			console.log({'e': e, 'p': p});
 			if ( ! e.isPropagationStopped() ) {
 				switch (p.method) {
 					case "close":
@@ -961,8 +962,8 @@
 				if ( this.d.intHTML !== false ) {
 					this.d.intHTML.remove().empty();
 				}
-				this.d.intHTML = $("<div class='ui-body-b'><h2 style='text-align:center'>" + 
-					"Unknown Mode</h2></div>" );
+				this.d.intHTML = $("<div class='ui-body-b'><h2 style='text-align:center'" + 
+					" class='bg-danger'>Unknown Mode</h2></div>" );
 			}
 		},
 		_drag: {
