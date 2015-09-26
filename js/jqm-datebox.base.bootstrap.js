@@ -9,13 +9,13 @@ if (
 	typeof($.jtsage.datebox.prototype.baseMode) === "undefined"
 ) {
 	$.extend( $.jtsage.datebox.prototype.options, {
-		themeDateToday: "b",
-		themeDayHigh: "b",
-		themeDatePick: "b",
-		themeDateHigh: "b",
-		themeDateHighAlt: "b",
-		themeDateHighRec: "b",
-		themeDate: "a",
+		themeDateToday: "info",
+		themeDayHigh: "warning",
+		themeDatePick: "success",
+		themeDateHigh: "warning",
+		themeDateHighAlt: "danger",
+		themeDateHighRec: "warning",
+		themeDate: "default",
 
 		bootstrapDropdown: true,
 		bootstrapDropdownRight: true,
@@ -25,13 +25,15 @@ if (
 		calNextMonthIcon: "plus",
 		calPrevMonthIcon: "minus",
 
-		btnCls: " ui-shadow ui-corner-all ui-btn-inline ui-link ui-btn ui-btn-",
+		btnCls: " btn btn-sm btn-",
 		icnCls: " glyphicon glyphicon-",
 
 		s: {
 			cal: {
-				prevMonth : "{text}",
-				nextMonth : "{text}",
+				prevMonth : "<span title='{text}' class='glyphicon glyphicon-{icon}'></span>",
+				nextMonth : "<span title='{text}' class='glyphicon glyphicon-{icon}'></span>",
+				botButton : "<a href='#' class='{cls}' role='button'>" +
+					"<span class='{icon}'></span> {text}</a>",
 			}
 		},
 
@@ -40,6 +42,50 @@ if (
 	});
 	$.extend( $.jtsage.datebox.prototype, {
 		baseMode: "bootstrap",
+		_stdBtn: {
+			cancel: function() {
+				var w = this, o = this.options;
+				return $("<a href='#' role='button' class='btn btn-default'>" + 
+						"<span class='" + o.icnCls + "remove'></span> " +
+						w.__("cancelButton") + "</a>" )
+					.on(o.clickEventAlt, function (e) {
+						e.preventDefault();
+						w._t({ method: "close", closeCancel: true });
+					});
+			},
+			clear: function() {
+				var w = this, o = this.options;
+				return $( "<a href='#' role='button' class='btn btn-sm btn-default'>" + 
+						"<span class='" + o.icnCls + "erase'></span> " +
+						w.__("clearButton") + "</a>" )
+					.on(o.clickEventAlt, function(e) {
+						e.preventDefault();
+						w.d.input.val("");
+						w._t( { method: "clear" } );
+						w._t( { method: "close", closeCancel: true } );
+					});
+			},
+			close: function(txt) {
+				var w = this, o = this.options;
+				return $( "<a href='#' role='button'>" + txt + "</a>" )
+					.addClass( "ui-btn ui-btn-" + o.themeSetButton + 
+						" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" +
+						( ( w.dateOK === true ) ? "" : " ui-state-disabled" )
+					)
+					.on(o.clickEventAlt, function(e) {
+						e.preventDefault();
+						if ( w.dateOK === true ) {
+							w._t( { 
+								method: "set", 
+								value: w._formatter(w.__fmt(),w.theDate),
+								date: w.theDate
+							} );
+							w._t( { method: "close" } );
+						}
+						
+					});
+			}
+		},
 		_destroy: function() {
 			var w = this,
 				o = this.options,
@@ -82,7 +128,6 @@ if (
 					"default" :
 					o.theme
 				),
-				trans = o.useAnimation ? o.transition : "none",
 				d = {
 					input: this.element,
 					wrap: this.element.parent(),
@@ -310,12 +355,12 @@ if (
 						"<div class='{c1}'><h4 class='{c2}'>" +
 						"<span class='{c3}'></span>{text}</h4></div>",
 					{
-						c1: 'modal-header',
-						c2: 'modal-title text-center',
-						c3: 'closer' + o.icnCls + "remove pull-" + o.popupButtonPosition,
+						c1: "modal-header",
+						c2: "modal-title text-center",
+						c3: "closer" + o.icnCls + "remove pull-" + o.popupButtonPosition,
 						text: w.d.headerText,
 					}))
-				).find('.closer').on( o.clickEventAlt, function( e ) {
+				).find( ".closer" ).on( o.clickEventAlt, function( e ) {
 					e.preventDefault();
 					w._t( { method: "close", closeCancel: true } );
 				} );
@@ -398,28 +443,27 @@ if (
 					.addClass( ( o.useAnimation ? o.transition : "" ) )
 					.addClass( ( o.bootstrapDropdownRight === true ) ? "dropdown-menu-right" : "" )
 					.appendTo(w.d.wrap)
-					.on('transitionend', function() { 
-						if ( w.d.intHTML.is( ":visible" ) ) {
+					.on( "transitionend", function() { 
+						if ( w.d.mainWrap.is( ":visible" ) ) {
 							basepop.afteropen.call();
 						} else {
 							basepop.afterclose.call();
-							w.d.wrap.removeClass('open');
+							w.d.wrap.removeClass( "open" );
 						}
 					});
 
-				w.d.wrap.addClass('open');
+				w.d.wrap.addClass( "open" );
 
 				w.d.backdrop = $("<div></div>")
-	          		.addClass('backdrop')
 	          		.css({ position: "fixed", left: 0, top: 0, bottom: 0, right: 0 })
-	          		.appendTo('body')
+	          		.appendTo( "body" )
 	          		.on( o.clickEvent, function (e) {
 	          			e.preventDefault();
 						w._t( { method: "close", closeCancel: true } );
 					});
 
 				window.setTimeout(function () {
-	    			w.d.mainWrap.addClass('in');
+	    			w.d.mainWrap.addClass( "in" );
 				}, 0);
 			}
 		},
@@ -443,10 +487,10 @@ if (
 			// Trigger the popup to close
 			if ( o.bootstrapDropdown === true && o.bootstrapModal === false ) {
 				if ( o.useAnimation === true ) {
-					w.d.mainWrap.removeClass('in');
+					w.d.mainWrap.removeClass( "in");
 					w.d.backdrop.remove();
 				} else {
-					w.d.wrap.removeClass('open');
+					w.d.wrap.removeClass( "open" );
 					w.d.backdrop.remove();
 				}
 			}
@@ -484,8 +528,8 @@ if (
 }
 
 $(document).ready( function() {
-	$('[data-role="datebox"]').each(function() {
-		$(this).datebox();
+	$( "[data-role='datebox']" ).each( function() {
+		$( this ).datebox();
 	});
 });
 

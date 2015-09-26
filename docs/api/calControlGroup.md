@@ -4,6 +4,7 @@ short: Use control group buttons in calendar
 modes: [
 	'calbox',
 ]
+frames: [ 'jqm' ]
 cats: [ 'themes' ]
 relat: "themes"
 layout: api

@@ -44,34 +44,36 @@
 				return date.Date;
 			}
 		}
-		// jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-		// 	closeCallback: function(a, b) { console.log(a); console.log(b); },
-		// 	closeCallbackArgs: ['hi'],
-		// 	//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
-		// 	useLang: "ar",
-		// 	useClearButton: true,
-		// 	useCollapsedBut: false,
-		// 	calShowWeek: false,
-		// 	themeCloseButton: "b",
-		// 	//calUsePickers: true,
-		// 	//calUsePickersIcons: true,
-		// 	//calNoHeader: true,
-		// 	//calControlGroup: false,
-		// 	//defaultValue: "",
-		// 	//calFormatter: "fmtMe",
-		// 	//popupButtonPosition: "right",
-		// 	blackDays : [1,2,3,4,5,6],
-		// 	overrideCalStartDay : 1,
-		// 	//minDur: 34652,
-		// 	//maxDur: 34700,
-		// 	customData: [
-		// 		{"input": false, "name": "Wheel1", "data":["a","b","c","d"]},
-		// 		{"input": false, "name": "Wheel2", "data":["a","b","c","d"]},
-		// 		{"input": false, "name": "Wheel3", "data":["a","b","c","d"]},
-		// 	],
-		// 	overrideSlideFieldOrder: ["y","a","m","d","h","i"],
+		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+			closeCallback: function(a, b) { console.log(a); console.log(b); },
+			closeCallbackArgs: ['hi'],
+			//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
+			//useLang: "ar",
+			useTodayButton: true,
+			//useTomorrowButton: true,
+			useClearButton: true,
+			useCollapsedBut: false,
+			calShowWeek: false,
+			themeCloseButton: "b",
+			//calUsePickers: true,
+			//calUsePickersIcons: true,
+			//calNoHeader: true,
+			//calControlGroup: false,
+			//defaultValue: "",
+			//calFormatter: "fmtMe",
+			//popupButtonPosition: "right",
+			blackDays : [1,2,3,4,5,6],
+			overrideCalStartDay : 1,
+			//minDur: 34652,
+			//maxDur: 34700,
+			customData: [
+				{"input": false, "name": "Wheel1", "data":["a","b","c","d"]},
+				{"input": false, "name": "Wheel2", "data":["a","b","c","d"]},
+				{"input": false, "name": "Wheel3", "data":["a","b","c","d"]},
+			],
+			overrideSlideFieldOrder: ["y","a","m","d","h","i"],
 
-		// });
+		});
 	</script>
 	
 </head>

@@ -228,17 +228,19 @@
 				
 			// Previous and next month buttons, define booleans to decide if they should do anything
 			$( w._spf("<div class='{class}'><a href='#'>{name}</a></div>", {
-					'class': uid + "gridplus" + ( w.__( "isRTL" ) ? "-rtl" : ""),
-					'name' : w._spf( o.s.cal.nextMonth, {
-						'text': w.__("nextMonth"),
-						'icon': o.calNextMonthIcon
+					"class": uid + "gridplus" + ( w.__( "isRTL" ) ? "-rtl" : ""),
+					name : w._spf( o.s.cal.nextMonth, {
+						text: w.__( "nextMonth" ),
+						icon: o.calNextMonthIcon
 					})
 				}))
 				.prependTo( w.d.intHTML.find( "." + uid + "gridheader" ) )
 				.find( "a" )
-					.addClass( ""
-						+ ( w.baseMode === "jqm" ) ?
-							o.btnCls + o.themeDate + o.icnCls + o.calNextMonthIcon : ""
+					.addClass( "" +
+						( ( w.baseMode === "jqm" ) ?
+							o.btnCls + o.themeDate + o.icnCls + o.calNextMonthIcon : "" ) +
+						( ( w.baseMode === "bootstrap" ) ?
+							o.btnCls + o.themeDate + " pull-right" : "" )
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
@@ -252,17 +254,19 @@
 				});
 
 			$( w._spf("<div class='{class}'><a href='#'>{name}</a></div>", {
-					'class': uid + "gridminus" + ( w.__( "isRTL" ) ? "-rtl" : ""),
-					'name' : w._spf( o.s.cal.prevMonth, {
-						'text': w.__("prevMonth"),
-						'icon': o.calPrevMonthIcon
+					"class": uid + "gridminus" + ( w.__( "isRTL" ) ? "-rtl" : ""),
+					name : w._spf( o.s.cal.prevMonth, {
+						text: w.__( "prevMonth" ),
+						icon: o.calPrevMonthIcon
 					})
 				}))
 				.prependTo( w.d.intHTML.find( "." + uid + "gridheader" ) )
 				.find( "a" )
-					.addClass( "" 
-						+ ( w.baseMode === "jqm" ) ? 
-							o.btnCls + o.themeDate + o.icnCls + o.calPrevMonthIcon : ""
+					.addClass( "" +
+						( ( w.baseMode === "jqm" ) ? 
+							o.btnCls + o.themeDate + o.icnCls + o.calPrevMonthIcon : "" ) +
+						( ( w.baseMode === "bootstrap" ) ?
+							o.btnCls + o.themeDate + " pull-left" : "" )
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
@@ -412,26 +416,37 @@
 					}
 					w.refresh();
 				});
-				
-				pickerControl.i.controlgroup({ mini: true, type: "horizontal" });
-				pickerControl.i.find( "select" ).selectmenu( {
-					//mini: true,
-					nativeMenu: true
-				} );
-				pickerControl.i.find( ".ui-controlgroup-controls" ).css({
-					marginRight: "auto",
-					marginLeft: "auto",
-					width: "100%",
-					display: "table",
-				});
-				pickerControl.i.find( ".ui-select" )
-					.first().css({ width: "60%" })
-					.end().last().css({ width: "40%" });
-
-				if ( o.calNoHeader && o.calUsePickersIcons ) { 
-					pickerControl.i.css({ padding: "0 10px 5px 10px" });
+				if ( w.baseMode === "bootstrap" ) {
+					pickerControl.i.find("select")
+						.addClass("form-control input-sm")
+						.css("marginTop", "3px")
+						.first().css({ width: "60%" })
+						.end().last().css({ width: "40%" });
+					if ( o.calNoHeader && o.calUsePickersIcons ) {
+						w.d.intHTML.find( "." + uid + "gridheader" ).append(pickerControl);
+					} else {
+						pickerControl.appendTo( w.d.intHTML );
+					}
 				}
-				pickerControl.appendTo( w.d.intHTML );
+				if ( w.baseMode === "jqm" ) {
+					pickerControl.i.controlgroup({ mini: true, type: "horizontal" });
+					pickerControl.i.find( "select" ).selectmenu( {
+						nativeMenu: true
+					} );
+					pickerControl.i.find( ".ui-controlgroup-controls" ).css({
+						marginRight: "auto",
+						marginLeft: "auto",
+						width: "100%",
+						display: "table",
+					});
+					pickerControl.i.find( ".ui-select" )
+						.first().css({ width: "60%" })
+						.end().last().css({ width: "40%" });
+					if ( o.calNoHeader && o.calUsePickersIcons ) { 
+						pickerControl.i.css({ padding: "0 10px 5px 10px" });
+					}
+					pickerControl.appendTo( w.d.intHTML );
+				}				
 			}
 			
 			calContent = $("<div class='" + uid + "grid'>" ).appendTo( w.d.intHTML );
@@ -510,6 +525,7 @@
 				if ( o.calShowWeek ) {
 						$("<div>", { "class": uid + "griddate " + uid + "griddate-empty" } )
 							.text( "W" + weekNum )
+							.addClass( ( ( w.baseMode === "bootstrap" ) ? "pull-left" : "" ) )
 							.css( (o.calControlGroup ? {"float": "left"} : {}) )
 							.appendTo( htmlRow );
 						weekNum++;
@@ -568,12 +584,15 @@
 							o.calBeforeAppendFunc(
 								$("<div>")
 									.html( fmtRet.text )
-									.addClass( uid + "griddate ui-corner-all ui-btn")
+									.addClass( uid + "griddate")
 									.addClass(( curMonth === genny[row][col][1] || checked.force) ?
-										( "ui-btn-" + checked.theme +
-											( checked.ok ? "" : " ui-state-disabled" )
+										( o.btnCls + checked.theme +
+											( checked.ok ? "" : " ui-state-disabled disabled" )
 										) :
-										( uid + "griddate-empty" )
+										( uid + "griddate-empty" +
+											( ( w.baseMode === "bootstrap" ) ?
+												o.btnCls + "default" : "" )
+										)
 									)
 									.addClass( fmtRet["class"] )
 									.css(( curMonth !== genny[row][col][1] && !o.calOnlyMonth ) ?
@@ -596,8 +615,11 @@
 						}
 					}
 				}
-				if ( o.calControlGroup ) {
+				if ( w.baseMode === "jqm" &&  o.calControlGroup ) {
 					htmlRow.controlgroup({type: "horizontal"});
+				}
+				if ( w.baseMode === "bootstrap" ) {
+					htmlRow.addClass("btn-group");
 				}
 				if ( row === rows - 1 ) { htmlRow.addClass( uid + "gridrow-last" ); }
 				htmlRow.appendTo(calContent);
@@ -633,11 +655,16 @@
 				htmlRow = $("<div>", { "class": uid + "controls" } );
 				
 				if ( o.useTodayButton ) {
-					$( "<a href='#' role='button'>" + w.__( "calTodayButtonLabel" ) + "</a>" )
+					$( w._spf( o.s.cal.botButton, {
+						text: w.__("calTodayButtonLabel"),
+						cls: o.btnCls + o.theme,
+						icon: "" +
+							( ( w.baseMode === "jqm" ) ?
+								"ui-icon-navigation ui-btn-icon-left" : "" ) +
+							( ( w.baseMode === "bootstrap" ) ?
+								o.icnCls + "send" : "" )
+						}))
 						.appendTo(htmlRow)
-						.addClass( "ui-btn ui-btn-" + o.theme +
-							" ui-icon-navigation ui-btn-icon-left ui-shadow ui-corner-all"
-						)
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = w._pa([0,0,0], new w._date());
@@ -646,11 +673,16 @@
 						});
 				}
 				if ( o.useTomorrowButton ) {
-					$( "<a href='#' role='button'>" + w.__( "calTomorrowButtonLabel" ) + "</a>" )
+					$( w._spf( o.s.cal.botButton, {
+						text: w.__("calTomorrowButtonLabel"),
+						cls: o.btnCls + o.theme,
+						icon: "" +
+							( ( w.baseMode === "jqm" ) ?
+								"ui-icon-navigation ui-btn-icon-left" : "" ) +
+							( ( w.baseMode === "bootstrap" ) ?
+								o.icnCls + "send" : "" )
+						}))
 						.appendTo(htmlRow)
-						.addClass( "ui-btn ui-btn-" + o.theme + 
-							" ui-icon-navigation ui-btn-icon-left ui-shadow ui-corner-all"
-						)
 						.on(o.clickEvent, function(e) {
 							e.preventDefault();
 							w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
@@ -661,11 +693,21 @@
 				if ( o.useClearButton ) {
 					htmlRow.append(w._stdBtn.clear.apply(w));
 				}
-				if ( o.useCollapsedBut ) {
-					htmlRow.controlgroup({ type: "horizontal" });
-					htmlRow.addClass( "ui-datebox-collapse" );
-				} else {
-					htmlRow.controlgroup();
+				if ( w.baseMode === "bootstrap" ) {
+					if ( o.useCollapsedBut ) {
+						htmlRow.find( "a" ).css({ width: "auto" });
+						htmlRow.addClass( "btn-group btn-group-justified" );
+					} else {
+						htmlRow.addClass( "btn-group-vertical" );
+					}
+				}
+				if ( w.baseMode === "jqm" ) {
+					if ( o.useCollapsedBut ) {
+						htmlRow.controlgroup({ type: "horizontal" });
+						htmlRow.addClass( "ui-datebox-collapse" );
+					} else {
+						htmlRow.controlgroup();
+					}
 				}
 				htmlRow.appendTo( calContent );
 			}
@@ -676,7 +718,7 @@
 					w.calBackDate = false;
 					w.theDate
 						.setD( 2, 1 )
-						.setD( 1, $( this ).jqmData( "month" ) )
+						.setD( 1, $( this ).data( "month" ) )
 						.setD( 2, $( this ).data( "date" ) );
 					w._t( {
 						method: "set",

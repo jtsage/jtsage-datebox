@@ -292,7 +292,6 @@
 			var tmp,
 				w = $( this ).data( "jtsage-datebox" );
 
-			console.log({'e': e, 'p': p});
 			if ( ! e.isPropagationStopped() ) {
 				switch (p.method) {
 					case "close":
@@ -1103,54 +1102,6 @@
 				return ( tmp === "" ) ? false : tmp;
 			}
 			return o.overrideDialogLabel;
-		},
-		_stdBtn: {
-			cancel: function() {
-				var w = this, o = this.options;
-				return $("<a href='#' role='button'>" + w.__("cancelButton") + "</a>")
-					.addClass(
-						"ui-btn ui-btn-" + o.themeClearButton +
-						" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all"
-					)
-					.on(o.clickEventAlt, function (e) {
-						e.preventDefault();
-						w._t({ method: "close", closeCancel: true });
-					});
-			},
-			clear: function() {
-				var w = this, o = this.options;
-				return $( "<a href='#' role='button'>" + w.__( "clearButton" ) + "</a>" )
-					.addClass( 
-						"ui-btn ui-btn-" + o.theme +
-						" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all"
-					)
-					.on(o.clickEventAlt, function(e) {
-						e.preventDefault();
-						w.d.input.val("");
-						w._t( { method: "clear" } );
-						w._t( { method: "close", closeCancel: true } );
-					});
-			},
-			close: function(txt) {
-				var w = this, o = this.options;
-				return $( "<a href='#' role='button'>" + txt + "</a>" )
-					.addClass( "ui-btn ui-btn-" + o.themeSetButton + 
-						" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" +
-						( ( w.dateOK === true ) ? "" : " ui-state-disabled" )
-					)
-					.on(o.clickEventAlt, function(e) {
-						e.preventDefault();
-						if ( w.dateOK === true ) {
-							w._t( { 
-								method: "set", 
-								value: w._formatter(w.__fmt(),w.theDate),
-								date: w.theDate
-							} );
-							w._t( { method: "close" } );
-						}
-						
-					});
-			}
 		},
 		_makeEl: function( source, parts ) {
 			// Populate a source element with data parts.
