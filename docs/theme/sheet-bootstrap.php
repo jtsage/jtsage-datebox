@@ -85,14 +85,7 @@ foreach ( $defaults as $key => $value ) {
 .ui-datebox-collapse { 
 	text-align: center;
 }
-.ui-datebox-collapse .ui-controlgroup-controls a { 
-	max-width: 40%;
-}
 
-.ui-datebox-controls.ui-controlgroup-vertical {
-	margin-bottom: 5px;
-	margin-top: 5px;
-}
 
 div.ui-datebox-inline.ui-datebox-inline-has-input {
 	float: none;
@@ -100,18 +93,9 @@ div.ui-datebox-inline.ui-datebox-inline-has-input {
 	position: relative;
 	top: 5px;
 }
-.ui-field-contain div.ui-datebox-container.ui-datebox-inline {
-	margin-right: auto;
-	margin-left: auto;
-}
 div.ui-datebox-container.ui-datebox-inline {
 	width: <?php echo $use['mWidth'] ?>px;
 
-}
-.ui-datebox-inline .ui-controlgroup-controls {
-	float: none;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 /* 
@@ -195,10 +179,6 @@ div.ui-datebox-container.ui-datebox-inline {
 	height: 15px;
 	line-height: 15px;
 }
-.ui-datebox-gridplus 		{ float: right; }
-.ui-datebox-gridminus 		{ float: left; }
-.ui-datebox-gridplus-rtl 	{ float: left; }
-.ui-datebox-gridminus-rtl 	{ float: right; }
 
 /* 
  * Android Mode Styles
