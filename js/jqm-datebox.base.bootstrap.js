@@ -25,6 +25,7 @@ if (
 		
 		calNextMonthIcon: "plus",
 		calPrevMonthIcon: "minus",
+		useInlineAlign: "left",
 
 		btnCls: " btn btn-sm btn-",
 		icnCls: " glyphicon glyphicon-",
