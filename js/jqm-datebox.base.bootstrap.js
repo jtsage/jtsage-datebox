@@ -16,6 +16,7 @@ if (
 		themeDateHighAlt: "danger",
 		themeDateHighRec: "warning",
 		themeDate: "default",
+		transition: "fade",
 
 		bootstrapDropdown: true,
 		bootstrapDropdownRight: true,
@@ -38,6 +39,7 @@ if (
 		},
 
 		clickEvent: "click",
+		tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 
 	});
 	$.extend( $.jtsage.datebox.prototype, {
@@ -312,6 +314,19 @@ if (
 						.addClass( "ui-datebox-inline" )
 						.css( "zIndex", "auto" );
 						
+					switch ( o.useInlineAlign ) {
+						case "right":
+							w.d.mainWrap.css({marginRight: 0, marginLeft: "auto"});
+							break;
+						case "left":
+							w.d.mainWrap.css({marginLeft: 0, marginRight: "auto"});
+							break;
+						case "center":
+						case "middle":
+							w.d.mainWrap.css({marginLeft: "auto", marginRight: "auto"});
+							break;
+					}
+
 					if ( !o.hideInput && !o.hideContainer ) {
 						w.d.mainWrap.addClass("ui-datebox-inline-has-input");
 					} 
@@ -443,7 +458,7 @@ if (
 					.addClass( ( o.useAnimation ? o.transition : "" ) )
 					.addClass( ( o.bootstrapDropdownRight === true ) ? "dropdown-menu-right" : "" )
 					.appendTo(w.d.wrap)
-					.on( "transitionend", function() { 
+					.on( o.tranDone, function() { 
 						if ( w.d.mainWrap.is( ":visible" ) ) {
 							basepop.afteropen.call();
 						} else {
@@ -472,6 +487,7 @@ if (
 			var w = this,
 				o = this.options;
 
+			console.log('call');
 			w.calBackDate = false;
 			
 			if ( o.useInlineBlind ) { 

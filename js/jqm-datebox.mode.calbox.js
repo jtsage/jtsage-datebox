@@ -240,7 +240,8 @@
 						( ( w.baseMode === "jqm" ) ?
 							o.btnCls + o.themeDate + o.icnCls + o.calNextMonthIcon : "" ) +
 						( ( w.baseMode === "bootstrap" ) ?
-							o.btnCls + o.themeDate + " pull-right" : "" )
+							o.btnCls + o.themeDate + 
+							" pull-" + ( w.__( "isRTL" ) ? "left" : "right" ) : "" )
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
@@ -266,7 +267,8 @@
 						( ( w.baseMode === "jqm" ) ? 
 							o.btnCls + o.themeDate + o.icnCls + o.calPrevMonthIcon : "" ) +
 						( ( w.baseMode === "bootstrap" ) ?
-							o.btnCls + o.themeDate + " pull-left" : "" )
+							o.btnCls + o.themeDate + 
+							" pull-" + ( w.__("isRTL" ) ? "right" : "left" ) : "" )
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
@@ -419,7 +421,7 @@
 				if ( w.baseMode === "bootstrap" ) {
 					pickerControl.i.find("select")
 						.addClass("form-control input-sm")
-						.css("marginTop", "3px")
+						.css({"marginTop": "3px", "float": "left"})
 						.first().css({ width: "60%" })
 						.end().last().css({ width: "40%" });
 					if ( o.calNoHeader && o.calUsePickersIcons ) {

@@ -19,6 +19,7 @@ if (
 		
 		calNextMonthIcon: "plus",
 		calPrevMonthIcon: "minus",
+		useInlineAlign: "left",
 
 		btnCls: " ui-corner-all ui-btn ui-btn-",
 		icnCls: " ui-btn-icon-notext ui-icon-",
