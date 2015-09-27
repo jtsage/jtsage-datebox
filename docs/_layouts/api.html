@@ -1,50 +1,79 @@
 ---
 ---
 {% include api_head.html %}
-<div data-role="page" id="main">
-	<div data-role="panel" data-display="overlay" id="toc">
-	<ul data-role='listview'>
-		<li data-role="list-divider">Related - {{page.relat}}</li>
-		{% for pag in site.pages %}
-		{% if pag.relat == page.relat and pag.depre != "true" %}
-			<li><a href="{{ site.basesite}}{{ pag.url | remove_first: "/" }}">{{ pag.title }}</a></li>
-		{% endif %}
-		{% endfor %}
-	</ul>
-	</div>
-	<div data-role="header" data-position="fixed">
-		<h1>jQMDateBoxAPI - {{ page.title }}</h1>
-		<a href="{{site.basesite}}" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-user ui-shadow ui-corner-all">Home</a>
-	</div>
-	<div data-role="navbar">
-	<ul>
-		<li><a href="{{ site.basesite}}api/" data-icon="home">API Home</a></li>
-		<li><a href="#toc" data-icon='grid'>Related Options</a></li>
-	</ul>
-	</div>
 
-<div class="ui-content" role="main">
-	
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="{{ site.basesite }}" class="navbar-brand">JTSage<span style="color:#C3593C">DateBox</span></a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="{{ site.basesite}}doc">Documentation</a></li>
+				<li><a href="{{ site.basesite}}api">API Options</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Related Options<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						{% for pag in site.pages %}
+						{% if pag.relat == page.relat and pag.depre != "true" %}
+							<li><a href="{{ site.basesite}}{{ pag.url | remove_first: "/" }}">{{ pag.title }}</a></li>
+						{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
+				<li><a href="{{ site.basesite }}bootstrap">Bootstrap Demos</a></li>
+				<li><a href="{{ site.basesite }}jqm">jQM Demos</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container" role="main">
 	{% capture style %}{% if page.depre == "true" %} style="color:#ccc;text-decoration:line-through"{% endif %}{% endcapture %}
 	<h1{{style}}>{{page.title}}</h1>
 	<h3>{{page.short}}</h3>
 	{{content}}
 	
-	<ul data-role="listview" data-mini="true" data-inset="true">
-		<li data-role="list-seperator" data-theme="b">Default Value</li>
-		<li>{{ page.defval }}</li>
-		<li data-role="list-seperator" data-theme="b">Data Type Expected</li>
-		<li>{{ page.dattype }}</li>
-		<li data-role="list-seperator" data-theme="b">Option is Dynamic post-init</li>
-		<li>{{ page.dyn }}</li>
-		<li data-role="list-seperator" data-theme="b">Valid Modes</li>
-		{% for mode in page.modes %}
-		<li><a href="{{site.basesite}}api/mode-{{mode}}">{{ mode }}</a></li>
-		{% endfor %}
-	</ul>
-
+	<div class="row">
+		<div class="col-sm-6">
+			<h4><span class="label label-primary">Data Type Expected</span></h4>
+			<p><em>{{ page.dattype }}</em></p>
+			<h4><span class="label label-primary">Default Vaule</span></h4>
+			<p>{{ page.defval }}</p>
+			<h4><span class="label label-warning">Option is Dynamic Post Initialization</span></h4>
+			<p>{{ page.dyn }}</p>
+			{% if page.relat == "i18n" %}
+				<h4>
+					<span class="label label-danger">Per Instance Override Name</span>
+					<a href="{{ site.basesite }}doc/3-2-locale/" title='What does this mean?'><i class="glyphicon glyphicon-question-sign"></i></a>
+				</h4>
+				{% assign fletter = page.title | truncate: 1, '' %}
+				<p>override{{ fletter | upcase }}{{ page.title | remove_first: fletter }}</p>
+			{% endif %}
+		</div>
+		<div class="col-sm-6">
+			<h4><span class="label label-success">Valid Modes</span></h4>
+			{% for mode in page.modes %}
+				<p><a href="{{site.basesite}}api/mode-{{mode}}">{{ mode }}</a></p>
+			{% endfor %}
+			<h4><span class="label label-info">Valid Frameworks</span></h4>
+			{% if page.frames %}
+				{% for frame in page.frames %}
+					<p>{{ frame }}</p>
+				{% endfor %}
+			{% else %}
+				<p><strong>Any</strong></p>
+			{% endif %} 
+		</div>
 </div>
 
-{% include footer.html doc="true" %}
+{% include bs_footer.html doc="true" %}
 
 

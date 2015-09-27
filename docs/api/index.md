@@ -5,17 +5,25 @@ sect: none
 ---
 
 # DateBox Complete Option List
-<form class="ui-filterable">
-<input id="filter-input" data-type="search">
-</form>
-<ul data-role="listview" data-filter="true" data-input="#filter-input" data-autodividers="true" data-inset="true">
+<div class="row">
 	{% for docu in site.pages %}
 	{% if docu.layout == "api" %}
 	{% capture style %}{% if docu.depre == "true" %} style="color:#ccc;text-decoration:line-through"{% endif %}{% endcapture %}
-	<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}"><h2{{style}}>{{docu.title}}</h2><p class="ui-li-count">{{docu.relat}}</p><p>{{docu.short}}</p></a></li>
+	{% capture classy %}{% if docu.relat == "i18n" %}primary{% elsif docu.relat == "limiting" %}warning{% elsif docu.relat == "control" %}success{% elsif docu.relat == "callback" %}danger{% elsif docu.relat == "display" %}info{% else %}default{% endif %}{% endcapture %}
+	<div class="col-sm-4"><div class="panel panel-default">
+		<div class="panel-heading">
+			<a class="pull-right btn btn-xs btn-{{ classy }}" href="{{site.basesite}}api/cat-{{docu.relat}}">{{docu.relat}}</a>
+			<h3 class="panel-title" {{style}}>
+				<a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{ docu.title }}</a>
+			</h3>
+		</div>
+		<div class="panel-body">
+			<p>{{docu.short}}</p>
+		</div>
+	</div></div>
 	{% endif %}
 	{% endfor %}
-</ul>
+</div>
 
 # Public Functions
 <ul data-role="listview" data-inset="true">
