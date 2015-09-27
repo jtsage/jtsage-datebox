@@ -512,6 +512,9 @@ if (
 				if ( o.useAnimation === true ) {
 					w.d.mainWrap.removeClass( "in");
 					w.d.backdrop.remove();
+					window.setTimeout(function () {
+	    				w.d.wrap.removeClass( "open" );
+					}, 0);
 				} else {
 					w.d.wrap.removeClass( "open" );
 					w.d.backdrop.remove();
