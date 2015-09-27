@@ -26,8 +26,8 @@
 	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.base.jqm.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.calbox.js"></script>
-	<!-- <script type="text/javascript" src="../js/jqm-datebox.mode.datebox.js"></script>
-	<script type="text/javascript" src="../js/jqm-datebox.mode.flipbox.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.mode.datebox.js"></script>
+	<!--script type="text/javascript" src="../js/jqm-datebox.mode.flipbox.js"></script>
 	
 	<script type="text/javascript" src="../js/jqm-datebox.mode.slidebox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.custombox.js"></script--> 
@@ -50,6 +50,7 @@
 			//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
 			//useLang: "ar",
 			useTodayButton: true,
+			useInline: true,
 			//useTomorrowButton: true,
 			useClearButton: true,
 			useCollapsedBut: false,
@@ -90,7 +91,7 @@
 
 		<div class="ui-field-contain">
 			<label for="lang1">yep</label>
-			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang1" data-options='{"overrideDurationOrder": ["h","i","s"], "overrideDurationFormat":"%Dl:%DM:%DS"}' />
+			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="datebox" id="lang1" data-options='{"overrideDurationOrder": ["h","i","s"], "overrideDurationFormat":"%Dl:%DM:%DS"}' />
 		</div>
 		<div class="ui-field-contain">
 			<label for="ba1">text comparison</label>
@@ -98,7 +99,7 @@
 		</div>
 		<div class="ui-field-contain">
 			<label for="lang2">yep</label>
-			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="timeflipbox" id="lang2" data-options='{"minTime": "6:00", "maxTime":"9:00"}' />
+			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="durationbox" id="lang2" data-options='{"minTime": "6:00", "maxTime":"9:00"}' />
 
 		</div>
 		<div class="ui-field-contain">

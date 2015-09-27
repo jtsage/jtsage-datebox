@@ -139,7 +139,7 @@ div.ui-datebox-container.ui-datebox-inline {
 	margin-bottom: 5px;
 }
 
-.ui-datebox-grid .ui-datebox-controls {
+.ui-datebox-controls {
 	padding: 0px 3px;
 	width: 100%;
 }
@@ -186,28 +186,45 @@ div.ui-datebox-container.ui-datebox-inline {
  * These are specific to datebox, timebox, and durationbox
  */
 
-.ui-datebox-dboxin div input {
+.ui-datebox-datebox-groups.row {
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-bottom: 10px;
+}
+
+.ui-datebox-datebox-group.col-xs-3, .ui-datebox-datebox-group.col-xs-4 {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+div.ui-datebox-datebox-button {
+	width: 100%;
+	margin: 0;
+}
+
+.ui-datebox-datebox-groups input {
 	text-align: center;
 }
-.ui-datebox-dboxin div {
-	margin: 0 inherit 0;
-}
-.ui-datebox-dboxlab div label {
+
+.ui-datebox-datebox-groups label {
 	text-align: center;
+	width: 100%;
+	margin-bottom: 0px;
+	border: 1px solid #ccc;
 }
-div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-plus {
+div.ui-datebox-datebox-button.glyphicon-plus {
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
 	-webkit-border-bottom-right-radius: 0;
 	-webkit-border-bottom-left-radius: 0;
-	height: 40px;
+	top: 0px;
 }
-div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
+div.ui-datebox-datebox-button.glyphicon-minus {
 	border-top-right-radius: 0;
 	border-top-left-radius: 0;
 	-webkit-border-top-right-radius: 0;
 	-webkit-border-top-left-radius: 0;
-	height: 40px;
+	top: 0px;
 }
 .ui-datebox-header h4 {
 	text-align: center;

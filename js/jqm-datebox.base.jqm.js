@@ -16,6 +16,12 @@ if (
 		themeDateHighAlt: "b",
 		themeDateHighRec: "b",
 		themeDate: "a",
+		themeButton: "a",
+		themeInput: "a",
+
+		buttonIconDate: "calendar",
+		buttonIconTime: "clock",
+		disabledState: "ui-state-disabled",
 		
 		calNextMonthIcon: "plus",
 		calPrevMonthIcon: "minus",

@@ -48,8 +48,6 @@
 
 			useButton: true,
 			buttonIcon: false,
-			buttonIconDate: "calendar",
-			buttonIconTime: "clock",
 			useFocus: false,
 			useClearButton: false,
 			useCollapsedBut: false,

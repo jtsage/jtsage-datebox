@@ -31,8 +31,8 @@
 	<script type="text/javascript" src="../js/jqm-datebox.core.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.base.bootstrap.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.calbox.js"></script>
-	<!-- <script type="text/javascript" src="../js/jqm-datebox.mode.datebox.js"></script>
-	<script type="text/javascript" src="../js/jqm-datebox.mode.flipbox.js"></script>
+	<script type="text/javascript" src="../js/jqm-datebox.mode.datebox.js"></script>
+	<!--script type="text/javascript" src="../js/jqm-datebox.mode.flipbox.js"></script>
 	
 	<script type="text/javascript" src="../js/jqm-datebox.mode.slidebox.js"></script>
 	<script type="text/javascript" src="../js/jqm-datebox.mode.custombox.js"></script--> 
@@ -54,10 +54,10 @@
 			closeCallbackArgs: ['hi'],
 			//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
 			//useClearButton: true,
-			//useCollapsedBut: true,
+			useCollapsedBut: true,
 			//calShowWeek: true,
-			useInline: true,
-			hideInput: true,
+			//useInline: true,
+			//hideInput: true,
 			useInlineAlign: "middle",
 
 			calUsePickers: true,
@@ -101,7 +101,12 @@
 
 		<div class="form-group">
 			<label class="control-label"for="lang1">yep</label>
-			<input class="form-control" name="lang1" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang1" />
+			<input class="form-control" name="lang1" type="text" data-role="datebox" data-datebox-mode="datebox" id="lang1" />
+		</div>
+
+		<div class="form-group">
+			<label class="control-label"for="lang2">yep2</label>
+			<input class="form-control" name="lang2" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang2" />
 		</div>
 
 		<div class="form-group">

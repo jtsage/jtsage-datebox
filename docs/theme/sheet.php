@@ -211,23 +211,39 @@ div.ui-datebox-container.ui-datebox-inline {
  * These are specific to datebox, timebox, and durationbox
  */
 
-.ui-datebox-dboxin div input {
+.ui-datebox-datebox-group input {
 	text-align: center;
 }
-.ui-datebox-dboxin div {
-	margin: 0 inherit 0;
+.ui-datebox-datebox-groups {
+	width: 97.5%;
+    margin-left: 1%;
 }
-.ui-datebox-dboxlab div label {
+
+.ui-datebox-datebox-group div.ui-input-text {
+	width: 100%;
+}
+.ui-datebox-datebox-group div {
+	margin: 0;
+}
+.ui-datebox-datebox-group div label {
 	text-align: center;
+	margin: 0;
 }
-div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-plus {
+.ui-datebox-datebox-label {
+	width: 100%;
+}
+div.ui-datebox-datebox-button.ui-btn.ui-corner-all {
+	width: 100%;
+	margin: 0;
+}
+div.ui-datebox-datebox-button.ui-btn.ui-corner-all.ui-icon-plus {
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
 	-webkit-border-bottom-right-radius: 0;
 	-webkit-border-bottom-left-radius: 0;
 	height: 40px;
 }
-div.ui-datebox-cbut.ui-btn.ui-corner-all.ui-icon-minus {
+div.ui-datebox-datebox-button.ui-btn.ui-corner-all.ui-icon-minus {
 	border-top-right-radius: 0;
 	border-top-left-radius: 0;
 	-webkit-border-top-right-radius: 0;

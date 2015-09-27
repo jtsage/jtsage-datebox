@@ -4,8 +4,7 @@
 
 (function($) {
 	$.extend( $.jtsage.datebox.prototype.options, {
-		themeButton: "a",
-		themeInput: "a",
+		
 		useSetButton: true,
 		useCancelButton: false,
 		validHours: false,
@@ -92,9 +91,9 @@
 				
 				if ( o.useSetButton ) {
 					if ( w.dateOK === false ) { 
-						w.setBut.addClass( "ui-state-disabled" );
+						w.setBut.addClass( o.disabledState );
 					} else {
-						w.setBut.removeClass( "ui-state-disabled" );
+						w.setBut.removeClass( o.disabledState );
 					}
 				}
 			}
@@ -212,20 +211,14 @@
 				g = this.drag,
 				o = this.options, 
 				dur = ( o.mode === "durationbox" ? true : false ),
-				cnt = -2,
+				cnt = 0,
 				defDurOrder = ["d","h","i","s"],
 				uid = "ui-datebox-",
 				divBase = $( "<div>" ),
 				divPlus = $( "<fieldset>" ),
 				divIn = divBase.clone(),
 				divMinus = divPlus.clone(),
-				divLab = divBase.clone(),
-				inBase = $("<div><input type='text'></div>")
-					.addClass( "ui-input-text ui-body-" + o.themeInput+ 
-						" ui-corner-all ui-mini ui-shadow-inset"),
-				butBase = $( "<div></div>" ),
-				butClass = "ui-btn-inline ui-link ui-btn ui-btn-" + o.themeButton +
-					" ui-btn-icon-notext ui-shadow ui-corner-all";
+				divLab = divBase.clone();
 			
 			if ( typeof w.d.intHTML !== "boolean" ) {
 				w.d.intHTML.empty().remove();
@@ -260,8 +253,16 @@
 					.appendTo(w.d.intHTML); 
 			}
 			
+			allControls = $("<div>").addClass( uid + "datebox-groups" );
+
 			for(i = 0; i < w.fldOrder.length; i++) {
-				tmp = w._gridblk.b[i];
+				currentControl = $("<div>").addClass( uid + "datebox-group" );
+
+				currentControl.addClass( "" +
+					( ( w.baseMode === "jqm") ? 
+						"ui-block-" + ["a","b","c","d","e"][cnt] : "" )
+				);
+
 				if ( dur ) {
 					offAmount = o.durationSteppers[w.fldOrder[i]];
 				} else {
@@ -271,68 +272,80 @@
 						offAmount = 1;
 					}
 				}
-				if ( w.fldOrder[i] !== "a" || w.__("timeFormat") === 12 ) {					
+
+				if ( w.fldOrder[i] !== "a" || w.__("timeFormat") === 12 ) {
 					$("<div>")
-						.append( (dur) ?
-							"<label>" + 
-							w.__( "durationLabel" )[ $.inArray( w.fldOrder[i], defDurOrder ) ] +
-							"</label>" : 
-							"" )
-						.addClass("ui-block-"+tmp)
-						.appendTo(divLab);
-					$("<div>")
-						.append( w._makeEl(inBase, {"attr": {
+						.addClass( uid + "datebox-button" )
+						.addClass( o.icnCls +  o.calNextMonthIcon )
+						.addClass( o.btnCls + o.themeButton )
+						.data({
 							"field": w.fldOrder[i],
 							"amount": offAmount
-						} } ) )
-						.addClass("ui-block-"+tmp)
-						.appendTo(divIn)
+						})
+						.appendTo(currentControl);
+
+					if ( dur ) {
+						$( w._spf("<div><label>{text}</label></div>", {
+							text: w.__( "durationLabel" )[ $.inArray( w.fldOrder[i], defDurOrder ) ]
+						}))
+							.addClass( uid + "datebox-label " + "ui-body-" + o.themeInput)
+							.appendTo(currentControl);
+					}
+
+					$("<div><input type='text'></div>")
+						.addClass("" + 
+							( ( w.baseMode === "jqm" ) ?
+								"ui-input-text ui-body-" + o.themeInput + " ui-mini" : "" )
+						)
+						.appendTo(currentControl)
 						.find( "input" ).data({
 							"field": w.fldOrder[i],
 							"amount": offAmount
-						});
-					w._makeEl( butBase, {"attr": {
+						})
+						.addClass("" +
+							( ( w.baseMode === "bootstrap") ?
+								"form-control" : "" )
+						);
+
+					$("<div>")
+						.addClass( uid + "datebox-button" )
+						.addClass( o.icnCls +  o.calPrevMonthIcon )
+						.addClass( o.btnCls + o.themeButton )
+						.data({
 							"field": w.fldOrder[i],
-							"amount": offAmount 
-						} } )
-						.addClass( uid + "cbut ui-block-" + tmp + " ui-icon-plus " + butClass)
-						.appendTo( divPlus )
-						.prepend( (dur) ? "<label>" + w.__("durationLabel")[i] + "</label>" : "" );
-					w._makeEl( butBase, {"attr": {
-							"field": w.fldOrder[i],
-							"amount": offAmount  * -1
-						} } )
-						.addClass( uid + "cbut ui-block-" + tmp + " ui-icon-minus " + butClass)
-						.appendTo( divMinus );
+							"amount": offAmount
+						})
+						.appendTo(currentControl);
+
+					currentControl.appendTo(allControls);
 					cnt++;
+					console.log(cnt);
 				}
 			}
 			
-			if ( dur ) {
-				divLab
-					.addClass("ui-datebox-dboxlab ui-grid-"+w._gridblk.b[cnt])
-					.appendTo(w.d.intHTML);
+			
+			allControls.addClass("" +
+				( ( w.baseMode === "jqm" ) ?
+					"ui-grid-" + [0, 0, "a", "b", "c", "d", "e"][cnt] : "" ) +
+				( ( w.baseMode === "bootstrap" ) ?
+					"row" : "" )
+			);
+
+			if ( w.baseMode === "bootstrap" ) {
+				allControls.find("." + uid + "datebox-group" ).each( function() {
+					$(this).addClass("col-xs-" + 12 / cnt);
+				})
 			}
+
+			allControls.appendTo(w.d.intHTML);
 			
-			divPlus
-				.addClass("ui-grid-"+w._gridblk.b[cnt])
-				.appendTo(w.d.intHTML);
-				
-			divIn
-				.addClass("ui-datebox-dboxin ui-grid-"+w._gridblk.b[cnt])
-				.appendTo(w.d.intHTML);
-				
-			divMinus
-				.addClass("ui-grid-"+w._gridblk.b[cnt])
-				.appendTo(w.d.intHTML);
-			
-			w.d.divIn = divIn;
+			w.d.divIn = allControls	;
 			w._dbox_run_update(true);
 			
 			if ( w.dateOK !== true ) {
-				divIn.find( "input" ).addClass( "ui-state-disable" );
+				allControls.find( "input" ).addClass( o.disabledState );
 			} else {
-				divIn.find( ".ui-state-disable" ).removeClass( "ui-state-disable" );
+				allControls.find( "." + o.disabledState ).removeClass( o.disabledState );
 			}
 			
 			if ( o.useSetButton || o.useClearButton ) {
@@ -354,17 +367,28 @@
 				if (o.useCancelButton) {
 				    y.append(w._stdBtn.cancel.apply(w));
 				}
-				if ( o.useCollapsedBut ) {
-					y.controlgroup({ type: "horizontal" });
-					y.addClass("ui-datebox-collapse");
-				} else {
-					y.controlgroup();
+
+				if ( w.baseMode === "bootstrap" ) {
+					if ( o.useCollapsedBut ) {
+						y.find( "a" ).css({ width: "auto" });
+						y.addClass( "btn-group btn-group-justified" );
+					} else {
+						y.addClass( "btn-group-vertical" );
+					}
+				}
+				if ( w.baseMode === "jqm" ) {
+					if ( o.useCollapsedBut ) {
+						y.controlgroup({ type: "horizontal" });
+						y.addClass("ui-datebox-collapse");
+					} else {
+						y.controlgroup();
+					}
 				}
 				y.appendTo(w.d.intHTML);
 			}
 			
 			if ( ! o.repButton ) {
-				w.d.intHTML.on(o.clickEvent, "."+ uid + "cbut", function(e) {
+				w.d.intHTML.on(o.clickEvent, "."+ uid + "datebox-button", function(e) {
 					divIn.find(":focus").blur();
 					e.preventDefault();
 					w._dbox_delta = ($(this).data("amount")>1) ? 1 : -1;
@@ -383,7 +407,7 @@
 			}
 			
 			if ( o.repButton ) {
-				w.d.intHTML.on(g.eStart, "."+ uid + "cbut", function(e) {
+				w.d.intHTML.on(g.eStart, "."+ uid + "datebox-button", function(e) {
 					e.preventDefault();
 					divIn.find(":focus").blur();
 					tmp = [$(this).data("field"), $(this).data("amount")];
@@ -397,7 +421,7 @@
 						w.runButton = setTimeout(function() {w._dbox_run();}, 500);
 					}
 				});
-				w.d.intHTML.on(g.eEndA, "." + uid + "cbut", function(e) {
+				w.d.intHTML.on(g.eEndA, "." + uid + "datebox-button", function(e) {
 					if ( g.move ) {
 						e.preventDefault();
 						clearTimeout(w.runButton);

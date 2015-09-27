@@ -16,7 +16,13 @@ if (
 		themeDateHighAlt: "danger",
 		themeDateHighRec: "warning",
 		themeDate: "default",
+		themeButton: "default",
+		themeInput: "default",
 		transition: "fade",
+
+		buttonIconDate: "calendar",
+		buttonIconTime: "time",
+		disabledState: "disabled",
 
 		bootstrapDropdown: true,
 		bootstrapDropdownRight: true,
@@ -70,10 +76,11 @@ if (
 			},
 			close: function(txt) {
 				var w = this, o = this.options;
-				return $( "<a href='#' role='button'>" + txt + "</a>" )
-					.addClass( "ui-btn ui-btn-" + o.themeSetButton + 
-						" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" +
-						( ( w.dateOK === true ) ? "" : " ui-state-disabled" )
+				return $( "<a href='#' role='button' class='btn btn-sm btn-default'>" + 
+						"<span class='" + o.icnCls + "ok'></span> " +
+						txt + "</a>" )
+					.addClass( "" +
+						( ( w.dateOK === true ) ? "" : "disabled")
 					)
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
@@ -488,7 +495,6 @@ if (
 			var w = this,
 				o = this.options;
 
-			console.log('call');
 			w.calBackDate = false;
 			
 			if ( o.useInlineBlind ) { 
