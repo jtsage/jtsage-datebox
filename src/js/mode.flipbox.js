@@ -4,8 +4,6 @@
 
 (function($) {
 	$.extend( $.jtsage.datebox.prototype.options, {
-		themeDatePick: "b",
-		themeDate: "a",
 		useSetButton: true,
 		validHours: false,
 		flen: { 
@@ -127,6 +125,9 @@
 				flipBase = $( "<div class='ui-overlay-shadow'><ul></ul></div>" ),
 				ctrl = $( "<div>", { "class": uid+"flipcontent" } ),
 				ti = w.theDate.getTime() - w.initDate.getTime(),
+				themeType = "" +
+					( ( w.baseMode === "jqm" ) ? "ui-body-" : "" ) +
+					( ( w.baseMode === "bootstrap" ) ? "bg-" : "" ),
 				cDur = w._dur( ti<0 ? 0 : ti ),
 				currentTerm, currentText;
 
@@ -226,7 +227,7 @@
 	
 					for ( i in cDurS[ stdPos ] ) {
 						$("<li><span>" + cDurS[ stdPos ][ i ][ 0 ] + "</span></li>" )
-							.addClass("ui-body-" + ((cDurS[ stdPos ][ i ][ 1 ] !== currentTerm ) ?
+							.addClass( themeType + ((cDurS[ stdPos ][ i ][ 1 ] !== currentTerm ) ?
 								o.themeDate :
 								o.themeDatePick)
 							)
@@ -248,7 +249,7 @@
 				
 				if ( typeof w._fbox_mktxt[currentTerm] === "function" ) {
 					for ( i = -1 * o.flen[currentTerm]; i < ( o.flen[currentTerm] + 1 ); i++ ) {
-						$("<li class='ui-body-" + 
+						$("<li class='" + themeType + 
 								(( i !== 0 ) ? o.themeDate : o.themeDatePick) + "'><span>" + 
 								w._fbox_mktxt[currentTerm].apply(
 									w,
@@ -259,7 +260,7 @@
 					hRow.appendTo( ctrl );
 				}
 				if ( currentTerm === "a" && w.__("timeFormat") === 12 ) {
-					currentText = $( "<li class='ui-body-" + o.themeDate + "'><span></span></li>");
+					currentText = $( "<li class='" + themeType + o.themeDate + "'><span></span></li>");
 					
 					tmp = (w.theDate.get(3) > 11) ?
 						[o.themeDate,o.themeDatePick,2,5] :
@@ -300,12 +301,24 @@
 				if ( o.useClearButton ) {
 					y.append(w._stdBtn.clear.apply(w));
 				}
-				if ( o.useCollapsedBut ) {
-					y.controlgroup({ type: "horizontal" });
-					y.addClass( "ui-datebox-collapse" );
-				} else {
-					y.controlgroup();
+
+				if ( w.baseMode === "bootstrap" ) {
+					if ( o.useCollapsedBut ) {
+						y.find( "a" ).css({ width: "auto" });
+						y.addClass( "btn-group btn-group-justified" );
+					} else {
+						y.addClass( "btn-group-vertical" );
+					}
 				}
+				if ( w.baseMode === "jqm" ) {
+					if ( o.useCollapsedBut ) {
+						y.controlgroup({ type: "horizontal" });
+						y.addClass("ui-datebox-collapse");
+					} else {
+						y.controlgroup();
+					}
+				}
+
 				y.appendTo(w.d.intHTML);
 			}
 			

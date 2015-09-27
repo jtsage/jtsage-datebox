@@ -247,12 +247,20 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 	margin-right: auto;
 	margin-left: auto;
 	position: relative;
+	-webkit-box-shadow: 0 0 12px rgba(0,0,0,.6); */
+    -moz-box-shadow: 0 0 12px rgba(0,0,0,.6);
+    box-shadow: 0 0 12px rgba(0,0,0,.6);
 }
+
 .ui-datebox-flipcontent {
 	text-align: center;
 	height: <?php echo $use['fTotHeight'] ?>px;
 	margin-bottom: -40px;
 }
+.ui-datebox-flipcontent li {
+	border: 1px solid #ccc;
+}
+
 .ui-datebox-flipcontent div {
 	margin-left: 3px;
 	margin-right: 3px;
