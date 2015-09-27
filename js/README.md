@@ -1,18 +1,23 @@
-jQuery-Mobile-DateBox
-=====================
+JTSage-DateBox
+==============
 
 DateBox Sources
 
 Core File:
 
- * jqm-datebox.core.js
+ * core.js
+
+Basic Display
+
+ * base.bootstrap.js
+ * base.jqm.js
 
 Individual Modes:
 
- * jqm-datebox.mode.calbox.js
- * jqm-datebox.mode.customflip.js
- * jqm-datebox.mode.datebox.js
- * jqm-datebox.mode.durationbox.js
- * jqm-datebox.mode.durationflipbox.js
- * jqm-datebox.mode.flipbox.js
- * jqm-datebox.mode.slidebox.js
+ * mode.calbox.js
+ * mode.customflip.js
+ * mode.datebox.js
+ * mode.durationbox.js
+ * mode.durationflipbox.js
+ * mode.flipbox.js
+ * mode.slidebox.js
