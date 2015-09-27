@@ -34,15 +34,15 @@ module.exports = function(grunt) {
 		jshint: {
 			js: {
 				files: {
-					src: [ "js/*.js" ]
+					src: [ "src/js/*.js" ]
 				},
 				options: {
-					jshintrc: "js/.jshintrc"
+					jshintrc: "src/js/.jshintrc"
 				}
 			},
 			js_sane: {
 				files: {
-					src: [ "js/*.js" ]
+					src: [ "src/js/*.js" ]
 				},
 				options: {
 					"undef": true,
@@ -94,123 +94,52 @@ module.exports = function(grunt) {
 				stripBanners: true,
 				banner: "<%= txt.banner.long %>",
 			},
-			lat_main: {
-				src: [
-						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.*.js",
-						"!js/jqm-datebox.mode.custombox.js"
-						
-				],
-				dest: "dist/latest/jqm-datebox.all.js"
-			},
-			lat_amd: {
+			latest_jqm: {
 				src: [
 						"build/wrap.begin",
-						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.*.js",
-						"!js/jqm-datebox.mode.custombox.js",
+						"src/js/.core.js",
+						"src/js/base.jqm.js",
+						"src/js/mode.*.js",
+						"!src/js/.mode.custombox.js",
+						"!src/js/mode.customflip.js",
 						"build/wrap.end"
 				],
-				dest: "dist/latest/jqm-datebox.all.amd.js"
+				dest: "dist/latest/jtsage-datebox.jqm.js"
 			},
-			ver_main: {
+			latest_bootstrap: {
 				src: [
-						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.*.js",
-						"!js/jqm-datebox.mode.custombox.js",
-						"!js/jqm-datebox.mode.customflip.js"
+						"src/js/.core.js",
+						"src/js/base.bootstrap.js",
+						"src/js/mode.*.js",
+						"!src/js/mode.custombox.js",
+						"!src/js/mode.customflip.js",
 				],
-				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.all.js"
+				dest: "dist/latest/jtsage-datebox.bootstrap.js"
 			},
-			ver_extra: {
+			main_jqm: {
 				src: [
-						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.*.js",
-						"!js/jqm-datebox.mode.custombox.js"
+						"build/wrap.begin",
+						"src/js/.core.js",
+						"src/js/base.jqm.js",
+						"src/js/mode.*.js",
+						"!src/js/.mode.custombox.js",
+						"!src/js/mode.customflip.js",
+						"build/wrap.end"
 				],
-				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.allextra.js"
+				dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqm.js"
 			},
-			ver_comp_datebox: {
+			main_bootstrap: {
 				src: [
-						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.datebox.js"
+						"src/js/.core.js",
+						"src/js/base.bootstrap.js",
+						"src/js/mode.*.js",
+						"!src/js/mode.custombox.js",
+						"!src/js/mode.customflip.js",
 				],
-				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.comp.datebox.js"
-			},
-			ver_comp_calbox: {
-				src: [
-						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.calbox.js"
-				],
-				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.comp.calbox.js"
-			},
-			ver_comp_flipbox: {
-				src: [
-						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.flipbox.js",
-				],
-				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.comp.flipbox.js"
-			},
-			ver_comp_slidebox: {
-				src: [
-						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.slidebox.js"
-				],
-				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.comp.slidebox.js"
-			},
-			ver_comp_customflip: {
-				src: [
-						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.customflip.js"
-				],
-				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.comp.customflip.js"
-			},
-			ver_comp_custombox: {
-				src: [
-						"js/jqm-datebox.core.js",
-						"js/jqm-datebox.mode.custombox.js"
-				],
-				dest: "dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.comp.custombox.js"
+				dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap.js"
 			}
 		},
 		copy: {
-			release: {
-				options: {
-					process: function (content) {
-						var texty = grunt.config("txt");
-						return content.replace(
-							/^...jQuery-Mobile-DateBox.../,
-							texty.banner.long
-						);
-					}
-				},
-				files: [ {
-					expand: true,
-					cwd: "js/",
-					src: ["*.js"],
-					dest: "dist/<%= pkg.version %>/",
-					rename: function(dest, src) {
-						return dest + src.replace(/^jqm-datebox/, "jqm-datebox-<%= pkg.version %>");
-					}
-				} ]
-			},
-			latest: {
-				options: {
-					process: function (content) {
-						var texty = grunt.config("txt");
-						return content.replace(
-							/^...jQuery-Mobile-DateBox.../,
-							texty.banner.long
-						);
-					}
-				},
-				files: [ {
-					expand: true,
-					cwd: "js/",
-					src: ["*.js"],
-					dest: "dist/latest/",
-				} ]
-			},
 			latest_css: {
 				options: {
 					process: function (content) {
@@ -290,19 +219,25 @@ module.exports = function(grunt) {
 				options: {
 					banner: "<%= txt.banner.short %>"
 				},
-				files: {
-					"dist/<%= pkg.version %>/jqm-datebox-<%= pkg.version %>.min.css": [
-						"css/jqm-datebox.css"]
-				}
+				files: [{
+      				expand: true,
+      				src: ['dist/<%= pkg.version %>/*.css', '!dist/<%= pkg.version %>/*.min.css'],
+      				dest: "",
+      				extDot: "last",
+      				ext: ".min.css"
+    			}]
 			},
 			latest: {
 				options: {
 					banner: "<%= txt.banner.short %>"
 				},
-				files: {
-					"dist/latest/jqm-datebox.min.css": [
-						"css/jqm-datebox.css"]
-				}
+				files: [{
+      				expand: true,
+      				src: ['dist/latest/*.css', '!dist/latest/*.min.css'],
+      				dest: "",
+      				extDot: "last",
+      				ext: ".min.css"
+    			}]
 			}
 		},
 		committers: {
@@ -371,6 +306,21 @@ module.exports = function(grunt) {
 		},
 		htmllint: {
 			all: ["docs/_site/**/*.html"]
+		},
+		exec: {
+			latest_make_css_jqm: {
+				command: "/usr/bin/php src/css/sheet.php > dist/latest/jtsage-datebox.jqm.css"
+			},
+			latest_make_css_bootstrap: {
+				command: "/usr/bin/php src/css/sheet-bootstrap.php > dist/latest/jtsage-datebox.bootstrap.css"
+			},
+			main_make_css_jqm: {
+				command: "/usr/bin/php src/css/sheet.php > dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqm.css"
+			},
+			main_make_css_bootstrap: {
+				command: "/usr/bin/php src/css/sheet-bootstrap.php > dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap.css"
+			}
+
 		}
 	});
 
@@ -386,6 +336,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 	grunt.loadNpmTasks( "grunt-prettify" );
 	grunt.loadNpmTasks( "grunt-html" );
+	grunt.loadNpmTasks( "grunt-exec" );
 	
 	grunt.task.loadTasks( "build/tasks" );
 	
@@ -404,29 +355,24 @@ module.exports = function(grunt) {
 		"jshint_sane",
 		//"qunit",
 		"clean:release",
-		"concat:ver_main",
-		"concat:ver_extra",
-		"concat:ver_comp_datebox",
-		"concat:ver_comp_calbox",
-		"concat:ver_comp_flipbox",
-		"concat:ver_comp_slidebox",
-		"concat:ver_comp_customflip",
-		"concat:ver_comp_custombox",
-		"copy:release",
-		"copy:release_css",
+		"concat:main_jqm",
+		"concat:main_bootstrap",
+		"exec:main_make_css_jqm",
+		"exec:main_make_css_bootstrap",
 		"uglify:release",
 		"cssmin:release",
 		"committers",
 		"jekyll:release",
 		"prettify",
+		"makei18n"
 	] );
 	
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
 		"clean:latest",
-		"concat:lat_main",
-		"concat:lat_amd",
-		"copy:latest",
-		"copy:latest_css",
+		"concat:latest_jqm",
+		"concat:latest_bootstrap",
+		"exec:latest_make_css_jqm",
+		"exec:latest_make_css_bootstrap",
 		"uglify:latest",
 		"cssmin:latest",
 	]);

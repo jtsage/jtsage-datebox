@@ -13,20 +13,20 @@ module.exports = function(grunt) {
 		},
 		makeMultiFile = function(data) {
 			var ban = grunt.config("txt");
-			return ban.banner.long + "jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, "+
+			return ban.banner.long + "jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, "+
 				JSON.stringify( data, null, "\t" ) +
 				");\n" + 
-				"jQuery.extend(jQuery.mobile.datebox.prototype.options, {\n" + 
+				"jQuery.extend(jQuery.jtsage.datebox.prototype.options, {\n" + 
 				"\tuseLang: \"en\"\n" +
 				"});\n";
 		},
 		makeSingleFile = function(l, data) {
 			var ban = grunt.config("txt");
-			return ban.banner.long + "jQuery.extend(jQuery.mobile.datebox.prototype.options.lang" +
+			return ban.banner.long + "jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang" +
 				", { \"" + l +  "\": " +
 				JSON.stringify( data, null, "\t" ) +
 				"});\n" + 
-				"jQuery.extend(jQuery.mobile.datebox.prototype.options, {\n" + 
+				"jQuery.extend(jQuery.jtsage.datebox.prototype.options, {\n" + 
 				"\tuseLang: \"" + l + "\"\n" +
 				"});\n";
 		},
@@ -130,7 +130,7 @@ module.exports = function(grunt) {
 					return false;
 				} else {
 					lang = afile.replace("i18n/locale/","").replace("/datebox.po","");
-					desty = "dist/i18n/jquery.mobile.datebox.i18n." + lang + ".utf8.js";
+					desty = "dist/i18n/jtsage-datebox.i18n." + lang + ".utf8.js";
 					contents = fs.readFileSync(afile);
 					gt.addTextdomain(lang, contents);
 					alllang[lang] = makeLang(lang);
@@ -138,7 +138,7 @@ module.exports = function(grunt) {
 				}
 			});
 		});
-		grunt.file.write("dist/i18n/jqm-datebox.lang.utf8.js", makeMultiFile( alllang ));
+		grunt.file.write("dist/i18n/jtsage-datebox.lang.utf8.js", makeMultiFile( alllang ));
 	});
 };
 
