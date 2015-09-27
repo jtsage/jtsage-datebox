@@ -27,9 +27,9 @@ $defaults = array(
 	// SlideBox Options
 	'sYWidth'		=> array(84, "Year Width", 'slidebox', 5, 150),
 	'sMWidth'		=> array(51, "Month Width", 'slidebox', 5, 150),
-	'sDWidth'		=> array(32, "Date Width", 'slidebox', 5, 150),
-	'sHWidth'		=> array(32, "Hour Width", 'slidebox', 5, 150),
-	'sIWidth'		=> array(32, "Minute Width", 'slidebox', 5, 150),
+	'sDWidth'		=> array(40, "Date Width", 'slidebox', 5, 150),
+	'sHWidth'		=> array(60, "Hour Width", 'slidebox', 5, 150),
+	'sIWidth'		=> array(40, "Minute Width", 'slidebox', 5, 150),
 	
 	'sYMHigh'		=> array(30, "Year/Month Height", 'slidebox', 5, 50),
 	'sDHigh'		=> array(38, "Date Height", 'slidebox', 5, 50),
@@ -322,35 +322,34 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 	*display:inline;
 	vertical-align: middle;
 	font-weight: bold;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 .ui-datebox-slideyear {
 	width: <?php echo $use['sYWidth'] ?>px;
 	line-height: <?php echo $use['sYMLHigh'] ?>px;
-	height: <?php echo $use['sYMHigh'] ?>px;
 	font-size: <?php echo $use['sYFont'] ?>px;
 }
 .ui-datebox-slidemonth {
 	width: <?php echo $use['sMWidth'] ?>px;
 	line-height: <?php echo $use['sYMLHigh'] ?>px;
-	height: <?php echo $use['sYMHigh'] ?>px;
 	font-size: <?php echo $use['sMFont'] ?>px;
 }
 .ui-datebox-slideday {
-	width: <?php echo $use['sDWidth'] ?>px;
+	width: <?php echo $use['sDWidth'] ?>px; 
 	line-height: <?php echo $use['sDLHigh'] ?>px;
-	height: <?php echo $use['sDHigh'] ?>px;
 	font-size: <?php echo $use['sDFont'] ?>px;
 }
 .ui-datebox-slidehour {
 	width: <?php echo $use['sHWidth'] ?>px;
 	line-height: <?php echo $use['sHILHigh'] ?>px;
-	height: <?php echo $use['sHIHigh'] ?>px;
 	font-size: <?php echo $use['sHFont'] ?>px;
 }
 .ui-datebox-slidemins {
-	width: <?php echo $use['sHWidth'] ?>px;
+	width: <?php echo $use['sIWidth'] ?>px; 
 	line-height: <?php echo $use['sHILHigh'] ?>px;
-	height: <?php echo $use['sHIHigh'] ?>px;
 	font-size: <?php echo $use['sIFont'] ?>px;
 }
 .ui-datebox-slidewday {

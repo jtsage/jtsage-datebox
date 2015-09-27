@@ -221,7 +221,7 @@ module.exports = function(grunt) {
 				},
 				files: [{
       				expand: true,
-      				src: ['dist/<%= pkg.version %>/*.css', '!dist/<%= pkg.version %>/*.min.css'],
+      				src: [ "dist/<%= pkg.version %>/*.css", "!dist/<%= pkg.version %>/*.min.css" ],
       				dest: "",
       				extDot: "last",
       				ext: ".min.css"
@@ -233,7 +233,7 @@ module.exports = function(grunt) {
 				},
 				files: [{
       				expand: true,
-      				src: ['dist/latest/*.css', '!dist/latest/*.min.css'],
+      				src: [ "dist/latest/*.css", "!dist/latest/*.min.css"],
       				dest: "",
       				extDot: "last",
       				ext: ".min.css"

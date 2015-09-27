@@ -260,7 +260,7 @@
 					hRow.appendTo( ctrl );
 				}
 				if ( currentTerm === "a" && w.__("timeFormat") === 12 ) {
-					currentText = $( "<li class='" + themeType + o.themeDate + "'><span></span></li>");
+					currentText = $("<li class='" + themeType+o.themeDate + "'><span></span></li>");
 					
 					tmp = (w.theDate.get(3) > 11) ?
 						[o.themeDate,o.themeDatePick,2,5] :

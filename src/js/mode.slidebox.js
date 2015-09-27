@@ -4,8 +4,6 @@
 
 (function($) {
 	$.extend( $.jtsage.datebox.prototype.options, {
-		themeDatePick: "b",
-		themeDate: "a",
 		useSetButton: true,
 		validHours: false,
 		slen: {
@@ -31,7 +29,7 @@
 				} else {
 					top = ech.find("div").first();
 				}
-				
+
 				tot = ech.find( "div" ).size() * top.outerWidth();
 				
 				if ( fixer > 0 ) { tot = fixer; }
@@ -126,11 +124,14 @@
 						
 						$( "<div>", { 
 							"class": uid + "slidebox " + uid + currentText[0] +
-								" ui-btn ui-btn-" + ( ( i === 0 ) ? o.themeDatePick : o.themeDate )
+								o.btnCls + ( ( i === 0 ) ? o.themeDatePick : o.themeDate )
 						} )
 							.html( currentText[1] )
 							.data( "offset", i )
 							.appendTo( hRow );
+					}
+					if ( w.baseMode === "bootstrap" ) {
+						phRow.find( ".btn-sm" ).removeClass( "btn-sm" ).addClass( "btn-xs" );
 					}
 					phRow.appendTo(ctrl);
 				}
@@ -145,12 +146,24 @@
 				if ( o.useClearButton ) {
 					y.append(w._stdBtn.clear.apply(w));
 				}
-				if ( o.useCollapsedBut ) {
-					y.controlgroup({ type: "horizontal" });
-					y.addClass( "ui-datebox-collapse" );
-				} else {
-					y.controlgroup();
+
+				if ( w.baseMode === "bootstrap" ) {
+					if ( o.useCollapsedBut ) {
+						y.find( "a" ).css({ width: "auto" });
+						y.addClass( "btn-group btn-group-justified" );
+					} else {
+						y.addClass( "btn-group-vertical" );
+					}
 				}
+				if ( w.baseMode === "jqm" ) {
+					if ( o.useCollapsedBut ) {
+						y.controlgroup({ type: "horizontal" });
+						y.addClass("ui-datebox-collapse");
+					} else {
+						y.controlgroup();
+					}
+				}
+
 				y.appendTo(w.d.intHTML);
 			}
 			

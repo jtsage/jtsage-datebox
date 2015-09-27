@@ -12,7 +12,7 @@
 	"quotmark": "double",
 	"smarttabs": true,
 	"trailing": true,
-	"maxlen": 100,
+	"maxlen": 150,
 	"indent": 4,
 	"node": true,
 	"predef": [ "module" ]
