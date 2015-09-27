@@ -1,4 +1,4 @@
-var pkgJSON = require('./package.json');
+var pkgJSON = require( "./package.json" );
 
 module.exports = function(grunt) {
 
@@ -402,7 +402,7 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask( "release", "Build a release version of DateBox", [
 		"jshint_sane",
-		"qunit",
+		//"qunit",
 		"clean:release",
 		"concat:ver_main",
 		"concat:ver_extra",
@@ -441,8 +441,8 @@ module.exports = function(grunt) {
 	grunt.registerTask( "web", "Build the documentation site", ["jekyll:release", "prettify"] );
 	grunt.registerTask( "devweb", "Test the documentation site", ["jekyll:latest", "prettify"] );
 	grunt.registerTask( "devweb2", "Test the documentation site", ["jekyll:dev2", "prettify"] );
-	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg", "qunit"] );
-	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane", "qunit"] );
+	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
+	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane"] );
 
 	grunt.registerTask( "default", "Test and Build working version", [
 		"jshint_sane",
