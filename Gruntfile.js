@@ -1,3 +1,5 @@
+var pkgJSON = require('./package.json');
+
 module.exports = function(grunt) {
 
 	grunt.initConfig({
@@ -7,9 +9,10 @@ module.exports = function(grunt) {
 			banner : {
 				long: [
 					"/*",
-					" * jQuery-Mobile-DateBox <%= version %>",
+					" * JTSage-DateBox-" + pkgJSON.version,
+					" * For: " + JSON.stringify(pkgJSON.supports),
 					" * Date: " + grunt.template.today( "UTC:ddd mmm d yyyy HH:MM:ss Z" ),
-					" * http://dev.jtsage.com/jQM-DateBox/",
+					" * http://dev.jtsage.com/DateBox/",
 					" * https://github.com/jtsage/jquery-mobile-datebox",
 					" *",
 					" * Copyright 2010, <%= txt.copyYear %> JTSage. and other contributors",
@@ -18,7 +21,7 @@ module.exports = function(grunt) {
 					" *",
 					" */",
 					"" ].join( grunt.util.linefeed ),
-				short: "/*! jQuery-Mobile-DateBox <%= version %> |" + 
+				short: "/*! JTSage-DateBox-" + pkgJSON.version + " |" + 
 					grunt.template.today( "UTC:yyyy-mm-dd" ) + "T" + 
 					grunt.template.today( "UTC:HH:MM:ss" ) +
 					"Z | (c) 2010,  <%= txt.copyYear %> JTSage | " +

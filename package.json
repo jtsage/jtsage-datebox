@@ -1,9 +1,13 @@
 {
-  "name": "jquery-mobile-datebox",
-  "title": "jQuery Mobile DateBox",
-  "description": "jQM Plugin to provide a Date and Time Picker",
-  "version": "1.4.5",
-  "homepage": "http://dev.jtsage.com/jQM-DateBox/",
+  "name": "jtsage-datebox",
+  "title": "JTSage DateBox",
+  "description": "Plugin to provide a framework agnostic Date and Time Picker (jQuery Mobile & Bootstrap currently supported)",
+  "version": "4.0.0",
+  "supports": {
+    "jqm": "1.4.5",
+    "bootstrap": "3.3.5"
+  },
+  "homepage": "http://dev.jtsage.com/DateBox/",
   "author": {
     "name": "JTSage and other contributors",
     "url": "https://github.com/jtsage/jquery-mobile-datebox/blob/master/AUTHORS.txt"

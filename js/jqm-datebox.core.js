@@ -11,7 +11,10 @@
 
 			// 3-jQueryMobileVersion
 			// Check Header for Build Date.
-			version: "3-1.4.5-08", 
+			version: "4.0.0",
+			// These are never used, just information
+			jqmVersion: "1.4.5",
+			bootstrapVersion: "3.3.5"
 
 			theme: false,
 			themeDefault: "a",
