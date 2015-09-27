@@ -206,19 +206,14 @@
 			this._build.datebox.apply(this,[]);
 		},
 		"datebox": function () {
-			var offAmount, i, y, tmp, 
+			var offAmount, i, y, tmp, allControls, currentControl,
 				w = this,
 				g = this.drag,
 				o = this.options, 
 				dur = ( o.mode === "durationbox" ? true : false ),
 				cnt = 0,
 				defDurOrder = ["d","h","i","s"],
-				uid = "ui-datebox-",
-				divBase = $( "<div>" ),
-				divPlus = $( "<fieldset>" ),
-				divIn = divBase.clone(),
-				divMinus = divPlus.clone(),
-				divLab = divBase.clone();
+				uid = "ui-datebox-";
 			
 			if ( typeof w.d.intHTML !== "boolean" ) {
 				w.d.intHTML.empty().remove();
@@ -334,7 +329,7 @@
 			if ( w.baseMode === "bootstrap" ) {
 				allControls.find("." + uid + "datebox-group" ).each( function() {
 					$(this).addClass("col-xs-" + 12 / cnt);
-				})
+				});
 			}
 
 			allControls.appendTo(w.d.intHTML);
@@ -389,17 +384,17 @@
 			
 			if ( ! o.repButton ) {
 				w.d.intHTML.on(o.clickEvent, "."+ uid + "datebox-button", function(e) {
-					divIn.find(":focus").blur();
+					allControls.find(":focus").blur();
 					e.preventDefault();
 					w._dbox_delta = ($(this).data("amount")>1) ? 1 : -1;
 					w._offset($(this).data("field"), $(this).data("amount"));
 				});
 			}
 			
-			divIn.on("change", "input", function() { w._dbox_enter($(this)); });
+			allControls.on("change", "input", function() { w._dbox_enter($(this)); });
 					
 			if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
-				divIn.on("mousewheel", "input", function(e,d) {
+				allControls.on("mousewheel", "input", function(e,d) {
 					e.preventDefault();
 					w._dbox_delta = d<0?-1:1;
 					w._offset($(this).data("field"), ((d<0)?-1:1)*$(this).data("amount"));
@@ -409,7 +404,7 @@
 			if ( o.repButton ) {
 				w.d.intHTML.on(g.eStart, "."+ uid + "datebox-button", function(e) {
 					e.preventDefault();
-					divIn.find(":focus").blur();
+					allControls.find(":focus").blur();
 					tmp = [$(this).data("field"), $(this).data("amount")];
 					g.move = true;
 					g.cnt = 0;

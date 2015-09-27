@@ -14,7 +14,7 @@
 			version: "4.0.0",
 			// These are never used, just information
 			jqmVersion: "1.4.5",
-			bootstrapVersion: "3.3.5"
+			bootstrapVersion: "3.3.5",
 
 			theme: false,
 			themeDefault: "a",
