@@ -314,7 +314,6 @@
 
 					currentControl.appendTo(allControls);
 					cnt++;
-					console.log(cnt);
 				}
 			}
 			
@@ -336,12 +335,6 @@
 			
 			w.d.divIn = allControls	;
 			w._dbox_run_update(true);
-			
-			if ( w.dateOK !== true ) {
-				allControls.find( "input" ).addClass( o.disabledState );
-			} else {
-				allControls.find( "." + o.disabledState ).removeClass( o.disabledState );
-			}
 			
 			if ( o.useSetButton || o.useClearButton ) {
 				y = $( "<div>", { "class": uid + "controls" } );
