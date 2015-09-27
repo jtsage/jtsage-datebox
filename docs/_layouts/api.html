@@ -39,8 +39,16 @@
 	{% capture style %}{% if page.depre == "true" %} style="color:#ccc;text-decoration:line-through"{% endif %}{% endcapture %}
 	<h1{{style}}>{{page.title}}</h1>
 	<h3>{{page.short}}</h3>
+	{% if page.relat == "i18n" %}
+		{% assign fletter = page.title | truncate: 1, '' %}
+		<div class="alert alert-danger">
+			<strong>This is a i18n option!</strong> i18n options can not be set directly on
+			a per-instance basis, you must include the "override" directive, and properly
+			camel case the new name - (i.e. override{{ fletter | upcase }}{{ page.title | remove_first: fletter }})
+		</div>
+	{% endif %}
+
 	{{content}}
-	
 	<div class="row">
 		<div class="col-sm-6">
 			<h4><span class="label label-primary">Data Type Expected</span></h4>
