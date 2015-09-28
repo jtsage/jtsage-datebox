@@ -290,7 +290,9 @@
 					$("<div><input type='text'></div>")
 						.addClass("" + 
 							( ( w.baseMode === "jqm" ) ?
-								"ui-input-text ui-body-" + o.themeInput + " ui-mini" : "" )
+								"ui-input-text ui-body-" + o.themeInput + " ui-mini" : "" ) +
+							( ( w.baseMode === "bootstrap" ) ?
+								o.themeInput : "" )
 						)
 						.appendTo(currentControl)
 						.find( "input" ).data({

@@ -5,7 +5,7 @@ bsver: "3.3.5"
 dbver: "-4.0.0"
 cdn: "http://cdn.jtsage.com/jtsage-datebox/"
 i18n: "http://cdn.jtsage.com/jtsage-datebox/i18n/"
-highlighter: pygments
+highlighter: rouge
 markdown: kramdown
 permalink: pretty
 basesite: "http://dev.jtsage.com/DateBox/"

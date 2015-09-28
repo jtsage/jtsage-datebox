@@ -659,7 +659,7 @@
 				if ( o.useTodayButton ) {
 					$( w._spf( o.s.cal.botButton, {
 						text: w.__("calTodayButtonLabel"),
-						cls: o.btnCls + o.theme,
+						cls: o.btnCls + o.themeTodayButton,
 						icon: "" +
 							( ( w.baseMode === "jqm" ) ?
 								"ui-icon-navigation ui-btn-icon-left" : "" ) +
@@ -677,7 +677,7 @@
 				if ( o.useTomorrowButton ) {
 					$( w._spf( o.s.cal.botButton, {
 						text: w.__("calTomorrowButtonLabel"),
-						cls: o.btnCls + o.theme,
+						cls: o.btnCls + o.themeTomorrowButton,
 						icon: "" +
 							( ( w.baseMode === "jqm" ) ?
 								"ui-icon-navigation ui-btn-icon-left" : "" ) +

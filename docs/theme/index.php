@@ -1,5 +1,3 @@
----
----
 <?php
 
 $defaults = array(

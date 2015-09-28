@@ -4,7 +4,12 @@ node_modules
 
 ## Built Jekyll site
 docs/_site
+docs/.jekyll-metadata
+
 
 ## Build folder
 dist
+
+## Personal todo list
+TODO
 

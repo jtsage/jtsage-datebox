@@ -17,7 +17,13 @@ if (
 		themeDateHighRec: "b",
 		themeDate: "a",
 		themeButton: "a",
-		themeInput: "a",
+		themeInput: "",
+
+		themeClearButton: "a",
+		themeCancelButton: "a",
+		themeCloseButton: "a",
+		themeTomorrowButton: "a",
+		themeTodayButton: "a",
 
 		buttonIconDate: "calendar",
 		buttonIconTime: "clock",
@@ -44,7 +50,7 @@ if (
 				var w = this, o = this.options;
 				return $("<a href='#' role='button'>" + w.__("cancelButton") + "</a>")
 					.addClass(
-						"ui-btn ui-btn-" + o.themeClearButton +
+						"ui-btn ui-btn-" + o.themeCancelButton +
 						" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all"
 					)
 					.on(o.clickEventAlt, function (e) {
@@ -56,7 +62,7 @@ if (
 				var w = this, o = this.options;
 				return $( "<a href='#' role='button'>" + w.__( "clearButton" ) + "</a>" )
 					.addClass( 
-						"ui-btn ui-btn-" + o.theme +
+						"ui-btn ui-btn-" + o.themeClearButton +
 						" ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all"
 					)
 					.on(o.clickEventAlt, function(e) {

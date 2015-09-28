@@ -58,8 +58,8 @@ window.doOptLimit = function() {
 			}
 		}); 
 	}
-}
+};
 
-$(document).on("keyup", "#filterman", function(e) { doOptLimit(); });
-$(document).on("change", "#filterman", function(e) { doOptLimit(); });
-$(document).on("click", "#filtermanbtn", function(e) { doOptLimit(); });
+$(document).on("keyup", "#filterman", function() { window.doOptLimit(); });
+$(document).on("change", "#filterman", function() { window.doOptLimit(); });
+$(document).on("click", "#filtermanbtn", function(e) { e.preventDefault(); window.doOptLimit(); });

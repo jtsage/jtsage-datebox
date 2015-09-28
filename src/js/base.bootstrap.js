@@ -20,6 +20,12 @@ if (
 		themeInput: "default",
 		transition: "fade",
 
+		themeClearButton: "default",
+		themeCancelButton: "default",
+		themeCloseButton: "default",
+		themeTomorrowButton: "default",
+		themeTodayButton: "default",
+
 		buttonIconDate: "calendar",
 		buttonIconTime: "time",
 		disabledState: "disabled",

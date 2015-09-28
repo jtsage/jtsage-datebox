@@ -88,9 +88,15 @@ send the one file they need.
 </div>
 </div>
 
-### Other Languages
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Other Languages</h3>
+</div>
+<div class="panel-body">
 Other language files are available at: [i18n repo](http://cdn.jtsage.com/jtsage-datebox/i18n) -
-More on how the localization system works later.
+Information on how the localization system works can be found in [section 3.2]({{ site.basesite }}doc/3-2-locale).
+</div>
+</div>
 
 
 ## Installation Alternatives
@@ -98,9 +104,16 @@ As a note, if you have a **production** application, it is **strongly** recomend
 that you make a local copy of the script files.  My "CDN" is a distibution folder on a single
 server, there is no redundancy, and it is occasionally prone to downtime. 
 
-### Custom jQueryMobile Builds
-If you want to do a custom build of jQueryMobile, I believe the following are the minimum requirements 
-for DateBox to function properly (as of 1.4.5):
+{::options parse_block_html="true" /}
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">Custom jQueryMobile Builds</h3>
+</div>
+<div class="panel-body">
+
+If you want to do a custom build of jQueryMobile, I believe the following are the
+minimum requirements for DateBox to function properly (as of 1.4.5):
 
 * Core : All
 * Events: All (added by Core::init)
@@ -110,4 +123,5 @@ for DateBox to function properly (as of 1.4.5):
 * Utilities: Degrade, Link, Match Media, Zoom (added by Core::init)
 * Widgets: First & Last, Loading (added by Core::init) **AND Popups**
 
-
+</div>
+</div>
