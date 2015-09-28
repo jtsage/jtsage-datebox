@@ -1,52 +1,104 @@
 ---
 ---
 {% include doc_head.html %}
-<div data-role="page" id="main">
-	<div data-role="panel" data-display="overlay" id="toc">
-	<ul data-role='listview'>
-		<li data-role="list-divider">Contents</li>
-		{% for docu in site.data.doc.docmap %}
-		<li><a href="{{ site.basesite}}doc/{{ docu.url }}">{{ docu.name }}</a></li>
-		{% endfor %}
-	</ul>
-	</div>
-	<div data-role="header" data-position="fixed">
-		<h1>jQMDateBox - {{ page.title }}</h1>
-		<a href="{{site.basesite}}" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-user ui-shadow ui-corner-all">Home</a>
-		<a href="javascript:$('#langpicker').datebox('open')" class="ui-btn ui-btn-right ui-btn-icon-left ui-icon-user ui-shadow ui-corner-all">i18n</a>
 
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="{{ site.basesite }}" class="navbar-brand">JTSage<span style="color:#C3593C">DateBox</span></a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentation<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+							<li><a href="{{ site.basesite}}doc">Overview</a></li>
+						{% for pag in site.pages %}
+						{% if pag.layout == "doc" and pag.pagenum != 0 %}
+							<li><a href="{{ site.basesite}}{{ pag.url | remove_first: "/" }}">{{ pag.title }}</a></li>
+						{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
+				<li><a href="{{ site.basesite}}api">API Options</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">API - by Section<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						{% for docu in site.pages %}
+						{% if docu.layout == "apicat" %}
+							{% if docu.sect == "cat" %}
+							<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title}}</a></li>
+							{% endif %}
+						{% endif %}
+						{% endfor %}
+						{% for docu in site.pages %}
+						{% if docu.layout == "apicat" %}
+							{% if docu.sect == "cat2" %}
+							<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title}}</a></li>
+							{% endif %}
+						{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">API - by Mode<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						{% for docu in site.pages %}
+						{% if docu.layout == "apicat" %}
+							{% if docu.sect == "mode" %}
+							<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title}}</a></li>
+							{% endif %}
+						{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
+				<li><a href="{{ site.basesite }}bootstrap">Bootstrap Demos</a></li>
+				<li><a href="{{ site.basesite }}jqm">jQM Demos</a></li>
+			</ul>
+		</div>
 	</div>
-	<div data-role="navbar">
-	<ul>
-		{% if page.pagenum != 0 %}
-			{% assign lastpage = page.pagenum | minus:1 %}
-			{% for item in site.data.doc.docmap limit:1 offset:lastpage %}
-				<li><a data-icon="arrow-l" href="{{ site.basesite }}doc/{{ item.url }}">{{ item.name }}</a></li>
-			{% endfor %}
-		{% else %}
-			<li><a data-icon="delete" href="#">--</a></li>
-		{% endif %}
-		
-		<li><a href="#toc" data-icon='grid'>Contents</a></li>
-		
-		{% assign nextpage = page.pagenum | plus:1 %}
-		{% if nextpage < site.data.doc.docmap.size %}
-			{% for item in site.data.doc.docmap limit:1 offset:nextpage %}
-				<li><a data-icon="arrow-r" href="{{ site.basesite}}doc/{{ item.url }}">{{ item.name }}</a></li>
-			{% endfor %}
-		{% else %}
-			<li><a data-icon="delete" href="#">--</a></li>
-		{% endif %}
-	</ul>
-	</div>
+</nav>
+	
 
-<div class="ui-content" role="main">
+<div class="container" role="main">
 {{ content }}
 <div style="display:none">
 	<input name="langpicker" type="text" data-role="datebox" data-datebox-close-callback="changeLang" data-datebox-custom-data="langs" data-datebox-custom-head="Language" data-datebox-popup-position="window" data-datebox-override-custom-set="Choose" data-datebox-mode="customflip" id="langpicker" />
 </div>
+
+
+	<nav>
+		<ul class="pagination">
+		  	{% if page.pagenum != 0 %}
+				{% assign lastpage = page.pagenum | minus:1 %}
+				{% for item in site.data.doc.docmap limit:1 offset:lastpage %}
+					<li><a href="{{ site.basesite }}doc/{{ item.url }}">&laquo; {{ item.name }}</a></li>
+				{% endfor %}
+			{% else %}
+				<li class="disabled"><a href="#">&laquo;</a></li>
+			{% endif %}
+
+			<li class="active"><a href="#toc" data-icon='grid'>{{ page.title }}</a></li>
+
+			{% assign nextpage = page.pagenum | plus:1 %}
+			{% if nextpage < site.data.doc.docmap.size %}
+				{% for item in site.data.doc.docmap limit:1 offset:nextpage %}
+					<li><a href="{{ site.basesite}}doc/{{ item.url }}">{{ item.name }} &raquo;</a></li>
+				{% endfor %}
+			{% else %}
+				<li class="disabled"><a href="#">&raquo;</a></li>
+			{% endif %}
+			</ul>
+	</nav>
+
 </div>
 
-{% include footer.html api="true" %}
+{% include bs_footer.html api="true" %}
 
 

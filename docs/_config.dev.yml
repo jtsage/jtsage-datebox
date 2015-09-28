@@ -1,3 +1,4 @@
-dbver: "dev"
+dbver: ""
 basesite: "http://dev.jtsage.com/dboxdev/"
+cdn: "http://cdn.jtsage.com/jtsage-datebox/latest"
 min: ""

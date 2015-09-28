@@ -15,6 +15,6 @@ dattype: ""
 $(input).datebox('applyMinMax');
 {% endhighlight %}
 
-DateBox does not "watch" the min/max HTML attributes, other than on widget initilization.
-If you manually change them via JavaScript, you will need to run this function to
+DateBox does not "watch" the min/max HTML attributes, other than on widget initialization.
+If you programmatically change them via JavaScript, you will need to run this function to
 make sure the DateBox "sees" them.

@@ -5,30 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>jQM::DateBox - {{ page.title }}</title>
 
-<link rel="stylesheet" href="{{ site.basesite }}css/doc.min.css" />
-<link rel="stylesheet" href="{{ site.basesite }}css/jquery.mobile.icons.min.css" />
-<link rel="stylesheet" href="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile.structure-{{ site.jqmver }}.min.css" />
-<link rel="stylesheet" href="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}{{site.min}}.css" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/{{ site.bsver }}/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/{{ site.bsver }}/css/bootstrap-theme.min.css"/>
+
+<link rel="stylesheet" href="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.bootstrap{{site.min}}.css" />
 <link rel="stylesheet" href="{{ site.basesite}}css/syntax.css" />
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
-<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/{{ site.jquiver }}/jquery-ui.min.js"></script>
+
 
 <script type="text/javascript" src="{{ site.basesite }}js/doc.js"></script>
-<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.core{{site.min}}.js"></script>
-<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.calbox{{site.min}}.js"></script>
-<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.datebox{{site.min}}.js"></script>
-<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.flipbox{{site.min}}.js"></script>
-<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.slidebox{{site.min}}.js"></script>
-<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.customflip{{site.min}}.js"></script>
-<script type="text/javascript" src="{{ site.i18n }}jqm-datebox.lang.utf8.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.bootstrap{{site.min}}.js"></script>
+<script type="text/javascript" src="{{ site.i18n }}jtsage-datebox.lang.utf8.js"></script>
 <script type="text/javascript">
-	jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+	jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
 		'useLang': 'en'
 	});
-	jQuery.extend(jQuery.mobile, { ajaxEnabled: false });
 </script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/{{ site.bsver }}/js/bootstrap.js"></script>
 </head>
-<body>
+<body style="padding-top:70px">
 

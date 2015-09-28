@@ -1,12 +1,13 @@
 jqver: "2.1.1"
+jquiver: "1.11.4"
 jqmver: "1.4.5"
 bsver: "3.3.5"
-dbver: "4.0.0"
-cdn: "http://cdn.jtsage.com/datebox/"
-i18n: "http://cdn.jtsage.com/datebox/i18n/"
+dbver: "-4.0.0"
+cdn: "http://cdn.jtsage.com/jtsage-datebox/"
+i18n: "http://cdn.jtsage.com/jtsage-datebox/i18n/"
 highlighter: pygments
 markdown: kramdown
 permalink: pretty
-basesite: "http://dev.jtsage.com/jQM-DateBox/"
+basesite: "http://dev.jtsage.com/DateBox/"
 min: ".min"
 

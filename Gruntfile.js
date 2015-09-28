@@ -97,7 +97,7 @@ module.exports = function(grunt) {
 			latest_jqm: {
 				src: [
 						"build/wrap.begin",
-						"src/js/.core.js",
+						"src/js/core.js",
 						"src/js/base.jqm.js",
 						"src/js/mode.*.js",
 						"!src/js/.mode.custombox.js",
@@ -108,7 +108,7 @@ module.exports = function(grunt) {
 			},
 			latest_bootstrap: {
 				src: [
-						"src/js/.core.js",
+						"src/js/core.js",
 						"src/js/base.bootstrap.js",
 						"src/js/mode.*.js",
 						"!src/js/mode.custombox.js",
@@ -119,7 +119,7 @@ module.exports = function(grunt) {
 			main_jqm: {
 				src: [
 						"build/wrap.begin",
-						"src/js/.core.js",
+						"src/js/core.js",
 						"src/js/base.jqm.js",
 						"src/js/mode.*.js",
 						"!src/js/.mode.custombox.js",
@@ -130,7 +130,7 @@ module.exports = function(grunt) {
 			},
 			main_bootstrap: {
 				src: [
-						"src/js/.core.js",
+						"src/js/core.js",
 						"src/js/base.bootstrap.js",
 						"src/js/mode.*.js",
 						"!src/js/mode.custombox.js",
@@ -385,8 +385,7 @@ module.exports = function(grunt) {
 	] );
 
 	grunt.registerTask( "web", "Build the documentation site", ["jekyll:release", "prettify"] );
-	grunt.registerTask( "devweb", "Test the documentation site", ["jekyll:latest", "prettify"] );
-	grunt.registerTask( "devweb2", "Test the documentation site", ["jekyll:dev2", "prettify"] );
+	grunt.registerTask( "devweb", "Test the documentation site", ["jekyll:latest",] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane"] );
 

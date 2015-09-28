@@ -37,10 +37,29 @@ window.changeLang = function(a) {
 		thisLang = thisLangRaw.substr(0,colonPos);
 		
 	$( "[data-role='datebox']" ).each(function() {
-		if ( typeof $(this).data("mobile-datebox") !== "undefined" ) {
+		if ( typeof $(this).data("jtsage-datebox") !== "undefined" ) {
 			$(this).datebox({"useLang": thisLang});
 		} else {
 			$(this).attr("datebox-use-lang", thisLang);
 		}
 	});
 };
+
+window.doOptLimit = function() {
+	console.log($( "#filterman" ).val());
+	var newVal = $( "#filterman" ).val().toLowerCase();
+	if ( newVal === "" ) { 
+		$( ".panel.hide" ).removeClass( "hide" );
+	} else {
+		$( ".panel.hide" ).removeClass( "hide" );
+		$( ".panel-title" ).each( function () { 
+			if ( $( this ).text().toLowerCase().indexOf( newVal ) === -1 ) { 
+				$( this ).parent().parent().addClass( "hide" );
+			}
+		}); 
+	}
+}
+
+$(document).on("keyup", "#filterman", function(e) { doOptLimit(); });
+$(document).on("change", "#filterman", function(e) { doOptLimit(); });
+$(document).on("click", "#filtermanbtn", function(e) { doOptLimit(); });
