@@ -12,12 +12,13 @@ dattype: "Function"
 dyn: "True"
 ---
 
-This option allows you to define a custom function that is called on the **generated calbox grid box** of **each** date.
+This option allows you to define a custom function that is called on the **generated calbox grid 
+box** of **each** date.
 
 It provides a jQuery object, it expects you to return a jQuery object.
 
-The provided object (in a single argument), is the generated, **complete** jQuery object for the date box, which also has 
-the following data pre-defined:
+The provided object (in a single argument), is the generated, **complete** jQuery object for the 
+date box, which also has the following data pre-defined:
 
 {% highlight js %}
 

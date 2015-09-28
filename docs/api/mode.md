@@ -25,14 +25,15 @@ Choose the mode of operation for datebox.
 ### Official, Supported Versions
 
  - datebox
- - timebox
+ - timebox (part of datebox)
  - calbox
  - flipbox
- - timeflipbox
- - slidebox
- - durationbox
- - durationflipbox
+ - timeflipbox (part of flipbox)
+ - slidebox 
+ - durationbox (part of datebox)
+ - durationflipbox (part of flipbox)
 
 ### Official, Unsupported Versions
 
- - customflip
+ - customflip (likely broken on bootstrap right now)
+ - custombox (maybe, dunno if this even almost works right now)

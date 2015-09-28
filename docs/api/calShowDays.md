@@ -12,6 +12,7 @@ dattype: "Boolean"
 dyn: "True"
 ---
 
-Add the short names of the days of the week to the calendar display.
+Add the short names of the days of the week to the calendar display (the
+top row of the calendar).
 
 

@@ -12,16 +12,26 @@ etype: "Trigger"
 
 ---
 
-## As a Function
+<div class="panel panel-default">
+<div class="panel-heading"><h3 class="panel-title">
+As a Function
+</h3></div>
+<div class="panel-body">
 This function can be used to close the control.
 
 {% highlight js %}
 $(input).datebox('close');
 {% endhighlight %}
+</div></div>
 
-## As a Trigger
-This trigger will close the datebox control
+<div class="panel panel-default">
+<div class="panel-heading"><h3 class="panel-title">
+As a Trigger
+</h3></div>
+<div class="panel-body">
+This trigger will close the DateBox control
 
 {% highlight js %}
 $(input).trigger('datebox', {'method':'close'})
 {% endhighlight %}
+</div></div>

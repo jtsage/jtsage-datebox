@@ -13,6 +13,7 @@ modes: [
 	'customflip'
 ]
 cats: [ 'display' ]
+frames: [ 'jqm' ]
 relat: "display"
 layout: api
 defval: "true"

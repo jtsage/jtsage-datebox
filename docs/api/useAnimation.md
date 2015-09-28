@@ -20,4 +20,4 @@ dattype: "Boolean"
 dyn: "False"
 ---
 
-Enable or disable animations - since datebox does not truly 'close' until animation is complete, this may be useful when trying to automate inputs
+Enable or disable animations - since DateBox does not truly 'close' until animation is complete, this may be useful when trying to automate inputs

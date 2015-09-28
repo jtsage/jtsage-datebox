@@ -12,6 +12,7 @@ modes: [
 	'durationflipbox',
 	'customflip'
 ]
+frames: [ 'jqm' ]
 cats: [ 'display' ]
 relat: "display"
 layout: api

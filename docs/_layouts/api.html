@@ -11,7 +11,23 @@
 		<div class="alert alert-danger">
 			<strong>This is a i18n option!</strong> i18n options can not be set directly on
 			a per-instance basis, you must include the "override" directive, and properly
-			camel case the new name - (i.e. override{{ fletter | upcase }}{{ page.title | remove_first: fletter }})
+			camel case the new name - (i.e. 
+			override{{ fletter | upcase }}{{ page.title | remove_first: fletter }}).  For 
+			more information, please take a look at the
+			<a class="alert-link" href="{{site.basesite}}doc/3-2-locale/">Localizing Datebox</a>
+			section.
+		</div>
+	{% endif %}
+	{% assign namestart  = page.title | truncate: 5, '' %}
+	{% if namestart == "theme" %}
+		<div class="alert alert-info">
+			<strong>This is a theme class option!</strong> Theme class options take a letter
+			argument (jqm:a,b,c...), or a context class (bootstrap:danger,success,info...).
+			However, this is really just part of a class name, so by adding a space, you can 
+			also include any arbitraty class name you want with the option.  For more 
+			information, please take a look at the 
+			<a class="alert-link" href="{{site.basesite}}doc/3-1-themes/">Theming Datebox</a>
+			section.
 		</div>
 	{% endif %}
 

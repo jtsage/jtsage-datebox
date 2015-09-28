@@ -1,6 +1,6 @@
 ---
-title: themeCloseButton
-short: Theme for close button in header
+title: themeTodayButton
+short: Theme for 'Jump to Today' button
 modes: [
 	'datebox',
 	'timebox',
@@ -15,10 +15,10 @@ modes: [
 cats: [ 'themes' ]
 relat: "themes"
 layout: api
-defval: false
+defval: "a OR default"
 dattype: "String"
 dyn: "True"
 ---
 
-If false, it will drop back to the theme specified for {% api_doc themeHeader %}
-
+jQM Default: "a"
+Bootstrap Default: "default"

@@ -13,6 +13,7 @@ modes: [
 	'customflip'
 ]
 cats: [ 'display' ]
+frames: [ 'jqm' ]
 relat: "display"
 layout: api
 defval: "left"
@@ -20,7 +21,7 @@ dattype: "String"
 dyn: "True"
 ---
 
-Control the placement of the close button on the pop upped control.
+Control the placement of the close button on the pop upped control. (jQueryMobile only)
 
 Valid Options:
 

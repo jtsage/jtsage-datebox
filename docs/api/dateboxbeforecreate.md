@@ -9,7 +9,7 @@ layout: event
 etype: "Trigger"
 ---
 
-Triggered on every page if datebox is loaded.  Somewhat useless
+Triggered on every page if datebox is loaded.  Pretty much useless.
 
 {% highlight js %}
 $(document).on('dateboxbeforecreate', '.ui-page-active', function() {

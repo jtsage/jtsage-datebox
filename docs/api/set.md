@@ -9,19 +9,29 @@ layout: event
 etype: "Trigger and Listener"
 ---
 
-### As a trigger
+<div class="panel panel-default">
+<div class="panel-heading"><h3 class="panel-title">
+As a Trigger
+</h3></div>
+<div class="panel-body">
 
 This will set the date for the DateBox control.
 
 {% highlight js %}
-$(input).trigger('datebox', {'method':'set', 'value':<STR Date>});
+$(input).trigger('datebox', {'method':'set', 'value':&lt;STR Date>});
 {% endhighlight %}
 
 This is similar to {% api_doc setTheDate %}, however, this traditionally expects a 
-**formatted date string**, but as of 1.5.0, will accept a Date() object.  It is far, far
+**formatted date string**, but will accept a Date() object.  It is far, far
 preferable to use the {% api_doc setTheDate %} function.
 
-### As a listener
+</div></div>
+
+<div class="panel panel-default">
+<div class="panel-heading"><h3 class="panel-title">
+As a Listener
+</h3></div>
+<div class="panel-body">
 
 This is recieved when the DateBox is set.
 
@@ -38,3 +48,5 @@ Return Values:
 
  - **value** - Formatted date string
  - **date** - JavaScript Date() object
+
+</div></div>

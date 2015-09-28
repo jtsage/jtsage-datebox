@@ -19,12 +19,8 @@ dattype: "Boolean"
 dyn: "True"
 ---
 
-Note: this is a i18n option.  To override for single use, you must use:
-
-{% highlight json %}
-{"overrideIsRTL": true}
-{% endhighlight %}
-
-For more information on the i18n system, see: [Localizing Datebox]({{site.basesite}}doc/3-2-locale/)
-
-
+This does not get tested as well as it should. Please, if you are
+a native speaker of any of the languages that use this flag, give the
+maintainer / author a shout about all of the places he forgot to check 
+this flag and reorder the display.  Or maybe all the places where he did
+and it makes no sense to do it.

@@ -20,8 +20,8 @@ dattype: "Function"
 dyn: "True"
 ---
 
-Option can be a function, or, a string reference to a function in the window object.  Additionally, if this returns
-false, the DateBox control will NOT open.
+Option can be a function, or, a string reference to a function in the window object.  Additionally, 
+if this returns false, the DateBox control will NOT open.
 
 For more information, please see: [Callbacks / Listeners]({{site.basesite}}doc/6-1-callback/).
 

@@ -14,9 +14,11 @@ modes: [
 cats: [ 'display' ]
 relat: "display"
 layout: api
-defval: "vclick"
+defval: "vclick OR click"
 dattype: "String"
 dyn: "False"
 ---
 
 Listener event for all non-close-action buttons in the control
+
+Default for jQueryMobile is "vclick", for Twitter Bootstrap it is "click"

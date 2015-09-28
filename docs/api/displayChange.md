@@ -9,13 +9,9 @@ layout: event
 etype: "Listener"
 ---
 
-This trigger is received when the calendar display is changed - but only if the "selected" date is 
-not in the visible natural month. (If the date is still "visible", but in the previous or next month, 
-this event will still fire)
+This trigger is received when the calendar display (CalBox) is changed - but only if the "selected" date is not in the visible natural month. (If the date is still "visible", but in the previous or next month, this event will still fire)
 
-This trigger *precedes* the {% api_doc offset %} event, however it is
-triggered in the same block of code.  It is *only* triggered if there is a 
-saved selection.
+This trigger *precedes* the {% api_doc offset %} event, however it is triggered in the same block of code.  It is *only* triggered if there is a saved selection.
 
 
 {% highlight js %}

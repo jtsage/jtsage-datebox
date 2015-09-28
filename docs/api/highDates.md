@@ -12,7 +12,7 @@ dattype: "Array"
 dyn: "True"
 ---
 
-An alternate list of dates to highlight with {% api_doc themeHighDates %}
+A list of dates to highlight with {% api_doc themeHighDates %}
 
 **Example** (December 2000 Holiday Seson)
 {% highlight json %}

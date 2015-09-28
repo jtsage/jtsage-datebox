@@ -1,6 +1,6 @@
 ---
-title: useTodayButton
-short: Show button to jump to today
+title: useTomorrowButton
+short: Show button to jump to tomorrow
 modes: [
 	'calbox',
 	'datebox',
@@ -15,6 +15,6 @@ dattype: "Boolean"
 dyn: "True"
 ---
 
-This button will "select" today, but it will not "set" today.  It is for quick navigation.
+This button will "select" tomorrow, but it will not "set" tomorrow.  It is for quick navigation.
 
 

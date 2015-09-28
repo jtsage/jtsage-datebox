@@ -20,5 +20,11 @@ dattype: "String"
 dyn: "False"
 ---
 
-This is the class of the button in the input element.  Any valid ui-icon-&lt;name> is fine. The default
-of "false" will cause DateBox to use "ui-icon-calendar" for date based modes, and "ui-icon-clock" for time or duration modes.
+This is the class of the button in the input element.  Any valid ui-icon-&lt;name> is fine. The 
+default of "false" will cause DateBox to use framework defaults.
+
+For jQueryMobile, "ui-icon-calendar" for date based modes, and "ui-icon-clock" for time or duration
+modes.
+
+For bootstrap, "glyphicon-calendar" for date based modes, and "glyphicon-time" for time or duration
+modes.

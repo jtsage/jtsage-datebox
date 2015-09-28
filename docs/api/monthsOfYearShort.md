@@ -15,12 +15,5 @@ dattype: "Array"
 dyn: "True"
 ---
 
-Note: this is a i18n option.  To override for single use, you must use:
-
-{% highlight json %}
-{"overrideMonthsOfYearShort": <Array>}
-{% endhighlight %}
-
-For more information on the i18n system, see: [Localizing Datebox]({{site.basesite}}doc/3-2-locale/)
-
+When using short months as output (and input), make sure that there are 12 unique short names.  If you use too shot of an abbreviation (ex. Ju = June, Ju = July), not only is your outputted date ambiguous to the user, it also cannot be reliably re-read by DateBox.
 

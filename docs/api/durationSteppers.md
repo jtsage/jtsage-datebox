@@ -28,4 +28,5 @@ Take this example - duration stepper of 2 on hours, current duration is:
 
      0 Days, 02:00:00
 
-Now, your user hits minus (or scrolls) 1 less minute or second.  What should happen?
+Now, your user hits minus (or scrolls) 1 less minute or second.  What should happen? (I don't
+know either - at least, not with any certainty)

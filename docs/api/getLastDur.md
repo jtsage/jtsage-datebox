@@ -9,7 +9,7 @@ layout: func
 rettype: "Integer"
 ---
 
-Get the last set duration in a durationbox or durationflipbox.
+Get the last set duration in a durationbox or durationflipbox as an integer.
 
 
 {% highlight js %}

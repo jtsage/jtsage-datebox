@@ -20,5 +20,6 @@ dattype: "Boolean"
 dyn: "True"
 ---
 
-Cause the original input to be hidden on the page - really only appropriate with {% api_doc useInline %}
+Cause the original input to be hidden on the page - really only 
+appropriate with {% api_doc useInline %}
 

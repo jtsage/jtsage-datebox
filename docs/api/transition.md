@@ -20,4 +20,9 @@ dattype: "String"
 dyn: "False"
 ---
 
-Transition to use on popup
+Transition to use on popup or dropdown.
+
+jQM supports many transitions. 
+
+Bootstrap supports only fade, however, this is a class name, and you can write your own.  This class
+is added to the datebox on creation - when displaying, the "in" class is added.

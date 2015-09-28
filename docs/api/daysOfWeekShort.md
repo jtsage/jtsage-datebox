@@ -19,12 +19,6 @@ dattype: "Array"
 dyn: "True"
 ---
 
-Note: this is a i18n option.  To override for single use, you must use:
-
-{% highlight json %}
-{"overrideDaysOfWeekShort": <array>}
-{% endhighlight %}
-
-For more information on the i18n system, see: [Localizing Datebox]({{site.basesite}}doc/3-2-locale/)
-
-
+Note that if you are relying on short day names to read a date back in (very rare, as there is
+almost always a more granular option available), and there are duplicates in this list (i.e.
+array('S,'M','T','W','T'...) ) the parser will likely behave very strangely.

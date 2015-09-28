@@ -20,7 +20,8 @@ dattype: "Boolean"
 dyn: "True"
 ---
 
-Cause the original fieldcontain to be hidden on the page - really only appropriate with {% api_doc useInline %}.
+Cause the original fieldcontain to be hidden on the page - really only appropriate 
+with {% api_doc useInline %}.
 
-Also, this does no checks, it in fact hides the parent of the input element.  So, test.
+Also, this does no checks, it in fact hides the parent of the input element.  So, test first.
 

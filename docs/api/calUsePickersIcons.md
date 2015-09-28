@@ -12,5 +12,5 @@ dattype: "Boolean"
 dyn: "True"
 ---
 
-When useing {% api_doc calNoHeader %} and {% api_doc calUsePickers %}, still show the +/- Month buttons
-along with the pickers.
+When useing {% api_doc calNoHeader %} and {% api_doc calUsePickers %}, still show the +/- Month 
+buttons along with the pickers.

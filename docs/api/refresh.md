@@ -11,14 +11,26 @@ rettype: "jQuery Object (datebox input element)"
 etype: "Trigger"
 ---
 
-## As a Function
+<div class="panel panel-default">
+<div class="panel-heading"><h3 class="panel-title">
+As a Function
+</h3></div>
+<div class="panel-body">
 This function can be used to refresh the control.
 
 {% highlight js %}
 $(input).datebox('refresh');
 {% endhighlight %}
 
-## As a Listener
+</div></div>
+
+
+
+<div class="panel panel-default">
+<div class="panel-heading"><h3 class="panel-title">
+As a Listener
+</h3></div>
+<div class="panel-body">
 This trigger is fired when datebox has been refreshed.
 
 {% highlight js %}
@@ -28,3 +40,4 @@ $(input).bind('datebox', function (e, passed) {
   }
 });
 {% endhighlight %}
+</div></div>

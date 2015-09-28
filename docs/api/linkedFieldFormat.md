@@ -28,6 +28,6 @@ is the single instance of DateBox doing any time zone processing, it *does* tran
 time to GMT.  PHP only mostly understands ISO-8601, other languages do better.  Backend node.js
 would be very happy with this format.  That said, if you have not otherwise handled time zones in 
 your application, please, please, please do not use the default setting. Note also this is relying on 
-the useragent to have a correcly implemented toJSON - which should be there, but...
+the useragent to have a correctly implemented toJSON - which should be there, but...
 
 
