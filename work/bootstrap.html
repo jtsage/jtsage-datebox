@@ -61,6 +61,7 @@
 			useTodayButton: true,
 			//useTomorrowButton: true,
 			useClearButton: true,
+			linkedField: ".x1",
 			//defaultValue: "",
 			//calFormatter: "fmtMe",
 			//popupButtonPosition: "right",
@@ -85,17 +86,17 @@
 		<form>
 		<div class="form-group">
 			<label  for="username">E-Mail Address</label>
-			<input type="text" name="username" id="username" class="form-control" autocomplete="off">
+			<input type="text" name="username" id="username" class="x1 form-control" autocomplete="off">
 		</div>
 
 		<div class="form-group">
-			<label class="control-label"for="aa1">text comparison</label>
-			<input class="form-control"name="aa1" type="text" data-mini="true" id="aa1"/>
+			<label class="control-label"for="aa2">text comparison</label>
+			<input class="x1 form-control"name="aa2" type="text" data-mini="true" id="aa2"/>
 		</div>
 
 		<div class="form-group">
 			<label class="control-label"for="lang1">yep</label>
-			<input class="form-control" name="lang1" type="text" data-role="datebox" data-datebox-mode="slidebox" id="lang1" />
+			<input class="form-control" name="lang1" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang1" data-options='{"overrideDateFormat": "%J"}' value="2016-07-31T05:11:00.000Z" />
 		</div>
 
 		<div class="form-group">

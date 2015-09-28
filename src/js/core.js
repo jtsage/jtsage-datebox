@@ -37,6 +37,9 @@
 			defaultValue: false,
 			showInitialValue: false,
 
+			linkedField: false,
+			linkedFieldFormat: "%J",
+
 			popupPosition: false,
 			popupButtonPosition: "left",
 			popupForceX: false,
@@ -291,7 +294,9 @@
 		},
 		_event: function(e, p) {
 			var tmp,
-				w = $( this ).data( "jtsage-datebox" );
+				w = $( this ).data( "jtsage-datebox" ),
+				o = $( this ).data( "jtsage-datebox" ).options;
+
 
 			if ( ! e.isPropagationStopped() ) {
 				switch (p.method) {
@@ -308,6 +313,10 @@
 							w._t( { method: "doset" } );
 						} else {
 							$( this ).val( p.value );
+							if ( o.linkedField !== false ) {
+								$( o.linkedField )
+									.val( w.callFormat( o.linkedFieldFormat, w.theDate, false ) );
+							}
 							$( this ).trigger( "change" );
 						}
 						break;
@@ -547,6 +556,12 @@
 					}
 				}
 				return new w._date( exp_temp * 1000 );
+			}
+
+			if ( adv === "%J" ) { 
+				date = new w._date(str);
+				if ( isNaN(date.getDate()) ) { date = new w._date(); }
+				return date;
 			}
 
 			adv = adv.replace( /%(0|-)*([a-z])/gi, function( match, pad, oper ) {
@@ -790,6 +805,8 @@
 						tmp = new Date(date.getFullYear(),0,1);
 						tmp = "000" + String(Math.ceil((date - tmp) / 86400000)+1);
 						return tmp.slice(-3);
+					case "J":
+						return date.toJSON();
 					case "G":
 						tmp = date.getFullYear();
 						if ( date.getDWeek(4) === 1 && date.getMonth() > 0 ) {
