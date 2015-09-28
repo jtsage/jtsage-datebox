@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 				setDateButtonLabel: _(l, "Set Date"),
 				setTimeButtonLabel: _(l, "Set Time"),
 				setDurationButtonLabel: _(l, "Set Duration"),
-				calTodayButtonLabel: _(l, "Jump to Today"),
+				todayButtonLabel: _(l, "Jump to Today"),
 				titleDateDialogLabel: _(l, "Choose Date"),
 				titleTimeDialogLabel: _(l, "Choose Time"),
 				daysOfWeek: [
@@ -116,7 +116,7 @@ module.exports = function(grunt) {
 				durationFormat: _(l, "%Dd %DA, %Dl:%DM:%DS"),
 				calDateListLabel: _(l, "Other Dates"),
 				calHeaderFormat: _(l, "%B %Y"),
-				calTomorrowButtonLabel: _(l, "Jump to Tomorrow")
+				tomorrowButtonLabel: _(l, "Jump to Tomorrow")
 			};
 		};
 		

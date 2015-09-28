@@ -94,7 +94,7 @@ if (
 			},
 			today: function() {
 				var w = this, o = this.options;
-				return $( "<a href='#' role='button'>" + w.__("calTodayButtonLabel") + "</a>" )
+				return $( "<a href='#' role='button'>" + w.__("todayButtonLabel") + "</a>" )
 					.addClass( "ui-btn ui-btn-" + o.themeTodayButton + 
 						" ui-icon-navigation ui-btn-icon-left ui-shadow ui-corner-all"
 					)
@@ -107,7 +107,7 @@ if (
 			},
 			tomorrow: function() {
 				var w = this, o = this.options;
-				return $( "<a href='#' role='button'>" + w.__("calTomorrowButtonLabel") + "</a>" )
+				return $( "<a href='#' role='button'>" + w.__("tomorrowButtonLabel") + "</a>" )
 					.addClass( "ui-btn ui-btn-" + o.themeTomorrowButton + 
 						" ui-icon-navigation ui-btn-icon-left ui-shadow ui-corner-all"
 					)

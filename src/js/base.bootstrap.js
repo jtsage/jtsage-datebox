@@ -105,7 +105,7 @@ if (
 				var w = this, o = this.options;
 				return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeTodayButton + 
 						"'><span class='" + o.icnCls + "send'></span> " +
-						w.__("calTodayButtonLabel") + "</a>" )
+						w.__("todayButtonLabel") + "</a>" )
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
 						w.theDate = w._pa([0,0,0], new w._date());
@@ -117,7 +117,7 @@ if (
 				var w = this, o = this.options;
 				return $("<a href='#' role='button' class='btn btn-sm btn-" +o.themeTomorrowButton+ 
 						"'><span class='" + o.icnCls + "send'></span> " +
-						w.__("calTomorrowButtonLabel") + "</a>" )
+						w.__("tomorrowButtonLabel") + "</a>" )
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
 						w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );

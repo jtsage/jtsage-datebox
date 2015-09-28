@@ -103,8 +103,8 @@
 					setDateButtonLabel: "Set Date",
 					setTimeButtonLabel: "Set Time",
 					setDurationButtonLabel: "Set Duration",
-					calTodayButtonLabel: "Jump to Today",
-					calTomorrowButtonLabel: "Jump to Tomorrow",
+					todayButtonLabel: "Jump to Today",
+					tomorrowButtonLabel: "Jump to Tomorrow",
 					titleDateDialogLabel: "Set Date",
 					titleTimeDialogLabel: "Set Time",
 					daysOfWeek: [
