@@ -25,6 +25,8 @@
 		
 		useTodayButton: false,
 		useTomorrowButton: false,
+		useCancelButton: false,
+		useClearButton: false,
 		useCollapsedBut: false,
 		
 		highDays: false,
@@ -653,47 +655,20 @@
 				listControl.appendTo( calContent );
 			}
 			
-			if ( o.useTodayButton || o.useTomorrowButton || o.useClearButton ) {
+			if ( o.useTodayButton || o.useTomorrowButton || o.useClearButton || o.useCancelButton ){
 				htmlRow = $("<div>", { "class": uid + "controls" } );
 				
 				if ( o.useTodayButton ) {
-					$( w._spf( o.s.cal.botButton, {
-						text: w.__("calTodayButtonLabel"),
-						cls: o.btnCls + o.themeTodayButton,
-						icon: "" +
-							( ( w.baseMode === "jqm" ) ?
-								"ui-icon-navigation ui-btn-icon-left" : "" ) +
-							( ( w.baseMode === "bootstrap" ) ?
-								o.icnCls + "send" : "" )
-						}))
-						.appendTo(htmlRow)
-						.on(o.clickEvent, function(e) {
-							e.preventDefault();
-							w.theDate = w._pa([0,0,0], new w._date());
-							w.calBackDate = false;
-							w._t( { method: "doset" } );
-						});
+					htmlRow.append(w._stdBtn.today.apply(w));
 				}
 				if ( o.useTomorrowButton ) {
-					$( w._spf( o.s.cal.botButton, {
-						text: w.__("calTomorrowButtonLabel"),
-						cls: o.btnCls + o.themeTomorrowButton,
-						icon: "" +
-							( ( w.baseMode === "jqm" ) ?
-								"ui-icon-navigation ui-btn-icon-left" : "" ) +
-							( ( w.baseMode === "bootstrap" ) ?
-								o.icnCls + "send" : "" )
-						}))
-						.appendTo(htmlRow)
-						.on(o.clickEvent, function(e) {
-							e.preventDefault();
-							w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
-							w.calBackDate = false;
-							w._t( { method: "doset" } );
-						});
+					htmlRow.append(w._stdBtn.tomorrow.apply(w));
 				}
 				if ( o.useClearButton ) {
 					htmlRow.append(w._stdBtn.clear.apply(w));
+				}
+				if ( o.useCancelButton ) {
+					htmlRow.append(w._stdBtn.cancel.apply(w));
 				}
 				if ( w.baseMode === "bootstrap" ) {
 					if ( o.useCollapsedBut ) {

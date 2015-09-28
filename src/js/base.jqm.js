@@ -91,7 +91,34 @@ if (
 						}
 						
 					});
-			}
+			},
+			today: function() {
+				var w = this, o = this.options;
+				return $( "<a href='#' role='button'>" + w.__("calTodayButtonLabel") + "</a>" )
+					.addClass( "ui-btn ui-btn-" + o.themeTodayButton + 
+						" ui-icon-navigation ui-btn-icon-left ui-shadow ui-corner-all"
+					)
+					.on(o.clickEventAlt, function(e) {
+						e.preventDefault();
+						w.theDate = w._pa([0,0,0], new w._date());
+						w.calBackDate = false;
+						w._t( { method: "doset" } );
+					});
+			},
+			tomorrow: function() {
+				var w = this, o = this.options;
+				return $( "<a href='#' role='button'>" + w.__("calTomorrowButtonLabel") + "</a>" )
+					.addClass( "ui-btn ui-btn-" + o.themeTomorrowButton + 
+						" ui-icon-navigation ui-btn-icon-left ui-shadow ui-corner-all"
+					)
+					.on(o.clickEventAlt, function(e) {
+						e.preventDefault();
+						w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
+						w.calBackDate = false;
+						w._t( { method: "doset" } );
+					});
+			},
+
 		},
 		_destroy: function() {
 			var w = this,

@@ -60,8 +60,8 @@ if (
 		_stdBtn: {
 			cancel: function() {
 				var w = this, o = this.options;
-				return $("<a href='#' role='button' class='btn btn-default'>" + 
-						"<span class='" + o.icnCls + "remove'></span> " +
+				return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeCancelButton + 
+						"'><span class='" + o.icnCls + "remove'></span> " +
 						w.__("cancelButton") + "</a>" )
 					.on(o.clickEventAlt, function (e) {
 						e.preventDefault();
@@ -70,8 +70,8 @@ if (
 			},
 			clear: function() {
 				var w = this, o = this.options;
-				return $( "<a href='#' role='button' class='btn btn-sm btn-default'>" + 
-						"<span class='" + o.icnCls + "erase'></span> " +
+				return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeClearButton + 
+						"'><span class='" + o.icnCls + "erase'></span> " +
 						w.__("clearButton") + "</a>" )
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
@@ -82,8 +82,8 @@ if (
 			},
 			close: function(txt) {
 				var w = this, o = this.options;
-				return $( "<a href='#' role='button' class='btn btn-sm btn-default'>" + 
-						"<span class='" + o.icnCls + "ok'></span> " +
+				return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeCloseButton + 
+						"'><span class='" + o.icnCls + "ok'></span> " +
 						txt + "</a>" )
 					.addClass( "" +
 						( ( w.dateOK === true ) ? "" : "disabled")
@@ -100,7 +100,31 @@ if (
 						}
 						
 					});
-			}
+			},
+			today: function() {
+				var w = this, o = this.options;
+				return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeTodayButton + 
+						"'><span class='" + o.icnCls + "send'></span> " +
+						w.__("calTodayButtonLabel") + "</a>" )
+					.on(o.clickEventAlt, function(e) {
+						e.preventDefault();
+						w.theDate = w._pa([0,0,0], new w._date());
+						w.calBackDate = false;
+						w._t( { method: "doset" } );
+					});
+			},
+			tomorrow: function() {
+				var w = this, o = this.options;
+				return $("<a href='#' role='button' class='btn btn-sm btn-" +o.themeTomorrowButton+ 
+						"'><span class='" + o.icnCls + "send'></span> " +
+						w.__("calTomorrowButtonLabel") + "</a>" )
+					.on(o.clickEventAlt, function(e) {
+						e.preventDefault();
+						w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
+						w.calBackDate = false;
+						w._t( { method: "doset" } );
+					});
+			},
 		},
 		_destroy: function() {
 			var w = this,

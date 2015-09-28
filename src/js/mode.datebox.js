@@ -7,6 +7,11 @@
 		
 		useSetButton: true,
 		useCancelButton: false,
+		useTodayButton: false,
+		useTomorrowButton: false,
+		useClearButton: false,
+		useCollapsedBut: false,
+		
 		validHours: false,
 		repButton: true,
 		durationStep: 1,
@@ -338,7 +343,9 @@
 			w.d.divIn = allControls	;
 			w._dbox_run_update(true);
 			
-			if ( o.useSetButton || o.useClearButton ) {
+			if ( o.useSetButton || o.useClearButton  || o.useCancelButton ||
+					o.useTodayButton || o.useTomorrowButton ) {
+
 				y = $( "<div>", { "class": uid + "controls" } );
 				
 				if ( o.useSetButton ) {
@@ -350,6 +357,12 @@
 								w.__("setTimeButtonLabel")]
 					);
 					w.setBut.appendTo(y);
+				}
+				if ( o.useTodayButton ) {
+					y.append(w._stdBtn.today.apply(w));
+				}
+				if ( o.useTomorrowButton ) {
+					y.append(w._stdBtn.tomorrow.apply(w));
 				}
 				if ( o.useClearButton ) {
 					y.append(w._stdBtn.clear.apply(w));

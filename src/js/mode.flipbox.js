@@ -5,6 +5,12 @@
 (function($) {
 	$.extend( $.jtsage.datebox.prototype.options, {
 		useSetButton: true,
+		useCancelButton: false,
+		useTodayButton: false,
+		useTomorrowButton: false,
+		useClearButton: false,
+		useCollapsedBut: false,
+		
 		validHours: false,
 		flen: { 
 			"y": 15,
@@ -285,7 +291,9 @@
 				.css( "pointerEvents", "none")
 				.appendTo( w.d.intHTML );
 			
-			if ( o.useSetButton || o.useClearButton ) {
+			if ( o.useSetButton || o.useClearButton  || o.useCancelButton ||
+					o.useTodayButton || o.useTomorrowButton ) {
+				
 				y = $( "<div>", { "class": uid + "controls" } );
 				
 				if ( o.useSetButton ) {
@@ -297,9 +305,17 @@
 								w.__("setTimeButtonLabel")]
 					));
 				}
-					
+				if ( o.useTodayButton ) {
+					y.append(w._stdBtn.today.apply(w));
+				}
+				if ( o.useTomorrowButton ) {
+					y.append(w._stdBtn.tomorrow.apply(w));
+				}
 				if ( o.useClearButton ) {
 					y.append(w._stdBtn.clear.apply(w));
+				}
+				if (o.useCancelButton) {
+				    y.append(w._stdBtn.cancel.apply(w));
 				}
 
 				if ( w.baseMode === "bootstrap" ) {
