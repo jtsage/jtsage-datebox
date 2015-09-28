@@ -140,6 +140,10 @@ The date format follows the POSIX standards.  There is one extension.  By defaul
 		<span class="ui-li-count">String</span>
 		<p>Date ordinal (st / nd / rd / th)</p>
 	</li>
+	<li><h2>%J</h2>
+		<span class="ui-li-count">String</span>
+		<p>toJSON() Date Method output. Can only be read for parseing when it is all alone.</p>
+	</li>
 	<li><h2>%Dd</h2>
 		<span class="ui-li-count">Number</span>
 		<p>Duration Days</p>
