@@ -1,13 +1,13 @@
 ---
-title: Linking Dateboxes
+title: Linking DateBoxes
 pagenum: 17
 layout: doc
 ---
 
-# Linking Dateboxes
-The most requested bit of coding for DateBox is to link a pair of dateboxes in a
-meaningful way - for instance a checkin and checkout date.  Below is a breif bit
-of code that does exactally that.
+# Linking DateBoxes
+The most requested bit of coding for DateBox is to link a pair of DateBoxes in a
+meaningful way - for instance a check in and check out date.  Below is a brief bit
+of code that does exactly that.
 
 <script type="text/javascript">
 	function linker(obby, nextDatebox) {
@@ -29,20 +29,21 @@ of code that does exactally that.
 	}
 </script>
 
-<div class="ui-field-contain">
+<div class="form-group">
 	<label for="in_date">Check In Date</label>
-	<input id="in_date" data-role="datebox" data-options='{"mode":"calbox","useInline":false,"useFocus":true,"afterToday":true,"closeCallback":"linker","closeCallbackArgs":["out_date"]}' type="text">
+	<input id="in_date" class="form-control" data-role="datebox" data-options='{"mode":"calbox","useInline":false,"useFocus":true,"afterToday":true,"closeCallback":"linker","closeCallbackArgs":["out_date"]}' type="text">
 </div>
-<div class="ui-field-contain">
+<div class="form-group">
 	<label for="out_date">Check Out Date</label>
-	<input id="out_date" data-role="datebox" data-options='{"mode":"calbox","useInline":false,"useFocus":true}' type="text">
+	<input id="out_date" class="form-control" data-role="datebox" data-options='{"mode":"calbox","useInline":false,"useFocus":true}' type="text">
 </div>
 
-<a href="#hsource" data-rel="popup" data-role="button" data-inline="true" data-mini="true" data-transition="pop">HTML Source Code</a>
+<div class="panel panel-default">
+<div class="panel-heading"><h3 class="panel-title">HTML Source Code</h3></div>
 
-<div data-role="popup" id="hsource" class="ui-content">
+<div class="panel-body">
 {% highlight html %}
-<div class="ui-field-contain">
+<div class="form-group">
   <label for="in_date">Check In Date</label>
   <input id="in_date" data-role="datebox" type="text" data-options='{
     "mode":"calbox",
@@ -51,16 +52,17 @@ of code that does exactally that.
     "closeCallbackArgs":["out_date"]
   }'>
 </div>
-<div class="ui-field-contain">
+<div class="form-group">
   <label for="out_date">Check Out Date</label>
   <input id="out_date" data-role="datebox" data-options='{"mode":"calbox"}' type="text">
 </div>
 {% endhighlight %}
-</div>
+</div></div>
 
-<a href="#jsource" data-rel="popup" data-role="button" data-inline="true" data-mini="true" data-transition="pop">jQuery Source Code</a>
+<div class="panel panel-default">
+<div class="panel-heading"><h3 class="panel-title">jQuery Source Code</h3></div>
 
-<div data-role="popup" id="jsource" class="ui-content">
+<div class="panel-body">
 {% highlight js %}
 function linker(obby, nextDatebox) {
   // Access the returned date
@@ -82,4 +84,4 @@ function linker(obby, nextDatebox) {
   $('#'+nextDatebox).datebox('open');
 }
 {% endhighlight %}
-</div>
+</div></div>

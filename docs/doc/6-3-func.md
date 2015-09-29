@@ -6,15 +6,15 @@ layout: doc
 
 # Public Datebox Functions
 
-There a a number of public datebox functions.  Refer to the API documentation 
+There a a number of public DateBox functions.  Refer to the API documentation 
 for full use, but at a glance they are used something like this:
 
- - {% api_doc open %} : Open the datebox control
- - {% api_doc close %} : Close the datebox control
- - {% api_doc disable %} : Disable the datebox control
- - {% api_doc enable %} : Enable the datebox control
- - {% api_doc destroy %} : Destroy the datebox control / de-enhance input
- - {% api_doc refresh %} : Refresh the datebox control
+ - {% api_doc open %} : Open the DateBox control
+ - {% api_doc close %} : Close the DateBox control
+ - {% api_doc disable %} : Disable the DateBox control
+ - {% api_doc enable %} : Enable the DateBox control
+ - {% api_doc destroy %} : Destroy the DateBox control / de-enhance input
+ - {% api_doc refresh %} : Refresh the DateBox control
  - {% api_doc getTheDate %} : Return the current date object
  - {% api_doc setTheDate %} : Set the date (date object)
  - {% api_doc getLastDur %} : Get the last set duration
