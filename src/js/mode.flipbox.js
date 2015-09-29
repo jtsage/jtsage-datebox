@@ -276,7 +276,7 @@
 						if ( i < 0 || i > 1 ) {
 							currentText.clone().appendTo( hRowIn );
 						} else {
-							$("<li>", { "class" : "ui-body-" + tmp[i] } )
+							$("<li>", { "class" : themeType + tmp[i] } )
 								.html( "<span>" + w.__( "meridiem" )[i] + "</span>" )
 								.appendTo( hRowIn );
 						}
