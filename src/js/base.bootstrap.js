@@ -236,30 +236,34 @@ if (
 				w.d.input.val( w._formatter( w.__fmt(), w.theDate ) );
 			}
 
-			if ( o.useButton ) {
-				if ( o.mode !== false ) {
-					w.d.wrap = w.d.input.wrap("<div class='input-group'>").parent();
-					if ( o.buttonIcon === false ) {
-						if ( o.mode.substr( 0, 4 ) === "time" || o.mode.substr( 0 ,3 ) === "dur" ) {
-							o.buttonIcon = o.buttonIconTime;
-						} else {
-							o.buttonIcon = o.buttonIconDate;
-						}
+			w.d.wrap = w.d.input.wrap("<div class='input-group'>").parent();
+			
+			if ( o.mode !== false ) {
+				if ( o.buttonIcon === false ) {
+					if ( o.mode.substr( 0, 4 ) === "time" || o.mode.substr( 0 ,3 ) === "dur" ) {
+						o.buttonIcon = o.buttonIconTime;
+					} else {
+						o.buttonIcon = o.buttonIconDate;
 					}
-					$( "<div class='input-group-addon'>" +
-							"<span class='" + o.icnCls + o.buttonIcon + "'></span>" + 
-							"</div>" )
-						.attr( "title", w.__( "tooltip" ) )
-						.on(o.clickEvent, function( e ) {
-							e.preventDefault();
-							if ( o.useFocus ) {
-								w.d.input.focus();
-							} else {
-								if ( !w.disabled ) { w._t( { method: "open" } ); }
-							}
-						})
-						.appendTo(w.d.wrap);
 				}
+			}
+			if ( o.useButton ) {
+				$( "<div class='input-group-addon'>" +
+						"<span class='" + o.icnCls + o.buttonIcon + "'></span>" + 
+						"</div>" )
+					.attr( "title", w.__( "tooltip" ) )
+					.on(o.clickEvent, function( e ) {
+						e.preventDefault();
+						if ( o.useFocus ) {
+							w.d.input.focus();
+						} else {
+							if ( !w.disabled ) { w._t( { method: "open" } ); }
+						}
+					})
+					.appendTo(w.d.wrap);
+			} else {
+				$( "<div class='input-group-addon'><span class='" + o.icnCls + 
+					o.buttonIcon + "'></span></div>" ).prependTo(w.d.wrap);
 			}
 
 			if ( o.hideInput ) { w.d.wrap.hide(); }
@@ -346,24 +350,25 @@ if (
 				} else {
 					w.d.wrap.parent().append( w.d.mainWrap );
 				}
+
+				switch ( o.useInlineAlign ) {
+					case "right":
+						w.d.mainWrap.css({marginRight: 0, marginLeft: "auto"});
+						break;
+					case "left":
+						w.d.mainWrap.css({marginLeft: 0, marginRight: "auto"});
+						break;
+					case "center":
+					case "middle":
+						w.d.mainWrap.css({marginLeft: "auto", marginRight: "auto"});
+						break;
+				}
+
 				w.d.mainWrap.removeClass( "ui-datebox-hidden ui-overlay-shadow" );
 				if ( o.useInline ) {
 					w.d.mainWrap
 						.addClass( "ui-datebox-inline" )
 						.css( "zIndex", "auto" );
-						
-					switch ( o.useInlineAlign ) {
-						case "right":
-							w.d.mainWrap.css({marginRight: 0, marginLeft: "auto"});
-							break;
-						case "left":
-							w.d.mainWrap.css({marginLeft: 0, marginRight: "auto"});
-							break;
-						case "center":
-						case "middle":
-							w.d.mainWrap.css({marginLeft: "auto", marginRight: "auto"});
-							break;
-					}
 
 					if ( !o.hideInput && !o.hideContainer ) {
 						w.d.mainWrap.addClass("ui-datebox-inline-has-input");
