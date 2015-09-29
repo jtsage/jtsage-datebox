@@ -455,28 +455,6 @@ if (
 				};
 			}
 
-			// // Prepare close callback.
-			if ( o.closeCallback !== false ) {
-				if ( ! $.isFunction( o.closeCallback ) ) {
-					if ( typeof window[ o.closeCallback ] === "function" ) {
-						o.closeCallback = window[ o.closeCallback ];
-					}
-				}
-				basepop.afterclose = function() {
-					o.closeCallback.apply( w, $.merge([{
-						custom: w.customCurrent,
-						initDate: w.initDate,
-						date: w.theDate,
-						duration: w.lastDuration,
-						cancelClose: w.cancelClose
-					}], o.closeCallbackArgs ) );
-				};
-			} else {
-				basepop.afteropen = function() {
-					return true;
-				};
-			}
-
 			// Perpare BEFORE open callback, if provided. Additionally, if this
 			// returns false then the open/update will stop.
 			if ( o.beforeOpenCallback !== false ) {
@@ -528,7 +506,8 @@ if (
 		close: function() {
 			// Provide a PUBLIC function to close the element.
 			var w = this,
-				o = this.options;
+				o = this.options,
+				basepop = {};
 
 			w.calBackDate = false;
 			
@@ -543,16 +522,41 @@ if (
 			}
 
 			// Trigger the popup to close
+			// // Prepare close callback.
+			if ( o.closeCallback !== false ) {
+				if ( ! $.isFunction( o.closeCallback ) ) {
+					if ( typeof window[ o.closeCallback ] === "function" ) {
+						o.closeCallback = window[ o.closeCallback ];
+					}
+				}
+				basepop.afterclose = function() {
+					o.closeCallback.apply( w, $.merge([{
+						custom: w.customCurrent,
+						initDate: w.initDate,
+						date: w.theDate,
+						duration: w.lastDuration,
+						cancelClose: w.cancelClose
+					}], o.closeCallbackArgs ) );
+				};
+			} else {
+				basepop.afterclose = function() {
+					return true;
+				};
+			}
+
 			if ( o.bootstrapDropdown === true && o.bootstrapModal === false ) {
 				if ( o.useAnimation === true ) {
 					w.d.mainWrap.removeClass( "in");
 					w.d.backdrop.remove();
 					window.setTimeout(function () {
 	    				w.d.wrap.removeClass( "open" );
+	    				basepop.afterclose.call();
+
 					}, 0);
 				} else {
 					w.d.wrap.removeClass( "open" );
 					w.d.backdrop.remove();
+					basepop.afterclose.call();
 				}
 			}
 
