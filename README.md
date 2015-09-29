@@ -9,13 +9,14 @@ work just fine with jQuery-UI, or, hopefully, Bootstrap + jQuery-UI Widget Facto
 DateBox Features
 ----------------
 
+ - Framework Agnostic, works with jQM, jQueryUI & Twitter Bootstrap
  - Multiple display and entry modes for dates, times, and durations
    - Android style
    - Full Calendar display (date only)
    - Flip (IOS) style
    - Slide style (date and time only)
  - Multiple window modes
-   - Popup
+   - Popup or Dropdown
    - Inline
    - Inline window-blind
  - Fully localized - 40+ languages pre-configured
@@ -37,23 +38,16 @@ All scripts are available on the cdn:
 
 DateBox uses the following version scheme:
 
-[http://cdn.jtsage.com/datebox/&lt;jqm VERSION&gt;/](http//cdn.jtsage.com/datebox/)
-
-You must load:
-* jqm-datebox.core.js (or min)
-* AND:: jqm-datebox.mode.&lt;yourmode&gt;.js
-
-OR (if using only one mode)
-* jqm-datebox.comp.&lt;yourmode&gt;.js
+[http://cdn.jtsage.com/jtsage-datebox/&lt;jqm VERSION&gt;/](http//cdn.jtsage.com/jtsage-datebox/)
 
 #### Latest Versions:
 
-[cdn repo](http://cdn.jtsage.com/datebox/latest/)
+[cdn repo](http://cdn.jtsage.com/jtsage-datebox/latest/)
 
 #### Custom Download Builder:
 
-[script](http://dev.jtsage.com/jQM-DateBox/builder/)
-[css](http://dev.jtsage.com/jQM-DateBox/theme/)
+[script](http://dev.jtsage.com/DateBox/builder/)
+[css](http://dev.jtsage.com/DateBox/theme/)
 
 Suggested Use
 -------------
@@ -66,17 +60,17 @@ Suggested Use
 #### Global Option Overrides:
 	
 	// AFTER loading jQM
-	jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+	jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
 		'overrideDateFormat': '%d.%m.%Y',
 	});
 
 Available Options
 -----------------
 
-Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox/api/)
+Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/DateBox/api/)
 
 Runtime Operation (Scripting / Extending)
 -----------------------------------------
 
-Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/jQM-DateBox/api/)
+Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/DateBox/api/)
 
