@@ -1,46 +1,50 @@
 ---
-title: Localizing Datebox
+title: Localizing DateBox
 pagenum: 5
 layout: doc
 ---
 
-# Picking a Language on the Fly
+# Localizing DateBox
+
+DateBox is full localized, nearly every aspect of the user interface can be altered based
+on the user's locale.
+
+## Picking a Language File
+
+Language files are available at: <a href="{{ site.i18n }}">{{ site.i18n }}</a>
+
+<div class="alert alert-info">
+Additionally, the file <strong>"jqm-datebox.lang.utf8.js"</strong> includes <big>ALL</big> of the current
+languages.
+</div>
+
+## Picking a Language on the Fly
 
 Choosing a language on the fly is possible, although it is far more recommended that
-you serve only the required language to the end-user. This method may be useful for
-a phonegap application however, where there is no central server. To play with the 
-language setting of this page, or any page in the doc site, click on the "i18n"
-button in the header.  Of Note, this actually is using the CustomFlip datebox method
-to display the list of languages - kinda cool, huh?
+you serve only the required language to the end-user. The option you will want to alter
+is {% api_doc useLang %}
 
 Please note that if you load multiple files, the "default" language is whatever file
 loads last - please be sure to specify, as if a load is to hang slightly, the behavior
 may be unpredictable.
 
 {% highlight html %}
-<input type="text" data-role="datebox" data-options='{"mode":"datebox", "useLang":"en"}'>
+<input type="text" data-role="datebox" data-options='{"mode":"datebox", "useLang":"de"}'>
 {% endhighlight %}
 
 <div class="ui-field-contain">
-	<label for="l1">A Localizaed DateBox</label>
-	<input type="text" id="l1" data-role="datebox" data-options='{"mode":"datebox", "useLang":"en", "hideInput": true, "useInline": true}'>
+	<label for="l1">A Localized DateBox (German/Deutsch)</label>
+	<input type="text" id="l1" data-role="datebox" data-options='{"mode":"datebox", "useLang":"de", "useInlineAlign":"center", "hideInput": true, "useInline": true}'>
 </div>
 
 
-# Picking a Language File
 
-Language files are available at: <a href="http://cdn.jtsage.com/datebox/i18n/">cdn.jtsage.com/datebox/i18n/</a>
-
-Additionally, the file "jqm-datebox.lang.utf8.js" includes **all** of the current
-languages - be careful with using this, as it adds a bit of overhead (more than 50K - 
-and it's all quoted strings, so minimizing will not help much)
-
-# Overriding just a few values
+## Overriding just a few values
 
 Sometimes, it is more appropriate to just override a few values - for this purpose
 you can use the "override" option sequence:
 
-For a full list of localisation string names, please look below - note the use of
+For a full list of localization string names, please look below - note the use of
 camel case - i.e. {% api_doc dateFormat %} becomes "overrideDateFormat"
 
 {% highlight html %}
@@ -50,21 +54,21 @@ camel case - i.e. {% api_doc dateFormat %} becomes "overrideDateFormat"
 
 <div class="ui-field-contain">
 	<label for="sing">Single Override</label>
-	<input id="sing" type="text" data-role="datebox" data-options='{"useInline":true, "hideInput":true, "mode":"datebox", "useLang":"en", "overrideSetDateButtonLabel":"Update Date"}'>
+	<input id="sing" type="text" data-role="datebox" data-options='{"useInline":true, "hideInput":true, "useInlineAlign":"center", "mode":"datebox", "useLang":"en", "overrideSetDateButtonLabel":"Update Date"}'>
 </div>
 
 
-# Customising a Language
-The simplest way to customise a language is to edit or create a file with all of
+## Customizing a Language
+The simplest way to customize a language is to edit or create a file with all of
 the needed strings for datebox.  The file looks something like this:
 
 {% highlight js %}
-jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
+jQuery.extend(jQuery.jtsage.datebox.prototype.options.lang, {
   'en': {
     setDateButtonLabel: "Set Date",
     setTimeButtonLabel: "Set Time",
     setDurationButtonLabel: "Set Duration",
-    calTodayButtonLabel: "Jump to Today",
+    todayButtonLabel: "Jump to Today",
     titleDateDialogLabel: "Set Date",
     titleTimeDialogLabel: "Set Time",
     daysOfWeek: [
@@ -105,10 +109,10 @@ jQuery.extend(jQuery.mobile.datebox.prototype.options.lang, {
     durationFormat: "%Dd %DA, %Dl:%DM:%DS",
     calDateListLabel: "Other Dates",
     calHeaderFormat: "%B %Y",
-    calTomorrowButtonLabel: "Jump to Tomorrow"
+    tomorrowButtonLabel: "Jump to Tomorrow"
   }
 });
-jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
   useLang: 'en'
 });
 {% endhighlight %}
@@ -121,9 +125,7 @@ is particularly useful as you shouldn't need to track the main distribution to e
 your existing language files will work with new versions. For a complete listing
 of what each of these options means, please see the [API](http://dev.jtsage.com/jQM-DateBox/api/cat-i18n/).
 
-# Correcting Mistakes / Submitting New Translations
+## Correcting Mistakes / Submitting New Translations
 If you wish to correct a mistake in the DateBox repository, or submit a language
 that does not already exist, you can send a merge request via GitHub, send me an
-e-mail direct (link at the bottom of every page), or contribute via CrowdIn (like
-at the bottom of every page). Individual translators are noted in the language file
-they contributed to.
+[e-mail direct](mailto:jtsage+datebox@gmail.com), or contribute via [CrowdIn](http://crowdin.net/project/jquery-mobile-datebox).

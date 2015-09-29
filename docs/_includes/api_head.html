@@ -42,32 +42,30 @@
 						{% endfor %}
 					</ul>
 				</li>
-				<li><a href="{{ site.basesite}}api">API Options</a></li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">API - by Section<span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">API &amp; Options<span class="caret"></span></a>
 					<ul class="dropdown-menu">
+						<li><a href="{{site.basesite}}api">All Options</a></li>
+						<li role="separator" class="divider"></li>
 						{% for docu in site.pages %}
 						{% if docu.layout == "apicat" %}
 							{% if docu.sect == "cat" %}
-							<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title}}</a></li>
+							<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title | remove_first: "Option List - "}} Options</a></li>
 							{% endif %}
 						{% endif %}
 						{% endfor %}
-						{% for docu in site.pages %}
-						{% if docu.layout == "apicat" %}
-							{% if docu.sect == "cat2" %}
-							<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title}}</a></li>
-							{% endif %}
-						{% endif %}
-						{% endfor %}
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">API - by Mode<span class="caret"></span></a>
-					<ul class="dropdown-menu">
+						<li role="separator" class="divider"></li>
 						{% for docu in site.pages %}
 						{% if docu.layout == "apicat" %}
 							{% if docu.sect == "mode" %}
+							<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title}}</a></li>
+							{% endif %}
+						{% endif %}
+						{% endfor %}
+						<li role="separator" class="divider"></li>
+						{% for docu in site.pages %}
+						{% if docu.layout == "apicat" %}
+							{% if docu.sect == "cat2" %}
 							<li><a href="{{site.basesite}}{{docu.url | remove_first: "/" }}">{{docu.title}}</a></li>
 							{% endif %}
 						{% endif %}

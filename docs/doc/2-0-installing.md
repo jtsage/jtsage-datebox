@@ -88,6 +88,7 @@ send the one file they need.
 </div>
 </div>
 
+{::options parse_block_html="true" /}
 <div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title">Other Languages</h3>
@@ -104,7 +105,7 @@ As a note, if you have a **production** application, it is **strongly** recomend
 that you make a local copy of the script files.  My "CDN" is a distibution folder on a single
 server, there is no redundancy, and it is occasionally prone to downtime. 
 
-{::options parse_block_html="true" /}
+
 
 <div class="panel panel-default">
 <div class="panel-heading">

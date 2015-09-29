@@ -59,7 +59,25 @@ window.doOptLimit = function() {
 		}); 
 	}
 };
+window.doOptLimit2 = function() {
+	console.log($( "#filterman2" ).val());
+	var newVal = $( "#filterman2" ).val().toLowerCase();
+	if ( newVal === "" ) { 
+		$( ".panel.hide" ).removeClass( "hide" );
+	} else {
+		$( ".panel.hide" ).removeClass( "hide" );
+		$( ".panel-body" ).each( function () { 
+			if ( $( this ).text().toLowerCase().indexOf( newVal ) === -1 ) { 
+				$( this ).parent().addClass( "hide" );
+			}
+		}); 
+	}
+};
 
 $(document).on("keyup", "#filterman", function() { window.doOptLimit(); });
 $(document).on("change", "#filterman", function() { window.doOptLimit(); });
 $(document).on("click", "#filtermanbtn", function(e) { e.preventDefault(); window.doOptLimit(); });
+
+$(document).on("keyup", "#filterman2", function() { window.doOptLimit2(); });
+$(document).on("change", "#filterman2", function() { window.doOptLimit2(); });
+$(document).on("click", "#filterman2btn", function(e) { e.preventDefault(); window.doOptLimit2(); });

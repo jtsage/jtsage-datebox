@@ -10,19 +10,24 @@ a look at the next page as well, as all of these modes have  quite a number of s
 associated options.
 
 ## DateBox Popup - Default
-Given no other options, datebox will default to using it's a popup method - it relies on the native
-jQM popups, so it is reasonable efficient, and it does not suffer from old DateBox bugs - namely, 
-jQM core takes care of positioning, repositioning, click-behind detection, etc.  This example is 
-shown with {% api_doc useFocus %} enabled.
+Given no other options, datebox will default to using it's a popup method - for jQueryMobiel,
+this relies on the native jQM popups, so it is reasonable efficient, and it does not suffer 
+from old DateBox bugs - namely, jQM core takes care of positioning, repositioning, 
+click-behind detection, etc.
+
+For bootstrap, a subset of the dropdown functionality is used (although none of the bootstrap
+javascript code is called). This means that the bootstrap mode should work just fine even if 
+bootstrap is not loaded.  This example is shown with {% api_doc useFocus %} enabled.
 	
-<div class="ui-field-contain">
+<div class="form-group">
 	<label for="ex1">A CalBox</label>
-	<input id="ex1" type="text" data-role="datebox" data-options='{"mode":"calbox", "useFocus":true}'>
+	<input id="ex1" type="text" class="form-control" data-role="datebox" data-options='{"mode":"calbox", "useFocus":true}'>
 </div>
 
 ## Inline and Inline-Blind
 Sometimes (such as in these documents), it is preferable to have the control simply
-appear inline with the rest of the form. 
+appear inline with the rest of the form. When using bootstrap, an additional option
+available to you is {% api_doc useInlineAlign %}.
 
 You might want DateBox to mimic the behavior of jQuery-UI - that is, to slide
 down the control when you click the input.  To do this, set {% api_doc useInlineBlind %}.
@@ -31,21 +36,20 @@ down the control when you click the input.  To do this, set {% api_doc useInline
 <input type="text" data-role="datebox" data-options='{"mode":"calbox", "useInlineBlind":true}'>
 {% endhighlight %}
 
-<div class="ui-field-contain">
+<div class="form-group">
 	<label for="in2">InlineBlind CalBox</label>
-	<input type="text" id="in2" data-role="datebox" data-options='{"mode":"calbox", "useInlineBlind":true, "useFocus":true}'>
+	<input type="text" id="in2" class="form-control" data-role="datebox" data-options='{"mode":"calbox", "useInlineBlind":true, "useInlineAlign": "right", "useFocus":true}'>
 </div>
 
 
 To show the control inline, with no hiding set {% api_doc useInline %}.  Note that you will want to
-include the control in a "ui-field-contain" for optimal results.  On the next few pages we will
-look at the fun things you can do with original input element.
+include the control in a "ui-field-contain" (jQM) or "form-group" (Bootstrap) for optimal results.
 
 {% highlight html %}
 <input type="text" data-role="datebox" data-options='{"mode":"calbox", "useInline":true}'>
 {% endhighlight %}
 
-<div class="ui-field-contain">
+<div class="form-group">
 	<label for="in1">Inline CalBox</label>
-	<input id="in1" type="text" data-role="datebox" data-options='{"mode":"calbox", "useInline": true}'>
+	<input id="in1" type="text" class="form-control" data-role="datebox" data-options='{"mode":"calbox", "useInlineAlign": "center", "useInline": true}'>
 </div>
