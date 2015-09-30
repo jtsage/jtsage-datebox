@@ -50,13 +50,13 @@
 							if ( other === true ) {
 								row.push([prev + (cc - start) + 1,month-1]);
 							} else {
-								row.push(false);
+								row.push(" ");
 							}
 						} else if ( rc > 3 && day > last ) {
 							if ( other === true ) {
 								row.push([next,month+1]); next++;
 							} else {
-								row.push(false);
+								row.push(" ");
 							}
 							stop = true;
 						} else {
@@ -620,6 +620,9 @@
 					}
 				}
 				if ( w.baseMode === "jqm" &&  o.calControlGroup ) {
+					htmlRow.find("." + uid + 'griddate-empty')
+						.addClass('ui-state-disabled ui-btn');
+						
 					htmlRow.controlgroup({type: "horizontal"});
 				}
 				if ( w.baseMode === "bootstrap" ) {

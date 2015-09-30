@@ -146,6 +146,10 @@ div.ui-datebox-container.ui-datebox-inline {
 	clear: both; 
 	margin-bottom: 5px; 
 }
+.ui-datebox-inline .ui-datebox-gridrow.ui-controlgroup-horizontal {
+	margin-left: auto;
+	margin-right: auto;
+}
 .ui-datebox-inline .ui-datebox-gridrow .ui-controlgroup-controls {
 	width: 100%;
 	text-align: center;
