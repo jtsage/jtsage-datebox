@@ -6,7 +6,7 @@ layout: doc
 
 <script type="text/javascript">
 	var selectdata = ['Single', 'Separated', 'Involved', 'Married', 'Widowed', 'Lover', 'Other'];
-	jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+	jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
 		'customData': [{
 			'input': true,
 			'name': '',
@@ -89,37 +89,45 @@ checked, but 6 can be made to display somewhat ok).  The objects must contain:
 
 ## Working Example
 
-<div class="ui-field-contain">
+<div class="form-group">
 	<label for="headd">customHead</label>
-	<input type="text" id="headd" class="demopick" data-link="cf" data-opt="customHead">
+	<input type="text" id="headd" class="form-control demopick" data-link="cf" data-opt="customHead">
 </div>
-<div class="ui-field-contain">
+<div class="form-group">
 	<label for="setd">overrideCustomSet</label>
-	<input type="text" id="setd" class="demopick" data-link="cf" data-opt="overrideCustomSet">
+	<input type="text" id="setd" class="form-control demopick" data-link="cf" data-opt="overrideCustomSet">
 </div>
-<div class="ui-field-contain">
+<div class="form-group">
 	<label for="setf">customFormat</label>
-	<input type="text" id="setf" class="demopick" data-link="cf" data-opt="customFormat" value="%Xa">
+	<input type="text" id="setf" class="form-control demopick" data-link="cf" data-opt="customFormat" value="%Xa">
 </div>
-<div class="ui-field-contain">
+<div class="form-group">
 	<label for="dat">customData</label>
-	<textarea id="dat" class="demopick" data-link="cf" data-opt="customData">[{
+	<textarea id="dat" class="form-control demopick" data-link="cf" data-opt="customData">[{
 "input": true,
 "name": "",
 "data": ["Single", "Separated", "Involved", "Married", "Widowed", "Lover", "Other"]
 }]</textarea>
 </div>
 		
-<div class="ui-field-contain">
+<div class="form-group">
 	<label for="cf">CustomFlip</label>
-	<input name="cf" type="text" data-role="datebox" id="cf" data-options='{"mode": "customflip"}' />
+	<input name="cf" type="text" class="form-control" data-role="datebox" id="cf" data-options='{"mode": "customflip"}' />
 </div>
 
 # Sample Data
 
 Default.  (customFormat === '%Xa')
+<button class="btn btn-success" id="dodef">Do It</button>
 
-{% highlight json %}
+<script type="text/javascript">
+	$(document).on('click', '#dodef', function(){
+		$('#setf').val('%Xa').trigger('change');
+		$('#dat').val('[{ "input": true, "name": "", "data": ["Single", "Separated", "Involved", "Married", "Widowed", "Lover", "Other"] }]').trigger('change');
+	})
+</script>
+
+{% highlight javascript %}
 [{
   "input": true,
   "name": "",
@@ -128,17 +136,67 @@ Default.  (customFormat === '%Xa')
 {% endhighlight %}
 
 Slot Machine! (SET customFormat === '%X1,%X2,%X3' FIRST)
+<button class="btn btn-success" id="doslot">Do It</button>
 
-{% highlight json %}
+
+<script type="text/javascript">
+	$(document).on('click', '#doslot', function(){
+		$('#setf').val('%X1,%X2,%X3').trigger('change');
+		x1 = [
+		  {"input": false, "name": "Reel 1", "data":[
+		    "<span class='glyphicon glyphicon-king'></span>",
+		    "<span class='glyphicon glyphicon-queen'></span>",
+		    "<span class='glyphicon glyphicon-bishop'></span>",
+		    "<span class='glyphicon glyphicon-knight'></span>",
+		    "<span class='glyphicon glyphicon-tower'></span>",
+		    "<span class='glyphicon glyphicon-pawn'></span>"
+		  ]},
+		  {"input": false, "name": "Reel 2", "data":[
+		  	"<span class='glyphicon glyphicon-king'></span>",
+		    "<span class='glyphicon glyphicon-queen'></span>",
+		    "<span class='glyphicon glyphicon-bishop'></span>",
+		    "<span class='glyphicon glyphicon-knight'></span>",
+		    "<span class='glyphicon glyphicon-tower'></span>",
+		    "<span class='glyphicon glyphicon-pawn'></span>"
+		  ]},
+		  {"input": false, "name": "Reel 3", "data":[
+		    "<span class='glyphicon glyphicon-king'></span>",
+		    "<span class='glyphicon glyphicon-queen'></span>",
+		    "<span class='glyphicon glyphicon-bishop'></span>",
+		    "<span class='glyphicon glyphicon-knight'></span>",
+		    "<span class='glyphicon glyphicon-tower'></span>",
+		    "<span class='glyphicon glyphicon-pawn'></span>"
+		  ]}
+		]
+		$('#dat').val(JSON.stringify(x1)).trigger('change');
+	})
+</script>
+
+{% highlight javascript %}
 [
-  {"input": false, "name": "Wheel1", "data":[
-    "<img src='../img/slot1.png'>","<img src='../img/slot2.png'>","<img src='../img/slot3.png'>","<img src='../img/slot4.png'>"
+  {"input": false, "name": "Reel 1", "data":[
+    "<span class='glyphicon glyphicon-king'></span>",
+    "<span class='glyphicon glyphicon-queen'></span>",
+    "<span class='glyphicon glyphicon-bishop'></span>",
+    "<span class='glyphicon glyphicon-knight'></span>",
+    "<span class='glyphicon glyphicon-tower'></span>",
+    "<span class='glyphicon glyphicon-pawn'></span>"
   ]},
-  {"input": false, "name": "Wheel2", "data":[
-    "<img src='../img/slot1.png'>","<img src='../img/slot2.png'>","<img src='../img/slot3.png'>","<img src='../img/slot4.png'>"
+  {"input": false, "name": "Reel 2", "data":[
+  	"<span class='glyphicon glyphicon-king'></span>",
+    "<span class='glyphicon glyphicon-queen'></span>",
+    "<span class='glyphicon glyphicon-bishop'></span>",
+    "<span class='glyphicon glyphicon-knight'></span>",
+    "<span class='glyphicon glyphicon-tower'></span>",
+    "<span class='glyphicon glyphicon-pawn'></span>"
   ]},
-  {"input": false, "name": "Wheel3", "data":[
-    "<img src='../img/slot1.png'>","<img src='../img/slot2.png'>","<img src='../img/slot3.png'>","<img src='../img/slot4.png'>"
+  {"input": false, "name": "Reel 3", "data":[
+    "<span class='glyphicon glyphicon-king'></span>",
+    "<span class='glyphicon glyphicon-queen'></span>",
+    "<span class='glyphicon glyphicon-bishop'></span>",
+    "<span class='glyphicon glyphicon-knight'></span>",
+    "<span class='glyphicon glyphicon-tower'></span>",
+    "<span class='glyphicon glyphicon-pawn'></span>"
   ]}
 ]
 {% endhighlight %}
