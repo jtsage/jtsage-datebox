@@ -201,15 +201,19 @@
 			if ( dur ) {
 				w._fbox_fixstep(w.fldOrder);
 				
-				tmp = $( "<div class='" + uid + "header ui-grid-" +
-					w._gridblk.g[w.fldOrder.length] + "'></div>");
+				tmp = $( w._spf("<div class='{cls}'></div>", {
+					cls: uid + "header" +
+						" ui-grid-" + ["a","b","c","d","e"][w.fldOrder.length - 2] +
+						" row"
+				}));
 				
 				for ( y = 0; y < w.fldOrder.length; y++ ) {
-					$("<div class='" + uid + "fliplab ui-block-" + w._gridblk.b[ y ] + "'>" + 
-							w.__( "durationLabel" )[$.inArray( w.fldOrder[y], normDurPositions )] + 
-							"</div>"
-						)
-						.appendTo(tmp);
+					$( w._spf("<div class='{cls}'>{text}</div>", {
+						text: w.__( "durationLabel" )[$.inArray( w.fldOrder[y], normDurPositions )],
+						cls: uid + "fliplab" +
+							" ui-block-" + ["a","b","c","d","e"][y] +
+							" col-xs-" + 12/w.fldOrder.length
+					})).appendTo(tmp);
 				}
 				tmp.appendTo(w.d.intHTML);
 				
