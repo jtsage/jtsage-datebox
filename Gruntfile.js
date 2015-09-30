@@ -101,7 +101,6 @@ module.exports = function(grunt) {
 						"src/js/base.jqm.js",
 						"src/js/mode.*.js",
 						"!src/js/.mode.custombox.js",
-						"!src/js/mode.customflip.js",
 						"build/wrap.end"
 				],
 				dest: "dist/latest/jtsage-datebox.jqm.js"
@@ -112,7 +111,6 @@ module.exports = function(grunt) {
 						"src/js/base.bootstrap.js",
 						"src/js/mode.*.js",
 						"!src/js/mode.custombox.js",
-						"!src/js/mode.customflip.js",
 				],
 				dest: "dist/latest/jtsage-datebox.bootstrap.js"
 			},
@@ -123,7 +121,6 @@ module.exports = function(grunt) {
 						"src/js/base.jqm.js",
 						"src/js/mode.*.js",
 						"!src/js/.mode.custombox.js",
-						"!src/js/mode.customflip.js",
 						"build/wrap.end"
 				],
 				dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqm.js"
@@ -134,7 +131,6 @@ module.exports = function(grunt) {
 						"src/js/base.bootstrap.js",
 						"src/js/mode.*.js",
 						"!src/js/mode.custombox.js",
-						"!src/js/mode.customflip.js",
 				],
 				dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap.js"
 			}
