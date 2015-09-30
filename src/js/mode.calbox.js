@@ -620,9 +620,14 @@
 					}
 				}
 				if ( w.baseMode === "jqm" &&  o.calControlGroup ) {
-					htmlRow.find("." + uid + 'griddate-empty')
-						.addClass('ui-state-disabled ui-btn');
-						
+					htmlRow.find("." + uid + "griddate-empty" )
+						.addClass( "ui-btn" );
+
+					if ( o.calOnlyMonth ) {
+						htmlRow.find( "." + uid + "griddate-empty" )
+						.addClass( "ui-state-disabled" );
+					}
+
 					htmlRow.controlgroup({type: "horizontal"});
 				}
 				if ( w.baseMode === "bootstrap" ) {
@@ -654,7 +659,12 @@
 					w._t( { method: "doset" } );
 				});
 				
-				listControl.find( "select" ).selectmenu( { mini: true, nativeMenu: true } );
+				if ( w.baseMode === "jqm" ) {
+					listControl.find( "select" ).selectmenu( { mini: true, nativeMenu: true } );
+				} 
+				if ( w.baseMode === "bootstrap" ) {
+					listControl.find("select").addClass("form-control input-sm");
+				}
 				listControl.appendTo( calContent );
 			}
 			
