@@ -80,8 +80,11 @@ if (
 						w._t( { method: "close", closeCancel: true } );
 					});
 			},
-			close: function(txt) {
+			close: function(txt, trigger) {
 				var w = this, o = this.options;
+
+				if ( typeof trigger === "undefined" ) { trigger = false; }
+
 				return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeCloseButton + 
 						"'><span class='" + o.icnCls + "ok'></span> " +
 						txt + "</a>" )
@@ -91,11 +94,15 @@ if (
 					.on(o.clickEventAlt, function(e) {
 						e.preventDefault();
 						if ( w.dateOK === true ) {
-							w._t( { 
-								method: "set", 
-								value: w._formatter(w.__fmt(),w.theDate),
-								date: w.theDate
-							} );
+							if ( trigger === false ) {
+								w._t( {
+									method: "set", 
+									value: w._formatter(w.__fmt(),w.theDate),
+									date: w.theDate
+								} );
+							} else {
+								w._t( trigger );
+							}
 							w._t( { method: "close" } );
 						}
 						

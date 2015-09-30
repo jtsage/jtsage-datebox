@@ -219,12 +219,12 @@
 
 			tmp = $("<div class='" + uid + "header'>");
 			if ( o.customData.length > 1 ) { 
-				tmp.addClass("ui-grid-" + [0,0,"a","b","c"][o.customData.length] );
+				tmp.addClass("row ui-grid-" + ["a","b","c"][o.customData.length-2] );
 			}
 			for ( y=0; y<o.customData.length; y++ ) {
 				$( "<div>" )
 					.addClass( ( o.customData.length > 1 ) ?
-						"ui-block-" + ["a","b","c","d"][y] :
+						"col-xs-" + 12/o.customData.length + " ui-block-" + ["a","b","c","d"][y] :
 						""
 					)
 					.text( o.customData[ y ].name )
@@ -245,8 +245,8 @@
 				if ( o.customData.length === 1 ) { hRow.css( "width", "90%" ); }
 				for ( i=0; i < lineArr.length; i++ ) {
 					tmp = ( i !== o.customDataLen ) ? o.themeOpt : o.themeOptPick;
-					console.log(i + " " + o.customDataLen);
-					console.log(typeof i + " " + typeof o.customDataLen);
+//					console.log(i + " " + o.customDataLen);
+//					console.log(typeof i + " " + typeof o.customDataLen);
 					$( "<li>", { "class": "ui-body-" + tmp } )
 						.html( "<span>" + lineArr[i] + "</span>" )
 						.appendTo( hRowIn );
@@ -260,23 +260,19 @@
 
 			if ( o.useSetButton ) {
 				y = $( "<div>", { "class": uid + "controls" } );
-				
-				if ( o.useSetButton ) {
-					$( "<a href='#' role='button'>" )
-						.appendTo(y)
-						.text( w.__("customSet") )
-						.addClass( "ui-btn ui-btn-" + o.theme +
-							" ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all" )
-						.on(o.clickEventAlt, function(e) {
-							e.preventDefault();
-							w._t( { 
-								method: "set", 
-								value: w._formatter( o.customFormat, w.customCurrent ),
-								custom: w.customCurrent,
-							} );
-							w._t( { method: "close" } );
-						});
-				}
+				w.dateOK = true;
+
+				y.append( w._stdBtn.close.apply(
+					w, [ 
+						w.__("customSet"),
+						{
+							method: "set", 
+							value: w._formatter( o.customFormat, w.customCurrent ),
+							custom: w.customCurrent,
+						}
+					]
+				));
+				if ( w.baseMode === "bootstrap" ) { y.addClass( "btn-group-vertical" ); }
 				y.appendTo(w.d.intHTML);
 			}
 			

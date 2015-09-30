@@ -31,7 +31,7 @@
 	<script type="text/javascript" src="../src/js/mode.flipbox.js"></script>
 	
 	<script type="text/javascript" src="../src/js/mode.slidebox.js"></script>
-	<!--script type="text/javascript" src="../src/js/mode.custombox.js"></script--> 
+	<script type="text/javascript" src="../src/js/mode.customflip.js"></script> 
 	<script type="text/javascript" src="./jqm-datebox-devtool.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
 	
@@ -52,9 +52,12 @@
 			//useCollapsedBut: true,
 			//calShowWeek: true,
 			useInline: true,
+			//hideContainer: true,
 			//hideInput: true,
 			calOnlyMonth: true,
 			useInlineAlign: "middle",
+			calDateList: [["1980-04-25", "JTs Date of Birth"], ["1809-02-12", "Lincolns Birthday"]],
+			calShowDateList: true,
 
 			//calUsePickers: true,
 			//calUsePickersIcons: true,
@@ -100,13 +103,10 @@
 
 		<div class="form-group">
 			<label class="control-label"for="lang1">yep</label>
-			<input class="form-control" name="lang1" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang1" data-options='{"overrideDateFormat": "%J"}' value="2016-07-31T05:11:00.000Z" />
+			<input class="form-control" name="lang1" type="text" data-role="datebox" data-datebox-mode="customflip" id="lang1" data-options='{}' />
 		</div>
 
-		<div class="form-group">
-			<label class="control-label"for="lang2">yep2</label>
-			<input class="form-control" name="lang2" type="text" data-role="datebox" data-datebox-mode="datebox" id="lang2" />
-		</div>
+		
 
 		<div class="form-group">
 			<label  for="username">E-Mail Address</label>
