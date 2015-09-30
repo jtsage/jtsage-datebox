@@ -76,8 +76,12 @@ window.doOptLimit2 = function() {
 
 $(document).on("keyup", "#filterman", function() { window.doOptLimit(); });
 $(document).on("change", "#filterman", function() { window.doOptLimit(); });
-$(document).on("click", "#filtermanbtn", function(e) { e.preventDefault(); window.doOptLimit(); });
+$(document).on("click", "#filtermanbtn", function(e) { 
+	e.preventDefault(); window.doOptLimit();
+});
 
 $(document).on("keyup", "#filterman2", function() { window.doOptLimit2(); });
 $(document).on("change", "#filterman2", function() { window.doOptLimit2(); });
-$(document).on("click", "#filterman2btn", function(e) { e.preventDefault(); window.doOptLimit2(); });
+$(document).on("click", "#filterman2btn", function(e) { 
+	e.preventDefault(); window.doOptLimit2();
+});
