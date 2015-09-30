@@ -373,10 +373,6 @@
 			});
 			return dur;
 		},
-		_gridblk: {
-			g: [0, 0, "a", "b", "c", "d", "e"],
-			b: ["a", "b", "c", "d", "e", "f"]
-		},
 		__ : function(val) {
 			var o = this.options,
 				lang = o.lang[o.useLang],
