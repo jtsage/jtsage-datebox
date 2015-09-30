@@ -262,8 +262,7 @@ if (
 					})
 					.appendTo(w.d.wrap);
 			} else {
-				$( "<div class='input-group-addon'><span class='" + o.icnCls + 
-					o.buttonIcon + "'></span></div>" ).prependTo(w.d.wrap);
+				w.d.wrap.css( "width", "100%" );
 			}
 
 			if ( o.hideInput ) { w.d.wrap.hide(); }
@@ -342,9 +341,13 @@ if (
 				
 				if ( o.hideContainer ) {
 					if ( o.useHeader ) {
-						w.d.mainWrap.prepend( $( "<div class='ui-header ui-bar-" + o.themeHeader +
-							"'>" + "<h1 class='ui-title'>" + w.d.headerText + "</h1>" + "</div>" )
-						);
+						w.d.mainWrap.prepend( $(w._spf(
+							"<div class='{c1}'><h4 class='{c2}'>{text}</h4></div>",
+						{
+							c1: "modal-header",
+							c2: "modal-title text-center",
+							text: w.d.headerText,
+						})));
 					}
 					w.d.wrap.parent().after( w.d.mainWrap );
 				} else {
