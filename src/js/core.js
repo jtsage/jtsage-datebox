@@ -863,21 +863,24 @@
 			var w = this,
 				o = this.options,
 				now = this.theDate,
-				ok = false;
+				ok = false,
+				dPart = false;
 
 			mode = ( mode || "" ).toLowerCase();
+			dPart = $.inArray(mode, [ "y", "m", "d", "h", "i", "s" ]);
 
 			if ( typeof update === "undefined" ) { update = true; }
 
 			if ( mode !== "a" && 
 					( typeof o.rolloverMode[mode] === "undefined" || o.rolloverMode[mode] === true )
 				) {
-				ok = $.inArray(mode, [ "y", "m", "d", "h", "i", "s" ]);
+				ok = dPart;
 			} else {
+				console.log('checking');
 				switch(mode) {
 					case "y": ok = 0; break;
 					case "m":
-						if ( w._btwn( now.get(1) + amount, -1, 12 ) ) { ok = 1; }
+						if ( w._btwn( now.get(1) + amount, -1, 12 ) ) { ok = 1; } 
 						break;
 					case "d":
 						if ( w._btwn( 
@@ -900,7 +903,13 @@
 						break;
 				}
 			}
-			if ( ok !== false ) { w.theDate.adj( ok, amount ); }
+			if ( ok !== false ) { 
+				w.theDate.adj( ok, amount );
+			} else {
+				tempDate = w.theDate.copy();
+				tempDate.adj(dPart, amount );
+				w.theDate.setD(dPart, tempDate.get(dPart));
+			}
 			if ( update === true ) { w.refresh(); }
 			if ( o.useImmediate ) { w._t( { method: "doset" } ); }
 
