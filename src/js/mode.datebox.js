@@ -315,7 +315,7 @@
 						.addClass( o.btnCls + o.themeButton )
 						.data({
 							"field": w.fldOrder[i],
-							"amount": offAmount
+							"amount": offAmount*-1
 						})
 						.appendTo(currentControl);
 
