@@ -256,6 +256,16 @@ module.exports = function(grunt) {
 				}]
 			},
   		},
+  		copy: {
+  			web1: {
+  				src: 'src/css/sheet-bootstrap.php',
+  				dest: 'docs/theme/bootstrap/sheet.php'
+  			},
+      		web2: {
+      			src: 'src/css/sheet.php',
+      			dest: 'docs/theme/jqm/sheet.php'
+      		}
+  		},
 		prettify: {
 			options: {
 				// Task-specific options go here.
@@ -293,6 +303,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
+	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-git-committers" );
 	grunt.loadNpmTasks( "grunt-jekyll" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
@@ -325,6 +336,8 @@ module.exports = function(grunt) {
 		"uglify:release",
 		"cssmin:release",
 		"committers",
+		"copy:web1",
+		"copy:web2",
 		"jekyll:release",
 		"prettify",
 		"makei18n"
@@ -347,8 +360,8 @@ module.exports = function(grunt) {
 		"uglify:i18n"
 	] );
 
-	grunt.registerTask( "web", "Build the documentation site", ["jekyll:release", "prettify"] );
-	grunt.registerTask( "devweb", "Test the documentation site", ["jekyll:latest",] );
+	grunt.registerTask( "web", "Build the documentation site", ["copy:web1", "copy:web2", "jekyll:release", "prettify"] );
+	grunt.registerTask( "devweb", "Test the documentation site", ["copy:web1", "copy:web2", "jekyll:latest", "prettify"] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane"] );
 

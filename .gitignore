@@ -5,6 +5,8 @@ node_modules
 ## Built Jekyll site
 docs/_site
 docs/.jekyll-metadata
+docs/theme/jqm/sheet.php
+docs/theme/bootstrap/sheet.php
 
 
 ## Build folder
