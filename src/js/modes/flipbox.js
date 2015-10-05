@@ -343,7 +343,7 @@ JTSageDateBox._build.flipbox = function () {
 	if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
 		w.d.intHTML.on( "mousewheel", ".ui-overlay-shadow", function(e,d) {
 			e.preventDefault();
-			w._offset($(this).data("field"), ((d<0)?-1:1)*$(this).data("amount"));
+			w._offset($(this).data("field"), ((d<0)?1:-1)*$(this).data("amount"));
 		});
 	}
 	
