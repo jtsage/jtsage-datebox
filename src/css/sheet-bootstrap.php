@@ -58,11 +58,15 @@ foreach ( $defaults as $key => $value ) {
 
 ?>
 /*
- * jQuery Mobile Framework : plugin to provide a date and time picker.
- * Copyright (c) JTSage
- * CC 3.0 Attribution.  May be relicensed without permission/notification.
+ * JTSage-DateBox : the full featured Date and Time Picker
+ * Date: <?php echo date(DATE_ATOM) . "\n"; ?>
+ * http://dev.jtsage.com/DateBox/
  * https://github.com/jtsage/jquery-mobile-datebox
- * Generated: <?php echo date(DATE_ATOM); ?> (from theme builder)
+ *
+ * Copyright 2010, 2015 JTSage. and other contributors
+ * Released under the MIT license.
+ * https://github.com/jtsage/jquery-mobile-datebox/blob/master/LICENSE.txt
+ *
  */
  
 /* 
