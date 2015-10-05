@@ -326,7 +326,8 @@ module.exports = function(grunt) {
 		
 	
 	grunt.registerTask( "release", "Build a release version of DateBox", [
-		"jshint_sane",
+		"jshint:js",
+		"jshint:js2",
 		//"qunit",
 		"clean:release",
 		"buildDBox:main_jqm",
