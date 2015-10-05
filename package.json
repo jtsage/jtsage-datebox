@@ -26,18 +26,19 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-qunit": "^0.5.2",
     "grunt-contrib-uglify": "^0.5.1",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-exec": "^0.4.6",
     "grunt-git-committers": "^0.1.2",
     "grunt-html": "^1.4.0",
     "grunt-jekyll": "git://github.com/dannygarcia/grunt-jekyll.git",
     "grunt-prettify": "^0.3.5",
-    "node-gettext": "^0.2.14"
+    "js-object-pretty-print": "^0.2.0",
+    "node-gettext": "^0.2.14",
+    "uglify-js": "^2.4.24"
   },
   "dependencies": {}
 }

@@ -34,10 +34,26 @@ module.exports = function(grunt) {
 		jshint: {
 			js: {
 				files: {
-					src: [ "src/js/*.js" ]
+					src: [
+						"src/js/*.js",
+						"src/js/lib/*.js",
+						"src/js/framework/*.js",
+						"src/js/modes/*.js",
+						"!src/js/baseObject.js"
+					]
 				},
 				options: {
 					jshintrc: "src/js/.jshintrc"
+				}
+			},
+			js2: {
+				files: {
+					src: [
+						"src/js/baseObject.js"
+					]
+				},
+				options: {
+					jshintrc: "src/js/.jshintrc2"
 				}
 			},
 			js_sane: {
@@ -67,8 +83,7 @@ module.exports = function(grunt) {
 				files: {
 					src: [
 						"docs/js/*.js",
-						"docs/qunit/*.js",
-						"docs/doc/3rd/backbonerequire/*.js"
+						"docs/qunit/*.js"
 					]
 				},
 				options: {
@@ -88,91 +103,6 @@ module.exports = function(grunt) {
 			latest: ["dist/latest/"],
 			release: ["dist/<%= pkg.version %>/"],
 			i18n: ["dist/i18n"]
-		},
-		concat: {
-			options: {
-				stripBanners: true,
-				banner: "<%= txt.banner.long %>",
-			},
-			latest_jqm: {
-				src: [
-						"build/wrap.begin",
-						"src/js/core.js",
-						"src/js/base.jqm.js",
-						"src/js/mode.*.js",
-						"!src/js/.mode.custombox.js",
-						"build/wrap.end"
-				],
-				dest: "dist/latest/jtsage-datebox.jqm.js"
-			},
-			latest_bootstrap: {
-				src: [
-						"src/js/core.js",
-						"src/js/base.bootstrap.js",
-						"src/js/mode.*.js",
-						"!src/js/mode.custombox.js",
-				],
-				dest: "dist/latest/jtsage-datebox.bootstrap.js"
-			},
-			main_jqm: {
-				src: [
-						"build/wrap.begin",
-						"src/js/core.js",
-						"src/js/base.jqm.js",
-						"src/js/mode.*.js",
-						"!src/js/.mode.custombox.js",
-						"build/wrap.end"
-				],
-				dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqm.js"
-			},
-			main_bootstrap: {
-				src: [
-						"src/js/core.js",
-						"src/js/base.bootstrap.js",
-						"src/js/mode.*.js",
-						"!src/js/mode.custombox.js",
-				],
-				dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap.js"
-			}
-		},
-		copy: {
-			latest_css: {
-				options: {
-					process: function (content) {
-						var texty = grunt.config("txt");
-						return content.replace(
-							/^...jQuery-Mobile-DateBox.../,
-							texty.banner.long
-						);
-					}
-				},
-				files: [ {
-					expand: true,
-					cwd: "css/",
-					src: ["*.css"],
-					dest: "dist/latest/",
-				} ]
-			},
-			release_css: {
-				options: {
-					process: function (content) {
-						var texty = grunt.config("txt");
-						return content.replace(
-							/^...jQuery-Mobile-DateBox.../,
-							texty.banner.long
-						);
-					}
-				},
-				files: [ {
-					expand: true,
-					cwd: "css/",
-					src: ["*.css"],
-					dest: "dist/<%= pkg.version %>/",
-					rename: function(dest, src) {
-						return dest + src.replace(/^jqm-datebox/, "jqm-datebox-<%= pkg.version %>");
-					}
-				} ]
-			}
 		},
 		uglify: {
 			options: {
@@ -253,11 +183,6 @@ module.exports = function(grunt) {
 				src : "docs/",
 				dest: "docs/_site"
 			},
-			dev2: {
-				options: {
-					config: "docs/_config.yml,docs/_config.mdev.yml"
-				}
-			},
 			latest: {
 				options: {
 					config: "docs/_config.yml,docs/_config.dev.yml"
@@ -269,24 +194,67 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		watch: {
-			scripts: {
-				files: [ "js/*.js" ],
-				tasks: [ "jshint:js" ]
+  		buildDBox: {
+			latest_bootstrap: {
+				options: {
+					dest: "dist/latest/jtsage-datebox.bootstrap.js",
+					includeBinding: true,
+				},
+				files: [{
+					expand: true,
+					src: [
+						"src/js/baseObject.js",
+						"src/js/framework/bootstrap.js",
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
 			},
-			web: {
-				files: [ 
-					"docs/doc/*.md",
-					"docs/api/*.md",
-					"docs/index.html",
-					"docs/_layouts/*.html",
-					"docs/_includes/*.html",
-					"docs/qunit/index.php",
-					"docs/theme/*.php",
-					"docs/builder/*.php"
-				],
-				tasks: [ "jekyll:latest", "prettify" ]
-			}
+			latest_jqm: {
+				options: {
+					dest: "dist/latest/jtsage-datebox.jqm.js",
+					includeBinding: true,
+				},
+				files: [{
+					expand: true,
+					src: [
+						"src/js/baseObject.js",
+						"src/js/framework/jqm.js",
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
+			main_bootstrap: {
+				options: {
+					dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap.js",
+					includeBinding: true,
+				},
+				files: [{
+					expand: true,
+					src: [
+						"src/js/baseObject.js",
+						"src/js/framework/bootstrap.js",
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
+			main_jqm: {
+				options: {
+					dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqm.js",
+					includeBinding: true,
+				},
+				files: [{
+					expand: true,
+					src: [
+						"src/js/baseObject.js",
+						"src/js/framework/jqm.js",
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
   		},
 		prettify: {
 			options: {
@@ -322,9 +290,7 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
 	grunt.loadNpmTasks( "grunt-contrib-qunit" );
-	grunt.loadNpmTasks( "grunt-contrib-concat" );
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
-	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-cssmin" );
 	grunt.loadNpmTasks( "grunt-git-committers" );
@@ -339,7 +305,8 @@ module.exports = function(grunt) {
 	grunt.registerTask( "jshint_reg", "Run Full jsHint Testing", [
 		"jshint:grunt",
 		"jshint:doc",
-		"jshint:js"
+		"jshint:js",
+		"jshint:js2"
 	]);
 	
 	grunt.registerTask( "jshint_sane", "Run jsHint with sane values", [
@@ -351,8 +318,8 @@ module.exports = function(grunt) {
 		"jshint_sane",
 		//"qunit",
 		"clean:release",
-		"concat:main_jqm",
-		"concat:main_bootstrap",
+		"buildDBox:main_jqm",
+		"buildDBox:main_bootstrap",
 		"exec:main_make_css_jqm",
 		"exec:main_make_css_bootstrap",
 		"uglify:release",
@@ -365,8 +332,8 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
 		"clean:latest",
-		"concat:latest_jqm",
-		"concat:latest_bootstrap",
+		"buildDBox:latest_jqm",
+		"buildDBox:latest_bootstrap",
 		"exec:latest_make_css_jqm",
 		"exec:latest_make_css_bootstrap",
 		"uglify:latest",

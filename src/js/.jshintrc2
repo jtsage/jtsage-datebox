@@ -1,6 +1,6 @@
 {
 	"undef": true,
-	"unused": true,
+	"unused": false,
 	"boss": true,
 	"curly": true,
 	"eqeqeq": true,
@@ -15,5 +15,5 @@
 	"maxlen": 100,
 	"indent": 4,
 	"node": true,
-	"predef": [ "jQuery", "document", "window", "setTimeout", "clearTimeout", "$", "JTSageDateBox", "mergeOpts" ]
+	"predef": [ "jQuery", "document", "window", "setTimeout", "clearTimeout", "$" ]
 }
