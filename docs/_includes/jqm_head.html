@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>jQM::DateBox - {{ page.title }}</title>
+
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.css" />
+<link rel="stylesheet" href="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqm{{site.min}}.css" />
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
+
+
+<script type="text/javascript" src="{{ site.basesite }}js/doc.js"></script>
+<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqm{{site.min}}.js"></script>
+<script type="text/javascript" src="{{ site.i18n }}jtsage-datebox.lang.utf8.js"></script>
+<script type="text/javascript">
+	jQuery.extend(jQuery.mobile, { ajaxEnabled: false });
+</script>
+<script type="text/javascript">
+	jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+		'useLang': 'en'
+	});
+</script>
+<style>
+.ui-datebox-container { margin-right: auto; margin-left: auto; }
+</style>
+</head>
+<body>
+<div data-role="page" id="main"> 
+	<div data-role="header" data-position="fixed"> 
+		<h1>JTSage<span style="color:#C3593C">DateBox</span></h1>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="{{ site.basesite }}">Home</a></li>
+				<li><a href="{{ site.basesite }}doc">Documentaion</a></li>
+				<li><a href="{{ site.basesite }}api">API &amp; Options</a></li>
+				<li><a href="{{ site.basesite }}bootstrap">Bootstrap Demos</a></li>
+				<li><a href="{{ site.basesite }}jqm">jQM Demos</a></li>
+			</ul>
+		</div>
+	</div>
+	

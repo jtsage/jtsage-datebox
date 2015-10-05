@@ -1,5 +1,5 @@
 ---
-title: DateBox
+title: SlideBox
 layout: demoboot
 pagenum: not0
 ---
@@ -56,14 +56,6 @@ pagenum: not0
 </div>
 
 <div class="form-group row">
-	<div class="col-xs-3"><label><small>override</small>{% api_doc dateFieldOrder %}</label></div>
-	<div class="col-xs-9">
-		<input class="form-control demopick" data-link="db" data-opt="overrideDateFieldOrder" value='["m","d","y"]'>
-		<span class="help-block">The order of the input elements</span>
-	</div>
-</div>
-
-<div class="form-group row">
 	<div class="col-xs-3"><label><small>override</small>{% api_doc dateFormat %}</label></div>
 	<div class="col-xs-9">
 		<input class="form-control demopick" data-link="db" data-opt="overrideDateFormat" value=''>
@@ -103,20 +95,43 @@ pagenum: not0
 	</div>
 </div>
 
-
 <div class="form-group row">
-	<div class="col-xs-3"><label>{% api_doc rolloverMode %}</label></div>
+	<div class="col-xs-3"><label>{% api_doc minuteStep %}</label></div>
 	<div class="col-xs-9">
-		<input class="form-control demopick" data-link="db" data-opt="rolloverMode" value='{ "m": true, "d": true, "h": true, "i": true, "s": true }'>
-		<span class="help-block">Control how the DateBox "rolls over"</span>
+		<input class="form-control demopick" data-link="db" data-opt="minuteStep" value='1'>
+		<span class="help-block">Minutes will increment by this value</span>
 	</div>
 </div>
 
 <div class="form-group row">
-	<div class="col-xs-3"><label>{% api_doc themeButton %}</label></div>
+	<div class="col-xs-3"><label>{% api_doc minuteStepRound %}</label></div>
 	<div class="col-xs-9">
-		<input class="form-control demopick" data-link="db" data-opt="themeButton" value='default'>
-		<span class="help-block">Theme for the +/- Buttons</span>
+		<input class="form-control demopick" data-link="db" data-opt="minuteStepRound" value='0'>
+		<span class="help-block">When stepping, minutes will be forced to round in this direction</span>
+	</div>
+</div>
+
+<div class="form-group row">
+	<div class="col-xs-3"><label><small>override</small>{% api_doc slideFieldOrder %}</label></div>
+	<div class="col-xs-9">
+		<input class="form-control demopick" data-link="db" data-opt="overrideSlideFieldOrder" value='["y","m","d"]'>
+		<span class="help-block">The order of the input elements</span>
+	</div>
+</div>
+
+<div class="form-group row">
+	<div class="col-xs-3"><label>{% api_doc themeDate %}</label></div>
+	<div class="col-xs-9">
+		<input class="form-control demopick" data-link="db" data-opt="themeDate" value='default'>
+		<span class="help-block">Theme for the non-selected Date Buttons</span>
+	</div>
+</div>
+
+<div class="form-group row">
+	<div class="col-xs-3"><label>{% api_doc themeDatePick %}</label></div>
+	<div class="col-xs-9">
+		<input class="form-control demopick" data-link="db" data-opt="themeDatePick" value='success'>
+		<span class="help-block">Theme for the selected Date Buttons</span>
 	</div>
 </div>
 
@@ -255,7 +270,7 @@ pagenum: not0
 <div class="col-sm-4" style="position:fixed; right:0;">
 
 <div class="form-group">
-<label for="db">DateBox</label>
-<input class="form-control" id="db" type="text" data-role="datebox" data-options='{"mode":"datebox","useInline":true,"useInlineAlign":"center"}'>
+<label for="db">SlideBox</label>
+<input class="form-control" id="db" type="text" data-role="datebox" data-options='{"mode":"slidebox","useInline":true,"useInlineAlign":"center"}'>
 </div>
 </div>

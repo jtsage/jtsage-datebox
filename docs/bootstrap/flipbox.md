@@ -1,5 +1,5 @@
 ---
-title: DateBox
+title: FlipBox
 layout: demoboot
 pagenum: not0
 ---
@@ -255,7 +255,7 @@ pagenum: not0
 <div class="col-sm-4" style="position:fixed; right:0;">
 
 <div class="form-group">
-<label for="db">DateBox</label>
-<input class="form-control" id="db" type="text" data-role="datebox" data-options='{"mode":"datebox","useInline":true,"useInlineAlign":"center"}'>
+<label for="db">FlipBox</label>
+<input class="form-control" id="db" type="text" data-role="datebox" data-options='{"mode":"flipbox","useInline":true,"useInlineAlign":"center"}'>
 </div>
 </div>
