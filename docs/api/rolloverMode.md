@@ -4,7 +4,6 @@ short: Allow rollover of each date element
 modes: [
 	'datebox',
 	'flipbox',
-	'slidebox',
 	'timebox',
 	'timeflipbox',
 ]
