@@ -1,96 +1,89 @@
 ---
+title: Home
 ---
-<!DOCTYPE html> 
-<html lang="en"> 
-<head> 
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>jQueryMobile - DateBox Demos</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.css" />
-	<link rel="stylesheet" href="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}{{site.min}}.css" />
-	
-	<link type="text/css" href="css/demos.css" rel="stylesheet" /> 
-	
-	<!-- NOTE: Script load order is significant! -->
-	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="{{ site.basesite }}js/doc.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.core{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.calbox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.datebox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.flipbox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.slidebox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.customflip{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.i18n }}jqm-datebox.lang.utf8.js"></script>
-	
-	<script type="text/javascript">
-		jQuery.extend(jQuery.mobile, { ajaxEnabled: false });
-	</script>
-</head>
-<body>
-<div data-role="page" id="main"> 
-	<div data-role="header" data-position="fixed"> 
-		<h1>jQueryMobile - DateBox</h1>
-		<a href="javascript:$('#langpicker').datebox('open')" class="ui-btn ui-icon-left ui-icon-user ui-shadow ui-corner-all">i18n</a>
-	</div>
-	<div class="ui-content" role="main">
-		<div class="content-secondary"> 
-			<div id="jqm-homeheader"> 
-				<h1 id="jqm-logo"><img src="img/jquery-logo-db.png" alt="jQuery Mobile Framework :: DateBox" /></h1> 
-				<p>A Date and Time Picker plugin for jQueryMobile {{ site.jqmver }}</p> 
-				
-			</div> 
-			<ul data-role="listview" data-inset="true"> 
-				<li data-role="list-divider">Documentation</li> 
-				<li><a href="doc/">Main Documentation</a></li>
-				<li><a href="api/">API Documentation</a></li>
-				<li data-role="list-divider">Support</li> 
-				<li><a href="theme/" rel="external">Theme Builder</a></li>
-				<li><a href="builder/" rel="external">Download Builder</a></li>
-				<li><a href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a></li>
-				<li><a href="http://dev.jtsage.com/forums/">Support Forums</a></li>
-				<li><a href="http://crowdin.net/project/jquery-mobile-datebox">i18n Project</a>
-				<li><a href="mailto:jtsage+datebox@gmail.com">Contact</a></li>
-				<li><a href="http://jquerymobile.com/">jQueryMobile Homepage</a></li>
+{% include doc_head.html %}
+<div class="container" role="main">
+
+	<div class="row">
+		<div class="col-md-4">
+			<ul class="list-group">
+				<li class="list-group-item list-group-item-info">Documentaion</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="{{ site.basesite }}doc/">Main Documentation</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="{{ site.basesite }}api/">API Documentation</a>
+				</li>
+				<li class="list-group-item list-group-item-info">Download</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="{{ site.basesite }}theme/bootstrap">Bootstrap Theme Builder</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="{{ site.basesite }}theme/jqm">jQueryMobile Theme Builder</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="{{ site.basesite }}builder/">Download Builder</a>
+				</li>
+				<li class="list-group-item list-group-item-info">Support</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="http://dev.jtsage.com/forums/">Support Forums</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="http://crowdin.net/project/jquery-mobile-datebox">i18n Project</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="mailto:jtsage+datebox@gmail.com">Contact</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+				</li>
 			</ul> 
-		</div><!--/content-primary-->	
+		</div>
 		
-		<div class="content-primary"> 
-			<p class="aintro">DateBox is a jQueryMobile plugin that aims to make user interaction with dates and times simple and intuitive. It is a colloborative work, with a full range of features allowing easy implementation, and painless extensibility.</p> 
+		<div class="col-md-8"> 
+			<div class="alert alert-info">DateBox is a jQueryMobile plugin that aims to make user interaction with dates and times simple and intuitive. It is a colloborative work, with a full range of features allowing easy implementation, and painless extensibility.</div> 
 			<h2>General Look and Feel</h2>
 			
-			<div class="ui-field-contain">
+			<div class="form-group">
 				<label for="mode1">CalBox</label>
-				<input name="mode1" id="mode1" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
-			</div><div class="ui-field-contain">
+				<input name="mode1" class="form-control" id="mode1" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
+			</div><div class="form-group">
 				<label for="mode2">DateBox</label>
-				<input name="mode2" id="mode2" type="text" data-role="datebox" data-options='{"mode":"datebox"}' />
-			</div><div class="ui-field-contain">
+				<input name="mode2" class="form-control" id="mode2" type="text" data-role="datebox" data-options='{"mode":"datebox"}' />
+			</div><div class="form-group">
 				<label for="mode9">TimeBox</label>
-				<input name="mode9" id="mode9" type="text" data-role="datebox" data-options='{"mode":"timebox"}' />
-			</div><div class="ui-field-contain">
+				<input name="mode9" class="form-control" id="mode9" type="text" data-role="datebox" data-options='{"mode":"timebox"}' />
+			</div><div class="form-group">
 				<label for="mode5">DurationBox</label>
-				<input name="mode5" id="mode5" type="text" data-role="datebox" data-options='{"mode":"durationbox"}' />
-			</div><div class="ui-field-contain">
+				<input name="mode5" class="form-control" id="mode5" type="text" data-role="datebox" data-options='{"mode":"durationbox"}' />
+			</div><div class="form-group">
 				<label for="mode3">FlipBox</label>
-				<input name="mode3" id="mode3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}' />
-			</div><div class="ui-field-contain">
+				<input name="mode3" class="form-control" id="mode3" type="text" data-role="datebox" data-options='{"mode":"flipbox"}' />
+			</div><div class="form-group">
 				<label for="mode7">TimeFlipBox</label>
-				<input name="mode7" id="mode7" type="text" data-role="datebox" data-options='{"mode":"timeflipbox"}' />
-			</div><div class="ui-field-contain">
+				<input name="mode7" class="form-control" id="mode7" type="text" data-role="datebox" data-options='{"mode":"timeflipbox"}' />
+			</div><div class="form-group">
 				<label for="mode6">DurationFlipBox</label>
-				<input name="mode6" id="mode6" type="text" data-role="datebox" data-options='{"mode":"durationflipbox"}' />
-			</div><div class="ui-field-contain">
+				<input name="mode6" class="form-control" id="mode6" type="text" data-role="datebox" data-options='{"mode":"durationflipbox"}' />
+			</div><div class="form-group">
 				<label for="mode4">SlideBox</label>
-				<input name="mode4" id="mode4" type="text" data-role="datebox" data-options='{"mode":"slidebox"}' />
-			</div>
-			<div style="display:none">
-				<input name="langpicker" type="text" data-role="datebox" data-datebox-close-callback="changeLang" data-datebox-custom-data="langs" data-datebox-custom-head="Language" data-datebox-popup-position="window" data-datebox-override-custom-set="Choose" data-datebox-mode="customflip" id="langpicker" />
+				<input name="mode4" class="form-control" id="mode4" type="text" data-role="datebox" data-options='{"mode":"slidebox"}' />
 			</div>
 		</div> 
 	</div>
-	<div data-role="footer" data-position="fixed"><h1>a project by JTSage</h1></div>
+	
 </div>
-</html>
+{% include bs_footer.html api="true" %}
