@@ -1,3 +1,5 @@
+---
+---
 <?php
 
 $defaults = array(
@@ -75,12 +77,8 @@ foreach ( $defaults as $key => $value ) {
 	<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
 
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.core{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.calbox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.datebox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.flipbox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jqm-datebox-{{ site.dbver }}.mode.slidebox{{site.min}}.js"></script>
-	<script type="text/javascript" src="{{ site.i18n }}jqm-datebox.lang.utf8.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqm{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.i18n }}jtsage-datebox.lang.utf8.js"></script>
 	
 	<script type="text/javascript">
 		$(document).ready( function() {
@@ -102,17 +100,20 @@ foreach ( $defaults as $key => $value ) {
 		});
 	</script>
 	<script type="text/javascript">
-		jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
 			useInline: true,
 			hideInput: true,
 			overrideSlideFieldOrder: ['y','m','d','h','i']
 		});
 	</script>
+	<style>
+		.ui-field-contain div.ui-datebox-container.ui-datebox-inline { clear: both; float: none; margin-right: auto; margin-left: auto; }
+	</style>
 </head>
 <body>
 <div data-role="page">
 	<div data-role="header">
-		<h1>jQM-DateBox - Theme Roller</h1>
+		<h1>JTSage-DateBox - jQM Theme Roller</h1>
 	</div>
 	
 	<div data-role="content">
@@ -123,7 +124,7 @@ foreach ( $defaults as $key => $value ) {
 			$intype = 0;
 			$ins = array(
 				array(array( "datebox", "", 'a' )),
-				array(array( "calbox", "", 'b'), array( "calbox", '"calShowWeek":true, ', 'c')),
+				array(array( "calbox", "", 'b'), array( "calbox", '"calShowWeek":true', 'c')),
 				array(array( "flipbox", "", 'd')),
 				array(array( "slidebox", "", 'e'))
 			);
@@ -132,7 +133,7 @@ foreach ( $defaults as $key => $value ) {
 					if ( $lasttype <> "" ) {
 						$intype++;
 						foreach ( $ins[$intype-1] as $thisin ) {
-							echo "\t\t\t<input type='text' name='theme{$thisin[2]}' data-role='datebox' data-datebox-mode='{$thisin[0]}' data-options='{{$thisin[1]}}'>\n";
+							echo "\t\t\t<input type='text' name='theme{$thisin[2]}' data-role='datebox' data-datebox-mode='{$thisin[0]}' data-options='{" . $thisin[1] . "}'>\n";
 						}
 						echo "\t\t\t</div>\n";
 						
@@ -153,7 +154,7 @@ foreach ( $defaults as $key => $value ) {
 			}
 			$intype++;
 			foreach ( $ins[$intype-1] as $thisin ) {
-				echo "\t\t\t<input type='text' name='theme{$thisin[2]}' data-role='datebox' data-datebox-mode='{$thisin[0]}' data-options='{{$thisin[1]}}'>\n";
+				echo "\t\t\t<input type='text' name='theme{$thisin[2]}' data-role='datebox' data-datebox-mode='{$thisin[0]}' data-options='{" . $thisin[1] . "}'>\n";
 			}
 			echo "\t\t\t</div>\n";
 			echo "\t\t\t<a href='#' class='applysheet ui-btn ui-btn-a ui-icon-check ui-btn-icon-left ui-shadow ui-corner-all'>Apply Changes</a>\n";
