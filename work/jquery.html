@@ -1,0 +1,143 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>jQueryMobile - DateBox jQueryUI DEV</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<!-- HUGE NOTE:  THIS FILE IS FOR DEVELOPMENT.  DON'T LINK TO THESE COPIES,
+		THEY CHANGE AND **BREAK** CONSTANTLY.  USE -latest, OR BETTER, A NUMBERED
+		VERSION -->
+		
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css"/>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script> 
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> 
+	
+	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	
+	<link type="text/css" href="../src/css/sheet-jqueryui.php" rel="stylesheet" /> 
+
+	<script type="text/javascript" src="../src/js/baseObject.js"></script>
+
+	<script type="text/javascript" src="../src/js/lib/dateEnhance.js"></script>
+	<script type="text/javascript" src="../src/js/lib/dateFormatter.js"></script>
+	<script type="text/javascript" src="../src/js/lib/dateLimit.js"></script>
+	<script type="text/javascript" src="../src/js/lib/dateParser.js"></script>
+	<script type="text/javascript" src="../src/js/lib/eventHandler.js"></script>
+	<script type="text/javascript" src="../src/js/lib/offset.js"></script>
+	<script type="text/javascript" src="../src/js/lib/public.js"></script>
+	<script type="text/javascript" src="../src/js/lib/shortUtil.js"></script>
+
+	<script type="text/javascript" src="../src/js/framework/jqueryui.js"></script>
+
+	<script type="text/javascript" src="../src/js/modes/datebox.js"></script>
+	<script type="text/javascript" src="../src/js/modes/flipbox.js"></script>
+	<script type="text/javascript" src="../src/js/modes/calbox.js"></script>
+	<script type="text/javascript" src="../src/js/modes/slidebox.js"></script>
+
+	<script type="text/javascript" src="../src/js/widgetBinding.js"></script>
+	<script type="text/javascript" src="../src/js/autoInit.js"></script>
+	
+	<!--script type="text/javascript" src="../src/js/mode.customflip.js"></script--> 
+	<script type="text/javascript" src="./jqm-datebox-devtool.js"></script>
+	<script type="text/javascript" src="http://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
+	
+	<script type="text/javascript">
+		window.fmtMe = function(date) {
+			//console.log(date);
+			if ( date.Date > 9 && date.Date < 20 ) {
+				return { text: "<i>" + date.Date + "</i>", "class": "reddyred" };
+			} else {
+				return date.Date;
+			}
+		}
+		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+			closeCallback: function(a, b) { console.log(a); console.log(b); },
+			closeCallbackArgs: ['hi'],
+			//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
+			useClearButton: true,
+			//useCollapsedBut: true,
+			//calShowWeek: true,
+			useInline: true,
+			//hideContainer: true,
+			//hideInput: true,
+			calOnlyMonth: true,
+			useInlineAlign: "middle",
+			calDateList: [["1980-04-25", "JTs Date of Birth"], ["1809-02-12", "Lincolns Birthday"]],
+			calShowDateList: true,
+			rolloverMode: { 'd': false, 'm': false, 'y': false },
+
+			calUsePickers: true,
+			//calUsePickersIcons: true,
+			//calNoHeader: true,
+			//useTodayButton: true,
+			//useTomorrowButton: true,
+			//useClearButton: true,
+			//useCancelButton: true,
+			//linkedField: ".x1",
+			//useButton: false,
+			//useFocus: true,
+			//defaultValue: "",
+			//calFormatter: "fmtMe",
+			//popupButtonPosition: "right",
+			//overrideCalStartDay : 1,
+			//minDur: 34652,
+			//maxDur: 34700,
+			customData: [
+				{"input": false, "name": "Wheel1", "data":["a","b","c","d"]},
+				{"input": false, "name": "Wheel2", "data":["a","b","c","d"]},
+				{"input": false, "name": "Wheel3", "data":["a","b","c","d"]},
+			],
+			overrideSlideFieldOrder: ["y","a","m","d","h","i"],
+
+		});
+	</script>
+	
+</head>
+<body>
+	<div class="container" role="main">
+		<h1>DateBox <small>BootStrap Dev Page</small></h1>
+
+		<form>
+		<div class="form-group">
+			<label  for="username">E-Mail Address</label>
+			<input type="text" name="username" id="username" class="x1 form-control" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label class="control-label"for="aa2">text comparison</label>
+			<input class="x1 form-control"name="aa2" type="text" data-mini="true" id="aa2"/>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label"for="lang1">yep</label>
+			<input class="form-control" name="lang1" type="text" data-role="datebox" data-datebox-mode="datebox" id="lang1" data-options='{}' />
+		</div>
+
+		<div class="form-group">
+			<label  for="username">E-Mail Address</label>
+			<input type="text" name="username" id="username" class="form-control" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label class="control-label"for="aa1">text comparison</label>
+			<input class="form-control"name="aa1" type="text" data-mini="true" id="aa1"/>
+		</div>
+
+		<div class="form-group">
+			<label  for="username">E-Mail Address</label>
+			<input type="text" name="username" id="username" class="form-control" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label class="control-label"for="aa1">text comparison</label>
+			<input class="form-control"name="aa1" type="text" data-mini="true" id="aa1"/>
+		</div>
+
+		</form>
+	</div>
+
+</html>
