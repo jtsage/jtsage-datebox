@@ -438,10 +438,12 @@ JTSageDateBox.open = function () {
 	// }
 	
 	w.d.mainWrap.addClass('ui-corner-all ui-widget ui-widget-content');
+	
 	w.d.mainWrap.append( w.d.intHTML ).css({
 		"zIndex": o.zindex,
-		"position": "relative",
-		"left": "10px",
+		"position": "absolute",
+		"top": w.d.input.offset().top + w.d.input.height,
+		"left": w.d.input.offset().left,
 	});
 
 	w._t( { method: "postrefresh" } );

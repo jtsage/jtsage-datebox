@@ -217,10 +217,15 @@ div.ui-datebox-container.ui-datebox-inline {
 	text-align: center;
 	width: 90%;
 	margin-top: 3px;
+	margin-bottom: 3px;
 }
 
 .ui-datebox-datebox-button {
-	width: 90%;
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+	padding-top: .2em;
+	padding-bottom: .2em;
 } 
 .ui-datebox-datebox-button span {
 	margin-left: auto;
