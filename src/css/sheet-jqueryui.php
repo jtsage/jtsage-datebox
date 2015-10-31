@@ -146,6 +146,7 @@ div.ui-datebox-container.ui-datebox-inline {
 .ui-datebox-controls {
 	padding: 0px 3px;
 	width: 100%;
+	text-align: center;
 }
 
 .ui-datebox-griddate { 
@@ -190,45 +191,33 @@ div.ui-datebox-container.ui-datebox-inline {
  * These are specific to datebox, timebox, and durationbox
  */
 
-.ui-datebox-datebox-groups.row {
+.ui-datebox-datebox-groups {
 	margin-right: 5px;
 	margin-left: 5px;
 	margin-bottom: 10px;
 }
 
-.ui-datebox-datebox-group.col-xs-3, .ui-datebox-datebox-group.col-xs-4 {
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-div.ui-datebox-datebox-button {
-	width: 100%;
-	margin: 0;
-}
 
 .ui-datebox-datebox-groups input {
 	text-align: center;
+	width: 90%;
+	margin-top: 3px;
+	margin-bottom: 3px;
 }
 
 .ui-datebox-datebox-groups label {
 	text-align: center;
-	width: 100%;
+	width: 90%;
 	margin-bottom: 0px;
 	border: 1px solid #ccc;
 }
-div.ui-datebox-datebox-button.glyphicon-plus {
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
-	-webkit-border-bottom-right-radius: 0;
-	-webkit-border-bottom-left-radius: 0;
-	top: 0px;
+.ui-datebox-datebox-button {
+	zoom: 1.25;
 }
-div.ui-datebox-datebox-button.glyphicon-minus {
-	border-top-right-radius: 0;
-	border-top-left-radius: 0;
-	-webkit-border-top-right-radius: 0;
-	-webkit-border-top-left-radius: 0;
-	top: 0px;
+.ui-datebox-datebox-group {
+	width: 33.3333%;
+	display: inline-block;
+	text-align: center;
 }
 .ui-datebox-header h4 {
 	text-align: center;
@@ -364,28 +353,4 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 span.ui-datebox-nopad { margin: 0 }
 .ui-datebox-repad { margin: .5em .4375em }
 
-/*
- * 6 Element Grid - Used for datebox w/ time only.
- */
 
-.ui-grid-e > .ui-block-a,
-.ui-grid-e > .ui-block-b,
-.ui-grid-e > .ui-block-c,
-.ui-grid-e > .ui-block-d,
-.ui-grid-e > .ui-block-e,
-.ui-grid-e > .ui-block-f {
-	width: 16.65%;
-}
-.ui-grid-e { 
-	overflow: hidden;
-}
-.ui-block-f {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	float: left;
-	min-height: 1px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}

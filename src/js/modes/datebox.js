@@ -295,7 +295,7 @@ JTSageDateBox._build.datebox = function () {
 
 			$("<div>")
 				.addClass( uid + "datebox-button" )
-				.addClass( o.icnCls +  o.calPrevMonthIcon )
+				.addClass( o.icnCls + o.calPrevMonthIcon )
 				.addClass( o.btnCls + o.themeButton )
 				.data({
 					"field": w.fldOrder[i],

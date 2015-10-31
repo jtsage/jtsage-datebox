@@ -25,18 +25,13 @@ mergeOpts({
 	buttonIconDate: "calendar",
 	buttonIconTime: "time",
 	disabledState: "disabled",
-
-	bootstrapDropdown: true,
-	bootstrapDropdownRight: true,
-
-	bootstrapModal: false,
 	
 	calNextMonthIcon: "plus",
 	calPrevMonthIcon: "minus",
 	useInlineAlign: "left",
 
-	btnCls: " btn btn-sm btn-",
-	icnCls: " glyphicon glyphicon-",
+	btnCls: " ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ",
+	icnCls: " ui-icon ui-icon-",
 
 	s: {
 		cal: {
@@ -52,13 +47,13 @@ mergeOpts({
 });
 
 
-JTSageDateBox.baseMode = "bootstrap";
+JTSageDateBox.baseMode = "jqueryui";
 JTSageDateBox._stdBtn = {
 	cancel: function() {
 		var w = this, o = this.options;
-		return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeCancelButton + 
-				"'><span class='" + o.icnCls + "remove'></span> " +
-				w.__("cancelButton") + "</a>" )
+		return $( "<button class='" + o.btnCls + "' role='button'>" + 
+				"<span class='ui-button-text'>" + w.__("cancelButton") + "</span>" + 
+				"</button>" )
 			.on(o.clickEventAlt, function (e) {
 				e.preventDefault();
 				w._t({ method: "close", closeCancel: true });
@@ -66,9 +61,9 @@ JTSageDateBox._stdBtn = {
 	},
 	clear: function() {
 		var w = this, o = this.options;
-		return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeClearButton + 
-				"'><span class='" + o.icnCls + "erase'></span> " +
-				w.__("clearButton") + "</a>" )
+		return $( "<button class='" + o.btnCls + "' role='button'>" + 
+				"<span class='ui-button-text'>" + w.__("clearButton") + "</span>" + 
+				"</button>" )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.d.input.val("");
@@ -81,9 +76,9 @@ JTSageDateBox._stdBtn = {
 
 		if ( typeof trigger === "undefined" ) { trigger = false; }
 
-		return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeCloseButton + 
-				"'><span class='" + o.icnCls + "ok'></span> " +
-				txt + "</a>" )
+		return $( "<button class='" + o.btnCls + "' role='button'>" + 
+				"<span class='ui-button-text'>" + txt + "</span>" + 
+				"</button>" )
 			.addClass( "" +
 				( ( w.dateOK === true ) ? "" : "disabled")
 			)
@@ -106,9 +101,9 @@ JTSageDateBox._stdBtn = {
 	},
 	today: function() {
 		var w = this, o = this.options;
-		return $("<a href='#' role='button' class='btn btn-sm btn-" + o.themeTodayButton + 
-				"'><span class='" + o.icnCls + "send'></span> " +
-				w.__("todayButtonLabel") + "</a>" )
+		return $("<button class='" + o.btnCls + "' role='button'>" + 
+				"<span class='ui-button-text'>" + w.__("todayButtonLabel") + "</span>" + 
+				"</button>")
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date());
@@ -118,9 +113,9 @@ JTSageDateBox._stdBtn = {
 	},
 	tomorrow: function() {
 		var w = this, o = this.options;
-		return $("<a href='#' role='button' class='btn btn-sm btn-" +o.themeTomorrowButton+ 
-				"'><span class='" + o.icnCls + "send'></span> " +
-				w.__("tomorrowButtonLabel") + "</a>" )
+		return $("<button class='" + o.btnCls + "' role='button'>" + 
+				"<span class='ui-button-text'>" + w.__("tomorrowButtonLabel") + "</span>" + 
+				"</button>" )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
