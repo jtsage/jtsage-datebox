@@ -373,3 +373,34 @@ span.ui-datebox-nopad { margin: 0 }
 .ui-datebox-repad { margin: .5em .4375em }
 
 
+
+/* Very Basic Themes 
+ *
+ * Don't use these, they are terrible
+ *
+ * .ui-datebox-container is to target only
+ * datebox elements.  Due to how jQueryUI is
+ * set up, a single class name probably isn't
+ * specific enough to ever apply.
+ *
+ */
+
+.ui-datebox-container .ui-datebox-theme-red {
+	background-color: red;
+	background-image: none;
+	color: black;
+}
+
+.ui-datebox-container .ui-datebox-theme-green {
+	background-color: green;
+	background-image: none;
+	color: black;
+}
+
+.ui-datebox-container .ui-datebox-theme-yellow {
+	background-color: yellow;
+	background-image: none;
+	color: black;
+}
+
+
