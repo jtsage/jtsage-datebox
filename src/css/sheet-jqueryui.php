@@ -67,6 +67,7 @@ foreach ( $defaults as $key => $value ) {
  * Released under the MIT license.
  * https://github.com/jtsage/jquery-mobile-datebox/blob/master/LICENSE.txt
  *
+ * jQueryUI Framework Styles
  */
  
 /* 
@@ -76,6 +77,19 @@ foreach ( $defaults as $key => $value ) {
  * and are not specific to any one mode.
  */
 
+.datebox-input {
+	display: inline;
+}
+
+.datebox-input-icon {
+	display: inline;
+}
+
+.datebox-input-icon span {
+	display: inline-block;
+	margin-left: -1em;
+	vertical-align: middle;
+}
 .ui-datebox-container { 
 	width: <?php echo $use['mWidth'] ?>px;
 	-webkit-transform:translate3d(0,0,0);
@@ -146,6 +160,7 @@ div.ui-datebox-container.ui-datebox-inline {
 .ui-datebox-controls {
 	padding: 0px 3px;
 	width: 100%;
+	margin-bottom: 10px;
 	text-align: center;
 }
 
@@ -202,18 +217,22 @@ div.ui-datebox-container.ui-datebox-inline {
 	text-align: center;
 	width: 90%;
 	margin-top: 3px;
-	margin-bottom: 3px;
 }
 
+.ui-datebox-datebox-button {
+	width: 90%;
+} 
+.ui-datebox-datebox-button span {
+	margin-left: auto;
+	margin-right: auto;
+}
 .ui-datebox-datebox-groups label {
 	text-align: center;
 	width: 90%;
 	margin-bottom: 0px;
 	border: 1px solid #ccc;
 }
-.ui-datebox-datebox-button {
-	zoom: 1.25;
-}
+
 .ui-datebox-datebox-group {
 	width: 33.3333%;
 	display: inline-block;

@@ -260,12 +260,23 @@ JTSageDateBox._build.datebox = function () {
 		if ( w.fldOrder[i] !== "a" || w.__( "timeFormat" ) === 12 ) {
 			$("<div>")
 				.addClass( uid + "datebox-button" )
-				.addClass( o.icnCls + o.calNextMonthIcon )
+				.addClass( "" + 
+					( ( w.baseMode === "jqm" || w.baseMode === "bootstrap" ) ?
+						o.icnCls + o.calNextMonthIcon :
+						""
+					)
+				)
 				.addClass( o.btnCls + o.themeButton )
 				.data({
 					"field": w.fldOrder[i],
 					"amount": offAmount
 				})
+				.append(  
+					( ( w.baseMode === "jqueryui" ) ?
+						$("<span>").addClass( o.icnCls + o.calNextMonthIcon ) :
+						null
+					)
+				)
 				.appendTo(currentControl);
 
 			if ( dur ) {
@@ -295,12 +306,23 @@ JTSageDateBox._build.datebox = function () {
 
 			$("<div>")
 				.addClass( uid + "datebox-button" )
-				.addClass( o.icnCls + o.calPrevMonthIcon )
+				.addClass( "" + 
+					( ( w.baseMode === "jqm" || w.baseMode === "bootstrap" ) ?
+						o.icnCls + o.calPrevMonthIcon :
+						""
+					)
+				)
 				.addClass( o.btnCls + o.themeButton )
 				.data({
 					"field": w.fldOrder[i],
 					"amount": offAmount*-1
 				})
+				.append(  
+					( ( w.baseMode === "jqueryui" ) ?
+						$("<span>").addClass( o.icnCls + o.calPrevMonthIcon ) :
+						null
+					)
+				)
 				.appendTo(currentControl);
 
 			currentControl.appendTo(allControls);

@@ -29,6 +29,8 @@ mergeOpts({
 	calNextMonthIcon: "plus",
 	calPrevMonthIcon: "minus",
 	useInlineAlign: "left",
+	useFocus: true,
+	useAnimationTime: 400,
 
 	btnCls: " ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ",
 	icnCls: " ui-icon ui-icon-",
@@ -51,9 +53,9 @@ JTSageDateBox.baseMode = "jqueryui";
 JTSageDateBox._stdBtn = {
 	cancel: function() {
 		var w = this, o = this.options;
-		return $( "<button class='" + o.btnCls + "' role='button'>" + 
+		return $( "<div class='" + o.btnCls + "'>" + 
 				"<span class='ui-button-text'>" + w.__("cancelButton") + "</span>" + 
-				"</button>" )
+				"</div>" )
 			.on(o.clickEventAlt, function (e) {
 				e.preventDefault();
 				w._t({ method: "close", closeCancel: true });
@@ -61,11 +63,12 @@ JTSageDateBox._stdBtn = {
 	},
 	clear: function() {
 		var w = this, o = this.options;
-		return $( "<button class='" + o.btnCls + "' role='button'>" + 
+		return $( "<div class='" + o.btnCls + "'>" + 
 				"<span class='ui-button-text'>" + w.__("clearButton") + "</span>" + 
-				"</button>" )
+				"</div>" )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
+				e.stopPropagation();
 				w.d.input.val("");
 				w._t( { method: "clear" } );
 				w._t( { method: "close", closeCancel: true } );
@@ -76,9 +79,9 @@ JTSageDateBox._stdBtn = {
 
 		if ( typeof trigger === "undefined" ) { trigger = false; }
 
-		return $( "<button class='" + o.btnCls + "' role='button'>" + 
+		return $( "<div class='" + o.btnCls + "'>" + 
 				"<span class='ui-button-text'>" + txt + "</span>" + 
-				"</button>" )
+				"</div>" )
 			.addClass( "" +
 				( ( w.dateOK === true ) ? "" : "disabled")
 			)
@@ -101,9 +104,9 @@ JTSageDateBox._stdBtn = {
 	},
 	today: function() {
 		var w = this, o = this.options;
-		return $("<button class='" + o.btnCls + "' role='button'>" + 
+		return $("<div class='" + o.btnCls + "'>" + 
 				"<span class='ui-button-text'>" + w.__("todayButtonLabel") + "</span>" + 
-				"</button>")
+				"</div>")
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date());
@@ -113,9 +116,9 @@ JTSageDateBox._stdBtn = {
 	},
 	tomorrow: function() {
 		var w = this, o = this.options;
-		return $("<button class='" + o.btnCls + "' role='button'>" + 
+		return $("<div class='" + o.btnCls + "'>" + 
 				"<span class='ui-button-text'>" + w.__("tomorrowButtonLabel") + "</span>" + 
-				"</button>" )
+				"</div>" )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
@@ -236,7 +239,7 @@ JTSageDateBox._create = function() {
 		w.d.input.val( w._formatter( w.__fmt(), w.theDate ) );
 	}
 
-	w.d.wrap = w.d.input.wrap("<div class='input-group'>").parent();
+	w.d.wrap = w.d.input.wrap("<div class='datebox-input'>").parent();
 	
 	if ( o.mode !== false ) {
 		if ( o.buttonIcon === false ) {
@@ -248,7 +251,7 @@ JTSageDateBox._create = function() {
 		}
 	}
 	if ( o.useButton ) {
-		$( "<div class='input-group-addon'>" +
+		$( "<div class='datebox-input-icon'>" +
 				"<span class='" + o.icnCls + o.buttonIcon + "'></span>" + 
 				"</div>" )
 			.attr( "title", w.__( "tooltip" ) )
@@ -319,6 +322,7 @@ JTSageDateBox.open = function () {
 		return false;
 	}
 
+
 	w.theDate = w._makeDate( w.d.input.val() );
 	w.calBackDate = false;
 	if ( w.d.input.val() === "" ) { w._startOffset( w.theDate ); }
@@ -337,7 +341,7 @@ JTSageDateBox.open = function () {
 
 	if ( w.__( "useArabicIndic" ) === true ) { w._doIndic(); }
 
-	if ( ( o.useInline || o.useInlineBlind ) && w.initDone === false ) {
+	if ( ( o.useInline ) && w.initDone === false ) {
 		w.d.mainWrap.append( w.d.intHTML );
 		
 		if ( o.hideContainer ) {
@@ -369,6 +373,7 @@ JTSageDateBox.open = function () {
 		}
 
 		w.d.mainWrap.removeClass( "ui-datebox-hidden ui-overlay-shadow" );
+		w.d.mainWrap.addClass('ui-corner-all ui-widget ui-widget-content');
 		if ( o.useInline ) {
 			w.d.mainWrap
 				.addClass( "ui-datebox-inline" )
@@ -411,24 +416,29 @@ JTSageDateBox.open = function () {
 
 	w.d.mainWrap.empty();
 
-	if ( o.useHeader ) {
+	// if ( o.useHeader ) {
 
-		w.d.mainWrap.append( $(w._spf(
-				"<div class='{c1}'><h4 class='{c2}'>" +
-				"<span class='{c3}'></span>{text}</h4></div>",
-			{
-				c1: "modal-header",
-				c2: "modal-title text-center",
-				c3: "closer" + o.icnCls + "remove pull-" + o.popupButtonPosition,
-				text: w.d.headerText,
-			}))
-		).find( ".closer" ).on( o.clickEventAlt, function( e ) {
-			e.preventDefault();
-			w._t( { method: "close", closeCancel: true } );
-		} );
-	}
+	// 	w.d.mainWrap.append( $(w._spf(
+	// 			"<div class='{c1}'><h4 class='{c2}'>" +
+	// 			"<span class='{c3}'></span>{text}</h4></div>",
+	// 		{
+	// 			c1: "modal-header",
+	// 			c2: "modal-title text-center",
+	// 			c3: "closer" + o.icnCls + "remove pull-" + o.popupButtonPosition,
+	// 			text: w.d.headerText,
+	// 		}))
+	// 	).find( ".closer" ).on( o.clickEventAlt, function( e ) {
+	// 		e.preventDefault();
+	// 		w._t( { method: "close", closeCancel: true } );
+	// 	} );
+	// }
 	
-	w.d.mainWrap.append( w.d.intHTML ).css( "zIndex", o.zindex );
+	w.d.mainWrap.addClass('ui-corner-all ui-widget ui-widget-content');
+	w.d.mainWrap.append( w.d.intHTML ).css({
+		"zIndex": o.zindex,
+		"position": "relative",
+		"left": "10px",
+	});
 
 	w._t( { method: "postrefresh" } );
 
@@ -477,35 +487,24 @@ JTSageDateBox.open = function () {
 		}
 	}
 
-	if ( o.bootstrapDropdown === true && o.bootstrapModal === false ) {
-		w.d.mainWrap
-			.addClass( "dropdown-menu" )
-			.addClass( ( o.useAnimation ? o.transition : "" ) )
-			.addClass( ( o.bootstrapDropdownRight === true ) ? "dropdown-menu-right" : "" )
-			.appendTo(w.d.wrap)
-			.on( o.tranDone, function() { 
-				if ( w.d.mainWrap.is( ":visible" ) ) {
-					basepop.afteropen.call();
-				} else {
-					basepop.afterclose.call();
-					w.d.wrap.removeClass( "open" );
-				}
-			});
+	w.d.mainWrap
+		.css("display", "none")
+		.appendTo(w.d.wrap);
 
-		w.d.wrap.addClass( "open" );
+	w.d.backdrop = $("<div></div>")
+		.css({ position: "fixed", left: 0, top: 0, bottom: 0, right: 0 })
+		.appendTo( "body" )
+		.on( o.clickEvent, function (e) {
+			e.preventDefault();
+			w._t( { method: "close", closeCancel: true } );
+		});
 
-		w.d.backdrop = $("<div></div>")
-			.css({ position: "fixed", left: 0, top: 0, bottom: 0, right: 0 })
-			.appendTo( "body" )
-			.on( o.clickEvent, function (e) {
-				e.preventDefault();
-				w._t( { method: "close", closeCancel: true } );
-			});
-
-		window.setTimeout(function () {
-			w.d.mainWrap.addClass( "in" );
-		}, 0);
-	}
+	window.setTimeout(function () {
+		w.d.mainWrap.slideDown(o.useAnimationTime, function() {
+			basepop.afteropen.call();
+		});
+	}, 0);
+	
 };
 
 JTSageDateBox.close = function() {
@@ -516,11 +515,6 @@ JTSageDateBox.close = function() {
 
 	w.calBackDate = false;
 	
-	if ( o.useInlineBlind ) { 
-		// Slide up useInlineBlind
-		w.d.mainWrap.slideUp();
-		return true;
-	}
 	if ( o.useInline || w.d.intHTML === false ) { 
 		// Do nothing for useInline or empty.
 		return true;
@@ -549,21 +543,10 @@ JTSageDateBox.close = function() {
 		};
 	}
 
-	if ( o.bootstrapDropdown === true && o.bootstrapModal === false ) {
-		if ( o.useAnimation === true ) {
-			w.d.mainWrap.removeClass( "in");
-			w.d.backdrop.remove();
-			window.setTimeout(function () {
-				w.d.wrap.removeClass( "open" );
-				basepop.afterclose.call();
-
-			}, 0);
-		} else {
-			w.d.wrap.removeClass( "open" );
-			w.d.backdrop.remove();
-			basepop.afterclose.call();
-		}
-	}
+	w.d.backdrop.remove();
+	w.d.mainWrap.slideUp(o.useAnimationTime, function() {
+		basepop.afterclose.call();
+	})
 
 	// Unbind all drag handlers.
 	$( document )
