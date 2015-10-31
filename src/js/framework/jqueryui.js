@@ -1,30 +1,29 @@
 /* JTSage-DateBox 
  *
- * Bootstrap option overrides and 
+ * jQueryUI option overrides and 
  * basic input/output functions
  */
 
 mergeOpts({
-	themeDateToday: "info",
-	themeDayHigh: "warning",
-	themeDatePick: "success",
-	themeDateHigh: "warning",
-	themeDateHighAlt: "danger",
-	themeDateHighRec: "warning",
-	themeDate: "default",
-	themeButton: "default",
-	themeInput: "default",
-	transition: "fade",
+	themeDateToday: "",
+	themeDayHigh: "",
+	themeDatePick: "",
+	themeDateHigh: "",
+	themeDateHighAlt: "",
+	themeDateHighRec: "",
+	themeDate: "",
+	themeButton: "",
+	themeInput: "",
 
-	themeClearButton: "default",
-	themeCancelButton: "default",
-	themeCloseButton: "default",
-	themeTomorrowButton: "default",
-	themeTodayButton: "default",
+	themeClearButton: "",
+	themeCancelButton: "",
+	themeCloseButton: "",
+	themeTomorrowButton: "",
+	themeTodayButton: "",
 
 	buttonIconDate: "calendar",
 	buttonIconTime: "time",
-	disabledState: "disabled",
+	disabledState: "ui-state-disabled",
 	
 	calNextMonthIcon: "plus",
 	calPrevMonthIcon: "minus",
@@ -56,6 +55,7 @@ JTSageDateBox._stdBtn = {
 		return $( "<div class='" + o.btnCls + "'>" + 
 				"<span class='ui-button-text'>" + w.__("cancelButton") + "</span>" + 
 				"</div>" )
+			.addClass( o.themeCancelButton )
 			.on(o.clickEventAlt, function (e) {
 				e.preventDefault();
 				w._t({ method: "close", closeCancel: true });
@@ -66,6 +66,7 @@ JTSageDateBox._stdBtn = {
 		return $( "<div class='" + o.btnCls + "'>" + 
 				"<span class='ui-button-text'>" + w.__("clearButton") + "</span>" + 
 				"</div>" )
+			.addClass( o.themeClearButton )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				e.stopPropagation();
@@ -83,8 +84,9 @@ JTSageDateBox._stdBtn = {
 				"<span class='ui-button-text'>" + txt + "</span>" + 
 				"</div>" )
 			.addClass( "" +
-				( ( w.dateOK === true ) ? "" : "disabled")
+				( ( w.dateOK === true ) ? "" : "ui-state-disabled")
 			)
+			.addClass( o.themeCloseButton )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				if ( w.dateOK === true ) {
@@ -107,6 +109,7 @@ JTSageDateBox._stdBtn = {
 		return $("<div class='" + o.btnCls + "'>" + 
 				"<span class='ui-button-text'>" + w.__("todayButtonLabel") + "</span>" + 
 				"</div>")
+			.addClass( o.themeTodayButton )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date());
@@ -119,6 +122,7 @@ JTSageDateBox._stdBtn = {
 		return $("<div class='" + o.btnCls + "'>" + 
 				"<span class='ui-button-text'>" + w.__("tomorrowButtonLabel") + "</span>" + 
 				"</div>" )
+			.addClass( o.themeTomorrowButton )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
