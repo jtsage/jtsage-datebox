@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>JTSage::DateBox - Download Builder</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+    <!-- <link rel="stylesheet" href="http://cdn.jtsage.com/jtsage-datebox/latest/jtsage-datebox.bootstrap.css" /> -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+  </head>
+  <body style="padding-top:70px">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="http://dev.jtsage.com/DateBox/" class="navbar-brand">JTSage<span style="color:#C3593C">DateBox</span> Download Builder</a>
+        </div>
+    </nav>
+    <div class="container" role="main">
+      <form method="post" action="/build">
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Build Options</legend>
+
+            <!-- Multiple Radios -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="framework">Framework</label>
+              <div class="col-md-8">
+              <div class="radio">
+                <label for="framework-0">
+                  <input type="radio" name="framework" id="framework-0" value="bootstrap" checked="checked">
+                  Bootstrap
+                </label>
+              </div>
+              <div class="radio">
+                <label for="framework-1">
+                  <input type="radio" name="framework" id="framework-1" value="jqm">
+                  jQueryMobile
+                </label>
+              </div>
+              </div>
+            </div>
+
+            <!-- Multiple Checkboxes -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="modes">Modes</label>
+              <div class="col-md-8">
+              <div class="checkbox">
+                <label for="modes-0">
+                  <input type="checkbox" name="modes" id="modes-0" checked="checked" value="calbox">
+                  CalBox
+                </label>
+              </div>
+              <div class="checkbox">
+                <label for="modes-1">
+                  <input type="checkbox" name="modes" id="modes-1" checked="checked" value="datebox">
+                  DateBox/TimeBox/DurationBox
+                </label>
+              </div>
+              <div class="checkbox">
+                <label for="modes-2">
+                  <input type="checkbox" name="modes" id="modes-2" checked="checked" value="flipbox">
+                  FlipBox/TimeFlipBox/DurationFlipBox
+                </label>
+              </div>
+              <div class="checkbox">
+                <label for="modes-3">
+                  <input type="checkbox" name="modes" id="modes-3" checked="checked" value="slidebox">
+                  SlideBox
+                </label>
+              </div>
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="singlebutton">Build and Download</label>
+              <div class="col-md-8">
+                <button id="singlebutton" name="singlebutton" class="btn btn-success">Go!</button>
+              </div>
+            </div>
+
+        </fieldset>
+      </form>
+      
+    </div>
+    <footer style="padding-top: 20px; margin-top: 20px; border-top: 1px solid #e5e5e5;">
+      <p class="text-center text-muted">DateBox: the full featured Date and Time picker</p>
+      <ul class="text-center list-inline text-muted">
+        <li><a href="http://dev.jtsage.com/DateBox/api/">API</a>
+        </li>
+        <li></li>
+        <li><a href="http://dev.jtsage.com/DateBox/doc/">Documentation</a>
+        </li>
+        <li></li>
+        <li><a href="http://dev.jtsage.com/DateBox/bootstrap/">Bootstrap Demos</a>
+        </li>
+        <li></li>
+        <li><a href="http://dev.jtsage.com/DateBox/jqm">jQM Demos</a>
+        </li>
+        <li></li>
+        <li><a href="https://github.com/jtsage/jquery-mobile-datebox">GitHub</a>
+        </li>
+        <li></li>
+        <li><a href="http://stackoverflow.com/questions/tagged/datebox">Help</a>
+        </li>
+        <li></li>
+        <li><a href="http://dev.jtsage.com/forums/">Forum</a>
+        </li>
+        <li></li>
+        <li><a href="http://crowdin.net/project/jquery-mobile-datebox">i18n</a>
+        </li>
+        <li></li>
+        <li><a href="mailto:jtsage+datebox@gmail.com">Contact</a>
+        </li>
+      </ul>
+    </footer>
+  </body>
+</html>

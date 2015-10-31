@@ -15,4 +15,4 @@ dist
 ## Personal todo list
 TODO
 
-node_builder/output/*.zip
+node_builder/src
