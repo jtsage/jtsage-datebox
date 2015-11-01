@@ -12,13 +12,15 @@ jQM-Datebox requires a recent version of jQuery (last tested with both 1.9+ and 
 For jQueryMobile, the current DateBox is usually tested with only the latest point
 release, however it will usually work for a few prior releases.
 
-For jQuery only / Twitter Bootstrap operation, the bootstrap css file is required (
+For Twitter Bootstrap operation, the bootstrap css file is required (
 the bootstrap JavaScript plugins are not used, nor are they conflicted with).  Additionally,
-the jQuery-UI Widget Factory is required.  You can either include all of jQueryUI, or you
+the jQueryUI Widget Factory is required.  You can either include all of jQueryUI, or you
 can build a custom version of jQueryUI containing only the widget factory. Although the default
 jQueryUI widgets look poor on bootstrap, they do not actually conflict.
 
 To know what the current recommendation versions are, take a look near the top of the script file.
+
+For jQueryUI framework operation, only the jQueryUI Widget Factory is required. The plugin will assume that a jQueryUI css theme file is present, but you are welcome and encouraged to create your own.  At this time, the .ui-widget-*, .ui-button, .ui-state-*, and .ui-icon-* classes are actually referenced (DatePicker clases are NOT used).  Please see the [jQueryUI ThemeRoller](http://jqueryui.com/themeroller/) for more information.
 
 {% highlight js %}
 // Check Header for Build Date.

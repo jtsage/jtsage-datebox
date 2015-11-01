@@ -10,13 +10,15 @@ An overall theme of DateBox is easy - just specify it like any other element. Fo
 DateBox will do it's best to inherit it's theme from it's parent(s) if you
 don't specify, finally falling back on 'a'.
 
-For bootstrap, things work a bit differently - you'll need to specify themes directly for those 
+For bootstrap and jQueryUI things work a bit differently - you'll need to specify themes directly for those 
 elements you wish to change.
 
 An important thing to note is that the theme "names" are a part of a class name.  For instance, in
 bootstrap mode, most themes are set to "primary" - for buttons, this results in the class "btn-primary" being added.  There is no limitation to the string length, so you could certainly add 
 additional arbitrary classes.  In the example below, the {% api_doc themeDate %} option has been set
 to "warning annoying-blink".
+
+There are 3 really, really awful themes included in the jQueryUI css file to show how to be specific enough for your theme to apply.
 
 <style type="text/css">
 	@keyframes blink {  
