@@ -315,9 +315,9 @@ JTSageDateBox._create = function() {
 			o = $( this ).data( "jtsage-datebox" ).options;
 
 		if ( p.method === "postrefresh" && o.useSelectMenu ) {
-			w.d.intHTML.find('select').each( function () {
+			w.d.intHTML.find( "select" ).each( function () {
 				$(this).selectmenu();
-			})
+			});
 		}
 	});
 

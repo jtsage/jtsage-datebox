@@ -210,6 +210,21 @@ module.exports = function(grunt) {
 					],
 				}]
 			},
+			latest_jqueryui: {
+				options: {
+					dest: "dist/latest/jtsage-datebox.jqueryui.js",
+					includeBinding: true,
+				},
+				files: [{
+					expand: true,
+					src: [
+						"src/js/baseObject.js",
+						"src/js/framework/jqueryui.js",
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
 			latest_jqm: {
 				options: {
 					dest: "dist/latest/jtsage-datebox.jqm.js",
@@ -240,6 +255,21 @@ module.exports = function(grunt) {
 					],
 				}]
 			},
+			main_jqueryui: {
+				options: {
+					dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqueryui.js",
+					includeBinding: true,
+				},
+				files: [{
+					expand: true,
+					src: [
+						"src/js/baseObject.js",
+						"src/js/framework/jqueryui.js",
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
 			main_jqm: {
 				options: {
 					dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqm.js",
@@ -258,12 +288,16 @@ module.exports = function(grunt) {
   		},
   		copy: {
   			web1: {
-  				src: 'src/css/sheet-bootstrap.php',
-  				dest: 'docs/theme/bootstrap/sheet.php'
+  				src: "src/css/sheet-bootstrap.php",
+  				dest: "docs/theme/bootstrap/sheet.php"
   			},
       		web2: {
-      			src: 'src/css/sheet.php',
-      			dest: 'docs/theme/jqm/sheet.php'
+      			src: "src/css/sheet.php",
+      			dest: "docs/theme/jqm/sheet.php"
+      		},
+      		web3: {
+      			src: "src/css/sheet-jqueryui.php",
+      			dest: "docs/theme/jqueryui/sheet.php"
       		}
   		},
 		prettify: {
@@ -288,11 +322,17 @@ module.exports = function(grunt) {
 			latest_make_css_bootstrap: {
 				command: "/usr/bin/php src/css/sheet-bootstrap.php > dist/latest/jtsage-datebox.bootstrap.css"
 			},
+			latest_make_css_jqueryui: {
+				command: "/usr/bin/php src/css/sheet-jqueryui.php > dist/latest/jtsage-datebox.jqueryui.css"
+			},
 			main_make_css_jqm: {
 				command: "/usr/bin/php src/css/sheet.php > dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqm.css"
 			},
 			main_make_css_bootstrap: {
 				command: "/usr/bin/php src/css/sheet-bootstrap.php > dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap.css"
+			},
+			main_make_css_jqueryui: {
+				command: "/usr/bin/php src/css/sheet-jqueryui.php > dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqueryui.css"
 			}
 
 		}
@@ -332,13 +372,16 @@ module.exports = function(grunt) {
 		"clean:release",
 		"buildDBox:main_jqm",
 		"buildDBox:main_bootstrap",
+		"buildDBox:main_jqueryui",
 		"exec:main_make_css_jqm",
 		"exec:main_make_css_bootstrap",
+		"exec:main_make_css_jqueryui",
 		"uglify:release",
 		"cssmin:release",
 		"committers",
 		"copy:web1",
 		"copy:web2",
+		"copy:web3",
 		"jekyll:release",
 		"prettify",
 		"makei18n"
@@ -348,8 +391,10 @@ module.exports = function(grunt) {
 		"clean:latest",
 		"buildDBox:latest_jqm",
 		"buildDBox:latest_bootstrap",
+		"buildDBox:latest_jqueryui",
 		"exec:latest_make_css_jqm",
 		"exec:latest_make_css_bootstrap",
+		"exec:latest_make_css_jqueryui",
 		"uglify:latest",
 		"cssmin:latest",
 	]);
