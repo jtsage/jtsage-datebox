@@ -38,27 +38,36 @@ function handleRequest(request, response){
 					path + "js/lib/offset.js",
 					path + "js/lib/public.js",
 					path + "js/lib/shortUtil.js"
-				],
-				preamble = [
-					"/*",
-					" * JTSage-DateBox",
-					" * For: " + frame + "; With: " + inputQ.modes.join(", "),
-					" * Date: " + today.toJSON(),
-					" * http://dev.jtsage.com/DateBox/",
-					" * https://github.com/jtsage/jquery-mobile-datebox",
-					" *",
-					" * Copyright 2010, " + today.getFullYear() + " JTSage. and other contributors",
-					" * Released under the MIT license.",
-					" * https://github.com/jtsage/jquery-mobile-datebox/blob/master/LICENSE.txt",
-					" *",
-					" */" ].join("\n");
+				];
+				
 
-			if ( inputQ.framework === "jqm" ) {
-				baseFiles.push( path + "js/framework/jqm.js" );
-				frame = "jqm";
-			} else {
-				baseFiles.push( path + "js/framework/bootstrap.js" );
+			switch ( inputQ.framework ) {
+				case "jqm" :
+					baseFiles.push( path + "js/framework/jqm.js" );
+					frame = "jqm";
+					break;
+				case "jqueryui":
+					baseFiles.push( path + "js/framework/jqueryui.js" );
+					frame = "jqueryui";
+					break;
+				default:
+					baseFiles.push( path + "js/framework/bootstrap.js" );
+					break;
 			}
+
+			var preamble = [
+				"/*",
+				" * JTSage-DateBox",
+				" * For: " + frame + "; With: " + inputQ.modes.join(", "),
+				" * Date: " + today.toJSON(),
+				" * http://dev.jtsage.com/DateBox/",
+				" * https://github.com/jtsage/jquery-mobile-datebox",
+				" *",
+				" * Copyright 2010, " + today.getFullYear() + " JTSage. and other contributors",
+				" * Released under the MIT license.",
+				" * https://github.com/jtsage/jquery-mobile-datebox/blob/master/LICENSE.txt",
+				" *",
+				" */" ].join("\n");
 
 			inputQ.modes.forEach( function (mode) {
 				switch (mode) {
@@ -116,7 +125,7 @@ function handleRequest(request, response){
 
 			response.writeHead(200, {
 				'Content-Type': 'application/zip',
-				'Content-disposition': 'attachment; filename=JTSage-DateBox.zip'
+				'Content-disposition': 'attachment; filename=JTSage-DateBox-'+frame+'.zip'
 			});
 
 			var zip = Archiver('zip');
