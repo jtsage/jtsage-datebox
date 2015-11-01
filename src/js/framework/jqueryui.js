@@ -45,6 +45,7 @@ mergeOpts({
 		}
 	},
 
+	useSelectMenu: false,
 	clickEvent: "click",
 	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 });
@@ -309,9 +310,21 @@ JTSageDateBox._create = function() {
 
 	w.applyMinMax(false, false);
 
+	w.d.input.on( "datebox", function(e,p) {
+		var w = $( this ).data( "jtsage-datebox" ),
+			o = $( this ).data( "jtsage-datebox" ).options;
+
+		if ( p.method === "postrefresh" && o.useSelectMenu ) {
+			w.d.intHTML.find('select').each( function () {
+				$(this).selectmenu();
+			})
+		}
+	});
+
 	if ( o.useInline || o.useInlineBlind ) {
 		w.open();
 	}
+
 
 	//Throw dateboxinit event
 	$( document ).trigger( "dateboxaftercreate" );
@@ -355,8 +368,8 @@ JTSageDateBox.open = function () {
 				w.d.mainWrap.prepend( $(w._spf(
 					"<div class='{c1}'><h4 class='{c2}'>{text}</h4></div>",
 				{
-					c1: "modal-header",
-					c2: "modal-title text-center",
+					c1: "ui-datebox-header",
+					c2: "ui-datebox-header-title",
 					text: w.d.headerText,
 				})));
 			}
@@ -593,10 +606,16 @@ JTSageDateBox._controlGroup = function(element) {
 	var o = this.options;
 
 	if ( o.useCollapsedBut ) {
-		element.find( "a" ).css({ width: "auto" });
-		element.addClass( "btn-group btn-group-justified" );
+		element.find( ".ui-button" )
+			.css({ marginRight: "0px" })
+			.removeClass( "ui-corner-all" )
+			.first().addClass( "ui-corner-left" )
+			.end().last().addClass( "ui-corner-right" );
 	} else {
-		element.addClass( "btn-group-vertical" );
+		element.find( ".ui-button" ).css({ width: "90% "})
+			.removeClass( "ui-corner-all" )
+			.first().addClass( "ui-corner-top" )
+			.end().last().addClass( "ui-corner-bottom" );
 	}
 	return element;
 };

@@ -694,6 +694,15 @@ JTSageDateBox._build.calbox = function () {
 		if ( w.baseMode === "bootstrap" ) {
 			htmlRow.addClass("btn-group");
 		}
+		if ( w.baseMode === "jqueryui" ) {
+			htmlRow.find( "." + uid + "griddate" )
+				.removeClass("ui-corner-all");
+				
+			htmlRow.find( "." + uid + "griddate" )
+				.not( "." + uid + "griddate-empty" )
+				.first().addClass( "ui-corner-left" )
+				.end().last().addClass( "ui-corner-right" );
+		}
 		if ( row === rows - 1 ) { htmlRow.addClass( uid + "gridrow-last" ); }
 		htmlRow.appendTo(calContent);
 	}

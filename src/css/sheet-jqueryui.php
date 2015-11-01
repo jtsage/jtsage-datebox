@@ -12,7 +12,7 @@ $defaults = array(
 	'cGDHeight'		=> array(30, "Date Height", 'calbox', 5, 100),
 	'cGDLHeight'	=> array(30, "Date Line Height", 'calbox', 5, 50),
 	'cGDFont'		=> array(12, "Date Font Size", 'calbox', 5, 50),
-	'cGDWWidth'		=> array(35, "Week # Width", 'calbox', 5, 100),
+	'cGDWWidth'		=> array(34, "Week # Width", 'calbox', 5, 100),
 	'cGDEColor'		=> array("#888888", "Non-Month Day Color", 'calbox', false),
 	
 	// FlipBox Options
@@ -96,6 +96,14 @@ foreach ( $defaults as $key => $value ) {
 }
 .ui-datebox-container .modal-header {
 	padding: 8px 15px;
+}
+
+.ui-datebox-header {
+	text-align: center;
+}
+.ui-datebox-header h4 { 
+	margin: 0;
+	padding: 3px;
 }
 
 
