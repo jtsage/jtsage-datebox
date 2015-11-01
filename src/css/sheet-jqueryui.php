@@ -261,6 +261,7 @@ div.ui-datebox-container.ui-datebox-inline {
 	width: <?php echo $use['fLensWidth'] ?>px;
 	height: <?php echo $use['fLensHeight'] ?>px;
 	border: 1px solid #EEEEEE;
+	background-color: rgba(255,255,255,.15);
 	margin-right: auto;
 	margin-left: auto;
 	position: relative;
