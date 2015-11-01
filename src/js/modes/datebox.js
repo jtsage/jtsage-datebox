@@ -325,6 +325,11 @@ JTSageDateBox._build.datebox = function () {
 				)
 				.appendTo(currentControl);
 
+			if ( w.baseMode === "jqueryui" ) {
+				currentControl.css({
+					width: 100 / w.fldOrder.length + "%"
+				});
+			}
 			currentControl.appendTo(allControls);
 			cnt++;
 		}
