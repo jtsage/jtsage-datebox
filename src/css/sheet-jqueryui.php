@@ -8,7 +8,7 @@ $defaults = array(
 	'mWidth' 		=> array(290, "Widget Width", 'common', 100, 700),
 	
 	// CalBox Options
-	'cGDWidth' 		=> array(40, "Date Width", 'calbox',5 ,100),
+	'cGDWidth' 		=> array(39, "Date Width", 'calbox',5 ,100),
 	'cGDHeight'		=> array(30, "Date Height", 'calbox', 5, 100),
 	'cGDLHeight'	=> array(30, "Date Line Height", 'calbox', 5, 50),
 	'cGDFont'		=> array(12, "Date Font Size", 'calbox', 5, 50),
@@ -134,6 +134,29 @@ div.ui-datebox-container.ui-datebox-inline {
 	display: inline-block;
 }
 
+.ui-datebox-gridlabel h4 {
+	margin: 10px;
+}
+.ui-datebox-gridminus, .ui-datebox-gridplus-rtl {
+	margin-top: 10px;
+	width: 38px;
+	display: inline-block;
+	float: left;
+}
+
+.ui-datebox-gridplus, .ui-datebox-gridminus-rtl {
+	margin-top: 10px;
+	width: 38px;
+	display: inline-block;
+	float: right;
+}
+
+.ui-datebox-cal-pickers fieldset {
+	margin: 0;
+	padding: 10px;
+	border: none;
+}
+
 .ui-datebox-grid { 
 	clear: both; 
 	margin-bottom: 5px; 
@@ -164,11 +187,17 @@ div.ui-datebox-container.ui-datebox-inline {
 	text-align: center;
 }
 
+.ui-datebox-pickcontrol {
+	text-align: center;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
 .ui-datebox-griddate { 
 	width: <?php echo $use['cGDWidth'] ?>px;
 	height: <?php echo $use['cGDHeight'] ?>px;
 	line-height: <?php echo $use['cGDLHeight'] ?>px;
 	padding: 0;
+	margin: 0;
 	display: inline-block;
 	vertical-align: middle;
 	text-align: center;

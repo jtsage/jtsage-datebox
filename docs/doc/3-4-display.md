@@ -30,7 +30,9 @@ appear inline with the rest of the form. When using bootstrap, an additional opt
 available to you is {% api_doc useInlineAlign %}.
 
 You might want DateBox to mimic the behavior of jQuery-UI - that is, to slide
-down the control when you click the input.  To do this, set {% api_doc useInlineBlind %}.
+down the control when you click the input.  To do this, set {% api_doc useInlineBlind %}. Note that this is the default "popup" behavior for the jQuery(UI) framework, and this option has no effect there.
+
+Page Length Note: If you display the control inline, and your page is shorter than the viewport window, clicking on a button in the control will likely jump the page scroll to the top in some browsers.  I have yet to find a fix for this.  Additionally, this is probably only an issue when using a browser extension that overlays a portion of the viewport, allowing it to scroll, *without* changing the viewport dimensions.
 
 {% highlight html %}
 <input type="text" data-role="datebox" data-options='{"mode":"calbox", "useInlineBlind":true}'>

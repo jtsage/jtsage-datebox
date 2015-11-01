@@ -230,7 +230,7 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 		w = this,
 		o = this.options,
 		uid = "ui-datebox-",
-		pickerControl = $("<div>");
+		pickerControl = $("<div>").addClass("ui-datebox-cal-pickers");
 
 	if ( o.calNoHeader && o.calUsePickersIcons ) {
 		pickerControl.addClass( "ui-datebox-pickicon" );
@@ -318,7 +318,7 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 		}
 		w.refresh();
 	});
-	if ( w.baseMode === "bootstrap" ) {
+	if ( w.baseMode === "bootstrap" || w.baseMode === "jqueryui" ) {
 		pickerControl.i.find("select")
 			.addClass("form-control input-sm")
 			.css({"marginTop": "3px", "float": "left"})
@@ -356,7 +356,7 @@ JTSageDateBox._cal_date_list = function ( calContent ) {
 	var i, tempVal,
 		w = this,
 		o = this.options,
-		listControl = $( "<div>" );
+		listControl = $( "<div>" ).addClass( "ui-datebox-pickcontrol" );
 
 	listControl.a = $( "<select name='pickdate'></select>" ).appendTo(listControl);
 	

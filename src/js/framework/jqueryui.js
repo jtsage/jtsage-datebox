@@ -5,9 +5,9 @@
  */
 
 mergeOpts({
-	themeDateToday: "",
+	themeDateToday: "ui-state-active",
 	themeDayHigh: "",
-	themeDatePick: "",
+	themeDatePick: "ui-state-active",
 	themeDateHigh: "",
 	themeDateHighAlt: "",
 	themeDateHighRec: "",
@@ -36,8 +36,10 @@ mergeOpts({
 
 	s: {
 		cal: {
-			prevMonth : "<span title='{text}' class='glyphicon glyphicon-{icon}'></span>",
-			nextMonth : "<span title='{text}' class='glyphicon glyphicon-{icon}'></span>",
+			prevMonth : "<button class='ui-button ui-widget ui-state-default ui-corner-all'>" +
+			"<span title='{text}' class='ui-icon ui-icon-{icon}'></span></button>",
+			nextMonth : "<button class='ui-button ui-widget ui-state-default ui-corner-all'>" +
+			"<span title='{text}' class='ui-icon ui-icon-{icon}'></span></button>",
 			botButton : "<a href='#' class='{cls}' role='button'>" +
 				"<span class='{icon}'></span> {text}</a>",
 		}
@@ -377,7 +379,7 @@ JTSageDateBox.open = function () {
 		}
 
 		w.d.mainWrap.removeClass( "ui-datebox-hidden ui-overlay-shadow" );
-		w.d.mainWrap.addClass('ui-corner-all ui-widget ui-widget-content');
+		w.d.mainWrap.addClass( "ui-corner-all ui-widget ui-widget-content" );
 		if ( o.useInline ) {
 			w.d.mainWrap
 				.addClass( "ui-datebox-inline" )
@@ -437,7 +439,7 @@ JTSageDateBox.open = function () {
 	// 	} );
 	// }
 	
-	w.d.mainWrap.addClass('ui-corner-all ui-widget ui-widget-content');
+	w.d.mainWrap.addClass( "ui-corner-all ui-widget ui-widget-content" );
 	
 	w.d.mainWrap.append( w.d.intHTML ).css({
 		"zIndex": o.zindex,
@@ -499,6 +501,7 @@ JTSageDateBox.open = function () {
 
 	w.d.backdrop = $("<div></div>")
 		.css({ position: "fixed", left: 0, top: 0, bottom: 0, right: 0 })
+		.addClass( "ui-widget-overlay" )
 		.appendTo( "body" )
 		.on( o.clickEvent, function (e) {
 			e.preventDefault();
@@ -552,7 +555,7 @@ JTSageDateBox.close = function() {
 	w.d.backdrop.remove();
 	w.d.mainWrap.slideUp(o.useAnimationTime, function() {
 		basepop.afterclose.call();
-	})
+	});
 
 	// Unbind all drag handlers.
 	$( document )
