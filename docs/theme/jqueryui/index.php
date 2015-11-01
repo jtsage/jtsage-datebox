@@ -9,11 +9,11 @@ $defaults = array(
 	'mWidth' 		=> array(290, "Widget Width", 'common', 100, 700),
 	
 	// CalBox Options
-	'cGDWidth' 		=> array(40, "Date Width", 'calbox',5 ,100),
+	'cGDWidth' 		=> array(39, "Date Width", 'calbox',5 ,100),
 	'cGDHeight'		=> array(30, "Date Height", 'calbox', 5, 100),
 	'cGDLHeight'	=> array(30, "Date Line Height", 'calbox', 5, 50),
 	'cGDFont'		=> array(12, "Date Font Size", 'calbox', 5, 50),
-	'cGDWWidth'		=> array(35, "Week # Width", 'calbox', 5, 100),
+	'cGDWWidth'		=> array(34, "Week # Width", 'calbox', 5, 100),
 	'cGDEColor'		=> array("#888888", "Non-Month Day Color", 'calbox', false),
 	
 	// FlipBox Options
@@ -63,25 +63,24 @@ foreach ( $defaults as $key => $value ) {
 <head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>Bootstrap - DateBox Themeing</title>
+	<title>jQueryUI - DateBox Themeing</title>
 	
 	<!-- NOTE: Script load order is significant! -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/{{ site.bsver }}/css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/{{ site.bsver }}/css/bootstrap-theme.min.css"/>
 	
-	
+	<link rel="stylesheet" href="https://code.jquery.com/ui/{{ site.jquiver }}/themes/overcast/jquery-ui.css">
+
 	<?php if ( !empty($_SERVER['QUERY_STRING']) ) {
 		echo '<link type="text/css" href="sheet.php?'.$_SERVER['QUERY_STRING'].'" rel="stylesheet" />'."\n";
 	} else {
 		echo '<link type="text/css" href="sheet.php" rel="stylesheet" />'."\n";
 	} ?>
+
+	
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/{{ site.jquiver }}/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/external/bootstrap-slider.min.js"></script>
-	<link rel="stylesheet" href="http://cdn.jtsage.com/external/bootstrap-slider.min.css"/>
 
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.bootstrap{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqueryui{{site.min}}.js"></script>
 	<script type="text/javascript" src="{{ site.i18n }}jtsage-datebox.lang.utf8.js"></script>
 	<script type="text/javascript">
 		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
@@ -116,41 +115,42 @@ foreach ( $defaults as $key => $value ) {
 		});
 	</script>
 	<style>
-		.slider.slider-horizontal {
-    		width: 100%;
-    		height: 20px;
+
+		.form-group.row { margin-bottom: 1.7em; }
+		.col-xs-3 { width: 200px; display: inline-block; vertical-align: top;}
+		.col-xs-9 { display: inline-block; width: 600px ;}
+		.col-xs-9 .help-block {
+			display:block;
+			color: #777;
 		}
+		.col-xs-9 input { width: 90%; }
 	</style>
 </head>
-<body style="padding-top:70px">
+<body style="padding-top: 80px;">
 
 
+<div id="toolbar" style="position: fixed; z-index:1000; top:0; width: 95%; left: 2.5%; text-align:center" class="ui-widget-header ui-corner-all">
+	<h3 style="padding: 10px; margin:0; text-align:center">JTSage<span style="color:#C3593C">DateBox</span></h3>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a href="{{ site.basesite }}" class="navbar-brand">JTSage<span style="color:#C3593C">DateBox</span></a>
-		</div>
-		<div id="navbar" class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="{{ site.basesite }}doc">Documentation</a></li>
-				<li><a href="{{ site.basesite }}api">API &amp; Options</a></li>
-				<li><a href="{{ site.basesite }}bootstrap">Bootstrap Demos</a></li>
-				<li><a href="{{ site.basesite }}jqm">JQM Demos</a></li>
-				<li><a href="{{ site.basesite }}jqueryui">jQqueryUI Demos</a></li>
-			</ul>
-		</div>
-	</div>
-</nav>
+	<a href="{{ site.basesite}}doc" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+		<span class="ui-button-text">Documentation</span>
+	</a>
+	<a href="{{ site.basesite}}api" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+		<span class="ui-button-text">API &amp; Options</span>
+	</a>
+	<a href="{{ site.basesite}}bootstrap" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+		<span class="ui-button-text">Bootstrap Demos</span>
+	</a>
+	<a href="{{ site.basesite}}jqm" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+		<span class="ui-button-text">jQM Demos</span>
+	</a>
+	<a href="{{ site.basesite}}jqueryui" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+		<span class="ui-button-text">jQueryUI Demos</span>
+	</a>
+</div>
 
 <div class="container" role="main">
-	<h1>Bootstrap Theme Builder</h1>
+	<h1>jQueryUI Theme Builder</h1>
 		<div class="row"><div class="col-md-8">
 		<form id="css">
 		<?php
@@ -171,7 +171,7 @@ foreach ( $defaults as $key => $value ) {
 						foreach ( $ins[$intype-1] as $thisin ) {
 						 	$dateboxen .= "\t\t\t<input type='text' name='theme{$thisin[2]}' data-role='datebox' data-datebox-mode='{$thisin[0]}' data-options='{" . $thisin[1] . "}'>\n";
 						}
-						echo "\t\t\t<a href='#' style='display:block; width: 100%' class='applysheet btn btn-info'>Apply Changes</a>\n";
+						echo "\t\t\t<a href='#' class='applysheet ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'><span class='ui-button-text'>Apply Changes</span></a>\n";
 					}
 					echo "\t\t\t<h2>{$item[2]} Options</h2>\n";
 					
@@ -179,7 +179,7 @@ foreach ( $defaults as $key => $value ) {
 				}
 				echo "\t\t\t<div class='field-group row'>\n";
 				echo "\t\t\t\t<div class='col-xs-3'><label for='{$key}'>{$item[1]}</label></div><div class='col-xs-9'>\n";
-				if ( $item[3] <> false ) {
+				if ( false ) {
 					echo "\t\t\t\t<input name='{$key}' id='{$key}' data-slider-id='{$key}Slider' data-slider-value='{$use[$key]}' data-doit='yes' type='text' data-slider-step='1' data-slider-min='{$item[3]}' data-slider-max='{$item[4]}'>\n";
 				} else {
 					echo "\t\t\t\t<input name='{$key}' id='{$key}' class='form-control' value='{$use[$key]}' type='text'>\n";
@@ -190,27 +190,20 @@ foreach ( $defaults as $key => $value ) {
 			foreach ( $ins[$intype-1] as $thisin ) {
 				$dateboxen .= "\t\t\t<input type='text' name='theme{$thisin[2]}' data-role='datebox' data-datebox-mode='{$thisin[0]}' data-options='{" . $thisin[1] . "}'>\n";
 			}
-			//echo "\t\t\t</div>\n";
-			echo "\t\t\t<a href='#' style='display:block; width: 100%' class='applysheet btn btn-info'>Apply Changes</a>\n";
+			echo "\t\t\t<a href='#' class='applysheet ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'><span class='ui-button-text'>Apply Changes</span></a>\n";
 		?>
 		</form>
-		<a id="getsheet" href="#" data-role="button" style="display:block; width: 100%" class="btn btn-success">Get Stylesheet</a>
-		<a id="bookmark" href="#" data-role="button" style="display:block; width: 100%" class="btn btn-default">Bookmark this Version</a>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('input[data-doit="yes"]').each(function() {
-					$(this).bootstrapSlider({
-						formatter: function(value) {
-							return 'Current value: ' + value;
-						}
-					});
-				});
-			});
-		</script>
-		</div><div class="col-md-4">
+		<br />
+		<a id="getsheet" href="#" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Get Stylesheet</span>
+		</a>
+		<a id="bookmark" href="#" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Bookmark this Version</span>
+		</a>
+		</div><div class="col-md-4" style="width: auto; position: absolute; top: 90px; right: 0;">
 			<?php echo $dateboxen; ?>
 		</div>
 		</div>
 </div>
 
-{% include bs_footer.html api="true" %}
+{% include jqui_footer.html api="true" %}

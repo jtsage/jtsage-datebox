@@ -6,6 +6,7 @@ node_modules
 docs/_site
 docs/.jekyll-metadata
 docs/theme/jqm/sheet.php
+docs/theme/jqueryui/sheet.php
 docs/theme/bootstrap/sheet.php
 
 
