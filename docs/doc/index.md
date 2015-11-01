@@ -5,7 +5,7 @@ layout: doc
 ---
 
 # Description
-DateBox is a jQueryMobile plugin that aims to make user interaction with dates and
+DateBox is a jQueryMobile / Bootstrap / jQueryUI plugin that aims to make user interaction with dates and
 times simple and intuitive. It is a colloborative work, with a full range of features
 allowing easy implementation, and painless extensibility.
 

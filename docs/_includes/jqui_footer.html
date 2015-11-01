@@ -1,6 +1,16 @@
 <footer style="padding-top: 20px; margin-top: 20px; border-top: 1px solid #e5e5e5;">
-    <p class="text-center text-muted">DateBox: the full featured Date and Time picker</p>
-    <ul class="text-center list-inline text-muted">
+    <p style="text-align: center">DateBox: the full featured Date and Time picker</p>
+    <style>
+        #footlist {
+            list-style-type: none;
+            text-align: center;
+        }
+        #footlist li {
+            display: inline;
+            padding: 2px;
+        }
+    </style>
+    <ul id="footlist" class="text-center list-inline text-muted">
     	<li>Currently v{{ site.dbver }}</li>
     	<li> </li>
     	<li><a href="{{ site.basesite }}api/">API</a></li>
