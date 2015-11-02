@@ -207,12 +207,15 @@ JTSageDateBox._dbox_button = function (direction, field, amount) {
 		.append( function() {
 			switch ( w.baseMode ) {
 				case "jqueryui":
-					return $("<span>").addClass( o.icnCls + ( direction > 0 ? o.calNextMonthIcon : o.calPrevMonthIcon ) );
+					return $("<span>").addClass( o.icnCls + (direction > 0 ? 
+						o.calNextMonthIcon : 
+						o.calPrevMonthIcon )
+					);
 				default:
 					return null;
 			}
 		});
-}
+};
 
 JTSageDateBox._build.timebox = function () { this._build.datebox.apply( this, [] ); };
 JTSageDateBox._build.durationbox =  function () { this._build.datebox.apply( this, [] ); };
