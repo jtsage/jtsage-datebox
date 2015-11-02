@@ -64,7 +64,21 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 
 {% highlight html %}
 <link href="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.bootstrap.min.css" rel="stylesheet" type="text/css">
-<script src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.bootstrap{{site.min}}.js" type="text/javascript"></script>
+<script src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.bootstrap.min.js" type="text/javascript"></script>
+{% endhighlight %}
+
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading">
+<h3 class="panel-title">jQueryUI Version</h3>
+</div>
+<div class="panel-body">
+
+{% highlight html %}
+<link href="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqueryui.min.css" rel="stylesheet" type="text/css">
+<script src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqueryui.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>

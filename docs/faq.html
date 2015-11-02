@@ -1,0 +1,171 @@
+---
+title: Frequently Asked Questions
+---
+{% include doc_head.html %}
+<div class="container" role="main">
+
+	<div class="row">
+		<div class="col-md-4">
+			<ul class="list-group">
+				<li class="list-group-item list-group-item-info">F.A.Q.</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="#whatframe">What frameworks does DateBox support?</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="#require">What are DateBox's prerequisite requirements?</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="#howinstall">How do I install DateBox?</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="#upgrade">How do I upgrade from jQM-DateBox?</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="#use">How do I use DateBox on an input?</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="#dateformat">How do I set the format of the output?</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="#limits">How do I limit the date or time input?</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="#setdate">How do I set the date or time for DateBox?</a>
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-chevron-right pull-right"></span>
+					<a href="#getdate">How do I get the date or time from DateBox?</a>
+				</li>
+			</ul> 
+		</div>
+		
+		<div class="col-md-8"> 
+			<h2>Frequently Asked Questions</h2>
+			
+			<div class="panel panel-default" id="whatframe">
+				<div class="panel-heading">
+					<h3 class="panel-title">What frameworks does DateBox support?</h3>
+				</div>
+				<div class="panel-body">
+					DateBox currently supports <a href="{{ site.basesite }}jqm">jQueryMobile</a>, <a href="{{ site.basesite }}bootstrap">Bootstrap</a>, and <a href="{{ site.basesite }}jqueryui">jQueryUI</a>.
+				</div>
+			</div>
+
+			<div class="panel panel-default" id="require">
+				<div class="panel-heading">
+					<h3 class="panel-title">What are DateBox's prerequisite requirements?</h3>
+				</div>
+				<div class="panel-body">
+					DateBox requires jQuery - both the 1.11.x and 2.x branch are currently supported.<br /><br />For jQueryMobile framework operation, jQueryMobile must be loaded first - generally, the last major release is supported (currently 1.4.x).<br /><br />For Bootstrap operation and jQueryUI operation, the jQueryUI widget library must be loaded - a custom build can be generated on the <a href="http://jqueryui.com/download/">jQueryUI Download Builder</a>. Additionally, you will need to include the Bootstrap CSS file, or a jQueryUI CSS theme file.
+				</div>
+			</div>
+
+			<div class="panel panel-default" id="howinstall">
+				<div class="panel-heading">
+					<h3 class="panel-title">How do I install DateBox?</h3>
+				</div>
+				<div class="panel-body">
+					To install DateBox, you'll need to include both the JavaScript file, and the CSS file.  Both can be found in the <a href="http://cdn.jtsage.com/jtsage-datebox/">CDN repository</a>.  Numbered versions are considered "stable", while "latest" is the most recent development build.  You should choose the files that contain the CSS framework you are using.<br /><br />
+					For more information, please see: <a href="{{ site.basesite }}doc/2-0-installing/">Installing DateBox</a>.
+				</div>
+			</div>
+
+			<div class="panel panel-default" id="upgrade">
+				<div class="panel-heading">
+					<h3 class="panel-title">How do I upgrade from jQM-DateBox?</h3>
+				</div>
+				<div class="panel-body">
+					To upgrade from a previous version of jQM-DateBox, simply replace the CSS and JavaScript files.  Note that previous versions of jQM-DateBox typically had multiple JavaScript includes, DateBox cuts that to a single file.
+
+					If you have written any of your own code referencing jQM-DateBox, note that the namespace of the plugin has changed to "jtsage".<br /><br />
+
+{% highlight js %}
+// Old Way - Data Attribute
+$( "#someInput" ).data('mobile-datebox');
+
+// New Way - Data Attribute
+$( "#someInput" ).date('jtsage-datebox');
+
+
+// Old Way - Prototype Overrides
+jQuery.extend(jQuery.mobile.datebox.prototype.options, {} );
+
+// New Way - Prototype Overrides
+jQuery.extend(jQuery.jtsage.datebox.prototype.options, {} );
+{% endhighlight %}
+
+				</div>
+			</div>
+
+			<div class="panel panel-default" id="use">
+				<div class="panel-heading">
+					<h3 class="panel-title">How do I use DateBox on an input?</h3>
+				</div>
+				<div class="panel-body">
+					For the most basic operation of DateBox on an input, you will need to add 2 attributes, "data-role" and "data-datebox-mode".<br /><br />
+{% highlight html %}
+<input type="text" data-role="datebox" data-datebox-mode="calbox">
+{% endhighlight %}
+					For more information, please see <a href="{{ site.basesite}}doc/3-0-first-datebox/">Your First DateBox</a>.
+				</div>
+			</div>
+
+			<div class="panel panel-default" id="dateformat">
+				<div class="panel-heading">
+					<h3 class="panel-title">How do I change the format of the date or time output?</h3>
+				</div>
+				<div class="panel-body">
+					Often, you need a specific format of date sent to the back-end server - there are a number of ways to accomplish this.<br /><br />
+					<ol>
+						<li>Alter or create a language file. For more information on how to do this, please see: <a href="{{ site.basesite }}doc/3-2-locale/">Localizing DateBox</a>.</li>
+						<li>Override the date format for <strong>ALL</strong> languages, using the option "overrideDateFormat", a special use of {% api_doc dateFormat %}.</li>
+						<li>Use a second, hidden input with the {% api_doc linkedField %} and {% api_doc linkedFieldFormat %}.</li>
+					</ol>
+					The associated time option for #2 is {% api_doc timeOutput %} (overrideTimeOutput).
+				</div>
+			</div>
+
+			<div class="panel panel-default" id="limits">
+				<div class="panel-heading">
+					<h3 class="panel-title">How do I limit the date or time input?</h3>
+				</div>
+				<div class="panel-body">
+					DateBox offers many, many options to refine the input of the date and time from the user.  Please see <a href="{{ site.basesite }}doc/4-2-limit/">Limiting DateBox</a> for a full discussion of the available options.  Additionally, you can page through the <a href="{{ site.basesite }}api/cat-limiting/">Limiting Options Category</a> of the API.
+				</div>
+			</div>
+
+			<div class="panel panel-default" id="setdate">
+				<div class="panel-heading">
+					<h3 class="panel-title">How do I set the date or time for DateBox?</h3>
+				</div>
+				<div class="panel-body">
+					To preset the date in DateBox, please see the documentation section on <a href="{{ site.basesite }}doc/4-1-defaults/">Setting Defaults</a>.<br /><br />
+					To programmatically set the date at later time, please see the API under {% api_doc setTheDate %}.
+				</div>
+			</div>
+
+			<div class="panel panel-default" id="getdate">
+				<div class="panel-heading">
+					<h3 class="panel-title">How do I get the date or time from DateBox?</h3>
+				</div>
+				<div class="panel-body">
+					To programmatically get the date at later time, please see the API under {% api_doc getTheDate %}.<br /><br />
+					Often, using triggers or callbacks is related to this question, please see the documentation section on <a href="{{ site.basesite }}doc/6-1-callback/">Callbacks and Listeners</a>.
+				</div>
+			</div>
+
+
+			
+		</div> 
+	</div>
+	
+</div>
+{% include bs_footer.html api="true" %}
