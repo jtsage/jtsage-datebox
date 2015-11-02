@@ -20,13 +20,7 @@ mergeOpts({
 JTSageDateBox._dbox_run = function() {
 	var w = this,
 		g = this.drag,
-		timer = 150;
-		
-	if ( g.cnt > 10 ) { timer = 100; }
-	if ( g.cnt > 30 ) { timer = 50; }
-	if ( g.cnt > 60 ) { timer = 20; }
-	if ( g.cnt > 120 ) { timer = 10; }
-	if ( g.cnt > 240 ) { timer = 3; }
+		timer = parseInt(6.09 + ( 142.8 * Math.pow(Math.E, -0.039 * g.cnt)), 10);
 	
 	g.didRun = true;
 	g.cnt++;
@@ -190,6 +184,36 @@ JTSageDateBox._dbox_enter = function (item) {
 	w.refresh();
 };
 
+JTSageDateBox._dbox_button = function (direction, field, amount) {
+	var w = this,
+		o = this.options;
+	
+	return $("<div>")
+		.addClass( "ui-datebox-datebox-button" )
+		.addClass( o.btnCls + o.themeButton )
+		.addClass( function() {
+			switch ( w.baseMode ) {
+				case "jqm":
+				case "bootstrap":
+					return o.icnCls + ( direction > 0 ? o.calNextMonthIcon : o.calPrevMonthIcon );
+				default:
+					return null;
+			}
+		})
+		.data({
+			"field": field,
+			"amount": amount * direction
+		})
+		.append( function() {
+			switch ( w.baseMode ) {
+				case "jqueryui":
+					return $("<span>").addClass( o.icnCls + ( direction > 0 ? o.calNextMonthIcon : o.calPrevMonthIcon ) );
+				default:
+					return null;
+			}
+		});
+}
+
 JTSageDateBox._build.timebox = function () { this._build.datebox.apply( this, [] ); };
 JTSageDateBox._build.durationbox =  function () { this._build.datebox.apply( this, [] ); };
 
@@ -242,10 +266,9 @@ JTSageDateBox._build.datebox = function () {
 	for(i = 0; i < w.fldOrder.length; i++) {
 		currentControl = $( "<div>" ).addClass( uid + "datebox-group" );
 
-		currentControl.addClass( "" +
-			( ( w.baseMode === "jqm" ) ? 
-				"ui-block-" + ["a","b","c","d","e"][cnt] : "" )
-		);
+		if ( w.baseMode === "jqm" ) {
+			currentControl.addClass( "ui-block-" + ["a","b","c","d","e"][cnt]);
+		}
 
 		if ( dur ) {
 			offAmount = o.durationSteppers[w.fldOrder[i]];
@@ -258,26 +281,7 @@ JTSageDateBox._build.datebox = function () {
 		}
 
 		if ( w.fldOrder[i] !== "a" || w.__( "timeFormat" ) === 12 ) {
-			$("<div>")
-				.addClass( uid + "datebox-button" )
-				.addClass( "" + 
-					( ( w.baseMode === "jqm" || w.baseMode === "bootstrap" ) ?
-						o.icnCls + o.calNextMonthIcon :
-						""
-					)
-				)
-				.addClass( o.btnCls + o.themeButton )
-				.data({
-					"field": w.fldOrder[i],
-					"amount": offAmount
-				})
-				.append(  
-					( ( w.baseMode === "jqueryui" ) ?
-						$("<span>").addClass( o.icnCls + o.calNextMonthIcon ) :
-						null
-					)
-				)
-				.appendTo(currentControl);
+			w._dbox_button( 1, w.fldOrder[i], offAmount ).appendTo( currentControl );
 
 			if ( dur ) {
 				$( w._spf("<div><label>{text}</label></div>", {
@@ -287,66 +291,45 @@ JTSageDateBox._build.datebox = function () {
 					.appendTo(currentControl);
 			}
 
-			$("<div><input type='text'></div>")
-				.addClass("" + 
-					( ( w.baseMode === "jqm" ) ?
-						"ui-input-text ui-body-" + o.themeInput + " ui-mini" : "" ) +
-					( ( w.baseMode === "bootstrap" ) ?
-						o.themeInput : "" )
-				)
+			$("<div><input class='form-control' type='text'></div>")
+				.addClass( function() {
+					switch ( w.baseMode ) {
+						case "jqm":
+							return "ui-input-text ui-body-" + o.themeInput + " ui-mini";
+						case "bootstrap":
+							return o.themeInput;
+						default:
+							return null;
+					}
+				})
 				.appendTo(currentControl)
 				.find( "input" ).data({
 					"field": w.fldOrder[i],
 					"amount": offAmount
-				})
-				.addClass("" +
-					( ( w.baseMode === "bootstrap") ?
-						"form-control" : "" )
-				);
-
-			$("<div>")
-				.addClass( uid + "datebox-button" )
-				.addClass( "" + 
-					( ( w.baseMode === "jqm" || w.baseMode === "bootstrap" ) ?
-						o.icnCls + o.calPrevMonthIcon :
-						""
-					)
-				)
-				.addClass( o.btnCls + o.themeButton )
-				.data({
-					"field": w.fldOrder[i],
-					"amount": offAmount*-1
-				})
-				.append(  
-					( ( w.baseMode === "jqueryui" ) ?
-						$("<span>").addClass( o.icnCls + o.calPrevMonthIcon ) :
-						null
-					)
-				)
-				.appendTo(currentControl);
-
-			if ( w.baseMode === "jqueryui" ) {
-				currentControl.css({
-					width: 100 / w.fldOrder.length + "%"
 				});
-			}
+
+			w._dbox_button( -1, w.fldOrder[i], offAmount ).appendTo( currentControl );
+
 			currentControl.appendTo(allControls);
 			cnt++;
 		}
 	}
 	
-	
-	allControls.addClass("" +
-		( ( w.baseMode === "jqm" ) ?
-			"ui-grid-" + [0, 0, "a", "b", "c", "d", "e"][cnt] : "" ) +
-		( ( w.baseMode === "bootstrap" ) ?
-			"row" : "" )
-	);
-
-	if ( w.baseMode === "bootstrap" ) {
-		allControls.find("." + uid + "datebox-group" ).each( function() {
-			$(this).addClass("col-xs-" + 12 / cnt);
-		});
+	switch ( w.baseMode ) {
+		case "jqm":
+			allControls.addClass( "ui-grid-" + [0, 0, "a", "b", "c", "d", "e"][cnt] );
+			break;
+		case "bootstrap":
+			allControls.addClass( "row" );
+			allControls.find( "." + uid + "datebox-group" ).each( function() {
+				$(this).addClass("col-xs-" + 12 / cnt);
+			});
+			break;
+		case "jqueryui":
+			allControls.find( "." + uid + "datebox-group" ).each( function() {
+				$(this).css( "width", 100 / cnt + "%" );
+			});
+			break;
 	}
 
 	allControls.appendTo(w.d.intHTML);
