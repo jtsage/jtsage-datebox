@@ -176,13 +176,17 @@ JTSageDateBox._cal_prev_next = function (container) {
 		}))
 		.prependTo( container )
 		.find( "a" )
-			.addClass( "" +
-				( ( w.baseMode === "jqm" ) ?
-					o.btnCls + o.themeDate + o.icnCls + o.calNextMonthIcon : "" ) +
-				( ( w.baseMode === "bootstrap" ) ?
-					o.btnCls + o.themeDate + 
-					" pull-" + ( w.__( "isRTL" ) ? "left" : "right" ) : "" )
-			)
+			.addClass( function () {
+				switch ( w.baseMode ) {
+					case "jqm":
+						return o.btnCls + o.themeDate + o.icnCls + o.calNextMonthIcon;
+					case "bootstrap":
+						return o.btnCls + o.themeDate + 
+							" pull-" + ( w.__( "isRTL" ) ? "left" : "right" );
+					default:
+						return null;
+				}
+			})
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				if ( w.calNext ) {
@@ -203,13 +207,17 @@ JTSageDateBox._cal_prev_next = function (container) {
 		}))
 		.prependTo( container )
 		.find( "a" )
-			.addClass( "" +
-				( ( w.baseMode === "jqm" ) ? 
-					o.btnCls + o.themeDate + o.icnCls + o.calPrevMonthIcon : "" ) +
-				( ( w.baseMode === "bootstrap" ) ?
-					o.btnCls + o.themeDate + 
-					" pull-" + ( w.__("isRTL" ) ? "right" : "left" ) : "" )
-			)
+			.addClass( function () {
+				switch ( w.baseMode ) {
+					case "jqm":
+						return o.btnCls + o.themeDate + o.icnCls + o.calPrevMonthIcon;
+					case "bootstrap":
+						return o.btnCls + o.themeDate + 
+							" pull-" + ( w.__( "isRTL" ) ? "right" : "left" );
+					default:
+						return null;
+				}
+			})
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				if ( w.calPrev ) {
@@ -318,36 +326,39 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 		}
 		w.refresh();
 	});
-	if ( w.baseMode === "bootstrap" || w.baseMode === "jqueryui" ) {
-		pickerControl.i.find("select")
-			.addClass("form-control input-sm")
-			.css({"marginTop": "3px", "float": "left"})
-			.first().css({ width: "60%" })
-			.end().last().css({ width: "40%" });
-		if ( o.calNoHeader && o.calUsePickersIcons ) {
-			w.d.intHTML.find( "." + uid + "gridheader" ).append(pickerControl);
-		} else {
+	switch ( w.baseMode ) {
+		case "bootstrap":
+		case "jqueryui":
+			pickerControl.i.find("select")
+				.addClass("form-control input-sm")
+				.css({"marginTop": "3px", "float": "left"})
+				.first().css({ width: "60%" })
+				.end().last().css({ width: "40%" });
+			if ( o.calNoHeader && o.calUsePickersIcons ) {
+				w.d.intHTML.find( "." + uid + "gridheader" ).append(pickerControl);
+			} else {
+				pickerControl.appendTo( w.d.intHTML );
+			}
+			break;
+		case "jqm":
+			pickerControl.i.controlgroup({ mini: true, type: "horizontal" });
+			pickerControl.i.find( "select" ).selectmenu( {
+				nativeMenu: true
+			} );
+			pickerControl.i.find( ".ui-controlgroup-controls" ).css({
+				marginRight: "auto",
+				marginLeft: "auto",
+				width: "100%",
+				display: "table",
+			});
+			pickerControl.i.find( ".ui-select" )
+				.first().css({ width: "60%" })
+				.end().last().css({ width: "40%" });
+			if ( o.calNoHeader && o.calUsePickersIcons ) { 
+				pickerControl.i.css({ padding: "0 10px 5px 10px" });
+			}
 			pickerControl.appendTo( w.d.intHTML );
-		}
-	}
-	if ( w.baseMode === "jqm" ) {
-		pickerControl.i.controlgroup({ mini: true, type: "horizontal" });
-		pickerControl.i.find( "select" ).selectmenu( {
-			nativeMenu: true
-		} );
-		pickerControl.i.find( ".ui-controlgroup-controls" ).css({
-			marginRight: "auto",
-			marginLeft: "auto",
-			width: "100%",
-			display: "table",
-		});
-		pickerControl.i.find( ".ui-select" )
-			.first().css({ width: "60%" })
-			.end().last().css({ width: "40%" });
-		if ( o.calNoHeader && o.calUsePickersIcons ) { 
-			pickerControl.i.css({ padding: "0 10px 5px 10px" });
-		}
-		pickerControl.appendTo( w.d.intHTML );
+			break;
 	}
 };
 
@@ -375,12 +386,15 @@ JTSageDateBox._cal_date_list = function ( calContent ) {
 		w._t( { method: "doset" } );
 	});
 	
-	if ( w.baseMode === "jqm" ) {
-		listControl.find( "select" ).selectmenu( { mini: true, nativeMenu: true } );
-	} 
-	if ( w.baseMode === "bootstrap" ) {
-		listControl.find("select").addClass("form-control input-sm");
+	switch ( w.baseMode ) {
+		case "jqm":
+			listControl.find( "select" ).selectmenu( { mini: true, nativeMenu: true } );
+			break;
+		case "bootstrap":
+			listControl.find("select").addClass("form-control input-sm");
+			break;
 	}
+	
 	listControl.appendTo( calContent );
 };
 
@@ -680,29 +694,32 @@ JTSageDateBox._build.calbox = function () {
 				}
 			}
 		}
-		if ( w.baseMode === "jqm" && o.calControlGroup ) {
-			htmlRow.find("." + uid + "griddate-empty" )
-				.addClass( "ui-btn" );
 
-			if ( o.calOnlyMonth ) {
-				htmlRow.find( "." + uid + "griddate-empty" )
-				.addClass( "ui-state-disabled" );
-			}
+		switch ( w.baseMode ) {
+			case "jqm":
+				if ( o.calControlGroup ) {
+					htmlRow.find("." + uid + "griddate-empty" )
+						.addClass( "ui-btn" );
 
-			htmlRow.controlgroup({type: "horizontal"});
+					if ( o.calOnlyMonth ) {
+						htmlRow.find( "." + uid + "griddate-empty" )
+						.addClass( "ui-state-disabled" );
+					}
+
+					htmlRow.controlgroup({type: "horizontal"});
+				}
+				break;
+			case "bootstrap":
+				htmlRow.addClass("btn-group"); break;
+			case "jqueryui":
+				htmlRow.find( "." + uid + "griddate" )
+					.removeClass("ui-corner-all")
+					.not( "." + uid + "griddate-empty" )
+					.first().addClass( "ui-corner-left" )
+					.end().last().addClass( "ui-corner-right" );
+				break;
 		}
-		if ( w.baseMode === "bootstrap" ) {
-			htmlRow.addClass("btn-group");
-		}
-		if ( w.baseMode === "jqueryui" ) {
-			htmlRow.find( "." + uid + "griddate" )
-				.removeClass("ui-corner-all");
-				
-			htmlRow.find( "." + uid + "griddate" )
-				.not( "." + uid + "griddate-empty" )
-				.first().addClass( "ui-corner-left" )
-				.end().last().addClass( "ui-corner-right" );
-		}
+
 		if ( row === rows - 1 ) { htmlRow.addClass( uid + "gridrow-last" ); }
 		htmlRow.appendTo(calContent);
 	}
