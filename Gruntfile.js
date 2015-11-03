@@ -387,6 +387,7 @@ module.exports = function(grunt) {
 		"jshint:js2",
 		//"qunit",
 		"clean:release",
+		"clean:web",
 		"buildDBox:main_jqm",
 		"buildDBox:main_bootstrap",
 		"buildDBox:main_jqueryui",
@@ -426,7 +427,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask( "updatebuilder", "Update web builder sources", [ "clean:builder", "copy:builder1", "copy:builder2" ] );
 
-	grunt.registerTask( "web", "Build the documentation site", ["copy:web1", "copy:web2", "jekyll:release", "prettify"] );
+	grunt.registerTask( "web", "Build the documentation site", ["clean:web", "copy:web1", "copy:web2", "copy:web3", "jekyll:release", "prettify"] );
+	grunt.registerTask( "testweb", "Build the documentation site quickly", ["copy:web1", "copy:web2", "copy:web3", "jekyll:release"] );
 	grunt.registerTask( "devweb", "Test the documentation site", ["copy:web1", "copy:web2", "jekyll:latest", "prettify"] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane"] );

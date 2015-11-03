@@ -77,7 +77,7 @@ foreach ( $defaults as $key => $value ) {
 	<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
 
-	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqm{{site.min}}.js"></script>
+	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver | remove_first: "-" }}/jtsage-datebox{{ site.dbver }}.jqm{{site.min}}.js"></script>
 	<script type="text/javascript" src="{{ site.i18n }}jtsage-datebox.lang.utf8.js"></script>
 	
 	<script type="text/javascript">
