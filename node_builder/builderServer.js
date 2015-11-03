@@ -14,7 +14,7 @@ var path = "src/4.0.0/",
 
 //We need a function which handles requests and send response
 function handleRequest(request, response){
-	if ( request.url !== "/build" || request.method !== "POST" ) {
+	if ( request.method !== "POST" ) {
 		response.writeHead(200, {'Content-Type': 'text/html'});
 		response.end(formFile);
 	} else {
@@ -143,6 +143,9 @@ function handleRequest(request, response){
 		});
 	}
 }
+
+process.setgid('www-data');
+process.setuid('www-data');
 
 var server = http.createServer(handleRequest);
 

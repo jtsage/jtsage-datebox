@@ -17,3 +17,5 @@ dist
 TODO
 
 node_builder/src
+node_builder/starter.sh
+node_builder/log.txt
