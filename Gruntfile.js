@@ -100,6 +100,7 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
+			web: ["docs/_site/"],
 			latest: ["dist/latest/"],
 			release: ["dist/<%= pkg.version %>/"],
 			i18n: ["dist/i18n"],

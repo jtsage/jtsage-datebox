@@ -1,10 +1,9 @@
-jQuery-Mobile-DateBox
-=====================
+JTSage-DateBox
+=================
 
-DateBox is a jQuery-mobile based date and time picker. [Full Documentation and Demos](http://dev.jtsage.com/jQM-DateBox/)
+DateBox is a jQuery date and time picker. [Full Documentation and Demos](http://dev.jtsage.com/DateBox/), that works
+with jQueryMobile, Bootstrap, and/or jQueryUI.
 
-The 'agnostic' branch is a new semi-fork, eventually to be mainline version which aims to be framework agnostic - i.e., it will 
-work just fine with jQuery-UI, or, hopefully, Bootstrap + jQuery-UI Widget Factory.  We shall see.
 
 DateBox Features
 ----------------
@@ -15,7 +14,7 @@ DateBox Features
    - Full Calendar display (date only)
    - Flip (IOS) style
    - Slide style (date and time only)
- - Multiple window modes
+ - Multiple window modes (dependant on framework)
    - Popup or Dropdown
    - Inline
    - Inline window-blind
@@ -38,7 +37,7 @@ All scripts are available on the cdn:
 
 DateBox uses the following version scheme:
 
-[http://cdn.jtsage.com/jtsage-datebox/&lt;jqm VERSION&gt;/](http//cdn.jtsage.com/jtsage-datebox/)
+[http://cdn.jtsage.com/jtsage-datebox/&lt;VERSION&gt;/](http//cdn.jtsage.com/jtsage-datebox/)
 
 #### Latest Versions:
 
@@ -63,6 +62,26 @@ Suggested Use
 	jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
 		'overrideDateFormat': '%d.%m.%Y',
 	});
+
+Upgradeing
+----------
+JTSage-DateBox is fully compatible with the old jQM-DateBox, just replace the jQM-DateBox sources with
+the new source file.  
+
+If you have written any of your own code referencing jQM-DateBox, note that the namespace of the plugin has changed to "jtsage".
+
+	// Old Way - Data Attribute
+	$( "#someInput" ).data('mobile-datebox');
+
+	// New Way - Data Attribute
+	$( "#someInput" ).date('jtsage-datebox');
+
+
+	// Old Way - Prototype Overrides
+	jQuery.extend(jQuery.mobile.datebox.prototype.options, {} );
+
+	// New Way - Prototype Overrides
+	jQuery.extend(jQuery.jtsage.datebox.prototype.options, {} );
 
 Available Options
 -----------------
