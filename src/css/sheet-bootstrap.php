@@ -362,30 +362,3 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 }
 
 span.ui-datebox-nopad { margin: 0 }
-.ui-datebox-repad { margin: .5em .4375em }
-
-/*
- * 6 Element Grid - Used for datebox w/ time only.
- */
-
-.ui-grid-e > .ui-block-a,
-.ui-grid-e > .ui-block-b,
-.ui-grid-e > .ui-block-c,
-.ui-grid-e > .ui-block-d,
-.ui-grid-e > .ui-block-e,
-.ui-grid-e > .ui-block-f {
-	width: 16.65%;
-}
-.ui-grid-e { 
-	overflow: hidden;
-}
-.ui-block-f {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	float: left;
-	min-height: 1px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
