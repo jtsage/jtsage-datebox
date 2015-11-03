@@ -102,7 +102,8 @@ module.exports = function(grunt) {
 		clean: {
 			latest: ["dist/latest/"],
 			release: ["dist/<%= pkg.version %>/"],
-			i18n: ["dist/i18n"]
+			i18n: ["dist/i18n"],
+			builder: ["node_builder/src/<%= pkg.version %>/"]
 		},
 		uglify: {
 			options: {
@@ -298,6 +299,21 @@ module.exports = function(grunt) {
       		web3: {
       			src: "src/css/sheet-jqueryui.php",
       			dest: "docs/theme/jqueryui/sheet.php"
+      		},
+      		builder1: {
+      			expand: true,
+      			cwd: "src/js",
+      			src: "**/*.js",
+      			dest: "node_builder/src/<%= pkg.version %>/js/"
+      		},
+      		builder2: {
+      			expand: true,
+      			cwd: "dist/<%= pkg.version %>/",
+      			src: "*.css",
+      			dest: "node_builder/src/<%= pkg.version %>/css/",
+      			rename: function(dest, src) {
+        			return dest + src.replace( "jtsage-datebox-" + pkgJSON.version + "." , "" );
+      			}
       		}
   		},
 		prettify: {
@@ -382,6 +398,7 @@ module.exports = function(grunt) {
 		"copy:web1",
 		"copy:web2",
 		"copy:web3",
+		"updatebuilder",
 		"jekyll:release",
 		"prettify",
 		"makei18n"
@@ -405,6 +422,8 @@ module.exports = function(grunt) {
 		"makei18n",
 		"uglify:i18n"
 	] );
+
+	grunt.registerTask( "updatebuilder", "Update web builder sources", [ "clean:builder", "copy:builder1", "copy:builder2" ] );
 
 	grunt.registerTask( "web", "Build the documentation site", ["copy:web1", "copy:web2", "jekyll:release", "prettify"] );
 	grunt.registerTask( "devweb", "Test the documentation site", ["copy:web1", "copy:web2", "jekyll:latest", "prettify"] );
