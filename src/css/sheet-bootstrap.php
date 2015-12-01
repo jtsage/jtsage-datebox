@@ -251,7 +251,7 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 	margin-right: auto;
 	margin-left: auto;
 	position: relative;
-	-webkit-box-shadow: 0 0 12px rgba(0,0,0,.6); */
+	-webkit-box-shadow: 0 0 12px rgba(0,0,0,.6);
     -moz-box-shadow: 0 0 12px rgba(0,0,0,.6);
     box-shadow: 0 0 12px rgba(0,0,0,.6);
 }
