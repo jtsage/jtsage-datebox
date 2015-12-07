@@ -301,6 +301,13 @@ module.exports = function(grunt) {
       			src: "src/css/sheet-jqueryui.php",
       			dest: "docs/theme/jqueryui/sheet.php"
       		},
+      		cssfix: {
+      			files: [
+      				{ src: "src/css/sheet-bootstrap.php",	dest: "docs/_site/theme/bootstrap/sheet.php" },
+      				{ src: "src/css/sheet.php", 			dest: "docs/_site/theme/jqm/sheet.php" },
+  					{ src: "src/css/sheet-jqueryui.php", 	dest: "docs/_site/theme/jqueryui/sheet.php" }
+      			]
+      		},
       		builder1: {
       			expand: true,
       			cwd: "src/js",
@@ -381,7 +388,21 @@ module.exports = function(grunt) {
 		"jshint:js_sane",
 	]);
 		
-	
+	grunt.registerTask( "cssfix", "Quick Build a CSS fix", [
+		"exec:latest_make_css_jqm",
+		"exec:latest_make_css_bootstrap",
+		"exec:latest_make_css_jqueryui",
+		"exec:main_make_css_jqm",
+		"exec:main_make_css_bootstrap",
+		"exec:main_make_css_jqueryui",
+		"cssmin:latest",
+		"cssmin:release",
+		"copy:web1",
+		"copy:web2",
+		"copy:web3",
+		"copy:cssfix"
+	] );
+
 	grunt.registerTask( "release", "Build a release version of DateBox", [
 		"jshint:js",
 		"jshint:js2",

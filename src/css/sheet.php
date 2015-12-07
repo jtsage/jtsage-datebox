@@ -227,9 +227,6 @@ div.ui-datebox-container.ui-datebox-inline {
     margin-left: 1%;
 }
 
-.ui-datebox-datebox-group div.ui-input-text {
-	width: 100%;
-}
 .ui-datebox-datebox-group div {
 	margin: 0;
 }
