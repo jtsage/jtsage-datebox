@@ -222,6 +222,13 @@ div.ui-datebox-container.ui-datebox-inline {
 .ui-datebox-datebox-group input {
 	text-align: center;
 }
+.ui-datebox-datebox-group {
+	padding-left: 1px;
+	padding-right: 1px;
+}
+.ui-datebox-datebox-group .ui-input-text {
+	width: 100%;
+}
 .ui-datebox-datebox-groups {
 	width: 97.5%;
     margin-left: 1%;
