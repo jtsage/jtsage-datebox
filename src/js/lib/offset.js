@@ -32,7 +32,7 @@ JTSageDateBox._offset = function(mode, amount, update) {
 					ok = 1;
 				} else {
 					tempBad = now.get(1) + amount;
-					if ( bad < 0 ) { 
+					if ( tempBad < 0 ) { 
 						bad = [1, 12 + tempBad];
 					} else {
 						bad = [1, tempBad % 12];
@@ -60,10 +60,10 @@ JTSageDateBox._offset = function(mode, amount, update) {
 					ok = 3;
 				} else {
 					tempBad = now.get(3) + amount;
-					if ( bad < 0 ) { 
-						bad = [3, 23 + tempBad];
+					if ( tempBad < 0 ) { 
+						bad = [3, 24 + tempBad];
 					} else {
-						bad = [3, tempBad % 23];
+						bad = [3, tempBad % 24];
 					}
 				}
 				break;
@@ -72,10 +72,10 @@ JTSageDateBox._offset = function(mode, amount, update) {
 					ok = 4;
 				} else {
 					tempBad = now.get(4) + amount;
-					if ( bad < 0 ) { 
+					if ( tempBad < 0 ) { 
 						bad = [4, 59 + tempBad];
 					} else {
-						bad = [4, tempBad % 59];
+						bad = [4, tempBad % 60];
 					}
 				}
 				break;

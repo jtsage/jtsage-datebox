@@ -426,6 +426,22 @@ module.exports = function(grunt) {
 		"prettify",
 		"makei18n"
 	] );
+
+	grunt.registerTask( "bugrelease", "Build a bug release version of DateBox", [
+		"jshint:js",
+		"jshint:js2",
+		//"qunit",
+		"clean:release",
+		"clean:web",
+		"buildDBox:main_jqm",
+		"buildDBox:main_bootstrap",
+		"buildDBox:main_jqueryui",
+		"exec:main_make_css_jqm",
+		"exec:main_make_css_bootstrap",
+		"exec:main_make_css_jqueryui",
+		"uglify:release",
+		"cssmin:release",
+	] );
 	
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
 		"clean:latest",
