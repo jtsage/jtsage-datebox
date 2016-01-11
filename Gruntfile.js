@@ -432,7 +432,6 @@ module.exports = function(grunt) {
 		"jshint:js2",
 		//"qunit",
 		"clean:release",
-		"clean:web",
 		"buildDBox:main_jqm",
 		"buildDBox:main_bootstrap",
 		"buildDBox:main_jqueryui",
