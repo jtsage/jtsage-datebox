@@ -38,11 +38,12 @@
 	<script type="text/javascript" src="../src/js/modes/datebox.js"></script>
 	<script type="text/javascript" src="../src/js/modes/flipbox.js"></script>
 	<script type="text/javascript" src="../src/js/modes/calbox.js"></script>
+	<script type="text/javascript" src="../src/js/modes/slidebox.js"></script>
 
 	<script type="text/javascript" src="../src/js/widgetBinding.js"></script>
 	
 
-	<script type="text/javascript" src="../src/js/mode.slidebox.js"></script>
+	
 	
 	<script type="text/javascript" src="./jqm-datebox-devtool.js"></script>
 	<script type="text/javascript" src="http://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
@@ -57,7 +58,7 @@
 			}
 		}
 		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
-			closeCallback: function(a, b) { console.log(a); console.log(b); },
+			/*closeCallback: function(a, b) { console.log(a); console.log(b); },
 			closeCallbackArgs: ['hi'],
 			//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
 			//useLang: "ar",
@@ -85,7 +86,7 @@
 				{"input": false, "name": "Wheel2", "data":["a","b","c","d"]},
 				{"input": false, "name": "Wheel3", "data":["a","b","c","d"]},
 			],
-			overrideSlideFieldOrder: ["y","a","m","d","h","i"],
+			overrideSlideFieldOrder: ["y","a","m","d","h","i"],*/
 
 		});
 	</script>
@@ -104,7 +105,7 @@
 
 		<div class="ui-field-contain">
 			<label for="lang1">yep</label>
-			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="flipbox" id="lang1" data-options='{"overrideDurationOrder": ["h","i","s"], "overrideDurationFormat":"%Dl:%DM:%DS"}' />
+			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang1" data-options='{"overrideDurationOrder": ["h","i","s"], "overrideDurationFormat":"%Dl:%DM:%DS"}' />
 		</div>
 		<div class="ui-field-contain">
 			<label for="ba1">text comparison</label>

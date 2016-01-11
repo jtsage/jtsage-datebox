@@ -118,6 +118,7 @@ JTSageDateBox._cal_check = function (checkDates, year, month, date, done) {
 		) {
 			ret.ok = false;
 		}
+		
 	}
 
 	if ( $.isArray(o.whiteDates) && $.inArray(ret.iso, o.whiteDates) > -1 ) {
@@ -662,7 +663,10 @@ JTSageDateBox._build.calbox = function () {
 							.addClass( uid + "griddate")
 							.addClass( "" +
 								( ( curMonth === genny[row][col][1] || checked.force ) ?
-									( o.btnCls + checked.theme ) :
+									( (!checked.ok && w.baseMode === "jqm") ? 
+										o.btnCls + " " + checked.theme : 
+										o.btnCls + checked.theme
+									) :
 									( uid + "griddate-empty" +
 										( ( w.baseMode === "bootstrap" ) ?
 											o.btnCls + "default" : "" 
