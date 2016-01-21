@@ -55,10 +55,18 @@ function handleRequest(request, response){
 					break;
 			}
 
+			modeArray = [];
+
+			if ( Array.isArray(inputQ.modes)) {
+				modeArray = inputQ.modes;
+			} else {
+				modeArray[0] = inputQ.modes;
+			}
+
 			var preamble = [
 				"/*",
 				" * JTSage-DateBox",
-				" * For: " + frame + "; With: " + inputQ.modes.join(", "),
+				" * For: " + frame + "; With: " + modeArray.join(", "),
 				" * Date: " + today.toJSON(),
 				" * http://dev.jtsage.com/DateBox/",
 				" * https://github.com/jtsage/jquery-mobile-datebox",
@@ -69,7 +77,7 @@ function handleRequest(request, response){
 				" *",
 				" */" ].join("\n");
 
-			inputQ.modes.forEach( function (mode) {
+			modeArray.forEach( function (mode) {
 				switch (mode) {
 					case "datebox":
 						baseFiles.push( path + "js/modes/datebox.js" ); break;
