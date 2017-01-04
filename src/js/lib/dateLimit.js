@@ -133,17 +133,20 @@ JTSageDateBox._fixstepper = function( order ) {
 	// unit in the same control.
 	var step = this.options.durationSteppers,
 		actual = this.options.durationStep;
-	
-	if ( $.inArray( "s", order ) > -1 ) {
-		step.i = 1;
-		step.s = actual;
-	}
-	if ( $.inArray( "i", order ) > -1 ) {
-		step.h = 1;
-		step.s = actual;
+
+	if ( $.inArray( "d", order ) > -1 ) {
+		step.d = actual;
 	}
 	if ( $.inArray( "h", order ) > -1 ) {
 		step.d = 1;
+		step.h = actual;
+	}
+	if ( $.inArray( "i", order ) > -1 ) {
+		step.h = 1;
+		step.i = actual;
+	}
+	if ( $.inArray( "s", order ) > -1 ) {
+		step.i = 1;
 		step.s = actual;
 	}
 };
