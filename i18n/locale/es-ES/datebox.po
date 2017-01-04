@@ -1,8 +1,9 @@
 msgid ""
-msgstr "Project-Id-Version: jquery-mobile-datebox\n"
+msgstr ""
+"Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2014-06-28 15:55-0400\n"
+"PO-Revision-Date: 2017-01-04 11:31-0500\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -10,7 +11,10 @@ msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: crowdin.net\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: jquery-mobile-datebox\n"
+"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-File: datebox.po\n"
 
 #. POSIX style date format for header
 #: generate-i18n.py:35

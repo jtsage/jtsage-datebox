@@ -5,26 +5,26 @@ msgstr ""
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
 "PO-Revision-Date: 2017-01-04 11:31-0500\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
-"Language-Team: Chinese Traditional\n"
-"Language: zh_TW\n"
+"Language-Team: Slovak\n"
+"Language: sk_SK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: jquery-mobile-datebox\n"
-"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-Language: sk\n"
 "X-Crowdin-File: datebox.po\n"
 
 #. POSIX style date format for header
 #: generate-i18n.py:35
 msgid "%A, %B %-d, %Y"
-msgstr "%A, %B %-d, %Y"
+msgstr "%-d. %B %Y (%A)"
 
 #. POSIX sytle date format for returned dates
 #: generate-i18n.py:39
 msgid "%Y-%m-%d"
-msgstr "%Y-%m-%d"
+msgstr "%d.%m.%Y"
 
 #. Field order for time input (h=hour, i=minute, a=AM/PM)
 #: generate-i18n.py:37
@@ -34,7 +34,7 @@ msgstr "'h', 'i', 'a'"
 #. Field order for date input (m=month, d=day, y=year)
 #: generate-i18n.py:36
 msgid "'m', 'd', 'y'"
-msgstr "'m', 'd', 'y'"
+msgstr "'d','m','y'"
 
 #. Field order for slide input (y=year, m=month, d=day)
 #: generate-i18n.py:38
@@ -49,229 +49,229 @@ msgstr "24"
 #. Abbreviation for the month 'April'
 #: generate-i18n.py:28
 msgid "Apr"
-msgstr "四"
+msgstr "Apr"
 
 #: generate-i18n.py:27
 msgid "April"
-msgstr "四月"
+msgstr "Apríl"
 
 #. Abbreviation for the month 'August'
 #: generate-i18n.py:28
 msgid "Aug"
-msgstr "八"
+msgstr "Aug"
 
 #: generate-i18n.py:27
 msgid "August"
-msgstr "八月"
+msgstr "August"
 
 #: generate-i18n.py:30
 msgid "Day"
-msgstr "天"
+msgstr "Deň"
 
 #: generate-i18n.py:29 generate-i18n.py:30
 msgid "Days"
-msgstr "天"
+msgstr "Dni"
 
 #. Abbreviation for the month 'December'
 #: generate-i18n.py:28
 msgid "Dec"
-msgstr "十二"
+msgstr "Dec"
 
 #: generate-i18n.py:27
 msgid "December"
-msgstr "十二月"
+msgstr "December"
 
 #. Abbreviation for the month 'February'
 #: generate-i18n.py:28
 msgid "Feb"
-msgstr "二"
+msgstr "Feb"
 
 #: generate-i18n.py:27
 msgid "February"
-msgstr "二月"
+msgstr "Februára"
 
 #. Abbreviation for the day 'Friday'
 #: generate-i18n.py:26
 msgid "Fr"
-msgstr "五"
+msgstr "Pi"
 
 #: generate-i18n.py:25
 msgid "Friday"
-msgstr "星期五"
+msgstr "Piatok"
 
 #: generate-i18n.py:29
 msgid "Hours"
-msgstr "小時"
+msgstr "Hodín"
 
 #. Abbreviation for the month 'January'
 #: generate-i18n.py:28
 msgid "Jan"
-msgstr "一"
+msgstr "Jan"
 
 #: generate-i18n.py:27
 msgid "January"
-msgstr "一月"
+msgstr "Január"
 
 #. Abreviation for the month 'July'
 #: generate-i18n.py:28
 msgid "Jul"
-msgstr "七"
+msgstr "Júl"
 
 #: generate-i18n.py:27
 msgid "July"
-msgstr "七月"
+msgstr "Júl"
 
 #: generate-i18n.py:22
 msgid "Jump to Today"
-msgstr "選擇今天日期"
+msgstr "Teraz"
 
 #. Abbreviation for the month 'June'
 #: generate-i18n.py:28
 msgid "Jun"
-msgstr "六"
+msgstr "Jún"
 
 #: generate-i18n.py:27
 msgid "June"
-msgstr "六月"
+msgstr "Jún"
 
 #. Abbreviation for the month 'March'
 #: generate-i18n.py:28
 msgid "Mar"
-msgstr "三"
+msgstr "Mar"
 
 #: generate-i18n.py:27
 msgid "March"
-msgstr "三月"
+msgstr "Marec"
 
 #. Abbreviation for the month 'May'
 #: generate-i18n.py:28
 msgid "Ma"
-msgstr "五"
+msgstr "Máj"
 
 #: generate-i18n.py:27
 msgid "May"
-msgstr "五月"
+msgstr "Máj"
 
 #: generate-i18n.py:29
 msgid "Minutes"
-msgstr "分鐘"
+msgstr "Minút"
 
 #. Abbreviation for the day 'Monday'
 #: generate-i18n.py:26
 msgid "Mo"
-msgstr "一"
+msgstr "Po"
 
 #: generate-i18n.py:25
 msgid "Monday"
-msgstr "星期一"
+msgstr "Pondelok"
 
 #: generate-i18n.py:32
 msgid "Next Month"
-msgstr "下個月"
+msgstr "Neskôr"
 
 #. Abbreviation for the month 'November'
 #: generate-i18n.py:28
 msgid "Nov"
-msgstr "十一"
+msgstr "Nov"
 
 #: generate-i18n.py:27
 msgid "November"
-msgstr "十一月"
+msgstr "November"
 
 #. Abbreviation for the month 'October'
 #: generate-i18n.py:28
 msgid "Oct"
-msgstr "十"
+msgstr "Okt"
 
 #: generate-i18n.py:27
 msgid "October"
-msgstr "十月"
+msgstr "Október"
 
 #: generate-i18n.py:31
 msgid "Open Date Picker"
-msgstr "開啟日期選擇"
+msgstr "Otvoriť výber dáta"
 
 #: generate-i18n.py:33
 msgid "Previous Month"
-msgstr "上個月"
+msgstr "Predtým"
 
 #. Abbreviation for the day 'Saturday'
 #: generate-i18n.py:26
 msgid "Sa"
-msgstr "六"
+msgstr "So"
 
 #: generate-i18n.py:25
 msgid "Saturday"
-msgstr "星期六"
+msgstr "Sobota"
 
 #: generate-i18n.py:29
 msgid "Seconds"
-msgstr "秒"
+msgstr "Sekund"
 
 #. Abbreviation for the month 'September'
 #: generate-i18n.py:28
 msgid "Sep"
-msgstr "九"
+msgstr "Sep"
 
 #: generate-i18n.py:27
 msgid "September"
-msgstr "九月"
+msgstr "September"
 
 #: generate-i18n.py:19
 msgid "Set Date"
-msgstr "設定日期"
+msgstr "Nastaviť dátum"
 
 #: generate-i18n.py:23
 msgid "Choose Date"
-msgstr "選擇日期"
+msgstr "Zvoľte dátum"
 
 #: generate-i18n.py:21
 msgid "Set Duration"
-msgstr "設定持續日期"
+msgstr "Nastaviť dobu trvania"
 
 #: generate-i18n.py:20 generate-i18n.py:24
 msgid "Set Time"
-msgstr "設定時間"
+msgstr "Nastaviť čas"
 
 #: generate-i18n.py:24
 msgid "Choose Time"
-msgstr "選擇時間"
+msgstr "Zvoľte dátum"
 
 #. Abbreviation for the day 'Sunday'
 #: generate-i18n.py:26
 msgid "Su"
-msgstr "日"
+msgstr "Ne"
 
 #: generate-i18n.py:25
 msgid "Sunday"
-msgstr "星期日"
+msgstr "Nedeľa"
 
 #. Abbreviation for the day 'Thursday'
 #: generate-i18n.py:26
 msgid "Th"
-msgstr "四"
+msgstr "Št"
 
 #: generate-i18n.py:25
 msgid "Thursday"
-msgstr "星期四"
+msgstr "Štvrtok"
 
 #. Abbreviation for the day 'Tuesday'
 #: generate-i18n.py:26
 msgid "Tu"
-msgstr "二"
+msgstr "Ut"
 
 #: generate-i18n.py:25
 msgid "Tuesday"
-msgstr "星期二"
+msgstr "Utorok"
 
 #. Abbreviation for the day 'Wednesday'
 #: generate-i18n.py:26
 msgid "We"
-msgstr "三"
+msgstr "St"
 
 #: generate-i18n.py:25
 msgid "Wednesday"
-msgstr "星期三"
+msgstr "Streda"
 
 #. Set to "true" if this language uses the Arabic/Indic numerals (not 1,2,3...)
 #: generate-i18n.py:40
@@ -286,11 +286,11 @@ msgstr "false"
 #. Set to the start day of the calendar (0=Sunday)
 #: generate-i18n.py:42
 msgid "0"
-msgstr "0"
+msgstr "1"
 
 #: generate-i18n.py:43
 msgid "Clear"
-msgstr "清除"
+msgstr "Vymazať"
 
 #: generate-i18n.py:44
 msgid "'d', 'h', 'i', 's'"
@@ -298,15 +298,15 @@ msgstr "'d', 'h', 'i', 's'"
 
 #: generate-i18n.py:45
 msgid "AM"
-msgstr "上午"
+msgstr "AM"
 
 #: generate-i18n.py:45
 msgid "PM"
-msgstr "下午"
+msgstr "PM"
 
 #: generate-i18n.py:46
 msgid "%k:%M"
-msgstr "%k:%M"
+msgstr "%l:%M %p"
 
 #: generate-i18n.py:47
 msgid "%Dd %DA, %Dl:%DM:%DS"
@@ -314,7 +314,7 @@ msgstr "%Dd %DA, %Dl:%DM:%DS"
 
 #: generate-i18n.py:48
 msgid "Other Dates"
-msgstr "其他日期"
+msgstr "Ďalšie termíny"
 
 #. Header format for calendar mode (usually Month Year)
 #: generate-i18n.py:49
@@ -324,5 +324,5 @@ msgstr "%B %Y"
 #. Header format for calendar mode (usually Month Year)
 #: generate-i18n.py:50
 msgid "Jump to Tomorrow"
-msgstr "跳轉到明天"
+msgstr "Prejsť na zajtrajšok"
 
