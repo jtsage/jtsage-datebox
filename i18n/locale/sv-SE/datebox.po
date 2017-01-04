@@ -286,7 +286,7 @@ msgstr "0"
 
 #: generate-i18n.py:43
 msgid "Clear"
-msgstr "Klart"
+msgstr "Töm"
 
 #: generate-i18n.py:44
 msgid "'d', 'h', 'i', 's'"
