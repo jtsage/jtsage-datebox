@@ -384,6 +384,17 @@ JTSageDateBox._build.datebox = function () {
 	}
 	
 	allControls.on( "change", "input", function() { w._dbox_enter( $( this ) ); });
+	allControls.on( "keypress", "input", function(e) {
+		if ( e.which == 13 && w.dateOK === true ) {
+			w._dbox_enter( $( this ) );
+			w._t( {
+				method: "set",
+				value: w._formatter(w.__fmt(),w.theDate),
+				date: w.theDate
+			} );
+			w._t( { method: "close" } );
+		}
+	});
 			
 	if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
 		allControls.on( "mousewheel", "input", function( e, d ) {
