@@ -190,6 +190,7 @@ JTSageDateBox._cal_prev_next = function (container) {
 			})
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
+				e.stopPropagation();
 				if ( w.calNext ) {
 					if ( w.calBackDate === false ) { 
 						w.calBackDate = new Date(w.theDate.getTime());
@@ -197,6 +198,7 @@ JTSageDateBox._cal_prev_next = function (container) {
 					if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
 					w._offset( "m", 1 );
 				}
+				return false;
 		});
 
 	$( w._spf("<div class='{class}'><a href='#'>{name}</a></div>", {
@@ -221,6 +223,7 @@ JTSageDateBox._cal_prev_next = function (container) {
 			})
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
+				e.stopPropagation();
 				if ( w.calPrev ) {
 					if ( w.calBackDate === false ) { 
 						w.calBackDate = new Date(w.theDate.getTime());
@@ -230,6 +233,7 @@ JTSageDateBox._cal_prev_next = function (container) {
 					}
 					w._offset( "m", -1 );
 				}
+				return false;
 			});			
 };
 
