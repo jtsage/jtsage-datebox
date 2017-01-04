@@ -499,7 +499,7 @@ JTSageDateBox.open = function () {
 
 		w.d.wrap.addClass( "open" );
 
-		w.d.backdrop = $("<div></div>")
+		w.d.backdrop = $("<div class='jtsage-datebox-backdrop-div'></div>")
 			.css({ position: "fixed", left: 0, top: 0, bottom: 0, right: 0 })
 			.appendTo( "body" )
 			.on( o.clickEvent, function (e) {
@@ -558,6 +558,7 @@ JTSageDateBox.close = function() {
 		if ( o.useAnimation === true ) {
 			w.d.mainWrap.removeClass( "in");
 			w.d.backdrop.remove();
+			$('.jtsage-datebox-backdrop-div').remove();
 			window.setTimeout(function () {
 				w.d.wrap.removeClass( "open" );
 				basepop.afterclose.call();
@@ -566,6 +567,7 @@ JTSageDateBox.close = function() {
 		} else {
 			w.d.wrap.removeClass( "open" );
 			w.d.backdrop.remove();
+			$('.jtsage-datebox-backdrop-div').remove();
 			basepop.afterclose.call();
 		}
 	}
