@@ -3,6 +3,7 @@ jquiver: "1.11.4"
 jqmver: "1.4.5"
 bsver: "3.3.5"
 dbver: "-4.0.0"
+dbverdir: "4.0.0"
 cdn: "http://cdn.jtsage.com/jtsage-datebox/"
 i18n: "http://cdn.jtsage.com/jtsage-datebox/i18n/"
 highlighter: rouge

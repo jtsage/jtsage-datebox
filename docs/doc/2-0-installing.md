@@ -48,8 +48,8 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 <div class="panel-body">
 
 {% highlight html %}
-<link href="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqm.min.css" rel="stylesheet" type="text/css">
-<script src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqm.min.js" type="text/javascript"></script>
+<link href="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.jqm.min.css" rel="stylesheet" type="text/css">
+<script src="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.jqm.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>
@@ -63,8 +63,8 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 <div class="panel-body">
 
 {% highlight html %}
-<link href="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.bootstrap.min.css" rel="stylesheet" type="text/css">
-<script src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.bootstrap.min.js" type="text/javascript"></script>
+<link href="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.bootstrap.min.css" rel="stylesheet" type="text/css">
+<script src="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.bootstrap.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>
@@ -77,8 +77,8 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 <div class="panel-body">
 
 {% highlight html %}
-<link href="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqueryui.min.css" rel="stylesheet" type="text/css">
-<script src="{{ site.cdn }}{{ site.dbver }}/jtsage-datebox{{ site.dbver }}.jqueryui.min.js" type="text/javascript"></script>
+<link href="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.jqueryui.min.css" rel="stylesheet" type="text/css">
+<script src="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.jqueryui.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>
