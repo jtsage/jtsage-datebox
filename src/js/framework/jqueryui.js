@@ -522,7 +522,7 @@ JTSageDateBox.open = function () {
 		});
 
 	window.setTimeout(function () {
-		w.d.mainWrap.slideDown(o.useAnimationTime, function() {
+		w.d.mainWrap.slideDown((o.useAnimation === true ) ? o.useAnimationTime : 0, function() {
 			basepop.afteropen.call();
 		});
 	}, 0);
@@ -566,7 +566,7 @@ JTSageDateBox.close = function() {
 	}
 
 	w.d.backdrop.remove();
-	w.d.mainWrap.slideUp(o.useAnimationTime, function() {
+	w.d.mainWrap.slideUp((o.useAnimation === true ) ? o.useAnimationTime : 0, function() {
 		basepop.afterclose.call();
 	});
 
