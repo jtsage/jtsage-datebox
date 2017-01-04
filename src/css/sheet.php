@@ -309,6 +309,7 @@ div.ui-datebox-datebox-button.ui-btn.ui-corner-all.ui-icon-minus {
 }
 .ui-datebox-flipcontent li {
 	height: <?php echo $use['fEleHeight'] ?>px;
+	box-sizing: border-box;
 }
 .ui-datebox-flipcontent li span {
 	margin-top: 7px;

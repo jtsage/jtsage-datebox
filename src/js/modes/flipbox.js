@@ -20,11 +20,11 @@ mergeOpts({
 	
 	validHours: false,
 	flen: { 
-		"y": 15,
-		"m": 12,
-		"d": 20,
-		"h": 12,
-		"i": 15,
+		"y": 25,
+		"m": 24,
+		"d": 40,
+		"h": 24,
+		"i": 30,
 	},
 	durationStep: 1,
 	durationSteppers: {
@@ -358,6 +358,8 @@ JTSageDateBox._build.flipbox = function () {
 				e.pageY;
 			g.end = false;
 			g.direc = ( dur ) ? -1 : 1;
+			g.velocity = 0;
+			g.time = Date.now();
 			e.stopPropagation();
 			e.preventDefault();
 		}
@@ -377,7 +379,16 @@ JTSageDateBox._drag.flipbox = function() {
 			g.end = ( e.type.substr(0,5) === "touch" ) ? 
 				e.originalEvent.changedTouches[0].pageY : 
 				e.pageY;
-			g.target.css("marginTop", (g.pos + g.end - g.start) + "px");
+			
+			newTop = g.pos + g.end - g.start;
+
+			g.target.css("marginTop", newTop + "px");
+
+			delta = g.end-g.start;
+
+			g.elapsed = Date.now()-g.time;
+			g.velocity = 0.8 * (100 * delta / (1 + g.elapsed)) + 0.2 * g.velocity;
+
 			e.preventDefault();
 			e.stopPropagation();
 			return false;
@@ -386,18 +397,49 @@ JTSageDateBox._drag.flipbox = function() {
 	
 	$(document).on(g.eEnd, function(e) {
 		if ( g.move && o.mode.slice(-7) === "flipbox" ) {
-			g.move = false;
-			if ( g.end !== false ) {
+			if ( g.velocity < 15 && g.velocity > -15 )  {
+				g.move = false;
+				if ( g.end !== false ) {
+					e.preventDefault();
+					e.stopPropagation();
+					g.tmp = g.target.parent().parent();
+					w._offset(
+						g.tmp.data("field"),
+						(parseInt((g.start - g.end) / ( g.target.outerHeight() - 2 ),10)*
+							g.tmp.data( "amount" ) * g.direc));
+				}
+				g.start = false;
+				g.end = false;
+			} else {
+				g.move = false;
+				g.start = false;
+				g.end = false;
+				g.tmp = g.target.parent().parent();
+
+				eachItem = g.target.outerHeight();
+
+				delta = (-(g.velocity*.8) * Math.exp(-g.elapsed / 325) * 4) * -1;
+
+				currentPosition = parseInt(g.target.css("marginTop").replace(/px/i, ""),10);
+				goodPosition = parseInt(currentPosition + delta, 10);
+
+				totalMove = g.pos - goodPosition; 
+				numberFull = Math.round(totalMove / ( eachItem ));
+				goodGuess = numberFull * g.tmp.data( "amount" ) * g.direc;
+				
+				g.target.animate(
+					{
+						marginTop: goodPosition
+					}, 
+					parseInt(10000/g.velocity) + 1000,
+					function() {
+						w._offset( g.tmp.data("field"), goodGuess);
+					}
+				);
+
 				e.preventDefault();
 				e.stopPropagation();
-				g.tmp = g.target.parent().parent();
-				w._offset(
-					g.tmp.data("field"),
-					(parseInt((g.start - g.end) / ( g.target.outerHeight() - 2 ),10)*
-						g.tmp.data( "amount" ) * g.direc));
 			}
-			g.start = false;
-			g.end = false;
 		}
 	});
 };
