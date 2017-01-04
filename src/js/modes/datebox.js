@@ -181,7 +181,7 @@ JTSageDateBox._dbox_enter = function (item) {
 	if ( this.options.mode === "durationbox" ) { 
 		w.theDate.setTime( w.initDate.getTime() + ( t * 1000 ) );
 	}
-	w.refresh();
+	setTimeout(function() { w.refresh(); }, 150);
 };
 
 JTSageDateBox._dbox_button = function (direction, field, amount) {
