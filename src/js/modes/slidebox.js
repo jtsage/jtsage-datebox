@@ -225,7 +225,7 @@ JTSageDateBox._drag.slidebox = function() {
 	$(document).on(g.eEnd, function(e) {
 		var eachItem, delta, currentPosition, goodPosition, totalMove, numberFull, goodGuess;
 		if ( g.move && o.mode === "slidebox" ) {
-			if ( g.velocity < 15 && g.velocity > -15 )  {
+			if ( ( g.velocity < 15 && g.velocity > -15 ) || !o.useKinetic )  {
 				g.move = false;
 				if ( g.end !== false ) {
 					e.preventDefault();

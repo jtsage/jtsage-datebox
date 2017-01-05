@@ -43,6 +43,7 @@ JTSageDateBox.options = {
 	zindex: "1100",
 	clickEvent: "vclick",
 	clickEventAlt: "click",
+	useKinetic: true,
 
 	defaultValue: false,
 	showInitialValue: false,
