@@ -192,6 +192,8 @@ JTSageDateBox._build.slidebox = function () {
 				e.originalEvent.changedTouches[0].pageX : 
 				e.pageX;
 			g.end = false;
+			g.velocity = 0;
+			g.time = Date.now();
 			e.stopPropagation();
 			e.preventDefault();
 		}
@@ -204,11 +206,16 @@ JTSageDateBox._drag.slidebox = function() {
 		g = this.drag;
 	
 	$(document).on(g.eMove, function(e) {
+		var newLeft, delta;
 		if ( g.move && o.mode === "slidebox") {
 			g.end = ( e.type.substr(0,5) === "touch" ) ? 
 				e.originalEvent.changedTouches[0].pageX : 
 				e.pageX;
+
 			g.target.css( "marginLeft", (g.pos + g.end - g.start) + "px" );
+			g.elapsed = Date.now()-g.time;
+			g.velocity = 0.8 * ( 100 * (g.end - g.start) / ( 1 + g.elapsed ) ) + 0.2 * g.velocity;
+
 			e.preventDefault();
 			e.stopPropagation();
 			return false;
@@ -216,21 +223,53 @@ JTSageDateBox._drag.slidebox = function() {
 	});
 	
 	$(document).on(g.eEnd, function(e) {
+		var eachItem, delta, currentPosition, goodPosition, totalMove, numberFull, goodGuess;
 		if ( g.move && o.mode === "slidebox" ) {
-			g.move = false;
-			if ( g.end !== false ) {
+			if ( g.velocity < 15 && g.velocity > -15 )  {
+				g.move = false;
+				if ( g.end !== false ) {
+					e.preventDefault();
+					e.stopPropagation();
+					g.tmp = g.target.find( "div" ).first();
+					w._offset(
+						g.target.data("rowtype"),
+						( w.__("isRTL") ? -1 : 1 ) * 
+							(parseInt((g.start - g.end) / g.tmp.innerWidth(),10)) *
+							(g.target.data( "rowtype") === "i" ? o.minuteStep : 1)
+					);
+				}
+				g.start = false;
+				g.end = false;
+			} else {
+				g.move = false;
+				g.start = false;
+				g.end = false;
+				g.tmp = g.target.find( "div" ).first();
+
+				eachItem = g.tmp.innerWidth()
+
+				delta = ( -( g.velocity * 0.8 ) * Math.exp( -g.elapsed / 325 ) * 8 ) * -1;
+
+				currentPosition = parseInt( g.target.css("marginLeft").replace(/px/i, ""), 10 );
+				goodPosition = parseInt( currentPosition + delta, 10 );
+
+				totalMove = g.pos - goodPosition; 
+				numberFull = Math.round(totalMove / ( eachItem ));
+				goodGuess = numberFull * (g.target.data( "rowtype") === "i" ? o.minuteStep : 1);
+				
+				g.target.animate(
+					{
+						marginLeft: goodPosition
+					}, 
+					parseInt(10000/g.velocity) + 1000,
+					function() {
+						w._offset( g.target.data("rowtype"), goodGuess);
+					}
+				);
+
 				e.preventDefault();
 				e.stopPropagation();
-				g.tmp = g.target.find( "div" ).first();
-				w._offset(
-					g.target.data("rowtype"),
-					( w.__("isRTL") ? -1 : 1 ) * 
-						(parseInt((g.start - g.end) / g.tmp.innerWidth(),10)) *
-						(g.target.data( "rowtype") === "i" ? o.minuteStep : 1)
-				);
 			}
-			g.start = false;
-			g.end = false;
 		}
 	});
 };

@@ -375,20 +375,15 @@ JTSageDateBox._drag.flipbox = function() {
 		g = this.drag;
 	
 	$(document).on(g.eMove, function(e) {
-		var newTop, delta;
 		if ( g.move && o.mode.slice(-7) === "flipbox" ) {
 			g.end = ( e.type.substr(0,5) === "touch" ) ? 
 				e.originalEvent.changedTouches[0].pageY : 
 				e.pageY;
-			
-			newTop = g.pos + g.end - g.start;
 
-			g.target.css( "marginTop", newTop + "px" );
-
-			delta = g.end - g.start;
+			g.target.css( "marginTop", (g.pos + g.end - g.start) + "px" );
 
 			g.elapsed = Date.now()-g.time;
-			g.velocity = 0.8 * ( 100 * delta / ( 1 + g.elapsed ) ) + 0.2 * g.velocity;
+			g.velocity = 0.8 * ( 100 * (g.end - g.start) / ( 1 + g.elapsed ) ) + 0.2 * g.velocity;
 
 			e.preventDefault();
 			e.stopPropagation();
