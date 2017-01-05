@@ -206,7 +206,6 @@ JTSageDateBox._drag.slidebox = function() {
 		g = this.drag;
 	
 	$(document).on(g.eMove, function(e) {
-		var newLeft, delta;
 		if ( g.move && o.mode === "slidebox") {
 			g.end = ( e.type.substr(0,5) === "touch" ) ? 
 				e.originalEvent.changedTouches[0].pageX : 
@@ -246,7 +245,7 @@ JTSageDateBox._drag.slidebox = function() {
 				g.end = false;
 				g.tmp = g.target.find( "div" ).first();
 
-				eachItem = g.tmp.innerWidth()
+				eachItem = g.tmp.innerWidth();
 
 				delta = ( -( g.velocity * 0.8 ) * Math.exp( -g.elapsed / 325 ) * 8 ) * -1;
 
