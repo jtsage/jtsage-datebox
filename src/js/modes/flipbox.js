@@ -231,10 +231,10 @@ JTSageDateBox._build.flipbox = function () {
 		tmp.appendTo(w.d.intHTML);
 		
 		w.dateOK = true;
-		cDurS.d = w._fbox_series(cDur[0],16,"d",false);
-		cDurS.h = w._fbox_series(cDur[1],16,"h",(cDur[0]>0));
-		cDurS.i = w._fbox_series(cDur[2],20,"i",(cDur[0]>0 || cDur[1]>0));
-		cDurS.s = w._fbox_series(cDur[3],20,"s",(cDur[0]>0 || cDur[1]>0 || cDur[2]>0));
+		cDurS.d = w._fbox_series(cDur[0],64,"d",false);
+		cDurS.h = w._fbox_series(cDur[1],64,"h",(cDur[0]>0));
+		cDurS.i = w._fbox_series(cDur[2],60,"i",(cDur[0]>0 || cDur[1]>0));
+		cDurS.s = w._fbox_series(cDur[3],60,"s",(cDur[0]>0 || cDur[1]>0 || cDur[2]>0));
 		
 		ctrl.addClass( uid + "flipcontentd" );
 		
@@ -352,7 +352,7 @@ JTSageDateBox._build.flipbox = function () {
 			if ( typeof f !== "undefined" ) { e = f; }
 			g.move = true;
 			g.target = $(this).find( "li" ).first();
-			g.pos = parseInt(g.target.css("marginTop").replace(/px/i, ""),10);
+			g.pos = parseInt( g.target.css( "marginTop" ).replace( /px/i, "" ),10 );
 			g.start = ( e.type.substr(0,5) === "touch" ) ? 
 				e.originalEvent.changedTouches[0].pageY : 
 				e.pageY;
@@ -375,6 +375,7 @@ JTSageDateBox._drag.flipbox = function() {
 		g = this.drag;
 	
 	$(document).on(g.eMove, function(e) {
+		var newTop, delta;
 		if ( g.move && o.mode.slice(-7) === "flipbox" ) {
 			g.end = ( e.type.substr(0,5) === "touch" ) ? 
 				e.originalEvent.changedTouches[0].pageY : 
@@ -382,12 +383,12 @@ JTSageDateBox._drag.flipbox = function() {
 			
 			newTop = g.pos + g.end - g.start;
 
-			g.target.css("marginTop", newTop + "px");
+			g.target.css( "marginTop", newTop + "px" );
 
-			delta = g.end-g.start;
+			delta = g.end - g.start;
 
 			g.elapsed = Date.now()-g.time;
-			g.velocity = 0.8 * (100 * delta / (1 + g.elapsed)) + 0.2 * g.velocity;
+			g.velocity = 0.8 * ( 100 * delta / ( 1 + g.elapsed ) ) + 0.2 * g.velocity;
 
 			e.preventDefault();
 			e.stopPropagation();
@@ -396,6 +397,7 @@ JTSageDateBox._drag.flipbox = function() {
 	});
 	
 	$(document).on(g.eEnd, function(e) {
+		var eachItem, delta, currentPosition, goodPosition, totalMove, numberFull, goodGuess;
 		if ( g.move && o.mode.slice(-7) === "flipbox" ) {
 			if ( g.velocity < 15 && g.velocity > -15 )  {
 				g.move = false;
@@ -405,8 +407,8 @@ JTSageDateBox._drag.flipbox = function() {
 					g.tmp = g.target.parent().parent();
 					w._offset(
 						g.tmp.data("field"),
-						(parseInt((g.start - g.end) / ( g.target.outerHeight() - 2 ),10)*
-							g.tmp.data( "amount" ) * g.direc));
+						( parseInt( ( g.start - g.end ) / ( g.target.outerHeight() - 2 ), 10 ) *
+							g.tmp.data( "amount" ) * g.direc ) );
 				}
 				g.start = false;
 				g.end = false;
@@ -418,10 +420,10 @@ JTSageDateBox._drag.flipbox = function() {
 
 				eachItem = g.target.outerHeight();
 
-				delta = (-(g.velocity*.8) * Math.exp(-g.elapsed / 325) * 4) * -1;
+				delta = ( -( g.velocity * 0.8 ) * Math.exp( -g.elapsed / 325 ) * 8 ) * -1;
 
-				currentPosition = parseInt(g.target.css("marginTop").replace(/px/i, ""),10);
-				goodPosition = parseInt(currentPosition + delta, 10);
+				currentPosition = parseInt( g.target.css("marginTop").replace(/px/i, ""), 10 );
+				goodPosition = parseInt( currentPosition + delta, 10 );
 
 				totalMove = g.pos - goodPosition; 
 				numberFull = Math.round(totalMove / ( eachItem ));

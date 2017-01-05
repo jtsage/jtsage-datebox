@@ -556,9 +556,9 @@ JTSageDateBox.close = function() {
 
 	if ( o.bootstrapDropdown === true && o.bootstrapModal === false ) {
 		if ( o.useAnimation === true ) {
-			w.d.mainWrap.removeClass( "in");
+			w.d.mainWrap.removeClass( "in" );
 			w.d.backdrop.remove();
-			$('.jtsage-datebox-backdrop-div').remove();
+			$( ".jtsage-datebox-backdrop-div" ).remove();
 			window.setTimeout(function () {
 				w.d.wrap.removeClass( "open" );
 				basepop.afterclose.call();
@@ -567,7 +567,7 @@ JTSageDateBox.close = function() {
 		} else {
 			w.d.wrap.removeClass( "open" );
 			w.d.backdrop.remove();
-			$('.jtsage-datebox-backdrop-div').remove();
+			$( ".jtsage-datebox-backdrop-div" ).remove();
 			basepop.afterclose.call();
 		}
 	}
@@ -593,7 +593,7 @@ JTSageDateBox.disable = function() {
 	// Provide a PUBLIC function to Disable the element
 	w.d.input.attr( "disabled", true );
 	w.disabled = true;
-	w._t( { method: "disable"});
+	w._t( { method: "disable" } );
 };
 
 JTSageDateBox.enable = function() {
@@ -601,7 +601,7 @@ JTSageDateBox.enable = function() {
 	// Provide a PUBLIC function to Enable the element
 	w.d.input.attr( "disabled", false );
 	w.disabled = false;
-	w._t( { method: "enable" });
+	w._t( { method: "enable" } );
 };
 
 JTSageDateBox._controlGroup = function(element) {
