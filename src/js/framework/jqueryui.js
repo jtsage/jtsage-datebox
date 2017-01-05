@@ -5,7 +5,7 @@
  */
 
 mergeOpts({
-	themeDateToday: "ui-state-active",
+	themeDateToday: "ui-state-highlight",
 	themeDayHigh: "",
 	themeDatePick: "ui-state-active",
 	themeDateHigh: "",
