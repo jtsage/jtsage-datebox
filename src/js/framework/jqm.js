@@ -131,7 +131,7 @@ JTSageDateBox._destroy = function() {
 		button = this.d.wrap.find( "a" );
 
 	w.d.wrap.removeClass( "ui-input-has-clear" );
-	button.remove();
+	button.off(); button.remove();
 
 	if ( o.lockInput ) {
 		w.d.input.removeAttr( "readonly" );
@@ -143,7 +143,7 @@ JTSageDateBox._destroy = function() {
 		.off( "blur.datebox" )
 		.off( "change.datebox" );
 
-	w.d.mainWrap.popup("destroy");
+	try { w.d.mainWrap.popup("destroy"); } catch (e) {  }
 		
 	$( document )
 		.off( w.drag.eMove )
