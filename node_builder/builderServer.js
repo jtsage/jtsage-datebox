@@ -157,7 +157,7 @@ process.setuid('www-data');
 
 var server = http.createServer(handleRequest);
 
-server.listen(PORT, function(){
+server.listen(PORT, '127.0.0.1', function(){
     console.log("DateBox Build Server listening on: http://localhost:%s", PORT);
 });
 
