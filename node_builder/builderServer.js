@@ -50,6 +50,10 @@ function handleRequest(request, response){
 					baseFiles.push( path + "js/framework/jqueryui.js" );
 					frame = "jqueryui";
 					break;
+				case "bootstrap4":
+					baseFiles.push( path + "js/framework/bootstrap4.js" );
+					frame = "bootstrap4";
+					break;
 				default:
 					baseFiles.push( path + "js/framework/bootstrap.js" );
 					break;
