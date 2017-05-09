@@ -24,6 +24,8 @@ JTSageDateBox.options = {
 	// These are never used, just information
 	jqmVersion: "1.4.5",
 	bootstrapVersion: "3.3.7",
+	bootstrap4Version: "4.0.0a6",
+
 	jqmuiWidgetVersion: "1.11.4", // Styles do not play nice with 1.12.1
 
 	theme: false,

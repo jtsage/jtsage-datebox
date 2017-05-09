@@ -39,13 +39,15 @@ mergeOpts({
 JTSageDateBox._fbox_pos = function () {
 	// Position the lens and the reels on widget open and 
 	// when they are changed
-	var fixer, element, first,
+	var fixer, element, first, placement = 0,
 		w = this,
+		adj = ( w.baseMode === "bootstrap4") ? 5 : 0,
 		parentHeight = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
 		
 	w.d.intHTML.find( ".ui-datebox-flipcenter" ).each(function() {
 		element = $( this );
-		element.css( "top", ( ( parentHeight / 2 ) - ( element.innerHeight() / 2 ) - 3 ) * -1 );
+		placement = ( ( ( parentHeight / 2 ) - ( element.innerHeight() / 2 ) - 3 ) * -1) + adj;
+		element.css( "top", placement );
 	});
 
 	w.d.intHTML.find( "ul" ).each(function () {
@@ -145,7 +147,7 @@ JTSageDateBox._build.flipbox = function () {
 		ti = w.theDate.getTime() - w.initDate.getTime(),
 		themeType = "" +
 			( ( w.baseMode === "jqm" ) ? "ui-body-" : "" ) +
-			( ( w.baseMode === "bootstrap" ) ? "bg-" : "" ),
+			( ( w.baseMode === "bootstrap" ||  w.baseMode === "bootstrap4" ) ? "bg-" : "" ),
 		cDur = w._dur( ti<0 ? 0 : ti ),
 		currentTerm, currentText;
 
