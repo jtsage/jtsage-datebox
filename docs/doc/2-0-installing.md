@@ -28,6 +28,7 @@ version: "4.1.1",              // Actually DateBox Version
 // These are never used, just information
 jqmVersion: "1.4.5",           // Version of jQM used for testing
 bootstrapVersion: "3.3.7",     // Version of Twitter Bootstrap used for testing
+bootstrap4Version: "4.0.0a6",  // Version of Twitter Bootstrap4 used for testing
 jqmuiWidgetVersion: "1.11.4"   // Version of the jQueryUI Widget Factor used for testing
 {% endhighlight %}
 
@@ -65,6 +66,9 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 {% highlight html %}
 <link href="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.bootstrap.min.css" rel="stylesheet" type="text/css">
 <script src="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.bootstrap.min.js" type="text/javascript"></script>
+
+<link href="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.bootstrap4.min.css" rel="stylesheet" type="text/css">
+<script src="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.bootstrap4.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>
