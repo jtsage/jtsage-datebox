@@ -212,6 +212,21 @@ module.exports = function(grunt) {
 					],
 				}]
 			},
+			latest_bootstrap4: {
+				options: {
+					dest: "dist/latest/jtsage-datebox.bootstrap4.js",
+					includeBinding: true,
+				},
+				files: [{
+					expand: true,
+					src: [
+						"src/js/baseObject.js",
+						"src/js/framework/bootstrap4.js",
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
 			latest_jqueryui: {
 				options: {
 					dest: "dist/latest/jtsage-datebox.jqueryui.js",
@@ -252,6 +267,21 @@ module.exports = function(grunt) {
 					src: [
 						"src/js/baseObject.js",
 						"src/js/framework/bootstrap.js",
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
+			main_bootstrap4: {
+				options: {
+					dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap4.js",
+					includeBinding: true,
+				},
+				files: [{
+					expand: true,
+					src: [
+						"src/js/baseObject.js",
+						"src/js/framework/bootstrap4.js",
 						"src/js/lib/*.js",
 						"src/js/modes/*.js"
 					],
@@ -301,9 +331,14 @@ module.exports = function(grunt) {
       			src: "src/css/sheet-jqueryui.php",
       			dest: "docs/theme/jqueryui/sheet.php"
       		},
+      		web4: {
+  				src: "src/css/sheet-bootstrap4.php",
+  				dest: "docs/theme/bootstrap4/sheet.php"
+  			},
       		cssfix: {
       			files: [
       				{ src: "src/css/sheet-bootstrap.php",	dest: "docs/_site/theme/bootstrap/sheet.php" },
+      				{ src: "src/css/sheet-bootstrap4.php",	dest: "docs/_site/theme/bootstrap/sheet4.php" },
       				{ src: "src/css/sheet.php", 			dest: "docs/_site/theme/jqm/sheet.php" },
   					{ src: "src/css/sheet-jqueryui.php", 	dest: "docs/_site/theme/jqueryui/sheet.php" }
       			]
@@ -346,6 +381,9 @@ module.exports = function(grunt) {
 			latest_make_css_bootstrap: {
 				command: "/usr/bin/php src/css/sheet-bootstrap.php > dist/latest/jtsage-datebox.bootstrap.css"
 			},
+			latest_make_css_bootstrap4: {
+				command: "/usr/bin/php src/css/sheet-bootstrap4.php > dist/latest/jtsage-datebox.bootstrap4.css"
+			},
 			latest_make_css_jqueryui: {
 				command: "/usr/bin/php src/css/sheet-jqueryui.php > dist/latest/jtsage-datebox.jqueryui.css"
 			},
@@ -354,6 +392,9 @@ module.exports = function(grunt) {
 			},
 			main_make_css_bootstrap: {
 				command: "/usr/bin/php src/css/sheet-bootstrap.php > dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap.css"
+			},
+			main_make_css_bootstrap4: {
+				command: "/usr/bin/php src/css/sheet-bootstrap4.php > dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap4.css"
 			},
 			main_make_css_jqueryui: {
 				command: "/usr/bin/php src/css/sheet-jqueryui.php > dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqueryui.css"
@@ -391,15 +432,18 @@ module.exports = function(grunt) {
 	grunt.registerTask( "cssfix", "Quick Build a CSS fix", [
 		"exec:latest_make_css_jqm",
 		"exec:latest_make_css_bootstrap",
+		"exec:latest_make_css_bootstrap4",
 		"exec:latest_make_css_jqueryui",
 		"exec:main_make_css_jqm",
 		"exec:main_make_css_bootstrap",
+		"exec:main_make_css_bootstrap4",
 		"exec:main_make_css_jqueryui",
 		"cssmin:latest",
 		"cssmin:release",
 		"copy:web1",
 		"copy:web2",
 		"copy:web3",
+		"copy:web4",
 		"copy:cssfix"
 	] );
 
@@ -411,9 +455,11 @@ module.exports = function(grunt) {
 		"clean:web",
 		"buildDBox:main_jqm",
 		"buildDBox:main_bootstrap",
+		"buildDBox:main_bootstrap4",
 		"buildDBox:main_jqueryui",
 		"exec:main_make_css_jqm",
 		"exec:main_make_css_bootstrap",
+		"exec:main_make_css_bootstrap4",
 		"exec:main_make_css_jqueryui",
 		"uglify:release",
 		"cssmin:release",
@@ -434,9 +480,11 @@ module.exports = function(grunt) {
 		"clean:release",
 		"buildDBox:main_jqm",
 		"buildDBox:main_bootstrap",
+		"buildDBox:main_bootstrap4",
 		"buildDBox:main_jqueryui",
 		"exec:main_make_css_jqm",
 		"exec:main_make_css_bootstrap",
+		"exec:main_make_css_bootstrap4",
 		"exec:main_make_css_jqueryui",
 		"uglify:release",
 		"cssmin:release",
@@ -446,9 +494,11 @@ module.exports = function(grunt) {
 		"clean:latest",
 		"buildDBox:latest_jqm",
 		"buildDBox:latest_bootstrap",
+		"buildDBox:latest_bootstrap4",
 		"buildDBox:latest_jqueryui",
 		"exec:latest_make_css_jqm",
 		"exec:latest_make_css_bootstrap",
+		"exec:latest_make_css_bootstrap4",
 		"exec:latest_make_css_jqueryui",
 		"uglify:latest",
 		"cssmin:latest",
@@ -463,9 +513,11 @@ module.exports = function(grunt) {
 
 	grunt.registerTask( "updatebuilder", "Update web builder sources", [ "clean:builder", "copy:builder1", "copy:builder2" ] );
 
-	grunt.registerTask( "web", "Build the documentation site", ["clean:web", "copy:web1", "copy:web2", "copy:web3", "jekyll:release", "prettify"] );
-	grunt.registerTask( "testweb", "Build the documentation site quickly", ["copy:web1", "copy:web2", "copy:web3", "jekyll:release"] );
-	grunt.registerTask( "devweb", "Test the documentation site", ["copy:web1", "copy:web2", "jekyll:latest", "prettify"] );
+	grunt.registerTask( "web", "Build the documentation site", [
+		"clean:web", "copy:web1", "copy:web2", "copy:web3", "copy:web4", "jekyll:release", "prettify"
+	] );
+	grunt.registerTask( "testweb", "Build the documentation site quickly", ["copy:web1", "copy:web2", "copy:web3", "copy:web4", "jekyll:release"] );
+	grunt.registerTask( "devweb", "Test the documentation site", ["copy:web1", "copy:web2", "copy:web3", "copy:web4",  "jekyll:latest", "prettify"] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane"] );
 
