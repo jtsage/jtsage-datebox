@@ -210,4 +210,4 @@ foreach ( $defaults as $key => $value ) {
 		</div>
 </div>
 
-{% include bs_footer.html api="true" %}
+{% include bs4_footer.html api="true" %}
