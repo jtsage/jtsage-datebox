@@ -467,6 +467,7 @@ module.exports = function(grunt) {
 		"copy:web1",
 		"copy:web2",
 		"copy:web3",
+		"copy:web4",
 		"updatebuilder",
 		"jekyll:release",
 		"prettify",
@@ -488,6 +489,8 @@ module.exports = function(grunt) {
 		"exec:main_make_css_jqueryui",
 		"uglify:release",
 		"cssmin:release",
+		"copy:cssfix",
+		"updatebuilder"
 	] );
 	
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
