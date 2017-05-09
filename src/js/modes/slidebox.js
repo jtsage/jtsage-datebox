@@ -22,7 +22,7 @@ mergeOpts({
 JTSageDateBox._sbox_pos = function () {
 	var fixer, ech, top, par, tot,
 		w = this;
-	
+
 	w.d.intHTML.find( "div.ui-datebox-sliderow-int" ).each(function () {
 		ech = $(this);
 		par = ech.parent().outerWidth();
@@ -34,7 +34,7 @@ JTSageDateBox._sbox_pos = function () {
 			top = ech.find("div").first();
 		}
 
-		tot = ech.find( "div" ).size() * top.outerWidth();
+		tot = ech.find( "div" ).length * top.outerWidth();
 		
 		if ( fixer > 0 ) { tot = fixer; }
 		

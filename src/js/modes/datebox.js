@@ -195,6 +195,7 @@ JTSageDateBox._dbox_button = function (direction, field, amount) {
 			switch ( w.baseMode ) {
 				case "jqm":
 				case "bootstrap":
+				case "bootstrap4":
 					return o.icnCls + ( direction > 0 ? o.calNextMonthIcon : o.calPrevMonthIcon );
 				default:
 					return null;
@@ -300,6 +301,7 @@ JTSageDateBox._build.datebox = function () {
 						case "jqm":
 							return "ui-input-text ui-body-" + o.themeInput + " ui-mini";
 						case "bootstrap":
+						case "bootstrap4":
 							return o.themeInput;
 						default:
 							return null;
@@ -326,6 +328,12 @@ JTSageDateBox._build.datebox = function () {
 			allControls.addClass( "row" );
 			allControls.find( "." + uid + "datebox-group" ).each( function() {
 				$(this).addClass("col-xs-" + 12 / cnt);
+			});
+			break;
+		case "bootstrap4":
+			allControls.addClass( "row" );
+			allControls.find( "." + uid + "datebox-group" ).each( function() {
+				$(this).addClass("px-0 col-sm-" + 12 / cnt);
 			});
 			break;
 		case "jqueryui":

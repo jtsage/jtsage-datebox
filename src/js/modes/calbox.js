@@ -182,6 +182,7 @@ JTSageDateBox._cal_prev_next = function (container) {
 					case "jqm":
 						return o.btnCls + o.themeDate + o.icnCls + o.calNextMonthIcon;
 					case "bootstrap":
+					case "bootstrap4":
 						return o.btnCls + o.themeDate + 
 							" pull-" + ( w.__( "isRTL" ) ? "left" : "right" );
 					default:
@@ -215,6 +216,7 @@ JTSageDateBox._cal_prev_next = function (container) {
 					case "jqm":
 						return o.btnCls + o.themeDate + o.icnCls + o.calPrevMonthIcon;
 					case "bootstrap":
+					case "bootstrap4":
 						return o.btnCls + o.themeDate + 
 							" pull-" + ( w.__( "isRTL" ) ? "right" : "left" );
 					default:
@@ -333,6 +335,7 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 	});
 	switch ( w.baseMode ) {
 		case "bootstrap":
+		case "bootstrap4":
 		case "jqueryui":
 			pickerControl.i.find("select")
 				.addClass("form-control input-sm")
@@ -396,6 +399,7 @@ JTSageDateBox._cal_date_list = function ( calContent ) {
 			listControl.find( "select" ).selectmenu( { mini: true, nativeMenu: true } );
 			break;
 		case "bootstrap":
+		case "bootstrap4":
 			listControl.find("select").addClass("form-control input-sm");
 			break;
 	}

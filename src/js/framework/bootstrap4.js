@@ -11,16 +11,16 @@ mergeOpts({
 	themeDateHigh: "warning",
 	themeDateHighAlt: "danger",
 	themeDateHighRec: "warning",
-	themeDate: "default",
-	themeButton: "primary",
+	themeDate: "secondary",
+	themeButton: "secondary",
 	themeInput: "default",
 	transition: "fade",
 
-	themeClearButton: "primary",
-	themeCancelButton: "primary",
-	themeCloseButton: "primary",
-	themeTomorrowButton: "primary",
-	themeTodayButton: "primary",
+	themeClearButton: "secondary",
+	themeCancelButton: "secondary",
+	themeCloseButton: "secondary",
+	themeTomorrowButton: "secondary",
+	themeTodayButton: "secondary",
 
 	buttonIconDate: "calendar",
 	buttonIconTime: "clock-o",
@@ -67,7 +67,7 @@ JTSageDateBox._stdBtn = {
 	clear: function() {
 		var w = this, o = this.options;
 		return $("<a href='#' role='button' class='btn btn-" + o.themeClearButton + 
-				"'><span class='" + o.icnCls + "erase'></span> " +
+				"'><span class='" + o.icnCls + "eraser'></span> " +
 				w.__("clearButton") + "</a>" )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
@@ -82,7 +82,7 @@ JTSageDateBox._stdBtn = {
 		if ( typeof trigger === "undefined" ) { trigger = false; }
 
 		return $("<a href='#' role='button' class='btn btn-" + o.themeCloseButton + 
-				"'><span class='" + o.icnCls + "ok'></span> " +
+				"'><span class='" + o.icnCls + "check'></span> " +
 				txt + "</a>" )
 			.addClass( "" +
 				( ( w.dateOK === true ) ? "" : "disabled")
