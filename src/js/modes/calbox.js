@@ -335,11 +335,22 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 	});
 	switch ( w.baseMode ) {
 		case "bootstrap":
-		case "bootstrap4":
 		case "jqueryui":
 			pickerControl.i.find("select")
 				.addClass("form-control input-sm")
 				.css({"marginTop": "3px", "float": "left"})
+				.first().css({ width: "60%" })
+				.end().last().css({ width: "40%" });
+			if ( o.calNoHeader && o.calUsePickersIcons ) {
+				w.d.intHTML.find( "." + uid + "gridheader" ).append(pickerControl);
+			} else {
+				pickerControl.appendTo( w.d.intHTML );
+			}
+			break;
+		case "bootstrap4":
+			pickerControl.i.find("select")
+				.addClass("form-control form-control-sm input-sm")
+				.css({"marginTop": "3px", "float": "left", "height": "auto"})
 				.first().css({ width: "60%" })
 				.end().last().css({ width: "40%" });
 			if ( o.calNoHeader && o.calUsePickersIcons ) {
