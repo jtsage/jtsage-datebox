@@ -49,8 +49,8 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 <div class="panel-body">
 
 {% highlight html %}
-<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqm@{{dbverdir}}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
-<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqm@{{dbverdir}}/jtsage-datebox.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqm@{{ site.dbverdir }}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqm@{{ site.dbverdir }}/jtsage-datebox.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>
@@ -64,11 +64,11 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 <div class="panel-body">
 
 {% highlight html %}
-<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap3@{{dbverdir}}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
-<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap3@{{dbverdir}}/jtsage-datebox.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap3@{{ site.dbverdir }}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap3@{{ site.dbverdir }}/jtsage-datebox.min.js" type="text/javascript"></script>
 
-<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@{{dbverdir}}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
-<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@{{dbverdir}}/jtsage-datebox.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@{{ site.dbverdir }}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@{{ site.dbverdir }}/jtsage-datebox.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>
@@ -81,8 +81,8 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 <div class="panel-body">
 
 {% highlight html %}
-<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqueryui@{{dbverdir}}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
-<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqueryui@{{dbverdir}}/jtsage-datebox.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqueryui@{{ site.dbverdir }}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqueryui@{{ site.dbverdir }}/jtsage-datebox.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>
