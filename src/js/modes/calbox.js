@@ -667,6 +667,8 @@ JTSageDateBox._build.calbox = function () {
 						];
 						fmtObj.ISO = fmtObj.Arr.join( "-" );
 						fmtObj.Comp = fmtObj.Arr.join( "" );
+						fmtObj.curMonth = curDate.get(1);
+						fmtObj.curYear = curYear;
 						fmtObj.dateVisible = w.calDateVisible;
 						tempVal = o.calFormatter(fmtObj);
 						if ( typeof tempVal !== "object" ) {
