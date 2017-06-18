@@ -253,7 +253,6 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 	}
 	
 	realCurYear = new Date().get(0);
-	console.log(realCurYear);
 	pickerControl.i = $("<fieldset>").appendTo(pickerControl);
 	
 	pickerControl.a = $( "<select>" )
