@@ -125,7 +125,7 @@ As a note, if you have a **production** application, it is **strongly** recomend
 that you make a local copy of the script files.  My "CDN" is a distibution folder on a single
 server, there is no redundancy, and it is occasionally prone to downtime. 
 
-
+If you prefer bower, <strong>bower install jtsage-datebox</strong> will get you built versions for every library.
 
 <div class="panel panel-default">
 <div class="panel-heading">
