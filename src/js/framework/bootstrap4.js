@@ -26,7 +26,7 @@ mergeOpts({
 	buttonIconTime: "clock-o",
 	disabledState: "disabled",
 
-	bootstrapDropdown: false,
+	bootstrapDropdown: true,
 	bootstrapDropdownRight: true,
 
 	bootstrapModal: false,
