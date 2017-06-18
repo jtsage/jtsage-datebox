@@ -25,6 +25,7 @@ mergeOpts({
 	
 	calYearPickMin: -6,
 	calYearPickMax: 6,
+	calYearPickRelative: true,
 
 	calBeforeAppendFunc: function(t) { return t; },
 	
@@ -251,6 +252,8 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 		pickerControl.addClass( "ui-datebox-pickicon" );
 	}
 	
+	realCurYear = new Date().get(0);
+	console.log(realCurYear);
 	pickerControl.i = $("<fieldset>").appendTo(pickerControl);
 	
 	pickerControl.a = $( "<select>" )
@@ -270,9 +273,9 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 	}
 	
 	if ( o.calYearPickMin < 1 ) { 
-		prangeS = curYear + o.calYearPickMin;
+		prangeS = ( o.calYearPickRelative  ? curYear : realCurYear ) + o.calYearPickMin;
 	} else if ( o.calYearPickMin < 1800 ) {
-		prangeS = curYear - o.calYearPickMin;
+		prangeS = ( o.calYearPickRelative  ? curYear : realCurYear ) - o.calYearPickMin;
 	} else if ( o.calYearPickMin === "NOW" ) {
 		prangeS = cTodayDateArr[0];
 	} else {
@@ -280,7 +283,7 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 	}
 	
 	if ( o.calYearPickMax < 1800 ) {
-		prangeL = curYear + o.calYearPickMax;
+		prangeL = ( o.calYearPickRelative  ? curYear : realCurYear ) + o.calYearPickMax;
 	} else if ( o.calYearPickMax === "NOW" ) {
 		prangeL = cTodayDateArr[0];
 	} else {

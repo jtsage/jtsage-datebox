@@ -14,7 +14,7 @@ dyn: "True"
 
 This is the lower limit for the year picker control. Valid options:
 
- - **< 1,800** :: Number of years from current year
+ - **< 1,800** :: Number of years from current year (or relative year, see {% api_doc calYearPickRelative %} )
  - **> 1800** :: Hard coded year
  - **NOW** :: Today's year
  
