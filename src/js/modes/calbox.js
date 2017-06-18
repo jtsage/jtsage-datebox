@@ -246,13 +246,13 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 		w = this,
 		o = this.options,
 		uid = "ui-datebox-",
+		realCurYear = new Date().get(0),
 		pickerControl = $("<div>").addClass("ui-datebox-cal-pickers");
 
 	if ( o.calNoHeader && o.calUsePickersIcons ) {
 		pickerControl.addClass( "ui-datebox-pickicon" );
 	}
 	
-	realCurYear = new Date().get(0);
 	pickerControl.i = $("<fieldset>").appendTo(pickerControl);
 	
 	pickerControl.a = $( "<select>" )
