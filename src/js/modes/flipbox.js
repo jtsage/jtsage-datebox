@@ -25,6 +25,7 @@ mergeOpts({
 		"d": 40,
 		"h": 24,
 		"i": 30,
+		"s": 30,
 	},
 	durationStep: 1,
 	durationSteppers: {
@@ -126,6 +127,9 @@ JTSageDateBox._fbox_mktxt = {
 	},
 	i: function(i) {
 		return this._zPad( ( this.theDate.copy( [0,0,0,0,i] )).get(4) );
+	},
+	s: function(i) {
+		return this._zPad( ( this.theDate.copy( [0,0,0,0,0,i] )).get(5) );
 	}
 };
 
@@ -260,6 +264,10 @@ JTSageDateBox._build.flipbox = function () {
 				})).appendTo( hRowIn );
 			}
 			hRow.appendTo(ctrl);
+		}
+	} else {
+		if ( w.fldOrder.length === 4 ) {
+			ctrl.addClass( uid + "flipcontentd" );	
 		}
 	}
 

@@ -8,7 +8,7 @@ modes: [
 cats: [ 'control' ]
 relat: "control"
 layout: api
-defval: "{'y': 15, 'm':12, 'd':15, 'h':12, 'i':15, 'a':3}"
+defval: "{'y': 25, 'm':24, 'd':50, 'h':25, 'i':30, 's':30}"
 dattype: "Object"
 dyn: "True"
 ---
