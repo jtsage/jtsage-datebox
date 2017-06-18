@@ -10,7 +10,7 @@ DateBox has a number of kinda cool features, among them:
 
  - Framework agnostic
    - Fully jQueryMobile compatible (original mode)
-   - Fully bootstrap compatible
+   - Fully bootstrap compatible (v3 and v4)
    - Fully jQuery only compatible, using the bootstrap mode - however you'll need to provide your own styling.
  - Multiple display and entry modes for dates, times, and durations
    - Android-like style (entry box with +/- buttons)

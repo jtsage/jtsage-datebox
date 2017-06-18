@@ -24,7 +24,7 @@ For jQueryUI framework operation, only the jQueryUI Widget Factory is required. 
 
 {% highlight js %}
 // Check Header for Build Date.
-version: "4.1.1",              // Actually DateBox Version
+version: "4.1.2",              // Actually DateBox Version
 // These are never used, just information
 jqmVersion: "1.4.5",           // Version of jQM used for testing
 bootstrapVersion: "3.3.7",     // Version of Twitter Bootstrap used for testing
@@ -49,8 +49,8 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 <div class="panel-body">
 
 {% highlight html %}
-<link href="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.jqm.min.css" rel="stylesheet" type="text/css">
-<script src="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.jqm.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqm@{{dbverdir}}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqm@{{dbverdir}}/jtsage-datebox.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>
@@ -59,16 +59,16 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title">Twitter Bootstrap Version</h3>
+<h3 class="panel-title">Twitter Bootstrap (v3 and v4) Version</h3>
 </div>
 <div class="panel-body">
 
 {% highlight html %}
-<link href="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.bootstrap.min.css" rel="stylesheet" type="text/css">
-<script src="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.bootstrap.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap3@{{dbverdir}}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap3@{{dbverdir}}/jtsage-datebox.min.js" type="text/javascript"></script>
 
-<link href="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.bootstrap4.min.css" rel="stylesheet" type="text/css">
-<script src="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.bootstrap4.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@{{dbverdir}}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@{{dbverdir}}/jtsage-datebox.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>
@@ -81,8 +81,8 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 <div class="panel-body">
 
 {% highlight html %}
-<link href="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.jqueryui.min.css" rel="stylesheet" type="text/css">
-<script src="{{ site.cdn }}{{ site.dbverdir }}/jtsage-datebox{{ site.dbver }}.jqueryui.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqueryui@{{dbverdir}}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqueryui@{{dbverdir}}/jtsage-datebox.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 </div>
@@ -102,7 +102,7 @@ send the one file they need.
 <div class="panel-body">
 
 {% highlight html %}
-<script src="{{ site.i18n }}jquery.mobile.datebox.i18n.en_US.utf8.js" type="text/javascript" ></script>
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-i18n/jquery.mobile.datebox.i18n.en_US.utf8.js" type="text/javascript" ></script>
 {% endhighlight %}
 
 </div>
