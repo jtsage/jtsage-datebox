@@ -80,7 +80,16 @@ JTSageDateBox._offset = function(mode, amount, update) {
 				}
 				break;
 			case "s":
-				if ( w._btwn( now.get(5) + amount, -1, 60 ) ) { ok = 5; }
+				if ( w._btwn( now.get(5) + amount, -1, 60 ) ) { 
+					ok = 5; 
+				} else {
+					tempBad = now.get(5) + amount;
+					if ( tempBad < 0 ) { 
+						bad = [5, 59 + tempBad];
+					} else {
+						bad = [5, tempBad % 60];
+					}
+				}
 				break;
 			case "a":
 				w._offset( "h", ( ( amount > 0 ) ? 1 : -1 ) * 12, false );

@@ -114,7 +114,13 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 				$(this).val(w.__( "meridiem" )[ (w.theDate.get(3) > 11) ? 1 : 0 ] );
 				break;
 			case "s":
-				$(this).val(cDur[3]); break;
+				if ( dur ) {
+					$(this).val(cDur[3]);
+				} else {
+					//console.log(w.theDate);
+					$(this).val(w._zPad(w.theDate.get(5)));
+				} 
+				break;
 		}
 	});
 	if ( w.__( "useArabicIndic" ) === true ) { w._doIndic(); }
@@ -155,7 +161,6 @@ JTSageDateBox._dbox_enter = function (item) {
 		tmp = $.inArray( item.val(), w.__( "monthsOfYearShort" ) );
 		if ( tmp > -1 ) { w.theDate.setMonth( tmp ); }
 	}
-	
 	if ( item.val() !== "" && item.val().toString().search(/^[0-9]+$/) === 0 ) {
 		switch ( item.data( "field" ) ) {
 			case "y":
@@ -175,7 +180,9 @@ JTSageDateBox._dbox_enter = function (item) {
 				t += (60) * parseInt(item.val(),10);
 				break;
 			case "s":
-				t += parseInt(item.val(),10); break;
+				w.theDate.setD( 5, parseInt(item.val(),10));
+				t += parseInt(item.val(),10); 
+				break;
 		}
 	}
 	if ( this.options.mode === "durationbox" ) { 
