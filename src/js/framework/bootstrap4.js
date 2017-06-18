@@ -253,7 +253,8 @@ JTSageDateBox._create = function() {
 		}
 	}
 	if ( o.useButton ) {
-		$( "<div class='input-group-addon' style='border-right: 1px solid rgba(0,0,0,0.15); border-bottom-right-radius:4px; border-top-right-radius:4px;'>" +
+		$( "<div class='input-group-addon' " + 
+				"style='border-right:1px solid rgba(0,0,0,0.15);border-radius: 0px 4px 4px 0px;'>" +
 				"<span class='" + o.icnCls + o.buttonIcon + "'></span>" + 
 				"</div>" )
 			.attr( "title", w.__( "tooltip" ) )
