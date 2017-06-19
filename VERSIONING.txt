@@ -1,0 +1,8 @@
+To up the version:
+
+package.json
+node_builder/builderServer.js
+docs/doc/2-0-installing.md
+docs/_config.yml
+src/js/baseObject.js
+

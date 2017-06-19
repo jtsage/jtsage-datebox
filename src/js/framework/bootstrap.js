@@ -273,7 +273,9 @@ JTSageDateBox._create = function() {
 
 	if ( o.hideInput ) { w.d.wrap.hide(); }
 	if ( o.hideContainer ) { w.d.wrap.parent().hide(); }
-	if ( o.hideContainer && !o.useInline ) { o.bootstrapModal = true; o.bootstrapResponsive = false; }
+	if ( o.hideContainer && !o.useInline ) {
+		o.bootstrapModal = true; o.bootstrapResponsive = false;
+	}
 
 	w.d.input
 		.on( "focus.datebox", function(){
