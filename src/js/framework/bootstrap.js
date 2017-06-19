@@ -273,6 +273,7 @@ JTSageDateBox._create = function() {
 
 	if ( o.hideInput ) { w.d.wrap.hide(); }
 	if ( o.hideContainer ) { w.d.wrap.parent().hide(); }
+	if ( o.hideContainer && !o.useInline ) { o.bootstrapModal = true; o.bootstrapResponsive = false; }
 
 	w.d.input
 		.on( "focus.datebox", function(){
@@ -491,6 +492,8 @@ JTSageDateBox.open = function () {
 			o.bootstrapModal = true;
 			o.bootstrapDropdown = false;
 		}
+	} else { 
+		if ( o.bootstrapModal === true ) { o.bootstrapDropdown = false; }
 	}
 
 	if ( o.bootstrapDropdown === false && o.bootstrapModal === true ) {

@@ -55,7 +55,7 @@ Setting 'buttonIcon' to a different class will result in a different button ("co
 
 <p>Also note that {% api_doc hideContainer %} can be used with {% api_doc useInline %} - it just sits on the left edge of the screen and styling it is up to you.</p>
 
-<p><strong>This feature is currently broken for bootstrap.</strong></p>
+<p><strong>For bootstrap, this feature will also force bootstrapModal <em>on</em> and bootstrapResponsive <em>off</em></strong></p>
 
 <a href="javascript:$('#cal3').datebox('open');" data-role="button">Open Datebox</a>
 

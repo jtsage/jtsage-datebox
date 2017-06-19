@@ -12,18 +12,18 @@ all of the options available in that mode.
 
 
 ### Andriod Styled
-* [DateBox]({{site.basesite}}bootstrap/datebox)
-* [TimeBox]({{site.basesite}}bootstrap/timebox)
-* [DurationBox]({{site.basesite}}bootstrap/durationbox)
+* [DateBox]({{site.basesite}}bootstrap4/datebox)
+* [TimeBox]({{site.basesite}}bootstrap4/timebox)
+* [DurationBox]({{site.basesite}}bootstrap4/durationbox)
 
 ### iOS Styled
-* [FlipBox]({{site.basesite}}bootstrap/flipbox)
-* [TimeFlipBox]({{site.basesite}}bootstrap/timeflipbox)
-* [DurationFlipBox]({{site.basesite}}bootstrap/durationflipbox)
-* [CustomFlip]({{site.basesite}}bootstrap/customflip)
+* [FlipBox]({{site.basesite}}bootstrap4/flipbox)
+* [TimeFlipBox]({{site.basesite}}bootstrap4/timeflipbox)
+* [DurationFlipBox]({{site.basesite}}bootstrap4/durationflipbox)
+* [CustomFlip]({{site.basesite}}bootstrap4/customflip)
 
 ### Calendar
-* [CalBox]({{site.basesite}}bootstrap/calbox)
+* [CalBox]({{site.basesite}}bootstrap4/calbox)
 
 ### Slider
-* [SlideBox]({{site.basesite}}bootstrap/slidebox)
+* [SlideBox]({{site.basesite}}bootstrap4/slidebox)

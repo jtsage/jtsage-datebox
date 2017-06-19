@@ -1,11 +1,11 @@
 ---
 title: Demo Magic
-pagenum: 24
+pagenum: 23
 layout: doc
 ---
 
 # How the %^$%^ do the Demos Work?
-After some though, I decided to include the annotated demo magic function here. 
+After some thought, I decided to include the annotated demo magic function here. 
 I doubt it's useful outside of it's purpose, but it does show how to dynamically 
 change datebox options.
 

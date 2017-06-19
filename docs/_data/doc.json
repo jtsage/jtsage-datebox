@@ -1,14 +1,14 @@
 { "docmap": [
-	{ "url":"",		 				"name":"1. Introduction" },
+	{ "url":"",		 		"name":"1. Introduction" },
 	{ "url":"1-1-features",			"name":"1.1. Features"},
 	{ "url":"2-0-installing",		"name":"2. Installation"},
-	{ "url":"3-0-first-datebox",	"name":"3. Your First Datebox"},
+	{ "url":"3-0-first-datebox",		"name":"3. Your First Datebox"},
 	{ "url":"3-1-themes",			"name":"3.1. Themeing Datebox"},
 	{ "url":"3-2-locale",			"name":"3.2. Localizing Datebox"},
 	{ "url":"3-3-output",			"name":"3.3. Output Formats"},
 	{ "url":"3-4-display",			"name":"3.4. Display Modes"},
 	{ "url":"3-5-advdisplay",		"name":"3.5. Display Modifiers"},
-	{ "url":"3-6-open",				"name":"3.6. Open Methods"},
+	{ "url":"3-6-open",			"name":"3.6. Open Methods"},
 	{ "url":"4-0-limits",			"name":"4. Data Limiting"},
 	{ "url":"4-1-defaults",			"name":"4.1. Default / Start Dates"},
 	{ "url":"4-2-limit", 			"name":"4.2. Excluding Dates"},
@@ -22,10 +22,8 @@
 	{ "url":"6-5-globals", 			"name":"6.5. Global Data"},
 	{ "url":"7-0-demos", 			"name":"7. Advanced Demos"},
 	{ "url":"7-1-formats",			"name":"7.1. Multiple Formats"},
-	{ "url":"7-2-custom",			"name":"7.2. CustomFlip"},
 	{ "url":"7-3-demos",			"name":"7.3. Demo Magic"},
 	{ "url":"7-4-convert",			"name":"7.4. DateBox Conversion Lib"},
-	{ "url":"8-0-pack", 			"name":"8. 3rd-Party Integration"}
 ],
 
 }
