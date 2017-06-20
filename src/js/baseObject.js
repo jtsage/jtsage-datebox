@@ -107,6 +107,7 @@ JTSageDateBox.options = {
 	minDur: false,
 	minuteStep: 1,
 	minuteStepRound: 0,
+	twoDigitYearCutoff: 38,
 
 	rolloverMode: { 
 		"m": true,

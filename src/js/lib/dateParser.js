@@ -178,7 +178,7 @@ JTSageDateBox._makeDate = function ( str ) {
 				case "E": d.year = grbg - 543; break;
 				case "y":
 				case "g":
-					if ( o.afterToday || grbg < 38 ) {
+					if ( o.afterToday || grbg < o.twoDigitYearCutoff ) {
 						d.year = 2000 + grbg;
 					} else {
 						d.year = 1900 + grbg;
