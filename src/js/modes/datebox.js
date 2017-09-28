@@ -302,7 +302,7 @@ JTSageDateBox._build.datebox = function () {
 					.appendTo(currentControl);
 			}
 
-			$("<div><input class='form-control w-100' type='text'></div>")
+			$("<div><input class='form-control w-100 " + o.extraInputClass + "' type='text'></div>")
 				.addClass( function() {
 					switch ( w.baseMode ) {
 						case "jqm":
