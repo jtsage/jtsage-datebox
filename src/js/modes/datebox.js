@@ -266,8 +266,9 @@ JTSageDateBox._build.datebox = function () {
 	}
 	
 	if ( o.mode === "datebox" ) { 
-		$( w._spf("<div class='{cls}'><h4>{text}</h4></div>", {
-			cls: uid + "header",
+		tmp = ( w.baseMode === "bootstrap4" ) ? "h5" : "h4";
+		$( w._spf("<div class='{cls}'><" + tmp + ">{text}</" + tmp + "></div>", {
+			cls: uid + "header text-center",
 			text: w._formatter( w.__( "headerFormat"), w.theDate )
 		})).appendTo(w.d.intHTML); 
 	}

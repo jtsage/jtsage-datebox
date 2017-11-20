@@ -11,7 +11,7 @@ mergeOpts({
 	themeDateHigh: "warning",
 	themeDateHighAlt: "danger",
 	themeDateHighRec: "warning",
-	themeDate: "secondary",
+	themeDate: "dark",
 	themeButton: "secondary",
 	themeInput: "default",
 	transition: "fade",
@@ -36,7 +36,7 @@ mergeOpts({
 	calPrevMonthIcon: "minus",
 	useInlineAlign: "left",
 
-	btnCls: " btn btn-sm btn-",
+	btnCls: " btn btn-sm btn-outline-",
 	icnCls: " fa fa-",
 
 	s: {
@@ -57,7 +57,7 @@ JTSageDateBox.baseMode = "bootstrap4";
 JTSageDateBox._stdBtn = {
 	cancel: function() {
 		var w = this, o = this.options;
-		return $("<a href='#' role='button' class='btn btn-" + o.themeCancelButton + 
+		return $("<a href='#' role='button' class='" + o.btnCls + o.themeCancelButton + 
 				"'><span class='" + o.icnCls + "remove'></span> " +
 				w.__("cancelButton") + "</a>" )
 			.on(o.clickEventAlt, function (e) {
@@ -67,7 +67,7 @@ JTSageDateBox._stdBtn = {
 	},
 	clear: function() {
 		var w = this, o = this.options;
-		return $("<a href='#' role='button' class='btn btn-" + o.themeClearButton + 
+		return $("<a href='#' role='button' class='" + o.btnCls + o.themeClearButton + 
 				"'><span class='" + o.icnCls + "eraser'></span> " +
 				w.__("clearButton") + "</a>" )
 			.on(o.clickEventAlt, function(e) {
@@ -82,7 +82,7 @@ JTSageDateBox._stdBtn = {
 
 		if ( typeof trigger === "undefined" ) { trigger = false; }
 
-		return $("<a href='#' role='button' class='btn btn-" + o.themeCloseButton + 
+		return $("<a href='#' role='button' class='" + o.btnCls + o.themeCloseButton + 
 				"'><span class='" + o.icnCls + "check'></span> " +
 				txt + "</a>" )
 			.addClass( "" +
@@ -107,7 +107,7 @@ JTSageDateBox._stdBtn = {
 	},
 	today: function() {
 		var w = this, o = this.options;
-		return $("<a href='#' role='button' class='btn btn-" + o.themeTodayButton + 
+		return $("<a href='#' role='button' class='" + o.btnCls + o.themeTodayButton + 
 				"'><span class='" + o.icnCls + "send'></span> " +
 				w.__("todayButtonLabel") + "</a>" )
 			.on(o.clickEventAlt, function(e) {
@@ -119,7 +119,7 @@ JTSageDateBox._stdBtn = {
 	},
 	tomorrow: function() {
 		var w = this, o = this.options;
-		return $("<a href='#' role='button' class='btn btn-" +o.themeTomorrowButton+ 
+		return $("<a href='#' role='button' class='" + o.btnCls + o.themeTomorrowButton+ 
 				"'><span class='" + o.icnCls + "send'></span> " +
 				w.__("tomorrowButtonLabel") + "</a>" )
 			.on(o.clickEventAlt, function(e) {
@@ -454,6 +454,7 @@ JTSageDateBox.open = function () {
 			}
 		}
 		basepop.afteropen = function() {
+			console.log('things happened!');
 			w._t( { method: "postrefresh" } );
 			if ( o.openCallback.apply( w, $.merge([{
 						custom: w.customCurrent,
@@ -467,6 +468,7 @@ JTSageDateBox.open = function () {
 		};
 	} else {
 		basepop.afteropen = function() {
+			console.log('things happened!');
 			w._t( { method: "postrefresh" } );
 		};
 	}
@@ -521,6 +523,7 @@ JTSageDateBox.open = function () {
 		w.d.modalWrap.modal( "show" );
 	}
 	if ( o.bootstrapDropdown === true && o.bootstrapModal === false ) {
+		console.log(basepop);
 		w.d.mainWrap
 			.removeClass( "w-100" )
 			.addClass( "dropdown-menu" )
@@ -528,6 +531,7 @@ JTSageDateBox.open = function () {
 			.addClass( ( o.bootstrapDropdownRight === true ) ? "dropdown-menu-right" : "" )
 			.appendTo(w.d.wrap)
 			.on( o.tranDone, function() { 
+				console.log('yo!');
 				if ( w.d.mainWrap.is( ":visible" ) ) {
 					basepop.afteropen.call();
 				} else {
@@ -536,7 +540,7 @@ JTSageDateBox.open = function () {
 				}
 			});
 
-		w.d.wrap.addClass( "show" );
+		w.d.wrap.addClass( "show" )
 
 		w.d.backdrop = $("<div class='jtsage-datebox-backdrop-div'></div>")
 			.css({ position: "fixed", left: 0, top: 0, bottom: 0, right: 0 })
@@ -547,8 +551,12 @@ JTSageDateBox.open = function () {
 			});
 
 		window.setTimeout(function () {
-			w.d.mainWrap.addClass( "show" );
+			w.d.mainWrap.addClass( "show" )
 		}, 0);
+		window.setTimeout(function () { // This is hacky as hell.
+			w.d.mainWrap.trigger( "oTransitionEnd" );
+		}, 200);
+		
 	}
 };
 
