@@ -335,13 +335,15 @@ JTSageDateBox._build.datebox = function () {
 		case "bootstrap":
 			allControls.addClass( "row" );
 			allControls.find( "." + uid + "datebox-group" ).each( function() {
-				$(this).addClass("col-xs-" + 12 / cnt);
+				$(this)
+					.addClass("col-xs-" + Math.floor( 12 / cnt ) )
+					.css( { "padding-left" : 0, "padding-right" : 0 } );
 			});
 			break;
 		case "bootstrap4":
 			allControls.addClass( "row" );
 			allControls.find( "." + uid + "datebox-group" ).each( function() {
-				$(this).addClass("px-0 col-sm-" + 12 / cnt);
+				$(this).addClass("px-0 col-sm-" + Math.floor( 12 / cnt ) );
 			});
 			break;
 		case "jqueryui":
