@@ -192,7 +192,7 @@ JTSageDateBox._create = function() {
 			eEnd   : "touchend" + evtid + " mouseup" + evtid,
 			//(touch ? "touchend" : "mouseup" ) + evtid,
 			eEndA  : (true ?
-				(["mouseup","touchend","touchcanel","touchmove"].join(evtid+" ") + evtid) :
+				(["mouseup","touchend","touchcancel","touchmove"].join(evtid+" ") + evtid) :
 				"mouseup" + evtid
 			),
 			move   : false,
