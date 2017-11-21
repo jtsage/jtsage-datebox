@@ -135,6 +135,7 @@ JTSageDateBox._fbox_mktxt = {
 
 // Really, timeflipbox and durationflipbox are just aliases
 JTSageDateBox._build.timeflipbox = function() { this._build.flipbox.apply( this ); };
+JTSageDateBox._build.datetimeflipbox = function() { this._build.flipbox.apply( this ); };
 JTSageDateBox._build.durationflipbox = function() { this._build.flipbox.apply( this ); };
 
 JTSageDateBox._build.flipbox = function () {
@@ -186,11 +187,21 @@ JTSageDateBox._build.flipbox = function () {
 		w._fbox_pos(); 
 	});
 
-	w.fldOrder = ( o.mode === "flipbox" ) ?
-		w.__( "dateFieldOrder" ) :
-		( dur ) ? 
-			w.__("durationOrder") :
-			w.__( "timeFieldOrder" );
+	switch ( o.mode ) {
+		case "durationflipbox" :
+			w.fldOrder = w.__( "durationOrder" );
+			break;
+		case "timeflipbox" :
+			w.fldOrder = w.__( "timeFieldOrder" );
+			break;
+		case "datetimeflipbox" :
+			w.fldOrder = w.__( "datetimeFieldOrder" );
+			break;
+		case "flip" :
+		default :
+			w.fldOrder = w.__( "dateFieldOrder" );
+			break;
+	}
 			
 	if ( !dur ) {
 		w._check();
@@ -210,7 +221,7 @@ JTSageDateBox._build.flipbox = function () {
 		}
 	}
 
-	if ( o.mode === "flipbox" ) { 
+	if ( o.mode === "flipbox" || o.mode === "datetimeflipbox" ) { 
 		tmp = ( w.baseMode === "bootstrap4" ) ? "h5" : "h4";
 		$( w._spf("<div class='{cls}'><" + tmp + ">{text}</" + tmp + "></div>", {
 			cls: uid + "header text-center",
@@ -270,6 +281,12 @@ JTSageDateBox._build.flipbox = function () {
 		if ( w.fldOrder.length === 4 ) {
 			ctrl.addClass( uid + "flipcontentd" );	
 		}
+		if ( w.fldOrder.length === 5 ) {
+			ctrl.addClass( uid + "flipcontente" );
+		}
+		if ( w.fldOrder.length === 6 ) {
+			ctrl.addClass( uid + "flipcontentf" );
+		}
 	}
 
 	for ( y=0; ( y < w.fldOrder.length && !dur ); y++ ) {
@@ -327,13 +344,17 @@ JTSageDateBox._build.flipbox = function () {
 		controlButtons = $( "<div>", { "class": uid + "controls" } );
 		
 		if ( o.useSetButton ) {
-			controlButtons.append( w._stdBtn.close.apply(
-				w, [ ( o.mode === "flipbox" ) ? 
-					w.__("setDateButtonLabel") :
-					( dur ) ?
-						w.__("setDurationButtonLabel") :
-						w.__("setTimeButtonLabel")]
-			));
+			switch (o.mode) {
+				case "timeflipbox" :
+					tmp = w.__("setTimeButtonLabel"); break;
+				case "durationflipbox" :
+					tmp = w.__("setDurationButtonLabel"); break;
+				case "flipbox":
+				case "datetimeflipbox":
+				default:
+					tmp = w.__("setDateButtonLabel"); break;
+			}
+			controlButtons.append( w._stdBtn.close.apply( w, [ tmp ]	));
 		}
 		if ( o.useTodayButton ) {
 			controlButtons.append(w._stdBtn.today.apply(w));
@@ -378,6 +399,7 @@ JTSageDateBox._build.flipbox = function () {
 };
 
 JTSageDateBox._drag.timeflipbox = function() { this._drag.flipbox.apply( this ); };
+JTSageDateBox._drag.datetimeflipbox = function() { this._drag.flipbox.apply( this ); };
 JTSageDateBox._drag.durationflipbox = function() { this._drag.flipbox.apply( this ); };
 
 JTSageDateBox._drag.flipbox = function() {

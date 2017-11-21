@@ -226,6 +226,7 @@ JTSageDateBox._dbox_button = function (direction, field, amount) {
 };
 
 JTSageDateBox._build.timebox = function () { this._build.datebox.apply( this, [] ); };
+JTSageDateBox._build.datetimebox = function () { this._build.datebox.apply( this, [] ); };
 JTSageDateBox._build.durationbox =  function () { this._build.datebox.apply( this, [] ); };
 
 JTSageDateBox._build.datebox = function () {
@@ -251,10 +252,21 @@ JTSageDateBox._build.datebox = function () {
 	);
 	w.d.intHTML = $( "<span>" );
 	
-	w.fldOrder = ( ( o.mode === "datebox" ) ?
-		w.__( "dateFieldOrder" ) :
-		( ( dur ) ? w.__( "durationOrder" ) : w.__( "timeFieldOrder" ) )
-	);
+	switch ( o.mode ) {
+		case "durationbox" :
+			w.fldOrder = w.__( "durationOrder" );
+			break;
+		case "timebox" :
+			w.fldOrder = w.__( "timeFieldOrder" );
+			break;
+		case "datetimebox" :
+			w.fldOrder = w.__( "datetimeFieldOrder" );
+			break;
+		case "datebox" :
+		default :
+			w.fldOrder = w.__( "dateFieldOrder" );
+			break;
+	}
 
 	if ( !dur ) {
 		w._check();
@@ -265,7 +277,7 @@ JTSageDateBox._build.datebox = function () {
 		w._fixstepper( w.fldOrder );
 	}
 	
-	if ( o.mode === "datebox" ) { 
+	if ( o.mode === "datebox" || o.mode === "datetimebox" ) { 
 		tmp = ( w.baseMode === "bootstrap4" ) ? "h5" : "h4";
 		$( w._spf("<div class='{cls}'><" + tmp + ">{text}</" + tmp + "></div>", {
 			cls: uid + "header text-center",
@@ -310,16 +322,22 @@ JTSageDateBox._build.datebox = function () {
 							return "ui-input-text ui-body-" + o.themeInput + " ui-mini";
 						case "bootstrap":
 						case "bootstrap4":
-							return o.themeInput;
+							return o.themeInput;	
 						default:
 							return null;
 					}
 				})
 				.appendTo(currentControl)
-				.find( "input" ).data({
-					"field": w.fldOrder[i],
-					"amount": offAmount
-				});
+				.find( "input" )
+					.data({
+						"field": w.fldOrder[i],
+						"amount": offAmount
+					})
+					.addClass( function() {
+						if ( w.baseMode === "bootstrap4" && o.mode === "datetimebox" ) { 
+							return "px-1";
+						}
+					});
 
 			w._dbox_button( -1, w.fldOrder[i], offAmount ).appendTo( currentControl );
 
@@ -364,13 +382,17 @@ JTSageDateBox._build.datebox = function () {
 		controlButtons = $( "<div>", { "class": uid + "controls" } );
 		
 		if ( o.useSetButton ) {
-			w.setBut = w._stdBtn.close.apply(
-				w, [(o.mode==="datebox") ? 
-					w.__("setDateButtonLabel") :
-					( dur ) ?
-						w.__("setDurationButtonLabel") :
-						w.__("setTimeButtonLabel")]
-			);
+			switch (o.mode) {
+				case "timebox" :
+					tmp = w.__("setTimeButtonLabel"); break;
+				case "durationbox" :
+					tmp = w.__("setDurationButtonLabel"); break;
+				case "datebox":
+				case "datetimebox":
+				default:
+					tmp = w.__("setDateButtonLabel"); break;
+			}
+			w.setBut = w._stdBtn.close.apply( w, [tmp] );
 			w.setBut.appendTo(controlButtons);
 		}
 		if ( o.useTodayButton ) {

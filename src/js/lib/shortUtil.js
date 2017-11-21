@@ -63,6 +63,9 @@ JTSageDateBox.__fmt = function() {
 		case "durationbox":
 		case "durationflipbox":
 			return w.__( "durationFormat" );
+		case "datetimebox":
+		case "datetimeflipbox":
+			return w.__( "datetimeFormat" );
 		default:
 			return w.__( "dateFormat" );
 	}

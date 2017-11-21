@@ -454,7 +454,6 @@ JTSageDateBox.open = function () {
 			}
 		}
 		basepop.afteropen = function() {
-			console.log('things happened!');
 			w._t( { method: "postrefresh" } );
 			if ( o.openCallback.apply( w, $.merge([{
 						custom: w.customCurrent,
@@ -468,7 +467,6 @@ JTSageDateBox.open = function () {
 		};
 	} else {
 		basepop.afteropen = function() {
-			console.log('things happened!');
 			w._t( { method: "postrefresh" } );
 		};
 	}
@@ -523,7 +521,6 @@ JTSageDateBox.open = function () {
 		w.d.modalWrap.modal( "show" );
 	}
 	if ( o.bootstrapDropdown === true && o.bootstrapModal === false ) {
-		console.log(basepop);
 		w.d.mainWrap
 			.removeClass( "w-100" )
 			.addClass( "dropdown-menu" )
@@ -531,7 +528,6 @@ JTSageDateBox.open = function () {
 			.addClass( ( o.bootstrapDropdownRight === true ) ? "dropdown-menu-right" : "" )
 			.appendTo(w.d.wrap)
 			.on( o.tranDone, function() { 
-				console.log('yo!');
 				if ( w.d.mainWrap.is( ":visible" ) ) {
 					basepop.afteropen.call();
 				} else {
