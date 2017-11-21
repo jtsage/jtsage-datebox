@@ -246,7 +246,7 @@ JTSageDateBox._create = function() {
 					o.buttonIcon = o.buttonIconDate;
 				}
 			}
-			$( "<a href='#' class='ui-input-clear ui-btn ui-icon-" + 
+			$( "<a href='javascript: return false;' class='ui-input-clear ui-btn ui-icon-" + 
 					o.buttonIcon +
 					" ui-btn-icon-notext ui-corner-all'></a>" )
 				.attr( "title", w.__( "tooltip" ) )
