@@ -21,6 +21,9 @@ $defaults = array(
 	'fScrHeight'	=> array(120, "Scroller Height", 'flipbox', 50, 350),
 	'fScrWidth'		=> array(77, "Scroller Width", 'flipbox', 5, 200),
 	'fDScrWidth'	=> array(60, "Scroller Width (Dur)", 'flipbox', 5, 200),
+	'fEScrWidth'	=> array(46, "Scroller Width (5ele)", 'flipbox', 5, 200),
+	'fFScrWidth'	=> array(37, "Scroller Width (6ele)", 'flipbox', 5, 200),
+	'fGScrWidth'	=> array(32, "Scroller Width (7ele)", 'flipbox', 5, 200),
 	'fEleHeight'	=> array(30, "Date Height", 'flipbox', 5, 50),
 	
 	// SlideBox Options

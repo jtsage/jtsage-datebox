@@ -22,10 +22,11 @@ $defaults = array(
 	'fLensHeight'	=> array(40, "Lens Height", 'flipbox', 5, 100),
 	'fTotHeight'	=> array(125, "Scroll Box Height", 'flipbox', 50, 350),
 	'fScrHeight'	=> array(120, "Scroller Height", 'flipbox', 50, 350),
-	'fScrWidth'		=> array(77, "Scroller Width", 'flipbox', 5, 200),
-	'fDScrWidth'	=> array(60, "Scroller Width (Dur)", 'flipbox', 5, 200),
-	'fEScrWidth'	=> array(47, "Scroller Width (5item)", 'flipbox', 5, 200),
-	'fFScrWidth'	=> array(38, "Scroller Width (6item)", 'flipbox', 5, 200),
+	'fScrWidth'		=> array(28, "Scroller Width", 'flipbox', 5, 200),
+	'fDScrWidth'	=> array(20, "Scroller Width (Dur)", 'flipbox', 5, 200),
+	'fEScrWidth'	=> array(16.5, "Scroller Width (5item)", 'flipbox', 5, 200),
+	'fFScrWidth'	=> array(14, "Scroller Width (6item)", 'flipbox', 5, 200),
+	'fGScrWidth'	=> array(12, "Scroller Width (7item)", 'flipbox', 5, 200),
 	'fEleHeight'	=> array(30, "Date Height", 'flipbox', 5, 50),
 	
 	// SlideBox Options
@@ -69,7 +70,7 @@ foreach ( $defaults as $key => $value ) {
 	<title>Bootstrap - DateBox Themeing</title>
 	
 	<!-- NOTE: Script load order is significant! -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 	
 	
@@ -84,8 +85,8 @@ foreach ( $defaults as $key => $value ) {
 	<script type="text/javascript" src="http://cdn.jtsage.com/external/bootstrap-slider.min.js"></script>
 	<link rel="stylesheet" href="http://cdn.jtsage.com/external/bootstrap-slider.min.css"/>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script> 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver | remove_first: "-" }}/jtsage-datebox{{ site.dbver }}.bootstrap4{{site.min}}.js"></script>
 	<script type="text/javascript" src="{{ site.i18n }}jtsage-datebox.lang.utf8.js"></script>

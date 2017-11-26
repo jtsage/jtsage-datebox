@@ -2,7 +2,7 @@
 ---
 <?php
 
-//Bootstrap version
+//Bootstrap version (3)
 
 $defaults = array(
 	// Common Options
@@ -21,10 +21,11 @@ $defaults = array(
 	'fLensHeight'	=> array(40, "Lens Height", 'flipbox', 5, 100),
 	'fTotHeight'	=> array(125, "Scroll Box Height", 'flipbox', 50, 350),
 	'fScrHeight'	=> array(120, "Scroller Height", 'flipbox', 50, 350),
-	'fScrWidth'		=> array(77, "Scroller Width", 'flipbox', 5, 200),
-	'fDScrWidth'	=> array(60, "Scroller Width (Dur)", 'flipbox', 5, 200),
-	'fEScrWidth'	=> array(47, "Scroller Width (5item)", 'flipbox', 5, 200),
-	'fFScrWidth'	=> array(38, "Scroller Width (6item)", 'flipbox', 5, 200),
+	'fScrWidth'		=> array(28, "Scroller Width", 'flipbox', 5, 200),
+	'fDScrWidth'	=> array(20, "Scroller Width (Dur)", 'flipbox', 5, 200),
+	'fEScrWidth'	=> array(16.5, "Scroller Width (5item)", 'flipbox', 5, 200),
+	'fFScrWidth'	=> array(14, "Scroller Width (6item)", 'flipbox', 5, 200),
+	'fGScrWidth'	=> array(12, "Scroller Width (7item)", 'flipbox', 5, 200),
 	'fEleHeight'	=> array(30, "Date Height", 'flipbox', 5, 50),
 	
 	// SlideBox Options
