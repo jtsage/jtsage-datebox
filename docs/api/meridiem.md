@@ -4,7 +4,7 @@ short: Name of meridiems, if used
 modes: [
 	'timebox',
 	'slidebox',
-	'timeflipbox',,
+	'timeflipbox',
 	'datetimebox',
 	'datetimeflipbox'
 ]
