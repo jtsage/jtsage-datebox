@@ -355,6 +355,7 @@ JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
 				.css({"marginTop": "3px", "float": "left", "height": "auto"})
 				.first().css({ width: "60%" })
 				.end().last().css({ width: "40%" });
+			pickerControl.i.addClass( "w-100" );
 			if ( o.calNoHeader && o.calUsePickersIcons ) {
 				w.d.intHTML.find( "." + uid + "gridheader" ).append(pickerControl);
 			} else {

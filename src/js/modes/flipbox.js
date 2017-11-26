@@ -56,7 +56,7 @@ JTSageDateBox._fbox_pos = function () {
 		parentHeight = element.parent().innerHeight();
 		first = element.find( "li" ).first();
 		fixer = element.find( "li" ).last().offset().top - element.find("li").first().offset().top;
-		first.css("marginTop", ( ( ( fixer - parentHeight ) / 2 ) + first.outerHeight() ) * -1 );
+		first.attr("style", "margin-top: " + (( ( ( fixer - parentHeight ) / 2 ) + first.outerHeight() ) * -1) + "px !important" );
 	});
 };
 
@@ -147,14 +147,22 @@ JTSageDateBox._build.flipbox = function () {
 		normDurPositions = ["d", "h", "i", "s"],
 		dur = ( o.mode === "durationflipbox" ? true : false ),
 		uid = "ui-datebox-",
+		uidfc = uid + "flipcontent",
 		flipBase = $( "<div class='ui-overlay-shadow'><ul></ul></div>" ),
 		ctrl = $( "<div>", { "class": uid+"flipcontent" } ),
 		ti = w.theDate.getTime() - w.initDate.getTime(),
-		themeType = "" +
-			( ( w.baseMode === "jqm" ) ? "ui-body-" : "" ) +
-			( ( w.baseMode === "bootstrap" ||  w.baseMode === "bootstrap4" ) ? "bg-" : "" ),
+		themeType = "",
 		cDur = w._dur( ti<0 ? 0 : ti ),
 		currentTerm, currentText;
+
+	switch ( w.baseMode ) {
+		case "jqm":
+			themeType = "ui-body-"; break;
+		case "bootstrap":
+			themeType = "bg-"; break;
+		case "bootstrap4":
+			themeType = "p-0 m-0 btn btn-block btn-outline-"; break;
+	}
 
 	if ( ti < 0 ) {
 		w.lastDuration = 0;
@@ -202,6 +210,10 @@ JTSageDateBox._build.flipbox = function () {
 			w.fldOrder = w.__( "dateFieldOrder" );
 			break;
 	}
+
+	if ( w.baseMode === "bootstrap4" && w.fldOrder.length > 6 ) {
+		themeType = "btn-sm " + themeType;
+	}
 			
 	if ( !dur ) {
 		w._check();
@@ -222,7 +234,7 @@ JTSageDateBox._build.flipbox = function () {
 	}
 
 	if ( o.mode === "flipbox" || o.mode === "datetimeflipbox" ) { 
-		tmp = ( w.baseMode === "bootstrap4" ) ? "h5" : "h4";
+		tmp = ( w.baseMode === "bootstrap4" ) ? "h6" : "h4";
 		$( w._spf("<div class='{cls}'><" + tmp + ">{text}</" + tmp + "></div>", {
 			cls: uid + "header text-center",
 			text: w._formatter( w.__( "headerFormat"), w.theDate )
@@ -247,14 +259,14 @@ JTSageDateBox._build.flipbox = function () {
 			})).appendTo(tmp);
 		}
 		tmp.appendTo(w.d.intHTML);
+
+		ctrl.addClass( uidfc + "d" );
 		
 		w.dateOK = true;
 		cDurS.d = w._fbox_series(cDur[0],64,"d",false);
 		cDurS.h = w._fbox_series(cDur[1],64,"h",(cDur[0]>0));
 		cDurS.i = w._fbox_series(cDur[2],60,"i",(cDur[0]>0 || cDur[1]>0));
 		cDurS.s = w._fbox_series(cDur[3],60,"s",(cDur[0]>0 || cDur[1]>0 || cDur[2]>0));
-		
-		ctrl.addClass( uid + "flipcontentd" );
 		
 		for ( y = 0; y < w.fldOrder.length; y++ ) {
 			stdPos = w.fldOrder[ y ];
@@ -278,14 +290,15 @@ JTSageDateBox._build.flipbox = function () {
 			hRow.appendTo(ctrl);
 		}
 	} else {
-		if ( w.fldOrder.length === 4 ) {
-			ctrl.addClass( uid + "flipcontentd" );	
-		}
-		if ( w.fldOrder.length === 5 ) {
-			ctrl.addClass( uid + "flipcontente" );
-		}
-		if ( w.fldOrder.length === 6 ) {
-			ctrl.addClass( uid + "flipcontentf" );
+		switch ( w.fldOrder.length ) {
+			case 4:
+				ctrl.addClass( uidfc + "d" ); break;
+			case 5:
+				ctrl.addClass( uidfc + "e" ); break;
+			case 6:
+				ctrl.addClass( uidfc + "f" ); break;
+			case 7:
+				ctrl.addClass( uidfc + "g" ); break;
 		}
 	}
 
@@ -312,7 +325,7 @@ JTSageDateBox._build.flipbox = function () {
 			hRow.appendTo( ctrl );
 		}
 		if ( currentTerm === "a" && w.__("timeFormat") === 12 ) {
-			currentText = $("<li class='" + themeType+o.themeDate + "'><span></span></li>");
+			currentText = $("<li class='" + themeType+o.themeDate + "'><span>&nbsp;</span></li>");
 			
 			tmp = (w.theDate.get(3) > 11) ?
 				[o.themeDate,o.themeDatePick,2,5] :
@@ -413,7 +426,7 @@ JTSageDateBox._drag.flipbox = function() {
 				e.originalEvent.changedTouches[0].pageY : 
 				e.pageY;
 
-			g.target.css( "marginTop", (g.pos + g.end - g.start) + "px" );
+			g.target.attr("style", "margin-top: " + (g.pos + g.end - g.start) + "px !important" );
 
 			g.elapsed = Date.now()-g.time;
 			g.velocity = 0.8 * ( 100 * (g.end - g.start) / ( 1 + g.elapsed ) ) + 0.2 * g.velocity;
@@ -450,7 +463,7 @@ JTSageDateBox._drag.flipbox = function() {
 
 				delta = ( -( g.velocity * 0.8 ) * Math.exp( -g.elapsed / 325 ) * 8 ) * -1;
 
-				currentPosition = parseInt( g.target.css("marginTop").replace(/px/i, ""), 10 );
+				currentPosition = parseInt( g.target.css("marginTop").replace(/px !important/i, ""), 10 );
 				goodPosition = parseInt( currentPosition + delta, 10 );
 
 				totalMove = g.pos - goodPosition; 

@@ -156,6 +156,7 @@ JTSageDateBox._destroy = function() {
 		
 	$( document )
 		.off( w.drag.eMove )
+		.off( w.drag.eStart )
 		.off( w.drag.eEnd )
 		.off( w.drag.eEndA );
 };
@@ -527,7 +528,7 @@ JTSageDateBox.open = function () {
 			.addClass( ( o.useAnimation ? o.transition : "" ) )
 			.addClass( ( o.bootstrapDropdownRight === true ) ? "dropdown-menu-right" : "" )
 			.appendTo(w.d.wrap)
-			.on( o.tranDone, function() { 
+			.one( o.tranDone, function() { 
 				if ( w.d.mainWrap.is( ":visible" ) ) {
 					basepop.afteropen.call();
 				} else {

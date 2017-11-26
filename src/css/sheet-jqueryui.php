@@ -22,6 +22,9 @@ $defaults = array(
 	'fScrHeight'	=> array(120, "Scroller Height", 'flipbox', 50, 350),
 	'fScrWidth'		=> array(77, "Scroller Width", 'flipbox', 5, 200),
 	'fDScrWidth'	=> array(60, "Scroller Width (Dur)", 'flipbox', 5, 200),
+	'fEScrWidth'	=> array(48, "Scroller Width (5Ele)", 'flipbox', 5, 200),
+	'fFScrWidth'	=> array(40, "Scroller Width (6Ele)", 'flipbox', 5, 200),
+	'fGScrWidth'	=> array(35, "Scroller Width (7Ele)", 'flipbox', 5, 200),
 	'fEleHeight'	=> array(30, "Date Height", 'flipbox', 5, 50),
 	
 	// SlideBox Options
@@ -329,6 +332,21 @@ div.ui-datebox-container.ui-datebox-inline {
 }
 .ui-datebox-flipcontentd div {
 	width: <?php echo $use['fDScrWidth'] ?>px;
+}
+.ui-datebox-flipcontente div {
+	width: <?php echo $use['fEScrWidth'] ?>px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+.ui-datebox-flipcontentf div {
+	width: <?php echo $use['fFScrWidth'] ?>px;
+	margin-left: 1.5px;
+	margin-right: 1.5px;
+}
+.ui-datebox-flipcontentg div {
+	width: <?php echo $use['fGScrWidth'] ?>px;
+	margin-left: 1px;
+	margin-right: 1px;
 }
 .ui-datebox-flipcontent ul {
 	list-style-type: none;

@@ -20,10 +20,15 @@ $defaults = array(
 	'fLensHeight'	=> array(40, "Lens Height", 'flipbox', 5, 100),
 	'fTotHeight'	=> array(125, "Scroll Box Height", 'flipbox', 50, 350),
 	'fScrHeight'	=> array(120, "Scroller Height", 'flipbox', 50, 350),
-	'fScrWidth'		=> array(77, "Scroller Width", 'flipbox', 5, 200),
-	'fDScrWidth'	=> array(60, "Scroller Width (Dur)", 'flipbox', 5, 200),
-	'fEScrWidth'	=> array(47, "Scroller Width (5item)", 'flipbox', 5, 200),
-	'fFScrWidth'	=> array(38, "Scroller Width (6item)", 'flipbox', 5, 200),
+	//'fScrWidth'		=> array(77, "Scroller Width", 'flipbox', 5, 200),
+	//'fDScrWidth'	=> array(60, "Scroller Width (Dur)", 'flipbox', 5, 200),
+	//'fEScrWidth'	=> array(47, "Scroller Width (5item)", 'flipbox', 5, 200),
+	//'fFScrWidth'	=> array(38, "Scroller Width (6item)", 'flipbox', 5, 200),
+	'fScrWidth'		=> array(28, "Scroller Width", 'flipbox', 5, 200),
+	'fDScrWidth'	=> array(20, "Scroller Width (Dur)", 'flipbox', 5, 200),
+	'fEScrWidth'	=> array(16.5, "Scroller Width (5item)", 'flipbox', 5, 200),
+	'fFScrWidth'	=> array(14, "Scroller Width (6item)", 'flipbox', 5, 200),
+	'fGScrWidth'	=> array(12, "Scroller Width (7item)", 'flipbox', 5, 200),
 	'fEleHeight'	=> array(30, "Date Height", 'flipbox', 5, 50),
 	
 	// SlideBox Options
@@ -197,6 +202,10 @@ div.ui-datebox-container.ui-datebox-inline {
 	margin-left: 5px;
 	margin-bottom: 10px;
 }
+.ui-datebox-datebox-groups {
+	width: 100%;
+	text-align: center;
+}
 
 .ui-datebox-datebox-group.col-xs-3, .ui-datebox-datebox-group.col-xs-4 {
 	padding-left: 0px;
@@ -270,7 +279,7 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 .ui-datebox-flipcontent div {
 	margin-left: 3px;
 	margin-right: 3px;
-	width: <?php echo $use['fScrWidth'] ?>px;
+	width: <?php echo $use['fScrWidth'] ?>%;
 	height: <?php echo $use['fScrHeight'] ?>px;
 	display: inline-block;
 	text-align: center;
@@ -279,13 +288,22 @@ div.ui-datebox-datebox-button.glyphicon-minus {
 	overflow: hidden;
 }
 .ui-datebox-flipcontentd div {
-	width: <?php echo $use['fDScrWidth'] ?>px;
+	width: <?php echo $use['fDScrWidth'] ?>%;
 }
 .ui-datebox-flipcontente div {
-	width: <?php echo $use['fEScrWidth'] ?>px;
+	width: <?php echo $use['fEScrWidth'] ?>%;
+	margin-left: 2px;
+	margin-right: 2px;
 }
 .ui-datebox-flipcontentf div {
-	width: <?php echo $use['fFScrWidth'] ?>px;
+	width: <?php echo $use['fFScrWidth'] ?>%;
+	margin-left: 1.5px;
+	margin-right: 1.5px;
+}
+.ui-datebox-flipcontentg div {
+	width: <?php echo $use['fGScrWidth'] ?>%;
+	margin-left: 1px;
+	margin-right: 1px;
 }
 .ui-datebox-flipcontent ul {
 	list-style-type: none;

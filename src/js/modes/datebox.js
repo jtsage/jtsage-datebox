@@ -278,7 +278,7 @@ JTSageDateBox._build.datebox = function () {
 	}
 	
 	if ( o.mode === "datebox" || o.mode === "datetimebox" ) { 
-		tmp = ( w.baseMode === "bootstrap4" ) ? "h5" : "h4";
+		tmp = ( w.baseMode === "bootstrap4" ) ? "h6" : "h4";
 		$( w._spf("<div class='{cls}'><" + tmp + ">{text}</" + tmp + "></div>", {
 			cls: uid + "header text-center",
 			text: w._formatter( w.__( "headerFormat"), w.theDate )
@@ -291,7 +291,7 @@ JTSageDateBox._build.datebox = function () {
 		currentControl = $( "<div>" ).addClass( uid + "datebox-group" );
 
 		if ( w.baseMode === "jqm" ) {
-			currentControl.addClass( "ui-block-" + ["a","b","c","d","e"][cnt]);
+			currentControl.addClass( "ui-block-" + ["a","b","c","d","e","f","g"][cnt]);
 		}
 
 		if ( dur ) {
@@ -334,8 +334,8 @@ JTSageDateBox._build.datebox = function () {
 						"amount": offAmount
 					})
 					.addClass( function() {
-						if ( w.baseMode === "bootstrap4" && o.mode === "datetimebox" ) { 
-							return "px-1";
+						if ( w.baseMode === "bootstrap4" && w.fldOrder.length > 4 ) { 
+							return "px-0";
 						}
 					});
 
@@ -348,21 +348,35 @@ JTSageDateBox._build.datebox = function () {
 	
 	switch ( w.baseMode ) {
 		case "jqm":
-			allControls.addClass( "ui-grid-" + [0, 0, "a", "b", "c", "d", "e"][cnt] );
+			allControls.addClass( "ui-grid-" + [0, 0, "a", "b", "c", "d", "e", "f", "g"][cnt] );
+			if ( cnt > 4 ) {
+				allControls.find( "input" ).each( function () {
+					$(this).css( { "padding-left": 0, "padding-right": 0 });
+				});
+			}
 			break;
 		case "bootstrap":
-			allControls.addClass( "row" );
+			tmp = Math.floor ( 100 / cnt ) + "%";
+			//allControls.addClass( "row" );
 			allControls.find( "." + uid + "datebox-group" ).each( function() {
 				$(this)
-					.addClass("col-xs-" + Math.floor( 12 / cnt ) )
-					.css( { "padding-left" : 0, "padding-right" : 0 } );
+					//.addClass("col-xs-" + Math.floor( 12 / cnt ) )
+					.css( { 
+						"padding-left" : 0,
+						"padding-right" : 0,
+						"display" : "inline-block",
+						"width" : tmp
+					} );
 			});
+			if ( cnt > 4 ) {
+				allControls.find( "input" ).each( function () {
+					$(this).css( { "padding-left": 0, "padding-right": 0 });
+				});
+			}
 			break;
 		case "bootstrap4":
-			allControls.addClass( "row" );
-			allControls.find( "." + uid + "datebox-group" ).each( function() {
-				$(this).addClass("px-0 col-sm-" + Math.floor( 12 / cnt ) );
-			});
+			allControls.addClass( "d-flex flex-row" );
+			allControls.find( "." + uid + "datebox-group" );
 			break;
 		case "jqueryui":
 			allControls.find( "." + uid + "datebox-group" ).each( function() {

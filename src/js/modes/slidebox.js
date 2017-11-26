@@ -26,7 +26,6 @@ JTSageDateBox._sbox_pos = function () {
 	w.d.intHTML.find( "div.ui-datebox-sliderow-int" ).each(function () {
 		ech = $(this);
 		par = ech.parent().outerWidth();
-		fixer = ech.outerWidth();
 
 		if ( w.__( "isRTL" ) ) { 
 			top = ech.find("div").last(); 
@@ -35,8 +34,6 @@ JTSageDateBox._sbox_pos = function () {
 		}
 
 		tot = ech.find( "div" ).length * top.outerWidth();
-		
-		if ( fixer > 0 ) { tot = fixer; }
 		
 		top.css( "marginLeft", ( tot - par ) / 2 * -1 );
 	});
@@ -74,7 +71,7 @@ JTSageDateBox._sbox_mktxt = {
 };
 
 JTSageDateBox._build.slidebox = function () {
-	var i, y, hRow, phRow, currentTerm, currentText,
+	var i, y, hRow, phRow, currentTerm, currentText, tmp,
 		w = this,
 		o = this.options,
 		g = this.drag,
@@ -101,8 +98,9 @@ JTSageDateBox._build.slidebox = function () {
 	w._check();
 	w._minStepFix();
 	
-	$("<div class='" + uid + "header'><h4>" +
-			w._formatter(w.__( "headerFormat" ), w.theDate) + "</h4></div>")
+	tmp = ( w.baseMode === "bootstrap4" ) ? "h6" : "h4";
+	$("<div class='" + uid + "header text-center'><" + tmp + ">" +
+			w._formatter(w.__( "headerFormat" ), w.theDate) + "</" + tmp + "></div>")
 		.appendTo(w.d.intHTML);
 	
 	w.d.intHTML.append(ctrl);
