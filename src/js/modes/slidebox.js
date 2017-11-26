@@ -20,7 +20,7 @@ mergeOpts({
 });
 
 JTSageDateBox._sbox_pos = function () {
-	var fixer, ech, top, par, tot,
+	var ech, top, par, tot,
 		w = this;
 
 	w.d.intHTML.find( "div.ui-datebox-sliderow-int" ).each(function () {

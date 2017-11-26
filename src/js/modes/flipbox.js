@@ -40,7 +40,7 @@ mergeOpts({
 JTSageDateBox._fbox_pos = function () {
 	// Position the lens and the reels on widget open and 
 	// when they are changed
-	var fixer, element, first, placement = 0,
+	var fixer, element, first, placement = 0, tmp,
 		w = this,
 		adj = ( w.baseMode === "bootstrap4") ? 5 : 0,
 		parentHeight = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
@@ -56,7 +56,8 @@ JTSageDateBox._fbox_pos = function () {
 		parentHeight = element.parent().innerHeight();
 		first = element.find( "li" ).first();
 		fixer = element.find( "li" ).last().offset().top - element.find("li").first().offset().top;
-		first.attr("style", "margin-top: " + (( ( ( fixer - parentHeight ) / 2 ) + first.outerHeight() ) * -1) + "px !important" );
+		tmp = ( ( ( fixer - parentHeight ) / 2 ) + first.outerHeight() ) * -1;
+		first.attr("style", "margin-top: " + tmp + "px !important" );
 	});
 };
 
@@ -205,8 +206,7 @@ JTSageDateBox._build.flipbox = function () {
 		case "datetimeflipbox" :
 			w.fldOrder = w.__( "datetimeFieldOrder" );
 			break;
-		case "flip" :
-		default :
+		case "flipbox" :
 			w.fldOrder = w.__( "dateFieldOrder" );
 			break;
 	}
@@ -364,7 +364,6 @@ JTSageDateBox._build.flipbox = function () {
 					tmp = w.__("setDurationButtonLabel"); break;
 				case "flipbox":
 				case "datetimeflipbox":
-				default:
 					tmp = w.__("setDateButtonLabel"); break;
 			}
 			controlButtons.append( w._stdBtn.close.apply( w, [ tmp ]	));
@@ -463,7 +462,7 @@ JTSageDateBox._drag.flipbox = function() {
 
 				delta = ( -( g.velocity * 0.8 ) * Math.exp( -g.elapsed / 325 ) * 8 ) * -1;
 
-				currentPosition = parseInt( g.target.css("marginTop").replace(/px !important/i, ""), 10 );
+				currentPosition = parseInt( g.target.css("marginTop").replace(/px/i, ""), 10 );
 				goodPosition = parseInt( currentPosition + delta, 10 );
 
 				totalMove = g.pos - goodPosition; 

@@ -537,7 +537,7 @@ JTSageDateBox.open = function () {
 				}
 			});
 
-		w.d.wrap.addClass( "show" )
+		w.d.wrap.addClass( "show" );
 
 		w.d.backdrop = $("<div class='jtsage-datebox-backdrop-div'></div>")
 			.css({ position: "fixed", left: 0, top: 0, bottom: 0, right: 0 })
@@ -548,7 +548,7 @@ JTSageDateBox.open = function () {
 			});
 
 		window.setTimeout(function () {
-			w.d.mainWrap.addClass( "show" )
+			w.d.mainWrap.addClass( "show" );
 		}, 0);
 		window.setTimeout(function () { // This is hacky as hell.
 			w.d.mainWrap.trigger( "oTransitionEnd" );

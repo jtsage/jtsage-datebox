@@ -263,7 +263,6 @@ JTSageDateBox._build.datebox = function () {
 			w.fldOrder = w.__( "datetimeFieldOrder" );
 			break;
 		case "datebox" :
-		default :
 			w.fldOrder = w.__( "dateFieldOrder" );
 			break;
 	}
@@ -403,7 +402,6 @@ JTSageDateBox._build.datebox = function () {
 					tmp = w.__("setDurationButtonLabel"); break;
 				case "datebox":
 				case "datetimebox":
-				default:
 					tmp = w.__("setDateButtonLabel"); break;
 			}
 			w.setBut = w._stdBtn.close.apply( w, [tmp] );
