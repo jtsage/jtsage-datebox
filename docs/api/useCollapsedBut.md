@@ -9,7 +9,9 @@ modes: [
 	'flipbox',
 	'timeflipbox',
 	'durationbox',
-	'durationflipbox'
+	'durationflipbox',
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'control' ]
 relat: "control"

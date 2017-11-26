@@ -6,6 +6,8 @@ modes: [
 	'calbox',
 	'slidebox',
 	'flipbox',
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'i18n' ]
 relat: "i18n"

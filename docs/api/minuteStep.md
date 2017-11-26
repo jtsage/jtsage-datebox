@@ -5,6 +5,8 @@ modes: [
 	'slidebox',
 	'timebox',
 	'timeflipbox',
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'limiting' ]
 relat: "limiting"

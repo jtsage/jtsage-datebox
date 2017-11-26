@@ -10,7 +10,9 @@ modes: [
 	'timeflipbox',
 	'durationbox',
 	'durationflipbox',
-	'customflip'
+	'customflip',
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'display' ]
 frames: [ 'bootstrap' ]

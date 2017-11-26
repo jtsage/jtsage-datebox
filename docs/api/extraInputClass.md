@@ -3,7 +3,8 @@ title: extraInputClass
 short: Class to add to internal input elements
 modes: [
 	'datebox',
-	'timebox'
+	'timebox',
+	'datetimebox'
 ]
 cats: [ 'display' ]
 relat: "display"

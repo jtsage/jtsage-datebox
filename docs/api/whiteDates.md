@@ -6,6 +6,8 @@ modes: [
 	'calbox',
 	'flipbox',
 	'slidebox',
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'limiting' ]
 relat: "limiting"

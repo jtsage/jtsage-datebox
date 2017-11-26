@@ -3,9 +3,11 @@ title: afterToday
 short: Limit dates to after today's date
 modes: [
 	'datebox',
+	'datetimebox',
 	'calbox',
 	'flipbox',
-	'slidebox',
+	'datetimeflipbox',
+	'slidebox'
 ]
 cats: [ 'limiting' ]
 relat: "limiting"

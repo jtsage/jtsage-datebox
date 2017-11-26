@@ -6,6 +6,8 @@ modes: [
 	'flipbox',
 	'slidebox',
 	'timeflipbox',
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'themes' ]
 relat: "themes"

@@ -8,6 +8,8 @@ modes: [
 	'timebox',
 	'timeflipbox',
 	'durationbox',
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'control' ]
 relat: "control"

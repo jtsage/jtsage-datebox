@@ -10,7 +10,9 @@ modes: [
 	'timeflipbox',
 	'durationbox',
 	'durationflipbox',
-	'customflip'
+	'customflip',
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'i18n' ]
 relat: "i18n"

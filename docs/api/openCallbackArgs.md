@@ -11,6 +11,8 @@ modes: [
 	'durationbox',
 	'durationflipbox',
 	'customflip',
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'callback' ]
 relat: "callback"

@@ -10,7 +10,9 @@ modes: [
 	'timeflipbox',
 	'durationbox',
 	'durationflipbox',
-	'customflip'
+	'customflip',
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'common' ]
 relat: "common"
@@ -26,14 +28,16 @@ Choose the mode of operation for datebox.
 
  - datebox
  - timebox (part of datebox)
+ - datetimebox (part of datebox)
  - calbox
  - flipbox
  - timeflipbox (part of flipbox)
+ - datetimeflipbox (part of flipbox)
  - slidebox 
  - durationbox (part of datebox)
  - durationflipbox (part of flipbox)
 
 ### Official, Unsupported Versions
 
- - customflip (likely broken on bootstrap right now)
+ - customflip (likely broken on bootstrap v3/v4 right now)
  - custombox (maybe, dunno if this even almost works right now)

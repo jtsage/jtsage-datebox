@@ -4,7 +4,9 @@ short: Name of meridiems, if used
 modes: [
 	'timebox',
 	'slidebox',
-	'timeflipbox',
+	'timeflipbox',,
+	'datetimebox',
+	'datetimeflipbox'
 ]
 cats: [ 'i18n' ]
 relat: "i18n"
