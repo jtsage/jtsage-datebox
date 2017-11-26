@@ -14,11 +14,13 @@ all of the options available in that mode.
 ### Andriod Styled
 * [DateBox]({{site.basesite}}jqm/datebox)
 * [TimeBox]({{site.basesite}}jqm/timebox)
+* [DateTimeBox]({{site.basesite}}jqm/datetimebox)
 * [DurationBox]({{site.basesite}}jqm/durationbox)
 
 ### iOS Styled
 * [FlipBox]({{site.basesite}}jqm/flipbox)
 * [TimeFlipBox]({{site.basesite}}jqm/timeflipbox)
+* [DateTimeFlipBox]({{site.basesite}}jqm/datetimeflipbox)
 * [DurationFlipBox]({{site.basesite}}jqm/durationflipbox)
 
 ### Calendar

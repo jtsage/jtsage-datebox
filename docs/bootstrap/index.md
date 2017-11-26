@@ -14,11 +14,13 @@ all of the options available in that mode.
 ### Andriod Styled
 * [DateBox]({{site.basesite}}bootstrap/datebox)
 * [TimeBox]({{site.basesite}}bootstrap/timebox)
+* [DateTimeBox]({{site.basesite}}bootstrap/datetimebox)
 * [DurationBox]({{site.basesite}}bootstrap/durationbox)
 
 ### iOS Styled
 * [FlipBox]({{site.basesite}}bootstrap/flipbox)
 * [TimeFlipBox]({{site.basesite}}bootstrap/timeflipbox)
+* [DateTimeFlipBox]({{site.basesite}}bootstrap/datetimeflipbox)
 * [DurationFlipBox]({{site.basesite}}bootstrap/durationflipbox)
 * [CustomFlip]({{site.basesite}}bootstrap/customflip)
 

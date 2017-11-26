@@ -14,11 +14,13 @@ all of the options available in that mode.
 ### Andriod Styled
 * [DateBox]({{site.basesite}}jqueryui/datebox)
 * [TimeBox]({{site.basesite}}jqueryui/timebox)
+* [DateTimeBox]({{site.basesite}}jqueryui/datetimebox)
 * [DurationBox]({{site.basesite}}jqueryui/durationbox)
 
 ### iOS Styled
 * [FlipBox]({{site.basesite}}jqueryui/flipbox)
 * [TimeFlipBox]({{site.basesite}}jqueryui/timeflipbox)
+* [DateTimeFlipBox]({{site.basesite}}jqueryui/datetimeflipbox)
 * [DurationFlipBox]({{site.basesite}}jqueryui/durationflipbox)
 * [CustomFlip]({{site.basesite}}jqueryui/customflip)
 
