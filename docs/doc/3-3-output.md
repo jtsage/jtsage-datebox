@@ -327,7 +327,7 @@ with duration modes.  By default, all numbers are zero-padded. (see modifiers se
 		</span><h3 class="panel-title">
 		%Dl
 		</h3></div><div class="panel-body">
-		Duration Days
+		Duration Hours (lowercase L)
 	</div></div></div>
 	<div class="col-sm-4">
 		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
