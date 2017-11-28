@@ -82,8 +82,6 @@ foreach ( $defaults as $key => $value ) {
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/{{ site.jquiver }}/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/external/bootstrap-slider.min.js"></script>
-	<link rel="stylesheet" href="http://cdn.jtsage.com/external/bootstrap-slider.min.css"/>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
@@ -179,11 +177,7 @@ foreach ( $defaults as $key => $value ) {
 				}
 				echo "\t\t\t<div class='field-group row'>\n";
 				echo "\t\t\t\t<div class='col-xs-3'><label for='{$key}'>{$item[1]}</label></div><div class='col-xs-9'>\n";
-				if ( $item[3] <> false ) {
-					echo "\t\t\t\t<input name='{$key}' id='{$key}' data-slider-id='{$key}Slider' data-slider-value='{$use[$key]}' data-doit='yes' type='text' data-slider-step='1' data-slider-min='{$item[3]}' data-slider-max='{$item[4]}'>\n";
-				} else {
-					echo "\t\t\t\t<input name='{$key}' id='{$key}' class='form-control' value='{$use[$key]}' type='text'>\n";
-				}
+				echo "\t\t\t\t<input name='{$key}' id='{$key}' data-slider-id='{$key}Slider' data-slider-value='{$use[$key]}' data-doit='yes' type='text' data-slider-step='1' data-slider-min='{$item[3]}' data-slider-max='{$item[4]}'>\n";
 				echo "\t\t\t</div></div>\n";
 			}
 			$intype++;
