@@ -165,7 +165,7 @@ JTSageDateBox._create = function() {
 	// Create the widget, called automatically by widget system
 	$( document ).trigger( "dateboxcreate" );
 
-	var w = this,
+	var w = this, runTmp, ranTmp,
 		o = $.extend(
 			this.options,
 			this._getLongOptions( this.element ),
@@ -286,12 +286,35 @@ JTSageDateBox._create = function() {
 				w._t( { method: "open" } );
 			}
 		})
-		.on( "blur.datebox", function() { 
+		.on( "blur.datebox", function() {
 			w.d.input.removeClass( "ui-focus" ); 
 		})
 		.on( "change.datebox", function() {
-			w.theDate = w._makeDate( w.d.input.val() );
-			w.refresh();
+			/* 
+			o.runOnBlur === function ( {oldDate, newDate, wasGoodDate} ) { return {didSomething(bool), newDate}; }
+			*/
+			if ( typeof o.runOnBlurCallback === "function" ) {
+				runTmp = w._makeDate( w.d.input.val(), true );
+				ranTmp = o.runOnBlurCallback.apply( w, [{
+					oldDate: w.theDate,
+					newDate: runTmp[0],
+					wasGoodDate: !runTmp[1],
+					wasBadDate: runTmp[1]
+				}]);
+				if ( typeof ranTmp !== "object" ) { 
+					w.theDate = w._makeDate( w.d.input.val() );
+					w.refresh();
+				} else {
+					if ( ranTmp.didSomething === true ) {
+						w.d.input.val(ranTmp.newDate);
+					}
+					w.theDate = w._makeDate( w.d.input.val() );
+					w.refresh();
+				}
+			} else {
+				w.theDate = w._makeDate( w.d.input.val() );
+				w.refresh();
+			}
 		})
 		.on( "datebox", w._event );
 

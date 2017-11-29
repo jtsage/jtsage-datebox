@@ -11,7 +11,7 @@
 JTSageDateBox._parser = {};
 JTSageDateBox._parser.default = function () { return false; };
 
-JTSageDateBox._makeDate = function ( str ) {
+JTSageDateBox._makeDate = function ( str, extd ) {
 	// Date Parser
 	var i,  exp_temp, exp_format, grbg,
 		w = this,
@@ -20,6 +20,7 @@ JTSageDateBox._makeDate = function ( str ) {
 		adv = w.__fmt(),
 		exp_input = null,
 		exp_names = [],
+		faildate = false,
 		date = new w._date(),
 		d = { 
 			year: -1,
@@ -34,6 +35,7 @@ JTSageDateBox._makeDate = function ( str ) {
 			yday: false,
 			meri: 0
 		};
+	if ( typeof extd === "undefined" ) { extd = false; }
 	
 	str = $.trim( ( ( w.__( "useArabicIndic" ) === true && typeof str !== "undefined" ) ? 
 			w._dRep( str, -1 ) : 
@@ -134,6 +136,7 @@ JTSageDateBox._makeDate = function ( str ) {
 	exp_format = adv.exec(w.__fmt());
 
 	if ( exp_input === null || exp_input.length !== exp_format.length ) {
+		if ( ! str == "" ) { faildate = true; }
 		if ( defVal !== false && defVal !== "" ) {
 			switch ( typeof defVal ) {
 				case "object":
@@ -231,7 +234,7 @@ JTSageDateBox._makeDate = function ( str ) {
 
 		if ( ( d.mont > -1 && d.date > -1 ) ||
 				( d.hour > -1 && d.mins > -1 && d.secs > -1 ) ) {
-			return date;
+			if ( extd == true ) { return [date, faildate]; } else { return date; }
 		}
 
 		if ( d.week !== false ) {
@@ -245,5 +248,9 @@ JTSageDateBox._makeDate = function ( str ) {
 			date.adj( 2 , ( d.wday - date.getDay() ) );
 		}
 	}
-	return date;
+	if ( extd == true ) {
+		return [date, faildate];
+	} else {
+		return date;
+	}
 };

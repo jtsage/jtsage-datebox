@@ -85,6 +85,7 @@ JTSageDateBox.options = {
 	openCallbackArgs: [],
 	closeCallback: false,
 	closeCallbackArgs: [],
+	runOnBlurCallback: false,
 
 	startOffsetYears: false,
 	startOffsetMonths: false,
