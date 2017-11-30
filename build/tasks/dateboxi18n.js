@@ -102,6 +102,8 @@ module.exports = function(grunt) {
 				dateFieldOrder: eval( "[" + _(l, "'m', 'd', 'y'") + "]" ),
 				timeFieldOrder: eval( "[" + _(l, "'h', 'i', 'a'") + "]" ),
 				slideFieldOrder: eval( "[" + _(l, "'y', 'm', 'd'") + "]" ),
+				datetimeFieldOrder: eval( "[" + _(l, "'y', 'm', 'd', 'h', 'i', 's', 'a'") + "]" ),
+				datetimeFormat: _(l, "%Y-%m-%dT%k:%M:%S"),
 				dateFormat: _(l, "%Y-%m-%d"),
 				useArabicIndic: (_(l, "false1") === "true" ? true : false ),
 				isRTL: (_(l, "false2") === "true" ? true : false ),

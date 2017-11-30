@@ -3,16 +3,18 @@ msgstr ""
 "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2014-11-17 09:20-0500\n"
+"PO-Revision-Date: 2017-11-30 14:47-0500\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: crowdin.com\n"
+"X-Crowdin-Project: jquery-mobile-datebox\n"
+"X-Crowdin-Language: th\n"
+"X-Crowdin-File: datebox.po\n"
 
 #. POSIX style date format for header
 #: generate-i18n.py:35
@@ -323,4 +325,12 @@ msgstr "%B %Y"
 #: generate-i18n.py:50
 msgid "Jump to Tomorrow"
 msgstr "ไปวันพรุ่งนี้"
+
+#. Field order for date/time mode (usually Year/Month/Day/Hour/Minute/Second/Meridiem)
+msgid "'y', 'm', 'd', 'h', 'i', 's', 'a'"
+msgstr "'y','m','d','h','i','s'"
+
+#. Output format for date/time mode (ISO8601 typically)
+msgid "%Y-%m-%dT%k:%M:%S"
+msgstr "%Y-%m-%dT%k:%M:%S"
 

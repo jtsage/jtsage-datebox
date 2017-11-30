@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2017-01-04 11:31-0500\n"
+"PO-Revision-Date: 2017-11-30 14:47-0500\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Romanian\n"
 "Language: ro_RO\n"
@@ -325,4 +325,12 @@ msgstr "%B %Y"
 #: generate-i18n.py:50
 msgid "Jump to Tomorrow"
 msgstr "Salt la Maine"
+
+#. Field order for date/time mode (usually Year/Month/Day/Hour/Minute/Second/Meridiem)
+msgid "'y', 'm', 'd', 'h', 'i', 's', 'a'"
+msgstr "'y','m','d','h','i','s'"
+
+#. Output format for date/time mode (ISO8601 typically)
+msgid "%Y-%m-%dT%k:%M:%S"
+msgstr "%Y-%m-%dT%k:%M:%S"
 

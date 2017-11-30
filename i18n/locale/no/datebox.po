@@ -1,8 +1,9 @@
 msgid ""
-msgstr "Project-Id-Version: jquery-mobile-datebox\n"
+msgstr ""
+"Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2014-06-28 15:55-0400\n"
+"PO-Revision-Date: 2017-11-30 14:47-0500\n"
 "Last-Translator: jtsage <Jtsage@gmail.com>\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
@@ -10,7 +11,10 @@ msgstr "Project-Id-Version: jquery-mobile-datebox\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: crowdin.net\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: jquery-mobile-datebox\n"
+"X-Crowdin-Language: no\n"
+"X-Crowdin-File: datebox.po\n"
 
 #. POSIX style date format for header
 #: generate-i18n.py:35
@@ -321,4 +325,12 @@ msgstr "%B %Y"
 #: generate-i18n.py:50
 msgid "Jump to Tomorrow"
 msgstr "Hoppe til i morgen"
+
+#. Field order for date/time mode (usually Year/Month/Day/Hour/Minute/Second/Meridiem)
+msgid "'y', 'm', 'd', 'h', 'i', 's', 'a'"
+msgstr "'y','m','d','h','i','s'"
+
+#. Output format for date/time mode (ISO8601 typically)
+msgid "%Y-%m-%dT%k:%M:%S"
+msgstr "%Y-%m-%dT%k:%M:%S"
 
