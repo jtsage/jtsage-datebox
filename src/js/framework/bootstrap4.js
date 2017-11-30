@@ -291,7 +291,9 @@ JTSageDateBox._create = function() {
 		})
 		.on( "change.datebox", function() {
 			/* 
-			o.runOnBlur === function ( {oldDate, newDate, wasGoodDate} ) { return {didSomething(bool), newDate}; }
+			o.runOnBlur === function ( {oldDate, newDate, wasGoodDate} ) { 
+				return {didSomething(bool), newDate};
+			}
 			*/
 			if ( typeof o.runOnBlurCallback === "function" ) {
 				runTmp = w._makeDate( w.d.input.val(), true );

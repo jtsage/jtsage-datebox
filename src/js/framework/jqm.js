@@ -155,7 +155,7 @@ JTSageDateBox._create = function() {
 	// Create the widget, called automatically by widget system
 	$( document ).trigger( "dateboxcreate" );
 
-	var w = this,
+	var w = this, runTmp, ranTmp,
 		o = $.extend(
 			this.options,
 			this._getLongOptions( this.element ),
@@ -278,7 +278,9 @@ JTSageDateBox._create = function() {
 		})
 		.on( "change.datebox", function() {
 			/* 
-			o.runOnBlur === function ( {oldDate, newDate, wasGoodDate} ) { return {didSomething(bool), newDate}; }
+			o.runOnBlur === function ( {oldDate, newDate, wasGoodDate} ) { 
+				return {didSomething(bool), newDate};
+			}
 			*/
 			if ( typeof o.runOnBlurCallback === "function" ) {
 				runTmp = w._makeDate( w.d.input.val(), true );

@@ -136,7 +136,7 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 	exp_format = adv.exec(w.__fmt());
 
 	if ( exp_input === null || exp_input.length !== exp_format.length ) {
-		if ( ! str == "" ) { faildate = true; }
+		if ( str !== "" ) { faildate = true; }
 		if ( defVal !== false && defVal !== "" ) {
 			switch ( typeof defVal ) {
 				case "object":
@@ -234,7 +234,7 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 
 		if ( ( d.mont > -1 && d.date > -1 ) ||
 				( d.hour > -1 && d.mins > -1 && d.secs > -1 ) ) {
-			if ( extd == true ) { return [date, faildate]; } else { return date; }
+			if ( extd === true ) { return [date, faildate]; } else { return date; }
 		}
 
 		if ( d.week !== false ) {
@@ -248,7 +248,7 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 			date.adj( 2 , ( d.wday - date.getDay() ) );
 		}
 	}
-	if ( extd == true ) {
+	if ( extd === true ) {
 		return [date, faildate];
 	} else {
 		return date;
