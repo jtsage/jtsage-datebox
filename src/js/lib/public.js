@@ -30,6 +30,7 @@ JTSageDateBox.setTheDate = function( newDate ) {
 	} else {
 		this.theDate = this._makeDate( newDate );
 	}
+	this.calBackDate = false;
 	this.refresh();
 	this._t( { method: "doset" });
 };
