@@ -20,11 +20,11 @@ JTSageDateBox.options = {
 	// All widget options, including some internal runtime details
 
 	// Check Header for Build Date.
-	version: "4.3.1",
+	version: "4.4.0",
 	// These are never used, just information
 	jqmVersion: "1.4.5",
 	bootstrapVersion: "3.3.7",
-	bootstrap4Version: "4.0.0b2",
+	bootstrap4Version: "4.0.0",
 
 	jqmuiWidgetVersion: "1.11.4", // Styles do not play nice with 1.12.1
 

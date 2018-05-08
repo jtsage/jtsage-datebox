@@ -134,7 +134,7 @@ JTSageDateBox._stdBtn = {
 JTSageDateBox._destroy = function() {
 	var w = this,
 		o = this.options,
-		button = this.d.wrap.find( ".input-group-addon" );
+		button = this.d.wrap.find( ".input-group-append" );
 
 
 	if ( o.useButton === true ) {
@@ -255,10 +255,11 @@ JTSageDateBox._create = function() {
 		}
 	}
 	if ( o.useButton ) {
-		$( "<div class='input-group-addon' " + 
+		$( "<div class='input-group-append' " + 
 				"style='border-right:1px solid rgba(0,0,0,0.15);border-radius: 0px 4px 4px 0px;'>" +
+				"<div class='input-group-text'>" + 
 				"<span class='" + o.icnCls + o.buttonIcon + "'></span>" + 
-				"</div>" )
+				"</div></div>" )
 			.attr( "title", w.__( "tooltip" ) )
 			.on(o.clickEvent, function( e ) {
 				e.preventDefault();
