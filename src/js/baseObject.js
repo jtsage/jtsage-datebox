@@ -73,7 +73,9 @@ JTSageDateBox.options = {
 	useSetButton: true,
 	useCancelButton: false,
 	useTodayButton: false,
+	closeTodayButton: false,
 	useTomorrowButton: false,
+	closeTomorrowButton: false,
 	useClearButton: false,
 	useCollapsedBut: false,
 	

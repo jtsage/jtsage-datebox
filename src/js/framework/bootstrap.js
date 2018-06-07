@@ -115,6 +115,7 @@ JTSageDateBox._stdBtn = {
 				w.theDate = w._pa([0,0,0], new w._date());
 				w.calBackDate = false;
 				w._t( { method: "doset" } );
+				if ( o.closeTodayButton === true ) { w._t( { method: "close" } ); }
 			});
 	},
 	tomorrow: function() {
@@ -127,6 +128,7 @@ JTSageDateBox._stdBtn = {
 				w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
 				w.calBackDate = false;
 				w._t( { method: "doset" } );
+				if ( o.closeTomorrowButton === true ) { w._t( { method: "close" } ); }
 			});
 	},
 };
