@@ -88,7 +88,7 @@ JTSageDateBox.applyMinMax = function( refresh, override ) {
 		fromEl =  w.d.input.attr( "min" ).split( "-" );
 		fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
 		daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
-		o.minDays = parseInt( daysRaw * -1 , 10 );
+		o.minDays = Math.round( daysRaw * -1 , 10 );
 	}
 	if ( ( override === true || o.maxDays === false ) && 
 			( typeof w.d.input.attr( "max" ) !== "undefined" ) ) {
@@ -96,7 +96,7 @@ JTSageDateBox.applyMinMax = function( refresh, override ) {
 		fromEl = w.d.input.attr( "max" ).split( "-" );
 		fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
 		daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
-		o.maxDays = parseInt( daysRaw, 10 );
+		o.maxDays = Math.round( daysRaw, 10 );
 	}
 
 	if ( refresh === true ) { 
