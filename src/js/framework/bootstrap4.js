@@ -460,7 +460,7 @@ JTSageDateBox.open = function () {
 			{
 				c1: "modal-header",
 				c2: "modal-title",
-				c3: "closer" + o.icnCls + "times pull-" + o.popupButtonPosition,
+				c3: "closer" + o.icnCls + "times float-" + o.popupButtonPosition,
 				text: w.d.headerText,
 			}))
 		).find( ".closer" ).on( o.clickEventAlt, function( e ) {

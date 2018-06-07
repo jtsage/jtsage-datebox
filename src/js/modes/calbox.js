@@ -183,9 +183,11 @@ JTSageDateBox._cal_prev_next = function (container) {
 					case "jqm":
 						return o.btnCls + o.themeDate + o.icnCls + o.calNextMonthIcon;
 					case "bootstrap":
-					case "bootstrap4":
 						return o.btnCls + o.themeDate + 
 							" pull-" + ( w.__( "isRTL" ) ? "left" : "right" );
+					case "bootstrap4":
+						return o.btnCls + o.themeDate + 
+							" float-" + ( w.__( "isRTL" ) ? "left" : "right" );
 					default:
 						return null;
 				}
@@ -217,9 +219,11 @@ JTSageDateBox._cal_prev_next = function (container) {
 					case "jqm":
 						return o.btnCls + o.themeDate + o.icnCls + o.calPrevMonthIcon;
 					case "bootstrap":
-					case "bootstrap4":
 						return o.btnCls + o.themeDate + 
 							" pull-" + ( w.__( "isRTL" ) ? "right" : "left" );
+					case "bootstrap4":
+						return o.btnCls + o.themeDate + 
+							" float-" + ( w.__( "isRTL" ) ? "right" : "left" );
 					default:
 						return null;
 				}
