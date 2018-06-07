@@ -23,7 +23,7 @@ mergeOpts({
 	themeTodayButton: "secondary",
 
 	buttonIconDate: "calendar",
-	buttonIconTime: "clock-o",
+	buttonIconTime: "clock-o fa-clock",
 	disabledState: "disabled",
 
 	bootstrapDropdown: true,
@@ -58,7 +58,7 @@ JTSageDateBox._stdBtn = {
 	cancel: function() {
 		var w = this, o = this.options;
 		return $("<a href='#' role='button' class='" + o.btnCls + o.themeCancelButton + 
-				"'><span class='" + o.icnCls + "remove'></span> " +
+				"'><span class='" + o.icnCls + "times'></span> " +
 				w.__("cancelButton") + "</a>" )
 			.on(o.clickEventAlt, function (e) {
 				e.preventDefault();
@@ -108,7 +108,7 @@ JTSageDateBox._stdBtn = {
 	today: function() {
 		var w = this, o = this.options;
 		return $("<a href='#' role='button' class='" + o.btnCls + o.themeTodayButton + 
-				"'><span class='" + o.icnCls + "send'></span> " +
+				"'><span class='" + o.icnCls + "step-forward'></span> " +
 				w.__("todayButtonLabel") + "</a>" )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
@@ -120,7 +120,7 @@ JTSageDateBox._stdBtn = {
 	tomorrow: function() {
 		var w = this, o = this.options;
 		return $("<a href='#' role='button' class='" + o.btnCls + o.themeTomorrowButton+ 
-				"'><span class='" + o.icnCls + "send'></span> " +
+				"'><span class='" + o.icnCls + "step-forward'></span> " +
 				w.__("tomorrowButtonLabel") + "</a>" )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
@@ -458,7 +458,7 @@ JTSageDateBox.open = function () {
 			{
 				c1: "modal-header",
 				c2: "modal-title",
-				c3: "closer" + o.icnCls + "remove pull-" + o.popupButtonPosition,
+				c3: "closer" + o.icnCls + "times pull-" + o.popupButtonPosition,
 				text: w.d.headerText,
 			}))
 		).find( ".closer" ).on( o.clickEventAlt, function( e ) {
