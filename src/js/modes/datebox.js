@@ -202,7 +202,6 @@ JTSageDateBox._dbox_button = function (direction, field, amount) {
 			switch ( w.baseMode ) {
 				case "jqm":
 				case "bootstrap":
-				case "bootstrap4":
 					return o.icnCls + ( direction > 0 ? o.calNextMonthIcon : o.calPrevMonthIcon );
 				default:
 					return null;
@@ -215,8 +214,9 @@ JTSageDateBox._dbox_button = function (direction, field, amount) {
 		.append( function() {
 			switch ( w.baseMode ) {
 				case "jqueryui":
-					return $("<span>").addClass( o.icnCls + (direction > 0 ? 
-						o.calNextMonthIcon : 
+				case "bootstrap4":
+					return $("<span>").addClass( o.icnCls + (direction > 0 ?
+						o.calNextMonthIcon :
 						o.calPrevMonthIcon )
 					);
 				default:
