@@ -62,6 +62,7 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 <h3 class="panel-title">Twitter Bootstrap (v3 and v4) Version</h3>
 </div>
 <div class="panel-body">
+<p>Please note: the jQueryUI library, specically Core::Widget is required for DateBox to work. If you are looking to save space, you can build a custom version of jQueryUI with the download builder on the jQueryUI site - at time of writing, it adds about 8kb of minimized code.</p>
 <p>Please note: the bootstrap javascript file is required for modal opertaion. Either include it, or turn {% api_doc bootstrapResponsive %} off.</p>
 
 {% highlight html %}
@@ -80,6 +81,7 @@ at: [mousewheel](https://github.com/brandonaaron/jquery-mousewheel)
 <h3 class="panel-title">jQueryUI Version</h3>
 </div>
 <div class="panel-body">
+<p>Please note: the jQueryUI library, specically Core::Widget is required for DateBox to work.</p>
 
 {% highlight html %}
 <link href="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqueryui@{{ site.dbverdir }}/jtsage-datebox.min.css" rel="stylesheet" type="text/css">
