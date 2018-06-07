@@ -2,7 +2,7 @@
   "name": "jtsage-datebox",
   "title": "JTSage DateBox",
   "description": "Plugin to provide a framework agnostic Date and Time Picker (jQuery Mobile & Bootstrap currently supported)",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "supports": {
     "jqm": "1.4.5",
     "bootstrap": "3.3.7"

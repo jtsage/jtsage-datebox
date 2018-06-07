@@ -24,7 +24,7 @@ For jQueryUI framework operation, only the jQueryUI Widget Factory is required. 
 
 {% highlight js %}
 // Check Header for Build Date.
-version: "4.4.0",              // Actually DateBox Version
+version: "4.4.1",              // Actually DateBox Version
 // These are never used, just information
 jqmVersion: "1.4.5",           // Version of jQM used for testing
 bootstrapVersion: "3.3.7",     // Version of Twitter Bootstrap used for testing
