@@ -126,12 +126,19 @@ function handleRequest(request, response){
 					" }); }); })( jQuery );\n"
 			}
 
-			var ast = UglifyJS.parse(fileWriter, { filename: "file1.js" });
-			var stream = UglifyJS.OutputStream({ beautify: true });
-			var code = ast.print(stream);
+			var rslt = UglifyJS.minify(fileWriter, {
+				parse: {},
+				compress: false,
+				mangle: false,
+				output: {
+					ast: true,
+					code: true,
+					beautify: true
+    			}
+			});
 
-			var finished_uncomp = preamble + "\n\n" + stream.toString();
-			var finished_comp = UglifyJS.minify(finished_uncomp, {fromString: true, outSourceMap: "jtsage-datebox.js.map"});
+			var finished_uncomp = preamble + "\n\n" + rslt.code;
+			var finished_comp = UglifyJS.minify(finished_uncomp, {sourceMap: { filename: "jtsage-datebox.min.js", url: "jtsage-datebox.js.map"}});
 			var finished_css_uncomp = fs.readFileSync( path + "css/" + frame + ".css" );
 			var finished_css_comp = fs.readFileSync( path + "css/" + frame + ".min.css" )
 
