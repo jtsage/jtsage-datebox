@@ -36,13 +36,17 @@ module.exports = function(grunt) {
 				" }); }); })( jQuery );\n";
 		}
 
-		var ast = UglifyJS.parse(writeFile, { filename: "file1.js" });
-		var stream = UglifyJS.OutputStream({ beautify: true });
-		ast.print(stream);
+		//Old Way
+		//var ast = UglifyJS.parse(writeFile, { filename: "file1.js" });
+		//var stream = UglifyJS.OutputStream({ beautify: true });
+		//ast.print(stream);
+		//New Way
+		var outResult = UglifyJS.minify(writeFile, {mangle: false, compress: false, output: {beautify: true}});
 
 		grunt.file.write(
 			o.dest,
-			grunt.config.get("txt.banner.long") + "\n\n" + stream.toString()
+			//grunt.config.get("txt.banner.long") + "\n\n" + stream.toString()
+			grunt.config.get("txt.banner.long") + "\n\n" + outResult.code
 		);
 	});
 };

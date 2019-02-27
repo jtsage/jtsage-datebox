@@ -6,6 +6,7 @@ module.exports = function(grunt) {
 	var alllang = {},
 		fs = require("fs"),
 		Gettext = require("node-gettext"),
+		gettextParser = require("gettext-parser"),
 		gt = new Gettext(),
 	
 		_ = function(a,b) {
@@ -133,8 +134,9 @@ module.exports = function(grunt) {
 				} else {
 					lang = afile.replace("i18n/locale/","").replace("/datebox.po","");
 					desty = "dist/i18n/jtsage-datebox.i18n." + lang + ".utf8.js";
-					contents = fs.readFileSync(afile);
-					gt.addTextdomain(lang, contents);
+					//contents = fs.readFileSync(afile);
+					contents = gettextParser.po.parse(fs.readFileSync(afile));
+					gt.addTranslations('', lang, contents);
 					alllang[lang] = makeLang(lang);
 					grunt.file.write( desty, makeSingleFile( lang, alllang[lang] ) );
 				}
