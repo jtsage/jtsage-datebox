@@ -17,7 +17,8 @@ mergeOpts({
 	useTomorrowButton: false,
 	useClearButton: false,
 	useCollapsedBut: false,
-	
+	flipboxLensAdjust: false,
+
 	validHours: false,
 	flen: { 
 		"y": 25,
@@ -42,7 +43,10 @@ JTSageDateBox._fbox_pos = function () {
 	// when they are changed
 	var fixer, element, first, placement = 0, tmp,
 		w = this,
-		adj = ( w.baseMode === "bootstrap4") ? 5 : 0,
+		o = this.options,
+		adj = ( o.flipboxLensAdjust === false ) ? 
+			( ( w.baseMode === "bootstrap4") ? 5 : 0 ) : 
+			o.flipboxLensAdjust,
 		parentHeight = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
 		
 	w.d.intHTML.find( ".ui-datebox-flipcenter" ).each(function() {
