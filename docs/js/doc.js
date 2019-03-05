@@ -49,12 +49,12 @@ window.doOptLimit = function() {
 	console.log($( "#filterman" ).val());
 	var newVal = $( "#filterman" ).val().toLowerCase();
 	if ( newVal === "" ) { 
-		$( ".panel.hide" ).removeClass( "hide" );
+		$( ".card.invisible" ).removeClass( "invisible" );
 	} else {
-		$( ".panel.hide" ).removeClass( "hide" );
-		$( ".panel-title" ).each( function () { 
+		$( ".card.invisible" ).removeClass( "invisible" );
+		$( ".card h5" ).each( function () { 
 			if ( $( this ).text().toLowerCase().indexOf( newVal ) === -1 ) { 
-				$( this ).parent().parent().addClass( "hide" );
+				$( this ).parent().parent().addClass( "invisible" );
 			}
 		}); 
 	}
@@ -63,12 +63,12 @@ window.doOptLimit2 = function() {
 	console.log($( "#filterman2" ).val());
 	var newVal = $( "#filterman2" ).val().toLowerCase();
 	if ( newVal === "" ) { 
-		$( ".panel.hide" ).removeClass( "hide" );
+		$( ".card.invisible" ).removeClass( "invisible" );
 	} else {
-		$( ".panel.hide" ).removeClass( "hide" );
-		$( ".panel-body" ).each( function () { 
+		$( ".card.invisible" ).removeClass( "invisible" );
+		$( ".card h5" ).each( function () { 
 			if ( $( this ).text().toLowerCase().indexOf( newVal ) === -1 ) { 
-				$( this ).parent().addClass( "hide" );
+				$( this ).parent().addClass( "invisible" );
 			}
 		}); 
 	}

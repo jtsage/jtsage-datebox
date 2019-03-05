@@ -26,11 +26,13 @@ with duration modes.  By default, all numbers are zero-padded. (see modifiers se
 <div class="filter">
 	<div class="form-group">
 		<div class="input-group">
-			<span class="input-group-addon">Filter:</span>
-			<input type="text" id="filterman2" class="form-control">
-			<span class="input-group-btn">
-				<button id="filterman2btn" class="btn btn-default" type="button">Limit!</button>
-			</span>
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">Filter:</span>
+				</div>
+			<input type="text" id="filterman" class="form-control">
+			<div class="input-group-append">
+				<button id="filtermanbtn" class="btn btn-outline-secondary" type="button" id="button-addon2">Limit!</button>
+				 </div>
 		</div>
 	</div>
 </div>
@@ -38,135 +40,135 @@ with duration modes.  By default, all numbers are zero-padded. (see modifiers se
 ## Standard Operators
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-primary pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-primary pull-right">
 		String
-		</span><h3 class="panel-title">
+		</span><h5>
 		%%
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		A Literal '%'
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-primary pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-primary pull-right">
 		String
-		</span><h3 class="panel-title">
+		</span><h5>
 		%a
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Abbreviated Name of Day
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-primary pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-primary pull-right">
 		String
-		</span><h3 class="panel-title">
+		</span><h5>
 		%A
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Full Name of Day
 	</div></div></div>
 </div>
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-primary pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-primary pull-right">
 		String
-		</span><h3 class="panel-title">
+		</span><h5>
 		%b
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Abbreviated Name of Month
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-primary pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-primary pull-right">
 		String
-		</span><h3 class="panel-title">
+		</span><h5>
 		%B
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Full Name of Month
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%C
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Century (First 2 digits of a modern year)
 	</div></div></div>
 </div>
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%d
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Day of Month
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%E
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Year of the Buddhist Era (Nominally Year + 543).  Note, this may be wrong pre-1940CE
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%G
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		The ISO 8601 week-based year with century as a decimal number. The 4-digit year corresponding to the ISO week number (see %V). This has the same format and value as %Y, except that if the ISO week number belongs to the previous or next year, that year is used instead.
 	</div></div></div>
 </div>
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%g
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Like %G, but without century, that is, with a 2-digit year (00-99).
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%H
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		24-Hour, Hour of day (01..23)
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%I
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		12-Hour, Hour of day (01..12)
 	</div></div></div>
 </div>
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%j
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		The day of the year as a decimal number (range 001 to 366).
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%k
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		24-Hour, Hour of day (01..23) (Alias of %H)
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%l
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		12-Hour, Hour of day (01..12) (Alias of %I)
 	</div></div></div>
 </div>
@@ -174,119 +176,119 @@ with duration modes.  By default, all numbers are zero-padded. (see modifiers se
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%m
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Month of year (01..12)
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%M
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Minute of the hour (00..59)
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-primary pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-primary pull-right">
 		String
-		</span><h3 class="panel-title">
+		</span><h5>
 		%p
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Meridian Letters (AM/PM) in uppercase
 	</div></div></div>
 </div>
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-primary pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-primary pull-right">
 		String
-		</span><h3 class="panel-title">
+		</span><h5>
 		%P
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Meridian Letters (AM/PM) in lowercase
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%s
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		The number of seconds since the Epoch, 1970-01-01 00:00:00, in the local timezone
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%S
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Seconds (00..59)
 	</div></div></div>
 </div>
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%u
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		The numeric day of the week (1-7), 1 = Sunday
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%U
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		The week number of the current year as a decimal number, range 00 to 53, starting with the first Sunday as the first day of week 01. See also %V and %W.
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%V
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		The ISO 8601 week number of the current year as a decimal number, range 01 to 53, where week 1 is the first week that has at least 4 days in the new year.
 	</div></div></div>
 </div>
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%w
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		The numeric day of the week (0-6), 0 = Sunday
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%W
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		The week number of the current year as a decimal number, range 00 to 53, starting with the first Monday as the first day of week 01.
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%y
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Year (00-99) (2 Digit)
 	</div></div></div>
 </div>
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%Y
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Full Year (4 Digit)
 	</div></div></div>
 </div>
@@ -295,65 +297,65 @@ with duration modes.  By default, all numbers are zero-padded. (see modifiers se
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-primary pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-primary pull-right">
 		String
-		</span><h3 class="panel-title">
+		</span><h5>
 		%o
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Date ordinal ( st / nd / rd / th )
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-primary pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-primary pull-right">
 		String
-		</span><h3 class="panel-title">
+		</span><h5>
 		%J
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		toJSON() JavaScript Date Method output.  Can be read in a parser only when it is alone.
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%Dd
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Duration Days
 	</div></div></div>
 </div>
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%Dl
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Duration Hours (lowercase L)
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%DM
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Duration Minutes
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-info pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-info pull-right">
 		Number
-		</span><h3 class="panel-title">
+		</span><h5>
 		%DS
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Duration Seconds
 	</div></div></div>
 </div>
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-primary pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-primary pull-right">
 		String
-		</span><h3 class="panel-title">
+		</span><h5>
 		%DA
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Duration Days text - e.g. Day or Days
 	</div></div></div>
 </div>
@@ -362,27 +364,27 @@ with duration modes.  By default, all numbers are zero-padded. (see modifiers se
 
 <div class="row">
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-success pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-success pull-right">
 		Modifier
-		</span><h3 class="panel-title">
+		</span><h5>
 		0
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Pad with zeros (the default) - e.g. 4 -> %0d -> 04 
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-success pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-success pull-right">
 		Modifier
-		</span><h3 class="panel-title">
+		</span><h5>
 		-
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Pad with nothing - e.g. 4 -> %-d -> 4
 	</div></div></div>
 	<div class="col-sm-4">
-		<div class="panel panel-default"><div class="panel-heading"><span class="label label-success pull-right">
+		<div class="card mb-3"><div class="card-header"><span class="label label-success pull-right">
 		Modifier
-		</span><h3 class="panel-title">
+		</span><h5>
 		X
-		</h3></div><div class="panel-body">
+		</h5></div><div class="card-body">
 		Pass to custom formatter (custombox / customflip) e.g. %XA -> send 'A' to customflip.
 	</div></div></div>
 </div>

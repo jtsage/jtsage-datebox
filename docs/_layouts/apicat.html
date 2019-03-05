@@ -6,11 +6,13 @@
 	<div class="filter">
 		<div class="form-group">
 			<div class="input-group">
-				<span class="input-group-addon">Filter:</span>
+				<div class="input-group-prepend">
+    				<span class="input-group-text" id="basic-addon1">Filter:</span>
+  				</div>
 				<input type="text" id="filterman" class="form-control">
-				<span class="input-group-btn">
-					<button id="filtermanbtn" class="btn btn-default" type="button">Limit!</button>
-				</span>
+				<div class="input-group-append">
+    				<button id="filtermanbtn" class="btn btn-outline-secondary" type="button" id="button-addon2">Limit!</button>
+ 				 </div>
 			</div>
 		</div>
 	</div>
@@ -18,6 +20,6 @@
 	{{content}}
 </div>
 
-{% include bs_footer.html doc="true" %}
+{% include bs4_footer.html doc="true" %}
 
 

@@ -519,7 +519,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( "web", "Build the documentation site", [
 		"clean:web", "copy:web1", "copy:web2", "copy:web3", "copy:web4", "jekyll:release", "prettify"
 	] );
-	grunt.registerTask( "testweb", "Build the documentation site quickly", ["copy:web1", "copy:web2", "copy:web3", "copy:web4", "jekyll:release"] );
+	grunt.registerTask( "testweb", "Build the documentation site quickly", ["clean:web", "copy:web1", "copy:web2", "copy:web3", "copy:web4", "jekyll:release"] );
 	grunt.registerTask( "devweb", "Test the documentation site", ["copy:web1", "copy:web2", "copy:web3", "copy:web4",  "jekyll:latest", "prettify"] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane"] );

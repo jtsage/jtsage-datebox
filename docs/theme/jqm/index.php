@@ -67,7 +67,7 @@ foreach ( $defaults as $key => $value ) {
 	<title>jQueryMobile - DateBox Themeing</title>
 	
 	<!-- NOTE: Script load order is significant! -->
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.css" />
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.css" />
 	
 	
 	<?php if ( !empty($_SERVER['QUERY_STRING']) ) {
@@ -76,9 +76,9 @@ foreach ( $defaults as $key => $value ) {
 		echo '<link type="text/css" href="sheet.php" rel="stylesheet" />'."\n";
 	} ?>
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/mobile/{{ site.jqmver }}/jquery.mobile-{{ site.jqmver }}.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
 
 	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver | remove_first: "-" }}/jtsage-datebox{{ site.dbver }}.jqm{{site.min}}.js"></script>
 	<script type="text/javascript" src="{{ site.i18n }}jtsage-datebox.lang.utf8.js"></script>

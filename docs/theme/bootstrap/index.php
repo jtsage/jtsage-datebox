@@ -79,10 +79,10 @@ foreach ( $defaults as $key => $value ) {
 		echo '<link type="text/css" href="sheet.php" rel="stylesheet" />'."\n";
 	} ?>
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/{{ site.jquiver }}/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/external/bootstrap-slider.min.js"></script>
-	<link rel="stylesheet" href="http://cdn.jtsage.com/external/bootstrap-slider.min.css"/>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-{{ site.jqver }}.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/ui/{{ site.jquiver }}/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jtsage.com/external/bootstrap-slider.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jtsage.com/external/bootstrap-slider.min.css"/>
 
 	<script type="text/javascript" src="{{ site.cdn }}{{ site.dbver | remove_first: "-" }}/jtsage-datebox{{ site.dbver }}.bootstrap{{site.min}}.js"></script>
 	<script type="text/javascript" src="{{ site.i18n }}jtsage-datebox.lang.utf8.js"></script>
