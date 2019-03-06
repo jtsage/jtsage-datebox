@@ -30,6 +30,109 @@ JTSageDateBox._minStepFix = function() {
 	}
 };
 
+JTSageDateBox._newDateCheck = {
+	/* NOTE: These return true if the test passes.  i.e., dobule negatives galore. */
+	whiteDate : function ( testDate ) {
+		/* Return true if the date is whitelisted */
+		if ( $.inArray( testDate.iso(), this.options.whiteDates) > -1 ) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	notToday : function ( testDate ) {
+		/* Return true if the date *is* today */
+		if (
+			w.realToday.get(0) === testDate.get(0) && 
+			w.realToday.get(1) === testDate.get(1) &&
+			w.realToday.get(2) === testDate.get(2)
+			) {
+				return true; 
+		} else {
+			return false;
+		}
+	},
+	maxYear : function ( testDate ) {
+		/* return true if the date is beyond the max year */
+		var testOption = this.options.maxYear;
+
+		if ( testOption === false ) { return false; }
+		if ( testDate.get(0) > testOption ) { return true; }
+		return false; 
+	},
+	minYear : function ( testDate ) {
+		/* return true if the date is beyond the max year */
+		var testOption = this.options.minYear;
+
+		if ( testOption === false ) { return false; }
+		if ( testDate.get(0) < testOption ) { return true; }
+		return false; 
+	},
+	afterToday : function ( testDate ) {
+		/* Return true if the date is BEFORE today's date (dates AFTER are allowed) */
+		if ( testDate < w.realToday ) { return true; }
+		return false;
+	},
+	beforeToday : function ( testDate ) {
+		/* return true if the date is AFTER today's date (dates BEFORE are allowed) */
+		if ( testDate > w.realToday ) { return true; }
+		return false;
+	}
+};
+
+JTSageDateBox._newDateChecker = function( testDate ) {
+	/* Newest Version of the date checker.  With less mess? */
+	/*
+	 * 
+	 * Returns an object:
+	 * 
+	 * object.good = bool (true == good date)
+	 * object.bad = bool (true == bad date)
+	 * object.failrule = false, or the rule that failed us.
+	 * object.passrule = false, or the whitelist location.
+	 */
+	var w = this,
+		o = this.options,
+		returnObject = {
+			good: false,
+			bad: false,
+			failrule: false,
+			passrule: false,
+		};
+
+	w.realToday = new w._date();
+
+	if ( JTSageDateBox._newDateCheck.whiteDate(testDate) ) {
+		returnObject.good = true;
+		returnObject.passrule = "whiteDates";
+		return returnObject;
+	}
+	if ( JTSageDateBox._newDateCheck.notToday(testDate) ) {
+		returnObject.bad = true;
+		returnObject.failrule = "notToday";
+		return returnObject;
+	}
+	if ( JTSageDateBox._newDateCheck.maxYear(testDate) ) {
+		returnObject.bad = true;
+		returnObject.failrule = "maxYear";
+		return returnObject;
+	}
+	if ( JTSageDateBox._newDateCheck.minYear(testDate) ) {
+		returnObject.bad = true;
+		returnObject.failrule = "minYear";
+		return returnObject;
+	}
+	if ( JTSageDateBox._newDateCheck.afterToday(testDate) ) {
+		returnObject.bad = true;
+		returnObject.failrule = "afterToday";
+		return returnObject;
+	}
+	if ( JTSageDateBox._newDateCheck.beforeToday(testDate) ) {
+		returnObject.bad = true;
+		returnObject.failrule = "beforeToday";
+		return returnObject;
+	}
+};
 
 JTSageDateBox._check = function() {
 	// Check to see if a date is valid.
