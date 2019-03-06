@@ -20,13 +20,10 @@ JTSageDateBox.options = {
 	// All widget options, including some internal runtime details
 
 	// Check Header for Build Date.
-	version: "4.4.2",
+	version: "5.0.0",
 	// These are never used, just information
-	jqmVersion: "1.4.5",
 	bootstrapVersion: "3.3.7",
-	bootstrap4Version: "4.2.1",
-
-	jqmuiWidgetVersion: "1.11.4", // Styles do not play nice with 1.12.1
+	bootstrap4Version: "4.3.1",
 
 	theme: false,
 	themeDefault: "a",
@@ -36,8 +33,11 @@ JTSageDateBox.options = {
 	extraInputClass: "",
 	mode: false,
 
+    /* Depreciated.  use css. */
 	transition: "fade",
 	useAnimation: true,
+
+
 	hideInput: false,
 	hideContainer: false,
 
@@ -54,6 +54,16 @@ JTSageDateBox.options = {
 	linkedField: false,
 	linkedFieldFormat: "%J",
 
+	/* One of dropdown, inline, blind, or modal */
+	displayMode: 'dropdown',
+
+	/* For dropdown, position string.  See popper.js docs.  *
+	 *  Typical : top-end or top-start or top      */
+	displayDropdownPosition: 'top-end',
+
+	/* For inline display: left, right, center (defaults center) */
+	displayInlinePosition: 'center',
+
 	popupPosition: false,
 	popupButtonPosition: "left",
 	popupForceX: false,
@@ -63,6 +73,8 @@ JTSageDateBox.options = {
 	useModalTheme: "b",
 	useInline: false,
 	useInlineBlind: false,
+
+
 	useHeader: true,
 	useImmediate: false,
 
@@ -175,6 +187,8 @@ JTSageDateBox.options = {
 		}
 	}
 };
+
+JTSageDateBox.styleFunctions = {};
 	
 JTSageDateBox._getLongOptions = function( element ) {
 	// Pull "long" options from the element, i.e.
