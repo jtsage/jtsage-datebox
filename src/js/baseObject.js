@@ -25,17 +25,17 @@ JTSageDateBox.options = {
 	bootstrapVersion: "3.3.7",
 	bootstrap4Version: "4.3.1",
 
-	theme: false,
-	themeDefault: "a",
-	themeHeader: "a",
-	themeSetButton: "a",
-	themeCloseButton: false,
-	extraInputClass: "",
+	// theme: false,
+	// themeDefault: "a",
+	// themeHeader: "a",
+	// themeSetButton: "a",
+	// themeCloseButton: false,
+	// extraInputClass: "",
 	mode: false,
 
     /* Depreciated.  use css. */
-	transition: "fade",
-	useAnimation: true,
+	// transition: "fade",
+	// useAnimation: true,
 
 
 	hideInput: false,
@@ -44,8 +44,10 @@ JTSageDateBox.options = {
 	lockInput: true,
 
 	zindex: "1100",
-	clickEvent: "vclick",
+	clickEvent: "click",
+	/* dep this!  it's not yet */
 	clickEventAlt: "click",
+
 	useKinetic: true,
 
 	defaultValue: false,
@@ -64,15 +66,15 @@ JTSageDateBox.options = {
 	/* For inline display: left, right, center (defaults center) */
 	displayInlinePosition: 'center',
 
-	popupPosition: false,
-	popupButtonPosition: "left",
-	popupForceX: false,
-	popupForceY: false,
+	// popupPosition: false,
+	// popupButtonPosition: "left",
+	// popupForceX: false,
+	// popupForceY: false,
 
-	useModal: true,
-	useModalTheme: "b",
-	useInline: false,
-	useInlineBlind: false,
+	// useModal: true,
+	// useModalTheme: "b",
+	// useInline: false,
+	// useInlineBlind: false,
 
 
 	useHeader: true,
