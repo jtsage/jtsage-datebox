@@ -44,7 +44,7 @@
 
 	<script type="text/javascript" src="../src/js/modes/datebox.js"></script>
 	<script type="text/javascript" src="../src/js/modes/flipbox.js"></script>
-	<script type="text/javascript" src="../src/js/modes/newcalbox.js"></script>
+	<script type="text/javascript" src="../src/js/modes/calbox.js"></script>
 	<script type="text/javascript" src="../src/js/modes/slidebox.js"></script>
 
 	<script type="text/javascript" src="../src/js/widgetBinding.js"></script>
@@ -67,24 +67,24 @@
 		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
 			//closeCallback: function(a, b) { console.log(a); console.log(b); },
 			//beforeOpenCallbackArgs: ['hi','bye'],
-			displayMode: "inline",
+			displayMode: "dropdown",
 			displayInlinePosition: "right",
 			//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
 			useClearButton: true,
 			//lockInput: false,
 			//useCollapsedBut: true,
-			calShowWeek: true,
+			//calShowWeek: true,
 			//hideContainer: true,
 			//hideInput: true,
-			calOnlyMonth: false,
-			bootstrapDropdownRight: true,
-			useInline: false,
-			useInlineAlign: "middle",
+			//calOnlyMonth: true,
+			blackDates: ["2019-03-09", "2019-03-10"],
+
 			calDateList: [["1980-04-25", "JTs Date of Birth"], ["1809-02-12", "Lincolns Birthday"]],
-			calShowDateList: true,
+			calShowDateList: false,
+
 			rolloverMode: { 'm': false, 'd': false, 'h': false, 'i': false, 's': false },
 
-			calUsePickers: true,
+			//calUsePickers: true,
 
 			//calUsePickersIcons: true,
 			//calNoHeader: true,

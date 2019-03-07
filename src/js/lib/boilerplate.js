@@ -190,6 +190,8 @@ JTSageDateBox.open = function () {
 	}
 
 	w.theDate = w._makeDate( w.d.input.val() );
+	w.originalDate = w._makeDate( w.d.input.val() );
+	
 	w.calBackDate = false;
 	if ( w.d.input.val() === "" ) { w._startOffset( w.theDate ); }
 	w.d.input.blur();
@@ -470,6 +472,19 @@ JTSageDateBox._destroy = function() {
 		.off( w.drag.eStart )
 		.off( w.drag.eEnd )
 		.off( w.drag.eEndA );
+};
+
+JTSageDateBox._stdSel = function(data, id, cls) {
+	var i, returnVal = "<select class='" + cls + "' id='" + id + "'>";
+
+	for ( i = 0; i < data.length; i++ ) {
+		returnVal += "<option value='" + data[i][0] + "'" + 
+			( data[i][2] === true ? " selected='selected'" : "" ) + ">" +
+			data[i][1] + "</option>";
+	}
+	returnVal += "</select>";
+
+	return returnVal;
 };
 
 JTSageDateBox._stdBtn = {

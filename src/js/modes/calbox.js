@@ -8,25 +8,22 @@
  * Define the standard options as well
  */
 
-mergeOpts({
+ mergeOpts({
 	calHighToday: true,
 	calHighPick: true,
+	calHighOutOfBounds: true,
 	
 	calShowDays: true,
 	calOnlyMonth: false,
-	calWeekMode: false,
-	calWeekModeDay: 1,
-	calControlGroup: false,
 	calShowWeek: false,
 	calUsePickers: false,
 	calNoHeader: false,
-	calFormatter: false,
-	calAlwaysValidateDates: false,
 	
 	calYearPickMin: -6,
 	calYearPickMax: 6,
 	calYearPickRelative: true,
 
+	calFormatter: function(t) { return t.get(2); },
 	calBeforeAppendFunc: function(t) { return t; },
 	
 	highDays: false,
@@ -34,448 +31,206 @@ mergeOpts({
 	highDatesRec: false,
 	highDatesAlt: false,
 	enableDates: false,
-	calDateList: false,
+	calDateList: false, 
 	calShowDateList: false
 });
 
-JTSageDateBox._cal_gen = function (start,prev,last,other,month) {
-	var rc = 0, cc = 0, day = 1, 
-		next = 1, cal = [], row = [], stop = false;
-		
-	for ( rc = 0; rc <= 5; rc++ ) {
-		if ( stop === false ) {
-			row = [];
-			for ( cc = 0; cc <= 6; cc++ ) {
-				if ( rc === 0 && cc < start ) {
-					if ( other === true ) {
-						row.push([prev + (cc - start) + 1,month-1]);
-					} else {
-						row.push(" ");
-					}
-				} else if ( rc > 3 && day > last ) {
-					if ( other === true ) {
-						row.push([next,month+1]); next++;
-					} else {
-						row.push(" ");
-					}
-					stop = true;
-				} else {
-					row.push([day,month]); day++;
-					if ( day > last ) { stop = true; }
-				}
-			}
-			cal.push(row);
+
+JTSageDateBox._cal_ThemeDateCK = {
+	selected : function ( testDate ) {
+		// Note: this is broken with inline modes!!!
+		if ( this.options.calHighPick === false ) { return false; }
+		if ( this.originalDate.iso() === testDate.iso() ) { return true; }
+		return false;
+	},
+	today : function ( testDate ) {
+		if ( this.options.calHighToday === false ) { return false; }
+		if ( this.realToday.iso() === testDate.iso() ) { return true; }
+		return false;
+	},
+	highDates : function ( testDate ) {
+		/* Return true if found */
+		var testOption = this.options.highDates;
+
+		if ( testOption === false ) { return false; }
+
+		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
+			return true;
 		}
+		return false;
+	},
+	highDatesAlt : function ( testDate ) {
+		/* Return true if found */
+		var testOption = this.options.highDatesAlt;
+
+		if ( testOption === false ) { return false; }
+
+		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
+			return true;
+		}
+		return false;
+	},
+	highDatesRec : function ( testDate ) {
+		/* return true if the date is listed in the recurring dates */
+		var testOption = this.options.highDatesRec;
+
+		if ( testOption === false ) { return false; }
+
+		for ( i = 0; i < testOption.length; i++ ) {
+			if (
+				( testOption[i][0] === -1 || testOption[i][0] === testDate.get(0) ) &&
+				( testOption[i][1] === -1 || testOption[i][1] === testDate.get(1) ) &&
+				( testOption[i][2] === -1 || testOption[i][2] === testDate.get(2) )
+			) { return true ;}
+		}
+		return false;
+	},
+	highDays : function ( testDate ) {
+		/* return true if the date matched blacked out days of the week */
+		var testOption = this.options.highDays;
+
+		if ( testOption === false ) { return false; }
+
+		if ( $.inArray( testDate.getDay(), testOption ) > -1 ) {
+			return true;
+		}
+		return false;
 	}
-	return cal;
 };
 
-JTSageDateBox._cal_check = function (checkDates, year, month, date, done) {
-	var w = this, i,
-		o = this.options,
-		maxDate = done.x,
-		minDate = done.i,
-		thisDate = done.t,
-		presetDay = done.p,
-		day = new this._date(year,month,date,12,0,0,0).getDay(),
-		bdRec = o.blackDatesRec,
-		hdRec = o.highDatesRec,
-		ret = {
-			ok: true,
-			iso: year + "-" + w._zPad(month+1) + "-" + w._zPad(date),
-			theme: o.themeDate,
-			force: false,
-			recok: true,
-			rectheme: false
-		};
-	
-	if ( month === 12 ) { ret.iso = ( year + 1 ) + "-01-" + w._zPad(date); }
-	if ( month === -1 ) { ret.iso = ( year - 1 ) + "-12-" + w._zPad(date); }
-	
-	ret.comp = parseInt( ret.iso.replace( /-/g, "" ), 10 );
-	
-	if ( bdRec !== false ) {
-		for ( i=0; i < bdRec.length; i++ ) {
-			if ( 
-				( bdRec[i][0] === -1 || bdRec[i][0] === year ) &&
-				( bdRec[i][1] === -1 || bdRec[i][1] === month ) &&
-				( bdRec[i][2] === -1 || bdRec[i][2] === date )
-			) { ret.ok = false; } 
-		}
-	}
-	
-	if ( $.isArray( o.enableDates ) && $.inArray( ret.iso, o.enableDates ) < 0 ) {
-		ret.ok = false;
-	} else if ( checkDates ) {
-		if (
-			( ret.recok !== true ) ||
-			( o.afterToday && thisDate.comp() > ret.comp ) ||
-			( o.beforeToday && thisDate.comp() < ret.comp ) ||
-			( o.notToday && thisDate.comp() === ret.comp ) ||
-			( o.maxDays !== false && maxDate.comp() < ret.comp ) ||
-			( o.minDays !== false && minDate.comp() > ret.comp ) ||
-			( $.isArray(o.blackDays) && $.inArray(day, o.blackDays) > -1 ) ||
-			( $.isArray(o.blackDates) && $.inArray(ret.iso, o.blackDates) > -1 ) 
-		) {
-			ret.ok = false;
-		}
-		
-	}
-
-	if ( $.isArray(o.whiteDates) && $.inArray(ret.iso, o.whiteDates) > -1 ) {
-		ret.ok = true;
-	}
-
-	if ( ret.ok ) {
-		if ( hdRec !== false ) {
-			for ( i=0; i < hdRec.length; i++ ) {
-				if ( 
-					( hdRec[i][0] === -1 || hdRec[i][0] === year ) &&
-					( hdRec[i][1] === -1 || hdRec[i][1] === month ) &&
-					( hdRec[i][2] === -1 || hdRec[i][2] === date )
-				) { ret.rectheme = true; } 
-			}
-		}
-		
-		if ( o.calHighPick && date === presetDay && 
-				( w.d.input.val() !== "" || o.defaultValue !== false )) {
-			ret.theme = o.themeDatePick;
-		} else if ( o.calHighToday && ret.comp === thisDate.comp() ) {
-			ret.theme = o.themeDateToday;
-		} else if ( o.calHighPick && w.calDateVisible && w.calBackDate !== false &&
-				w.calBackDate.comp() === ret.comp ) {
-			ret.theme = o.themeDatePick;
-			ret.force = true;
-		} else if ( $.isArray(o.highDatesAlt) && 
-				($.inArray(ret.iso, o.highDatesAlt) > -1)
-			) {
-			ret.theme = o.themeDateHighAlt;
-		} else if ( $.isArray(o.highDates) && ($.inArray(ret.iso, o.highDates) > -1) ) {
-			ret.theme = o.themeDateHigh;
-		} else if ( $.isArray(o.highDays) && ($.inArray(day, o.highDays) > -1) ) {
-			ret.theme = o.themeDayHigh;
-		} else if ( $.isArray(o.highDatesRec) && ret.rectheme === true ) {
-			ret.theme = o.themeDateHighRec;
-		}
-	} else {
-		ret.theme = o.disabledState;
-	}
-	return ret;
-};
-
-JTSageDateBox._cal_prev_next = function (container) {
+JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
+	/* Newest Version of the date checker.  With less mess? */
+	/*
+	 * Returns an object:
+	 * 
+	 * object.theme = Theme to use for the date
+	 */
 	var w = this,
 		o = this.options,
-		uid = "ui-datebox-";
+		t = this.options.theme,
+		itt, done = false;
+		returnObject = {
+			theme: t.cal_Default,
+			inBounds: true
+		},
+		dateThemes = [
+			[ "selected", "cal_Selected" ],
+			[ "today" , "cal_Today" ],
+			[ "highDates", "cal_DateHigh" ],
+			[ "highDatesAlt", "cal_DateHighAlt" ],
+			[ "highDatesRec", "cal_DateHighRec" ],
+			[ "highDays", "cal_DayHigh" ]
+		];
 
-	// Previous and next month buttons, define booleans to decide if they should do anything
-	$( w._spf("<div class='{class}'><a href='#'>{name}</a></div>", {
-			"class": uid + "gridplus" + ( w.__( "isRTL" ) ? "-rtl" : ""),
-			name : w._spf( o.s.cal.nextMonth, {
-				text: w.__( "nextMonth" ),
-				icon: o.calNextMonthIcon
-			})
-		}))
-		.prependTo( container )
-		.find( "a" )
-			.addClass( function () {
-				switch ( w.baseMode ) {
-					case "jqm":
-						return o.btnCls + o.themeDate + o.icnCls + o.calNextMonthIcon;
-					case "bootstrap":
-						return o.btnCls + o.themeDate + 
-							" pull-" + ( w.__( "isRTL" ) ? "left" : "right" );
-					case "bootstrap4":
-						return o.btnCls + o.themeDate + 
-							" float-" + ( w.__( "isRTL" ) ? "left" : "right" );
-					default:
-						return null;
-				}
-			})
-			.on(o.clickEventAlt, function(e) {
-				e.preventDefault();
-				e.stopPropagation();
-				if ( w.calNext ) {
-					if ( w.calBackDate === false ) { 
-						w.calBackDate = new Date(w.theDate.getTime());
-					}
-					if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
-					w._offset( "m", 1 );
-				}
-				return false;
-		});
+	w.realToday = new w._date();
 
-	$( w._spf("<div class='{class}'><a href='#'>{name}</a></div>", {
-			"class": uid + "gridminus" + ( w.__( "isRTL" ) ? "-rtl" : ""),
-			name : w._spf( o.s.cal.prevMonth, {
-				text: w.__( "prevMonth" ),
-				icon: o.calPrevMonthIcon
-			})
-		}))
-		.prependTo( container )
-		.find( "a" )
-			.addClass( function () {
-				switch ( w.baseMode ) {
-					case "jqm":
-						return o.btnCls + o.themeDate + o.icnCls + o.calPrevMonthIcon;
-					case "bootstrap":
-						return o.btnCls + o.themeDate + 
-							" pull-" + ( w.__( "isRTL" ) ? "right" : "left" );
-					case "bootstrap4":
-						return o.btnCls + o.themeDate + 
-							" float-" + ( w.__( "isRTL" ) ? "right" : "left" );
-					default:
-						return null;
-				}
-			})
-			.on(o.clickEventAlt, function(e) {
-				e.preventDefault();
-				e.stopPropagation();
-				if ( w.calPrev ) {
-					if ( w.calBackDate === false ) { 
-						w.calBackDate = new Date(w.theDate.getTime());
-					}
-					if ( w.theDate.getDate() > 28 ) { 
-						w.theDate.setDate(1);
-					}
-					w._offset( "m", -1 );
-				}
-				return false;
-			});			
+	if ( testDate.get(1) !== dispMonth ) { 
+		returnObject.inBounds = false;
+
+		if ( o.calHighOutOfBounds === true ) {
+			returnObject.theme = t.cal_OutOfBounds;
+			done = true;
+			console.log('tick');
+		}
+	}
+
+	for ( itt = 0; itt < dateThemes.length && !done; itt++ ) {
+		if ( w._cal_ThemeDateCK[ dateThemes[ itt ][0] ].apply( w, [ testDate ] ) ) {
+			returnObject.theme = t[ dateThemes[ itt ][1] ];
+			done = true;
+		}
+	}
+
+	return returnObject;
 };
 
-JTSageDateBox._cal_pickers = function (curMonth, curYear, cTodayDateArr) {
-	// Build the top month and year pickers, if used
-	var prangeS, prangeL, i,
-		w = this,
+JTSageDateBox._cal_pickRanges = function ( dispMonth, dispYear, realYear ) {
+	var w = this, i,
 		o = this.options,
-		uid = "ui-datebox-",
-		realCurYear = new Date().get(0),
-		pickerControl = $("<div>").addClass("ui-datebox-cal-pickers");
+		calcYear = ( o.calYearPickRelative === false ) ? realYear : dispYear,
+		startYear = 0,
+		endYear = 0,
+		returnVal = {
+			month: [],
+			year: []
+		};
 
-	if ( o.calNoHeader && o.calUsePickersIcons ) {
-		pickerControl.addClass( "ui-datebox-pickicon" );
+	for ( i = 0; i <= 11; i++ ) {
+		if ( i === dispMonth ) {
+			returnVal.month.push( [ i, w.__( "monthsOfYear" )[i], true ] );
+		} else {
+			returnVal.month.push( [ i, w.__( "monthsOfYear" )[i], false ] );
+		}
 	}
-	
-	pickerControl.i = $("<fieldset>").appendTo(pickerControl);
-	
-	pickerControl.a = $( "<select>" )
-		.appendTo( pickerControl.i );
-	pickerControl.b = $( "<select>" )
-		.appendTo( pickerControl.i );
-	
-	for ( i=0; i<=11; i++ ) {
-		pickerControl.a.append(
-			$( "<option value='" + i + "'" + 
-				( ( curMonth === i ) ?
-					" selected='selected'" :
-					""
-				) + ">" + w.__( "monthsOfYear" )[ i ] + "</option>"
-			)
-		);
-	}
-	
-	if ( o.calYearPickMin < 1 ) { 
-		prangeS = ( o.calYearPickRelative  ? curYear : realCurYear ) + o.calYearPickMin;
+
+	if ( o.calYearPickMin < 1 ) {
+		startYear = calcYear + o.calYearPickMin;
 	} else if ( o.calYearPickMin < 1800 ) {
-		prangeS = ( o.calYearPickRelative  ? curYear : realCurYear ) - o.calYearPickMin;
+		startYear = calcYear - o.calYearPickMin;
 	} else if ( o.calYearPickMin === "NOW" ) {
-		prangeS = cTodayDateArr[0];
+		startYear = realYear;
 	} else {
-		prangeS = o.calYearPickMin;
+		startYear = o.calYearPickMin;
 	}
-	
+
 	if ( o.calYearPickMax < 1800 ) {
-		prangeL = ( o.calYearPickRelative  ? curYear : realCurYear ) + o.calYearPickMax;
+		endYear = calcYear + o.calYearPickMax;
 	} else if ( o.calYearPickMax === "NOW" ) {
-		prangeL = cTodayDateArr[0];
+		endYear = realYear;
 	} else {
-		prangeL = o.calYearPickMax;
-	}
-	for ( i = prangeS; i <= prangeL; i++ ) {
-		pickerControl.b.append(
-			$( "<option value='" + i + "'" + 
-				( ( curYear===i ) ? " selected='selected'" : "" ) +
-				 ">" + i + "</option>"
-			)
-		);
+		endYear = o.calYearPickMax;
 	}
 
-	pickerControl.a.on( "change", function () {
-		if ( w.calBackDate === false ) { 
-			w.calBackDate = new Date(w.theDate.getTime());
+	for ( i = startYear; i <= endYear; i++ ) {
+		if ( i == dispYear ) {
+			returnVal.year.push( [ i, i, true ] );
+		} else {
+			returnVal.year.push( [ i, i, false ] );
 		}
-		w.theDate.setD( 1, $( this ).val() );
-		if ( w.theDate.get(1) !== parseInt( $( this ).val(), 10 ) ) {
-			w.theDate.setD( 2, 0 );
-		}
-		if ( w.calBackDate !== false ) {
-			w._t( {
-				method: "displayChange",
-				selectedDate: w.calBackDate,
-				shownDate: w.theDate,
-				thisChange: "p",
-				thisChangeAmount: null
-			});
-		}
-		w.refresh();
-	});
-	pickerControl.b.on( "change", function () {
-		if ( w.calBackDate === false ) { 
-			w.calBackDate = new Date(w.theDate.getTime());
-		}
-		w.theDate.setD( 0, $( this ).val() );
-		if (w.theDate.get(1) !== parseInt( pickerControl.a.val(), 10)) {
-			w.theDate.setD( 2, 0 );
-		}
-		if ( w.calBackDate !== false ) {
-			w._t( {
-				method: "displayChange",
-				selectedDate: w.calBackDate,
-				shownDate: w.theDate,
-				thisChange: "p",
-				thisChangeAmount: null
-			});
-		}
-		w.refresh();
-	});
-	switch ( w.baseMode ) {
-		case "bootstrap":
-		case "jqueryui":
-			pickerControl.i.find("select")
-				.addClass("form-control input-sm")
-				.css({"marginTop": "3px", "float": "left"})
-				.first().css({ width: "60%" })
-				.end().last().css({ width: "40%" });
-			if ( o.calNoHeader && o.calUsePickersIcons ) {
-				w.d.intHTML.find( "." + uid + "gridheader" ).append(pickerControl);
-			} else {
-				pickerControl.appendTo( w.d.intHTML );
-			}
-			break;
-		case "bootstrap4":
-			pickerControl.i.find("select")
-				.addClass("form-control form-control-sm input-sm")
-				.css({"marginTop": "3px", "float": "left", "height": "auto"})
-				.first().css({ width: "60%" })
-				.end().last().css({ width: "40%" });
-			pickerControl.i.addClass( "w-100" );
-			if ( o.calNoHeader && o.calUsePickersIcons ) {
-				w.d.intHTML.find( "." + uid + "gridheader" ).append(pickerControl);
-			} else {
-				pickerControl.appendTo( w.d.intHTML );
-			}
-			break;
-		case "jqm":
-			pickerControl.i.controlgroup({ mini: true, type: "horizontal" });
-			pickerControl.i.find( "select" ).selectmenu( {
-				nativeMenu: true
-			} );
-			pickerControl.i.find( ".ui-controlgroup-controls" ).css({
-				marginRight: "auto",
-				marginLeft: "auto",
-				width: "100%",
-				display: "table",
-			});
-			pickerControl.i.find( ".ui-select" )
-				.first().css({ width: "60%" })
-				.end().last().css({ width: "40%" });
-			if ( o.calNoHeader && o.calUsePickersIcons ) { 
-				pickerControl.i.css({ padding: "0 10px 5px 10px" });
-			}
-			pickerControl.appendTo( w.d.intHTML );
-			break;
 	}
-};
 
-JTSageDateBox._cal_date_list = function ( calContent ) {
-	// Build the bottom quick date list, if used
-	var i, tempVal,
-		w = this,
-		o = this.options,
-		listControl = $( "<div>" ).addClass( "ui-datebox-pickcontrol" );
-
-	listControl.a = $( "<select name='pickdate'></select>" ).appendTo(listControl);
-	
-	listControl.a.append("<option value='false' selected='selected'>" +
-		w.__( "calDateListLabel" ) + "</option>" );
-
-	for ( i = 0; i < o.calDateList.length; i++ ) {
-		listControl.a.append( 
-			$( w._spf( "<option value='{0}'>{1}</option>", o.calDateList[i] ))
-		);
-	}
-	
-	listControl.a.on( "change", function() {
-		tempVal = $( this ).val().split( "-" );
-		w.theDate = new w._date(tempVal[0], tempVal[1]-1, tempVal[2], 0,0,0,0);
-		w._t( { method: "doset" } );
-	});
-	
-	switch ( w.baseMode ) {
-		case "jqm":
-			listControl.find( "select" ).selectmenu( { mini: true, nativeMenu: true } );
-			break;
-		case "bootstrap":
-		case "bootstrap4":
-			listControl.find("select").addClass("form-control input-sm");
-			break;
-	}
-	
-	listControl.appendTo( calContent );
+	return returnVal;
 };
 
 JTSageDateBox._build.calbox = function () {
-	var tempVal, calContent, genny, weekdayControl,
-		row, col, rows, cols, htmlRow, i, fmtRet, fmtObj,
-		absStartDO, absEndDO,
-		w = this,
+	var w = this,
 		o = this.options,
-		dList = o.calDateList,
+		t = this.options.theme,
+		_sf = this.styleFunctions,
 		uid = "ui-datebox-",
-		curDate = ( ( w.calBackDate !== false && 
-			w.theDate.get(0) === w.calBackDate.get(0) && 
-			w.theDate.get(1) === w.calBackDate.get(1) ) ? 
-				new w._date(w.calBackDate.getTime()) :
-				w.theDate ),
-		checked = false,
-		checkDatesObj = {},
-		minDate = w.initDate.copy(),
-		maxDate = w.initDate.copy(),
-		cStartDay = (curDate.copy([0],[0,0,1]).getDay() - w.__( "calStartDay" ) + 7) % 7,
-		curMonth = curDate.get(1),
-		curYear = curDate.get(0),
-		curDateArr = curDate.getArray(),
-		presetDate = ( w.d.input.val() === "" ) ?
-			w._startOffset( w._makeDate( w.d.input.val() ) ) :
-			w._makeDate( w.d.input.val() ),
-		presetDay = -1,
-		cTodayDate = new w._date(),
-		cTodayDateArr = cTodayDate.getArray(),
-		weekNum = curDate
-			.copy( [0], [0,0,1] )
-			.adj( 2, ( -1 * cStartDay ) +( w.__( "calStartDay" ) === 0 ? 1 : 0 ) )
-			.getDWeek(4),
-		weekModeSel = 0,
-		isTrueMonth = false,
-		isTrueYear = false,
-		cMonthEnd = 32 - w.theDate.copy([0],[0,0,32,13]).getDate(),
-		cPrevMonthEnd = 32 - w.theDate.copy([0,-1],[0,0,32,13]).getDate(),
-		checkDates = ( 
-				o.afterToday || o.beforeToday || o.notToday || o.calAlwaysValidateDates || 
-				o.maxDays || o.minDays || o.blackDays || o.blackDates 
-			) ?
-			true :
-			false;
+		// Today's real date, not based on selection
+		date_realToday = new w._date(),
+		// Currently selected date, possibly not confirmed (next/prev month)
+		date_selected = w.theDate,
+		// First day of the displayed month
+		date_firstOfMonth = w.theDate.copy( false, [ 0, 0, 1, 12, 1, 1, 1 ] ),
+		// Last day of the displayed month
+		date_lastOfMonth = date_firstOfMonth.copy( [ 0, 1 ] ).adj( 2, -1 ),
+		// Actual month (used to find bounds)
+		date_displayMonth = date_firstOfMonth.get(1),
+		// Actual year (used to find bounds)
+		date_displayYear = date_firstOfMonth.get(0),
+		// How many days from the previous month (or blanks) need to appear
+		grid_headOffset = w.__( "calStartDay" ) - date_firstOfMonth.getDay(),
+		// How many days from the next month (of blanks) need to appear
+		grid_tailOffset = 6 + ( w.__( "calStartDay" ) - date_lastOfMonth.getDay()),
+		// First date of the grid (possibly blanked out)
+		date_firstOfGrid = date_firstOfMonth.copy( [ 0, 0, grid_headOffset ] ),
+		// Last date of the grid (possibly blanked out)
+		date_lastOfGrid = date_lastOfMonth.copy( [ 0, 0, grid_tailOffset ] ),
+		// How many weeks the grid has (Low = 4, Max = 6.)
+		grid_Weeks = ( date_lastOfGrid.getEpochDays() - date_firstOfGrid.getEpochDays() + 1 ) / 7,
+		// The current working date. Stepped from first to last date of the grid
+		date_working = date_firstOfGrid.copy(),
+		// How many columns the grid has (7 days, 8th optional week number)
+		grid_Cols = o.calShowWeek ? 8 : 7,
+		// This holds the grid temporarily
+		calContent = "", calPicker = "", calCntlRow = "",
+		// Control variables.
+		cntlRow, cntlCol, cntlObj = {};
+		// This holds the day of week display
+		weekdayControl = $("");
 
-	if ( w.calBackDate !== false ) {
-		if ( w.theDate.get(0) === w.calBackDate.get(0) && 
-			w.theDate.get(1) === w.calBackDate.get(1) ) {
-				w.theDate = new w._date(w.calBackDate.getTime());
-				w.calBackDate = false;
-		}
-	}
-		
 	if ( typeof w.d.intHTML !== "boolean" ) { 
 		w.d.intHTML.remove(); 
 		w.d.intHTML = null;
@@ -487,99 +242,79 @@ JTSageDateBox._build.calbox = function () {
 	);
 	w.d.intHTML = $( "<span>" );
 
-	$( w._spf("<div class='{cl1}'><div class='{cl2}'><h4>{content}</h4></div></div>", {
-		"cl1": uid + "gridheader",
-		"cl2": uid + "gridlabel",
-		"content" : w._formatter( w.__( "calHeaderFormat" ), w.theDate )
-	})).appendTo(w.d.intHTML);
-		
-	w._cal_prev_next( w.d.intHTML.find( "." + uid + "gridheader" ) );
+	// Internal header (not the widget master header, a header for the calendar)
+	//
+	// Expects a ".dbCalNext" and ".dbCalPrev" for prev/next button events.
+	if ( o.calNoHeader === false ) {
+		_sf.calHeader( 
+			w._formatter( w.__( "calHeaderFormat"), w.theDate ),
+			t.cal_PrevBtnIcn,
+			t.cal_PrevBtnCls,
+			t.cal_NextBtnIcn,
+			t.cal_NextBtnCls
+		).appendTo( w.d.intHTML );
+		w.d.intHTML
+			.on( o.clickEvent, ".dbCalNext", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
+				w._offset( "m", 1 );
+				return false;
+			})
+			.on( o.clickEvent, ".dbCalPrev", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
+				w._offset( "m", -1 );
+				return false;
+			});	
+	}
 
-	if ( o.calNoHeader ) { 
-		if ( o.calUsePickersIcons ) {
-			w.d.intHTML.find( "." + uid + "gridlabel" ).hide();
-			w.d.intHTML.find( "." + uid + "gridplus" )
-				.find(".ui-btn-inline")
-				.addClass(uid + "nomargbtn");
-			w.d.intHTML.find( "." + uid + "gridminus" )
-				.find(".ui-btn-inline")
-				.addClass(uid + "nomargbtn");
-		} else {
-			w.d.intHTML.find( "." + uid + "gridheader" ).remove();
-		}
+	// Picker controls, if enabled.
+
+	if ( o.calUsePickers === true ) {
+		_sf.calPickers.apply(
+			this,
+			[ w._cal_pickRanges( date_displayMonth, date_displayYear, date_realToday.get(0) ) ]
+		).appendTo( w.d.intHTML );
+
+		w.d.intHTML.on( "change", "#dbCalPickMonth, #dbCalPickYear", function() {
+			if ( w.theDate.get(2) > 28 ) {
+				w.theDate.setD( 2, 1 ); //Set first of month if over the 28th.
+			}
+			w.theDate.setD( 1, $('#dbCalPickMonth').val() ); // Set choosen month
+			w.theDate.setD( 0, $('#dbCalPickYear').val() ); // Set choosen year
+
+			w.refresh();
+		});
 	}
-	
-	w.calNext = true;
-	w.calPrev = true;
-	
-	if ( Math.floor( cTodayDate.comp() / 100 )  === Math.floor( curDate.comp() / 100 ) ) {
-		// The month displayed is current to the selected date
-		isTrueMonth = true;
-	}
-	if ( Math.floor( cTodayDate.comp() / 10e3 ) === Math.floor( curDate.comp() / 10e3 ) ) {
-		// The year displayed is current to the selected date
-		isTrueYear = true;	
-	}
-	if ( presetDate.comp() === curDate.comp() ) { presetDay = presetDate.get(2); }
-	
-	if ( o.afterToday &&
-			( isTrueMonth || ( isTrueYear && cTodayDateArr[1] >= curDateArr[1] ) ) ) {
-		w.calPrev = false; }
-	if ( o.beforeToday &&
-			( isTrueMonth || ( isTrueYear && cTodayDateArr[1] <= curDateArr[1] ) ) ) {
-		w.calNext = false; }
-	
-	if ( o.minDays !== false ) {
-		minDate.adj( 2, o.minDays * -1 );
-		tempVal = minDate.getArray();
-		if ( curDateArr[0] === tempVal[0] && curDateArr[1] <= tempVal[1] ) {
-			w.calPrev = false;
-		}
-	}
-	if ( o.maxDays !== false ) {
-		maxDate.adj( 2, o.maxDays );
-		tempVal = maxDate.getArray();
-		if ( curDateArr[0] === tempVal[0] && curDateArr[1] >= tempVal[1] ) {
-			w.calNext = false;
-		}
-	}
-	
-	if ( o.calUsePickers ) {
-		w._cal_pickers( curMonth, curYear, cTodayDateArr );				
-	}
-	
-	calContent = $("<div class='" + uid + "grid'>" ).appendTo( w.d.intHTML );
+
+	// The actual grid system.
+	calContent = $( _sf.calGrid() ).appendTo( w.d.intHTML ).find('.dbCalGrid').first();
 	
 	if ( o.calShowDays ) {
 		w._cal_days = w.__( "daysOfWeekShort").concat( w.__( "daysOfWeekShort" ) );
-		weekdayControl = $( "<div>", { "class": uid + "gridrow" } ).appendTo( calContent );
 
-		if ( o.calControlGroup ) { weekdayControl.addClass( uid + "gridrow-last" ); }
-		if ( w.__( "isRTL" ) === true ) { 
-			weekdayControl.css( "direction", "rtl" );
+		weekdayControl = _sf.calRow();
+
+		if ( o.calShowWeek ) {
+			weekdayControl.append( _sf.calNonButton( "&nbsp", false ) );
 		}
-		if ( o.calShowWeek ) { 
-			$("<div>")
-				.addClass( uid + "griddate " + uid + "griddate-label" )
-				.appendTo( weekdayControl );
-		}
+
 		for ( i=0; i<=6;i++ ) {
-			$( "<div>" )
-				.text( w._cal_days[ ( i + w.__( "calStartDay") ) % 7 ] )
-				.addClass( uid + "griddate " + uid + "griddate-label" )
-				.appendTo( weekdayControl );
+			weekdayControl.append( _sf.calNonButton( 
+				w._cal_days[ ( i + w.__( "calStartDay") ) % 7 ],
+				true,
+				grid_Cols
+			) );
+		}
+		weekdayControl.appendTo( calContent );
+
+		if ( w.__( "isRTL" ) === true ) { 
+			weekdayControl.css( { display: "flex", flexDirection: "row-reverse" } );
 		}
 	}
 
-	checkDatesObj = { i: minDate, x: maxDate, t: cTodayDate, p: presetDay };
-	genny = w._cal_gen(
-		cStartDay,
-		cPrevMonthEnd,
-		cMonthEnd,
-		!o.calOnlyMonth,
-		curDate.get(1)
-	);
-	
 	if ( ! $.isFunction( o.calFormatter ) && 
 		o.calFormatter !== false &&
 		$.isFunction( window[ o.calFormatter ] ) ) {
@@ -591,248 +326,125 @@ JTSageDateBox._build.calbox = function () {
 		$.isFunction( window[ o.calBeforeAppendFunc ] ) ) {
 			o.calBeforeAppendFunc = window[ o.calBeforeAppendFunc ];
 	}
-	
-	absStartDO = new Date(
-		w.theDate.get(0),
-		genny[0][0][1],
-		genny[0][0][0],
-		0, 0, 0, 0 );
-	absEndDO = new Date(
-		w.theDate.get(0),
-		genny[genny.length-1][6][1],
-		genny[genny.length-1][6][0],
-		0, 0, 0, 0 );
-		
-	if ( w.calBackDate === false ) {
-		w.calDateVisible = true;
-	} else {
-		if ( o.calOnlyMonth ) {
-			w.calDateVisible = false; 
-		} else {
-			if ( w.calBackDate.comp() < absStartDO.comp() || 
-					w.calBackDate.comp() > absEndDO.comp() ) {
-				w.calDateVisible = false;
-			} else {
-				w.calDateVisible = true;
-			}
-		}
-	}	
-	
-	for ( row = 0, rows = genny.length; row < rows; row++ ) {
-		htmlRow = $("<div>", { "class": uid + "gridrow" } );
-		if ( w.__( "isRTL" ) ) { htmlRow.css( "direction", "rtl" ); }
+
+	/* Actually build and populate the calendar. One pass */
+	for ( cntlRow = 0; cntlRow < grid_Weeks; cntlRow++ ) {
+
+		// Begin:: ROW
+		calCntlRow = _sf.calRow();
+
+		// Show week numbers
 		if ( o.calShowWeek ) {
-				$("<div>", { "class": uid + "griddate " + uid + "griddate-empty" } )
-					.text( "W" + weekNum )
-					.addClass( ( ( w.baseMode === "bootstrap" ) ? "pull-left" : "" ) )
-					.css( (o.calControlGroup ? {"float": "left"} : {}) )
-					.appendTo( htmlRow );
-				weekNum++;
-				if ( weekNum > 52 && typeof(genny[ row + 1 ]) !== "undefined" ) { 
-					weekNum = new w._date(
-						curDateArr[0],
-						curDateArr[1],
-						( w.__( "calStartDay" )===0 ) ? 
-							genny[ row + 1 ][ 1 ][ 0 ] :
-							genny[ row + 1 ][ 0 ][ 0 ],
-						0, 0, 0, 0
-					).getDWeek( 4 ); }
-			}
-		for ( col=0, cols = genny[row].length; col < cols; col++ ) {
-			if ( o.calWeekMode ) { 
-				weekModeSel = genny[row][o.calWeekModeDay][0]; 
-			}
-			if ( typeof genny[row][col] === "boolean" ) {
-				$("<div>", { 
-					"class": uid + "griddate " + uid + "griddate-empty"
-				} ).appendTo( htmlRow );
+			calCntlRow.append( _sf.calNonButton( date_working.getDWeek(4), false ) );
+		}
+		
+		for ( cntlCol = 0; cntlCol < 7; cntlCol++ ) {
+
+			// Each: Date
+
+			// Check and theme date.
+			cntlObj = Object.assign(
+				w._newDateChecker(date_working),
+				w._cal_ThemeDate( date_working, date_displayMonth )
+			);
+
+			// Format the display date
+			cntlObj.displayText = o.calFormatter( cntlObj.dateObj );
+
+			// Create HTML
+			//
+			// Event "button" needs to have the class of ".dbEvent"
+			cntlObj.htmlObj = _sf.calButton( cntlObj, grid_Cols );
+
+			// Add data object to event object
+			cntlObj.eventObj = cntlObj.htmlObj.find('.dbEvent').first();
+			cntlObj.eventObj.data(cntlObj);
+
+			// Run the before append function
+			cntlObj = o.calBeforeAppendFunc(cntlObj);
+
+			// Add to row control object
+			if ( o.calOnlyMonth === false || cntlObj.inBounds === true ) {
+				calCntlRow.append(cntlObj.htmlObj);
 			} else {
-				checked = w._cal_check(
-					checkDates,
-					curDateArr[0],
-					genny[row][col][1],
-					genny[row][col][0],
-					checkDatesObj
-				);
-				if ( genny[row][col][0]) {
-					if ( ! $.isFunction(o.calFormatter) ) {
-						fmtRet = { text: genny[row][col][0], "class": "" };
-					} else {
-						fmtObj = {
-							"Year": ( ( genny[row][col][1] > 11 ) ? curYear + 1 : 
-								( genny[row][col][1] < 0 ) ? curYear - 1 : curYear ),
-							"Month" : ( ( genny[row][col][1] === 12 ) ? 0 : 
-								( genny[row][col][1] === -1 ) ? 11 : genny[row][col][1] ),
-							"Date" : genny[row][col][0]
-						};
-						fmtObj.Arr = [
-							fmtObj.Year,
-							w._zPad(fmtObj.Month + 1),
-							w._zPad(fmtObj.Date)
-						];
-						fmtObj.ISO = fmtObj.Arr.join( "-" );
-						fmtObj.Comp = fmtObj.Arr.join( "" );
-						fmtObj.curMonth = curDate.get(1);
-						fmtObj.curYear = curYear;
-						fmtObj.dateVisible = w.calDateVisible;
-						tempVal = o.calFormatter(fmtObj);
-						if ( typeof tempVal !== "object" ) {
-							fmtRet = { text: tempVal, "class": "" };
-						} else {
-							fmtRet = {
-								"text": tempVal.text,
-								"class": tempVal["class"]
-							};
-						}
-					}
-					o.calBeforeAppendFunc(
-						$("<div>")
-							.html( fmtRet.text )
-							.addClass( uid + "griddate")
-							.addClass( "" +
-								( ( curMonth === genny[row][col][1] || checked.force ) ?
-									( (!checked.ok && w.baseMode === "jqm") ? 
-										o.btnCls + " " + checked.theme : 
-										o.btnCls + checked.theme
-									) :
-									( uid + "griddate-empty" +
-										( ( w.baseMode === "bootstrap" ) ?
-											o.btnCls + "default" : "" 
-										) +
-										( ( o.calOnlyMonth === true ) ?
-											" " + o.disabledState : ""
-										)
-									)
-								)
-							)
-							.addClass( fmtRet["class"] )
-							.css(( curMonth !== genny[row][col][1] && !o.calOnlyMonth ) ?
-								{ cursor: "pointer" } :
-								{}
-							)
-							.data( "date", 
-								( ( o.calWeekMode ) ?
-									weekModeSel :
-									genny[row][col][0] )
-							)
-							.data( "enabled", checked.ok)
-							.data( "month",
-								genny[ row ][ ( ( o.calWeekMode ) ?
-										o.calWeekModeDay :
-										col
-									) ][1]
-							)
-						).appendTo( htmlRow );
-				}
+				calCntlRow.append( _sf.calNonButton( "&nbsp", false ) );
 			}
+
+			//Add ONE day
+			date_working.adj( 2, 1 ); 
 		}
 
-		switch ( w.baseMode ) {
-			case "jqm":
-				if ( o.calControlGroup ) {
-					htmlRow.find("." + uid + "griddate-empty" )
-						.addClass( "ui-btn" );
-
-					if ( o.calOnlyMonth ) {
-						htmlRow.find( "." + uid + "griddate-empty" )
-						.addClass( "ui-state-disabled" );
-					}
-
-					htmlRow.controlgroup({type: "horizontal"});
-				}
-				break;
-			case "bootstrap":
-				htmlRow.addClass("btn-group"); break;
-			case "jqueryui":
-				htmlRow.find( "." + uid + "griddate" )
-					.removeClass("ui-corner-all")
-					.not( "." + uid + "griddate-empty" )
-					.first().addClass( "ui-corner-left" )
-					.end().last().addClass( "ui-corner-right" );
-				break;
+		// Deal with RTL languages (flex is easiest)
+		if ( w.__( "isRTL" ) === true ) { 
+			calCntlRow.css( { display: "flex", flexDirection: "row-reverse" } );
 		}
 
-		if ( row === rows - 1 ) { htmlRow.addClass( uid + "gridrow-last" ); }
-		htmlRow.appendTo(calContent);
+		// Add row to grid.
+		calCntlRow.appendTo(calContent);
 	}
-	if ( o.calShowWeek ) { 
-		calContent.find( "." + uid + "griddate" ).addClass( uid + "griddate-week" );
+
+	// Quick Date Picker if turned on.
+	if ( o.calShowDateList === true && o.calDateList !== false ) {
+		_sf.calDateList.apply(
+			this,  
+			[ w.__( "calDateListLabel" ), o.calDateList ]
+		).appendTo(w.d.intHTML);
+		w.d.intHTML.on( "change", "#dbCalPickList", function() {
+			w.theDate = new w._date(
+					$( this ).val().split( "-" )[0],
+					$( this ).val().split( "-" )[1] - 1,
+					$( this ).val().split( "-" )[2],
+					12, 1, 1, 1
+			);
+			w._t( { method: "doset" } );
+		});
 	}
-	
-	if ( o.calShowDateList && dList !== false ) {
-		w._cal_date_list( calContent );
-	}
-	
+
+	// Bottom Buttons
 	if ( o.useTodayButton || o.useTomorrowButton || o.useClearButton || o.useCancelButton ){
-		htmlRow = $("<div>", { "class": uid + "controls" } );
+		calCntlRow = _sf.buttonGroup();
 		
 		if ( o.useTodayButton ) {
-			htmlRow.append(w._stdBtn.today.apply(w));
+			calCntlRow.append(w._stdBtn.today.apply(w));
 		}
 		if ( o.useTomorrowButton ) {
-			htmlRow.append(w._stdBtn.tomorrow.apply(w));
+			calCntlRow.append(w._stdBtn.tomorrow.apply(w));
 		}
 		if ( o.useClearButton ) {
-			htmlRow.append(w._stdBtn.clear.apply(w));
+			calCntlRow.append(w._stdBtn.clear.apply(w));
 		}
 		if ( o.useCancelButton ) {
-			htmlRow.append(w._stdBtn.cancel.apply(w));
+			calCntlRow.append(w._stdBtn.cancel.apply(w));
 		}
 
-		w._controlGroup( htmlRow ).appendTo( calContent );
+		calCntlRow.appendTo( w.d.intHTML );
 	}
-	
-	w.d.intHTML.on(o.clickEventAlt, "div." + uid + "griddate", function(e) {
-		e.preventDefault();
-		if ( $( this ).data( "enabled" ) ) {
-			w.calBackDate = false;
-			w.theDate
-				.setD( 2, 1 )
-				.setD( 1, $( this ).data( "month" ) )
-				.setD( 2, $( this ).data( "date" ) );
-			w._t( {
-				method: "set",
-				value: w._formatter( w.__fmt(),w.theDate ),
-				date: w.theDate
-			} );
-			w._t( { method: "close" } );
-		}
-	});
+
+	// Each date event loop, swipe and mouse events.
 	w.d.intHTML
-		.on( "swipeleft", function() { 
-			if ( w.calNext ) { 
-				if ( w.calBackDate === false ) { 
-					w.calBackDate = new Date(w.theDate.getTime());
-				} 
-				w._offset( "m", 1 );
-			} 
-		} )
-		.on( "swiperight", function() {
-			if ( w.calPrev ) {
-				if ( w.calBackDate === false ) { 
-					w.calBackDate = new Date(w.theDate.getTime());
-				} 
-				w._offset( "m", -1 ); 
-			}
-		} );
-	
-	if ( w.wheelExists ) { // Mousewheel operations, if plugin is loaded
-		w.d.intHTML.on( "mousewheel", function(e,d) {
+		.on( o.clickEvent, ".dbEvent", function(e) {
 			e.preventDefault();
-			if ( d > 0 && w.calNext ) {
-				if ( w.calBackDate === false ) { 
-					w.calBackDate = new Date(w.theDate.getTime());
-				} 
+			if ( $( this ).data( "good" ) ) {
+				w.theDate = $( this ).data( "dateObj" ).copy();
+				w._t( {
+					method: "set",
+					value: w._formatter( w.__fmt(),w.theDate ),
+					date: w.theDate
+				} );
+				w._t( { method: "close" } );
+			}
+		})
+		.on( "swipeleft", function() { w._offset( "m", 1 ); } )
+		.on( "swiperight", function() { w._offset( "m", -1 ); } )
+		.on( "mousewheel", function(e,d) {
+			e.preventDefault();
+			if ( d > 0 ) {
 				w.theDate.setD( 2, 1 );
 				w._offset( "m", 1 );
 			}
-			if ( d < 0 && w.calPrev ) {
-				if ( w.calBackDate === false ) { 
-					w.calBackDate = new Date(w.theDate.getTime());
-				}
+			if ( d < 0 ) {
 				w.theDate.setD( 2, 1 );
 				w._offset( "m", -1 );
 			}
 		});
-	}
 };

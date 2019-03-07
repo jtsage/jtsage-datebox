@@ -35,7 +35,13 @@ mergeOpts({
 		cal_DateHigh : "outline-warning",
 		cal_DateHighAlt : "outline-danger",
 		cal_DateHighRec : "outline-warning",
-		cal_Default : "outline-dark",
+		cal_Default : "outline-primary",
+		cal_OutOfBounds : "outline-secondary",
+
+		cal_NextBtnIcn : "plus",
+		cal_NextBtnCls : "outline-dark",
+		cal_PrevBtnIcn : "minus",
+		cal_PrevBtnCls : "outline-dark",
 
 		backgroundMask : {
 			position: "fixed",
@@ -47,49 +53,11 @@ mergeOpts({
 		}
 	},
 
-	themeDateToday: "info",
-	themeDayHigh: "warning",
-	themeDatePick: "info",
-	themeDateHigh: "warning",
-	themeDateHighAlt: "danger",
-	themeDateHighRec: "warning",
-	themeDate: "dark",
-	themeButton: "secondary",
-	themeInput: "default",
-	transition: "fade",
-
-	themeClearButton: "secondary",
-	themeCancelButton: "secondary",
-
-	themeCloseButton: "secondary",
-	themeTomorrowButton: "secondary",
-	themeTodayButton: "secondary",
-
 	buttonIconDate: "calendar",
 	buttonIconTime: "clock-o fa-clock",
-	disabledState: "disabled",
-
-	bootstrapDropdown: true,
-	bootstrapDropdownRight: true,
-
-	bootstrapModal: false,
-	bootstrapResponsive: true,
-	
-	calNextMonthIcon: "plus",
-	calPrevMonthIcon: "minus",
-	useInlineAlign: "left",
 
 	btnCls: " btn btn-sm btn-outline-",
 	icnCls: " fa fa-",
-
-	s: {
-		cal: {
-			prevMonth : "<span title='{text}' class='fa fa-{icon}'></span>",
-			nextMonth : "<span title='{text}' class='fa fa-{icon}'></span>",
-			botButton : "<a href='#' class='{cls}' role='button'>" +
-				"<span class='{icon}'></span> {text}</a>",
-		}
-	},
 
 	clickEvent: "click",
 	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
@@ -103,6 +71,9 @@ JTSageDateBox.styleFunctions = {
 		retty += ( iconClass !== false ) ? "<span class='fa fa-" + iconClass + "'></span> " : "";
 		retty += contents + "</a>";
 		return retty;
+	},
+	buttonGroup: function () {
+		return $("<div class='btn-group-vertical w-100 p-1'>");
 	},
 	baseInputWrap: function ( originalInput ) { 
 		/* Set up a wrap around the input for styling, and return it */
@@ -129,21 +100,72 @@ JTSageDateBox.styleFunctions = {
 	widgetHeader: function ( text, themeBar, themeIcon, iconClass ) {
 		return "<div class='navbar " + themeBar + "'>" + 
 			"<h5 class='text-white'>" + text + "</h5>" + 
-			"<button type='button' class='btn btn-sm closer btn-" + themeIcon + "'>" + 
-			"<span class='fa fa-" + iconClass + "'></span></button></div>";
+			this.button( themeIcon + " closer", iconClass, "") + "</div>";
+	},
+	calHeader: function ( text, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
+		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
+
+		$( this.button(firstBtnCls + " mx-2 dbCalPrev", firstBtnIcn, "") ).appendTo( returnVal );
+		$("<h5>" + text + "</h5>").appendTo( returnVal );
+		$( this.button(secondBtnCls + " mx-2 dbCalNext", secondBtnIcn, "") ).appendTo( returnVal );
+
+		return returnVal;
 	},
 	calGrid: function () {
-		return "<table class='w-100'>";
+		return $( "<div class='w-100 p-1'><table class='dbCalGrid w-100'></table></div>" );
 	},
-	calRow: function ( contents ) {
-		return "<tr>" + contents  + "</tr>";
+	calRow: function () {
+		return $( "<tr>" );
 	},
-	calNonButton: function ( text, totalElements ) {
+	calButton: function ( data, totalElements ) {
 		var style = ( totalElements !== undefined ?
 				" style='width: " + ( 100 / totalElements ) + "%'" :
 				""
-			);
-		return "<td class='text-center font-weight-bold'" + style + ">" + text + "</td>";
+			),
+			disable = ( data.bad ? "disabled='disabled'" : ""),
+			cls = "class='dbEvent w-100 btn-sm btn btn-" + 
+				data.theme + ( data.bad ? " disabled":"" ) + "'";
+
+		return $("<td class='m-0 p-0 text-center'" + style + ">" +
+			"<a href='#' " + cls + " " + disable + ">" + 
+			data.displayText + 
+			"</a>" + "</td>");
+	},
+	calNonButton: function ( text, header, totalElements ) {
+		var style = ( totalElements !== undefined ?
+				" style='width: " + ( 100 / totalElements ) + "%'" :
+				""
+			),
+			cls = ( header ) ? " font-weight-bold" : ""
+		return $("<td class='m-0 p-0 text-center" + cls + "'" + style + ">" + text + "</td>");
+	},
+	calPickers: function ( ranges ) {
+		var returnVal = "";
+
+		returnVal += "<div class='row my-2 mx-1'>";
+
+		returnVal += "<div class='col-sm-8 p-0 m-0'>";
+		returnVal += this._stdSel( ranges.month, "dbCalPickMonth", "form-control" );
+  		returnVal += "</div>";
+
+		returnVal += "<div class='col-sm-4 p-0 m-0'>";
+		returnVal += this._stdSel( ranges.year, "dbCalPickYear", "form-control" );
+  		returnVal += "</div>";
+
+		returnVal += "</div>";
+
+		return $(returnVal);
+	},
+	calDateList: function ( listLabel, list ) {
+		var returnVal = "";
+
+		list.unshift([false, listLabel, true]);
+
+		returnVal += "<div class='row my-2 mx-1'>";
+		returnVal += this._stdSel( list, "dbCalPickList", "form-control" );
+		returnVal += "</div>";
+
+		return $(returnVal);
 	}
 };
 
