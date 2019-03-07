@@ -29,6 +29,14 @@ mergeOpts({
 		headerBtnCls : "outline-secondary",
 		headerBtnIcn : "times",
 
+		cal_Today : "outline-info",
+		cal_DayHigh : "outline-warning",
+		cal_Selected : "outline-info",
+		cal_DateHigh : "outline-warning",
+		cal_DateHighAlt : "outline-danger",
+		cal_DateHighRec : "outline-warning",
+		cal_Default : "outline-dark",
+
 		backgroundMask : {
 			position: "fixed",
 			left: 0,
@@ -123,6 +131,19 @@ JTSageDateBox.styleFunctions = {
 			"<h5 class='text-white'>" + text + "</h5>" + 
 			"<button type='button' class='btn btn-sm closer btn-" + themeIcon + "'>" + 
 			"<span class='fa fa-" + iconClass + "'></span></button></div>";
+	},
+	calGrid: function () {
+		return "<table class='w-100'>";
+	},
+	calRow: function ( contents ) {
+		return "<tr>" + contents  + "</tr>";
+	},
+	calNonButton: function ( text, totalElements ) {
+		var style = ( totalElements !== undefined ?
+				" style='width: " + ( 100 / totalElements ) + "%'" :
+				""
+			);
+		return "<td class='text-center font-weight-bold'" + style + ">" + text + "</td>";
 	}
 };
 

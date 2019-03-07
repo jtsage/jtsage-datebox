@@ -90,6 +90,9 @@ JTSageDateBox._enhanceDate = function() {
 		getEpoch: function() {
 			return Math.floor( this.getTime() / 1000);
 		},
+		getEpochDays: function() {
+			return Math.floor( this.getTime() / (1000*60*60*24));
+		},
 		getArray: function() {
 			var arr = [0,0,0,0,0,0], i = 0;
 			for ( i = 0; i < 6; i++ ) {

@@ -32,8 +32,18 @@ JTSageDateBox._minStepFix = function() {
 
 JTSageDateBox._newDateCheck = {
 	/* NOTE: These return true if the test passes.  i.e., dobule negatives galore. */
+	enableDate : function ( testDate ) {
+		/* Return true if the date is whitelisted */
+		if ( $.inArray( testDate.iso(), this.options.enableDates) > -1 ) {
+			return true;
+		} else {
+			return false;
+		}
+	},
 	whiteDate : function ( testDate ) {
 		/* Return true if the date is whitelisted */
+		if ( this.options.whiteDates === false ) { return false; }
+
 		if ( $.inArray( testDate.iso(), this.options.whiteDates) > -1 ) {
 			return true;
 		} else {
@@ -42,10 +52,12 @@ JTSageDateBox._newDateCheck = {
 	},
 	notToday : function ( testDate ) {
 		/* Return true if the date *is* today */
+		if ( this.options.notToday === false ) { return false; }
+
 		if (
-			w.realToday.get(0) === testDate.get(0) && 
-			w.realToday.get(1) === testDate.get(1) &&
-			w.realToday.get(2) === testDate.get(2)
+			this.realToday.get(0) === testDate.get(0) && 
+			this.realToday.get(1) === testDate.get(1) &&
+			this.realToday.get(2) === testDate.get(2)
 			) {
 				return true; 
 		} else {
@@ -70,12 +82,132 @@ JTSageDateBox._newDateCheck = {
 	},
 	afterToday : function ( testDate ) {
 		/* Return true if the date is BEFORE today's date (dates AFTER are allowed) */
-		if ( testDate < w.realToday ) { return true; }
+		var testOption = this.options.afterToday;
+
+		if ( testOption === false ) { return false; }
+
+		if ( testDate < this.realToday ) { return true; }
 		return false;
 	},
 	beforeToday : function ( testDate ) {
 		/* return true if the date is AFTER today's date (dates BEFORE are allowed) */
-		if ( testDate > w.realToday ) { return true; }
+		var testOption = this.options.beforeToday;
+
+		if ( testOption === false ) { return false; }
+
+		if ( testDate > this.realToday ) { return true; }
+		return false;
+	},
+	minDays : function ( testDate ) {
+		/* return true if the date is invalid (too many days before today) */
+		var testOption = this.options.minDays;
+
+		if ( testOption === false ) { return false; }
+
+		if ( this.realToday.getEpochDays() - testOption < testDate.getEpochDays() ) {
+			return true;
+		}
+		return false;
+	},
+	maxDays : function ( testDate ) {
+		/* return true if the date is invalid (too many days after today) */
+		var testOption = this.options.maxDays;
+
+		if ( testOption === false ) { return false; }
+
+		if ( this.realToday.getEpochDays() + testOption > testDate.getEpochDays() ) {
+			return true;
+		}
+		return false;
+	},
+	minHour : function ( testDate ) {
+		/* return true if the time is invalid (hour before allowed) */
+		var testOption = this.options.minHour;
+
+		if ( testOption === false ) { return false; }
+
+		if ( testDate.get(3) < testOption ) { return true; }
+		return false;
+	},
+	maxHour : function ( testDate ) {
+		/* return true if the time is invalid (hour after allowed) */
+		var testOption = this.options.maxHour;
+
+		if ( testOption === false ) { return false; }
+
+		if ( testDate.get(3) > testOption ) { return true; }
+		return false;
+	},
+	minTime : function ( testDate ) {
+		/* return true if the time is before the minimum allowed */
+		var testOption = this.options.minTime,
+			splitOption = null,
+			testHour = testDate.get(3);
+
+		if ( testOption === false ) { return false; }
+
+		splitOption = this.options.minTime.split(":");
+
+		// Hour is before allowed, fail
+		if ( testHour < splitOption[0] ) { return true; }
+		// Hour is after allowed, pass
+		if ( testHour > splitOption[0] ) { return false; }
+		// Hour is the same, check minutes
+		if ( testDate.get(4) < splitOption[1] ) { return true; }
+		return false;
+	},
+	maxTime : function ( testDate ) {
+		/* return true if the time is after the maximum allowed */
+		var testOption = this.options.maxTime,
+			splitOption = null,
+			testHour = testDate.get(3);
+
+		if ( testOption === false ) { return false; }
+
+		splitOption = this.options.maxTime.split(":");
+		// Hour is before allowed, pass
+		if ( testHour < splitOption[0] ) { return false; }
+		// Hour is after allowed, fail
+		if ( testHour > splitOption[0] ) { return true; }
+		// Hour is the same, check minutes
+		if ( testDate.get(4) > splitOption[1] ) { return true; }
+		return false;
+	},
+	blackDays : function ( testDate ) {
+		/* return true if the date matched blacked out days of the week */
+		var testOption = this.options.blackDays;
+
+		if ( testOption === false ) { return false; }
+
+		if ( $.inArray( testDate.getDay(), testOption ) > -1 ) {
+			return true;
+		}
+		return false;
+	},
+	blackDates : function ( testDate ) {
+		/* return true if the date is blacklisted */
+		var testOption = this.options.blackDates;
+
+		if ( testOption === false ) { return false; }
+
+		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
+			return true;
+		}
+		return false;
+	},
+	blackDatesRec : function ( testDate ) {
+		/* return true if the date is blacklisted in the recurring dates */
+		var testOption = this.options.blackDatesRec;
+
+		if ( testOption === false ) { return false; }
+
+		for ( i = 0; i < testOption.length; i++ ) {
+			if (
+				( testOption[i][0] === -1 || testOption[i][0] === testDate.get(0) ) &&
+				( testOption[i][1] === -1 || testOption[i][1] === testDate.get(1) ) &&
+				( testOption[i][2] === -1 || testOption[i][2] === testDate.get(2) )
+			) { return true ;}
+		}
 		return false;
 	}
 };
@@ -93,45 +225,49 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 	 */
 	var w = this,
 		o = this.options,
+		itt, done = false;
 		returnObject = {
-			good: false,
+			good: true,
 			bad: false,
 			failrule: false,
 			passrule: false,
-		};
+			dateObj: testDate.copy()
+		},
+		badChecks = [
+			"blackDays", "blackDates", "blackDatesRec",
+			"notToday", "maxYear", "minYear", "afterToday", "beforeToday",
+			"minDays", "maxDays", "minHour", "maxHour", "minTime", "maxTime"
+		]
 
 	w.realToday = new w._date();
 
-	if ( JTSageDateBox._newDateCheck.whiteDate(testDate) ) {
-		returnObject.good = true;
+	if ( this.options.enableDates !== false ) { 
+		if ( w._newDateCheck.whiteDate.apply( w, [ testDate ] ) ) {
+			returnObject.passrule = "enableDates";
+			return returnObject;
+		} else {
+			returnObject.bad = true;
+			returnObject.good = false;
+			returnObject.failrule = "enableDates";
+			return returnObject;
+		}
+	}
+
+	if ( w._newDateCheck.whiteDate.apply( w, [ testDate ] ) ) {
 		returnObject.passrule = "whiteDates";
 		return returnObject;
 	}
-	if ( JTSageDateBox._newDateCheck.notToday(testDate) ) {
-		returnObject.bad = true;
-		returnObject.failrule = "notToday";
-		return returnObject;
+
+	for ( itt = 0; itt < badChecks.length && !done; itt++ ) {
+		if ( w._newDateCheck[ badChecks[ itt ] ].apply( w, [ testDate ] ) ) {
+			returnObject.bad = true;
+			returnObject.good = false;
+			returnObject.failrule = badChecks[ itt ];
+			done = true;
+		}
 	}
-	if ( JTSageDateBox._newDateCheck.maxYear(testDate) ) {
-		returnObject.bad = true;
-		returnObject.failrule = "maxYear";
-		return returnObject;
-	}
-	if ( JTSageDateBox._newDateCheck.minYear(testDate) ) {
-		returnObject.bad = true;
-		returnObject.failrule = "minYear";
-		return returnObject;
-	}
-	if ( JTSageDateBox._newDateCheck.afterToday(testDate) ) {
-		returnObject.bad = true;
-		returnObject.failrule = "afterToday";
-		return returnObject;
-	}
-	if ( JTSageDateBox._newDateCheck.beforeToday(testDate) ) {
-		returnObject.bad = true;
-		returnObject.failrule = "beforeToday";
-		return returnObject;
-	}
+
+	return returnObject;
 };
 
 JTSageDateBox._check = function() {

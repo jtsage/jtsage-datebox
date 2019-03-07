@@ -116,7 +116,7 @@ JTSageDateBox.options = {
 	blackDates: false,
 	blackDatesRec: false,
 	blackDays: false,
-	whiteDates: true,
+	whiteDates: false,
 	minHour: false,
 	maxHour: false,
 	minTime: false,

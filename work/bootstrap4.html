@@ -44,7 +44,7 @@
 
 	<script type="text/javascript" src="../src/js/modes/datebox.js"></script>
 	<script type="text/javascript" src="../src/js/modes/flipbox.js"></script>
-	<script type="text/javascript" src="../src/js/modes/calbox.js"></script>
+	<script type="text/javascript" src="../src/js/modes/newcalbox.js"></script>
 	<script type="text/javascript" src="../src/js/modes/slidebox.js"></script>
 
 	<script type="text/javascript" src="../src/js/widgetBinding.js"></script>
@@ -66,14 +66,14 @@
 		window.fuckme = true;
 		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
 			//closeCallback: function(a, b) { console.log(a); console.log(b); },
-			beforeOpenCallbackArgs: ['hi','bye'],
-			displayMode: "dropdown",
+			//beforeOpenCallbackArgs: ['hi','bye'],
+			displayMode: "inline",
 			displayInlinePosition: "right",
-			beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
+			//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
 			useClearButton: true,
 			//lockInput: false,
 			//useCollapsedBut: true,
-			//calShowWeek: true,
+			calShowWeek: true,
 			//hideContainer: true,
 			//hideInput: true,
 			calOnlyMonth: false,
