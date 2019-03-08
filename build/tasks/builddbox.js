@@ -7,7 +7,13 @@ module.exports = function(grunt) {
 	
 	grunt.registerMultiTask("buildDBox", "Build DateBox", function() {
 		var o = this.options(),
-			buildFile = "";
+			buildFile = "", allLibs, libyFile = "";
+
+		allLibs = grunt.file.expand(this.data.libFiles);
+
+		allLibs.forEach( function( aFile ) {
+			libyFile = libyFile + grunt.file.read( aFile );
+		});
 
 		this.files.forEach( function( allFiles ) {
 			allFiles.src.forEach( function( aFile ) {
@@ -46,7 +52,7 @@ module.exports = function(grunt) {
 		grunt.file.write(
 			o.dest,
 			//grunt.config.get("txt.banner.long") + "\n\n" + stream.toString()
-			grunt.config.get("txt.banner.long") + "\n\n" + outResult.code
+			grunt.config.get("txt.banner.long") + "\n\n" + libyFile + "\n\n" + outResult.code
 		);
 	});
 };

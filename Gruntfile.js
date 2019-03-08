@@ -203,6 +203,7 @@ module.exports = function(grunt) {
 					dest: "dist/latest/jtsage-datebox.bootstrap.js",
 					includeBinding: true,
 				},
+				libFiles: [ ], //"src/js/external/*.js" ],
 				files: [{
 					expand: true,
 					src: [
@@ -218,6 +219,7 @@ module.exports = function(grunt) {
 					dest: "dist/latest/jtsage-datebox.bootstrap4.js",
 					includeBinding: true,
 				},
+				libFiles: [ "src/js/external/*.js" ],
 				files: [{
 					expand: true,
 					src: [
@@ -233,6 +235,7 @@ module.exports = function(grunt) {
 					dest: "dist/latest/jtsage-datebox.jqueryui.js",
 					includeBinding: true,
 				},
+				libFiles: [ "src/js/external/*.js" ],
 				files: [{
 					expand: true,
 					src: [
@@ -496,16 +499,16 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
 		"clean:latest",
-		"buildDBox:latest_jqm",
+		//"buildDBox:latest_jqm",
 		"buildDBox:latest_bootstrap",
 		"buildDBox:latest_bootstrap4",
 		"buildDBox:latest_jqueryui",
-		"exec:latest_make_css_jqm",
-		"exec:latest_make_css_bootstrap",
-		"exec:latest_make_css_bootstrap4",
-		"exec:latest_make_css_jqueryui",
+		// "exec:latest_make_css_jqm",
+		// "exec:latest_make_css_bootstrap",
+		// "exec:latest_make_css_bootstrap4",
+		// "exec:latest_make_css_jqueryui",
 		"uglify:latest",
-		"cssmin:latest",
+		//"cssmin:latest",
 	]);
 	
 
