@@ -94,7 +94,9 @@ JTSageDateBox.styleFunctions = {
 		var retty;
 
 		retty  = "<a href='#' role='button' class='btn btn-sm btn-" + themeClass + "'>";
-		retty += ( iconClass !== false ) ? "<span class='glyphicon glyphicon-" + iconClass + "'></span> " : "";
+		retty += ( iconClass !== false ) ?
+			"<span class='glyphicon glyphicon-" + iconClass + "'></span> " :
+			"";
 		retty += contents + "</a>";
 		return retty;
 	},

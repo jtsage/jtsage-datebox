@@ -39,7 +39,8 @@ module.exports = function(grunt) {
 						"src/js/lib/*.js",
 						"src/js/framework/*.js",
 						"src/js/modes/*.js",
-						"!src/js/baseObject.js"
+						"!src/js/baseObject.js",
+						"!src/js/extWidgetLib.js"
 					]
 				},
 				options: {
@@ -58,7 +59,7 @@ module.exports = function(grunt) {
 			},
 			js_sane: {
 				files: {
-					src: [ "src/js/*.js" ]
+					src: [ "src/js/*.js", "!src/js/extWidgetLib.js" ]
 				},
 				options: {
 					"undef": true,
@@ -522,7 +523,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( "testweb", "Build the documentation site quickly", ["clean:web", "copy:web1", "copy:web2", "copy:web3", "copy:web4", "jekyll:release"] );
 	grunt.registerTask( "devweb", "Test the documentation site", ["copy:web1", "copy:web2", "copy:web3", "copy:web4",  "jekyll:latest", "prettify"] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
-	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint_sane"] );
+	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint:js", "jshint:js2"] );
 
 	grunt.registerTask( "default", "Test and Build working version", [
 		"jshint_sane",

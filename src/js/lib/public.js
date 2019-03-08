@@ -8,7 +8,6 @@
 
 JTSageDateBox.getTheDate = function() {
 	// Provide a PUBLIC function to get the current date.
-	if ( this.calBackDate !== false ) { return this.calBackDate; }
 	return this.theDate;
 };
 
@@ -30,7 +29,6 @@ JTSageDateBox.setTheDate = function( newDate ) {
 	} else {
 		this.theDate = this._makeDate( newDate );
 	}
-	this.calBackDate = false;
 	this.refresh();
 	this._t( { method: "doset" });
 };

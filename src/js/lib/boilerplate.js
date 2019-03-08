@@ -20,10 +20,15 @@ JTSageDateBox._create = function() {
 			input: this.element,
 			wrap: this.element.parent(),
 			mainWrap: $( "<div>", { 
-				"class": "ui-datebox-container"
+				"class": "dbContainer"
 				} ).css( "zIndex", o.zindex ),
 			intHTML: false
 		},
+		styleTag = "<style>" +
+				".dbContainer { width: " + o.controlWidth + "}" +
+				"@media (max-width: " + o.breakpointWidth + ") { " +
+				".dbContainer { width: 95%; margin-left: auto; margin-right: auto; } }" +
+			"</style>",
 		evtid = ".datebox" + this.uuid,
 		touch = ( typeof window.ontouchstart !== "undefined" ),
 		drag = {
@@ -43,6 +48,8 @@ JTSageDateBox._create = function() {
 			tmp    : false
 		};
 
+	$( "head" ).append( $( styleTag ) );
+
 	$.extend(w, {d: d, drag: drag, touch:touch});
 
 	if ( o.usePlaceholder !== false ) {
@@ -55,7 +62,6 @@ JTSageDateBox._create = function() {
 	}
 
 	w.cancelClose = false;
-	w.calBackDate = false;
 	w.calDateVisible = true;
 	w.disabled = false;
 	w.runButton = false;
@@ -106,10 +112,6 @@ JTSageDateBox._create = function() {
 	}
 
 	if ( o.hideInput ) { w.d.wrap.hide(); }
-	if ( o.hideContainer ) { w.d.wrap.parent().hide(); }
-	if ( o.hideContainer && !o.useInline ) {
-		o.bootstrapModal = true; o.bootstrapResponsive = false;
-	}
 
 	w.d.input
 		.on( "focus.datebox", function(){
@@ -192,7 +194,6 @@ JTSageDateBox.open = function () {
 	w.theDate = w._makeDate( w.d.input.val() );
 	w.originalDate = w._makeDate( w.d.input.val() );
 	
-	w.calBackDate = false;
 	if ( w.d.input.val() === "" ) { w._startOffset( w.theDate ); }
 	w.d.input.blur();
 
@@ -287,8 +288,8 @@ JTSageDateBox.open = function () {
 				case "left":
 					w.d.mainWrap.css( { marginLeft: 0, marginRight: "auto" } );
 					break;
-				case "center":
-				case "middle":
+				//case "center":
+				//case "middle":
 				default:
 					w.d.mainWrap.css( { marginLeft: "auto", marginRight: "auto" } );
 					break;
@@ -310,8 +311,8 @@ JTSageDateBox.open = function () {
 					case "left":
 						w.d.mainWrap.css( { marginLeft: 0, marginRight: "auto" } );
 						break;
-					case "center":
-					case "middle":
+					//case "center":
+					//case "middle":
 					default:
 						w.d.mainWrap.css( { marginLeft: "auto", marginRight: "auto" } );
 						break;
@@ -342,10 +343,10 @@ JTSageDateBox.open = function () {
 					w._t( { method: "close", closeCancel: true } );
 				});
 
-			w.popper = new Popper($('body'), w.d.mainWrap, { placement: "auto" });
+			w.popper = new Popper( $( "body" ), w.d.mainWrap, { placement: "bottom" });
 			
 			break;
-		case "dropdown":
+		// case "dropdown":
 		default:
 			w.d.mainWrap
 				.show()
@@ -386,8 +387,6 @@ JTSageDateBox.close = function() {
 		o = this.options,
 		basepop = {};
 
-	w.calBackDate = false;
-
 	// Trigger the popup to close
 	// // Prepare close callback.
 	if ( o.closeCallback !== false ) {
@@ -420,8 +419,8 @@ JTSageDateBox.close = function() {
 			w.d.mainWrap.slideUp();
 			basepop.afterclose.call();
 			return true;
-		case "modal":
-		case "dropdown":
+		// case "modal":
+		// case "dropdown":
 		default:
 			w.d.backdrop.remove();
 			$( ".jtsage-datebox-backdrop-div" ).remove();
@@ -550,7 +549,6 @@ JTSageDateBox._stdBtn = {
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date());
-				w.calBackDate = false;
 				w._t( { method: "doset" } );
 				if ( o.closeTodayButton === true ) { w._t( { method: "close" } ); }
 			});
@@ -565,7 +563,6 @@ JTSageDateBox._stdBtn = {
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
-				w.calBackDate = false;
 				w._t( { method: "doset" } );
 				if ( o.closeTomorrowButton === true ) { w._t( { method: "close" } ); }
 			});

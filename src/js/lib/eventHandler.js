@@ -29,6 +29,9 @@ JTSageDateBox._event = function(e, p) {
 					w.theDate = p.value;
 					w._t( { method: "doset" } );
 				} else {
+					if ( o.displayMode === "inline" || o.displayMode === "blind" ) {
+						w.originalDate = w.theDate;
+					}
 					$( this ).val( p.value );
 					if ( o.linkedField !== false ) {
 						$( o.linkedField )

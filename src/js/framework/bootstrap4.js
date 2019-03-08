@@ -22,7 +22,7 @@ mergeOpts({
 		todayBtnIcn : "step-forward",
 
 		dropdownContainer : "bg-light border border-dark mt-1",
-		modalContainer : "bg-light border border-dark m-4",
+		modalContainer : "bg-light border border-dark p-2 m-0",
 		inlineContainer : "bg-light border border-dark my-2",
 
 		headerTheme : "bg-dark",
@@ -31,17 +31,22 @@ mergeOpts({
 
 		cal_Today : "outline-info",
 		cal_DayHigh : "outline-warning",
-		cal_Selected : "outline-info",
+		cal_Selected : "outline-success",
 		cal_DateHigh : "outline-warning",
 		cal_DateHighAlt : "outline-danger",
 		cal_DateHighRec : "outline-warning",
 		cal_Default : "outline-primary",
-		cal_OutOfBounds : "outline-secondary",
+		cal_OutOfBounds : "outline-secondary border-0",
 
 		cal_NextBtnIcn : "plus",
 		cal_NextBtnCls : "outline-dark",
 		cal_PrevBtnIcn : "minus",
 		cal_PrevBtnCls : "outline-dark",
+
+		dbox_NextBtnIcn : "plus",
+		dbox_NextBtnCls : "outline-dark",
+		dbox_PrevBtnIcn : "minus",
+		dbox_PrevBtnCls : "outline-dark",
 
 		backgroundMask : {
 			position: "fixed",
@@ -53,6 +58,7 @@ mergeOpts({
 		}
 	},
 
+	disabledState: "disabled",
 	buttonIconDate: "calendar",
 	buttonIconTime: "clock-o fa-clock",
 
@@ -102,6 +108,13 @@ JTSageDateBox.styleFunctions = {
 			"<h5 class='text-white'>" + text + "</h5>" + 
 			this.button( themeIcon + " closer", iconClass, "") + "</div>";
 	},
+	intHeader: function ( text ) {
+		return $(
+			"<div class='my-2 text-center dbHeader'>" +
+			"<h5>" + text + "</h5>" +
+			"</div>"
+		);
+	},
 	calHeader: function ( text, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
 		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
 
@@ -136,7 +149,8 @@ JTSageDateBox.styleFunctions = {
 				" style='width: " + ( 100 / totalElements ) + "%'" :
 				""
 			),
-			cls = ( header ) ? " font-weight-bold" : ""
+			cls = ( header ) ? " font-weight-bold" : "";
+
 		return $("<td class='m-0 p-0 text-center" + cls + "'" + style + ">" + text + "</td>");
 	},
 	calPickers: function ( ranges ) {
@@ -163,6 +177,27 @@ JTSageDateBox.styleFunctions = {
 
 		returnVal += "<div class='row my-2 mx-1'>";
 		returnVal += this._stdSel( list, "dbCalPickList", "form-control" );
+		returnVal += "</div>";
+
+		return $(returnVal);
+	},
+	dboxContainer: function () {
+		return $("<div class='d-flex p-1'>");
+	},
+	dboxControl: function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label ) {
+		var returnVal = "";
+
+		returnVal += "<div class='btn-group-vertical flex-fill dbBox" + mainCls + "'>";
+
+		returnVal += this.button( nextCls + " dbBoxNext" , nextIcn, "" );
+		if ( label !== null ) {
+			returnVal += "<div class='w-100 form-control rounded-0 p-0 text-center' " +
+				"style='height:auto'>" + label + "</div>";
+		}
+		returnVal += "<input type='text' ";
+		returnVal += "class='form-control form-control-sm text-center px-0 rounded-0'>";
+		returnVal += this.button( prevCls + " dbBoxPrev" , prevIcn, "" );
+
 		returnVal += "</div>";
 
 		return $(returnVal);

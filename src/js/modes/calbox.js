@@ -72,7 +72,7 @@ JTSageDateBox._cal_ThemeDateCK = {
 	},
 	highDatesRec : function ( testDate ) {
 		/* return true if the date is listed in the recurring dates */
-		var testOption = this.options.highDatesRec;
+		var i, testOption = this.options.highDatesRec;
 
 		if ( testOption === false ) { return false; }
 
@@ -108,7 +108,7 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 	var w = this,
 		o = this.options,
 		t = this.options.theme,
-		itt, done = false;
+		itt, done = false,
 		returnObject = {
 			theme: t.cal_Default,
 			inBounds: true
@@ -130,7 +130,6 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 		if ( o.calHighOutOfBounds === true ) {
 			returnObject.theme = t.cal_OutOfBounds;
 			done = true;
-			console.log('tick');
 		}
 	}
 
@@ -182,7 +181,7 @@ JTSageDateBox._cal_pickRanges = function ( dispMonth, dispYear, realYear ) {
 	}
 
 	for ( i = startYear; i <= endYear; i++ ) {
-		if ( i == dispYear ) {
+		if ( i === dispYear ) {
 			returnVal.year.push( [ i, i, true ] );
 		} else {
 			returnVal.year.push( [ i, i, false ] );
@@ -193,15 +192,12 @@ JTSageDateBox._cal_pickRanges = function ( dispMonth, dispYear, realYear ) {
 };
 
 JTSageDateBox._build.calbox = function () {
-	var w = this,
+	var w = this, i,
 		o = this.options,
 		t = this.options.theme,
 		_sf = this.styleFunctions,
-		uid = "ui-datebox-",
 		// Today's real date, not based on selection
 		date_realToday = new w._date(),
-		// Currently selected date, possibly not confirmed (next/prev month)
-		date_selected = w.theDate,
 		// First day of the displayed month
 		date_firstOfMonth = w.theDate.copy( false, [ 0, 0, 1, 12, 1, 1, 1 ] ),
 		// Last day of the displayed month
@@ -225,9 +221,9 @@ JTSageDateBox._build.calbox = function () {
 		// How many columns the grid has (7 days, 8th optional week number)
 		grid_Cols = o.calShowWeek ? 8 : 7,
 		// This holds the grid temporarily
-		calContent = "", calPicker = "", calCntlRow = "",
+		calContent = "", calCntlRow = "",
 		// Control variables.
-		cntlRow, cntlCol, cntlObj = {};
+		cntlRow, cntlCol, cntlObj = {},
 		// This holds the day of week display
 		weekdayControl = $("");
 
@@ -282,15 +278,15 @@ JTSageDateBox._build.calbox = function () {
 			if ( w.theDate.get(2) > 28 ) {
 				w.theDate.setD( 2, 1 ); //Set first of month if over the 28th.
 			}
-			w.theDate.setD( 1, $('#dbCalPickMonth').val() ); // Set choosen month
-			w.theDate.setD( 0, $('#dbCalPickYear').val() ); // Set choosen year
+			w.theDate.setD( 1, $( "#dbCalPickMonth" ).val() ); // Set choosen month
+			w.theDate.setD( 0, $( "#dbCalPickYear" ).val() ); // Set choosen year
 
 			w.refresh();
 		});
 	}
 
 	// The actual grid system.
-	calContent = $( _sf.calGrid() ).appendTo( w.d.intHTML ).find('.dbCalGrid').first();
+	calContent = $( _sf.calGrid() ).appendTo( w.d.intHTML ).find( ".dbCalGrid" ).first();
 	
 	if ( o.calShowDays ) {
 		w._cal_days = w.__( "daysOfWeekShort").concat( w.__( "daysOfWeekShort" ) );
@@ -357,15 +353,15 @@ JTSageDateBox._build.calbox = function () {
 			cntlObj.htmlObj = _sf.calButton( cntlObj, grid_Cols );
 
 			// Add data object to event object
-			cntlObj.eventObj = cntlObj.htmlObj.find('.dbEvent').first();
-			cntlObj.eventObj.data(cntlObj);
+			cntlObj.eventObj = cntlObj.htmlObj.find( ".dbEvent" ).first();
+			cntlObj.eventObj.data( cntlObj );
 
 			// Run the before append function
-			cntlObj = o.calBeforeAppendFunc(cntlObj);
+			cntlObj = o.calBeforeAppendFunc( cntlObj );
 
 			// Add to row control object
 			if ( o.calOnlyMonth === false || cntlObj.inBounds === true ) {
-				calCntlRow.append(cntlObj.htmlObj);
+				calCntlRow.append( cntlObj.htmlObj );
 			} else {
 				calCntlRow.append( _sf.calNonButton( "&nbsp", false ) );
 			}

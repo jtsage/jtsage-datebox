@@ -25,24 +25,15 @@ JTSageDateBox.options = {
 	bootstrapVersion: "3.3.7",
 	bootstrap4Version: "4.3.1",
 
-	// theme: false,
-	// themeDefault: "a",
-	// themeHeader: "a",
-	// themeSetButton: "a",
-	// themeCloseButton: false,
-	// extraInputClass: "",
 	mode: false,
-
-    /* Depreciated.  use css. */
-	// transition: "fade",
-	// useAnimation: true,
-
 
 	hideInput: false,
 	hideContainer: false,
 
 	lockInput: true,
 
+	controlWidth: "290px",
+	breakpointWidth: "567px",
 	zindex: "1100",
 	clickEvent: "click",
 	/* dep this!  it's not yet */
@@ -57,25 +48,14 @@ JTSageDateBox.options = {
 	linkedFieldFormat: "%J",
 
 	/* One of dropdown, inline, blind, or modal */
-	displayMode: 'dropdown',
+	displayMode: "dropdown",
 
 	/* For dropdown, position string.  See popper.js docs.  *
 	 *  Typical : top-end or top-start or top      */
-	displayDropdownPosition: 'top-end',
+	displayDropdownPosition: "top-end",
 
 	/* For inline display: left, right, center (defaults center) */
-	displayInlinePosition: 'center',
-
-	// popupPosition: false,
-	// popupButtonPosition: "left",
-	// popupForceX: false,
-	// popupForceY: false,
-
-	// useModal: true,
-	// useModalTheme: "b",
-	// useInline: false,
-	// useInlineBlind: false,
-
+	displayInlinePosition: "center",
 
 	useHeader: true,
 	useImmediate: false,
@@ -91,7 +71,6 @@ JTSageDateBox.options = {
 	useTomorrowButton: false,
 	closeTomorrowButton: false,
 	useClearButton: false,
-	useCollapsedBut: false,
 	
 	usePlaceholder: false,
 
@@ -118,6 +97,7 @@ JTSageDateBox.options = {
 	blackDays: false,
 	whiteDates: false,
 	enableDates: false,
+	validHours: false,
 	minHour: false,
 	maxHour: false,
 	minTime: false,
