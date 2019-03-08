@@ -1,0 +1,556 @@
+const:
+  mode_date: &modeDate
+   - datebox
+   - datetimebox
+   - flipbox
+   - datetimeflipbox
+   - slidebox
+   - calbox
+
+  mode_time: &modeTime
+   - timebox
+   - datetimeflipbox
+   - timeflipbox
+   - datetimeflipbox
+
+  mode_all: &modeAll
+   - datebox
+   - timebox
+   - datetimeflipbox
+   - flipbox
+   - timeflipbox
+   - datetimeflipbox
+   - slidebox
+   - calbox
+
+  i18n: &i18n |
+    ##### This is a internationalization / localization option!
+
+    i18n options can not be set directly on a per-instance basis, you must include the "override" directive, and properly camel case the new name (see below)
+
+    The default presented here is the default for the internationalized english translation provided with DateBox.  Loading a different translation file will automatically override that default with a new one.
+
+    For more information, please take a look at the _Localizing Datebox_ section of the documentation.
+
+  # key :
+  #   short : aaa
+  #   long : aaa
+  #   type : Boolean
+  #   modes : *modeAll
+  #   default : false
+  #   dynamic : false
+  #   cat : aaa
+  #   i18n : *i18n
+  #   overrideName : aaa
+
+opts : 
+  afterToday :
+    short : Selected date must be after today
+    long : |
+      Dates selected must be after today's real date, or, all dates prior to today's date are invalid.
+
+      _This is based on the first open of the widget - should a page be opened very close to midnight, an off-by one error might appear._
+    type : Boolean
+    modes : *modeDate
+    default : false
+    dynamic : true
+    cat : Limits
+
+  beforeToday :
+    short : Selected date must be before today
+    long : |
+      Dates selected must be before today's real date, or, all dates after to today's date are invalid.
+
+      _This is based on the first open of the widget - should a page be opened very close to midnight, an off-by one error might appear._
+    type : Boolean
+    modes : *modeDate
+    default : false
+    dynamic : true
+    cat : Limits
+
+  blackDates :
+    short : Dates to be considered invalid
+    long : |
+      A list (array) of ISO-8601 _(YYYY-MM-DD)_ dates that are to be considered invalid.
+
+      Processing order:
+       * enableDates ( If used, the list is exclusive )
+       * whiteDates ( Whitelisted dates will always pass )
+       * All date limiters, in a pile-on fashion
+
+      ##### Example
+      ```js
+      // Christmas and New Years, 2000/2001
+      ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"]
+      ```
+    type : Array
+    modes : *modeDate
+    default : false
+    dynamic : true
+    cat : Limits
+
+  blackDatesRec :
+    short : Recurring dates to be considered invalid
+    long : |
+      A list of recurring dates that are to be consided invalid.
+
+      Each date element is an array of the format
+
+      ```js
+      [<year>, <month>, <date>]
+      ```
+
+      * *year* : 4 digit year
+      * *month* : 0 based month, (0 = January ... 11= December )
+      * *date* : date
+
+      Additionally, using "-1" as an element treats it as a wildcard, that is "every year/month/day"
+
+      Processing order:
+       * enableDates ( If used, the list is exclusive )
+       * whiteDates ( Whitelisted dates will always pass )
+       * All date limiters, in a pile-on fashion
+
+      ##### Example
+
+      ```js
+      // (Chrismas, Christmas Eve, New Years Eve, and New Years Day, Every Year)
+      [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ]
+      ```
+    type : Array
+    modes : *modeDate
+    default : false
+    dynamic : true
+    cat : Limits
+
+  blackDays :
+    short : Days of the week to be considered invalid
+    long : |
+      A list (array) of days of the week that are to be considered invalid. Zero based ( 0 = Sunday ... 6 = Saturday )
+
+      Processing order:
+       * enableDates ( If used, the list is exclusive )
+       * whiteDates ( Whitelisted dates will always pass )
+       * All date limiters, in a pile-on fashion
+
+      ##### Example
+      ```js
+      // Weekends
+      [ 0, 6 ]
+      ```
+    type : Array
+    modes : *modeDate
+    default : false
+    dynamic : true
+    cat : Limits
+
+  buttonIcon :
+    short : Icon class to use for button attached to original input (override)
+    long : |
+      The class to be forcibly (overridden) passed to _styleFunctions.baseInputButton()
+
+      <div class="text-danger">
+      This is an override only class, and should only be used when a single DateBox on a site needs a unique icon for some reason.
+      </div>
+    type : String
+    modes : *modeAll
+    default : false
+    dynamic : false
+    cat : Theme
+
+  calBeforeAppendFunc :
+    short : Function to run before appending calendar grid date
+    long : |
+      This option allows you to define a custom function that is called on the generated calbox grid box of each date.
+
+      It provides an object, and expects an object in the same format.
+
+      The object provided:
+
+      ```js
+      {
+        // boolean ( true = date is invalid )
+        bad: false,
+
+        // javaScript date object for the date
+        dateObj: [Object],
+
+        // Text to display, typically just the number
+        displayText: 6,
+
+        // Object that click events run on.  Part of htmlObj
+        eventObj: [Object],
+
+        // If the date is invalid, set to the name of the rule that caused it
+        failrule: false,
+
+        // boolean ( true = date is valid )
+        good: true,
+
+        // jQuery object to be appended.
+        htmlObj: [Object],
+
+        // boolean ( false = Date is not part of the displayed month ( underrun / overrun ) )
+        inBounds: false,
+
+        // If the date is explicitly valid, set to the name of the rule that caused it
+        passrule: false,
+
+        // Theme to be applied to the htmlObj (already applied)
+        theme: "outline-secondary border-0"
+      }
+      ```
+
+      Example function:
+
+      ```js
+      window.printFullDate = function( myObject ) {
+        console.log( myObject.dateObj );
+        return myObject;
+      }
+      ```
+
+      Then, to link it to datebox, it could be as easy as:
+
+      ```html
+      <input type="text" data-role="datebox" data-datebox-mode="calbox" data-datebox-calBeforeAppendFunc="printFullData">
+      ```
+
+      When given a function, DateBox will run it.  When given a string, it will run window.stringContents
+
+      <h5 class="text-danger">Requirement</h5>
+
+      There must be an element with the ".dbEvent" class, this is how clicks are triggered.  Additionally, that element should
+      include the full object as it's $.data()
+
+    type : String || Function
+    modes : 
+      - calbox
+    default : function(obj) { return obj; }
+    dynamic : true
+    cat : Display-Control
+
+  calDateList :
+    short : List of dates for special pick list
+    long : |
+      List of 2-element arrays to show in a special pick list. Used with ___calShowDateList___.
+
+      The inner array structure is:
+
+      ```js
+      [ISO-Date, Description]
+      ```
+
+      ##### Example
+
+      ```js
+      [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ]
+      ```
+    type : Array
+    modes :
+      - calbox
+    default : false
+    dynamic : true
+    cat : Limits
+
+  calDateListLabel :
+    short : Header text for calDateList
+    long : |
+      The header text for the ___calDateList___ special pick list.
+    type : String
+    modes :
+      - calbox
+    default : Other Dates
+    dynamic : true
+    cat : i18n
+    i18n : *i18n
+    overrideName : overrideCalDatListLabel
+
+  calFormatter :
+    short : Control formatting of the date text
+    long : |
+      This option allows for a function that should return the prefered text for the calendar grid date. Typically, it's just a number.
+
+      A single argument is passed to the function, the working date.
+
+      The return value must be a string, but can contain HTML. For advanced formatting, consider using _calBeforeAppendFunc_ instead.
+
+      Example function:
+
+      ```js
+      window.redSingles = function( date ) {
+        // Make single digit dates red
+        if ( date.get(2) < 10 ) {
+          return "<span style='color:red'>" + date.get(2) + "</span>";
+        } else {
+          return date.get(2);
+        }
+      }
+      ```
+
+      Then, to link it to datebox, it could be as easy as:
+
+      ```html
+      <input type="text" data-role="datebox" data-datebox-mode="calbox" data-datebox-calFormatter="redSingles">
+      ```
+
+      When given a function, DateBox will run it.  When given a string, it will run window.stringContents
+    type : Function
+    modes :
+      - calbox
+    default : function( date ) { return date.get(2); }
+    dynamic : true
+    cat : Display-Control
+
+  calHeaderFormat :
+    short : Header format for calendar mode
+    long : |
+      This is a parsed format for the header (if shown) in CalBox.
+
+      For more information on date format variables, see the _Output Formats_ section of the documentation
+    type : String
+    modes :
+      - calbox
+    default : "%B %Y"
+    dynamic : true
+    cat : i18n
+    i18n : *i18n
+    overrideName : overrideCalHeaderFormat
+
+  calHighOutOfBounds :
+    short : Highlight dates from other months
+    long : |
+      Highlight the dates that are not part of the displayed month with the theme in ___theme.cal_OutOfBounds___
+
+      For more information on the themeing system, please see the _Themeing_ section of the documentation
+
+      Precedence:
+       * OutOfBounds
+       * Selected
+       * Today
+       * highDates
+       * highDatesAlt
+       * highDatesRec
+       * highDays
+       * default
+    type : Boolean
+    modes :
+      - calbox
+    default : true
+    dynamic : true
+    cat : Theme
+
+  calHighPick :
+    short : Highlight currently selected date
+    long : |
+      Highlight the currently selected date with the theme in ___theme.cal_Selected___
+
+      For more information on the themeing system, please see the _Themeing_ section of the documentation
+
+      Precedence:
+       * OutOfBounds
+       * Selected
+       * Today
+       * highDates
+       * highDatesAlt
+       * highDatesRec
+       * highDays
+       * default
+    type : Boolean
+    modes :
+      - calbox
+    default : true
+    dynamic : true
+    cat : Theme
+
+  calHighToday :
+    short : Highlight today's date
+    long : |
+      Highlight today's date with the theme in ___theme.cal_Today___
+
+      For more information on the themeing system, please see the _Themeing_ section of the documentation
+
+      Precedence:
+       * OutOfBounds
+       * Selected
+       * Today
+       * highDates
+       * highDatesAlt
+       * highDatesRec
+       * highDays
+       * default
+    type : Boolean
+    modes :
+      - calbox
+    default : true
+    dynamic : true
+    cat : Theme
+
+  calNoHeader :
+    short : Suppress standard control header
+    long : |
+      This option allows hiding of the standard calendar header (Month & Year, Previous / Next Buttons)
+
+      It is particularly useful when you want to replace it with ___calUsePickers___
+    type : Boolean
+    modes :
+      - calbox
+    default : false
+    dynamic : true
+    cat : Display-Control
+
+  calOnlyMonth :
+    short : Show only the current month
+    long : |
+      This option allows the hiding of the underrun / overrun dates from the previous and next month.
+    type : Boolean
+    modes : 
+      - calbox
+    default : false
+    dynamic : true
+    cat : Display-Control
+
+  calShowDateList :
+    short : Show special date picker
+    long : |
+      This is the on/off switch for the display of dates provided by ___calDateList___
+    type : Boolean
+    modes :
+      - calbox
+    default : false
+    dynamic : true
+    cat : Display-Control
+
+  calShowDays :
+    short : Show day labels
+    long : |
+      This is the on/off switch for day of the week labels (Short labels)
+    type : Boolean
+    modes :
+      - calbox
+    default : true
+    dynamic : true
+    cat : Display-Control
+
+  calShowWeek :
+    short : Show week numbers
+    long : |
+      This is the on/off switch for ISO-8601 week numbers
+    type : Boolean
+    modes :
+      - calbox
+    default : false
+    dynamic : true
+    cat : Display-Control
+
+  calStartDay :
+    short : Start day of week
+    long : |
+      Zero based start of the week. Tested heavily with 0 (Sunday) and 1 (Monday). ISO-8601 Week numbers are based on the first day displayed, so become meaningless with odd selections.
+    type : Boolean
+    modes :
+      - calbox
+    default : 0
+    dynamic : true
+    cat : i18n
+    i18n : *i18n
+    overrideName : overrideCalStartDay
+
+  calUsePickers :
+    short : Show month and year select boxes
+    long : |
+      Show a month and year select box above the calendar grid.  Often used with ___calNoHeader___
+    type : Boolean
+    modes :
+      - calbox
+    default : false
+    dynamic : true
+    cat : Display-Control
+
+  calYearPickMax :
+    short : Year picker upper limit
+    long : |
+      This is the upper limit for the year select box.
+
+      Special cases:
+       * __Integer > 1,800__ : Hard coded year
+       * __Integer < 1,800__ : Number of years from current year or current selection.
+       * __String "NOW"__ : Today's year
+
+      See also: ___calYearPickRelative___
+    type : Integer || String
+    modes :
+      - calbox
+    default : 6
+    dynamic : true
+    cat : Display-Control
+
+  calYearPickMin :
+    short : Year picker lower limit
+    long : |
+      This is the lower limit for the year select box.
+
+      Special cases:
+       * __Integer > 1,800__ : Hard coded year
+       * __Integer < 1,800__ : Number of years from current year or current selection.
+       * __String "NOW"__ : Today's year
+
+      See also: ___calYearPickRelative___
+    type : Integer || String
+    modes :
+      - calbox
+    default : -6
+    dynamic : true
+    cat : Display-Control
+
+  calYearPickRelative :
+    short : Year picker relativity switch
+    long : |
+      When true, the year picker min/max are relative to the currently visible date
+
+      When false, the year picker min/max are relative to today's year
+    type : Boolean
+    modes :
+      - calbox
+    default : true
+    dynamic : true
+    cat : Display-Control
+
+  clearButton :
+    short : Button Label - clear button
+    long : The text label for the clear button
+    type : String
+    modes : *modeAll
+    default : Clear
+    dynamic : true
+    cat : i18n
+    i18n : *i18n
+    overrideName : overrideClearButton
+
+  clickEvent :
+    short : Listener for all clickable buttons
+    long : Almost always click now.  Older mobile implementations may require others.
+    type : String
+    modes : *modeAll
+    default : click
+    dynamic : false
+    cat : Operation
+    
+  lockInput :
+    short : Lock the original input element from manual input
+    long : Set the readonly property of the original input, allowing changes via the datebox contol only
+    type : Boolean
+    modes : *modeAll
+    default : false
+    dynamic : false
+    cat : Display-Form
+
+  mode :
+    short : Mode of operations
+    long : The mode of operation - see list of available modes below.
+    type : String
+    modes : *modeAll
+    default: none
+    dynamic: true
+    cat: Display-Control
+          
