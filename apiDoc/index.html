@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<title>JTsage:DateBox::API/Options</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand" href="https://jtsage.dev/DateBox/">JTSage:DateBox</a>
+		<span class="navbar-text">API and Options Documentation</span>
+	</nav>
+
+	<div class="container">
+		<div class="accordion" id="apiDoc"></div>
+	</div>
+
+	<div id="apiSrc" class="d-none">
+const:
+  mode_date: &modeDate
+   - datebox
+   - datetimebox
+   - flipbox
+   - datetimeflipbox
+   - slidebox
+   - calbox
+
+  mode_time: &modeTime
+   - timebox
+   - datetimeflipbox
+   - timeflipbox
+   - datetimeflipbox
+
+  mode_all: &modeAll
+   - datebox
+   - timebox
+   - datetimeflipbox
+   - flipbox
+   - timeflipbox
+   - datetimeflipbox
+   - slidebox
+   - calbox
+
+api : 
+  lockInput :
+    short : Lock the original input element from manual input
+    long : Set the readonly property of the original input, allowing changes via the datebox contol only
+    type : Boolean
+    modes : *modeAll
+    default : false
+    dynamic : false
+    cat : Display-Form
+
+  mode :
+    short : Mode of operations
+    long : The mode of operation - see list of available modes below.
+    type : String
+    modes : *modeAll
+    default: none
+    dynamic: true
+    cat: Display-Control
+</div>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="./js-yaml.min.js"></script>
+	<script type="text/javascript">
+		var doc = jsyaml.load($('#apiSrc').text());
+		$.each(doc.api, function(apiKey) {
+			var w = this,
+				theCard = "";
+
+			theCard += "<div class=\"card\">";
+			theCard += "<div class=\"card-header\" id=\"heading" + apiKey + "\">";
+			theCard += "<h2 class=\"mb-0\">";
+			theCard += "<button class=\"btn btn-link\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapse" + apiKey + "\">";
+			theCard +=  apiKey;
+			theCard += "</button></h2></div>";
+			theCard += "<div id=\"collapse" + apiKey + "\" class=\"collapse\" data-parent=\"#apiDoc\">";
+			theCard += "<div class=\"card-body\">";
+			theCard += "<h5>" + w.short + "</h5>";
+			theCard += w.long;
+			theCard += "</div></div></div>";
+
+			$('#apiDoc').append( $(theCard) );
+		});
+	</script>
+
+</body>
+</html>

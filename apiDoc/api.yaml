@@ -1,0 +1,44 @@
+const:
+  mode_date: &modeDate
+   - datebox
+   - datetimebox
+   - flipbox
+   - datetimeflipbox
+   - slidebox
+   - calbox
+
+  mode_time: &modeTime
+   - timebox
+   - datetimeflipbox
+   - timeflipbox
+   - datetimeflipbox
+
+  mode_all: &modeAll
+   - datebox
+   - timebox
+   - datetimeflipbox
+   - flipbox
+   - timeflipbox
+   - datetimeflipbox
+   - slidebox
+   - calbox
+
+api : 
+  lockInput :
+    short : Lock the original input element from manual input
+    long : Set the readonly property of the original input, allowing changes via the datebox contol only
+    type : Boolean
+    modes : *modeAll
+    default : false
+    dynamic : false
+    cat : Display-Form
+
+  mode :
+    short : Mode of operations
+    long : The mode of operation - see list of available modes below.
+    type : String
+    modes : *modeAll
+    default: none
+    dynamic: true
+    cat: Display-Control
+          
