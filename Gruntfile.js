@@ -141,6 +141,29 @@ module.exports = function(grunt) {
 				src: [ "i18n/locale/*/datebox.po"]
 			}
 		},
+		buildSite: {
+			main_site:{
+				options : {
+					headerFile: "doc_builder/include/header.html",
+					footerFile: "doc_builder/include/footer.html",
+					configFile: "doc_builder/data/datebox.yml",
+					apidocFile: "doc_builder/data/api.yml"
+				},
+				files: [{
+					expand: true,
+					cwd: "doc_builder/pages/",
+					src: "*.md",
+					dest: "doc_builder/dist/",
+					rename: function(dest, src) {
+						console.log(src);
+						return dest + src.replace(/^(.+)\.md$/, function ( match, file ) {
+							if ( file === "index" ) { return "index.html"; }
+							return file + "/index.html"
+						});
+					}
+				}]
+			}
+		},
 		buildDBox: {
 			latest_bootstrap: {
 				options: {

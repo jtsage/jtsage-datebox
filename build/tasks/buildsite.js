@@ -1,22 +1,7 @@
-/*
-  Generates api.html, list of all options.
-*/
-var outFile       = "../dist/api.html",
-	inFile        = "api.md",
-	yaml          = require( "js-yaml" ),
-	fs            = require( "fs" ),
+var yaml          = require( "js-yaml" ),
 	showdown      = require( "showdown" ),
 	mdConvert     = new showdown.Converter(),
 	beautify_html = require( "js-beautify" ).html,
-
-	headerHTML = fs.readFileSync( "../include/header.html", "utf8" ),
-	footerHTML = fs.readFileSync( "../include/footer.html", "utf8" ),
-	bodyMD     = fs.readFileSync( inFile, "utf8" ),
-
-	api = yaml.safeLoad(fs.readFileSync( "../data/api.yml", "utf8") ),
-
-	compiledFile = headerHTML,
-	finishedFile = "",
 
 	badgeMap = {
 		"Display-Form"    : "badge-dark",
@@ -95,8 +80,19 @@ var outFile       = "../dist/api.html",
 		"<div class=\"p-2 pr-4 text-muted\"><small><small>" + desc + "</small></small></div>" +
 		"</div>";
 	},
+	makeMenu = function ( conf ) {
+		var menuHtml = "";
+
+		for ( var i = 0; i < conf.menu.length; i++ ) {
+			menuHtml += "<a href=\"" + conf.url + conf.menu[i].url;
+			menuHtml += "\" class=\"list-group-item list-group-item-action\">";
+			menuHtml += conf.menu[i].name;
+			menuHtml += "</a>";
+		}
+		return menuHtml;
+	},
 	apiGen = {
-		getAll : function( type ) {
+		getAll : function( api, type ) {
 			var filePart = "<div class=\"accordion mx-3\" id=\"apiDoc\">";
 			for ( var apiKey in api[ type ] ) {
 				var rec = api.opts[apiKey];
@@ -112,34 +108,53 @@ var outFile       = "../dist/api.html",
 	};
 
 
-/* Begin making a file */
+module.exports = function(grunt) {
+	"use strict";
+	
+	grunt.registerMultiTask("buildSite", "Build Doumentation Site", function() {
+		var o = this.options(),
+			headerHTML = grunt.file.read(o.headerFile),
+			footerHTML = grunt.file.read(o.footerFile),
 
+			api    = yaml.safeLoad( grunt.file.read( o.apidocFile ) ),
+			config = yaml.safeLoad( grunt.file.read( o.configFile ) ),
 
-compiledFile += mdConvert.makeHtml( bodyMD.replace(/{{(.+)}}/gm, function( match, term ) {
-	switch ( term.substr(0,4) ) {
-		case "run:":
-			switch ( term.substr(4) ) {
-				case "apiGen.getAll":
-					return apiGen.getAll( "opts" );
-			}
-			break;
-	}
-	return "";
-}) );
+			compFile = "",
+			doneFile = "";
 
+		//console.log(config);
 
-compiledFile += footerHTML;
+		this.files.forEach( function( thisFile ) {
+			compFile = 
+				headerHTML +
+				mdConvert.makeHtml( grunt.file.read( thisFile.src[0] ) ) +
+				footerHTML;
 
-finishedFile = beautify_html(compiledFile);
+			doneFile = beautify_html( compFile.replace(/{{(.+)}}/g, function( match, term ) {
 
-fs.writeFile( outFile, finishedFile, function( err ) {
+				switch ( term.substr(0,4) ) {
+					case "run:":
+						switch ( term.substr(4) ) {
+							case "apiGen.getAll":
+								return apiGen.getAll( api, "opts" );
+						}
+						break;
 
-	if( err ) {
-		console.log( "Failed: api.html" );
-		return console.log(err);
-	}
+					case "cnf:":
+						switch ( term.substr(4) ) {
+							case "version" :
+								return config.version;
+							case "menu" :
+								return makeMenu( config );
+						}
+						break;
 
-	console.log( "Complete: api.html" );
-}); 
+				}
+				return match;
+			}) );
 
+			grunt.file.write( thisFile.dest, doneFile );
+		});
 
+	});
+};

@@ -1,0 +1,35 @@
+version : "5.0.0"
+
+supports :
+  - Bootstrap 4.3.1
+  - Bootstrap 3.4.1
+
+url : https://jtsage.dev/jtsage-datebox-next/doc_builder/dist
+
+menu :
+  - name : Getting Started
+    url : "/"
+
+  - name : Configuration Overview
+    url : "/config/"
+
+  - name : Themeing DateBox
+    url : "/themes/"
+
+  - name : Localization
+    url : "/i18n/"
+
+  - name : Date & Time Formats
+    url : '/formats/'
+
+  - name : Default Values
+    url : "/defaults/"
+
+  - name : Date & Time Limits
+    url : "/limits/"
+
+  - name : Callbacks, Listeners, Functions, & Triggers
+    url : "/callbacks/"
+
+  - name : Full Option List
+    url : "/api/"
