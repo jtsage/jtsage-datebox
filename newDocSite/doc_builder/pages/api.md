@@ -6,3 +6,5 @@ that DateBox does not sanity check options - if you pass invalid data, odd thing
 Additionally, if you use an option not meant for the current mode, odd operation may commence.
 
 ___Search Feature coming soon___
+
+{{run:apiGen.getAll}}
