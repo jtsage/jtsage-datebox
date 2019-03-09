@@ -1,0 +1,1595 @@
+const:
+  mode_date: &modeDate
+   - datebox
+   - datetimebox
+   - flipbox
+   - datetimeflipbox
+   - slidebox
+   - calbox
+
+  mode_time: &modeTime
+   - timebox
+   - datetimeflipbox
+   - timeflipbox
+   - datetimeflipbox
+
+  mode_all: &modeAll
+   - datebox
+   - timebox
+   - datetimeflipbox
+   - flipbox
+   - timeflipbox
+   - datetimeflipbox
+   - slidebox
+   - calbox
+
+  i18n: &i18n |
+    ##### This is a internationalization / localization option!
+
+    i18n options can not be set directly on a per-instance basis, you must include the "override" directive, and properly camel case the new name (see below)
+
+    The default presented here is the default for the internationalized english translation provided with DateBox.  Loading a different translation file will automatically override that default with a new one.
+
+    For more information, please take a look at the _Localizing Datebox_ section of the documentation.
+
+
+opts : 
+  afterToday :
+    short : Selected date must be after today
+    long : |
+      Dates selected must be after today's real date, or, all dates prior to today's date are invalid.
+
+      _This is based on the first open of the widget - should a page be opened very close to midnight, an off-by one error might appear._
+    type : Boolean
+    modes : *modeDate
+    default : false
+    dynamic : true
+    cat : Limits
+
+  beforeToday :
+    short : Selected date must be before today
+    long : |
+      Dates selected must be before today's real date, or, all dates after to today's date are invalid.
+
+      _This is based on the first open of the widget - should a page be opened very close to midnight, an off-by one error might appear._
+    type : Boolean
+    modes : *modeDate
+    default : false
+    dynamic : true
+    cat : Limits
+
+  blackDates :
+    short : Dates to be considered invalid
+    long : |
+      A list (array) of ISO-8601 _(YYYY-MM-DD)_ dates that are to be considered invalid.
+
+      Processing order:
+       * enableDates ( If used, the list is exclusive )
+       * whiteDates ( Whitelisted dates will always pass )
+       * All date limiters, in a pile-on fashion
+
+      ##### Example
+      ```js
+      // Christmas and New Years, 2000/2001
+      ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"]
+      ```
+    type : Array
+    modes : *modeDate
+    default : false
+    dynamic : true
+    cat : Limits
+
+  blackDatesRec :
+    short : Recurring dates to be considered invalid
+    long : |
+      A list of recurring dates that are to be consided invalid.
+
+      Each date element is an array of the format
+
+      ```js
+      [<year>, <month>, <date>]
+      ```
+
+      * *year* : 4 digit year
+      * *month* : 0 based month, (0 = January ... 11= December )
+      * *date* : date
+
+      Additionally, using "-1" as an element treats it as a wildcard, that is "every year/month/day"
+
+      Processing order:
+       * enableDates ( If used, the list is exclusive )
+       * whiteDates ( Whitelisted dates will always pass )
+       * All date limiters, in a pile-on fashion
+
+      ##### Example
+
+      ```js
+      // (Chrismas, Christmas Eve, New Years Eve, and New Years Day, Every Year)
+      [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ]
+      ```
+    type : Array
+    modes : *modeDate
+    default : false
+    dynamic : true
+    cat : Limits
+
+  blackDays :
+    short : Days of the week to be considered invalid
+    long : |
+      A list (array) of days of the week that are to be considered invalid. Zero based ( 0 = Sunday ... 6 = Saturday )
+
+      Processing order:
+       * enableDates ( If used, the list is exclusive )
+       * whiteDates ( Whitelisted dates will always pass )
+       * All date limiters, in a pile-on fashion
+
+      ##### Example
+      ```js
+      // Weekends
+      [ 0, 6 ]
+      ```
+    type : Array
+    modes : *modeDate
+    default : false
+    dynamic : true
+    cat : Limits
+
+  buttonIcon :
+    short : Icon class to use for button attached to original input (override)
+    long : |
+      The class to be forcibly (overridden) passed to _styleFunctions.baseInputButton()
+
+      <div class="text-danger">
+      This is an override only class, and should only be used when a single DateBox on a site needs a unique icon for some reason.
+      </div>
+    type : String
+    modes : *modeAll
+    default : false
+    dynamic : false
+    cat : Theme
+
+  calBeforeAppendFunc :
+    short : Function to run before appending calendar grid date
+    long : |
+      This option allows you to define a custom function that is called on the generated calbox grid box of each date.
+
+      It provides an object, and expects an object in the same format.
+
+      The object provided:
+
+      ```js
+      {
+        // boolean ( true = date is invalid )
+        bad: false,
+
+        // javaScript date object for the date
+        dateObj: [Object],
+
+        // Text to display, typically just the number
+        displayText: 6,
+
+        // Object that click events run on.  Part of htmlObj
+        eventObj: [Object],
+
+        // If the date is invalid, set to the name of the rule that caused it
+        failrule: false,
+
+        // boolean ( true = date is valid )
+        good: true,
+
+        // jQuery object to be appended.
+        htmlObj: [Object],
+
+        // boolean ( false = Date is not part of the displayed month ( underrun / overrun ) )
+        inBounds: false,
+
+        // If the date is explicitly valid, set to the name of the rule that caused it
+        passrule: false,
+
+        // Theme to be applied to the htmlObj (already applied)
+        theme: "outline-secondary border-0"
+      }
+      ```
+
+      Example function:
+
+      ```js
+      window.printFullDate = function( myObject ) {
+        console.log( myObject.dateObj );
+        return myObject;
+      }
+      ```
+
+      Then, to link it to datebox, it could be as easy as:
+
+      ```html
+      <input type="text" data-role="datebox" data-datebox-mode="calbox" data-datebox-calBeforeAppendFunc="printFullData">
+      ```
+
+      When given a function, DateBox will run it.  When given a string, it will run window.stringContents
+
+      <h5 class="text-danger">Requirement</h5>
+
+      There must be an element with the ".dbEvent" class, this is how clicks are triggered.  Additionally, that element should
+      include the full object as it's $.data()
+
+    type : String || Function
+    modes : 
+      - calbox
+    default : function(obj) { return obj; }
+    dynamic : true
+    cat : Callback
+
+  calDateList :
+    short : List of dates for special pick list
+    long : |
+      List of 2-element arrays to show in a special pick list. Used with ___calShowDateList___.
+
+      The inner array structure is:
+
+      ```js
+      [ISO-Date, Description]
+      ```
+
+      ##### Example
+
+      ```js
+      [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ]
+      ```
+    type : Array
+    modes :
+      - calbox
+    default : false
+    dynamic : true
+    cat : Limits
+
+  calDateListLabel :
+    short : Header text for calDateList
+    long : |
+      The header text for the ___calDateList___ special pick list.
+    type : String
+    modes :
+      - calbox
+    default : Other Dates
+    dynamic : true
+    cat : i18n
+    i18n : *i18n
+    overrideName : overrideCalDatListLabel
+
+  calFormatter :
+    short : Control formatting of the date text
+    long : |
+      This option allows for a function that should return the prefered text for the calendar grid date. Typically, it's just a number.
+
+      A single argument is passed to the function, the working date.
+
+      The return value must be a string, but can contain HTML. For advanced formatting, consider using _calBeforeAppendFunc_ instead.
+
+      Example function:
+
+      ```js
+      window.redSingles = function( date ) {
+        // Make single digit dates red
+        if ( date.get(2) < 10 ) {
+          return "<span style='color:red'>" + date.get(2) + "</span>";
+        } else {
+          return date.get(2);
+        }
+      }
+      ```
+
+      Then, to link it to datebox, it could be as easy as:
+
+      ```html
+      <input type="text" data-role="datebox" data-datebox-mode="calbox" data-datebox-calFormatter="redSingles">
+      ```
+
+      When given a function, DateBox will run it.  When given a string, it will run window.stringContents
+    type : Function
+    modes :
+      - calbox
+    default : function( date ) { return date.get(2); }
+    dynamic : true
+    cat : Callback
+
+  calHeaderFormat :
+    short : Header format for calendar mode
+    long : |
+      This is a parsed format for the header (if shown) in CalBox.
+
+      For more information on date format variables, see the _Output Formats_ section of the documentation
+    type : String
+    modes :
+      - calbox
+    default : "%B %Y"
+    dynamic : true
+    cat : i18n
+    i18n : *i18n
+    overrideName : overrideCalHeaderFormat
+
+  calHighOutOfBounds :
+    short : Highlight dates from other months
+    long : |
+      Highlight the dates that are not part of the displayed month with the theme in ___theme.cal_OutOfBounds___
+
+      For more information on the themeing system, please see the _Themeing_ section of the documentation
+
+      Precedence:
+       * OutOfBounds
+       * Selected
+       * Today
+       * highDates
+       * highDatesAlt
+       * highDatesRec
+       * highDays
+       * default
+    type : Boolean
+    modes :
+      - calbox
+    default : true
+    dynamic : true
+    cat : Theme
+
+  calHighPick :
+    short : Highlight currently selected date
+    long : |
+      Highlight the currently selected date with the theme in ___theme.cal_Selected___
+
+      For more information on the themeing system, please see the _Themeing_ section of the documentation
+
+      Precedence:
+       * OutOfBounds
+       * Selected
+       * Today
+       * highDates
+       * highDatesAlt
+       * highDatesRec
+       * highDays
+       * default
+    type : Boolean
+    modes :
+      - calbox
+    default : true
+    dynamic : true
+    cat : Theme
+
+  calHighToday :
+    short : Highlight today's date
+    long : |
+      Highlight today's date with the theme in ___theme.cal_Today___
+
+      For more information on the themeing system, please see the _Themeing_ section of the documentation
+
+      Precedence:
+       * OutOfBounds
+       * Selected
+       * Today
+       * highDates
+       * highDatesAlt
+       * highDatesRec
+       * highDays
+       * default
+    type : Boolean
+    modes :
+      - calbox
+    default : true
+    dynamic : true
+    cat : Theme
+
+  calNoHeader :
+    short : Suppress standard control header
+    long : |
+      This option allows hiding of the standard calendar header (Month & Year, Previous / Next Buttons)
+
+      It is particularly useful when you want to replace it with ___calUsePickers___
+    type : Boolean
+    modes :
+      - calbox
+    default : false
+    dynamic : true
+    cat : Display-Control
+
+  calOnlyMonth :
+    short : Show only the current month
+    long : |
+      This option allows the hiding of the underrun / overrun dates from the previous and next month.
+    type : Boolean
+    modes : 
+      - calbox
+    default : false
+    dynamic : true
+    cat : Display-Control
+
+  calShowDateList :
+    short : Show special date picker
+    long : |
+      This is the on/off switch for the display of dates provided by ___calDateList___
+    type : Boolean
+    modes :
+      - calbox
+    default : false
+    dynamic : true
+    cat : Display-Control
+
+  calShowDays :
+    short : Show day labels
+    long : |
+      This is the on/off switch for day of the week labels (Short labels)
+    type : Boolean
+    modes :
+      - calbox
+    default : true
+    dynamic : true
+    cat : Display-Control
+
+  calShowWeek :
+    short : Show week numbers
+    long : |
+      This is the on/off switch for ISO-8601 week numbers
+    type : Boolean
+    modes :
+      - calbox
+    default : false
+    dynamic : true
+    cat : Display-Control
+
+  calStartDay :
+    short : Start day of week
+    long : |
+      Zero based start of the week. Tested heavily with 0 (Sunday) and 1 (Monday). ISO-8601 Week numbers are based on the first day displayed, so become meaningless with odd selections.
+    type : Boolean
+    modes :
+      - calbox
+    default : 0
+    dynamic : true
+    cat : i18n
+    i18n : *i18n
+    overrideName : overrideCalStartDay
+
+  calUsePickers :
+    short : Show month and year select boxes
+    long : |
+      Show a month and year select box above the calendar grid.  Often used with ___calNoHeader___
+    type : Boolean
+    modes :
+      - calbox
+    default : false
+    dynamic : true
+    cat : Display-Control
+
+  calYearPickMax :
+    short : Year picker upper limit
+    long : |
+      This is the upper limit for the year select box.
+
+      Special cases:
+       * __Integer > 1,800__ : Hard coded year
+       * __Integer < 1,800__ : Number of years from current year or current selection.
+       * __String "NOW"__ : Today's year
+
+      See also: ___calYearPickRelative___
+    type : Integer || String
+    modes :
+      - calbox
+    default : 6
+    dynamic : true
+    cat : Display-Control
+
+  calYearPickMin :
+    short : Year picker lower limit
+    long : |
+      This is the lower limit for the year select box.
+
+      Special cases:
+       * __Integer > 1,800__ : Hard coded year
+       * __Integer < 1,800__ : Number of years from current year or current selection.
+       * __String "NOW"__ : Today's year
+
+      See also: ___calYearPickRelative___
+    type : Integer || String
+    modes :
+      - calbox
+    default : -6
+    dynamic : true
+    cat : Display-Control
+
+  calYearPickRelative :
+    short : Year picker relativity switch
+    long : |
+      When true, the year picker min/max are relative to the currently visible date
+
+      When false, the year picker min/max are relative to today's year
+    type : Boolean
+    modes :
+      - calbox
+    default : true
+    dynamic : true
+    cat : Display-Control
+
+  clearButton :
+    short : Button Label - clear button
+    long : The text label for the clear button
+    type : String
+    modes : *modeAll
+    default : Clear
+    dynamic : true
+    cat : i18n
+    i18n : *i18n
+    overrideName : overrideClearButton
+
+  clickEvent :
+    short : Listener for all clickable buttons
+    long : Almost always click now.  Older mobile implementations may require others.
+    type : String
+    modes : *modeAll
+    default : click
+    dynamic : false
+    cat : Operation
+
+  closeCallback :
+    short : Callback function to run on control close
+    long : |
+      Option can be a function, or, a string reference to a function in the window object.
+
+      For more information, please see the _Callbacks and Listeners_ section of the documentation.
+    modes : *modeAll
+    cat : Callback
+    default : false
+    type : Function
+    dynamic : true
+
+  closeCallbackArgs :
+    short : Extra arguments to pass to close callback.
+    long : |
+      Note that 'this' in your function is the widget.  argument[0] is a return value object, this starts on argument[1]
+
+      For more information, please see the  _Callbacks and Listeners_ section of the documentation.
+    modes : *modeAll
+    cat : Callback
+    default : []
+    type : Array
+    dynamic : true
+
+  closeTodayButton :
+    short : Today button also closes DateBox
+    long : |
+      This will cause the button that selects "today" to also close the control.
+    modes : *modeAll
+    cat : Operation
+    default : false
+    type : Boolean
+    dynamic : true
+
+  closeTomorrowButton :
+    short : Tomorrow button also closes DateBox
+    long : |
+      This will cause the button that selects "tomorrow" to also close the control.
+    modes : *modeAll
+    cat : Operation
+    default : false
+    type : Boolean
+    dynamic : true
+
+  dateFieldOrder :
+    short : Field order for date entry
+    long : |
+      Capitalizing "M" for month in "datebox" mode will enable string representations (short months) instead.
+
+      Note that this will break for any locale where the short string of two months is identical.
+    modes : *modeAll
+    cat : i18n
+    default : "[ 'm', 'd', 'y' ]"
+    type : Array
+    i18n : *i18n
+    overrideName : overrideDateFieldOrder
+
+  dateFormat :
+    short : Format for returned date
+    long : |
+      For more information on date format variables, see the _Date Formats_ documentation section.
+    modes : *modeAll
+    cat : i18n
+    default : "%Y-%m-%d"
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideDateFormat
+
+  datetimeFieldOrder :
+    short : Field order for datetime entry
+    long : |
+      Capitalizing "M" for month in "datebox" mode will enable string representations (short months) instead.
+
+      Note that this will break for any locale where the short string of two months is identical.
+    modes : *modeAll
+    cat : i18n
+    default : "[ 'y', 'm', 'd', 'h', 'i', 's', 'a' ]"
+    type : Array
+    i18n : *i18n
+    overrideName : overrideDatetimeFieldOrder
+
+  datetimeFormat :
+    short : Format for returned datetime
+    long : |
+      For more information on date and time format variables, see the _Date Formats_ documentation section.
+
+      Typically, this type of return isn't based on locale, more on the format your backend is expecting.  It appears in the i18n settings for ease of site-specific i18n customization.
+    modes : *modeAll
+    cat : i18n
+    default : "%Y-%m-%dT%k:%M:%S"
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideDatetimeFormat
+
+  daysOfWeek :
+    short : Days of the week
+    long : Days of the week, in an array, full text
+    modes : *modeAll
+    cat : i18n
+    default : "['Sunday' ... 'Saturday']"
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideDaysOfWeek
+
+  daysOfWeekShort :
+    short : Abbreviated days of the week
+    long : |
+      Days of the week, in an array, shortened text
+
+      Note that if you are relying on short day names to read a date back in (very rare, as there is
+      almost always a more granular option available), and there are duplicates in this list (i.e.
+      array('S,'M','T','W','T'...) ) the parser will likely behave very strangely.
+    modes : *modeAll
+    cat : i18n
+    default : "['Su' ... 'Sa']"
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideDaysOfWeekShort
+
+  defaultValue :
+    short : Default value for the date
+    long : |
+      Set the default date value, or time value.  Many options exist for supplying the date:
+
+      ##### Date Modes:
+
+      ```js
+      defaultValue: new Date(2001,0,1,0,0,0,0); // Date Object (Jan 1, 2001)
+      defaultValue: [2001,0,1];   // Array (Jan 1, 2001)
+      defaultValue: "2001-01-01"; // ISO Date String (Jan 1, 2001)
+      defaultValue: 978307200;    // Number (Epoch) (Jan 1, 2001 GMT !SEE NOTE1!)
+      ```
+
+      ##### Time Modes:
+
+      ```js
+      defaultValue: new Date(2001,0,1,15,30,0,0); // Date Object (3:30:00 PM)
+      defaultValue: [15,30,0];  // Array (3:30:00 PM)
+      defaultValue: "15:30";    // String (3:30:00 PM)
+      defaultValue: "15:30:00"; // String with Seconds (3:30:00 PM)
+      defaultValue: 55800;      // Number (Epoch) (3:30:00 PM GMT, !SEE NOTE1!)
+      ```
+
+      ##### Duration Modes:
+
+      ```js
+      defaultValue: 3600; // Number of seconds (60 Minutes)
+      ```
+
+      #### Note 0: Be Specific!
+
+      When choosing a format to use, be as specific as your data will allow you to be.  A Date object is a date object - it's inturpreted on the client maching, and it will be "right".  Failing that, the array constructor just passes those values on to a new Date().  Use the string constructor as a last resort - even a simple typo in the string format will cause the defaultValue parser to fail, which drops the defaultValue === Today's Date, NOW().
+
+      #### Note 1: Don't Use Epoch!
+
+      A small note about epoch - great pains have been made to make DateBox rather timezone agnostic.  It *rarely* has to care, and when it does, it tends to fail pretty much silently. (a/n: This really only crops up for people who observe DST, and then, it will only show up in time modes, or duration modes if you are working with large numbers).  That said, if you supply epoch, it is *not* based on UTC, but the local timezone. If you have already done the math serverside, great.  If not, and you absolutly must store your dates this way, a good way to convert back is:
+
+      ```js
+      myDate = new Date();
+      myDate.setUTCSeconds( epoch );
+      ```
+
+      #### Note 2: Re-using defaultValue
+
+      ___defaultValue___ is only read when the input element is *empty*.  If you need to change the date, ___setTheDate()___ is much more effective.
+
+    modes : *modeAll
+    cat : Operation
+    default : false
+    type : Array | String
+    dynamic : false
+
+  durationDays :
+    short : Name of day/days for duration
+    long : |
+      Pluralization of Day/Days. (1 Day, 2 Days).
+
+      Very simplistic, for instance, there is no support for 0 Days. 
+      Nor any other cases in different locales that don't follow the english method of pluralization.
+    modes : *modeAll
+    cat : i18n
+    default : "['Day', 'Days']"
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideDurationDays
+
+  durationFormat :
+    short : Format for returned duration
+    long: For more information on date and time format variables, see the _Date Formats_ documentation section.
+    modes : *modeAll
+    cat : i18n
+    default : "%Dd %DA, %Dl:%DM:%DS"
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideDurationFormat
+
+  durationLabel :
+    short : Labels for duration elements
+    long : Array of labels for the duration inputs - Days, Hours, Minutes, Seconds
+    modes : *modeAll
+    cat : i18n
+    default : "[ 'Days', 'Hours', 'Minutes', 'Seconds' ]"
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideDurationLabel
+
+  durationOrder :
+    short : Field order for duration entry
+    long : |
+      Controls which order the duration elements appear in, and if they appear at all.
+
+      Note: if you omit elements, be sure to change ___durationFormat___ or you may get odd results
+
+       - __d__ : Days
+       - __h__ : Hours
+       - __i__ : Minutes
+       - __s__ : Seconds
+    modes : *modeAll
+    cat : i18n
+    default : "[ 'd', 'h', 'i', 's' ]"
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideDurationOrder
+
+  durationStep :
+    short : Stepper for duration mode (single)
+    long : |
+      This will set the stepper for the *most* precise time measurement shown in your
+      duration control.  By default, this is seconds - however, if you play with 
+      ___durationFieldOrder___, it could be any field up to and including days.
+
+      Example:
+
+      ```js
+      overrideDurationFieldOrder = ['d','h'];
+      durationStep = 2;
+      ```
+
+      In this case, "hours" would be stepped (by 2 hours), as it is the least precise element shown.
+    modes : *modeAll
+    cat : Operation
+    default : 1
+    type : Integer
+    dynamic : true
+
+  enableDates :
+    short : Exclusive list of valid dates
+    long : |
+      Array of ISO-8601 (YYYY-MM-DD) dates that are exclusively valid and all others should be 
+      disabled. If this is in use, no other date checks are performed.
+
+      Processing order:
+
+       * enableDates ( If used, the list is exclusive )
+       * whiteDates ( Whitelisted dates will always pass )
+       * All date limiters, in a pile-on fashion
+
+
+      ##### Example
+
+      ```js
+      // Christmas, Christmas Eve, and New Years Eve of 2000 exclusively
+      [ "2000-12-31", "2000-12-25", "2000-12-24" ]
+      ```
+    modes : *modeAll
+    cat : Limits
+    default : false
+    type : Array
+    dynamic : true
+
+  flen :
+    short : Height of rollers
+    long : |
+      This is the half the number of elements in the flip roller
+
+      Full size = ( <number> * 2 ) + 1
+
+      Defaults should be fine on most screens, unless maybe you are setting up an oddly proportioned
+      kiosk or something.
+    modes : *modeAll
+    cat : Operation
+    default : "{ 'y': 25, 'm':24, 'd':50, 'h':25, 'i':30, 's':30 }"
+    type : Object
+    dynamic : true
+
+  flipboxAdjustLens :
+    short : Vertical shift of "lens" for flip modes
+    long : |
+      An adjustment, in pixels to move the lens on the flipbox modes, *after* the calculation to find center.
+
+      Sometimes, external themes don't play nicely and you'll need a few pixels either way - in particular, 
+      the default bootstrap4 theme needs 5 pixels positive (hardcoded), while most of the 3rd party color themes
+      for bootstrap4 do not require any movement (set it to zero).
+    modes : *modeAll
+    cat : Display-Control
+    default : false
+    type : Integer
+    dynamic : true
+
+  headerFormat :
+    short : Format for header
+    long : |
+      The header is displayed inside the control, just above the adjustment controls.
+
+      For more information on date format variables, see the _Output Formats_ section of the documentation
+    modes :
+      - datebox
+      - datetimebox
+      - flipbox
+      - datetimeflipbox
+      - slidebox
+    cat : i18n
+    default : "%A, %B %-d, %Y"
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideHeaderFormat
+
+  hideInput :
+    short : Hide the Input Element
+    long : Cause the original input to be hidden on the page.
+    modes : *modeAll
+    cat : Display-Form
+    default : false
+    type : Boolean
+    dynamic : false
+
+  highDatesAlt :
+    short : Dates to highlight (alternate)
+    long : |
+      An alternate list of dates to highlight with ___theme.cal_DateHighAlt___
+
+      ##### Example
+      ```js 
+      // December 2000 Holiday Seson
+      ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"]
+    modes :
+      - calbox
+    cat : Limits
+    default : false
+    type : Array
+    dynamic : true
+
+  highDates :
+    short : Dates to highlight
+    long : |
+      An list of dates to highlight with ___theme.cal_DateHigh___
+
+      ##### Example
+      ```js 
+      // December 2000 Holiday Seson
+      ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"]
+    modes :
+      - calbox
+    cat : Limits
+    default : false
+    type : Array
+    dynamic : true
+
+  highDatesRec :
+    short : Dates to highlight - recurring
+    long : |
+      A list of recurring dates to highlight with ___theme.cal_DateHighRec___
+
+      Each date element is an array of the format
+
+      ```js
+      [<year>, <month>, <date>]
+      ```
+
+      * *year* : 4 digit year
+      * *month* : 0 based month, (0 = January ... 11= December )
+      * *date* : date
+
+      Additionally, using "-1" as an element treats it as a wildcard, that is "every year/month/day"
+
+      ##### Example
+
+      ```js
+      // (Chrismas, Christmas Eve, New Years Eve, and New Years Day, Every Year)
+      [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ]
+      ```
+    modes :
+      - calbox
+    cat : Limits
+    default : false
+    type : Array
+    dynamic : true
+
+  highDays :
+    short : Highlight these days
+    long : |
+      A list (array) of days of the week that are to be highlighted with ___theme.cal_DayHigh___.
+
+      Zero based ( 0 = Sunday ... 6 = Saturday )
+
+      ##### Example
+      ```js
+      // Weekends
+      [ 0, 6 ]
+      ```
+    modes :
+      - calbox
+    cat : Limits
+    default : false
+    type : Array
+    dynamic : true
+
+  isRTL :
+    short : Language runs Right-to-Left
+    long : |
+      This does not get tested as well as it should. Please, if you are
+      a native speaker of any of the languages that use this flag, give the
+      maintainer / author a shout about all of the places he forgot to check 
+      this flag and reorder the display.  Or maybe all the places where he did
+      and it makes no sense to do it.
+    modes : *modeAll
+    cat : i18n
+    default : false
+    type : Boolean
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideIsRTL
+
+  linkedFieldFormat :
+    short : The format to use with linkedField
+    long : |
+      This can be any valid format string that ___linkedField___ will be populated with. The
+      default value is the format that .toJSON() returns. 
+
+      note: this default format includes a 'Z' - it stands for "Zulu Time", a.k.a. "GMT", a.k.a. "UTC" - it
+      is the single instance of DateBox doing any time zone processing, it *does* translate the date and
+      time to GMT.  PHP only mostly understands ISO-8601, other languages do better.  Backend node.js
+      would be very happy with this format.  That said, if you have not otherwise handled time zones in 
+      your application, please, please, please do not use the default setting. Note also this is relying on 
+      the useragent to have a correctly implemented toJSON - which should be there, but...
+    modes : *modeAll
+    cat : Callback
+    default : "%J"
+    type : String
+    dynamic : true
+
+  linkedField :
+    short : The jQuery selector for the output linked field(s)
+    long : |
+      This is a jQuery selector of the field(s) that you want to fill with the selected date
+      when chosen.  Uses ___linkedFieldFormat___ as the format.  Often used with a hidden
+      form element to simplify backend date processing.
+    modes : *modeAll
+    cat : Callback
+    default : false
+    type : String
+    dynamic : true
+
+  lockInput :
+    short : Lock the original input element from manual input
+    long : Set the readonly property of the original input, allowing changes via the datebox contol only
+    type : Boolean
+    modes : *modeAll
+    default : false
+    dynamic : false
+    cat : Display-Form
+
+  meridiem :
+    short : Name of meridiems, if used
+    long : These are not used in most of the world. Either they never existed, or the country has since switched to 24 hour time.
+    modes : *modeTime
+    cat : i18n
+    default : "[ 'AM', 'PM' ]"
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideMeridiem
+
+  minDays / maxDays :
+    short : Min/Max number of days past today
+    long : |
+      Only accept dates that are today + # of days in the future (max), or today - # of days in the future (min).
+
+      Both options will accept negative numbers:
+
+      ```js
+      minDays = 10
+      maxDays = -5
+      ```
+
+      This would allow only days that are 5 to 10 days in the past to be choosen.
+
+      Corresponds somewhat to the html min/max attributes.
+    modes : *modeDate
+    cat : Limits
+    default : false
+    type : Integer
+    dynamic : true
+
+  minDur / maxDur :
+    short : Min/Max duration
+    long : Do not allow durations less (min) or greater (max) than this to be selected.
+    modes :
+      - durationbox
+      - durationflipbox
+    cat : Limits
+    default : false
+    type : Integer
+    dynamic : true
+
+  minHour / maxHour :
+    short : Min/Max hour
+    long : Allow only hours before (min) or after (max) this to be selected.
+    modes : *modeTime
+    cat : Limits
+    default : false
+    type : Integer
+    dynamic : true
+
+  minTime / maxTime :
+    short : Min/Max time
+    long : |
+      Allow only times before (min) or after (max) this to be selected. Format is 24hr clock - i.e. 18:31
+
+      Note: this limits date selection to TODAY (datetime modes).
+    modes : *modeTime
+    cat : Limits
+    default : false
+    type : String
+    dynamic : true
+
+  minYear / maxYear :
+    short : Min/Max Year
+    long : Do not allow years before (min) or after (max) this one to be selected.
+    modes : *modeDate
+    cat : Limits
+    default : false
+    type : Integer
+    dynamic : true
+
+  minuteStep :
+    short : Stepper for minutes
+    long : |
+      Step the minute control by this amount.  Common values are 5, 10, 15, or 30.
+    modes : *modeTime
+    cat : Operation
+    default : 1
+    type : Integer
+    dynamic : true
+
+  minuteStepRound :
+    short : Direction to round
+    long : |
+      Control rounding of minutes when an invalid minute is entered. 
+      That is, minuteStep=5 and you enter 3 direct to the element
+
+       - __-1__ : Down
+       - __1__ : Up
+       - __0__ : "Standard Rounding"
+    modes : *modeTime
+    cat : Operation
+    default : 0
+    type : Integer
+    dynamic : true
+
+  mode :
+    short : Mode of operations
+    long : |
+      The mode of operation - see list of available modes below.
+
+       - datebox
+       - timebox (part of datebox)
+       - datetimebox (part of datebox)
+
+       - calbox
+
+       - flipbox
+       - timeflipbox (part of flipbox)
+       - datetimeflipbox (part of flipbox)
+
+       - slidebox 
+
+       - durationbox (part of datebox)
+       - durationflipbox (part of flipbox)
+    type : String
+    modes : *modeAll
+    default: none
+    dynamic: true
+    cat: Display-Control
+
+  monthsOfYear :
+    short : Months of the year
+    long : List of the months of the year, zero based, full text
+    modes : *modeDate
+    cat : i18n
+    default : "['January' ... 'December']"
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideMonthsOfYear
+
+  monthsOfYearShort :
+    short : Abbreviated months of the year
+    long : |
+      When using short months as output (and input), make sure that there are 12 unique short names.
+      If you use too shot of an abbreviation (ex. Ju = June, Ju = July), not only is your outputted 
+      date ambiguous to the user, it also cannot be reliably re-read by DateBox.
+    modes : *modeDate
+    cat : i18n
+    default : "['Jan' ... 'Dec']"
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideMonthsOfYearShort
+
+  nextMonth / prevMonth :
+    short : Mouseover tooltip for next / prev month button
+    long : Tooltip (title) for next and previous buttons. Usually "Next Month" or similar.
+    modes :
+      - calbox
+    cat : i18n
+    default : "Next Month | Prev Month"
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideNextMonth | overridePrevMonth
+
+  notToday :
+    short : Invalidate today's date
+    long : |
+      Allows those dates that are not the true value of the client's today
+      (new Date(); at widget open) to be selected.
+
+      Note: if used with time only modes, this will break them.
+    modes : *modeDate
+    cat : Limits
+    default : false
+    type : Boolean
+    dynamic : true
+
+  openCallback :
+    short : Callback function to run on control open
+    long : |
+      Option can be a function, or, a string reference to a function in the window object.
+      
+      Additionally, if this returns false, the DateBox control will immediatally close.
+
+      For more information, please see the _Callbacks and Listeners_ section of the documentation.
+    modes : *modeAll
+    cat : Callback
+    default : false
+    type : Function
+    dynamic : true
+
+  openCallbackArgs :
+    short : Extra arguments to pass to open callback.
+    long : |
+      Note that 'this' in your function is the widget.
+      
+      argument[0] is a return value object, this starts on argument[1]
+
+      For more information, please see the _Callbacks and Listeners_ section of the documentation.
+    modes : *modeAll
+    cat : Callback
+    default : "[]"
+    type : Array
+    dynamic : true
+
+  rolloverMode :
+    short : Allow rollover of each date element
+    long : |
+      Allow rollover on a per-element basis.  i.e. - December + 1 = January of next year
+    modes :
+      - datebox
+      - timebox
+      - datetimebox
+      - flipbox
+      - timeflipbox
+      - datetimeflipbox
+      - slidebox
+    cat : Operation
+    default : "{ 'm': true, 'd': true, 'h': true, 'i': true, 's': true }"
+    type : Object
+    dynamic : true
+
+  runOnBlurCallback :
+    short : Callback function to run on original input box change
+    long : |
+      This option can only be supplied as a function.  It will recieve an object containing:
+
+       * oldDate - the Date that existed prior to the control closing.  Usually, this is the last good date.
+       * newDate - should the input be re-read, this is the date the control thinks it is.
+       * wasGoodDate - the input can be succesfully processed
+       * wasBadDate - the input can NOT be succesfully processed
+
+      The function *must* return an object with 2 properties:
+
+       * didSomething - the function performed in some manner, and the below newDate should be used
+       * newDate - a **string** of the new date, in the correct output format.  Not a date object.
+ 
+      For more information, please see the _Callbacks and Listeners_ section of the documentation.
+    modes : *modeAll
+    cat : Callback
+    default : false
+    type : Function
+    dynamic : true
+
+  setDateButtonLabel :
+    short : "'Set Date' Button Label"
+    long : Text only, usaully "Set Date"
+    modes : *modeDate
+    cat : i18n
+    default : Set Date
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideSetDateButtonLabel
+
+  setDurationButtonLabel :
+    short : "'Set Duration' Button Label"
+    long : Text only, usually "Set Duration"
+    modes :
+      - durationbox
+      - durationflipbox
+    cat : i18n
+    default : Set Duration
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideSetDurationButtonLabel
+
+  setTimeButtonLabel :
+    short : "'Set Time' Button Label"
+    long : Text only, usually "Set Time"
+    modes : *modeTime
+    cat : i18n
+    default : Set Time
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideSetTimeButtonLabel
+
+  showInitialValue :
+    short : Auto-fill Input field
+    long : |
+      Auto-fill the input on datebox initialization - this will take into account any default value options
+    modes : *modeAll
+    cat : Display-Form
+    default : false
+    type : Boolean
+    dynamic : true
+
+  slen :
+    short : Length of sliders
+    long : |
+      This is half the number of elements in the slide roller, minus one (the centered element).
+    modes :
+      - slidebox
+    cat : Operation
+    default : "{'y': 5, 'm': 6, 'd': 15, 'h': 12, 'i': 30 }"
+    type : Object
+    dynamic : true
+
+  slideFieldOrder :
+    short : Field order for slide mode
+    long : |
+      If you want a slider that does date and time, try something like:
+
+      ```js
+      overrideSlideFieldOrder: ["y","m","d","h","i"]
+      ```
+    modes :
+      - slidebox
+    cat : i18n
+    default : "[ 'y', 'm', 'd' ]"
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideSlideFieldOrder
+
+  startOffsetDays/Months/Years :
+    short : Offset the start day / month / year
+    long : |
+      Offset the start day by X number of days, months, or years
+
+      This value will be added to 'defaultValue' if it is supplied
+    modes : *modeDate
+    cat : Operation
+    default : false
+    type : Integer
+    dynamic : false
+
+  timeFieldOrder :
+    short : Field order for time entry
+    long : |
+      Typically this is the array [ "h", "i", "a" ] or [ "h", "i" ]
+
+      Fields:
+
+       - __h__ : Hours
+       - __i__ : Minutes
+       - __a__ : Meridiem
+    modes : *modeTime
+    cat : i18n
+    default : array('h', 'i', 'a']
+    type : Array
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideTimeFieldOrder
+
+  timeFormat :
+    short : Clock Format (12/24h)
+    long : |
+      Valid options are 12 and 24.  This controls what is seen and used for the input controls, 
+      not the output format.  To change the output format of the time, please see ___timeOutput___.
+    modes : *modeTime
+    cat : i18n
+    default : 24
+    type : Integer
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideTimeFormat
+
+  timeOutput :
+    short : Format for returned time
+    modes : *modeTime
+    cat : i18n
+    default : "%k:%M"
+    type : String
+    dynamic : true
+    long : For more information on date format variables, see the _Date Formats_ documentation section.
+    i18n : *i18n
+    overrideName : overrideTimeOutput
+
+  titleDateDialogLabel :
+    short : Date mode's fallback header label
+    long : Fall-back when there is no associated label element
+    modes : *modeDate
+    cat : i18n
+    default : Set Date
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideTitleDateDialogLabel
+
+  titleTimeDialogLabel :
+    short : Time mode's fallback header label
+    long : Fall-back when there is no associated label element
+    modes : *modeTime
+    cat : i18n
+    default : Set Time
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideTitleTimeDialogLabel
+
+  todayButtonLabel :
+    short : "'Jump to today' button Label"
+    long : This began life as a CalBox only option, and still retains that name. However, it is used in all modes now.
+    modes : *modeDate
+    cat : i18n
+    default : Jump to Today
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideTodayButtonLabel
+
+  tomorrowButtonLabel :
+    short : "Text for 'tommorrow' button"
+    long : This began life as a CalBox only option, and still retains that name. However, it is used in all modes now.
+    modes : *modeDate
+    cat : i18n
+    default : Jump to Tommorrow
+    type : String
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideTomorrowButtonLabel
+
+  tooltip :
+    short : Mouseover tooltip for open button
+    long : Tooltip (title) for the open button on the original input
+    modes : *modeAll
+    cat : i18n
+    default : Open Date Picker
+    type : String
+    dynamic : false
+    i18n : *i18n
+    overrideName : overrideTooltip
+
+  twoDigitYearCutoff :
+    short : Where the cutoff between 19XX and 20XX happens
+    long : |
+      This sets where the century change happens.  By default, it is 38, that is, 2 digit years before
+      38 will be assumed to refer to 2000-2037, and years after will be assumed to refere to 1938-1999.
+
+      If ___afterToday__ is true, all years are assumed to be 20XX. The same would be true if this 
+      were set to 100+
+
+      Obviously, this has no bearing if you do not force usage of 2 digit dates.
+    modes : *modeDate
+    cat : Operation
+    default : 38
+    type : Integer
+    dynamic : true
+
+  useArabicIndic :
+    short : Use Arabic/Indic numerals
+    long : This is the only other numeral system I've found in use on the web.
+    modes : *modeAll
+    cat : i18n
+    default : false
+    type : Boolean
+    dynamic : true
+    i18n : *i18n
+    overrideName : overrideUseArabicIndic
+
+  useButton :
+    short : Show a button in the Input Element to open the control
+    modes : *modeAll
+    cat : Display-Form
+    default : true
+    type : Boolean
+    dynamic : false
+    long : Display an open button inside or alongside the input element that will open the control
+
+  useCancelButton :
+    short : Show a button to cancel the Input control
+    modes : *modeAll
+    cat : Display-Control
+    default : false
+    type : Boolean
+    dynamic : true
+    long : The cancel button allows you the close the control without setting the date or time.
+
+  useClearButton :
+    short : Show a button to clear the Input
+    modes : *modeAll
+    cat : Display-Control
+    default : false
+    type : Boolean
+    dynamic : true
+    long : The clear button allows you the clear the original input.  It basically "unsets" the date/time
+
+  useFocus :
+    short : Open the control when the Input Element is focused
+    modes : *modeAll
+    cat : Display-Form
+    default : false
+    type : Boolean
+    dynamic : false
+    long : Open datebox control when input element is focused (and disable button)
+
+  useHeader :
+    short : Use a toolbar header for the control
+    modes : *modeAll
+    cat : Display-Control
+    default : true
+    type : Boolean
+    dynamic : true
+    long : This refers to the header with the close button and the title.
+
+  useImmediate :
+    short : Update the Input Element on every control change
+    modes : *modeAll
+    cat : Operation
+    default : false
+    type : Boolean
+    dynamic : true
+    long : This is particularly useful with non-setting modes (datebox for instance) coupled with inline displays
+
+  useLang :
+    short : The current active langauge / locale
+    modes : *modeAll
+    cat : Display-Control
+    default : default
+    type : String
+    dynamic : true
+    long : |
+      Selects the current active langauge.  If a language string is not found, it will fall back on the string in the
+      "default" languge, or return "undefined" (as a String).
+
+  usePlaceholder :
+    short : Attempt to auto fill the placeholder text (or use the supplied custom text)
+    modes : *modeAll
+    cat : Display-Form
+    default : false
+    type : Boolean | String
+    dynamic : false
+    long : Auto-fill the placeholder text from the input element's label if set to true.  Or, set to a string and it will use that text to set the placeholder
+
+  useSetButton :
+    short : Show button to set the date
+    modes : *modeAll
+    cat : Display-Control
+    default : true
+    type : Boolean
+    dynamic : false
+    long : This button both sets the date, and closes the control.
+
+  useTodayButton :
+    short : Show button to jump to today
+    modes : *modeAll
+    cat : Display-Control
+    default : false
+    type : Boolean
+    dynamic : true
+    long : This button will "select" today, but it will not "set" today.  It is for quick navigation.
+
+  useTomorrowButton :
+    short : Show button to jump to tomorrow
+    modes : *modeAll
+    cat : Display-Control
+    default : false
+    type : Boolean
+    dynamic : true
+    long : This button will "select" tomorrow, but it will not "set" tomorrow.  It is for quick navigation.
+
+  validHours :
+    short : Limit times to only these hours
+    long : |
+      Array of valid hours to choose (24hr based)
+
+
+      ##### Example
+      ```js
+      // Standard working hours
+      [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
+      ```
+    modes : *modeAll
+    cat : Limits
+    default : false
+    type : Array
+    dynamic : true
+
+  whiteDates :
+    short : Dates to always consider valid
+    long : |
+      A list (array) of ISO-8601 _(YYYY-MM-DD)_ dates that are to be considered valid always.
+
+      Processing order:
+       * enableDates ( If used, the list is exclusive )
+       * whiteDates ( Whitelisted dates will always pass )
+       * All date limiters, in a pile-on fashion
+
+      ##### Example
+      ```js
+      // Christmas and New Years, 2000/2001
+      ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"]
+      ```
+    modes : *modeDate
+    cat : Limits
+    default : false
+    type : Array
+    dynamic : true
+
+  zindex :
+    short : Z-Index of controls
+    modes : *modeAll
+    cat : Display-Control
+    default : 1100
+    type : Integer
+    dynamic : false
+    long : The Zindex to use for the datebox control.  If applicable, there is a full-screen overlay behind the control at zIndex-1
