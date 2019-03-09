@@ -47,17 +47,18 @@
 
   					$.each( ymlProcessed.opts, function( apiKey ) {
   						var rec = this, theCard = "",
+  							safeID = apiKey.replace(/[\W]/g, "_");
   							saneDefault = ( typeof rec.default === "boolean" ) ? ( rec.default ? "true" : "false" ) : rec.default;
 
 						theCard += "<div class=\"card border-dark\">";
-						theCard += "<div class=\"card-header d-flex " + ( !first ? "mt-1" : "" ) + "\" id=\"heading" + apiKey + "\" data-toggle=\"collapse\" data-target=\"#collapse" + apiKey + "\">";
+						theCard += "<div class=\"card-header d-flex " + ( !first ? "mt-1" : "" ) + "\" id=\"heading" + safeID + "\" data-toggle=\"collapse\" data-target=\"#collapse" + safeID + "\">";
 
-						theCard += "<div class=\"w-25\"><h4 class=\"d-inline-block mb-0\">" + apiKey + "</h4></div>";
+						theCard += "<div class=\"w-25\"><h5 class=\"d-inline-block mb-0\">" + apiKey + "</h5></div>";
 						theCard += "<div class=\"w-50\"><span class=\"ml-3 text-muted\">" +  rec.short + "</span></div>";
 						theCard += "<div class=\"ml-auto\"><h5 class=\"d-inline-block float-right\"><span class=\"badge badge-pill " + badgeMap[rec.cat] + "\">" + rec.cat + "</span></h5></div>";
 						theCard += "</div>";
 
-						theCard += "<div id=\"collapse" + apiKey + "\" class=\"collapse\" data-parent=\"#apiDoc\">";
+						theCard += "<div id=\"collapse" + safeID + "\" class=\"collapse\" data-parent=\"#apiDoc\">";
 						theCard += "<div class=\"pb-2 pt-4 px-4\">";
 						theCard += mdConvert.makeHtml(rec.long);
 						theCard += "</div>";
