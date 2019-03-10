@@ -118,7 +118,22 @@ var startTime     = new Date(),
 				filePart += makeCard(rec);
 			}
 			return filePart + "</div>";
-		}
+		},
+		getCat : function( api, type, cat ) {
+			var filePart = "<div class=\"accordion mx-3\" id=\"apiDoc\">";
+			for ( var apiKey in api[ type ] ) {
+				var rec = api.opts[apiKey];
+
+				rec.safeID = apiKey.replace(/[\W]/g, "_");
+				rec.name = apiKey;
+				rec.badge = badgeMap[rec.cat];
+
+				if ( rec.cat === cat ) {
+					filePart += makeCard(rec);
+				}
+			}
+			return filePart + "</div>";
+		},
 	};
 
 
@@ -152,6 +167,8 @@ module.exports = function(grunt) {
 						switch ( term.substr(4) ) {
 							case "apiGen.getAll":
 								return apiGen.getAll( api, "opts" );
+							case "apiGen.getCatTheme":
+								return apiGen.getCat( api, "opts", "Theme");
 						}
 						break;
 

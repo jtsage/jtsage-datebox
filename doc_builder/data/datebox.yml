@@ -34,5 +34,8 @@ menu :
   - name : Full Option List
     url : "/api/"
 
+  - name : Option Demos
+    url : "/optDemo/"
+
   - name : Download Builder
     exturl : https://jtsage.dev/DateBox/builder/
