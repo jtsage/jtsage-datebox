@@ -5,57 +5,55 @@
  */
 
 mergeOpts({
-	theme: {
-		clearBtnCls : "outline-secondary",
-		clearBtnIcn : "eraser",
+	theme_clearBtnCls : "outline-secondary",
+	theme_clearBtnIcn : "eraser",
 
-		closeBtnCls : "outline-secondary",
-		closeBtnIcn : "check",
+	theme_closeBtnCls : "outline-secondary",
+	theme_closeBtnIcn : "check",
 
-		cancelBtnCls : "outline-secondary",
-		cancelBtnIcn : "times",
+	theme_cancelBtnCls : "outline-secondary",
+	theme_cancelBtnIcn : "times",
 
-		tomorrowBtnCls : "outline-secondary",
-		tomorrowBtnIcn : "fast-forward",
+	theme_tomorrowBtnCls : "outline-secondary",
+	theme_tomorrowBtnIcn : "fast-forward",
 
-		todayBtnCls : "outline-secondary",
-		todayBtnIcn : "step-forward",
+	theme_todayBtnCls : "outline-secondary",
+	theme_todayBtnIcn : "step-forward",
 
-		dropdownContainer : "bg-light border border-dark mt-1",
-		modalContainer : "bg-light border border-dark p-2 m-0",
-		inlineContainer : "bg-light border border-dark my-2",
+	theme_dropdownContainer : "bg-light border border-dark mt-1",
+	theme_modalContainer : "bg-light border border-dark p-2 m-0",
+	theme_inlineContainer : "bg-light border border-dark my-2",
 
-		headerTheme : "bg-dark",
-		headerBtnCls : "outline-secondary",
-		headerBtnIcn : "times",
+	theme_headerTheme : "bg-dark",
+	theme_headerBtnCls : "outline-secondary",
+	theme_headerBtnIcn : "times",
 
-		cal_Today : "outline-info",
-		cal_DayHigh : "outline-warning",
-		cal_Selected : "outline-success",
-		cal_DateHigh : "outline-warning",
-		cal_DateHighAlt : "outline-danger",
-		cal_DateHighRec : "outline-warning",
-		cal_Default : "outline-primary",
-		cal_OutOfBounds : "outline-secondary border-0",
+	theme_cal_Today : "outline-info",
+	theme_cal_DayHigh : "outline-warning",
+	theme_cal_Selected : "outline-success",
+	theme_cal_DateHigh : "outline-warning",
+	theme_cal_DateHighAlt : "outline-danger",
+	theme_cal_DateHighRec : "outline-warning",
+	theme_cal_Default : "outline-primary",
+	theme_cal_OutOfBounds : "outline-secondary border-0",
 
-		cal_NextBtnIcn : "plus",
-		cal_NextBtnCls : "outline-dark",
-		cal_PrevBtnIcn : "minus",
-		cal_PrevBtnCls : "outline-dark",
+	theme_cal_NextBtnIcn : "plus",
+	theme_cal_NextBtnCls : "outline-dark",
+	theme_cal_PrevBtnIcn : "minus",
+	theme_cal_PrevBtnCls : "outline-dark",
 
-		dbox_NextBtnIcn : "plus",
-		dbox_NextBtnCls : "outline-dark",
-		dbox_PrevBtnIcn : "minus",
-		dbox_PrevBtnCls : "outline-dark",
+	theme_dbox_NextBtnIcn : "plus",
+	theme_dbox_NextBtnCls : "outline-dark",
+	theme_dbox_PrevBtnIcn : "minus",
+	theme_dbox_PrevBtnCls : "outline-dark",
 
-		backgroundMask : {
-			position: "fixed",
-			left: 0,
-			top: 0,
-			right: 0,
-			bottom: 0,
-			backgroundColor: "rgba(0,0,0,.4)"
-		}
+	theme_backgroundMask : {
+		position: "fixed",
+		left: 0,
+		top: 0,
+		right: 0,
+		bottom: 0,
+		backgroundColor: "rgba(0,0,0,.4)"
 	},
 
 	disabledState: "disabled",

@@ -134,6 +134,15 @@ opts :
     dynamic : true
     cat : Limits
 
+  breakpointWidth :
+    short : Window width breakpoint
+    long : Window width below which the control should stretch to fill the screen
+    modes : *modeAll
+    cat : Display-Control
+    type : String
+    dynamic : false
+    default : 567px
+
   buttonIcon :
     short : Icon class to use for button attached to original input (override)
     long : |
@@ -570,6 +579,15 @@ opts :
     type : Boolean
     dynamic : true
 
+  controlWidth :
+    short : Width of the control
+    long : Preferred width of the control. See also ___breakpointWidth___
+    modes : *modeAll
+    cat : Control-Display
+    type : String
+    dynamic : false
+    default : 290px
+
   dateFieldOrder :
     short : Field order for date entry
     long : |
@@ -701,6 +719,49 @@ opts :
     default : false
     type : Array | String
     dynamic : false
+
+  displayMode :
+    short : Open method to use
+    long : |
+      The opening method to use to display the control
+
+       * dropdown
+           * Display the control as a popover attached to the input (default)
+       * inline
+           * Display the control inline in the page, under the input, always visible
+       * blind
+           * Display the control inline in the page, under the input, sliding up and down
+       * modal
+           * Display the control in a full window modal
+    modes : *modeAll
+    cat : Display-Control
+    type : String
+    dynamic : true
+    default : dropdown
+
+  displayDropdownPosition :
+    short : Position of dropdown method open
+    long : |
+      String directing placement of dropdown.  See popper.js docs for options. 
+
+      Good defaults: top-end, top-start, top
+    modes : *modeAll
+    cat : Display-Control
+    type : String
+    dynamic : true
+    default : top-end
+
+  displayInlinePosition :
+    short : Position of inline method open
+    long : |
+      String directing placement of inline control.
+
+      One of left, right, or center
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : center
 
   durationDays :
     short : Name of day/days for duration
@@ -1100,20 +1161,26 @@ opts :
     long : |
       The mode of operation - see list of available modes below.
 
-       - datebox
-       - timebox (part of datebox)
-       - datetimebox (part of datebox)
-
-       - calbox
-
-       - flipbox
-       - timeflipbox (part of flipbox)
-       - datetimeflipbox (part of flipbox)
-
-       - slidebox 
-
-       - durationbox (part of datebox)
-       - durationflipbox (part of flipbox)
+       * datebox
+           * Control allows input of date using multiple inputs with +/- buttons
+       * timebox
+           * Control allows input of time using multiple inputs with +/- buttons
+       * datetimebox
+           * Control allows input of date & time using multiple inputs with +/- buttons
+       * calbox
+           * Control allows input of date using a calendar grid
+       * flipbox
+           * Control allows input of date using draggable columns
+       * timeflipbox
+           * Control allows input of time using draggable columns
+       * datetimeflipbox
+           * Control allows input of date & time using draggable columns
+       * slidebox
+           * Control allows input of date using draggable rows
+       * durationbox
+           * Control allows input of duration using multiple inputs with +/- buttons
+       * durationflipbox
+           * Control allows input of duration using draggable columns
     type : String
     modes : *modeAll
     default: none
@@ -1321,6 +1388,327 @@ opts :
     default : false
     type : Integer
     dynamic : false
+
+  theme_clearBtnCls :
+    short : Clear Button Theme
+    long : Theme class string added to the clear button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-secondary"
+
+  theme_clearBtnIcn :
+    short : Clear Button Icon
+    long : Icon class used on the clear button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "eraser"
+
+  theme_closeBtnCls :
+    short : Close Button Theme
+    long : Theme class string added to the close button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-secondary"
+
+  theme_closeBtnIcn :
+    short : Close Button Icon
+    long : Icon class used on the close button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "check"
+
+  theme_cancelBtnCls :
+    short : Cancel Button Theme
+    long : Theme class string added to the cancel button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-secondary"
+
+  theme_cancelBtnIcn :
+    short : Cancel Button Icon
+    long : Icon class used on the cancel button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "times"
+
+  theme_tomorrowBtnCls :
+    short : Tomorrow Button Theme
+    long : Theme class string added to the tomorrow button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-secondary"
+
+  theme_tomorrowBtnIcn :
+    short : Tomorrow Button Icon
+    long : Icon class used on the tomorrow button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "fast-forward"
+
+  theme_todayBtnCls :
+    short : Today Button Theme
+    long : Theme class string added to the today button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-secondary"
+
+  theme_todayBtnIcn :
+    short : Today Button Icon
+    long : Icon class used on the today button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "step-forward"
+
+  theme_dropdownContainer :
+    short : Dropdown container class
+    long : Class string added to the datebox container when using the dropdown method
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "bg-light border border-dark mt-1"
+
+  theme_modalContainer :
+    short : Modal container class
+    long : Class string added to the datebox container when using the modal method
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "bg-light border border-dark p-2 m-0"
+
+  theme_inlineContainer :
+    short : Inline container class
+    long : Class string added to the datebox container when using the inline or blind method
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "bg-light border border-dark my-2"
+
+  theme_headerTheme :
+    short : Header Theme
+    long : Theme class added to the control header
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "bg-dark"
+
+  theme_headerBtnCls :
+    short : Header (Close) Button Theme
+    long : Theme class added to the control header close button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-secondary"
+
+  theme_headerBtnIcn :
+    short : Header (Close) Button Icon
+    long : Icon class used for the control header close button
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "times"
+
+  theme_cal_Today :
+    short : Highlight for Today
+    long : Class used to highlight today's date when ___calHighToday___ is on
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-info"
+
+  theme_cal_DayHigh :
+    short : Highlight for highDays
+    long : Class used to highlight days in ___highDays___
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-warning"
+
+  theme_cal_Selected :
+    short : Highlight for selected date
+    long : Class used to highlight selected date is ___calHighSelected___ is on
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-success"
+
+  theme_cal_DateHigh :
+    short : Highlight for highDates
+    long : Class used to highlight dates in ___highDates___
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-warning"
+
+  theme_cal_DateHighAlt :
+    short : Highlight for highDatesAlt
+    long : Class used to highlight dates in ___highDatesAlt___
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-danger"
+
+  theme_cal_DateHighRec :
+    short : Highlight for highDatesRec
+    long : Class used to highlight dates in ___highDatesRec___
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-warning"
+
+  theme_cal_Default :
+    short : Default class
+    long : Class used by default on all dates, unless another is more appropriate
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-primary"
+
+  theme_cal_OutOfBounds :
+    short : Highlight for Underrun / Overrun Dates
+    long : Class used to highlight (or lowlight) those dates outside of the currently dispalyed month, if ___calOnlyMonth___ is off
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-secondary border-0"
+
+  theme_cal_NextBtnIcn :
+    short : Next Month Button Icon
+    long : Icon class used for next month button
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "plus"
+
+  theme_cal_NextBtnCls :
+    short : Next Month Button Theme
+    long : Theme class added to the next month button
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-dark"
+
+  theme_cal_PrevBtnIcn :
+    short : Previous Month Button Icon
+    long : Icon class used for previous month button
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "minus"
+
+  theme_cal_PrevBtnCls :
+    short : Previous Month Button Theme
+    long : Theme class added to the previous month button
+    modes :
+      - calbox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-dark"
+
+  theme_dbox_NextBtnIcn :
+    short : Next Button Icon
+    long : Icon class used for the next button
+    modes :
+      - datebox
+      - timebox
+      - datetimebox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "plus"
+
+  theme_dbox_NextBtnCls :
+    short : Next Button Theme
+    long : Theme class added to the next button
+    modes :
+      - datebox
+      - timebox
+      - datetimebox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-dark"
+
+  theme_dbox_PrevBtnIcn :
+    short : Previous Button Icon
+    long : Icon class used for the previous button
+    modes :
+      - datebox
+      - timebox
+      - datetimebox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "minus"
+
+  theme_dbox_PrevBtnCls :
+    short : Previous Button Theme
+    long : Theme class added to the previous button
+    modes :
+      - datebox
+      - timebox
+      - datetimebox
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "outline-dark"
+
+  theme_backgroundMask :
+    short : Modal and Dropdown background mask
+    long : CSS style string used for the modal and dropdown method displays.
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : true
+    default : "{ position: 'fixed', left: 0, top: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,.4)' }"
 
   timeFieldOrder :
     short : Field order for time entry

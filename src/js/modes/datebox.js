@@ -161,7 +161,6 @@ JTSageDateBox._build.datebox = function () {
 	var offAmount, i, ctrlWrk,
 		w = this,
 		o = this.options,
-		t = this.options.theme,
 		_sf = this.styleFunctions,
 		ctrlContainer = _sf.dboxContainer(),
 		dur = ( o.mode === "durationbox" ? true : false ),
@@ -219,10 +218,10 @@ JTSageDateBox._build.datebox = function () {
 		}
 
 		ctrlWrk = _sf.dboxControl( 
-			t.dbox_PrevBtnIcn,
-			t.dbox_PrevBtnCls,
-			t.dbox_NextBtnIcn,
-			t.dbox_NextBtnCls,
+			o.theme_dbox_PrevBtnIcn,
+			o.theme_dbox_PrevBtnCls,
+			o.theme_dbox_NextBtnIcn,
+			o.theme_dbox_NextBtnCls,
 			w.fldOrder[i],
 			( dur ) ? w.__( "durationLabel" )[ $.inArray( w.fldOrder[i], defDurOrder ) ] : null
 		);

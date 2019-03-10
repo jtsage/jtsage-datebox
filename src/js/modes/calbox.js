@@ -107,19 +107,18 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 	 */
 	var w = this,
 		o = this.options,
-		t = this.options.theme,
 		itt, done = false,
 		returnObject = {
-			theme: t.cal_Default,
+			theme: o.theme_cal_Default,
 			inBounds: true
 		},
 		dateThemes = [
-			[ "selected", "cal_Selected" ],
-			[ "today" , "cal_Today" ],
-			[ "highDates", "cal_DateHigh" ],
-			[ "highDatesAlt", "cal_DateHighAlt" ],
-			[ "highDatesRec", "cal_DateHighRec" ],
-			[ "highDays", "cal_DayHigh" ]
+			[ "selected", "theme_cal_Selected" ],
+			[ "today" , "theme_cal_Today" ],
+			[ "highDates", "theme_cal_DateHigh" ],
+			[ "highDatesAlt", "theme_cal_DateHighAlt" ],
+			[ "highDatesRec", "theme_cal_DateHighRec" ],
+			[ "highDays", "theme_cal_DayHigh" ]
 		];
 
 	w.realToday = new w._date();
@@ -128,14 +127,14 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 		returnObject.inBounds = false;
 
 		if ( o.calHighOutOfBounds === true ) {
-			returnObject.theme = t.cal_OutOfBounds;
+			returnObject.theme = o.theme_cal_OutOfBounds;
 			done = true;
 		}
 	}
 
 	for ( itt = 0; itt < dateThemes.length && !done; itt++ ) {
 		if ( w._cal_ThemeDateCK[ dateThemes[ itt ][0] ].apply( w, [ testDate ] ) ) {
-			returnObject.theme = t[ dateThemes[ itt ][1] ];
+			returnObject.theme = o[ dateThemes[ itt ][1] ];
 			done = true;
 		}
 	}
@@ -194,7 +193,6 @@ JTSageDateBox._cal_pickRanges = function ( dispMonth, dispYear, realYear ) {
 JTSageDateBox._build.calbox = function () {
 	var w = this, i,
 		o = this.options,
-		t = this.options.theme,
 		_sf = this.styleFunctions,
 		// Today's real date, not based on selection
 		date_realToday = new w._date(),
@@ -244,10 +242,10 @@ JTSageDateBox._build.calbox = function () {
 	if ( o.calNoHeader === false ) {
 		_sf.calHeader( 
 			w._formatter( w.__( "calHeaderFormat"), w.theDate ),
-			t.cal_PrevBtnIcn,
-			t.cal_PrevBtnCls,
-			t.cal_NextBtnIcn,
-			t.cal_NextBtnCls
+			o.theme_cal_PrevBtnIcn,
+			o.theme_cal_PrevBtnCls,
+			o.theme_cal_NextBtnIcn,
+			o.theme_cal_NextBtnCls
 		).appendTo( w.d.intHTML );
 		w.d.intHTML
 			.on( o.clickEvent, ".dbCalNext", function(e) {

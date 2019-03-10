@@ -155,7 +155,6 @@ module.exports = function(grunt) {
 					src: "*.md",
 					dest: "doc_builder/dist/",
 					rename: function(dest, src) {
-						console.log(src);
 						return dest + src.replace(/^(.+)\.md$/, function ( match, file ) {
 							if ( file === "index" ) { return "index.html"; }
 							return file + "/index.html"
@@ -170,7 +169,7 @@ module.exports = function(grunt) {
 					dest: "dist/latest/jtsage-datebox.bootstrap.js",
 					includeBinding: true,
 				},
-				libFiles: [ ], //"src/js/external/*.js" ],
+				libFiles: [ "src/js/external/*.js" ],
 				files: [{
 					expand: true,
 					src: [

@@ -1,8 +1,8 @@
 version : "5.0.0"
 
 supports :
-  - Bootstrap 4.3.1
-  - Bootstrap 3.4.1
+  - Bootstrap v4.3.1
+  - Bootstrap v3.4.1
 
 url : https://jtsage.dev/jtsage-datebox-next/doc_builder/dist
 
@@ -33,3 +33,6 @@ menu :
 
   - name : Full Option List
     url : "/api/"
+
+  - name : Download Builder
+    exturl : https://jtsage.dev/DateBox/builder/

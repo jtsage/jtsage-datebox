@@ -1,7 +1,9 @@
-var yaml          = require( "js-yaml" ),
+var startTime     = new Date(),
+	yaml          = require( "js-yaml" ),
 	showdown      = require( "showdown" ),
 	mdConvert     = new showdown.Converter(),
 	beautify_html = require( "js-beautify" ).html,
+	endTime       = new Date(),
 
 	badgeMap = {
 		"Display-Form"    : "badge-dark",
@@ -81,15 +83,27 @@ var yaml          = require( "js-yaml" ),
 		"</div>";
 	},
 	makeMenu = function ( conf ) {
-		var menuHtml = "";
+		var menuHtml = "", url = "";
 
 		for ( var i = 0; i < conf.menu.length; i++ ) {
-			menuHtml += "<a href=\"" + conf.url + conf.menu[i].url;
-			menuHtml += "\" class=\"list-group-item list-group-item-action\">";
+			url = ( typeof conf.menu[i].exturl !== "undefined" ) ?
+				conf.menu[i].exturl :
+				conf.url + conf.menu[i].url;
+
+			menuHtml += "<a href=\"" + url + "\" class=\"list-group-item list-group-item-action\">";
 			menuHtml += conf.menu[i].name;
 			menuHtml += "</a>";
 		}
 		return menuHtml;
+	},
+	makeSup = function ( conf ) {
+		var retHtml = "<ul>";
+
+		for ( var i = 0; i < conf.supports.length; i++ ) {
+			retHtml += "<li>" + conf.supports[i] + "</li>";
+		}
+
+		return retHtml + "</ul>";
 	},
 	apiGen = {
 		getAll : function( api, type ) {
@@ -113,6 +127,7 @@ module.exports = function(grunt) {
 	
 	grunt.registerMultiTask("buildSite", "Build Doumentation Site", function() {
 		var o = this.options(),
+			cnt = 0, execTime = 0,
 			headerHTML = grunt.file.read(o.headerFile),
 			footerHTML = grunt.file.read(o.footerFile),
 
@@ -146,6 +161,8 @@ module.exports = function(grunt) {
 								return config.version;
 							case "menu" :
 								return makeMenu( config );
+							case "supports" :
+								return makeSup( config );
 						}
 						break;
 
@@ -154,7 +171,21 @@ module.exports = function(grunt) {
 			}) );
 
 			grunt.file.write( thisFile.dest, doneFile );
+
+			grunt.log.writelns( 
+				"Converting " + 
+				(thisFile.src[0]).cyan + 
+				" -> " + 
+				(thisFile.dest).cyan + 
+				"..." + "OK".green
+			);
+
+			cnt++;
 		});
 
+		endTime = new Date();
+		execTime = ( endTime.getTime() - startTime.getTime() ) / 1000;
+
+		grunt.log.writeln( cnt + " File(s) processed in " + execTime.toFixed(3) + "s" );
 	});
 };

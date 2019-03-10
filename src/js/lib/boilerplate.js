@@ -183,7 +183,6 @@ JTSageDateBox.open = function () {
 	// PUBLIC function to open the control
 	var w = this,
 		o = this.options,
-		t = this.options.theme,
 		basepop = {};
 
 	if ( o.useFocus && w.fastReopen === true ) { 
@@ -218,9 +217,9 @@ JTSageDateBox.open = function () {
 	if ( o.useHeader ) {
 		w.d.mainWrap.append( $( w.styleFunctions.widgetHeader(
 			w.d.headerText,
-			t.headerTheme,
-			t.headerBtnCls,
-			t.headerBtnIcn
+			o.theme_headerTheme,
+			o.theme_headerBtnCls,
+			o.theme_headerBtnIcn
 		) ) )
 		.find( ".closer" ).on( o.clickEventAlt, function( e ) {
 			e.preventDefault();
@@ -279,7 +278,7 @@ JTSageDateBox.open = function () {
 	switch ( o.displayMode ) {
 		case "inline":
 			w.d.wrap.parent().append( w.d.mainWrap );
-			w.d.mainWrap.addClass( o.theme.inlineContainer );
+			w.d.mainWrap.addClass( o.theme_inlineContainer );
 			w.d.mainWrap.css( { zIndex: "auto" } );
 			switch ( o.displayInlinePosition ) {
 				case "right":
@@ -302,7 +301,7 @@ JTSageDateBox.open = function () {
 				w.d.mainWrap.slideDown();
 			} else {
 				w.d.wrap.parent().append( w.d.mainWrap );
-				w.d.mainWrap.addClass( o.theme.inlineContainer );
+				w.d.mainWrap.addClass( o.theme_inlineContainer );
 				w.d.mainWrap.css( { zIndex: "auto", display: "none" } );
 				switch ( o.displayInlinePosition ) {
 					case "right":
@@ -324,7 +323,7 @@ JTSageDateBox.open = function () {
 		case "modal":
 			w.d.mainWrap
 				.show()
-				.addClass( o.theme.modalContainer )
+				.addClass( o.theme_modalContainer )
 				.appendTo( w.d.wrap.parent() )
 				.one( o.tranDone, function() { 
 					if ( w.d.mainWrap.is( ":visible" ) ) {
@@ -336,7 +335,7 @@ JTSageDateBox.open = function () {
 				});
 
 			w.d.backdrop = $("<div class='jtsage-datebox-backdrop-div'></div>")
-				.css( o.theme.backgroundMask )
+				.css( o.theme_backgroundMask )
 				.appendTo( "body" )
 				.on( o.clickEvent, function (e) {
 					e.preventDefault();
@@ -350,7 +349,7 @@ JTSageDateBox.open = function () {
 		default:
 			w.d.mainWrap
 				.show()
-				.addClass( o.theme.dropdownContainer )
+				.addClass( o.theme_dropdownContainer )
 				.appendTo( w.d.wrap.parent() )
 				.one( o.tranDone, function() { 
 					if ( w.d.mainWrap.is( ":visible" ) ) {
@@ -362,7 +361,7 @@ JTSageDateBox.open = function () {
 				});
 
 			w.d.backdrop = $("<div class='jtsage-datebox-backdrop-div'></div>")
-				.css( o.theme.backgroundMask )
+				.css( o.theme_backgroundMask )
 				.appendTo( "body" )
 				.on( o.clickEvent, function (e) {
 					e.preventDefault();
@@ -488,10 +487,10 @@ JTSageDateBox._stdSel = function(data, id, cls) {
 
 JTSageDateBox._stdBtn = {
 	cancel: function() {
-		var w = this, o = this.options, t = this.options.theme;
+		var w = this, o = this.options;
 		return $( w.styleFunctions.button(
-				t.cancelBtnCls,
-				t.cancelBtnIcn,
+				o.theme_cancelBtnCls,
+				o.theme_cancelBtnIcn,
 				w.__("cancelButton")
 			) )
 			.on(o.clickEventAlt, function (e) {
@@ -500,10 +499,10 @@ JTSageDateBox._stdBtn = {
 			});
 	},
 	clear: function() {
-		var w = this, o = this.options, t = this.options.theme;
+		var w = this, o = this.options;
 		return $( w.styleFunctions.button(
-				t.clearBtnCls,
-				t.clearBtnIcn,
+				o.theme_clearBtnCls,
+				o.theme_clearBtnIcn,
 				w.__("clearButton")
 			) )
 			.on(o.clickEventAlt, function(e) {
@@ -514,11 +513,11 @@ JTSageDateBox._stdBtn = {
 			});
 	},
 	close: function(txt, trigger) {
-		var w = this, o = this.options, t = this.options.theme;
+		var w = this, o = this.options;
 
 		if ( typeof trigger === "undefined" ) { trigger = false; }
 
-		return $( w.styleFunctions.button( t.closeBtnCls, t.closeBtnIcn, txt ) ) 
+		return $( w.styleFunctions.button( o.theme_closeBtnCls, o.theme_closeBtnIcn, txt ) ) 
 			.addClass( "" +
 				( ( w.dateOK === true ) ? "" : "disabled")
 			)
@@ -540,10 +539,10 @@ JTSageDateBox._stdBtn = {
 			});
 	},
 	today: function() {
-		var w = this, o = this.options, t = this.options.theme;
+		var w = this, o = this.options;
 		return $( w.styleFunctions.button(
-				t.todayBtnCls,
-				t.todayBtnIcn,
+				o.theme_todayBtnCls,
+				o.theme_todayBtnIcn,
 				w.__("todayButtonLabel")
 			) )
 			.on(o.clickEventAlt, function(e) {
@@ -554,10 +553,10 @@ JTSageDateBox._stdBtn = {
 			});
 	},
 	tomorrow: function() {
-		var w = this, o = this.options, t = this.options.theme;
+		var w = this, o = this.options;
 		return $( w.styleFunctions.button(
-				t.tomorrowBtnCls,
-				t.tomorrowBtnIcn,
+				o.theme_tomorrowBtnCls,
+				o.theme_tomorrowBtnIcn,
 				w.__("tomorrowButtonLabel") 
 			) )
 			.on(o.clickEventAlt, function(e) {
