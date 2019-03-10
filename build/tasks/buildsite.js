@@ -168,7 +168,9 @@ module.exports = function(grunt) {
 							case "apiGen.getAll":
 								return apiGen.getAll( api, "opts" );
 							case "apiGen.getCatTheme":
-								return apiGen.getCat( api, "opts", "Theme");
+								return apiGen.getCat( api, "opts", "Theme" );
+							case "apiGen.getCatLimits":
+								return apiGen.getCat( api, "opts", "Limits" );
 						}
 						break;
 

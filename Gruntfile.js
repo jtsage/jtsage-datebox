@@ -87,7 +87,7 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
-			web: ["docs/_site/"],
+			web: ["doc_builder/dist/"],
 			latest: ["dist/latest/"],
 			release: ["dist/<%= pkg.version %>/"],
 			i18n: ["dist/i18n"],
@@ -349,7 +349,7 @@ module.exports = function(grunt) {
 	] );
 
 	grunt.registerTask( "web", "Build the documentation site", [
-		"clean:web", "prettify"
+		"clean:web", "buildSite"
 	] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint:js", "jshint:js2"] );
