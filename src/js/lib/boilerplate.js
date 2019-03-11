@@ -28,6 +28,7 @@ JTSageDateBox._create = function() {
 				".dbContainer { width: " + o.controlWidth + "}" +
 				"@media (max-width: " + o.breakpointWidth + ") { " +
 				".dbContainer { width: 95%; margin-left: auto; margin-right: auto; } }" +
+				( ( o.theme_headStyle !== false ) ? o.theme_headStyle : "" ) +
 			"</style>",
 		evtid = ".datebox" + this.uuid,
 		touch = ( typeof window.ontouchstart !== "undefined" ),

@@ -1749,6 +1749,15 @@ opts :
     dynamic : true
     default : "{ position: 'fixed', left: 0, top: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,.4)' }"
 
+  theme_headStyle :
+    short : Extra style info to inject in document header
+    long : Some frameworks require some extra styles.  This helps move away from a largely depreciated CSS file
+    modes : *modeAll
+    cat : Theme
+    type : String
+    dynamic : false
+    default: false
+
   timeFieldOrder :
     short : Field order for time entry
     long : |
