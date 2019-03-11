@@ -32,14 +32,12 @@
 	highDatesAlt: false,
 	enableDates: false,
 	calDateList: false, 
-	calShowDateList: false,
-	useCollapsedBut: false
+	calShowDateList: false
 });
 
 
 JTSageDateBox._cal_ThemeDateCK = {
 	selected : function ( testDate ) {
-		// Note: this is broken with inline modes!!!
 		if ( this.options.calHighPick === false ) { return false; }
 		if ( this.originalDate.iso() === testDate.iso() ) { 
 			this.calDateVisible = true;

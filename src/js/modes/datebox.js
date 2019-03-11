@@ -11,11 +11,8 @@
  * Define the standard options as well
  */
 
-mergeOpts({		
-	validHours: false, // moved
-	repButton: true, // removed
+mergeOpts({
 	durationStep: 1,
-	useCollapsedBut: false,
 	durationSteppers: {"d": 1, "h": 1, "i": 1, "s": 1}
 });
 
