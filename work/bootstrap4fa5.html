@@ -3,7 +3,7 @@
 <head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>jQueryMobile - DateBox DEV</title>
+	<title>JTSage-DateBox (Bootstrap v4, Font Awesome v5)</title>
 	
 	<!-- NOTE: Script load order is significant! -->
 	
@@ -11,22 +11,20 @@
 		THEY CHANGE AND **BREAK** CONSTANTLY.  USE -latest, OR BETTER, A NUMBERED
 		VERSION -->
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+	<!-- SECOND NOTE:  MOST OF THE OPTIONS ARE INCLUDED IN THE DEFINITION BELOW
+		SO YOU CAN JUST UNCOMMENT WHAT YOU ARE WORKING ON -->
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-	
-	<!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script--> 
-	
-	
-	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
-	
-	<link type="text/css" href="../src/css/sheet-bootstrap4.php" rel="stylesheet" /> 
-	
-	<!--script type="text/javascript" src="../dist/latest/jtsage-datebox.bootstrap.js"></script-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="../src/js/external/jqueryui.js"></script>
+
 
 	<script type="text/javascript" src="../src/js/baseObject.js"></script>
 
@@ -38,6 +36,7 @@
 	<script type="text/javascript" src="../src/js/lib/offset.js"></script>
 	<script type="text/javascript" src="../src/js/lib/public.js"></script>
 	<script type="text/javascript" src="../src/js/lib/shortUtil.js"></script>
+	<script type="text/javascript" src="../src/js/lib/boilerplate.js"></script>
 
 	<script type="text/javascript" src="../src/js/framework/bootstrap4.js"></script>
 
@@ -48,71 +47,138 @@
 
 	<script type="text/javascript" src="../src/js/widgetBinding.js"></script>
 	<script type="text/javascript" src="../src/js/autoInit.js"></script>
-	
-	<!--script type="text/javascript" src="../src/js/mode.customflip.js"></script--> 
+
+
 	<script type="text/javascript" src="./jqm-datebox-devtool.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
 	
 	<script type="text/javascript">
-		window.fmtMe = function(date) {
-			//console.log(date);
-			if ( date.Date > 9 && date.Date < 20 ) {
-				return { text: "<i>" + date.Date + "</i>", "class": "reddyred" };
-			} else {
-				return date.Date;
-			}
-		}
-		window.fuckme = true;
 		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
-			//closeCallback: function(a, b) { console.log(a); console.log(b); },
-			//closeCallbackArgs: ['hi'],
-			//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
-			useClearButton: true,
-			lockInput: false,
-			//useCollapsedBut: true,
-			//calShowWeek: true,
-			//hideContainer: true,
-			//hideInput: true,
-			calOnlyMonth: false,
-			bootstrapDropdownRight: true,
-			useInline: false,
-			useInlineAlign: "middle",
-			calDateList: [["1980-04-25", "JTs Date of Birth"], ["1809-02-12", "Lincolns Birthday"]],
-			calShowDateList: true,
-			rolloverMode: { 'm': false, 'd': false, 'h': false, 'i': false, 's': false },
+			/* Mode */
+			mode : "calbox",
 
-			calUsePickers: true,
+			/* Display */
+			// displayMode : "inline",
+			// hideInput : true,
 
-			//calUsePickersIcons: true,
-			//calNoHeader: true,
-			useTodayButton: true,
-			useTomorrowButton: true,
-			//useClearButton: true,
-			useCancelButton: true,
-			extraInputClass: "input-lg",
-			//linkedField: ".x1",
-			//useButton: false,
-			//useFocus: true,
-			//defaultValue: "",
-			//calFormatter: "fmtMe",
-			//popupButtonPosition: "right",
-			//overrideCalStartDay : 1,
-			//minDur: 34652,
-			//maxDur: 34700,
-			customData: [
-				{"input": false, "name": "Wheel1", "data":["a","b","c","d"]},
-				{"input": false, "name": "Wheel2", "data":["a","b","c","d"]},
-				{"input": false, "name": "Wheel3", "data":["a","b","c","d"]},
-			],
-			
+			// displayDropdownPosition : "top-left",
+			// displayInlinePosition : "left",
 
+			// defaultValue : new Date(2001, 0, 1),
+
+			// useHeader : false,
+
+
+			/* Input control */
+			// showInitialValue : true,
+			// useImmediate : true,
+			// useFocus : true,
+
+			// lockInput : true,
+			// useButton : false,
+
+
+			/* Linked fields */
+			linkedField : false,
+
+
+			/* Callbacks */
+			// beforeOpenCallbackArgs : [ "hi", "bye"],
+			// beforeOpenCallback : function(a, b) { console.log(a); console.log(b); return true;},,
+
+			// closeCallbackArgs : [ "hi", "bye"],
+			// closeCallback : function(a, b) { console.log(a); console.log(b); },,
+
+			// openCallbackArgs : [ "hi", "bye"],
+			// openCallback : function(a, b) { console.log(a); console.log(b); },,
+
+			// calBeforeAppendFunc : function( myObject ) { console.log( myObject.dateObj ); return myObject; },
+			// calFormatter : function( date )  { return ( date.get(2) < 10 ) ? "<span style='color:red'>" + date.get(2) + "</span>" : date.get(2); },
+
+
+			/* Limits */
+			// blackDates : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// blackDatesRec : [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ],
+			// blackDays : [ 0, 6 ],
+
+			// enableDates : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// validHours : [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ],
+			// whiteDates : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+
+			// highDatesAlt : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// highDates : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// highDatesRec : [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ],
+			// highDays : [ 0, 6 ],
+
+			// calDateList : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			// calShowDateList : true,
+
+			// afterToday : true,
+			// beforeToday : true,
+			// notToday : true,
+
+			// minDays : 10,
+			// maxDays : 10,
+
+			// minDur : 34652,
+			// maxDur : 34700,
+
+			// minHour : 9,
+			// maxHour : 5,
+
+			// minTime : "9:00",
+			// maxTime : "17:00",
+
+			// minYear : 2001,
+			// maxYear : 2020,
+
+			/* CSS */
+			// breakpointWidth : "600px",
+			// controlWidth : "290px",
+
+
+			/* calbox Mode */
+			// calHighOutOfBounds : false,
+			// calHighPick : false,
+			// calHighToday : false,,
+			// calNoHeader : true,
+			// calOnlyMonth : true,
+			// calShowDays : false,
+			// calShowWeek : true,
+
+			// overrideCalStartDay : 1,
+
+			// calUsePickers : true,
+			// calYearPickMax : 2050,
+			// calYearPickMin : 1950,
+			// calYearPickRelative : false,
+
+
+			/* Steppers */
+			// durationStep : 2,
+			// minuteStep : 2,
+
+
+			/* flipBox Mode */
+			// flipboxAdjustLens : 12,
+
+
+			/* Control Buttons */
+			// closeTodayButton : true,
+			// closeTomorrowButton : true,
+			useCancelButton : true,
+			useClearButton : true,
+			// useSetButton : false,
+			useTodayButton : true,
+			useTomorrowButton : true,
+			useCollapsedBut : true,
 		});
 	</script>
 	
 </head>
 <body>
 	<div class="container" role="main">
-		<h1>DateBox <small>BootStrap Dev Page</small></h1>
+		<h1>DateBox <small>DateBox Dev Page</small></h1>
 
 		<form>
 		<div class="form-group">
@@ -121,38 +187,24 @@
 		</div>
 
 		<div class="form-group">
-			<label class="control-label"for="aa2">text comparison</label>
-			<input class="x1 form-control"name="aa2" type="text" data-mini="true" id="aa2"/>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label"for="lang1">yep</label>
-			<input class="form-control" name="lang1" type="text" data-role="datebox" data-datebox-mode="datebox" id="lang1" data-options='{}' />
-		</div>
-
-		
-
-		<div class="form-group">
-			<label  for="username">E-Mail Address</label>
-			<input type="text" name="username" id="username" class="form-control" autocomplete="off">
-		</div>
-
-		<div class="form-group">
-			<label class="control-label"for="aa1">text comparison</label>
-			<input class="form-control"name="aa1" type="text" data-mini="true" id="aa1"/>
-		</div>
-
-		<div class="form-group">
-			<label  for="username">E-Mail Address</label>
-			<input type="text" name="username" id="username" class="form-control" autocomplete="off">
-		</div>
-
-		<div class="form-group">
-			<label class="control-label"for="aa1">text comparison</label>
-			<input class="form-control"name="aa1" type="text" data-mini="true" id="aa1"/>
+			<label class="control-label"for="db">DateBox</label>
+			<input class="form-control" name="db" type="text" data-role="datebox" id="db" />
 		</div>
 
 		</form>
+
+		<p>My name is Rhoda Morgenstern. I was born in the Bronx, New York in December of 1941. I've always felt responsible for World War II. The first thing I remember liking that liked me back was food. I had a bad puberty; it lasted seventeen years. I'm a high school graduate. I went to art school. My entrance exam was on a book of matches. I decided to move out of the house when I was twenty-four. My mother still refers to this as the time I ran away from home. Eventually, I ran to Minneapolis, where it's cold and I figured I'd keep better. Now I'm back in Manhattan. New York, this is your last chance!</p>
+
+		<p>It's time to play the music, it's time to light the lights. It's time to meet the Muppets on the Muppet Show tonight! It's time to put on makeup, it's time to dress up right. It's time to raise the curtain on the Muppet Show tonight. Why do we always come here? I guess we'll never know. It's like a kind of torture to have to watch the show! And now let's get things started - why don't you get things started? It's time to get things started on the most sensational inspirational celebrational Muppetational... This is what we call the Muppet Show!</p>
+
+		<p>There are those who believe that life here began out there... far across the universe, with tribes of humans who may have been the forefathers of the Egyptians or the Toltecs or the Mayans. Some believe that there may yet be brothers of man who even now fight to survive somewhere beyond the heavens. Fleeing from the Cylon Tyranny, the last Battlestar - Galactica - leads a rag-tag fugitive fleet on a lonely quest. A shining planet, known as Earth.</p>
+
+		<p>Making the world a better place, starts with one more smiling face. And Ronald's smile is just the thing, To make everybody sing! Put a smile on, put a smile on, everybody come on! Put a smile on!</p>
+
+		<p>Life is like a hurricane here in Duckburg. Race cars, lasers, aeroplanes - it's a duck blur. You might solve a mystery or rewrite history - Duck Tales, Oo-oo! Tales of derring-do, bad and good luck tales, oo-oo! D-d-d-danger, watch behind you - there's a stranger out to find you! What to do? Just grab onto some Duck Tales, oo-oo! Not pony tails or cotton tails but Duck Tales, oo-oo! When it seems they're headed for the final curtain Bold deduction never fails, that's for certain The worst of messes become successes!</p>
+
+
+
 	</div>
 
 </html>

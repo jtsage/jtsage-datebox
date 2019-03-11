@@ -3,128 +3,38 @@
 <head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>jQueryMobile - DateBox DEV</title>
+	<title>jQueryMobile - DateBox (Bootstrap v4, Font Awesome v4)</title>
 	
 	<!-- NOTE: Script load order is significant! -->
 	
 	<!-- HUGE NOTE:  THIS FILE IS FOR DEVELOPMENT.  DON'T LINK TO THESE COPIES,
 		THEY CHANGE AND **BREAK** CONSTANTLY.  USE -latest, OR BETTER, A NUMBERED
 		VERSION -->
-		
-	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script> 
-	
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css" />
-	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
-	
-	
-	<script type="text/javascript" src="http://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
-	
-	<link type="text/css" href="../src/css/sheet.php" rel="stylesheet" /> 
-	
 
-	<script type="text/javascript" src="../src/js/baseObject.js"></script>
+	<!-- SECOND NOTE:  MOST OF THE OPTIONS ARE INCLUDED IN THE DEFINITION BELOW
+		SO YOU CAN JUST UNCOMMENT WHAT YOU ARE WORKING ON -->
 
-	<script type="text/javascript" src="../src/js/lib/dateEnhance.js"></script>
-	<script type="text/javascript" src="../src/js/lib/dateFormatter.js"></script>
-	<script type="text/javascript" src="../src/js/lib/dateLimit.js"></script>
-	<script type="text/javascript" src="../src/js/lib/dateParser.js"></script>
-	<script type="text/javascript" src="../src/js/lib/eventHandler.js"></script>
-	<script type="text/javascript" src="../src/js/lib/offset.js"></script>
-	<script type="text/javascript" src="../src/js/lib/public.js"></script>
-	<script type="text/javascript" src="../src/js/lib/shortUtil.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
-	<script type="text/javascript" src="../src/js/framework/jqm.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-	<script type="text/javascript" src="../src/js/modes/datebox.js"></script>
-	<script type="text/javascript" src="../src/js/modes/flipbox.js"></script>
-	<script type="text/javascript" src="../src/js/modes/calbox.js"></script>
-	<script type="text/javascript" src="../src/js/modes/slidebox.js"></script>
-
-	<script type="text/javascript" src="../src/js/widgetBinding.js"></script>
-	
-
-	
-	
-	<script type="text/javascript" src="./jqm-datebox-devtool.js"></script>
-	<script type="text/javascript" src="http://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
-	
-	<script type="text/javascript">
-		window.fmtMe = function(date) {
-			//console.log(date);
-			if ( date.Date > 9 && date.Date < 20 ) {
-				return { text: "<i>" + date.Date + "</i>", "class": "reddyred" };
-			} else {
-				return date.Date;
-			}
-		}
-		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
-			useInline: true
-			/*closeCallback: function(a, b) { console.log(a); console.log(b); },
-			closeCallbackArgs: ['hi'],
-			//beforeOpenCallback: function(a, b) { console.log(a); console.log(b); return true;},
-			//useLang: "ar",
-			useTodayButton: true,
-			useTomorrowButton: true,
-			useInline: true,
-			calOnlyMonth: true,
-			//useTomorrowButton: true,
-			useClearButton: true,
-			useCollapsedBut: false,
-			calShowWeek: false,
-			themeCloseButton: "b",
-			//calUsePickers: true,
-			//calUsePickersIcons: true,
-			//calNoHeader: true,
-			calControlGroup: true,
-			//defaultValue: "",
-			//calFormatter: "fmtMe",
-			//popupButtonPosition: "right",
-			overrideCalStartDay : 1,
-			//minDur: 34652,
-			//maxDur: 34700,
-			customData: [
-				{"input": false, "name": "Wheel1", "data":["a","b","c","d"]},
-				{"input": false, "name": "Wheel2", "data":["a","b","c","d"]},
-				{"input": false, "name": "Wheel3", "data":["a","b","c","d"]},
-			],
-			overrideSlideFieldOrder: ["y","a","m","d","h","i"],*/
-
-		});
-	</script>
 	
 </head>
 <body>
-<div data-role="page" id="main"> 
-	<div data-role="header" data-position="fixed"> 
-		<h1>DateBox - jQM Dev Page</h1>
-	</div>
-	<div class="ui-content" role="main">
-		<div class="ui-field-contain">
-			<label for="aa1">text comparison</label>
-			<input name="aa1" type="text" data-mini="true" id="aa1"/>
-		</div>
+	<div class="container" role="main">
+		<h1>DateBox <small>DateBox Dev Pages</small></h1>
 
-		<div class="ui-field-contain">
-			<label for="lang1">yep</label>
-			<input name="lang1" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang1" data-options='' />
-		</div>
-		<div class="ui-field-contain">
-			<label for="ba1">text comparison</label>
-			<input name="ba1" type="text" data-mini="true" id="ba1"/>
-		</div>
-		<div class="ui-field-contain">
-			<label for="lang2">yep</label>
-			<input name="lang2" type="text" data-role="datebox" data-datebox-mode="datetimebox" id="lang2" data-options='' />
+		<ul>
+			<li><a href="bootstrap4.html">Bootstrap v4, Font Awesome v4</a></li>
+			<li><a href="bootstrap4fa5.html">Bootstrap v4, Font Awesome v5</a></li>
+			<li><a href="bootstrap3.html">Bootstrap v3</a></li>
+			<li><a href="jqueryui.html">jQueryUI</a></li>
+			<li><a href="jqm.html">jQueryMobile</a></li>
 
-		</div>
-		<div class="ui-field-contain">
-			<label for="lang3">yep</label>
-			<input name="lang3" type="text" data-role="datebox" data-datebox-mode="flipbox" id="lang3" />
-		</div>
 
 	</div>
-	<div data-role="footer" data-position="fixed">
-		<h1>Some Footer Information or Something.</h1>
-	</div>
-</div>
+
 </html>
