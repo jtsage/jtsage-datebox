@@ -136,7 +136,7 @@ module.exports = function(grunt) {
 					desty = "dist/i18n/jtsage-datebox.i18n." + lang + ".utf8.js";
 					//contents = fs.readFileSync(afile);
 					contents = gettextParser.po.parse(fs.readFileSync(afile));
-					gt.addTranslations('', lang, contents);
+					gt.addTranslations("", lang, contents);
 					alllang[lang] = makeLang(lang);
 					grunt.file.write( desty, makeSingleFile( lang, alllang[lang] ) );
 				}

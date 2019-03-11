@@ -1,0 +1,398 @@
+
+# .########.##.....##.##....##..######..########.####..#######..##....##..######.
+# .##.......##.....##.###...##.##....##....##.....##..##.....##.###...##.##....##
+# .##.......##.....##.####..##.##..........##.....##..##.....##.####..##.##......
+# .######...##.....##.##.##.##.##..........##.....##..##.....##.##.##.##..######.
+# .##.......##.....##.##..####.##..........##.....##..##.....##.##..####.......##
+# .##.......##.....##.##...###.##....##....##.....##..##.....##.##...###.##....##
+# .##........#######..##....##..######.....##....####..#######..##....##..######.
+
+func : 
+  "{}" :
+    short : Set an option
+    returns : "jQuery Object (datebox input element)"
+    long : |
+      ```js
+      $(input).datebox( { <option_name> : <new value> } );
+      $(input).datebox( <object> );
+      ```
+
+      You can either send a key: value pair to set a single option, or an object of 
+      multiple options. This will not do deep object extension.
+
+  applyMinMax :
+    short : Apply min/max HTML attributes
+    returns : jQuery Object (DateBox input element)
+    long : |
+      ```js
+      $(input).datebox( "applyMinMax" );
+      ```
+
+      This refers to the actual min and max attributes, with are translated to ___minDays___ and ___maxDays
+
+      DateBox does not "watch" the min/max HTML attributes, other than on widget initialization.
+      If you programmatically change them via JavaScript, you will need to run this function to
+      make sure the DateBox "sees" them.
+
+  close :
+    short : Close the DateBox
+    returns : "jQuery Object (DateBox input element)"
+    long : |
+      This function can be used to close the control.
+
+      ```js
+      $(input).datebox( "close" );
+      ```
+
+  dateVisible :
+    short : Return if selected calbox date is visible
+    returns : Boolean
+    long : |
+      Return if the selected calbox date is visible.  Only valid for calbox, otherwise it will
+      value is ambiguous.
+
+      ```js
+      $(input).datebox( "dateVisible" );
+      ```
+
+  destroy :
+    short : Destroy the DateBox
+    returns : "jQuery Object (DateBox input element)"
+    long : |
+      This function will destroy the DateBox control and remove the enhancements it added.
+
+      ```js
+      $(input).datebox( "destroy" );
+      ```
+
+  disable :
+    short : Disable the DateBox
+    returns : "jQuery Object (DateBox input element)"
+    long : |
+      This function will disable the DateBox control.
+
+      ```js
+      $(input).datebox( "close" );
+      ```
+
+  enable :
+    short : Enable the DateBox
+    returns : "jQuery Object (DateBox input element)"
+    long : |
+      This function will enable the datebox control.
+
+      ```js
+      $(input).datebox( "enable" );
+      ```
+
+  getLastDur :
+    short : Get the last set duration
+    returns : Integer
+    long : |
+      Get the last set duration in a durationbox or durationflipbox as an integer.
+
+      ```js
+      $(input).datebox( "getLastDur" );
+      ```
+
+  getOption :
+    short : Retrieve an option's value
+    returns : Mixed
+    long : |
+      This will return a specified options current value.
+
+      ```js
+      $(input).datebox( "getOption", <Option_Name> );
+      ```
+
+      Option Name can be any datebox option.
+
+  getTheDate :
+    short : Return the current date object
+    returns : "JavaScript Date() Object"
+    long : |
+      Return the current date object for any date mode.
+
+      ```js
+      $(input).datebox( "getTheDate" );
+      ```
+
+  open :
+    short : Open the DateBox
+    returns : "jQuery Object (datebox input element)"
+    long : |
+      This function can be used to close the control.
+
+      ```js
+      $(input).datebox( "open" );
+      ```
+
+  parseDate :
+    short : Parse a string date to an object
+    returns : "JavaScript Date Object"
+    long : |
+      ```js
+      $(input).datebox( "parseDate", <String format>, <String Date> );
+      ```
+
+      This will use the DateBox formatter library to parse a string Date and return
+      a JavaScript Date Object.
+
+  refresh :
+    short : Refresh the DateBox
+    long : |
+      This function can be used to refresh (rebuild) the control.
+
+      ```js
+      $(input).datebox( "refresh" );
+      ```
+
+
+  setTheDate :
+    short : Set the date
+    returns : "jQuery Object (datebox input element)"
+    long : |
+      This will set the date, with two options of passed argument:
+
+       - *Date Object* : JavaScript Date() object ___(PREFERRED!)___
+       - *Formatted String* : String, formatted in the same format that DateBox is currently outputting.
+
+      ```js
+      $(input).datebox( "setTheDate", <Date Object> );
+      $(input).datebox( "setTheDate", <Formatted String> );
+      ```
+
+
+# .##.......####..######..########.########.##....##.########.########...######.
+# .##........##..##....##....##....##.......###...##.##.......##.....##.##....##
+# .##........##..##..........##....##.......####..##.##.......##.....##.##......
+# .##........##...######.....##....######...##.##.##.######...########...######.
+# .##........##........##....##....##.......##..####.##.......##...##.........##
+# .##........##..##....##....##....##.......##...###.##.......##....##..##....##
+# .########.####..######.....##....########.##....##.########.##.....##..######.
+
+listen:
+  clear :
+    short : Datebox input has been cleared
+    long : |
+      This trigger is bubbled when the DateBox control is cleared.
+
+      ```js
+      $(input).bind( "datebox", function ( e, passed ) { 
+        if ( passed.method === "clear" ) {
+          alert( "Datebox was cleared!" );
+        }
+      });
+      ```
+
+      The object will contain a "method" key set to "clear".
+
+  dateboxaftercreate :
+    short : DateBox enhancment done
+    long : |
+
+      This trigger is bubbled when DateBox enhancment completes.
+
+      ```js
+      $(document).on( "dateboxaftercreate", function() {
+        alert( "A DateBox has been made" );
+      });
+      ```
+
+  dateboxbeforecreate :
+    short : DateBox loaded
+    long : |
+      This trigger is bubbled on every page if DateBox is loaded.  Pretty much useless.
+      Could be used to check that the script has loaded. Testing for `jQuery.jtsage.datebox`
+      would be easier.
+
+      ```js
+      $(document).on( "dateboxbeforecreate", function() {
+        alert( "DateBox is loaded?" );
+      });
+      ```
+
+  dateboxcreate :
+    short : DateBox enhance needed
+    long : |
+      This trigger is bubbled a DateBox is enhanced - but thrown prior to initialization.  
+      Useful only to check if there *is* a DateBox on the page.
+
+      ```js
+      $(document).on( "dateboxcreate", function() {
+        alert( "A DateBox is being made" );
+      });
+      ```
+
+  disable :
+    short : DateBox has been disabled
+    long : |
+      This trigger is bubbled when the DateBox control is disabled
+
+      ```js
+      $(input).bind( "datebox", function ( e, passed ) { 
+        if ( passed.method === "disable" ) {
+          alert( "Datebox was disabled!" );
+        }
+      });
+      ```
+
+      The object will contain a "method" key set to "clear".
+
+  enable :
+    short : DateBox has been enabled
+    long : |
+      This trigger is bubbled when the DateBox control is enabled.
+
+      ```js
+      $(input).bind( "datebox", function ( e, passed ) { 
+        if ( passed.method === "enable" ) {
+          alert( "Datebox was enabled!" );
+        }
+      });
+      ```
+
+  offset :
+    short : Date has been changed
+    long : |
+      This trigger is bubbled when the datebox control is changed.
+
+      ```js
+      $(input).bind( "datebox", function ( e, passed ) { 
+        if ( passed.method === "offset" ) {
+          alert("New datet: " + passed.newDate);
+          alert("Field offset: " + passed.type);
+          alert("Offset amount: " + passed.amount);
+        }
+      });
+      ```
+
+      ##### Arguments Recieved
+
+       - **newDate** : JavaScript Date() object of the new date
+       - **type** : Field Changed
+         - *y* - Year
+         - *m* - Month
+         - *d* - Date
+         - *h* - Hour
+         - *i* - Minute
+         - *s* - Second
+         - *a* - Meridiem
+       - **amount**: Amount of change, +/-
+
+  refresh :
+    short : Datebox has been refreshed
+    long : |
+      This trigger is bubbled when datebox has been refreshed.
+
+      ```js
+      $(input).bind( "datebox", function ( e, passed ) { 
+        if ( passed.method === "refresh" ) {
+          alert( "Datebox was refreshed!" );
+        }
+      });
+      ```
+
+  set :
+    short : Date has been set
+    long : |
+      This is bubbled when the DateBox is set.
+
+      ```js
+      $(input).bind( "datebox", function ( e, passed ) { 
+        if ( passed.method === "set" ) {
+          alert( "Formatted value is: " + passed.value );
+          alert( "JavaScript Date object is: " + passed.date );
+        }
+      });
+      
+      ##### Return Values:
+
+       - **value** - Formatted date string
+       - **date** - JavaScript Date() object
+
+
+# .########.########..####..######....######...########.########...######.
+# ....##....##.....##..##..##....##..##....##..##.......##.....##.##....##
+# ....##....##.....##..##..##........##........##.......##.....##.##......
+# ....##....########...##..##...####.##...####.######...########...######.
+# ....##....##...##....##..##....##..##....##..##.......##...##.........##
+# ....##....##....##...##..##....##..##....##..##.......##....##..##....##
+# ....##....##.....##.####..######....######...########.##.....##..######.
+
+trigger:
+
+  close :
+    short : Close the DateBox
+    long : |
+      This trigger will close the DateBox control
+
+      ```js
+      $(input).trigger( "datebox", { "method" : "close" });
+      ```
+
+  dooffset :
+    short : Change the date
+    long : |
+      This trigger will change the internal date of datebox.  Functionally identical 
+      to hitting a +/- button in the control, or sliding/flipping a value
+
+      ```js
+      $(input).trigger( "datebox", {
+        "method" : "dooffset",
+        "amount" : <INTEGER amount>,
+        "type": <CHARACTER field>
+      });
+      ```
+
+      Required Arguments:
+
+       - **INTEGER amount** : Integer amount to offset, +/-
+       - **CHARACTER field** : Date part to change:
+         - *y* - Year
+         - *m* - Month
+         - *d* - Date
+         - *h* - Hour
+         - *i* - Minute
+         - *s* - Second
+
+  dorefresh :
+    short : Refresh control
+    long : |
+      This trigger will refresh the datebox control.  Functionally equivalent to the 
+      public refresh function
+
+      ```js
+      $(input).trigger( "datebox", { "method" : "dorefresh" });
+      ```
+
+  doset :
+    short : Refresh input element value
+    long : |
+      This trigger will refresh / populate the value of the original input
+
+      ```js
+      $(input).trigger( "datebox", { "method" : "doset" });
+      ```
+
+  open :
+    short : Open the DateBox
+    long : |
+      This trigger will close the DateBox control
+
+      ```js
+      $(input).trigger( "datebox", { "method" : "open" });
+      ```
+
+  set :
+    short : Set the date
+    long : |
+      This trigger will set the date for the DateBox control.
+
+      ```js
+      $(input).trigger( "datebox", { "method" : "set", "value" : <STRING Date> });
+      ```
+
+      This is similar to ___setTheDate___, however, this traditionally expects a 
+      **formatted date string**, but will accept a Date() object.  It is far, far
+      preferable to use the ___setTheDate___ function.

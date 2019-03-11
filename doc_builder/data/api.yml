@@ -46,6 +46,30 @@ opts :
     dynamic : true
     cat : Limits
 
+  beforeOpenCallbackArgs :
+    short : Extra arguments to pass to open callback.
+    modes : *modeAll
+    cat : Callback
+    default : "[]"
+    type : Array
+    dynamic : true
+    long : |
+      Note that 'this' in your function is the widget.  argument[0] is a return value 
+      object, this starts on argument[1]
+
+  beforeOpenCallback :
+    short : Callback function to run on control open
+    modes : *modeAll
+    cat : Callback
+    default : false
+    type : Function
+    dynamic : true
+    long : |
+      Option can be a function, or, a string reference to a function in the window 
+      object.  Function is run on press of the open button ( or call to open DateBox)
+
+      Returning false from this function will prevent DateBox from opening.
+
   beforeToday :
     short : Selected date must be before today
     long : |
@@ -539,6 +563,13 @@ opts :
     short : Callback function to run on control close
     long : |
       Option can be a function, or, a string reference to a function in the window object.
+
+      The first argument to the function will be an object containing: 
+      
+       - __date__ : The JavaScript date object of the current (choosen) date - Always defined, even if meaningless.
+       - __initDate__ : The JavaScript date object that holds the widget creation time/date. Always defined.
+       - __duration__ : The last entered duration, in seconds for duration modes - undefined if not.
+       - __cancelClose__ : [Close only] - If the close action was triggered by a user cancel (true), or by setting the date (false)
 
       For more information, please see the _Callbacks and Listeners_ section of the documentation.
     modes : *modeAll
@@ -1243,6 +1274,14 @@ opts :
       Option can be a function, or, a string reference to a function in the window object.
       
       Additionally, if this returns false, the DateBox control will immediatally close.
+
+      The first argument to the function will be an object containing: 
+      
+       - __date__ : The JavaScript date object of the current (choosen) date - Always defined, even if meaningless.
+       - __initDate__ : The JavaScript date object that holds the widget creation time/date. Always defined.
+       - __duration__ : The last entered duration, in seconds for duration modes - undefined if not.
+       - __cancelClose__ : [Close only] - If the close action was triggered by a user cancel (true), or by setting the date (false)
+
 
       For more information, please see the _Callbacks and Listeners_ section of the documentation.
     modes : *modeAll

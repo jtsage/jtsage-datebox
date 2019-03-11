@@ -76,6 +76,40 @@ var startTime     = new Date(),
 
 		return theCard;
 	},
+	makeFunc = function( rec ) {
+		var theCard = "<div class=\"card border-dark\">";
+
+		theCard += "<button class=\"btn card-header text-left py-4 d-flex align-items-center\" " +
+			"id=\"heading" + rec.safeID + "\" data-toggle=\"collapse\" data-target=\"#collapse" + 
+			rec.safeID + "\">";
+
+		theCard += "<div class=\"w-25 h5 my-0\">" + rec.name + "</div>";
+		theCard += "<div class=\"w-50 text-muted pl-3\">" +  rec.short + "</div>";
+		theCard += "<div class=\"ml-auto h5 my-0 text-right\">" +
+			"<span class=\"badge badge-pill badge-danger\">" +
+			rec.cat + "</span></div>";
+	
+		theCard += "</button>";
+
+		theCard += "<div id=\"collapse" + rec.safeID + 
+			"\" class=\"collapse\" data-parent=\"#apiDoc" +
+			rec.type + "\">";
+		theCard += "<div class=\"pb-2 pt-4 px-4\">";
+		theCard += mdConvert.makeHtml(rec.long);
+		theCard += "</div>";
+
+		if ( rec.returns !== undefined ) {
+			theCard += cardSnip( 
+				"Return Type",
+				rec.overrideName,
+				"Datatype of value returned from function"
+			);
+		}
+
+		theCard += "</div></div>";
+
+		return theCard;
+	},
 	cardSnip = function( name, value, desc ) {
 		return "<div class=\"d-flex border-top\">" +
 		"<div class=\"p-2 pl-4 flex-grow-1\"><strong>" + name + ": </strong>" + value + "</div>" +
@@ -106,10 +140,24 @@ var startTime     = new Date(),
 		return retHtml + "</ul>";
 	},
 	apiGen = {
+		getFunc : function( iface, type, cat ) {
+			var filePart = "<div class=\"accordion mx-3\" id=\"apiDoc" + type + "\">";
+			for ( var apiKey in iface[ type ] ) {
+				var rec = iface[type][apiKey];
+
+				rec.safeID = apiKey.replace(/[\W]/g, "_");
+				rec.name = apiKey;
+				rec.cat = cat;
+				rec.type = type;
+
+				filePart += makeFunc(rec);
+			}
+			return filePart + "</div>";
+		},
 		getAll : function( api, type ) {
 			var filePart = "<div class=\"accordion mx-3\" id=\"apiDoc\">";
 			for ( var apiKey in api[ type ] ) {
-				var rec = api.opts[apiKey];
+				var rec = api[type][apiKey];
 
 				rec.safeID = apiKey.replace(/[\W]/g, "_");
 				rec.name = apiKey;
@@ -122,7 +170,7 @@ var startTime     = new Date(),
 		getCat : function( api, type, cat ) {
 			var filePart = "<div class=\"accordion mx-3\" id=\"apiDoc\">";
 			for ( var apiKey in api[ type ] ) {
-				var rec = api.opts[apiKey];
+				var rec = api[type][apiKey];
 
 				rec.safeID = apiKey.replace(/[\W]/g, "_");
 				rec.name = apiKey;
@@ -148,6 +196,7 @@ module.exports = function(grunt) {
 
 			api    = yaml.safeLoad( grunt.file.read( o.apidocFile ) ),
 			config = yaml.safeLoad( grunt.file.read( o.configFile ) ),
+			iface  = yaml.safeLoad( grunt.file.read( o.interfFile ) ),
 
 			compFile = "",
 			doneFile = "";
@@ -171,6 +220,14 @@ module.exports = function(grunt) {
 								return apiGen.getCat( api, "opts", "Theme" );
 							case "apiGen.getCatLimits":
 								return apiGen.getCat( api, "opts", "Limits" );
+							case "apiGen.getCatCallbacks":
+								return apiGen.getCat( api, "opts", "Callback" );
+							case "funcGen.getFunc":
+								return apiGen.getFunc( iface, "func", "Function" );
+							case "funcGen.getListen":
+								return apiGen.getFunc( iface, "listen", "Listener" );
+							case "funcGen.getTrigger":
+								return apiGen.getFunc( iface, "trigger", "Trigger" );
 						}
 						break;
 

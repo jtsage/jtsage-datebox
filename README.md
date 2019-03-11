@@ -1,27 +1,27 @@
 JTSage-DateBox
 =================
 
-DateBox is a jQuery date and time picker. [Full Documentation and Demos](http://dev.jtsage.com/DateBox/), that works
-with jQueryMobile, Bootstrap, and/or jQueryUI.
+DateBox is a jQuery date and time picker. [Full Documentation and Demos](http://dev.jtsage.com/DateBox/), that works with a multitude of CSS frameworks.
 
 
 DateBox Features
 ----------------
 
- - Framework Agnostic, works with jQM, jQueryUI & Twitter Bootstrap
- - Multiple display and entry modes for dates, times, and durations
-   - Android style
-   - Full Calendar display (date only)
-   - Flip (IOS) style
-   - Slide style (date and time only)
- - Multiple window modes (dependant on framework)
-   - Popup or Dropdown
-   - Inline
-   - Inline window-blind
- - Fully localized - 40+ languages pre-configured
- - Fully custiomizable output formats
- - Supports multiple methods of limiting valid date entry
- - Supports entry, exit, creation, selection, change, and more programming hooks
+DateBox is extreamlly full featured.  Included are:
+
+ * Control to pick date, time, duration, or nearly any combination of the above.
+ * Limiting on nearly any criteria on the date, time, or duration.
+ * Callbacks and Triggers on create, open, close, change, destroy and several other-progress moments of execution
+ * Display as a popover, modal, slide down, or inline control with the form.  Including hiding the actually input element if desired.
+ * Ability to output to multiple input elements to send differing formats or parts of the date to the server easily.
+ * 4 different visualation modes
+    * A calendar
+    * Input boxes for each date part with +/- buttons
+    * Slidable columns where the date reads right-to-left or left-to-right
+    * Slidable rows where the date reads top-to-bottom
+ * Full localization with translations in 40+ languages and locales
+ * CSS Framework agnostic.  If there is not a pre-configured version for your preferred choice, adding it is simple.
+ * No CSS includes, all styling done by CSS framework or very sparing style hooks.
 
 Special Thanks
 --------------
@@ -48,48 +48,22 @@ DateBox uses the following version scheme:
 [script](http://dev.jtsage.com/DateBox/builder/)
 [css](http://dev.jtsage.com/DateBox/theme/)
 
-Suggested Use
--------------
-
-#### With Option Overrides:
-	
-	<input type="date" data-role="datebox" name="somedate"
-		data-options='{"mode": "datebox", "overrideDateFormat": "%m/%d/%Y"}' />
-		
-#### Global Option Overrides:
-	
-	// AFTER loading jQM
-	jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
-		'overrideDateFormat': '%d.%m.%Y',
-	});
-
-Upgradeing
-----------
-JTSage-DateBox is fully compatible with the old jQM-DateBox, just replace the jQM-DateBox sources with
-the new source file.  
-
-If you have written any of your own code referencing jQM-DateBox, note that the namespace of the plugin has changed to "jtsage".
-
-	// Old Way - Data Attribute
-	$( "#someInput" ).data('mobile-datebox');
-
-	// New Way - Data Attribute
-	$( "#someInput" ).date('jtsage-datebox');
-
-
-	// Old Way - Prototype Overrides
-	jQuery.extend(jQuery.mobile.datebox.prototype.options, {} );
-
-	// New Way - Prototype Overrides
-	jQuery.extend(jQuery.jtsage.datebox.prototype.options, {} );
-
 Available Options
 -----------------
 
-Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/DateBox/api/)
+Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/DateBox/)
 
-Runtime Operation (Scripting / Extending)
------------------------------------------
+Developers
+----------
 
-Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/DateBox/api/)
+To build locally:
+
+The full release : `grunt release`
+
+Update dist/latest only : `grunt latest`
+
+Run the test suite : `grunt fulltest`
+
+Build the documentation : `grunt web`
+
 

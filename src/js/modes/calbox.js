@@ -40,7 +40,10 @@ JTSageDateBox._cal_ThemeDateCK = {
 	selected : function ( testDate ) {
 		// Note: this is broken with inline modes!!!
 		if ( this.options.calHighPick === false ) { return false; }
-		if ( this.originalDate.iso() === testDate.iso() ) { return true; }
+		if ( this.originalDate.iso() === testDate.iso() ) { 
+			w.calDateVisible = true;
+			return true;
+		}
 		return false;
 	},
 	today : function ( testDate ) {
@@ -321,6 +324,8 @@ JTSageDateBox._build.calbox = function () {
 			o.calBeforeAppendFunc = window[ o.calBeforeAppendFunc ];
 	}
 
+	w.calDateVisible = false;
+	
 	/* Actually build and populate the calendar. One pass */
 	for ( cntlRow = 0; cntlRow < grid_Weeks; cntlRow++ ) {
 

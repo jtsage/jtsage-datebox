@@ -147,7 +147,8 @@ module.exports = function(grunt) {
 					headerFile: "doc_builder/include/header.html",
 					footerFile: "doc_builder/include/footer.html",
 					configFile: "doc_builder/data/datebox.yml",
-					apidocFile: "doc_builder/data/api.yml"
+					apidocFile: "doc_builder/data/api.yml",
+					interfFile: "doc_builder/data/interface.yml",
 				},
 				files: [{
 					expand: true,
@@ -157,7 +158,7 @@ module.exports = function(grunt) {
 					rename: function(dest, src) {
 						return dest + src.replace(/^(.+)\.md$/, function ( match, file ) {
 							if ( file === "index" ) { return "index.html"; }
-							return file + "/index.html"
+							return file + "/index.html";
 						});
 					}
 				}]
@@ -303,7 +304,6 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask( "jshint_reg", "Run Full jsHint Testing", [
 		"jshint:grunt",
-		"jshint:doc",
 		"jshint:js",
 		"jshint:js2"
 	]);
