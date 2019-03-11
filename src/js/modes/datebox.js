@@ -15,6 +15,7 @@ mergeOpts({
 	validHours: false, // moved
 	repButton: true, // removed
 	durationStep: 1,
+	useCollapsedBut: false,
 	durationSteppers: {"d": 1, "h": 1, "i": 1, "s": 1}
 });
 
@@ -252,7 +253,7 @@ JTSageDateBox._build.datebox = function () {
 			o.useClearButton ||
 			o.useCancelButton
 	) {
-		ctrlContainer = _sf.buttonGroup();
+		ctrlContainer = _sf.buttonGroup( o.useCollapsedBut );
 		
 		if ( o.useSetButton ) {
 			switch (o.mode) {

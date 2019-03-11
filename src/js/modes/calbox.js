@@ -32,7 +32,8 @@
 	highDatesAlt: false,
 	enableDates: false,
 	calDateList: false, 
-	calShowDateList: false
+	calShowDateList: false,
+	useCollapsedBut: false
 });
 
 
@@ -401,7 +402,7 @@ JTSageDateBox._build.calbox = function () {
 
 	// Bottom Buttons
 	if ( o.useTodayButton || o.useTomorrowButton || o.useClearButton || o.useCancelButton ){
-		calCntlRow = _sf.buttonGroup();
+		calCntlRow = _sf.buttonGroup( o.useCollapsedBut );
 		
 		if ( o.useTodayButton ) {
 			calCntlRow.append(w._stdBtn.today.apply(w));

@@ -2247,6 +2247,17 @@ opts :
     optdemo : true
     sample: false
 
+  useCollapsedBut :
+    short : Single line of control buttons
+    long : Attempt to merge today, tomorrow, clear, close, and set buttons into a single line
+    cat : Display-Control
+    modes : *modeAll
+    default : false
+    type : Boolean
+    dynamic : true
+    optdemo : true
+    sample : false
+
   useFocus :
     short : Open the control when the Input Element is focused
     modes : *modeAll

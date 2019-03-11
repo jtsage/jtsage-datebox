@@ -77,8 +77,10 @@ JTSageDateBox.styleFunctions = {
 		retty += contents + "</a>";
 		return retty;
 	},
-	buttonGroup: function () {
-		return $("<div class='btn-group-vertical w-100 p-1'>");
+	buttonGroup: function ( collapse) {
+		var cls = ( collapse === true ) ? "btn-group" : "btn-group-vertical";
+
+		return $("<div class='" + cls + " w-100 p-1'>");
 	},
 	baseInputWrap: function ( originalInput ) { 
 		/* Set up a wrap around the input for styling, and return it */
@@ -201,6 +203,7 @@ JTSageDateBox.styleFunctions = {
 
 		return $(returnVal);
 	}
+
 };
 
 
