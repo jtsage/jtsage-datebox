@@ -66,4 +66,7 @@ Run the test suite : `grunt fulltest`
 
 Build the documentation : `grunt web`
 
+Run a local server @:8080 for the documentation : `grunt serveweb`
+
+
 

@@ -291,6 +291,16 @@ module.exports = function(grunt) {
 				dest: "docs/_site/"
 			},
 		},
+		connect: {
+    		web: {
+      			options: {
+        			port: 8080,
+        			base: "doc_builder/dist",
+        			useAvailablePort: true,
+        			keepalive: true,
+      			}
+    		}
+  		}
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
@@ -299,6 +309,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-git-committers" );
 	grunt.loadNpmTasks( "grunt-prettify" );
+	grunt.loadNpmTasks( "grunt-contrib-connect" );
 	
 	grunt.task.loadTasks( "build/tasks" );
 	
@@ -350,6 +361,9 @@ module.exports = function(grunt) {
 
 	grunt.registerTask( "web", "Build the documentation site", [
 		"clean:web", "buildSite"
+	] );
+	grunt.registerTask( "serveweb", "Start a local HTTP server on localhost:8080 for the docs.", [
+		"connect:web"
 	] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint:js", "jshint:js2"] );
