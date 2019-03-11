@@ -34,8 +34,22 @@ menu :
   - name : Full Option List
     url : "/api/"
 
+  - name : Download Builder
+    exturl : https://jtsage.dev/DateBox/builder/
+
+
+demo :
   - name : Option Demos
     url : "/optDemo/"
 
-  - name : Download Builder
-    exturl : https://jtsage.dev/DateBox/builder/
+  - name : " - CalBox"
+    url : "/optDemo-calBox"
+
+  - name : " - DateBox"
+    url : "/optDemo-dateBox"
+
+  - name : " - TimeBox"
+    url : "/optDemo-timeBox"
+
+  - name : " - DateTimeBox"
+    url : "/optDemo-datetimeBox"

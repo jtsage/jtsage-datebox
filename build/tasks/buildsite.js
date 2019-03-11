@@ -22,7 +22,7 @@ var startTime     = new Date(),
 
 			if ( rec.optdemo ) {
 				for ( var modetest in rec.modes ) {
-					if ( rec.modes[modetest] == mode ) {
+					if ( rec.modes[modetest] === mode ) {
 						rec.name = apiKey;
 						filePart += makeDemoIn(rec);
 					}
@@ -154,16 +154,16 @@ var startTime     = new Date(),
 		"<div class=\"p-2 pr-4 text-muted\"><small><small>" + desc + "</small></small></div>" +
 		"</div>";
 	},
-	makeMenu = function ( conf ) {
+	makeMenu = function ( conf, menu ) {
 		var menuHtml = "", url = "";
 
-		for ( var i = 0; i < conf.menu.length; i++ ) {
-			url = ( typeof conf.menu[i].exturl !== "undefined" ) ?
-				conf.menu[i].exturl :
-				conf.url + conf.menu[i].url;
+		for ( var i = 0; i < menu.length; i++ ) {
+			url = ( typeof menu[i].exturl !== "undefined" ) ?
+				menu[i].exturl :
+				conf.url + menu[i].url;
 
 			menuHtml += "<a href=\"" + url + "\" class=\"list-group-item list-group-item-action\">";
-			menuHtml += conf.menu[i].name;
+			menuHtml += menu[i].name;
 			menuHtml += "</a>";
 		}
 		return menuHtml;
@@ -275,7 +275,9 @@ module.exports = function(grunt) {
 							case "version" :
 								return config.version;
 							case "menu" :
-								return makeMenu( config );
+								return makeMenu( config, config.menu );
+							case "demo" :
+								return makeMenu( config, config.demo );
 							case "supports" :
 								return makeSup( config );
 							case "url" :
