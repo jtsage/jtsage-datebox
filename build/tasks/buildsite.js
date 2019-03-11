@@ -15,6 +15,44 @@ var startTime     = new Date(),
 		"Operation"       : "badge-primary"
 	},
 
+	makeDemo = function( api, mode ) {
+		var filePart = "<div>";
+		for ( var apiKey in api.opts ) {
+			var rec = api.opts[apiKey];
+
+			if ( rec.optdemo ) {
+				for ( var modetest in rec.modes ) {
+					if ( rec.modes[modetest] == mode ) {
+						rec.name = apiKey;
+						filePart += makeDemoIn(rec);
+					}
+				}
+			}
+		}
+		return filePart + "</div>";
+	},
+	makeDemoIn = function( rec ) {
+		var retHtml = "<div class=\"form-group row\"><div class=\"col-sm-3\">";
+
+		retHtml += "<label><strong></em>" + rec.name + "</em></strong></label>";
+		retHtml += "</div><div class=\"col-sm-9\">";
+
+		if ( rec.type === "Boolean" ) {
+			retHtml += "<select class=\"form-control demopick\" data-link=\"db\" data-opt=\"" + rec.name + "\">";
+			retHtml += "<option " + ( !rec.default ? "selected=\"selected\"" : "" ) + " value=\"false\">False</option>";
+			retHtml += "<option " + (  rec.default ? "selected=\"selected\"" : "" ) + " value=\"true\">True</option>";
+			retHtml += "</select>";
+		} else {
+			retHtml += "<input class=\"form-control demopick\" data-link=\"db\" data-opt=\"" + 
+				rec.name + "\" value=\"" + rec.default +
+				"\" placeholder=\"" + rec.default + "\"/>";
+		}
+		retHtml += "<small class=\"form-text text-muted\">" + rec.short +
+			(( rec.sample !== false ) ? "<br /><strong>Sample: </strong>" + rec.sample : "") +
+			"</small></div></div>";
+
+		return retHtml;
+	},
 	makeCard = function( rec ) {
 		var theCard = "<div class=\"card border-dark\">";
 
@@ -230,7 +268,8 @@ module.exports = function(grunt) {
 								return apiGen.getFunc( iface, "trigger", "Trigger" );
 						}
 						break;
-
+					case "dmo:":
+						return makeDemo( api, term.substr(4) );
 					case "cnf:":
 						switch ( term.substr(4) ) {
 							case "version" :
@@ -239,6 +278,8 @@ module.exports = function(grunt) {
 								return makeMenu( config );
 							case "supports" :
 								return makeSup( config );
+							case "url" :
+								return config.url;
 						}
 						break;
 

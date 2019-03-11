@@ -9,5 +9,29 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jtsage.com/jtsage-datebox/{{cnf:version}}/jtsage-datebox.bootstrap4.js"></script>
 	<script src="https://cdn.jtsage.com/external/prism.js"></script>
+	<script type="text/javascript">
+		$(document).on("change", ".demopick", function(e){
+			var	thisObj, 
+				thisSel = $(e.currentTarget),
+				thisBox = "#"+thisSel.data("link"),
+				thisVal = thisSel.val(),
+				thisJSON = makeJSON(thisVal);
+				
+			if ( thisVal === "true" ) { thisVal = true; }
+			if ( thisVal === "false" ) { thisVal = false; }
+			if ( thisVal === parseInt(thisVal,10) ) { thisVal = parseInt(thisVal,10); }
+			if ( thisJSON !==false ) { thisVal = thisJSON; }
+			thisObj = {}; thisObj[thisSel.data("opt")] = thisVal;
+			$(thisBox).datebox(thisObj);
+			$(thisBox).datebox("refresh");
+		});
+		function makeJSON(str) {
+			try {
+				return jQuery.parseJSON(str);
+			} catch (e) {
+				return false;
+			}
+		}
+	</script>
 </body>
 </html>
