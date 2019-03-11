@@ -41,7 +41,7 @@ JTSageDateBox._cal_ThemeDateCK = {
 		// Note: this is broken with inline modes!!!
 		if ( this.options.calHighPick === false ) { return false; }
 		if ( this.originalDate.iso() === testDate.iso() ) { 
-			w.calDateVisible = true;
+			this.calDateVisible = true;
 			return true;
 		}
 		return false;

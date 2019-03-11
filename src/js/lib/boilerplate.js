@@ -20,14 +20,17 @@ JTSageDateBox._create = function() {
 			input: this.element,
 			wrap: this.element.parent(),
 			mainWrap: $( "<div>", { 
-				"class": "dbContainer"
+				"class": "dbContainer_" + this.uuid
 				} ).css( "zIndex", o.zindex ),
 			intHTML: false
 		},
 		styleTag = "<style>" +
-				".dbContainer { width: " + o.controlWidth + "}" +
+				".dbContainer_" + this.uuid + " { width: " + o.controlWidth + "}" +
+				
 				"@media (max-width: " + o.breakpointWidth + ") { " +
-				".dbContainer { width: 95%; margin-left: auto; margin-right: auto; } }" +
+				".dbContainer_" + this.uuid + " { " +
+					"width: 95%; margin-left: auto; margin-right: auto; } }" +
+
 				( ( o.theme_headStyle !== false ) ? o.theme_headStyle : "" ) +
 			"</style>",
 		evtid = ".datebox" + this.uuid,

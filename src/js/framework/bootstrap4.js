@@ -55,7 +55,7 @@ mergeOpts({
 		bottom: 0,
 		backgroundColor: "rgba(0,0,0,.4)"
 	},
-	theme_headStyle = false,
+	theme_headStyle : false,
 
 	disabledState: "disabled",
 	buttonIconDate: "calendar",
