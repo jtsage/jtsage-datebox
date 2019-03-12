@@ -28,13 +28,13 @@ mergeOpts({
 	theme_headerBtnCls : "outline-secondary",
 	theme_headerBtnIcn : "times",
 
-	theme_cal_Today : "outline-info",
-	theme_cal_DayHigh : "outline-warning",
-	theme_cal_Selected : "outline-success",
-	theme_cal_DateHigh : "outline-warning",
+	theme_cal_Today       : "outline-info",
+	theme_cal_DayHigh     : "outline-warning",
+	theme_cal_Selected    : "outline-success",
+	theme_cal_DateHigh    : "outline-warning",
 	theme_cal_DateHighAlt : "outline-danger",
 	theme_cal_DateHighRec : "outline-warning",
-	theme_cal_Default : "outline-primary",
+	theme_cal_Default     : "outline-primary",
 	theme_cal_OutOfBounds : "outline-secondary border-0",
 
 	theme_cal_NextBtnIcn : "plus",
@@ -57,9 +57,9 @@ mergeOpts({
 	},
 	theme_headStyle : false,
 
-	disabledState: "disabled",
-	buttonIconDate: "calendar",
-	buttonIconTime: "clock-o fa-clock",
+	disabledState  : "disabled",
+	buttonIconDate : "calendar",
+	buttonIconTime : "clock-o fa-clock",
 
 	btnCls: " btn btn-sm btn-outline-",
 	icnCls: " fa fa-",
