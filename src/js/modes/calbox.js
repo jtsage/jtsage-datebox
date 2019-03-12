@@ -9,30 +9,30 @@
  */
 
  mergeOpts({
-	calHighToday: true,
-	calHighPick: true,
-	calHighOutOfBounds: true,
+	calHighToday        : true,
+	calHighPick         : true,
+	calHighOutOfBounds  : true,
 	
-	calShowDays: true,
-	calOnlyMonth: false,
-	calShowWeek: false,
-	calUsePickers: false,
-	calNoHeader: false,
+	calShowDays         : true,
+	calOnlyMonth        : false,
+	calShowWeek         : false,
+	calUsePickers       : false,
+	calNoHeader         : false,
 	
-	calYearPickMin: -6,
-	calYearPickMax: 6,
-	calYearPickRelative: true,
+	calYearPickMin      : -6,
+	calYearPickMax      : 6,
+	calYearPickRelative : true,
 
-	calFormatter: function(t) { return t.get(2); },
-	calBeforeAppendFunc: function(t) { return t; },
+	calFormatter        : function(t) { return t.get(2); },
+	calBeforeAppendFunc : function(t) { return t; },
 	
-	highDays: false,
-	highDates: false,
-	highDatesRec: false,
-	highDatesAlt: false,
-	enableDates: false,
-	calDateList: false, 
-	calShowDateList: false
+	highDays            : false,
+	highDates           : false,
+	highDatesRec        : false,
+	highDatesAlt        : false,
+	enableDates         : false,
+	calDateList         : false,
+	calShowDateList     : false
 });
 
 
@@ -115,12 +115,12 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 			inBounds: true
 		},
 		dateThemes = [
-			[ "selected", "theme_cal_Selected" ],
-			[ "today" , "theme_cal_Today" ],
-			[ "highDates", "theme_cal_DateHigh" ],
+			[ "selected",     "theme_cal_Selected" ],
+			[ "today" ,       "theme_cal_Today" ],
+			[ "highDates",    "theme_cal_DateHigh" ],
 			[ "highDatesAlt", "theme_cal_DateHighAlt" ],
 			[ "highDatesRec", "theme_cal_DateHighRec" ],
-			[ "highDays", "theme_cal_DayHigh" ]
+			[ "highDays",     "theme_cal_DayHigh" ]
 		];
 
 	w.realToday = new w._date();
@@ -145,11 +145,11 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 };
 
 JTSageDateBox._cal_pickRanges = function ( dispMonth, dispYear, realYear ) {
-	var w = this, i,
-		o = this.options,
-		calcYear = ( o.calYearPickRelative === false ) ? realYear : dispYear,
+	var w         = this, i,
+		o         = this.options,
+		calcYear  = ( o.calYearPickRelative === false ) ? realYear : dispYear,
 		startYear = 0,
-		endYear = 0,
+		endYear   = 0,
 		returnVal = {
 			month: [],
 			year: []
@@ -193,39 +193,41 @@ JTSageDateBox._cal_pickRanges = function ( dispMonth, dispYear, realYear ) {
 };
 
 JTSageDateBox._build.calbox = function () {
-	var w = this, i,
-		o = this.options,
-		_sf = this.styleFunctions,
+	var w                 = this, i,
+		o                 = this.options,
+		_sf               = this.styleFunctions,
 		// Today's real date, not based on selection
-		date_realToday = new w._date(),
+		date_realToday    = new w._date(),
 		// First day of the displayed month
 		date_firstOfMonth = w.theDate.copy( false, [ 0, 0, 1, 12, 1, 1, 1 ] ),
 		// Last day of the displayed month
-		date_lastOfMonth = date_firstOfMonth.copy( [ 0, 1 ] ).adj( 2, -1 ),
+		date_lastOfMonth  = date_firstOfMonth.copy( [ 0, 1 ] ).adj( 2, -1 ),
 		// Actual month (used to find bounds)
 		date_displayMonth = date_firstOfMonth.get(1),
 		// Actual year (used to find bounds)
-		date_displayYear = date_firstOfMonth.get(0),
+		date_displayYear  = date_firstOfMonth.get(0),
 		// How many days from the previous month (or blanks) need to appear
-		grid_headOffset = w.__( "calStartDay" ) - date_firstOfMonth.getDay(),
+		grid_headOffset   = w.__( "calStartDay" ) - date_firstOfMonth.getDay(),
 		// How many days from the next month (of blanks) need to appear
-		grid_tailOffset = 6 + ( w.__( "calStartDay" ) - date_lastOfMonth.getDay()),
+		grid_tailOffset   = 6 + ( w.__( "calStartDay" ) - date_lastOfMonth.getDay()),
 		// First date of the grid (possibly blanked out)
-		date_firstOfGrid = date_firstOfMonth.copy( [ 0, 0, grid_headOffset ] ),
+		date_firstOfGrid  = date_firstOfMonth.copy( [ 0, 0, grid_headOffset ] ),
 		// Last date of the grid (possibly blanked out)
-		date_lastOfGrid = date_lastOfMonth.copy( [ 0, 0, grid_tailOffset ] ),
-		// How many weeks the grid has (Low = 4, Max = 6.)
-		grid_Weeks = ( date_lastOfGrid.getEpochDays() - date_firstOfGrid.getEpochDays() + 1 ) / 7,
+		date_lastOfGrid   = date_lastOfMonth.copy( [ 0, 0, grid_tailOffset ] ),
+		// How many weeks the grid has (Low 4, Max 6.)
+		grid_Weeks        = ( 
+			date_lastOfGrid.getEpochDays() - date_firstOfGrid.getEpochDays() + 1 ) / 7,
 		// The current working date. Stepped from first to last date of the grid
-		date_working = date_firstOfGrid.copy(),
+		date_working      = date_firstOfGrid.copy(),
 		// How many columns the grid has (7 days, 8th optional week number)
-		grid_Cols = o.calShowWeek ? 8 : 7,
+		grid_Cols         = o.calShowWeek ? 8 : 7,
 		// This holds the grid temporarily
-		calContent = "", calCntlRow = "",
+		calContent        = "",
+		calCntlRow        = "",
 		// Control variables.
 		cntlRow, cntlCol, cntlObj = {},
 		// This holds the day of week display
-		weekdayControl = $("");
+		weekdayControl    = $("");
 
 	if ( typeof w.d.intHTML !== "boolean" ) { 
 		w.d.intHTML.remove(); 
@@ -342,7 +344,7 @@ JTSageDateBox._build.calbox = function () {
 
 			// Check and theme date.
 			cntlObj = Object.assign(
-				w._newDateChecker(date_working),
+				w._newDateChecker( date_working ),
 				w._cal_ThemeDate( date_working, date_displayMonth )
 			);
 
@@ -378,7 +380,7 @@ JTSageDateBox._build.calbox = function () {
 		}
 
 		// Add row to grid.
-		calCntlRow.appendTo(calContent);
+		calCntlRow.appendTo( calContent );
 	}
 
 	// Quick Date Picker if turned on.
@@ -403,16 +405,16 @@ JTSageDateBox._build.calbox = function () {
 		calCntlRow = _sf.buttonGroup( o.useCollapsedBut );
 		
 		if ( o.useTodayButton ) {
-			calCntlRow.append(w._stdBtn.today.apply(w));
+			calCntlRow.append( w._stdBtn.today.apply( w ) );
 		}
 		if ( o.useTomorrowButton ) {
-			calCntlRow.append(w._stdBtn.tomorrow.apply(w));
+			calCntlRow.append( w._stdBtn.tomorrow.apply( w ) );
 		}
 		if ( o.useClearButton ) {
-			calCntlRow.append(w._stdBtn.clear.apply(w));
+			calCntlRow.append( w._stdBtn.clear.apply( w ) );
 		}
 		if ( o.useCancelButton ) {
-			calCntlRow.append(w._stdBtn.cancel.apply(w));
+			calCntlRow.append( w._stdBtn.cancel.apply( w ) );
 		}
 
 		calCntlRow.appendTo( w.d.intHTML );
@@ -432,7 +434,7 @@ JTSageDateBox._build.calbox = function () {
 				w._t( { method: "close" } );
 			}
 		})
-		.on( "swipeleft", function() { w._offset( "m", 1 ); } )
+		.on( "swipeleft",  function() { w._offset( "m", 1 ); } )
 		.on( "swiperight", function() { w._offset( "m", -1 ); } )
 		.on( "mousewheel", function(e,d) {
 			e.preventDefault();
