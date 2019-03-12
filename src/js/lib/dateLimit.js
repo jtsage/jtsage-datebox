@@ -281,7 +281,8 @@ JTSageDateBox._getCleanDur = function() {
 		thisDuration = o.maxDur;
 	}
 
-	w.lastDuration = thisDuration;
+	w.lastDuration  = thisDuration;
+	w.lastDurationA = w._dur( thisDuration * 1000 );
 
 	return [ thisDuration, w._dur( thisDuration * 1000 ) ];
 }

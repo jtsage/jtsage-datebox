@@ -36,32 +36,78 @@ mergeOpts({
 	}
 });
 
-
 JTSageDateBox._fbox_pos = function () {
 	// Position the lens and the reels on widget open and 
 	// when they are changed
-	var fixer, element, first, placement = 0, tmp,
-		w = this,
-		o = this.options,
-		adj = ( o.flipboxLensAdjust === false ) ? 
-			( ( w.baseMode === "bootstrap4") ? 5 : 0 ) : 
-			o.flipboxLensAdjust,
-		parentHeight = this.d.intHTML.find( ".ui-datebox-flipcontent" ).innerHeight();
-		
-	w.d.intHTML.find( ".ui-datebox-flipcenter" ).each(function() {
-		element = $( this );
-		placement = ( ( ( parentHeight / 2 ) - ( element.innerHeight() / 2 ) - 3 ) * -1) + adj;
-		element.css( "top", placement );
-	});
+	var fullRoller, firstItem, height_Roller, intended_Top,
+		w                = this,
+		o                = this.options,
+		height_Container = w.d.intHTML.find( ".dbRoller" ).first().parent().height(),
+		height_Outside   = w.d.intHTML.find( ".dbRoller" ).parent().parent().outerHeight( true ),
+		theLens          = w.d.intHTML.find( ".dbLens" ).first(),
+		height_Lens      = theLens.outerHeight();
 
-	w.d.intHTML.find( "ul" ).each(function () {
-		element = $( this );
-		parentHeight = element.parent().innerHeight();
-		first = element.find( "li" ).first();
-		fixer = element.find( "li" ).last().offset().top - element.find("li").first().offset().top;
-		tmp = ( ( ( fixer - parentHeight ) / 2 ) + first.outerHeight() ) * -1;
-		first.attr("style", "margin-top: " + tmp + "px !important" );
+	// Lens top:
+	// Negative Half the parent height is center.
+	// Add Negative half the lens height.
+	intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
+	theLens.css( { 
+		top          : intended_Top,
+		marginBottom : -1 * height_Lens
+	} );
+
+	w.d.intHTML.find( ".dbRoller" ).each( function() {
+		fullRoller    = $(this),
+		firstItem     = fullRoller.children().first(),
+
+		height_Roller = fullRoller.height();
+
+		// Negative Half the height of the roller ( gets center to top border of view)
+		// Add half of the view container height.
+		intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Container / 2 );
+
+		if ( o.lensAdjust !== false ) { intended_Top += o.lensAdjust; }
+
+		firstItem.attr( "style", "margin-top: " + intended_Top + "px !important" );
 	});
+};
+
+JTSageDateBox._fbox_do_dur_math = function ( term, offset, position ) {
+	var current, possibleReturn,
+		w          = this,
+		multiplier = { d : Number.MAX_SAFE_INTEGER, h : 24, i : 60, s : 60 }[term];
+
+	if ( position === 0 && term !== "d" ) {
+		switch ( term ) {
+			case "h" :
+				current = w.lastDurationA[1] +
+					( w.lastDurationA[0] * 24 );
+				break;
+			case "i" :
+				current = w.lastDurationA[2] +
+					( w.lastDurationA[1] * 60 ) +
+					( w.lastDurationA[0] * 24 * 60 );
+				break;
+			case "s" :
+				current = w.lastDuration;
+				break;
+		}
+	} else {
+		current = w.lastDurationA[ $.inArray( term, ["d","h","i","s"] ) ];
+		possibleReturn = current + offset;
+	}
+
+	if ( position === 0 ) {
+		// First position just counts up indfinatly.
+		return ( possibleReturn < 0 ) ? "" : possibleReturn;
+	} else {
+		if ( possibleReturn < 0 ) { return ""; }
+
+		while ( possibleReturn > multiplier ) {
+			possibleReturn -= multiplier;
+		}
+		return possibleReturn;
+	}
 };
 
 JTSageDateBox._fbox_series = function (middle, side, type, neg) {
@@ -87,6 +133,7 @@ JTSageDateBox._fbox_series = function (middle, side, type, neg) {
 	}
 	return ret;
 };
+
 JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
 	// Returns an array [ text, value ]
 	var i,
@@ -103,7 +150,7 @@ JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
 			// No hard math.
 			return w.theDate.get(0) + offset;
 		case "m" :
-			testDate = ( w.theDate.copy( [0], [0,0,1] ) ).adj( 1, i );
+			testDate = (w.theDate.copy( false, [0,0,1] )).adj( 1, offset );
 			return w.__("monthsOfYearShort")[ testDate.get(1) ];
 		case "d" :
 			if ( o.rolloverMode.d === false ) {
@@ -132,64 +179,15 @@ JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
 			testDate = w.theDate.copy( [0,0,0,i] );
 			return ( ( w.__("timeFormat") === 12 ) ? testDate.get12hr() : testDate.get(3) );
 		case "i" :
-			return w._zPad( ( w.theDate.copy( [0,0,0,0,i] )).get(4) );
+			return w._zPad( ( w.theDate.copy( [ 0, 0, 0, 0, offset ] )).get(4) );
 		case "s" :
-			return w._zPad( ( w.theDate.copy( [0,0,0,0,0,i] )).get(5) );
+			return w._zPad( ( w.theDate.copy( [ 0, 0, 0, 0, 0, offset ] )).get(5) );
 		case "a" :
 			return w.__("meridiem")[ ( ( w.theDate.get(3) < 12 ) ? 0 : 1 ) ];
 	}
 };
 
-JTSageDateBox._fbox_mktxt = {
-	// Create the year, month, date, hour, and minute reels
 
-	/// DEAD!!
-	y: function(i) {
-		return this.theDate.get(0) + i;
-	},
-	m: function(i) {
-		var testDate = ( this.theDate.copy( [0], [0,0,1] ) ).adj( 1, i );
-		return this.__("monthsOfYearShort")[ testDate.get(1) ];
-	},
-	d: function(i) {
-		// Extra logic here is to "repeat" the current month dates if
-		// rollover is not allowed.
-		var w= this,
-			o = this.options;
-
-		if ( o.rolloverMode === false || 
-			( typeof o.rolloverMode.d !== "undefined" && o.rolloverMode.d === false )
-			) {
-
-			var today = this.theDate.get(2),
-				lastDate = 32 - w.theDate.copy([0],[0,0,32,13]).getDate(),
-				tempDate = today + i;
-
-			if ( tempDate < 1 ) { 
-				return lastDate + tempDate;
-			} else {
-				if ( tempDate % lastDate > 0 ) {
-					return tempDate % lastDate;
-				} else { 
-					return lastDate;
-				}
-			}
-		} 
-		return ( this.theDate.copy([0,0,i]) ).get(2);
-	},
-	h: function(i) {
-		var testDate = this.theDate.copy( [0,0,0,i] );
-		return ( ( this.__("timeFormat") === 12 ) ?
-			testDate.get12hr() :
-			testDate.get(3) );
-	},
-	i: function(i) {
-		return this._zPad( ( this.theDate.copy( [0,0,0,0,i] )).get(4) );
-	},
-	s: function(i) {
-		return this._zPad( ( this.theDate.copy( [0,0,0,0,0,i] )).get(5) );
-	}
-};
 
 // Really, timeflipbox and durationflipbox are just aliases
 JTSageDateBox._build.timeflipbox     = function() { this._build.flipbox.apply( this ); };
@@ -207,7 +205,7 @@ JTSageDateBox._build.flipbox = function () {
 		cntlFieldIdx,
 		cntlCol,
 		cntlRow,
-		flipContent = _sf.fboxContainer(),
+		flipContent = _sf.fboxContainer( o.theme_fbox_RollHeight ),
 		cntlContain = "",
 		cntlRoller = "",
 
@@ -229,22 +227,6 @@ JTSageDateBox._build.flipbox = function () {
 		cDur = w._dur( ti<0 ? 0 : ti ),
 		currentTerm, currentText;
 
-	// switch ( w.baseMode ) {
-	// 	case "jqm":
-	// 		themeType = "ui-body-"; break;
-	// 	case "bootstrap":
-	// 		themeType = "bg-"; break;
-	// 	case "bootstrap4":
-	// 		themeType = "p-0 m-0 btn btn-block btn-outline-"; break;
-	// }
-
-	// Check for duration less that 0 seconds (impossible)
-	if ( ti < 0 ) {
-		w.lastDuration = 0;
-		if ( dur ) { w.theDate.setTime( w.initDate.getTime() ); }
-	} else {
-		if ( dur ) { w.lastDuration = ti / 1000; }
-	}
 
 	if ( typeof w.d.intHTML !== "boolean" ) {
 		w.d.intHTML.empty().remove();
@@ -367,7 +349,7 @@ JTSageDateBox._build.flipbox = function () {
 		thisField = w.fldOrder[ cntlFieldIdx ];
 
 		cntlContain = _sf.fboxRollerContain();
-		cntlRoller  = _sf.fboxRollerParent();
+		cntlRoller  = _sf.fboxRollerParent().addClass( "dbRoller" );
 
 		cntlContain.data({
 			field  : thisField,
@@ -376,65 +358,85 @@ JTSageDateBox._build.flipbox = function () {
 				( ( currentTerm === "i" ) ? o.minuteStep : 1 )
 		});
 
-		for ( cntlRow = -1 * o.flen[thisField]; cntlRow < ( o.flen[currentTerm] + 1 ); cntlRow++ ) {
-			cntlRoller.append( _sf.fboxRollerChild( 
-				w._fbox_do_roll_math( thisField ),
-				( cntlRow === 0 ) ? o.theme_fbox_Selected : o.theme_fbox_Default
-			) );
+		for ( cntlRow = -1 * o.flen[thisField]; cntlRow < ( o.flen[thisField] + 1 ); cntlRow++ ) {
+
+			if ( !dur ) {
+				cntlRoller.append( _sf.fboxRollerChild( 
+					w._fbox_do_roll_math( thisField, cntlRow ),
+					( cntlRow === 0 ) ? 
+						( ( w.dateOK ) ? o.theme_fbox_Selected : o.theme_fbox_Forbidden ) :
+						o.theme_fbox_Default
+				) );
+			} else {
+				cntlRoller.append( _sf.fboxRollerChild(
+					w._fbox_do_dur_math( thisField, cntlRow, cntlFieldIdx ),
+					( cntlRow === 0 ) ? 
+						o.theme_fbox_Selected :
+						o.theme_fbox_Default
+				) );
+			}
 		}
 
-		console.log(cntlRoller);
-		cntlRoller.appendTo(cntlContain);
+		cntlContain.append(cntlRoller);
+
+		flipContent.append(cntlContain);
 
 	}
-	for ( y=0; ( y < w.fldOrder.length && !dur ); y++ ) {
-		currentTerm = w.fldOrder[y];
+
+	w.d.intHTML.append( flipContent );
+	//cntlContain.appendTo( w.d.intHTML );
+
+	// for ( y=0; ( y < w.fldOrder.length && !dur ); y++ ) {
+	// 	currentTerm = w.fldOrder[y];
 		
-		hRow = flipBase.clone().data({
-			"field": currentTerm,
-			"amount": (currentTerm === "i") ? o.minuteStep : 1
-		});
-		hRowIn = hRow.find( "ul" );
+	// 	hRow = flipBase.clone().data({
+	// 		"field": currentTerm,
+	// 		"amount": (currentTerm === "i") ? o.minuteStep : 1
+	// 	});
+	// 	hRowIn = hRow.find( "ul" );
 				
 		
-		if ( typeof w._fbox_mktxt[currentTerm] === "function" ) {
-			for ( i = -1 * o.flen[currentTerm]; i < ( o.flen[currentTerm] + 1 ); i++ ) {
-				$( w._spf( "<li class='{cls}'><span>{text}</span></li>", {
-					cls: themeType + (( i !== 0 ) ? o.themeDate : o.themeDatePick),
-					text: w._fbox_mktxt[currentTerm].apply(
-						w,
-						[(currentTerm === "i") ? i * o.minuteStep : i]
-					)
-				})).appendTo( hRowIn );
-			}
-			hRow.appendTo( ctrl );
-		}
-		if ( currentTerm === "a" && w.__("timeFormat") === 12 ) {
-			currentText = $("<li class='" + themeType+o.themeDate + "'><span>&nbsp;</span></li>");
+	// 	if ( typeof w._fbox_mktxt[currentTerm] === "function" ) {
+	// 		for ( i = -1 * o.flen[currentTerm]; i < ( o.flen[currentTerm] + 1 ); i++ ) {
+	// 			$( w._spf( "<li class='{cls}'><span>{text}</span></li>", {
+	// 				cls: themeType + (( i !== 0 ) ? o.themeDate : o.themeDatePick),
+	// 				text: w._fbox_mktxt[currentTerm].apply(
+	// 					w,
+	// 					[(currentTerm === "i") ? i * o.minuteStep : i]
+	// 				)
+	// 			})).appendTo( hRowIn );
+	// 		}
+	// 		hRow.appendTo( ctrl );
+	// 	}
+	// 	if ( currentTerm === "a" && w.__("timeFormat") === 12 ) {
+	// 		currentText = $("<li class='" + themeType+o.themeDate + "'><span>&nbsp;</span></li>");
 			
-			tmp = (w.theDate.get(3) > 11) ?
-				[o.themeDate,o.themeDatePick,2,5] :
-				[o.themeDatePick,o.themeDate,2,3];
+	// 		tmp = (w.theDate.get(3) > 11) ?
+	// 			[o.themeDate,o.themeDatePick,2,5] :
+	// 			[o.themeDatePick,o.themeDate,2,3];
 				
-			for ( i = -1 * tmp[2]; i < tmp[3]; i++ ) { 
-				if ( i < 0 || i > 1 ) {
-					currentText.clone().appendTo( hRowIn );
-				} else {
-					$( w._spf( "<li class='{cls}'><span>{text}</span></li>", {
-						cls: themeType + tmp[i],
-						text: w.__( "meridiem" )[i]
-					})).appendTo( hRowIn );
-				}
-			}
-			hRow.appendTo( ctrl );
-		}
-	}
+	// 		for ( i = -1 * tmp[2]; i < tmp[3]; i++ ) { 
+	// 			if ( i < 0 || i > 1 ) {
+	// 				currentText.clone().appendTo( hRowIn );
+	// 			} else {
+	// 				$( w._spf( "<li class='{cls}'><span>{text}</span></li>", {
+	// 					cls: themeType + tmp[i],
+	// 					text: w.__( "meridiem" )[i]
+	// 				})).appendTo( hRowIn );
+	// 			}
+	// 		}
+	// 		hRow.appendTo( ctrl );
+	// 	}
+	// }
 	
-	w.d.intHTML.append( ctrl );
+	// w.d.intHTML.append( ctrl );
 	
-	$("<div>", { "class": uid + "flipcenter ui-overlay-shadow" } )
-		.css( "pointerEvents", "none")
+	_sf.fboxLens()
+		.addClass( "dbLens" )
+		.css( { "pointerEvents" : "none", "position" : "relative" } )
 		.appendTo( w.d.intHTML );
+
+
 	
 	if ( o.useSetButton || o.useClearButton  || o.useCancelButton ||
 			o.useTodayButton || o.useTomorrowButton ) {

@@ -47,8 +47,10 @@ mergeOpts({
 	theme_dbox_PrevBtnIcn : "minus",
 	theme_dbox_PrevBtnCls : "outline-dark",
 
-	theme_fbox_Selected : "success",
-	theme_fbox_Default  : "light",
+	theme_fbox_Selected   : "success",
+	theme_fbox_Default    : "light",
+	theme_fbox_Forbidden  : "danger",
+	theme_fbox_RollHeight : "135px",
 
 	theme_backgroundMask : {
 		position: "fixed",
@@ -206,8 +208,8 @@ JTSageDateBox.styleFunctions = {
 
 		return $(returnVal);
 	},
-	fboxContainer         : function () {
-		return $("<div class='d-flex p-1'>");
+	fboxContainer         : function ( size ) {
+		return $("<div class='d-flex border-top border-bottom m-2' style='height: " + size + "; overflow: hidden'>");
 	},
 	fboxRollerContain     : function () {
 		return $( "<div class='flex-fill'>" );
@@ -216,7 +218,10 @@ JTSageDateBox.styleFunctions = {
 		return $( "<ul class='list-group'>" );
 	},
 	fboxRollerChild       : function ( text, cls ) {
-		return $( "<li class='list-group-item list-group-item-" + cls + "'>" + text + "</li>" )
+		return $( "<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" + text + "</li>" )
+	},
+	fboxLens              : function () {
+		return $( "<div class='p-4 border border-dark shadow mx-1'>" );
 	}
 };
 
