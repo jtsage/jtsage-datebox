@@ -12,8 +12,8 @@
  */
 
 mergeOpts({
-	durationStep: 1,
-	durationSteppers: {"d": 1, "h": 1, "i": 1, "s": 1}
+	durationStep     : 1,
+	durationSteppers : { "d" : 1, "h" : 1, "i" : 1, "s" : 1 }
 });
 
 JTSageDateBox._dbox_run_update = function(shortRun) {
@@ -21,10 +21,10 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 	//
 	// Datebox is different from most modes, it replaints
 	// it's screen, it doesn't rebuild & replace it.
-	var w = this,
-		o = this.options,
-		i = w.theDate.getTime() - w.initDate.getTime(),
-		dur = ( o.mode === "durationbox" ? true : false ),
+	var w    = this,
+		o    = this.options,
+		i    = w.theDate.getTime() - w.initDate.getTime(),
+		dur  = ( o.mode === "durationbox" ? true : false ),
 		cDur = w._dur( i<0 ? 0 : i );
 
 	if ( i < 0 ) {
@@ -69,9 +69,9 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 	w.d.intHTML.find( "input" ).each(function () {
 		switch ( $(this).data( "field" ) ) {
 			case "y":
-				$(this).val(w.theDate.get(0)); break;
+				$(this).val( w.theDate.get(0) ); break;
 			case "m":
-				$(this).val(w.theDate.get(1) + 1); break;
+				$(this).val( w.theDate.get(1) + 1 ); break;
 			case "d":
 				$(this).val( ( dur ? cDur[0] : w.theDate.get(2) ) );
 				break;
@@ -80,29 +80,29 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 					$(this).val(cDur[1]);
 				} else {
 					if ( w.__("timeFormat") === 12 ) {
-						$(this).val(w.theDate.get12hr());
+						$(this).val( w.theDate.get12hr() );
 					} else {
-						$(this).val(w.theDate.get(3)); 
+						$(this).val( w.theDate.get(3) ); 
 					}
 				}
 				break;
 			case "i":
 				if ( dur ) {
-					$(this).val(cDur[2]);
+					$(this).val( cDur[2] );
 				} else {
-					$(this).val(w._zPad(w.theDate.get(4)));
+					$(this).val( w._zPad( w.theDate.get(4) ) );
 				} 
 				break;
 			case "M":
-				$(this).val(w.__("monthsOfYearShort")[w.theDate.get(1)]); break;
+				$(this).val( w.__( "monthsOfYearShort" )[w.theDate.get(1)] ); break;
 			case "a":
-				$(this).val(w.__( "meridiem" )[ (w.theDate.get(3) > 11) ? 1 : 0 ] );
+				$(this).val( w.__( "meridiem" )[ (w.theDate.get(3) > 11) ? 1 : 0 ] );
 				break;
 			case "s":
 				if ( dur ) {
-					$(this).val(cDur[3]);
+					$(this).val( cDur[3] );
 				} else {
-					$(this).val(w._zPad(w.theDate.get(5)));
+					$(this).val( w._zPad( w.theDate.get(5) ) );
 				} 
 				break;
 		}
@@ -151,18 +151,18 @@ JTSageDateBox._dbox_enter = function (item) {
 };
 
 
-JTSageDateBox._build.timebox = function () { this._build.datebox.apply( this, [] ); };
+JTSageDateBox._build.timebox     = function () { this._build.datebox.apply( this, [] ); };
 JTSageDateBox._build.datetimebox = function () { this._build.datebox.apply( this, [] ); };
-JTSageDateBox._build.durationbox =  function () { this._build.datebox.apply( this, [] ); };
+JTSageDateBox._build.durationbox = function () { this._build.datebox.apply( this, [] ); };
 
 JTSageDateBox._build.datebox = function () {
 	var offAmount, i, ctrlWrk,
-		w = this,
-		o = this.options,
-		_sf = this.styleFunctions,
+		w             = this,
+		o             = this.options,
+		_sf           = this.styleFunctions,
 		ctrlContainer = _sf.dboxContainer(),
-		dur = ( o.mode === "durationbox" ? true : false ),
-		defDurOrder = ["d","h","i","s"];
+		dur           = ( o.mode === "durationbox" ? true : false ),
+		defDurOrder   = ["d","h","i","s"];
 	
 	if ( typeof w.d.intHTML !== "boolean" ) {
 		w.d.intHTML.empty().remove();
@@ -223,15 +223,15 @@ JTSageDateBox._build.datebox = function () {
 			w.fldOrder[i],
 			( dur ) ? w.__( "durationLabel" )[ $.inArray( w.fldOrder[i], defDurOrder ) ] : null
 		);
-		ctrlWrk.find("input").data({ 
+		ctrlWrk.find( "input" ).data({ 
 			field: w.fldOrder[i],
 			amount: offAmount
 		});
-		ctrlWrk.find(".dbBoxNext").data({
+		ctrlWrk.find( ".dbBoxNext" ).data({
 			field: w.fldOrder[i],
 			amount: offAmount
 		});
-		ctrlWrk.find(".dbBoxPrev").data({
+		ctrlWrk.find( ".dbBoxPrev" ).data({
 			field: w.fldOrder[i],
 			amount: offAmount * -1
 		});
@@ -239,15 +239,15 @@ JTSageDateBox._build.datebox = function () {
 		ctrlContainer.append( ctrlWrk );
 	}
 
-	ctrlContainer.appendTo(w.d.intHTML);
+	ctrlContainer.appendTo( w.d.intHTML );
 
-	w._dbox_run_update(true);
+	w._dbox_run_update( true );
 
 	if ( 
-			o.useSetButton ||
-			o.useTodayButton ||
+			o.useSetButton      ||
+			o.useTodayButton    ||
 			o.useTomorrowButton ||
-			o.useClearButton ||
+			o.useClearButton    ||
 			o.useCancelButton
 	) {
 		ctrlContainer = _sf.buttonGroup( o.useCollapsedBut );
@@ -255,35 +255,35 @@ JTSageDateBox._build.datebox = function () {
 		if ( o.useSetButton ) {
 			switch (o.mode) {
 				case "timebox" :
-					ctrlWrk = w.__("setTimeButtonLabel"); break;
+					ctrlWrk = w.__( "setTimeButtonLabel" ); break;
 				case "durationbox" :
-					ctrlWrk = w.__("setDurationButtonLabel"); break;
+					ctrlWrk = w.__( "setDurationButtonLabel" ); break;
 				case "datebox":
 				case "datetimebox":
-					ctrlWrk = w.__("setDateButtonLabel"); break;
+					ctrlWrk = w.__( "setDateButtonLabel" ); break;
 			}
 			w.setBut = w._stdBtn.close.apply( w, [ ctrlWrk ] );
 			w.setBut.appendTo( ctrlContainer );
 		}
 
 		if ( o.useTodayButton ) {
-			ctrlContainer.append(w._stdBtn.today.apply(w));
+			ctrlContainer.append( w._stdBtn.today.apply( w ) );
 		}
 		if ( o.useTomorrowButton ) {
-			ctrlContainer.append(w._stdBtn.tomorrow.apply(w));
+			ctrlContainer.append( w._stdBtn.tomorrow.apply( w ) );
 		}
 		if ( o.useClearButton ) {
-			ctrlContainer.append(w._stdBtn.clear.apply(w));
+			ctrlContainer.append( w._stdBtn.clear.apply( w ) );
 		}
 		if ( o.useCancelButton ) {
-			ctrlContainer.append(w._stdBtn.cancel.apply(w));
+			ctrlContainer.append( w._stdBtn.cancel.apply( w ) );
 		}
 
 		ctrlContainer.appendTo( w.d.intHTML );
 	}
 
 	w.d.intHTML
-		.on( "change", "input", function() { w._dbox_enter( $( this ) ); })
+		.on( "change",   "input", function()  { w._dbox_enter( $( this ) ); })
 		.on( "keypress", "input", function(e) {
 			if ( e.which === 13 && w.dateOK === true ) {
 				w._dbox_enter( $( this ) );
@@ -302,7 +302,7 @@ JTSageDateBox._build.datebox = function () {
 				( ( d < 0 ) ? -1 : 1 ) * $( this ).data( "amount" )
 			);
 		})
-		.on(o.clickEvent, ".dbBoxPrev, .dbBoxNext", function(e) {
+		.on( o.clickEvent, ".dbBoxPrev, .dbBoxNext", function(e) {
 			w.d.intHTML.find( ":focus" ).blur();
 			e.preventDefault();
 			w._offset(
