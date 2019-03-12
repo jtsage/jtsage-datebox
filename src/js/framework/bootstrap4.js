@@ -47,6 +47,9 @@ mergeOpts({
 	theme_dbox_PrevBtnIcn : "minus",
 	theme_dbox_PrevBtnCls : "outline-dark",
 
+	theme_fbox_Selected : "success",
+	theme_fbox_Default  : "light",
+
 	theme_backgroundMask : {
 		position: "fixed",
 		left: 0,
