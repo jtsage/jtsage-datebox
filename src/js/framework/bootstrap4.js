@@ -63,11 +63,6 @@ mergeOpts({
 	theme_headStyle : false,
 
 	disabledState  : "disabled",
-	buttonIconDate : "calendar",
-	buttonIconTime : "clock-o fa-clock",
-
-	btnCls: " btn btn-sm btn-outline-",
-	icnCls: " fa fa-",
 
 	clickEvent: "click",
 	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
