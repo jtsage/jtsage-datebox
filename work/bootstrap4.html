@@ -41,28 +41,26 @@
 	<script type="text/javascript" src="../src/js/framework/bootstrap4.js"></script>
 
 	<script type="text/javascript" src="../src/js/modes/datebox.js"></script>
-	<script type="text/javascript" src="../src/js/modes/flipbox.js"></script>
+	<script type="text/javascript" src="../src/js/modes/flipboxnew.js"></script>
 	<script type="text/javascript" src="../src/js/modes/calbox.js"></script>
 	<script type="text/javascript" src="../src/js/modes/slidebox.js"></script>
 
 	<script type="text/javascript" src="../src/js/widgetBinding.js"></script>
 	<script type="text/javascript" src="../src/js/autoInit.js"></script>
 
-
-	<script type="text/javascript" src="./jqm-datebox-devtool.js"></script>
 	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
 	
 	<script type="text/javascript">
 		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
 			/* Mode */
-			mode : "calbox",
+			mode : "flipbox",
 
 			/* Display */
 			// displayMode : "inline",
-			// hideInput : true,
+			// hideInput   : true,
 
 			// displayDropdownPosition : "top-left",
-			// displayInlinePosition : "left",
+			// displayInlinePosition   : "left",
 
 			// defaultValue : new Date(2001, 0, 1),
 
@@ -71,8 +69,8 @@
 
 			/* Input control */
 			// showInitialValue : true,
-			// useImmediate : true,
-			// useFocus : true,
+			// useImmediate     : true,
+			// useFocus         : true,
 
 			// lockInput : true,
 			// useButton : false,
@@ -84,38 +82,38 @@
 
 			/* Callbacks */
 			// beforeOpenCallbackArgs : [ "hi", "bye"],
-			// beforeOpenCallback : function(a, b) { console.log(a); console.log(b); return true;},,
+			// beforeOpenCallback     : function(a, b) { console.log(a); console.log(b); return true;},,
 
 			// closeCallbackArgs : [ "hi", "bye"],
-			// closeCallback : function(a, b) { console.log(a); console.log(b); },,
+			// closeCallback     : function(a, b) { console.log(a); console.log(b); },,
 
 			// openCallbackArgs : [ "hi", "bye"],
-			// openCallback : function(a, b) { console.log(a); console.log(b); },,
+			// openCallback     : function(a, b) { console.log(a); console.log(b); },,
 
 			// calBeforeAppendFunc : function( myObject ) { console.log( myObject.dateObj ); return myObject; },
 			// calFormatter : function( date )  { return ( date.get(2) < 10 ) ? "<span style='color:red'>" + date.get(2) + "</span>" : date.get(2); },
 
 
 			/* Limits */
-			// blackDates : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// blackDates    : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
 			// blackDatesRec : [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ],
-			// blackDays : [ 0, 6 ],
+			// blackDays     : [ 0, 6 ],
 
 			// enableDates : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
-			// validHours : [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ],
-			// whiteDates : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// validHours  : [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ],
+			// whiteDates  : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
 
 			// highDatesAlt : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
-			// highDates : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// highDates    : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
 			// highDatesRec : [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ],
-			// highDays : [ 0, 6 ],
+			// highDays     : [ 0, 6 ],
 
-			// calDateList : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			// calDateList     : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
 			// calShowDateList : true,
 
-			// afterToday : true,
+			// afterToday  : true,
 			// beforeToday : true,
-			// notToday : true,
+			// notToday    : true,
 
 			// minDays : 10,
 			// maxDays : 10,
@@ -134,29 +132,29 @@
 
 			/* CSS */
 			// breakpointWidth : "600px",
-			// controlWidth : "290px",
+			// controlWidth    : "290px",
 
 
 			/* calbox Mode */
 			// calHighOutOfBounds : false,
-			// calHighPick : false,
-			// calHighToday : false,,
-			// calNoHeader : true,
-			// calOnlyMonth : true,
-			// calShowDays : false,
-			// calShowWeek : true,
+			// calHighPick        : false,
+			// calHighToday       : false,,
+			// calNoHeader        : true,
+			// calOnlyMonth       : true,
+			// calShowDays        : false,
+			// calShowWeek        : true,
 
 			// overrideCalStartDay : 1,
 
-			// calUsePickers : true,
-			// calYearPickMax : 2050,
-			// calYearPickMin : 1950,
+			// calUsePickers       : true,
+			// calYearPickMax      : 2050,
+			// calYearPickMin      : 1950,
 			// calYearPickRelative : false,
 
 
 			/* Steppers */
 			// durationStep : 2,
-			// minuteStep : 2,
+			// minuteStep   : 2,
 
 
 			/* flipBox Mode */
@@ -164,14 +162,14 @@
 
 
 			/* Control Buttons */
-			// closeTodayButton : true,
+			// closeTodayButton    : true,
 			// closeTomorrowButton : true,
-			useCancelButton : true,
-			useClearButton : true,
-			// useSetButton : false,
-			useTodayButton : true,
-			useTomorrowButton : true,
-			useCollapsedBut : true,
+			useCancelButton     : true,
+			useClearButton      : true,
+			// useSetButton        : false,
+			useTodayButton      : true,
+			useTomorrowButton   : true,
+			useCollapsedBut     : true,
 		});
 	</script>
 	

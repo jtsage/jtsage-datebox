@@ -69,7 +69,7 @@ mergeOpts({
 });
 
 JTSageDateBox.styleFunctions = {
-	button: function( themeClass, iconClass, contents ) {
+	button                : function( themeClass, iconClass, contents ) {
 		var retty;
 
 		retty  = "<a href='#' role='button' class='btn btn-sm btn-" + themeClass + "'>";
@@ -77,61 +77,61 @@ JTSageDateBox.styleFunctions = {
 		retty += contents + "</a>";
 		return retty;
 	},
-	buttonGroup: function ( collapse) {
+	buttonGroup           : function ( collapse) {
 		var cls = ( collapse === true ) ? "btn-group" : "btn-group-vertical";
 
 		return $("<div class='" + cls + " w-100 p-1'>");
 	},
-	baseInputWrap: function ( originalInput ) { 
+	baseInputWrap         : function ( originalInput ) { 
 		/* Set up a wrap around the input for styling, and return it */
 		return originalInput.wrap("<div class='input-group'>").parent();
 	},
-	baseInputButton: function ( iconClass, title ) {
+	baseInputButton       : function ( iconClass, title ) {
 		return "<div class='input-group-append' title='" + title + "'>" +
 			"<div class='input-group-text'>" + 
 			"<span class='fa fa-" + iconClass + "'></span>" + 
 			"</div></div>";
 	},
-	baseInputButtonFinder: function ( originalInputWrap ) {
+	baseInputButtonFinder : function ( originalInputWrap ) {
 		return originalInputWrap.find(".input-group-append");
 	},
-	baseInputNoButton: function ( originalInputWrap ) {
+	baseInputNoButton     : function ( originalInputWrap ) {
 		originalInputWrap.addClass( "w-100" );
 	},
-	focusInput: function ( originalInput ) {
+	focusInput            : function ( originalInput ) {
 		originalInput.addClass( "ui-focus" );
 	},
-	blurInput: function ( originalInput ) {
+	blurInput             : function ( originalInput ) {
 		originalInput.removeClass( "ui-focus" );
 	},
-	widgetHeader: function ( text, themeBar, themeIcon, iconClass ) {
+	widgetHeader          : function ( text, themeBar, themeIcon, iconClass ) {
 		return "<div class='navbar " + themeBar + "'>" + 
 			"<h5 class='text-white'>" + text + "</h5>" + 
 			this.button( themeIcon + " closer", iconClass, "") + "</div>";
 	},
-	intHeader: function ( text ) {
+	intHeader             : function ( text ) {
 		return $(
 			"<div class='my-2 text-center dbHeader'>" +
 			"<h5>" + text + "</h5>" +
 			"</div>"
 		);
 	},
-	calHeader: function ( text, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
+	calHeader             : function ( txt, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
 		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
 
 		$( this.button(firstBtnCls + " mx-2 dbCalPrev", firstBtnIcn, "") ).appendTo( returnVal );
-		$("<h5>" + text + "</h5>").appendTo( returnVal );
+		$("<h5>" + txt + "</h5>").appendTo( returnVal );
 		$( this.button(secondBtnCls + " mx-2 dbCalNext", secondBtnIcn, "") ).appendTo( returnVal );
 
 		return returnVal;
 	},
-	calGrid: function () {
+	calGrid               : function () {
 		return $( "<div class='w-100 p-1'><table class='dbCalGrid w-100'></table></div>" );
 	},
-	calRow: function () {
+	calRow                : function () {
 		return $( "<tr>" );
 	},
-	calButton: function ( data, totalElements ) {
+	calButton             : function ( data, totalElements ) {
 		var style = ( totalElements !== undefined ?
 				" style='width: " + ( 100 / totalElements ) + "%'" :
 				""
@@ -145,7 +145,7 @@ JTSageDateBox.styleFunctions = {
 			data.displayText + 
 			"</a>" + "</td>");
 	},
-	calNonButton: function ( text, header, totalElements ) {
+	calNonButton          : function ( text, header, totalElements ) {
 		var style = ( totalElements !== undefined ?
 				" style='width: " + ( 100 / totalElements ) + "%'" :
 				""
@@ -154,7 +154,7 @@ JTSageDateBox.styleFunctions = {
 
 		return $("<td class='m-0 p-0 text-center" + cls + "'" + style + ">" + text + "</td>");
 	},
-	calPickers: function ( ranges ) {
+	calPickers            : function ( ranges ) {
 		var returnVal = "";
 
 		returnVal += "<div class='row my-2 mx-1'>";
@@ -171,7 +171,7 @@ JTSageDateBox.styleFunctions = {
 
 		return $(returnVal);
 	},
-	calDateList: function ( listLabel, list ) {
+	calDateList           : function ( listLabel, list ) {
 		var returnVal = "";
 
 		list.unshift([false, listLabel, true]);
@@ -182,10 +182,10 @@ JTSageDateBox.styleFunctions = {
 
 		return $(returnVal);
 	},
-	dboxContainer: function () {
+	dboxContainer         : function () {
 		return $("<div class='d-flex p-1'>");
 	},
-	dboxControl: function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label ) {
+	dboxControl           : function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label ) {
 		var returnVal = "";
 
 		returnVal += "<div class='btn-group-vertical flex-fill dbBox" + mainCls + "'>";
@@ -202,8 +202,19 @@ JTSageDateBox.styleFunctions = {
 		returnVal += "</div>";
 
 		return $(returnVal);
+	},
+	fboxContainer         : function () {
+		return $("<div class='d-flex p-1'>");
+	},
+	fboxRollerContain     : function () {
+		return $( "<div class='flex-fill'>" );
+	},
+	fboxRollerParent      : function () {
+		return $( "<ul class='list-group'>" );
+	},
+	fboxRollerChild       : function ( text, cls ) {
+		return $( "<li class='list-group-item list-group-item-" + cls + "'>" + text + "</li>" )
 	}
-
 };
 
 

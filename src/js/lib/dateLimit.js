@@ -264,6 +264,28 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 	return returnObject;
 };
 
+JTSageDateBox._getCleanDur = function() {
+	var w            = this,
+		o            = this,
+		thisDuration = w.theDate.getEpoch() - w.initDate.getEpoch();
+
+	// Check for less than zero.
+	thisDuration = ( thisDuration < 0 ) ? 1 : thisDuration;
+
+	if ( o.minDur !== false && thisDuration < o.minDur ) {
+		w.theDate = new Date( w.initDate.getTime() + ( o.minDur * 1000 ) );
+		thisDuration = o.minDur;
+	}
+	if ( o.maxDur !== false && thisDuration > o.maxDur ) {
+		w.theDate = new Date( w.initDate.getTime() + ( o.maxDur * 1000 ) );
+		thisDuration = o.maxDur;
+	}
+
+	w.lastDuration = thisDuration;
+
+	return [ thisDuration, w._dur( thisDuration * 1000 ) ];
+}
+
 JTSageDateBox._check = function() {
 	// Check to see if a date is valid. (Old way, left as a shim)
 	var checkObj = this._newDateChecker( this.theDate );

@@ -87,9 +87,63 @@ JTSageDateBox._fbox_series = function (middle, side, type, neg) {
 	}
 	return ret;
 };
+JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
+	// Returns an array [ text, value ]
+	var i,
+		w          = this,
+		o          = this.options,
+		finder     = [],
+		current    = 0,
+		total      = 0,
+		safeOffset = null,
+		testDate;
+
+	switch ( term ) {
+		case "y" :
+			// No hard math.
+			return w.theDate.get(0) + offset;
+		case "m" :
+			testDate = ( w.theDate.copy( [0], [0,0,1] ) ).adj( 1, i );
+			return w.__("monthsOfYearShort")[ testDate.get(1) ];
+		case "d" :
+			if ( o.rolloverMode.d === false ) {
+				total = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
+				current = w.theDate.get(3);
+
+				for ( i = 0; i < total; i++ ) {
+					if ( i + current > total ) {
+						finder.push( i + current - total);
+					} else {
+						finder.push( i + current );
+					}
+				}
+
+				safeOffset = offset % total;
+
+				if ( safeOffset < 0 ) {
+					return finder[ finder.length + safeOffset ];
+				} else {
+					return finder[ safeOffset ];
+				}
+			} else {
+				return w.theDate.copy( [ 0, 0, offset ]).get(2);
+			} break;
+		case "h" :
+			testDate = w.theDate.copy( [0,0,0,i] );
+			return ( ( w.__("timeFormat") === 12 ) ? testDate.get12hr() : testDate.get(3) );
+		case "i" :
+			return w._zPad( ( w.theDate.copy( [0,0,0,0,i] )).get(4) );
+		case "s" :
+			return w._zPad( ( w.theDate.copy( [0,0,0,0,0,i] )).get(5) );
+		case "a" :
+			return w.__("meridiem")[ ( ( w.theDate.get(3) < 12 ) ? 0 : 1 ) ];
+	}
+};
 
 JTSageDateBox._fbox_mktxt = {
 	// Create the year, month, date, hour, and minute reels
+
+	/// DEAD!!
 	y: function(i) {
 		return this.theDate.get(0) + i;
 	},
@@ -144,9 +198,25 @@ JTSageDateBox._build.durationflipbox = function() { this._build.flipbox.apply( t
 
 JTSageDateBox._build.flipbox = function () {
 	var i, y, hRow, tmp, hRowIn, stdPos, controlButtons,
+
 		w = this,
 		o = this.options,
 		g = this.drag,
+		_sf               = this.styleFunctions,
+		thisField, 
+		cntlFieldIdx,
+		cntlCol,
+		cntlRow,
+		flipContent = _sf.fboxContainer(),
+		cntlContain = "",
+		cntlRoller = "",
+
+
+
+		dur = ( o.mode === "durationflipbox" ? true : false ),
+
+		currentDuration  = w._getCleanDur(),
+
 		cDurS = {},
 		normDurPositions = ["d", "h", "i", "s"],
 		dur = ( o.mode === "durationflipbox" ? true : false ),
@@ -159,15 +229,16 @@ JTSageDateBox._build.flipbox = function () {
 		cDur = w._dur( ti<0 ? 0 : ti ),
 		currentTerm, currentText;
 
-	switch ( w.baseMode ) {
-		case "jqm":
-			themeType = "ui-body-"; break;
-		case "bootstrap":
-			themeType = "bg-"; break;
-		case "bootstrap4":
-			themeType = "p-0 m-0 btn btn-block btn-outline-"; break;
-	}
+	// switch ( w.baseMode ) {
+	// 	case "jqm":
+	// 		themeType = "ui-body-"; break;
+	// 	case "bootstrap":
+	// 		themeType = "bg-"; break;
+	// 	case "bootstrap4":
+	// 		themeType = "p-0 m-0 btn btn-block btn-outline-"; break;
+	// }
 
+	// Check for duration less that 0 seconds (impossible)
 	if ( ti < 0 ) {
 		w.lastDuration = 0;
 		if ( dur ) { w.theDate.setTime( w.initDate.getTime() ); }
@@ -214,97 +285,108 @@ JTSageDateBox._build.flipbox = function () {
 			break;
 	}
 
-	if ( w.baseMode === "bootstrap4" && w.fldOrder.length > 6 ) {
-		themeType = "btn-sm " + themeType;
-	}
+	// if ( w.baseMode === "bootstrap4" && w.fldOrder.length > 6 ) {
+	// 	themeType = "btn-sm " + themeType;
+	// }
 			
 	if ( !dur ) {
 		w._check();
 		w._minStepFix();
 	} else {
-		if ( o.minDur !== false &&
-				( w.theDate.getEpoch() - w.initDate.getEpoch() ) < o.minDur ) {
-			w.theDate = new Date( w.initDate.getTime() + ( o.minDur * 1000 ) );
-			w.lastDuration = o.minDur;
-			cDur = w._dur( o.minDur * 1000 );
-		}
-		if ( o.maxDur !== false &&
-				( w.theDate.getEpoch() - w.initDate.getEpoch() ) > o.maxDur ) {
-			w.theDate = new Date( w.initDate.getTime() + ( o.maxDur * 1000 ) );
-			w.lastDuration = o.maxDur;
-			cDur = w._dur( o.maxDur * 1000 );
-		}
+		w.dateOK = true;
+		w._fixstepper( w.fldOrder );
 	}
 
 	if ( o.mode === "flipbox" || o.mode === "datetimeflipbox" ) { 
-		tmp = ( w.baseMode === "bootstrap4" ) ? "h6" : "h4";
-		$( w._spf("<div class='{cls}'><" + tmp + ">{text}</" + tmp + "></div>", {
-			cls: uid + "header text-center",
-			text: w._formatter( w.__( "headerFormat"), w.theDate )
-		})).appendTo(w.d.intHTML); 
+		_sf.intHeader( w._formatter( w.__( "headerFormat" ), w.theDate ) )
+			.appendTo( w.d.intHTML );
 	}
 	
-	if ( dur ) {
-		w._fixstepper(w.fldOrder);
+	// if ( dur ) {
+	// 	w._fixstepper(w.fldOrder);
 		
-		tmp = $( w._spf("<div class='{cls}'></div>", {
-			cls: uid + "header" +
-				" ui-grid-" + ["a","b","c","d","e"][w.fldOrder.length - 2] +
-				" row"
-		}));
+	// 	tmp = $( w._spf("<div class='{cls}'></div>", {
+	// 		cls: uid + "header" +
+	// 			" ui-grid-" + ["a","b","c","d","e"][w.fldOrder.length - 2] +
+	// 			" row"
+	// 	}));
 		
-		for ( y = 0; y < w.fldOrder.length; y++ ) {
-			$( w._spf("<div class='{cls}'>{text}</div>", {
-				text: w.__( "durationLabel" )[$.inArray( w.fldOrder[y], normDurPositions )],
-				cls: uid + "fliplab" +
-					" ui-block-" + ["a","b","c","d","e"][y] +
-					" col-xs-" + 12/w.fldOrder.length
-			})).appendTo(tmp);
-		}
-		tmp.appendTo(w.d.intHTML);
+	// 	for ( y = 0; y < w.fldOrder.length; y++ ) {
+	// 		$( w._spf("<div class='{cls}'>{text}</div>", {
+	// 			text: w.__( "durationLabel" )[$.inArray( w.fldOrder[y], normDurPositions )],
+	// 			cls: uid + "fliplab" +
+	// 				" ui-block-" + ["a","b","c","d","e"][y] +
+	// 				" col-xs-" + 12/w.fldOrder.length
+	// 		})).appendTo(tmp);
+	// 	}
+	// 	tmp.appendTo(w.d.intHTML);
 
-		ctrl.addClass( uidfc + "d" );
+	// 	ctrl.addClass( uidfc + "d" );
 		
-		w.dateOK = true;
-		cDurS.d = w._fbox_series(cDur[0],64,"d",false);
-		cDurS.h = w._fbox_series(cDur[1],64,"h",(cDur[0]>0));
-		cDurS.i = w._fbox_series(cDur[2],60,"i",(cDur[0]>0 || cDur[1]>0));
-		cDurS.s = w._fbox_series(cDur[3],60,"s",(cDur[0]>0 || cDur[1]>0 || cDur[2]>0));
+	// 	w.dateOK = true;
+	// 	cDurS.d = w._fbox_series(cDur[0],64,"d",false);
+	// 	cDurS.h = w._fbox_series(cDur[1],64,"h",(cDur[0]>0));
+	// 	cDurS.i = w._fbox_series(cDur[2],60,"i",(cDur[0]>0 || cDur[1]>0));
+	// 	cDurS.s = w._fbox_series(cDur[3],60,"s",(cDur[0]>0 || cDur[1]>0 || cDur[2]>0));
 		
-		for ( y = 0; y < w.fldOrder.length; y++ ) {
-			stdPos = w.fldOrder[ y ];
-			currentTerm = cDur[ $.inArray( stdPos, normDurPositions ) ];
+	// 	for ( y = 0; y < w.fldOrder.length; y++ ) {
+	// 		stdPos = w.fldOrder[ y ];
+	// 		currentTerm = cDur[ $.inArray( stdPos, normDurPositions ) ];
 
-			hRow = flipBase.clone().data({
-				"field": stdPos,
-				"amount": o.durationSteppers[ stdPos ]
-			});
-			hRowIn = hRow.find( "ul" );
+	// 		hRow = flipBase.clone().data({
+	// 			"field": stdPos,
+	// 			"amount": o.durationSteppers[ stdPos ]
+	// 		});
+	// 		hRowIn = hRow.find( "ul" );
 
-			for ( i in cDurS[ stdPos ] ) {
-				$( w._spf( "<li class='{cls}'><span>{text}</span></li>", {
-					text: cDurS[ stdPos ][ i ][ 0 ],
-					cls: themeType + ((cDurS[ stdPos ][ i ][ 1 ] !== currentTerm ) ?
-						o.themeDate :
-						o.themeDatePick
-					)
-				})).appendTo( hRowIn );
-			}
-			hRow.appendTo(ctrl);
+	// 		for ( i in cDurS[ stdPos ] ) {
+	// 			$( w._spf( "<li class='{cls}'><span>{text}</span></li>", {
+	// 				text: cDurS[ stdPos ][ i ][ 0 ],
+	// 				cls: themeType + ((cDurS[ stdPos ][ i ][ 1 ] !== currentTerm ) ?
+	// 					o.themeDate :
+	// 					o.themeDatePick
+	// 				)
+	// 			})).appendTo( hRowIn );
+	// 		}
+	// 		hRow.appendTo(ctrl);
+	// 	}
+	// } else {
+	// 	switch ( w.fldOrder.length ) {
+	// 		case 4:
+	// 			ctrl.addClass( uidfc + "d" ); break;
+	// 		case 5:
+	// 			ctrl.addClass( uidfc + "e" ); break;
+	// 		case 6:
+	// 			ctrl.addClass( uidfc + "f" ); break;
+	// 		case 7:
+	// 			ctrl.addClass( uidfc + "g" ); break;
+	// 	}
+	// }
+
+	for ( cntlFieldIdx = 0; cntlFieldIdx < w.fldOrder.length; cntlFieldIdx++ ) {
+		thisField = w.fldOrder[ cntlFieldIdx ];
+
+		cntlContain = _sf.fboxRollerContain();
+		cntlRoller  = _sf.fboxRollerParent();
+
+		cntlContain.data({
+			field  : thisField,
+			amount : ( dur ) ? 
+				o.durationSteppers[ stdPos ] :
+				( ( currentTerm === "i" ) ? o.minuteStep : 1 )
+		});
+
+		for ( cntlRow = -1 * o.flen[thisField]; cntlRow < ( o.flen[currentTerm] + 1 ); cntlRow++ ) {
+			cntlRoller.append( _sf.fboxRollerChild( 
+				w._fbox_do_roll_math( thisField ),
+				( cntlRow === 0 ) ? o.theme_fbox_Selected : o.theme_fbox_Default
+			) );
 		}
-	} else {
-		switch ( w.fldOrder.length ) {
-			case 4:
-				ctrl.addClass( uidfc + "d" ); break;
-			case 5:
-				ctrl.addClass( uidfc + "e" ); break;
-			case 6:
-				ctrl.addClass( uidfc + "f" ); break;
-			case 7:
-				ctrl.addClass( uidfc + "g" ); break;
-		}
+
+		console.log(cntlRoller);
+		cntlRoller.appendTo(cntlContain);
+
 	}
-
 	for ( y=0; ( y < w.fldOrder.length && !dur ); y++ ) {
 		currentTerm = w.fldOrder[y];
 		
