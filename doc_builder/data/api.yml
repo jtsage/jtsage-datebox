@@ -833,6 +833,17 @@ opts :
     optdemo : false
     sample  : false
 
+  disabledState :
+    short   : Disabled Class
+    long    : Class to add to disabled buttons
+    modes   : *modeAll
+    cat     : Theme
+    default : "disabled"
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+
   displayMode :
     short   : Open method to use
     long    : |
