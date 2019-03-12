@@ -2048,6 +2048,62 @@ opts :
     optdemo : true
     sample  : false
 
+  theme_fbox_Selected :
+    short   : Selected Date theme
+    long    : Theme class added to the selected date
+    modes   :
+      - flipbox
+      - timeflipbox
+      - datetimeflipbox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "success"
+    optdemo : true
+    sample  : false
+
+  theme_fbox_Default : 
+    short   : Default Date theme
+    long    : Theme class added to all dates (unless something else applys)
+    modes   :
+      - flipbox
+      - timeflipbox
+      - datetimeflipbox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "light"
+    optdemo : true
+    sample  : false
+
+  theme_fbox_Forbidden : 
+    short   : Invalid Date theme
+    long    : Theme class added to the invalid dates
+    modes   :
+      - flipbox
+      - timeflipbox
+      - datetimeflipbox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "danger"
+    optdemo : true
+    sample  : false
+
+  theme_fbox_RollHeight : 
+    short   : Roller view height
+    long    : Height of the roller element in the control
+    modes   :
+      - flipbox
+      - timeflipbox
+      - datetimeflipbox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "135px"
+    optdemo : true
+    sample  : false
+
   theme_backgroundMask :
     short   : Modal and Dropdown background mask
     long    : CSS style string used for the modal and dropdown method displays.

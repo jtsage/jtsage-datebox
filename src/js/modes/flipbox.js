@@ -113,30 +113,6 @@ JTSageDateBox._fbox_do_dur_math = function ( term, offset, position ) {
 	}
 };
 
-JTSageDateBox._fbox_series = function (middle, side, type, neg) {
-	// This builds the series that duration uses.
-	var nxt, prv,
-		o = this.options,
-		maxval = ( type === "h" ) ? 24 : 60,
-		ret = [ [ middle.toString(), middle ] ];
-	 
-	for ( var i = 1; i <= side; i++ ) {
-		nxt = middle + ( i * o.durationSteppers[type] );
-		prv = middle - ( i * o.durationSteppers[type] );
-		ret.unshift([nxt.toString(), nxt]);
-		if ( prv > -1 ) {
-			ret.push([prv.toString(), prv]);
-		} else {
-			if ( neg ) {
-				ret.push([(maxval+prv).toString(),prv]);
-			} else {
-				ret.push(["",-1]);
-			}
-		}
-	}
-	return ret;
-};
-
 JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
 	// Returns an array [ text, value ]
 	var i,
@@ -199,11 +175,11 @@ JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
 
 
 // Really, timeflipbox and durationflipbox are just aliases
-JTSageDateBox._build.timeflipbox     = function() { this._build.flipbox.apply( this ); };
-JTSageDateBox._build.datetimeflipbox = function() { this._build.flipbox.apply( this ); };
-JTSageDateBox._build.durationflipbox = function() { this._build.flipbox.apply( this ); };
+JTSageDateBox._build.timeflipbox     = function () { this._build.flipbox.apply( this ); };
+JTSageDateBox._build.datetimeflipbox = function () { this._build.flipbox.apply( this ); };
+JTSageDateBox._build.durationflipbox = function () { this._build.flipbox.apply( this ); };
 
-JTSageDateBox._build.flipbox = function () {
+JTSageDateBox._build.flipbox         = function () {
 	var thisField, cntlFieldIdx, cntlRow, cntlWrk,
 		w           = this,
 		o           = this.options,
@@ -269,15 +245,15 @@ JTSageDateBox._build.flipbox = function () {
 	}
 
 	if ( dur ) {
-		cntlContain = _sf.fboxDurLabels()
+		cntlContain = _sf.fboxDurLabels();
 		for ( cntlFieldIdx = 0; cntlFieldIdx < w.fldOrder.length; cntlFieldIdx++ ) {
 			thisField = w.fldOrder[ cntlFieldIdx ];
 			cntlContain.append( _sf.fboxDurLabel( 
-				w.__("durationLabel")[$.inArray( thisField, ["d","h","i","s"] ) ],
+				w.__( "durationLabel" )[ $.inArray( thisField, ["d","h","i","s"] ) ],
 				w.fldOrder.length
 			) );
 		}
-		w.d.intHTML.append(cntlContain);
+		w.d.intHTML.append( cntlContain );
 	}
 
 	for ( cntlFieldIdx = 0; cntlFieldIdx < w.fldOrder.length; cntlFieldIdx++ ) {
@@ -312,9 +288,9 @@ JTSageDateBox._build.flipbox = function () {
 			}
 		}
 
-		cntlContain.append(cntlRoller);
+		cntlContain.append( cntlRoller );
 
-		flipContent.append(cntlContain);
+		flipContent.append( cntlContain );
 
 	}
 
@@ -392,16 +368,16 @@ JTSageDateBox._build.flipbox = function () {
 	});
 };
 
-JTSageDateBox._drag.timeflipbox     = function() { this._drag.flipbox.apply( this ); };
-JTSageDateBox._drag.datetimeflipbox = function() { this._drag.flipbox.apply( this ); };
-JTSageDateBox._drag.durationflipbox = function() { this._drag.flipbox.apply( this ); };
+JTSageDateBox._drag.timeflipbox     = function () { this._drag.flipbox.apply( this ); };
+JTSageDateBox._drag.datetimeflipbox = function () { this._drag.flipbox.apply( this ); };
+JTSageDateBox._drag.durationflipbox = function () { this._drag.flipbox.apply( this ); };
 
-JTSageDateBox._drag.flipbox = function() {
+JTSageDateBox._drag.flipbox          = function () {
 	var w = this,
 		o = this.options,
 		g = this.drag;
 	
-	$(document).on(g.eMove, function(e) {
+	$( document ).on( g.eMove, function(e) {
 		if ( g.move && o.mode.slice(-7) === "flipbox" ) {
 			g.end = ( e.type.substr(0,5) === "touch" ) ? 
 				e.originalEvent.changedTouches[0].pageY : 
@@ -418,7 +394,7 @@ JTSageDateBox._drag.flipbox = function() {
 		}
 	});
 	
-	$(document).on(g.eEnd, function(e) {
+	$( document ).on( g.eEnd, function(e) {
 		var eachItem, delta, currentPosition, goodPosition, totalMove, numberFull, goodGuess;
 		if ( g.move && o.mode.slice(-7) === "flipbox" ) {
 			if ( ( g.velocity < 15 && g.velocity > -15 ) || !o.useKinetic )  {
