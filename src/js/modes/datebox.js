@@ -21,32 +21,11 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 	//
 	// Datebox is different from most modes, it replaints
 	// it's screen, it doesn't rebuild & replace it.
-	var w    = this,
-		o    = this.options,
-		i    = w.theDate.getTime() - w.initDate.getTime(),
-		dur  = ( o.mode === "durationbox" ? true : false ),
-		cDur = w._dur( i<0 ? 0 : i );
+	var w   = this,
+		o   = this.options,
+		dur = ( o.mode === "durationbox" ? true : false );
 
-	if ( i < 0 ) {
-		w.lastDuration = 0;
-		if ( dur ) { w.theDate.setTime( w.initDate.getTime() ); }
-	}
-	
-	if ( dur ) {
-		w.lastDuration = i / 1000;
-		if ( o.minDur !== false &&
-				( w.theDate.getEpoch() - w.initDate.getEpoch() ) < o.minDur ) {
-			w.theDate = new Date( w.initDate.getTime() + ( o.minDur * 1000 ) );
-			w.lastDuration = o.minDur;
-			cDur = w._dur( o.minDur * 1000 );
-		}
-		if ( o.maxDur !== false &&
-				( w.theDate.getEpoch() - w.initDate.getEpoch() ) > o.maxDur ) {
-			w.theDate = new Date( w.initDate.getTime() + ( o.maxDur * 1000 ) );
-			w.lastDuration = o.maxDur;
-			cDur = w._dur( o.maxDur * 1000 );
-		}
-	}
+	if ( dur ) { w._getCleanDur() ; }
 		
 	if ( shortRun !== true && dur !== true ) {
 		w._check();
@@ -73,11 +52,11 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 			case "m":
 				$(this).val( w.theDate.get(1) + 1 ); break;
 			case "d":
-				$(this).val( ( dur ? cDur[0] : w.theDate.get(2) ) );
+				$(this).val( ( dur ? w.lastDurationA[0] : w.theDate.get(2) ) );
 				break;
 			case "h":
 				if ( dur ) {
-					$(this).val(cDur[1]);
+					$(this).val(w.lastDurationA[1]);
 				} else {
 					if ( w.__("timeFormat") === 12 ) {
 						$(this).val( w.theDate.get12hr() );
@@ -88,7 +67,7 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 				break;
 			case "i":
 				if ( dur ) {
-					$(this).val( cDur[2] );
+					$(this).val( w.lastDurationA[2] );
 				} else {
 					$(this).val( w._zPad( w.theDate.get(4) ) );
 				} 
@@ -100,7 +79,7 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 				break;
 			case "s":
 				if ( dur ) {
-					$(this).val( cDur[3] );
+					$(this).val( w.lastDurationA[3] );
 				} else {
 					$(this).val( w._zPad( w.theDate.get(5) ) );
 				} 
