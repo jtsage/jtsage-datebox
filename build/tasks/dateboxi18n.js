@@ -3,11 +3,11 @@
 module.exports = function(grunt) {
 	"use strict";
 	
-	var alllang = {},
-		fs = require("fs"),
-		Gettext = require("node-gettext"),
+	var alllang       = {},
+		fs            = require("fs"),
+		Gettext       = require("node-gettext"),
 		gettextParser = require("gettext-parser"),
-		gt = new Gettext(),
+		gt            = new Gettext(),
 	
 		_ = function(a,b) {
 			return gt.dgettext(a,b);
@@ -33,12 +33,12 @@ module.exports = function(grunt) {
 		},
 		makeLang = function(l) {
 			return {
-				setDateButtonLabel: _(l, "Set Date"),
-				setTimeButtonLabel: _(l, "Set Time"),
-				setDurationButtonLabel: _(l, "Set Duration"),
-				todayButtonLabel: _(l, "Jump to Today"),
-				titleDateDialogLabel: _(l, "Choose Date"),
-				titleTimeDialogLabel: _(l, "Choose Time"),
+				setDateButtonLabel     : _(l, "Set Date"),
+				setTimeButtonLabel     : _(l, "Set Time"),
+				setDurationButtonLabel : _(l, "Set Duration"),
+				todayButtonLabel       : _(l, "Jump to Today"),
+				titleDateDialogLabel   : _(l, "Choose Date"),
+				titleTimeDialogLabel   : _(l, "Choose Time"),
 				daysOfWeek: [
 					_(l, "Sunday"),
 					_(l, "Monday"),
@@ -95,31 +95,31 @@ module.exports = function(grunt) {
 					_(l, "Day"),
 					_(l, "Days")
 				],
-				tooltip: _(l, "Open Date Picker"),
-				nextMonth: _(l, "Next Month"),
-				prevMonth: _(l, "Previous Month"),
-				timeFormat: parseInt(_(l, "24"), 10),
-				headerFormat: _(l, "%A, %B %-d, %Y"),
-				dateFieldOrder: eval( "[" + _(l, "'m', 'd', 'y'") + "]" ),
-				timeFieldOrder: eval( "[" + _(l, "'h', 'i', 'a'") + "]" ),
-				slideFieldOrder: eval( "[" + _(l, "'y', 'm', 'd'") + "]" ),
-				datetimeFieldOrder: eval( "[" + _(l, "'y', 'm', 'd', 'h', 'i', 's', 'a'") + "]" ),
-				datetimeFormat: _(l, "%Y-%m-%dT%k:%M:%S"),
-				dateFormat: _(l, "%Y-%m-%d"),
-				useArabicIndic: (_(l, "false1") === "true" ? true : false ),
-				isRTL: (_(l, "false2") === "true" ? true : false ),
-				calStartDay: parseInt(_(l, "0"), 10),
-				clearButton: _(l, "Clear"),
-				durationOrder: eval( "[" + _(l, "'d', 'h', 'i', 's'") + "]" ),
+				tooltip            : _(l, "Open Date Picker"),
+				nextMonth          : _(l, "Next Month"),
+				prevMonth          : _(l, "Previous Month"),
+				timeFormat         : parseInt(_(l, "24"), 10),
+				headerFormat       : _(l, "%A, %B %-d, %Y"),
+				dateFieldOrder     : eval( "[" + _(l, "'m', 'd', 'y'") + "]" ),
+				timeFieldOrder     : eval( "[" + _(l, "'h', 'i', 'a'") + "]" ),
+				slideFieldOrder    : eval( "[" + _(l, "'y', 'm', 'd'") + "]" ),
+				datetimeFieldOrder : eval( "[" + _(l, "'y', 'm', 'd', 'h', 'i', 's', 'a'") + "]" ),
+				datetimeFormat     : _(l, "%Y-%m-%dT%k:%M:%S"),
+				dateFormat         : _(l, "%Y-%m-%d"),
+				useArabicIndic     : (_(l, "false1") === "true" ? true : false ),
+				isRTL              : (_(l, "false2") === "true" ? true : false ),
+				calStartDay        : parseInt(_(l, "0"), 10),
+				clearButton        : _(l, "Clear"),
+				durationOrder      : eval( "[" + _(l, "'d', 'h', 'i', 's'") + "]" ),
 				meridiem: [
 					_(l, "AM"),
 					_(l, "PM")
 				],
-				timeOutput: _(l, "%l:%M %p"),
-				durationFormat: _(l, "%Dd %DA, %Dl:%DM:%DS"),
-				calDateListLabel: _(l, "Other Dates"),
-				calHeaderFormat: _(l, "%B %Y"),
-				tomorrowButtonLabel: _(l, "Jump to Tomorrow")
+				timeOutput          : _(l, "%l:%M %p"),
+				durationFormat      : _(l, "%Dd %DA, %Dl:%DM:%DS"),
+				calDateListLabel    : _(l, "Other Dates"),
+				calHeaderFormat     : _(l, "%B %Y"),
+				tomorrowButtonLabel : _(l, "Jump to Tomorrow")
 			};
 		};
 		
@@ -128,21 +128,30 @@ module.exports = function(grunt) {
 			file.src.forEach(function(afile) {
 				var lang, contents, desty;
 				
-				if ( !grunt.file.exists(afile) ) {
+				if ( !grunt.file.exists( afile ) ) {
 					grunt.log.warn("Source file \"" + afile + "\" not found.");
 					return false;
 				} else {
-					lang = afile.replace("i18n/locale/","").replace("/datebox.po","");
-					desty = "dist/i18n/jtsage-datebox.i18n." + lang + ".utf8.js";
-					//contents = fs.readFileSync(afile);
-					contents = gettextParser.po.parse(fs.readFileSync(afile));
+					lang     = afile.replace("i18n/locale/","").replace("/datebox.po","");
+					desty    = "dist/i18n/jtsage-datebox.i18n." + lang + ".utf8.js";
+					contents = gettextParser.po.parse( fs.readFileSync( afile ) );
+
 					gt.addTranslations("", lang, contents);
+					
 					alllang[lang] = makeLang(lang);
-					grunt.file.write( desty, makeSingleFile( lang, alllang[lang] ) );
+					
+					grunt.file.write( 
+						desty,
+						makeSingleFile( lang, alllang[lang] )
+					);
 				}
 			});
 		});
-		grunt.file.write("dist/i18n/jtsage-datebox.lang.utf8.js", makeMultiFile( alllang ));
+		
+		grunt.file.write(
+			"dist/i18n/jtsage-datebox.lang.utf8.js",
+			makeMultiFile( alllang )
+		);
 	});
 };
 

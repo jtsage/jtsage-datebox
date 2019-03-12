@@ -1,6 +1,6 @@
-var m = require("module"),
+var m        = require("module"),
 	UglifyJS = require("uglify-js"),
-	pretty = require("js-object-pretty-print").pretty;
+	pretty   = require("js-object-pretty-print").pretty;
 
 module.exports = function(grunt) {
 	"use strict";
@@ -42,17 +42,15 @@ module.exports = function(grunt) {
 				" }); }); })( jQuery );\n";
 		}
 
-		//Old Way
-		//var ast = UglifyJS.parse(writeFile, { filename: "file1.js" });
-		//var stream = UglifyJS.OutputStream({ beautify: true });
-		//ast.print(stream);
-		//New Way
 		var outResult = UglifyJS.minify(writeFile, {mangle: false, compress: false, output: {beautify: true}});
 
 		grunt.file.write(
 			o.dest,
-			//grunt.config.get("txt.banner.long") + "\n\n" + stream.toString()
-			grunt.config.get("txt.banner.long") + "\n\n" + libyFile + "\n\n" + outResult.code
+			grunt.config.get("txt.banner.long") +
+				"\n\n" +
+				libyFile +
+				"\n\n" +
+				outResult.code
 		);
 	});
 };

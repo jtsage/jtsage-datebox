@@ -292,15 +292,15 @@ module.exports = function(grunt) {
 			},
 		},
 		connect: {
-    		web: {
-      			options: {
-        			port: 8080,
-        			base: "doc_builder/dist",
-        			useAvailablePort: true,
-        			keepalive: true,
-      			}
-    		}
-  		}
+			web: {
+				options: {
+					port: 8080,
+					base: "doc_builder/dist",
+					useAvailablePort: true,
+					keepalive: true,
+				}
+			}
+		}
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );

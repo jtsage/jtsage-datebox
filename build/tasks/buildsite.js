@@ -184,9 +184,9 @@ var startTime     = new Date(),
 				var rec = iface[type][apiKey];
 
 				rec.safeID = apiKey.replace(/[\W]/g, "_");
-				rec.name = apiKey;
-				rec.cat = cat;
-				rec.type = type;
+				rec.name   = apiKey;
+				rec.cat    = cat;
+				rec.type   = type;
 
 				filePart += makeFunc(rec);
 			}
@@ -198,8 +198,8 @@ var startTime     = new Date(),
 				var rec = api[type][apiKey];
 
 				rec.safeID = apiKey.replace(/[\W]/g, "_");
-				rec.name = apiKey;
-				rec.badge = badgeMap[rec.cat];
+				rec.name   = apiKey;
+				rec.badge  = badgeMap[rec.cat];
 
 				filePart += makeCard(rec);
 			}
@@ -211,8 +211,8 @@ var startTime     = new Date(),
 				var rec = api[type][apiKey];
 
 				rec.safeID = apiKey.replace(/[\W]/g, "_");
-				rec.name = apiKey;
-				rec.badge = badgeMap[rec.cat];
+				rec.name   = apiKey;
+				rec.badge  = badgeMap[rec.cat];
 
 				if ( rec.cat === cat ) {
 					filePart += makeCard(rec);
