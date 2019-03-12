@@ -285,7 +285,7 @@ JTSageDateBox._getCleanDur = function() {
 	w.lastDurationA = w._dur( thisDuration * 1000 );
 
 	return [ thisDuration, w._dur( thisDuration * 1000 ) ];
-}
+};
 
 JTSageDateBox._check = function() {
 	// Check to see if a date is valid. (Old way, left as a shim)

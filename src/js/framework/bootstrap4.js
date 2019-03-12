@@ -209,7 +209,23 @@ JTSageDateBox.styleFunctions = {
 		return $(returnVal);
 	},
 	fboxContainer         : function ( size ) {
-		return $("<div class='d-flex border-top border-bottom m-2' style='height: " + size + "; overflow: hidden'>");
+		return $(
+			"<div class='d-flex border-top border-bottom m-2' style='height: " + 
+			size + 
+			"; overflow: hidden'>"
+		);
+	},
+	fboxDurLabels         : function ( ) {
+		return $(
+			"<div class='d-flex mx-2 mt-2' style='margin-bottom: -8px;'>"
+		);
+	},
+	fboxDurLabel          : function ( text, items ) {
+		return $( 
+			"<div class='text-center' style='width: " + ( 100 / items ) + "%'>" + 
+			text + 
+			"</div>"
+		);
 	},
 	fboxRollerContain     : function () {
 		return $( "<div class='flex-fill'>" );
@@ -218,7 +234,11 @@ JTSageDateBox.styleFunctions = {
 		return $( "<ul class='list-group'>" );
 	},
 	fboxRollerChild       : function ( text, cls ) {
-		return $( "<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" + text + "</li>" )
+		return $( 
+			"<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" + 
+			text + 
+			"</li>"
+		);
 	},
 	fboxLens              : function () {
 		return $( "<div class='p-4 border border-dark shadow mx-1'>" );
