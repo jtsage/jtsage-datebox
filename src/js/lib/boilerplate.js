@@ -65,16 +65,17 @@ JTSageDateBox._create = function() {
 		}
 	}
 
-	w.cancelClose = false;
+	w.cancelClose    = false;
 	w.calDateVisible = true;
-	w.disabled = false;
-	w.runButton = false;
-	w._date = window.Date;
+	w.disabled       = false;
+	w.runButton      = false;
+	w._date          = window.Date;
 	w._enhanceDate();
-	w.baseID = w.d.input.attr( "id" );
+	w.baseID         = w.d.input.attr( "id" );
 
-	w.initDate = new w._date();
+	w.initDate       = new w._date();
 	w.initDate.setMilliseconds(0);
+
 	w.theDate = ( o.defaultValue ) ?
 		w._makeDate() :
 		( (w.d.input.val() !== "" ) ?
@@ -172,7 +173,7 @@ JTSageDateBox._create = function() {
 		w.disable();
 	}
 
-	w.applyMinMax(false, false);
+	w.applyMinMax( false, false );
 
 	if ( o.displayMode === "inline" || o.displayMode === "blind" ) {
 		//o.useInline || o.useInlineBlind ) {
@@ -194,8 +195,8 @@ JTSageDateBox.open = function () {
 		return false;
 	}
 
-	w.theDate = w._makeDate( w.d.input.val() );
-	w.originalDate = w._makeDate( w.d.input.val() );
+	w.theDate      = w._makeDate( w.d.input.val() );
+	w.originalDate = w.theDate.copy();
 	
 	if ( w.d.input.val() === "" ) { w._startOffset( w.theDate ); }
 	w.d.input.blur();
@@ -400,11 +401,11 @@ JTSageDateBox.close = function() {
 		}
 		basepop.afterclose = function() {
 			o.closeCallback.apply( w, $.merge([{
-				custom: w.customCurrent,
-				initDate: w.initDate,
-				date: w.theDate,
-				duration: w.lastDuration,
-				cancelClose: w.cancelClose
+				custom      : w.customCurrent,
+				initDate    : w.initDate,
+				date        : w.theDate,
+				duration    : w.lastDuration,
+				cancelClose : w.cancelClose
 			}], o.closeCallbackArgs ) );
 		};
 	} else {
@@ -436,7 +437,7 @@ JTSageDateBox.close = function() {
 	// Unbind all drag handlers.
 	$( document )
 		.off( w.drag.eMove )
-		.off( w.drag.eEnd )
+		.off( w.drag.eEnd  )
 		.off( w.drag.eEndA );
 
 	if ( o.useFocus ) {
