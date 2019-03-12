@@ -35,64 +35,64 @@ const:
 
 opts : 
   afterToday :
-    short : Selected date must be after today
-    long : |
+    short   : Selected date must be after today
+    long    : |
       Dates selected must be after today's real date, or, all dates prior to today's date are invalid.
 
       _This is based on the first open of the widget - should a page be opened very close to midnight, an off-by one error might appear._
-    type : Boolean
-    modes : *modeDate
+    type    : Boolean
+    modes   : *modeDate
     default : false
     dynamic : true
-    cat : Limits
+    cat     : Limits
     optdemo : true
-    sample: false
+    sample  : false
 
   beforeOpenCallbackArgs :
-    short : Extra arguments to pass to open callback.
-    modes : *modeAll
-    cat : Callback
+    short   : Extra arguments to pass to open callback.
+    modes   : *modeAll
+    cat     : Callback
     default : "[]"
-    type : Array
+    type    : Array
     dynamic : true
-    long : |
+    long    : |
       Note that 'this' in your function is the widget.  argument[0] is a return value 
       object, this starts on argument[1]
     optdemo : false
-    sample: false
+    sample  : false
 
   beforeOpenCallback :
-    short : Callback function to run on control open
-    modes : *modeAll
-    cat : Callback
+    short   : Callback function to run on control open
+    modes   : *modeAll
+    cat     : Callback
     default : false
-    type : Function
+    type    : Function
     dynamic : true
-    long : |
+    long    : |
       Option can be a function, or, a string reference to a function in the window 
       object.  Function is run on press of the open button ( or call to open DateBox)
 
       Returning false from this function will prevent DateBox from opening.
     optdemo : false
-    sample: false
+    sample  : false
 
   beforeToday :
-    short : Selected date must be before today
-    long : |
+    short   : Selected date must be before today
+    long    : |
       Dates selected must be before today's real date, or, all dates after to today's date are invalid.
 
       _This is based on the first open of the widget - should a page be opened very close to midnight, an off-by one error might appear._
-    type : Boolean
-    modes : *modeDate
+    type    : Boolean
+    modes   : *modeDate
     default : false
     dynamic : true
-    cat : Limits
+    cat     : Limits
     optdemo : true
-    sample: false
+    sample  : false
 
   blackDates :
-    short : Dates to be considered invalid
-    long : |
+    short   : Dates to be considered invalid
+    long    : |
       A list (array) of ISO-8601 _(YYYY-MM-DD)_ dates that are to be considered invalid.
 
       Processing order:
@@ -105,17 +105,17 @@ opts :
       // Christmas and New Years, 2000/2001
       ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"]
       ```
-    type : Array
-    modes : *modeDate
+    type    : Array
+    modes   : *modeDate
     default : false
     dynamic : true
-    cat : Limits
+    cat     : Limits
     optdemo : true
-    sample: "[\"2001-01-01\", \"2000-12-31\", \"2000-12-25\", \"2000-12-24\"]"
+    sample  : "[\"2001-01-01\", \"2000-12-31\", \"2000-12-25\", \"2000-12-24\"]"
 
   blackDatesRec :
-    short : Recurring dates to be considered invalid
-    long : |
+    short   : Recurring dates to be considered invalid
+    long    : |
       A list of recurring dates that are to be consided invalid.
 
       Each date element is an array of the format
@@ -141,17 +141,17 @@ opts :
       // (Chrismas, Christmas Eve, New Years Eve, and New Years Day, Every Year)
       [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ]
       ```
-    type : Array
-    modes : *modeDate
+    type    : Array
+    modes   : *modeDate
     default : false
     dynamic : true
-    cat : Limits
+    cat     : Limits
     optdemo : true
-    sample: "[ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ]"
+    sample  : "[ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ]"
 
   blackDays :
-    short : Days of the week to be considered invalid
-    long : |
+    short   : Days of the week to be considered invalid
+    long    : |
       A list (array) of days of the week that are to be considered invalid. Zero based ( 0 = Sunday ... 6 = Saturday )
 
       Processing order:
@@ -164,44 +164,44 @@ opts :
       // Weekends
       [ 0, 6 ]
       ```
-    type : Array
-    modes : *modeDate
+    type    : Array
+    modes   : *modeDate
     default : false
     dynamic : true
-    cat : Limits
+    cat     : Limits
     optdemo : true
-    sample: "[ 0, 6 ]"
+    sample  : "[ 0, 6 ]"
 
   breakpointWidth :
-    short : Window width breakpoint
-    long : Window width below which the control should stretch to fill the screen
-    modes : *modeAll
-    cat : Display-Control
-    type : String
+    short   : Window width breakpoint
+    long    : Window width below which the control should stretch to fill the screen
+    modes   : *modeAll
+    cat     : Display-Control
+    type    : String
     dynamic : false
     default : 567px
     optdemo : false
-    sample: false
+    sample  : false
 
   buttonIcon :
-    short : Icon class to use for button attached to original input (override)
-    long : |
+    short   : Icon class to use for button attached to original input (override)
+    long    : |
       The class to be forcibly (overridden) passed to _styleFunctions.baseInputButton()
 
       <div class="text-danger">
       This is an override only class, and should only be used when a single DateBox on a site needs a unique icon for some reason.
       </div>
-    type : String
-    modes : *modeAll
+    type    : String
+    modes   : *modeAll
     default : false
     dynamic : false
-    cat : Theme
+    cat     : Theme
     optdemo : false
-    sample: false
+    sample  : false
 
   calBeforeAppendFunc :
-    short : Function to run before appending calendar grid date
-    long : |
+    short   : Function to run before appending calendar grid date
+    long    : |
       This option allows you to define a custom function that is called on the generated calbox grid box of each date.
 
       It provides an object, and expects an object in the same format.
@@ -264,18 +264,18 @@ opts :
       There must be an element with the ".dbEvent" class, this is how clicks are triggered.  Additionally, that element should
       include the full object as it's $.data()
 
-    type : String || Function
-    modes : 
+    type    : String || Function
+    modes   : 
       - calbox
     default : function(obj) { return obj; }
     dynamic : true
-    cat : Callback
+    cat     : Callback
     optdemo : false
-    sample: false
+    sample  : false
 
   calDateList :
-    short : List of dates for special pick list
-    long : |
+    short   : List of dates for special pick list
+    long    : |
       List of 2-element arrays to show in a special pick list. Used with ___calShowDateList___.
 
       The inner array structure is:
@@ -289,33 +289,33 @@ opts :
       ```js
       [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ]
       ```
-    type : Array
-    modes :
+    type    : Array
+    modes   :
       - calbox
     default : false
     dynamic : true
-    cat : Limits
+    cat     : Limits
     optdemo : true
-    sample: "[ [\"1980-04-25\", \"JT's Date of Birth\"], [\"1809-02-12\", \"Lincoln's Birthday\"] ]"
+    sample  : "[ [\"1980-04-25\", \"JT's Date of Birth\"], [\"1809-02-12\", \"Lincoln's Birthday\"] ]"
 
   calDateListLabel :
-    short : Header text for calDateList
-    long : |
+    short   : Header text for calDateList
+    long    : |
       The header text for the ___calDateList___ special pick list.
-    type : String
-    modes :
+    type    : String
+    modes   :
       - calbox
     default : Other Dates
     dynamic : true
-    cat : i18n
+    cat     : i18n
     i18n : *i18n
     overrideName : overrideCalDatListLabel
     optdemo : false
-    sample: false
+    sample  : false
 
   calFormatter :
-    short : Control formatting of the date text
-    long : |
+    short   : Control formatting of the date text
+    long    : |
       This option allows for a function that should return the prefered text for the calendar grid date. Typically, it's just a number.
 
       A single argument is passed to the function, the working date.
@@ -342,35 +342,35 @@ opts :
       ```
 
       When given a function, DateBox will run it.  When given a string, it will run window.stringContents
-    type : Function
-    modes :
+    type    : Function
+    modes   :
       - calbox
     default : function( date ) { return date.get(2); }
     dynamic : true
-    cat : Callback
+    cat     : Callback
     optdemo : false
-    sample: false
+    sample  : false
 
   calHeaderFormat :
-    short : Header format for calendar mode
-    long : |
+    short   : Header format for calendar mode
+    long    : |
       This is a parsed format for the header (if shown) in CalBox.
 
       For more information on date format variables, see the _Output Formats_ section of the documentation
-    type : String
-    modes :
+    type    : String
+    modes   :
       - calbox
     default : "%B %Y"
     dynamic : true
-    cat : i18n
+    cat     : i18n
     i18n : *i18n
     overrideName : overrideCalHeaderFormat
     optdemo : false
-    sample: false
+    sample  : false
 
   calHighOutOfBounds :
-    short : Highlight dates from other months
-    long : |
+    short   : Highlight dates from other months
+    long    : |
       Highlight the dates that are not part of the displayed month with the theme in ___theme.cal_OutOfBounds___
 
       For more information on the themeing system, please see the _Themeing_ section of the documentation
@@ -384,18 +384,18 @@ opts :
        * highDatesRec
        * highDays
        * default
-    type : Boolean
-    modes :
+    type    : Boolean
+    modes   :
       - calbox
     default : true
     dynamic : true
-    cat : Theme
+    cat     : Theme
     optdemo : true
-    sample: false
+    sample  : false
 
   calHighPick :
-    short : Highlight currently selected date
-    long : |
+    short   : Highlight currently selected date
+    long    : |
       Highlight the currently selected date with the theme in ___theme.cal_Selected___
 
       For more information on the themeing system, please see the _Themeing_ section of the documentation
@@ -409,18 +409,18 @@ opts :
        * highDatesRec
        * highDays
        * default
-    type : Boolean
-    modes :
+    type    : Boolean
+    modes   :
       - calbox
     default : true
     dynamic : true
-    cat : Theme
+    cat     : Theme
     optdemo : true
-    sample: false
+    sample  : false
 
   calHighToday :
-    short : Highlight today's date
-    long : |
+    short   : Highlight today's date
+    long    : |
       Highlight today's date with the theme in ___theme.cal_Today___
 
       For more information on the themeing system, please see the _Themeing_ section of the documentation
@@ -434,113 +434,113 @@ opts :
        * highDatesRec
        * highDays
        * default
-    type : Boolean
-    modes :
+    type    : Boolean
+    modes   :
       - calbox
     default : true
     dynamic : true
-    cat : Theme
+    cat     : Theme
     optdemo : true
-    sample: false
+    sample  : false
 
   calNoHeader :
-    short : Suppress standard control header
-    long : |
+    short   : Suppress standard control header
+    long    : |
       This option allows hiding of the standard calendar header (Month & Year, Previous / Next Buttons)
 
       It is particularly useful when you want to replace it with ___calUsePickers___
-    type : Boolean
-    modes :
+    type    : Boolean
+    modes   :
       - calbox
     default : false
     dynamic : true
-    cat : Display-Control
+    cat     : Display-Control
     optdemo : true
-    sample: false
+    sample  : false
 
   calOnlyMonth :
-    short : Show only the current month
-    long : |
+    short   : Show only the current month
+    long    : |
       This option allows the hiding of the underrun / overrun dates from the previous and next month.
-    type : Boolean
-    modes : 
+    type    : Boolean
+    modes   : 
       - calbox
     default : false
     dynamic : true
-    cat : Display-Control
+    cat     : Display-Control
     optdemo : true
-    sample: false
+    sample  : false
 
   calShowDateList :
-    short : Show special date picker
-    long : |
+    short   : Show special date picker
+    long    : |
       This is the on/off switch for the display of dates provided by ___calDateList___
-    type : Boolean
-    modes :
+    type    : Boolean
+    modes   :
       - calbox
     default : false
     dynamic : true
-    cat : Display-Control
+    cat     : Display-Control
     optdemo : true
-    sample: false
+    sample  : false
 
   calShowDays :
-    short : Show day labels
-    long : |
+    short   : Show day labels
+    long    : |
       This is the on/off switch for day of the week labels (Short labels)
-    type : Boolean
-    modes :
+    type    : Boolean
+    modes   :
       - calbox
     default : true
     dynamic : true
-    cat : Display-Control
+    cat     : Display-Control
     optdemo : true
-    sample: false
+    sample  : false
 
   calShowWeek :
-    short : Show week numbers
-    long : |
+    short   : Show week numbers
+    long    : |
       This is the on/off switch for ISO-8601 week numbers
-    type : Boolean
-    modes :
+    type    : Boolean
+    modes   :
       - calbox
     default : false
     dynamic : true
-    cat : Display-Control
+    cat     : Display-Control
     optdemo : true
-    sample: false
+    sample  : false
 
   calStartDay :
-    short : Start day of week
-    long : |
+    short   : Start day of week
+    long    : |
       Zero based start of the week. Tested heavily with 0 (Sunday) and 1 (Monday). ISO-8601 Week numbers are based on the first day displayed, so become meaningless with odd selections.
-    type : Boolean
-    modes :
+    type    : Boolean
+    modes   :
       - calbox
     default : 0
     dynamic : true
-    cat : i18n
+    cat     : i18n
     i18n : *i18n
     overrideName : overrideCalStartDay
     optdemo : false
-    sample: false
+    sample  : false
 
   calUsePickers :
-    short : Show month and year select boxes
-    long : |
+    short   : Show month and year select boxes
+    long    : |
       Show a month and year select box above the calendar grid.  Often used with ___calNoHeader___
-    type : Boolean
-    modes :
+    type    : Boolean
+    modes   :
       - calbox
     default : false
     dynamic : true
-    cat : Display-Control
+    cat     : Display-Control
     optdemo : true
-    sample: false
+    sample  : false
 
   calYearPickMax :
-    short : Year picker upper limit
-    long : |
+    short   : Year picker upper limit
+    long    : |
       This is the upper limit for the year select box.
 
       Special cases:
@@ -549,18 +549,18 @@ opts :
        * __String "NOW"__ : Today's year
 
       See also: ___calYearPickRelative___
-    type : Integer || String
-    modes :
+    type    : Integer || String
+    modes   :
       - calbox
     default : 6
     dynamic : true
-    cat : Display-Control
+    cat     : Display-Control
     optdemo : true
-    sample: false
+    sample  : false
 
   calYearPickMin :
-    short : Year picker lower limit
-    long : |
+    short   : Year picker lower limit
+    long    : |
       This is the lower limit for the year select box.
 
       Special cases:
@@ -569,57 +569,57 @@ opts :
        * __String "NOW"__ : Today's year
 
       See also: ___calYearPickRelative___
-    type : Integer || String
-    modes :
+    type    : Integer || String
+    modes   :
       - calbox
     default : -6
     dynamic : true
-    cat : Display-Control
+    cat     : Display-Control
     optdemo : true
-    sample: false
+    sample  : false
 
   calYearPickRelative :
-    short : Year picker relativity switch
-    long : |
+    short   : Year picker relativity switch
+    long    : |
       When true, the year picker min/max are relative to the currently visible date
 
       When false, the year picker min/max are relative to today's year
-    type : Boolean
-    modes :
+    type    : Boolean
+    modes   :
       - calbox
     default : true
     dynamic : true
-    cat : Display-Control
+    cat     : Display-Control
     optdemo : true
-    sample: false
+    sample  : false
 
   clearButton :
-    short : Button Label - clear button
-    long : The text label for the clear button
-    type : String
-    modes : *modeAll
+    short   : Button Label - clear button
+    long    : The text label for the clear button
+    type    : String
+    modes   : *modeAll
     default : Clear
     dynamic : true
-    cat : i18n
+    cat     : i18n
     i18n : *i18n
     overrideName : overrideClearButton
     optdemo : false
-    sample: false
+    sample  : false
 
   clickEvent :
-    short : Listener for all clickable buttons
-    long : Almost always click now.  Older mobile implementations may require others.
-    type : String
-    modes : *modeAll
+    short   : Listener for all clickable buttons
+    long    : Almost always click now.  Older mobile implementations may require others.
+    type    : String
+    modes   : *modeAll
     default : click
     dynamic : false
-    cat : Operation
+    cat     : Operation
     optdemo : false
-    sample: false
+    sample  : false
 
   closeCallback :
-    short : Callback function to run on control close
-    long : |
+    short   : Callback function to run on control close
+    long    : |
       Option can be a function, or, a string reference to a function in the window object.
 
       The first argument to the function will be an object containing: 
@@ -630,157 +630,157 @@ opts :
        - __cancelClose__ : [Close only] - If the close action was triggered by a user cancel (true), or by setting the date (false)
 
       For more information, please see the _Callbacks and Listeners_ section of the documentation.
-    modes : *modeAll
-    cat : Callback
+    modes   : *modeAll
+    cat     : Callback
     default : false
-    type : Function
+    type    : Function
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   closeCallbackArgs :
-    short : Extra arguments to pass to close callback.
-    long : |
+    short   : Extra arguments to pass to close callback.
+    long    : |
       Note that 'this' in your function is the widget.  argument[0] is a return value object, this starts on argument[1]
 
       For more information, please see the  _Callbacks and Listeners_ section of the documentation.
-    modes : *modeAll
-    cat : Callback
+    modes   : *modeAll
+    cat     : Callback
     default : []
-    type : Array
+    type    : Array
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   closeTodayButton :
-    short : Today button also closes DateBox
-    long : |
+    short   : Today button also closes DateBox
+    long    : |
       This will cause the button that selects "today" to also close the control.
-    modes : *modeAll
-    cat : Operation
+    modes   : *modeAll
+    cat     : Operation
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   closeTomorrowButton :
-    short : Tomorrow button also closes DateBox
-    long : |
+    short   : Tomorrow button also closes DateBox
+    long    : |
       This will cause the button that selects "tomorrow" to also close the control.
-    modes : *modeAll
-    cat : Operation
+    modes   : *modeAll
+    cat     : Operation
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   controlWidth :
-    short : Width of the control
-    long : Preferred width of the control. See also ___breakpointWidth___
-    modes : *modeAll
-    cat : Display-Control
-    type : String
+    short   : Width of the control
+    long    : Preferred width of the control. See also ___breakpointWidth___
+    modes   : *modeAll
+    cat     : Display-Control
+    type    : String
     dynamic : false
     default : 290px
     optdemo : false
-    sample: false
+    sample  : false
 
   dateFieldOrder :
-    short : Field order for date entry
-    long : |
+    short   : Field order for date entry
+    long    : |
       Capitalizing "M" for month in "datebox" mode will enable string representations (short months) instead.
 
       Note that this will break for any locale where the short string of two months is identical.
-    modes : *modeAll
-    cat : i18n
+    modes   : *modeAll
+    cat     : i18n
     default : "[ 'm', 'd', 'y' ]"
-    type : Array
+    type    : Array
     i18n : *i18n
     overrideName : overrideDateFieldOrder
     optdemo : false
-    sample: false
+    sample  : false
 
   dateFormat :
-    short : Format for returned date
-    long : |
+    short   : Format for returned date
+    long    : |
       For more information on date format variables, see the _Date Formats_ documentation section.
-    modes : *modeAll
-    cat : i18n
+    modes   : *modeAll
+    cat     : i18n
     default : "%Y-%m-%d"
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideDateFormat
     optdemo : false
-    sample: false
+    sample  : false
 
   datetimeFieldOrder :
-    short : Field order for datetime entry
-    long : |
+    short   : Field order for datetime entry
+    long    : |
       Capitalizing "M" for month in "datebox" mode will enable string representations (short months) instead.
 
       Note that this will break for any locale where the short string of two months is identical.
-    modes : *modeAll
-    cat : i18n
+    modes   : *modeAll
+    cat     : i18n
     default : "[ 'y', 'm', 'd', 'h', 'i', 's', 'a' ]"
-    type : Array
+    type    : Array
     i18n : *i18n
     overrideName : overrideDatetimeFieldOrder
     optdemo : false
-    sample: false
+    sample  : false
 
   datetimeFormat :
-    short : Format for returned datetime
-    long : |
+    short   : Format for returned datetime
+    long    : |
       For more information on date and time format variables, see the _Date Formats_ documentation section.
 
       Typically, this type of return isn't based on locale, more on the format your backend is expecting.  It appears in the i18n settings for ease of site-specific i18n customization.
-    modes : *modeAll
-    cat : i18n
+    modes   : *modeAll
+    cat     : i18n
     default : "%Y-%m-%dT%k:%M:%S"
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideDatetimeFormat
     optdemo : false
-    sample: false
+    sample  : false
 
   daysOfWeek :
-    short : Days of the week
-    long : Days of the week, in an array, full text
-    modes : *modeAll
-    cat : i18n
+    short   : Days of the week
+    long    : Days of the week, in an array, full text
+    modes   : *modeAll
+    cat     : i18n
     default : "['Sunday' ... 'Saturday']"
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideDaysOfWeek
     optdemo : false
-    sample: false
+    sample  : false
 
   daysOfWeekShort :
-    short : Abbreviated days of the week
-    long : |
+    short   : Abbreviated days of the week
+    long    : |
       Days of the week, in an array, shortened text
 
       Note that if you are relying on short day names to read a date back in (very rare, as there is
       almost always a more granular option available), and there are duplicates in this list (i.e.
       array('S,'M','T','W','T'...) ) the parser will likely behave very strangely.
-    modes : *modeAll
-    cat : i18n
+    modes   : *modeAll
+    cat     : i18n
     default : "['Su' ... 'Sa']"
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideDaysOfWeekShort
     optdemo : false
-    sample: false
+    sample  : false
 
   defaultValue :
-    short : Default value for the date
-    long : |
+    short   : Default value for the date
+    long    : |
       Set the default date value, or time value.  Many options exist for supplying the date:
 
       ##### Date Modes:
@@ -825,17 +825,17 @@ opts :
 
       ___defaultValue___ is only read when the input element is *empty*.  If you need to change the date, ___setTheDate()___ is much more effective.
 
-    modes : *modeAll
-    cat : Operation
+    modes   : *modeAll
+    cat     : Operation
     default : false
-    type : Array | String
+    type    : Array | String
     dynamic : false
     optdemo : false
-    sample: false
+    sample  : false
 
   displayMode :
-    short : Open method to use
-    long : |
+    short   : Open method to use
+    long    : |
       The opening method to use to display the control
 
        * dropdown
@@ -846,88 +846,88 @@ opts :
            * Display the control inline in the page, under the input, sliding up and down
        * modal
            * Display the control in a full window modal
-    modes : *modeAll
-    cat : Display-Control
-    type : String
+    modes   : *modeAll
+    cat     : Display-Control
+    type    : String
     dynamic : true
     default : dropdown
     optdemo : false
-    sample: false
+    sample  : false
 
   displayDropdownPosition :
-    short : Position of dropdown method open
-    long : |
+    short   : Position of dropdown method open
+    long    : |
       String directing placement of dropdown.  See popper.js docs for options. 
 
       Good defaults: top-end, top-start, top
-    modes : *modeAll
-    cat : Display-Control
-    type : String
+    modes   : *modeAll
+    cat     : Display-Control
+    type    : String
     dynamic : true
     default : top-end
     optdemo : false
-    sample: false
+    sample  : false
 
   displayInlinePosition :
-    short : Position of inline method open
-    long : |
+    short   : Position of inline method open
+    long    : |
       String directing placement of inline control.
 
       One of left, right, or center
-    modes : *modeAll
-    cat : Theme
-    type : String
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : center
     optdemo : false
-    sample: false
+    sample  : false
 
   durationDays :
-    short : Name of day/days for duration
-    long : |
+    short   : Name of day/days for duration
+    long    : |
       Pluralization of Day/Days. (1 Day, 2 Days).
 
       Very simplistic, for instance, there is no support for 0 Days. 
       Nor any other cases in different locales that don't follow the english method of pluralization.
-    modes : *modeAll
-    cat : i18n
+    modes   : *modeAll
+    cat     : i18n
     default : "['Day', 'Days']"
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideDurationDays
     optdemo : false
-    sample: false
+    sample  : false
 
   durationFormat :
-    short : Format for returned duration
-    long: For more information on date and time format variables, see the _Date Formats_ documentation section.
-    modes : *modeAll
-    cat : i18n
+    short   : Format for returned duration
+    long    : For more information on date and time format variables, see the _Date Formats_ documentation section.
+    modes   : *modeAll
+    cat     : i18n
     default : "%Dd %DA, %Dl:%DM:%DS"
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideDurationFormat
     optdemo : false
-    sample: false
+    sample  : false
 
   durationLabel :
-    short : Labels for duration elements
-    long : Array of labels for the duration inputs - Days, Hours, Minutes, Seconds
-    modes : *modeAll
-    cat : i18n
+    short   : Labels for duration elements
+    long    : Array of labels for the duration inputs - Days, Hours, Minutes, Seconds
+    modes   : *modeAll
+    cat     : i18n
     default : "[ 'Days', 'Hours', 'Minutes', 'Seconds' ]"
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideDurationLabel
     optdemo : false
-    sample: false
+    sample  : false
 
   durationOrder :
-    short : Field order for duration entry
-    long : |
+    short   : Field order for duration entry
+    long    : |
       Controls which order the duration elements appear in, and if they appear at all.
 
       Note: if you omit elements, be sure to change ___durationFormat___ or you may get odd results
@@ -936,19 +936,19 @@ opts :
        - __h__ : Hours
        - __i__ : Minutes
        - __s__ : Seconds
-    modes : *modeAll
-    cat : i18n
+    modes   : *modeAll
+    cat     : i18n
     default : "[ 'd', 'h', 'i', 's' ]"
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideDurationOrder
     optdemo : false
-    sample: false
+    sample  : false
 
   durationStep :
-    short : Stepper for duration mode (single)
-    long : |
+    short   : Stepper for duration mode (single)
+    long    : |
       This will set the stepper for the *most* precise time measurement shown in your
       duration control.  By default, this is seconds - however, if you play with 
       ___durationFieldOrder___, it could be any field up to and including days.
@@ -961,17 +961,17 @@ opts :
       ```
 
       In this case, "hours" would be stepped (by 2 hours), as it is the least precise element shown.
-    modes : *modeAll
-    cat : Operation
+    modes   : *modeAll
+    cat     : Operation
     default : 1
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   enableDates :
-    short : Exclusive list of valid dates
-    long : |
+    short   : Exclusive list of valid dates
+    long    : |
       Array of ISO-8601 (YYYY-MM-DD) dates that are exclusively valid and all others should be 
       disabled. If this is in use, no other date checks are performed.
 
@@ -988,118 +988,118 @@ opts :
       // Christmas, Christmas Eve, and New Years Eve of 2000 exclusively
       [ "2000-12-31", "2000-12-25", "2000-12-24" ]
       ```
-    modes : *modeAll
-    cat : Limits
+    modes   : *modeAll
+    cat     : Limits
     default : false
-    type : Array
+    type    : Array
     dynamic : true
     optdemo : true
-    sample: "[ \"2000-12-31\", \"2000-12-25\", \"2000-12-24\" ]"
+    sample  : "[ \"2000-12-31\", \"2000-12-25\", \"2000-12-24\" ]"
 
   flen :
-    short : Height of rollers
-    long : |
+    short   : Height of rollers
+    long    : |
       This is the half the number of elements in the flip roller
 
       Full size = ( <number> * 2 ) + 1
 
       Defaults should be fine on most screens, unless maybe you are setting up an oddly proportioned
       kiosk or something.
-    modes : *modeAll
-    cat : Operation
+    modes   : *modeAll
+    cat     : Operation
     default : "{ 'y': 25, 'm':24, 'd':50, 'h':25, 'i':30, 's':30 }"
-    type : Object
+    type    : Object
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   flipboxAdjustLens :
-    short : Vertical shift of "lens" for flip modes
-    long : |
+    short   : Vertical shift of "lens" for flip modes
+    long    : |
       An adjustment, in pixels to move the lens on the flipbox modes, *after* the calculation to find center.
 
       Sometimes, external themes don't play nicely and you'll need a few pixels either way - in particular, 
       the default bootstrap4 theme needs 5 pixels positive (hardcoded), while most of the 3rd party color themes
       for bootstrap4 do not require any movement (set it to zero).
-    modes : *modeAll
-    cat : Display-Control
+    modes   : *modeAll
+    cat     : Display-Control
     default : false
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   headerFormat :
-    short : Format for header
-    long : |
+    short   : Format for header
+    long    : |
       The header is displayed inside the control, just above the adjustment controls.
 
       For more information on date format variables, see the _Output Formats_ section of the documentation
-    modes :
+    modes   :
       - datebox
       - datetimebox
       - flipbox
       - datetimeflipbox
       - slidebox
-    cat : i18n
+    cat     : i18n
     default : "%A, %B %-d, %Y"
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideHeaderFormat
     optdemo : false
-    sample: false
+    sample  : false
 
   hideInput :
-    short : Hide the Input Element
-    long : Cause the original input to be hidden on the page.
-    modes : *modeAll
-    cat : Display-Form
+    short   : Hide the Input Element
+    long    : Cause the original input to be hidden on the page.
+    modes   : *modeAll
+    cat     : Display-Form
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : false
     optdemo : false
-    sample: false
+    sample  : false
 
   highDatesAlt :
-    short : Dates to highlight (alternate)
-    long : |
+    short   : Dates to highlight (alternate)
+    long    : |
       An alternate list of dates to highlight with ___theme.cal_DateHighAlt___
 
       ##### Example
       ```js 
       // December 2000 Holiday Seson
       ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"]
-    modes :
+    modes   :
       - calbox
-    cat : Limits
+    cat     : Limits
     default : false
-    type : Array
+    type    : Array
     dynamic : true
     optdemo : true
-    sample: "[\"2001-01-01\", \"2000-12-31\", \"2000-12-25\", \"2000-12-24\"]"
+    sample  : "[\"2001-01-01\", \"2000-12-31\", \"2000-12-25\", \"2000-12-24\"]"
 
   highDates :
-    short : Dates to highlight
-    long : |
+    short   : Dates to highlight
+    long    : |
       An list of dates to highlight with ___theme.cal_DateHigh___
 
       ##### Example
       ```js 
       // December 2000 Holiday Seson
       ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"]
-    modes :
+    modes   :
       - calbox
-    cat : Limits
+    cat     : Limits
     default : false
-    type : Array
+    type    : Array
     dynamic : true
     optdemo : true
-    sample: "[\"2001-01-01\", \"2000-12-31\", \"2000-12-25\", \"2000-12-24\"]"
+    sample  : "[\"2001-01-01\", \"2000-12-31\", \"2000-12-25\", \"2000-12-24\"]"
 
   highDatesRec :
-    short : Dates to highlight - recurring
-    long : |
+    short   : Dates to highlight - recurring
+    long    : |
       A list of recurring dates to highlight with ___theme.cal_DateHighRec___
 
       Each date element is an array of the format
@@ -1120,18 +1120,18 @@ opts :
       // (Chrismas, Christmas Eve, New Years Eve, and New Years Day, Every Year)
       [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ]
       ```
-    modes :
+    modes   :
       - calbox
-    cat : Limits
+    cat     : Limits
     default : false
-    type : Array
+    type    : Array
     dynamic : true
     optdemo : true
-    sample: "[ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ]"
+    sample  : "[ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ]"
 
   highDays :
-    short : Highlight these days
-    long : |
+    short   : Highlight these days
+    long    : |
       A list (array) of days of the week that are to be highlighted with ___theme.cal_DayHigh___.
 
       Zero based ( 0 = Sunday ... 6 = Saturday )
@@ -1141,36 +1141,36 @@ opts :
       // Weekends
       [ 0, 6 ]
       ```
-    modes :
+    modes   :
       - calbox
-    cat : Limits
+    cat     : Limits
     default : false
-    type : Array
+    type    : Array
     dynamic : true
     optdemo : true
-    sample: "[ 0, 6 ]"
+    sample  : "[ 0, 6 ]"
 
   isRTL :
-    short : Language runs Right-to-Left
-    long : |
+    short   : Language runs Right-to-Left
+    long    : |
       This does not get tested as well as it should. Please, if you are
       a native speaker of any of the languages that use this flag, give the
       maintainer / author a shout about all of the places he forgot to check 
       this flag and reorder the display.  Or maybe all the places where he did
       and it makes no sense to do it.
-    modes : *modeAll
-    cat : i18n
+    modes   : *modeAll
+    cat     : i18n
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
     i18n : *i18n
     overrideName : overrideIsRTL
     optdemo : false
-    sample: false
+    sample  : false
 
   linkedFieldFormat :
-    short : The format to use with linkedField
-    long : |
+    short   : The format to use with linkedField
+    long    : |
       This can be any valid format string that ___linkedField___ will be populated with. The
       default value is the format that .toJSON() returns. 
 
@@ -1180,55 +1180,55 @@ opts :
       would be very happy with this format.  That said, if you have not otherwise handled time zones in 
       your application, please, please, please do not use the default setting. Note also this is relying on 
       the useragent to have a correctly implemented toJSON - which should be there, but...
-    modes : *modeAll
-    cat : Callback
+    modes   : *modeAll
+    cat     : Callback
     default : "%J"
-    type : String
+    type    : String
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   linkedField :
-    short : The jQuery selector for the output linked field(s)
-    long : |
+    short   : The jQuery selector for the output linked field(s)
+    long    : |
       This is a jQuery selector of the field(s) that you want to fill with the selected date
       when chosen.  Uses ___linkedFieldFormat___ as the format.  Often used with a hidden
       form element to simplify backend date processing.
-    modes : *modeAll
-    cat : Callback
+    modes   : *modeAll
+    cat     : Callback
     default : false
-    type : String
+    type    : String
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   lockInput :
-    short : Lock the original input element from manual input
-    long : Set the readonly property of the original input, allowing changes via the datebox contol only
-    type : Boolean
-    modes : *modeAll
+    short   : Lock the original input element from manual input
+    long    : Set the readonly property of the original input, allowing changes via the datebox contol only
+    type    : Boolean
+    modes   : *modeAll
     default : false
     dynamic : false
-    cat : Display-Form
+    cat     : Display-Form
     optdemo : false
-    sample: false
+    sample  : false
 
   meridiem :
-    short : Name of meridiems, if used
-    long : These are not used in most of the world. Either they never existed, or the country has since switched to 24 hour time.
-    modes : *modeTime
-    cat : i18n
+    short   : Name of meridiems, if used
+    long    : These are not used in most of the world. Either they never existed, or the country has since switched to 24 hour time.
+    modes   : *modeTime
+    cat     : i18n
     default : "[ 'AM', 'PM' ]"
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideMeridiem
     optdemo : false
-    sample: false
+    sample  : false
 
   minDays :
-    short : Min number of days past today
-    long : |
+    short   : Min number of days past today
+    long    : |
       Only accept dates that are today - # of days in the future (min).
 
       Both options will accept negative numbers:
@@ -1241,17 +1241,17 @@ opts :
       This would allow only days that are 5 to 10 days in the past to be choosen.
 
       Corresponds somewhat to the html min/max attributes.
-    modes : *modeDate
-    cat : Limits
+    modes   : *modeDate
+    cat     : Limits
     default : false
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   maxDays :
-    short : Max number of days past today
-    long : |
+    short   : Max number of days past today
+    long    : |
       Only accept dates that are today + # of days in the future (max)
 
       Both options will accept negative numbers:
@@ -1264,144 +1264,144 @@ opts :
       This would allow only days that are 5 to 10 days in the past to be choosen.
 
       Corresponds somewhat to the html min/max attributes.
-    modes : *modeDate
-    cat : Limits
+    modes   : *modeDate
+    cat     : Limits
     default : false
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   minDur :
-    short : Min duration
-    long : Do not allow durations less (min) or greater (max) than this to be selected.
-    modes :
+    short   : Min duration
+    long    : Do not allow durations less (min) or greater (max) than this to be selected.
+    modes   :
       - durationbox
       - durationflipbox
-    cat : Limits
+    cat     : Limits
     default : false
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   maxDur :
-    short : Max duration
-    long : Do not allow durations less (min) or greater (max) than this to be selected.
-    modes :
+    short   : Max duration
+    long    : Do not allow durations less (min) or greater (max) than this to be selected.
+    modes   :
       - durationbox
       - durationflipbox
-    cat : Limits
+    cat     : Limits
     default : false
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   minHour :
-    short : Min hour
-    long : Allow only hours before (min) or after (max) this to be selected.
-    modes : *modeTime
-    cat : Limits
+    short   : Min hour
+    long    : Allow only hours before (min) or after (max) this to be selected.
+    modes   : *modeTime
+    cat     : Limits
     default : false
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   maxHour :
-    short : Max hour
-    long : Allow only hours before (min) or after (max) this to be selected.
-    modes : *modeTime
-    cat : Limits
+    short   : Max hour
+    long    : Allow only hours before (min) or after (max) this to be selected.
+    modes   : *modeTime
+    cat     : Limits
     default : false
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   minTime :
-    short : Min time
-    long : |
+    short   : Min time
+    long    : |
       Allow only times before (min) or after (max) this to be selected. Format is 24hr clock - i.e. 18:31
 
       Note: this limits date selection to TODAY (datetime modes).
-    modes : *modeTime
-    cat : Limits
+    modes   : *modeTime
+    cat     : Limits
     default : false
-    type : String
+    type    : String
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   maxTime :
-    short : Max time
-    long : |
+    short   : Max time
+    long    : |
       Allow only times before (min) or after (max) this to be selected. Format is 24hr clock - i.e. 18:31
 
       Note: this limits date selection to TODAY (datetime modes).
-    modes : *modeTime
-    cat : Limits
+    modes   : *modeTime
+    cat     : Limits
     default : false
-    type : String
+    type    : String
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   minYear :
-    short : Min Year
-    long : Do not allow years before (min) or after (max) this one to be selected.
-    modes : *modeDate
-    cat : Limits
+    short   : Min Year
+    long    : Do not allow years before (min) or after (max) this one to be selected.
+    modes   : *modeDate
+    cat     : Limits
     default : false
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   maxYear :
-    short : Max Year
-    long : Do not allow years before (min) or after (max) this one to be selected.
-    modes : *modeDate
-    cat : Limits
+    short   : Max Year
+    long    : Do not allow years before (min) or after (max) this one to be selected.
+    modes   : *modeDate
+    cat     : Limits
     default : false
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   minuteStep :
-    short : Stepper for minutes
-    long : |
+    short   : Stepper for minutes
+    long    : |
       Step the minute control by this amount.  Common values are 5, 10, 15, or 30.
-    modes : *modeTime
-    cat : Operation
+    modes   : *modeTime
+    cat     : Operation
     default : 1
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   minuteStepRound :
-    short : Direction to round
-    long : |
+    short   : Direction to round
+    long    : |
       Control rounding of minutes when an invalid minute is entered. 
       That is, minuteStep=5 and you enter 3 direct to the element
 
        - __-1__ : Down
        - __1__ : Up
        - __0__ : "Standard Rounding"
-    modes : *modeTime
-    cat : Operation
+    modes   : *modeTime
+    cat     : Operation
     default : 0
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   mode :
-    short : Mode of operations
-    long : |
+    short   : Mode of operations
+    long    : |
       The mode of operation - see list of available modes below.
 
        * datebox
@@ -1424,75 +1424,75 @@ opts :
            * Control allows input of duration using multiple inputs with +/- buttons
        * durationflipbox
            * Control allows input of duration using draggable columns
-    type : String
-    modes : *modeAll
+    type    : String
+    modes   : *modeAll
     default: none
     dynamic: true
-    cat: Display-Control
+    cat     : Display-Control
     optdemo : false
-    sample: false
+    sample  : false
 
   monthsOfYear :
-    short : Months of the year
-    long : List of the months of the year, zero based, full text
-    modes : *modeDate
-    cat : i18n
+    short   : Months of the year
+    long    : List of the months of the year, zero based, full text
+    modes   : *modeDate
+    cat     : i18n
     default : "['January' ... 'December']"
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideMonthsOfYear
     optdemo : false
-    sample: false
+    sample  : false
 
   monthsOfYearShort :
-    short : Abbreviated months of the year
-    long : |
+    short   : Abbreviated months of the year
+    long    : |
       When using short months as output (and input), make sure that there are 12 unique short names.
       If you use too shot of an abbreviation (ex. Ju = June, Ju = July), not only is your outputted 
       date ambiguous to the user, it also cannot be reliably re-read by DateBox.
-    modes : *modeDate
-    cat : i18n
+    modes   : *modeDate
+    cat     : i18n
     default : "['Jan' ... 'Dec']"
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideMonthsOfYearShort
     optdemo : false
-    sample: false
+    sample  : false
 
   nextMonth / prevMonth :
-    short : Mouseover tooltip for next / prev month button
-    long : Tooltip (title) for next and previous buttons. Usually "Next Month" or similar.
-    modes :
+    short   : Mouseover tooltip for next / prev month button
+    long    : Tooltip (title) for next and previous buttons. Usually "Next Month" or similar.
+    modes   :
       - calbox
-    cat : i18n
+    cat     : i18n
     default : "Next Month | Prev Month"
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideNextMonth | overridePrevMonth
     optdemo : false
-    sample: false
+    sample  : false
 
   notToday :
-    short : Invalidate today's date
-    long : |
+    short   : Invalidate today's date
+    long    : |
       Allows those dates that are not the true value of the client's today
       (new Date(); at widget open) to be selected.
 
       Note: if used with time only modes, this will break them.
-    modes : *modeDate
-    cat : Limits
+    modes   : *modeDate
+    cat     : Limits
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
     optdemo : true
-    sample: false
+    sample  : false
 
   openCallback :
-    short : Callback function to run on control open
-    long : |
+    short   : Callback function to run on control open
+    long    : |
       Option can be a function, or, a string reference to a function in the window object.
       
       Additionally, if this returns false, the DateBox control will immediatally close.
@@ -1506,35 +1506,35 @@ opts :
 
 
       For more information, please see the _Callbacks and Listeners_ section of the documentation.
-    modes : *modeAll
-    cat : Callback
+    modes   : *modeAll
+    cat     : Callback
     default : false
-    type : Function
+    type    : Function
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   openCallbackArgs :
-    short : Extra arguments to pass to open callback.
-    long : |
+    short   : Extra arguments to pass to open callback.
+    long    : |
       Note that 'this' in your function is the widget.
       
       argument[0] is a return value object, this starts on argument[1]
 
       For more information, please see the _Callbacks and Listeners_ section of the documentation.
-    modes : *modeAll
-    cat : Callback
+    modes   : *modeAll
+    cat     : Callback
     default : "[]"
-    type : Array
+    type    : Array
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   rolloverMode :
-    short : Allow rollover of each date element
-    long : |
+    short   : Allow rollover of each date element
+    long    : |
       Allow rollover on a per-element basis.  i.e. - December + 1 = January of next year
-    modes :
+    modes   :
       - datebox
       - timebox
       - datetimebox
@@ -1542,16 +1542,16 @@ opts :
       - timeflipbox
       - datetimeflipbox
       - slidebox
-    cat : Operation
+    cat     : Operation
     default : "{ 'm': true, 'd': true, 'h': true, 'i': true, 's': true }"
-    type : Object
+    type    : Object
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   runOnBlurCallback :
-    short : Callback function to run on original input box change
-    long : |
+    short   : Callback function to run on original input box change
+    long    : |
       This option can only be supplied as a function.  It will recieve an object containing:
 
        * oldDate - the Date that existed prior to the control closing.  Usually, this is the last good date.
@@ -1565,514 +1565,514 @@ opts :
        * newDate - a **string** of the new date, in the correct output format.  Not a date object.
  
       For more information, please see the _Callbacks and Listeners_ section of the documentation.
-    modes : *modeAll
-    cat : Callback
+    modes   : *modeAll
+    cat     : Callback
     default : false
-    type : Function
+    type    : Function
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   setDateButtonLabel :
-    short : "'Set Date' Button Label"
-    long : Text only, usaully "Set Date"
-    modes : *modeDate
-    cat : i18n
+    short   : "'Set Date' Button Label"
+    long    : Text only, usaully "Set Date"
+    modes   : *modeDate
+    cat     : i18n
     default : Set Date
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideSetDateButtonLabel
     optdemo : false
-    sample: false
+    sample  : false
 
   setDurationButtonLabel :
-    short : "'Set Duration' Button Label"
-    long : Text only, usually "Set Duration"
-    modes :
+    short   : "'Set Duration' Button Label"
+    long    : Text only, usually "Set Duration"
+    modes   :
       - durationbox
       - durationflipbox
-    cat : i18n
+    cat     : i18n
     default : Set Duration
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideSetDurationButtonLabel
     optdemo : false
-    sample: false
+    sample  : false
 
   setTimeButtonLabel :
-    short : "'Set Time' Button Label"
-    long : Text only, usually "Set Time"
-    modes : *modeTime
-    cat : i18n
+    short   : "'Set Time' Button Label"
+    long    : Text only, usually "Set Time"
+    modes   : *modeTime
+    cat     : i18n
     default : Set Time
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideSetTimeButtonLabel
     optdemo : false
-    sample: false
+    sample  : false
 
   showInitialValue :
-    short : Auto-fill Input field
-    long : |
+    short   : Auto-fill Input field
+    long    : |
       Auto-fill the input on datebox initialization - this will take into account any default value options
-    modes : *modeAll
-    cat : Display-Form
+    modes   : *modeAll
+    cat     : Display-Form
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   slen :
-    short : Length of sliders
-    long : |
+    short   : Length of sliders
+    long    : |
       This is half the number of elements in the slide roller, minus one (the centered element).
-    modes :
+    modes   :
       - slidebox
-    cat : Operation
+    cat     : Operation
     default : "{'y': 5, 'm': 6, 'd': 15, 'h': 12, 'i': 30 }"
-    type : Object
+    type    : Object
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   slideFieldOrder :
-    short : Field order for slide mode
-    long : |
+    short   : Field order for slide mode
+    long    : |
       If you want a slider that does date and time, try something like:
 
       ```js
       overrideSlideFieldOrder: ["y","m","d","h","i"]
       ```
-    modes :
+    modes   :
       - slidebox
-    cat : i18n
+    cat     : i18n
     default : "[ 'y', 'm', 'd' ]"
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideSlideFieldOrder
     optdemo : false
-    sample: false
+    sample  : false
 
   startOffsetDays/Months/Years :
-    short : Offset the start day / month / year
-    long : |
+    short   : Offset the start day / month / year
+    long    : |
       Offset the start day by X number of days, months, or years
 
       This value will be added to 'defaultValue' if it is supplied
-    modes : *modeDate
-    cat : Operation
+    modes   : *modeDate
+    cat     : Operation
     default : false
-    type : Integer
+    type    : Integer
     dynamic : false
     optdemo : false
-    sample: false
+    sample  : false
 
   theme_clearBtnCls :
-    short : Clear Button Theme
-    long : Theme class string added to the clear button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Clear Button Theme
+    long    : Theme class string added to the clear button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-secondary"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_clearBtnIcn :
-    short : Clear Button Icon
-    long : Icon class used on the clear button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Clear Button Icon
+    long    : Icon class used on the clear button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "eraser"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_closeBtnCls :
-    short : Close Button Theme
-    long : Theme class string added to the close button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Close Button Theme
+    long    : Theme class string added to the close button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-secondary"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_closeBtnIcn :
-    short : Close Button Icon
-    long : Icon class used on the close button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Close Button Icon
+    long    : Icon class used on the close button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "check"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cancelBtnCls :
-    short : Cancel Button Theme
-    long : Theme class string added to the cancel button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Cancel Button Theme
+    long    : Theme class string added to the cancel button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-secondary"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cancelBtnIcn :
-    short : Cancel Button Icon
-    long : Icon class used on the cancel button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Cancel Button Icon
+    long    : Icon class used on the cancel button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "times"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_tomorrowBtnCls :
-    short : Tomorrow Button Theme
-    long : Theme class string added to the tomorrow button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Tomorrow Button Theme
+    long    : Theme class string added to the tomorrow button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-secondary"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_tomorrowBtnIcn :
-    short : Tomorrow Button Icon
-    long : Icon class used on the tomorrow button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Tomorrow Button Icon
+    long    : Icon class used on the tomorrow button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "fast-forward"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_todayBtnCls :
-    short : Today Button Theme
-    long : Theme class string added to the today button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Today Button Theme
+    long    : Theme class string added to the today button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-secondary"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_todayBtnIcn :
-    short : Today Button Icon
-    long : Icon class used on the today button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Today Button Icon
+    long    : Icon class used on the today button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "step-forward"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_dropdownContainer :
-    short : Dropdown container class
-    long : Class string added to the datebox container when using the dropdown method
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Dropdown container class
+    long    : Class string added to the datebox container when using the dropdown method
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "bg-light border border-dark mt-1"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_modalContainer :
-    short : Modal container class
-    long : Class string added to the datebox container when using the modal method
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Modal container class
+    long    : Class string added to the datebox container when using the modal method
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "bg-light border border-dark p-2 m-0"
     optdemo : false
-    sample: false
+    sample  : false
 
   theme_inlineContainer :
-    short : Inline container class
-    long : Class string added to the datebox container when using the inline or blind method
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Inline container class
+    long    : Class string added to the datebox container when using the inline or blind method
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "bg-light border border-dark my-2"
     optdemo : false
-    sample: false
+    sample  : false
 
   theme_headerTheme :
-    short : Header Theme
-    long : Theme class added to the control header
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Header Theme
+    long    : Theme class added to the control header
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "bg-dark"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_headerBtnCls :
-    short : Header (Close) Button Theme
-    long : Theme class added to the control header close button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Header (Close) Button Theme
+    long    : Theme class added to the control header close button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-secondary"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_headerBtnIcn :
-    short : Header (Close) Button Icon
-    long : Icon class used for the control header close button
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Header (Close) Button Icon
+    long    : Icon class used for the control header close button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "times"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_Today :
-    short : Highlight for Today
-    long : Class used to highlight today's date when ___calHighToday___ is on
-    modes :
+    short   : Highlight for Today
+    long    : Class used to highlight today's date when ___calHighToday___ is on
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-info"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_DayHigh :
-    short : Highlight for highDays
-    long : Class used to highlight days in ___highDays___
-    modes :
+    short   : Highlight for highDays
+    long    : Class used to highlight days in ___highDays___
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-warning"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_Selected :
-    short : Highlight for selected date
-    long : Class used to highlight selected date is ___calHighSelected___ is on
-    modes :
+    short   : Highlight for selected date
+    long    : Class used to highlight selected date is ___calHighSelected___ is on
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-success"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_DateHigh :
-    short : Highlight for highDates
-    long : Class used to highlight dates in ___highDates___
-    modes :
+    short   : Highlight for highDates
+    long    : Class used to highlight dates in ___highDates___
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-warning"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_DateHighAlt :
-    short : Highlight for highDatesAlt
-    long : Class used to highlight dates in ___highDatesAlt___
-    modes :
+    short   : Highlight for highDatesAlt
+    long    : Class used to highlight dates in ___highDatesAlt___
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-danger"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_DateHighRec :
-    short : Highlight for highDatesRec
-    long : Class used to highlight dates in ___highDatesRec___
-    modes :
+    short   : Highlight for highDatesRec
+    long    : Class used to highlight dates in ___highDatesRec___
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-warning"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_Default :
-    short : Default class
-    long : Class used by default on all dates, unless another is more appropriate
-    modes :
+    short   : Default class
+    long    : Class used by default on all dates, unless another is more appropriate
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-primary"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_OutOfBounds :
-    short : Highlight for Underrun / Overrun Dates
-    long : Class used to highlight (or lowlight) those dates outside of the currently dispalyed month, if ___calOnlyMonth___ is off
-    modes :
+    short   : Highlight for Underrun / Overrun Dates
+    long    : Class used to highlight (or lowlight) those dates outside of the currently dispalyed month, if ___calOnlyMonth___ is off
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-secondary border-0"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_NextBtnIcn :
-    short : Next Month Button Icon
-    long : Icon class used for next month button
-    modes :
+    short   : Next Month Button Icon
+    long    : Icon class used for next month button
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "plus"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_NextBtnCls :
-    short : Next Month Button Theme
-    long : Theme class added to the next month button
-    modes :
+    short   : Next Month Button Theme
+    long    : Theme class added to the next month button
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-dark"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_PrevBtnIcn :
-    short : Previous Month Button Icon
-    long : Icon class used for previous month button
-    modes :
+    short   : Previous Month Button Icon
+    long    : Icon class used for previous month button
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "minus"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_cal_PrevBtnCls :
-    short : Previous Month Button Theme
-    long : Theme class added to the previous month button
-    modes :
+    short   : Previous Month Button Theme
+    long    : Theme class added to the previous month button
+    modes   :
       - calbox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-dark"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_dbox_NextBtnIcn :
-    short : Next Button Icon
-    long : Icon class used for the next button
-    modes :
+    short   : Next Button Icon
+    long    : Icon class used for the next button
+    modes   :
       - datebox
       - timebox
       - datetimebox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "plus"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_dbox_NextBtnCls :
-    short : Next Button Theme
-    long : Theme class added to the next button
-    modes :
+    short   : Next Button Theme
+    long    : Theme class added to the next button
+    modes   :
       - datebox
       - timebox
       - datetimebox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-dark"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_dbox_PrevBtnIcn :
-    short : Previous Button Icon
-    long : Icon class used for the previous button
-    modes :
+    short   : Previous Button Icon
+    long    : Icon class used for the previous button
+    modes   :
       - datebox
       - timebox
       - datetimebox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "minus"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_dbox_PrevBtnCls :
-    short : Previous Button Theme
-    long : Theme class added to the previous button
-    modes :
+    short   : Previous Button Theme
+    long    : Theme class added to the previous button
+    modes   :
       - datebox
       - timebox
       - datetimebox
-    cat : Theme
-    type : String
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "outline-dark"
     optdemo : true
-    sample: false
+    sample  : false
 
   theme_backgroundMask :
-    short : Modal and Dropdown background mask
-    long : CSS style string used for the modal and dropdown method displays.
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Modal and Dropdown background mask
+    long    : CSS style string used for the modal and dropdown method displays.
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : true
     default : "{ position: 'fixed', left: 0, top: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,.4)' }"
     optdemo : false
-    sample: false
+    sample  : false
 
   theme_headStyle :
-    short : Extra style info to inject in document header
-    long : Some frameworks require some extra styles.  This helps move away from a largely depreciated CSS file
-    modes : *modeAll
-    cat : Theme
-    type : String
+    short   : Extra style info to inject in document header
+    long    : Some frameworks require some extra styles.  This helps move away from a largely depreciated CSS file
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
     dynamic : false
     default: false
     optdemo : false
-    sample: false
+    sample  : false
 
   timeFieldOrder :
-    short : Field order for time entry
-    long : |
+    short   : Field order for time entry
+    long    : |
       Typically this is the array [ "h", "i", "a" ] or [ "h", "i" ]
 
       Fields:
@@ -2080,112 +2080,112 @@ opts :
        - __h__ : Hours
        - __i__ : Minutes
        - __a__ : Meridiem
-    modes : *modeTime
-    cat : i18n
+    modes   : *modeTime
+    cat     : i18n
     default : array('h', 'i', 'a']
-    type : Array
+    type    : Array
     dynamic : true
     i18n : *i18n
     overrideName : overrideTimeFieldOrder
     optdemo : false
-    sample: false
+    sample  : false
 
   timeFormat :
-    short : Clock Format (12/24h)
-    long : |
+    short   : Clock Format (12/24h)
+    long    : |
       Valid options are 12 and 24.  This controls what is seen and used for the input controls, 
       not the output format.  To change the output format of the time, please see ___timeOutput___.
-    modes : *modeTime
-    cat : i18n
+    modes   : *modeTime
+    cat     : i18n
     default : 24
-    type : Integer
+    type    : Integer
     dynamic : true
     i18n : *i18n
     overrideName : overrideTimeFormat
     optdemo : false
-    sample: false
+    sample  : false
 
   timeOutput :
-    short : Format for returned time
-    modes : *modeTime
-    cat : i18n
+    short   : Format for returned time
+    modes   : *modeTime
+    cat     : i18n
     default : "%k:%M"
-    type : String
+    type    : String
     dynamic : true
-    long : For more information on date format variables, see the _Date Formats_ documentation section.
+    long    : For more information on date format variables, see the _Date Formats_ documentation section.
     i18n : *i18n
     overrideName : overrideTimeOutput
     optdemo : false
-    sample: false
+    sample  : false
 
   titleDateDialogLabel :
-    short : Date mode's fallback header label
-    long : Fall-back when there is no associated label element
-    modes : *modeDate
-    cat : i18n
+    short   : Date mode's fallback header label
+    long    : Fall-back when there is no associated label element
+    modes   : *modeDate
+    cat     : i18n
     default : Set Date
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideTitleDateDialogLabel
     optdemo : false
-    sample: false
+    sample  : false
 
   titleTimeDialogLabel :
-    short : Time mode's fallback header label
-    long : Fall-back when there is no associated label element
-    modes : *modeTime
-    cat : i18n
+    short   : Time mode's fallback header label
+    long    : Fall-back when there is no associated label element
+    modes   : *modeTime
+    cat     : i18n
     default : Set Time
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideTitleTimeDialogLabel
     optdemo : false
-    sample: false
+    sample  : false
 
   todayButtonLabel :
-    short : "'Jump to today' button Label"
-    long : This began life as a CalBox only option, and still retains that name. However, it is used in all modes now.
-    modes : *modeDate
-    cat : i18n
+    short   : "'Jump to today' button Label"
+    long    : This began life as a CalBox only option, and still retains that name. However, it is used in all modes now.
+    modes   : *modeDate
+    cat     : i18n
     default : Jump to Today
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideTodayButtonLabel
     optdemo : false
-    sample: false
+    sample  : false
 
   tomorrowButtonLabel :
-    short : "Text for 'tommorrow' button"
-    long : This began life as a CalBox only option, and still retains that name. However, it is used in all modes now.
-    modes : *modeDate
-    cat : i18n
+    short   : "Text for 'tommorrow' button"
+    long    : This began life as a CalBox only option, and still retains that name. However, it is used in all modes now.
+    modes   : *modeDate
+    cat     : i18n
     default : Jump to Tommorrow
-    type : String
+    type    : String
     dynamic : true
     i18n : *i18n
     overrideName : overrideTomorrowButtonLabel
     optdemo : false
-    sample: false
+    sample  : false
 
   tooltip :
-    short : Mouseover tooltip for open button
-    long : Tooltip (title) for the open button on the original input
-    modes : *modeAll
-    cat : i18n
+    short   : Mouseover tooltip for open button
+    long    : Tooltip (title) for the open button on the original input
+    modes   : *modeAll
+    cat     : i18n
     default : Open Date Picker
-    type : String
+    type    : String
     dynamic : false
     i18n : *i18n
     overrideName : overrideTooltip
     optdemo : false
-    sample: false
+    sample  : false
 
   twoDigitYearCutoff :
-    short : Where the cutoff between 19XX and 20XX happens
-    long : |
+    short   : Where the cutoff between 19XX and 20XX happens
+    long    : |
       This sets where the century change happens.  By default, it is 38, that is, 2 digit years before
       38 will be assumed to refer to 2000-2037, and years after will be assumed to refere to 1938-1999.
 
@@ -2193,164 +2193,164 @@ opts :
       were set to 100+
 
       Obviously, this has no bearing if you do not force usage of 2 digit dates.
-    modes : *modeDate
-    cat : Operation
+    modes   : *modeDate
+    cat     : Operation
     default : 38
-    type : Integer
+    type    : Integer
     dynamic : true
     optdemo : false
-    sample: false
+    sample  : false
 
   useArabicIndic :
-    short : Use Arabic/Indic numerals
-    long : This is the only other numeral system I've found in use on the web.
-    modes : *modeAll
-    cat : i18n
+    short   : Use Arabic/Indic numerals
+    long    : This is the only other numeral system I've found in use on the web.
+    modes   : *modeAll
+    cat     : i18n
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
     i18n : *i18n
     overrideName : overrideUseArabicIndic
     optdemo : false
-    sample: false
+    sample  : false
 
   useButton :
-    short : Show a button in the Input Element to open the control
-    modes : *modeAll
-    cat : Display-Form
+    short   : Show a button in the Input Element to open the control
+    modes   : *modeAll
+    cat     : Display-Form
     default : true
-    type : Boolean
+    type    : Boolean
     dynamic : false
-    long : Display an open button inside or alongside the input element that will open the control
+    long    : Display an open button inside or alongside the input element that will open the control
     optdemo : false
-    sample: false
+    sample  : false
 
   useCancelButton :
-    short : Show a button to cancel the Input control
-    modes : *modeAll
-    cat : Display-Control
+    short   : Show a button to cancel the Input control
+    modes   : *modeAll
+    cat     : Display-Control
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
-    long : The cancel button allows you the close the control without setting the date or time.
+    long    : The cancel button allows you the close the control without setting the date or time.
     optdemo : true
-    sample: false
+    sample  : false
 
   useClearButton :
-    short : Show a button to clear the Input
-    modes : *modeAll
-    cat : Display-Control
+    short   : Show a button to clear the Input
+    modes   : *modeAll
+    cat     : Display-Control
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
-    long : The clear button allows you the clear the original input.  It basically "unsets" the date/time
+    long    : The clear button allows you the clear the original input.  It basically "unsets" the date/time
     optdemo : true
-    sample: false
+    sample  : false
 
   useCollapsedBut :
-    short : Single line of control buttons
-    long : Attempt to merge today, tomorrow, clear, close, and set buttons into a single line
-    cat : Display-Control
-    modes : *modeAll
+    short   : Single line of control buttons
+    long    : Attempt to merge today, tomorrow, clear, close, and set buttons into a single line
+    cat     : Display-Control
+    modes   : *modeAll
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
     optdemo : true
-    sample : false
+    sample  : false
 
   useFocus :
-    short : Open the control when the Input Element is focused
-    modes : *modeAll
-    cat : Display-Form
+    short   : Open the control when the Input Element is focused
+    modes   : *modeAll
+    cat     : Display-Form
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : false
-    long : Open datebox control when input element is focused (and disable button)
+    long    : Open datebox control when input element is focused (and disable button)
     optdemo : false
-    sample: false
+    sample  : false
 
   useHeader :
-    short : Use a toolbar header for the control
-    modes : *modeAll
-    cat : Display-Control
+    short   : Use a toolbar header for the control
+    modes   : *modeAll
+    cat     : Display-Control
     default : true
-    type : Boolean
+    type    : Boolean
     dynamic : true
-    long : This refers to the header with the close button and the title.
+    long    : This refers to the header with the close button and the title.
     optdemo : true
-    sample: false
+    sample  : false
 
   useImmediate :
-    short : Update the Input Element on every control change
-    modes : *modeAll
-    cat : Operation
+    short   : Update the Input Element on every control change
+    modes   : *modeAll
+    cat     : Operation
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
-    long : This is particularly useful with non-setting modes (datebox for instance) coupled with inline displays
+    long    : This is particularly useful with non-setting modes (datebox for instance) coupled with inline displays
     optdemo : false
-    sample: false
+    sample  : false
 
   useLang :
-    short : The current active langauge / locale
-    modes : *modeAll
-    cat : Display-Control
+    short   : The current active langauge / locale
+    modes   : *modeAll
+    cat     : Display-Control
     default : default
-    type : String
+    type    : String
     dynamic : true
-    long : |
+    long    : |
       Selects the current active langauge.  If a language string is not found, it will fall back on the string in the
       "default" languge, or return "undefined" (as a String).
     optdemo : true
-    sample: "en-US"
+    sample  : "en-US"
 
   usePlaceholder :
-    short : Attempt to auto fill the placeholder text (or use the supplied custom text)
-    modes : *modeAll
-    cat : Display-Form
+    short   : Attempt to auto fill the placeholder text (or use the supplied custom text)
+    modes   : *modeAll
+    cat     : Display-Form
     default : false
-    type : Boolean | String
+    type    : Boolean | String
     dynamic : false
-    long : Auto-fill the placeholder text from the input element's label if set to true.  Or, set to a string and it will use that text to set the placeholder
+    long    : Auto-fill the placeholder text from the input element's label if set to true.  Or, set to a string and it will use that text to set the placeholder
     optdemo : false
-    sample: false
+    sample  : false
 
   useSetButton :
-    short : Show button to set the date
-    modes : *modeAll
-    cat : Display-Control
+    short   : Show button to set the date
+    modes   : *modeAll
+    cat     : Display-Control
     default : true
-    type : Boolean
+    type    : Boolean
     dynamic : false
-    long : This button both sets the date, and closes the control.
+    long    : This button both sets the date, and closes the control.
     optdemo : true
-    sample: false
+    sample  : false
 
   useTodayButton :
-    short : Show button to jump to today
-    modes : *modeAll
-    cat : Display-Control
+    short   : Show button to jump to today
+    modes   : *modeAll
+    cat     : Display-Control
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
-    long : This button will "select" today, but it will not "set" today.  It is for quick navigation.
+    long    : This button will "select" today, but it will not "set" today.  It is for quick navigation.
     optdemo : true
-    sample: false
+    sample  : false
 
   useTomorrowButton :
-    short : Show button to jump to tomorrow
-    modes : *modeAll
-    cat : Display-Control
+    short   : Show button to jump to tomorrow
+    modes   : *modeAll
+    cat     : Display-Control
     default : false
-    type : Boolean
+    type    : Boolean
     dynamic : true
-    long : This button will "select" tomorrow, but it will not "set" tomorrow.  It is for quick navigation.
+    long    : This button will "select" tomorrow, but it will not "set" tomorrow.  It is for quick navigation.
     optdemo : true
-    sample: false
+    sample  : false
 
   validHours :
-    short : Limit times to only these hours
-    long : |
+    short   : Limit times to only these hours
+    long    : |
       Array of valid hours to choose (24hr based)
 
 
@@ -2359,17 +2359,17 @@ opts :
       // Standard working hours
       [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
       ```
-    modes : *modeAll
-    cat : Limits
+    modes   : *modeAll
+    cat     : Limits
     default : false
-    type : Array
+    type    : Array
     dynamic : true
     optdemo : true
-    sample: "[ 9, 10, 11, 12, 13, 14, 15, 16, 17 ]"
+    sample  : "[ 9, 10, 11, 12, 13, 14, 15, 16, 17 ]"
 
   whiteDates :
-    short : Dates to always consider valid
-    long : |
+    short   : Dates to always consider valid
+    long    : |
       A list (array) of ISO-8601 _(YYYY-MM-DD)_ dates that are to be considered valid always.
 
       Processing order:
@@ -2382,21 +2382,21 @@ opts :
       // Christmas and New Years, 2000/2001
       ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"]
       ```
-    modes : *modeDate
-    cat : Limits
+    modes   : *modeDate
+    cat     : Limits
     default : false
-    type : Array
+    type    : Array
     dynamic : true
     optdemo : true
-    sample: "[\"2001-01-01\", \"2000-12-31\", \"2000-12-25\", \"2000-12-24\"]"
+    sample  : "[\"2001-01-01\", \"2000-12-31\", \"2000-12-25\", \"2000-12-24\"]"
 
   zindex :
-    short : Z-Index of controls
-    modes : *modeAll
-    cat : Display-Control
+    short   : Z-Index of controls
+    modes   : *modeAll
+    cat     : Display-Control
     default : 1100
-    type : Integer
+    type    : Integer
     dynamic : false
-    long : The Zindex to use for the datebox control.  If applicable, there is a full-screen overlay behind the control at zIndex-1
+    long    : The Zindex to use for the datebox control.  If applicable, there is a full-screen overlay behind the control at zIndex-1
     optdemo : false
-    sample: false
+    sample  : false

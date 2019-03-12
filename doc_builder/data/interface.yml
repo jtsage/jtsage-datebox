@@ -1,17 +1,20 @@
 
-# .########.##.....##.##....##..######..########.####..#######..##....##..######.
-# .##.......##.....##.###...##.##....##....##.....##..##.....##.###...##.##....##
-# .##.......##.....##.####..##.##..........##.....##..##.....##.####..##.##......
-# .######...##.....##.##.##.##.##..........##.....##..##.....##.##.##.##..######.
-# .##.......##.....##.##..####.##..........##.....##..##.....##.##..####.......##
-# .##.......##.....##.##...###.##....##....##.....##..##.....##.##...###.##....##
-# .##........#######..##....##..######.....##....####..#######..##....##..######.
+
+# 88888888888                                        88
+# 88                                           ,d    ""
+# 88                                           88
+# 88aaaaa 88       88 8b,dPPYba,   ,adPPYba, MM88MMM 88  ,adPPYba,  8b,dPPYba,  ,adPPYba,
+# 88""""" 88       88 88P'   `"8a a8"     ""   88    88 a8"     "8a 88P'   `"8a I8[    ""
+# 88      88       88 88       88 8b           88    88 8b       d8 88       88  `"Y8ba,
+# 88      "8a,   ,a88 88       88 "8a,   ,aa   88,   88 "8a,   ,a8" 88       88 aa    ]8I
+# 88       `"YbbdP'Y8 88       88  `"Ybbd8"'   "Y888 88  `"YbbdP"'  88       88 `"YbbdP"'
+
 
 func : 
   "{}" :
-    short : Set an option
+    short   : Set an option
     returns : "jQuery Object (datebox input element)"
-    long : |
+    long    : |
       ```js
       $(input).datebox( { <option_name> : <new value> } );
       $(input).datebox( <object> );
@@ -21,9 +24,9 @@ func :
       multiple options. This will not do deep object extension.
 
   applyMinMax :
-    short : Apply min/max HTML attributes
+    short   : Apply min/max HTML attributes
     returns : jQuery Object (DateBox input element)
-    long : |
+    long    : |
       ```js
       $(input).datebox( "applyMinMax" );
       ```
@@ -35,9 +38,9 @@ func :
       make sure the DateBox "sees" them.
 
   close :
-    short : Close the DateBox
+    short   : Close the DateBox
     returns : "jQuery Object (DateBox input element)"
-    long : |
+    long    : |
       This function can be used to close the control.
 
       ```js
@@ -45,9 +48,9 @@ func :
       ```
 
   dateVisible :
-    short : Return if selected calbox date is visible
+    short   : Return if selected calbox date is visible
     returns : Boolean
-    long : |
+    long    : |
       Return if the selected calbox date is visible.  Only valid for calbox, otherwise it will
       value is ambiguous.
 
@@ -56,9 +59,9 @@ func :
       ```
 
   destroy :
-    short : Destroy the DateBox
+    short   : Destroy the DateBox
     returns : "jQuery Object (DateBox input element)"
-    long : |
+    long    : |
       This function will destroy the DateBox control and remove the enhancements it added.
 
       ```js
@@ -66,9 +69,9 @@ func :
       ```
 
   disable :
-    short : Disable the DateBox
+    short   : Disable the DateBox
     returns : "jQuery Object (DateBox input element)"
-    long : |
+    long    : |
       This function will disable the DateBox control.
 
       ```js
@@ -76,9 +79,9 @@ func :
       ```
 
   enable :
-    short : Enable the DateBox
+    short   : Enable the DateBox
     returns : "jQuery Object (DateBox input element)"
-    long : |
+    long    : |
       This function will enable the datebox control.
 
       ```js
@@ -86,9 +89,9 @@ func :
       ```
 
   getLastDur :
-    short : Get the last set duration
+    short   : Get the last set duration
     returns : Integer
-    long : |
+    long    : |
       Get the last set duration in a durationbox or durationflipbox as an integer.
 
       ```js
@@ -96,9 +99,9 @@ func :
       ```
 
   getOption :
-    short : Retrieve an option's value
+    short   : Retrieve an option's value
     returns : Mixed
-    long : |
+    long    : |
       This will return a specified options current value.
 
       ```js
@@ -108,9 +111,9 @@ func :
       Option Name can be any datebox option.
 
   getTheDate :
-    short : Return the current date object
+    short   : Return the current date object
     returns : "JavaScript Date() Object"
-    long : |
+    long    : |
       Return the current date object for any date mode.
 
       ```js
@@ -118,9 +121,9 @@ func :
       ```
 
   open :
-    short : Open the DateBox
+    short   : Open the DateBox
     returns : "jQuery Object (datebox input element)"
-    long : |
+    long    : |
       This function can be used to close the control.
 
       ```js
@@ -128,9 +131,9 @@ func :
       ```
 
   parseDate :
-    short : Parse a string date to an object
+    short   : Parse a string date to an object
     returns : "JavaScript Date Object"
-    long : |
+    long    : |
       ```js
       $(input).datebox( "parseDate", <String format>, <String Date> );
       ```
@@ -139,8 +142,8 @@ func :
       a JavaScript Date Object.
 
   refresh :
-    short : Refresh the DateBox
-    long : |
+    short   : Refresh the DateBox
+    long    : |
       This function can be used to refresh (rebuild) the control.
 
       ```js
@@ -149,9 +152,9 @@ func :
 
 
   setTheDate :
-    short : Set the date
+    short   : Set the date
     returns : "jQuery Object (datebox input element)"
-    long : |
+    long    : |
       This will set the date, with two options of passed argument:
 
        - *Date Object* : JavaScript Date() object ___(PREFERRED!)___
@@ -163,18 +166,19 @@ func :
       ```
 
 
-# .##.......####..######..########.########.##....##.########.########...######.
-# .##........##..##....##....##....##.......###...##.##.......##.....##.##....##
-# .##........##..##..........##....##.......####..##.##.......##.....##.##......
-# .##........##...######.....##....######...##.##.##.######...########...######.
-# .##........##........##....##....##.......##..####.##.......##...##.........##
-# .##........##..##....##....##....##.......##...###.##.......##....##..##....##
-# .########.####..######.....##....########.##....##.########.##.....##..######.
+# 88          88
+# 88          ""             ,d
+# 88                         88
+# 88          88 ,adPPYba, MM88MMM ,adPPYba, 8b,dPPYba,   ,adPPYba, 8b,dPPYba, ,adPPYba,
+# 88          88 I8[    ""   88   a8P_____88 88P'   `"8a a8P_____88 88P'   "Y8 I8[    ""
+# 88          88  `"Y8ba,    88   8PP""""""" 88       88 8PP""""""" 88          `"Y8ba,
+# 88          88 aa    ]8I   88,  "8b,   ,aa 88       88 "8b,   ,aa 88         aa    ]8I
+# 88888888888 88 `"YbbdP"'   "Y888 `"Ybbd8"' 88       88  `"Ybbd8"' 88         `"YbbdP"'
 
 listen:
   clear :
-    short : Datebox input has been cleared
-    long : |
+    short   : Datebox input has been cleared
+    long    : |
       This trigger is bubbled when the DateBox control is cleared.
 
       ```js
@@ -188,8 +192,8 @@ listen:
       The object will contain a "method" key set to "clear".
 
   dateboxaftercreate :
-    short : DateBox enhancment done
-    long : |
+    short   : DateBox enhancment done
+    long    : |
 
       This trigger is bubbled when DateBox enhancment completes.
 
@@ -200,8 +204,8 @@ listen:
       ```
 
   dateboxbeforecreate :
-    short : DateBox loaded
-    long : |
+    short   : DateBox loaded
+    long    : |
       This trigger is bubbled on every page if DateBox is loaded.  Pretty much useless.
       Could be used to check that the script has loaded. Testing for `jQuery.jtsage.datebox`
       would be easier.
@@ -213,8 +217,8 @@ listen:
       ```
 
   dateboxcreate :
-    short : DateBox enhance needed
-    long : |
+    short   : DateBox enhance needed
+    long    : |
       This trigger is bubbled a DateBox is enhanced - but thrown prior to initialization.  
       Useful only to check if there *is* a DateBox on the page.
 
@@ -225,8 +229,8 @@ listen:
       ```
 
   disable :
-    short : DateBox has been disabled
-    long : |
+    short   : DateBox has been disabled
+    long    : |
       This trigger is bubbled when the DateBox control is disabled
 
       ```js
@@ -240,8 +244,8 @@ listen:
       The object will contain a "method" key set to "clear".
 
   enable :
-    short : DateBox has been enabled
-    long : |
+    short   : DateBox has been enabled
+    long    : |
       This trigger is bubbled when the DateBox control is enabled.
 
       ```js
@@ -253,8 +257,8 @@ listen:
       ```
 
   offset :
-    short : Date has been changed
-    long : |
+    short   : Date has been changed
+    long    : |
       This trigger is bubbled when the datebox control is changed.
 
       ```js
@@ -281,8 +285,8 @@ listen:
        - **amount**: Amount of change, +/-
 
   refresh :
-    short : Datebox has been refreshed
-    long : |
+    short   : Datebox has been refreshed
+    long    : |
       This trigger is bubbled when datebox has been refreshed.
 
       ```js
@@ -294,8 +298,8 @@ listen:
       ```
 
   set :
-    short : Date has been set
-    long : |
+    short   : Date has been set
+    long    : |
       This is bubbled when the DateBox is set.
 
       ```js
@@ -312,19 +316,23 @@ listen:
        - **date** - JavaScript Date() object
 
 
-# .########.########..####..######....######...########.########...######.
-# ....##....##.....##..##..##....##..##....##..##.......##.....##.##....##
-# ....##....##.....##..##..##........##........##.......##.....##.##......
-# ....##....########...##..##...####.##...####.######...########...######.
-# ....##....##...##....##..##....##..##....##..##.......##...##.........##
-# ....##....##....##...##..##....##..##....##..##.......##....##..##....##
-# ....##....##.....##.####..######....######...########.##.....##..######.
+
+# 888888888888       88
+#      88            ""
+#      88
+#      88 8b,dPPYba, 88  ,adPPYb,d8  ,adPPYb,d8  ,adPPYba, 8b,dPPYba, ,adPPYba,
+#      88 88P'   "Y8 88 a8"    `Y88 a8"    `Y88 a8P_____88 88P'   "Y8 I8[    ""
+#      88 88         88 8b       88 8b       88 8PP""""""" 88          `"Y8ba,
+#      88 88         88 "8a,   ,d88 "8a,   ,d88 "8b,   ,aa 88         aa    ]8I
+#      88 88         88  `"YbbdP"Y8  `"YbbdP"Y8  `"Ybbd8"' 88         `"YbbdP"'
+#                        aa,    ,88  aa,    ,88
+#                         "Y8bbdP"    "Y8bbdP"
 
 trigger:
 
   close :
-    short : Close the DateBox
-    long : |
+    short   : Close the DateBox
+    long    : |
       This trigger will close the DateBox control
 
       ```js
@@ -332,8 +340,8 @@ trigger:
       ```
 
   dooffset :
-    short : Change the date
-    long : |
+    short   : Change the date
+    long    : |
       This trigger will change the internal date of datebox.  Functionally identical 
       to hitting a +/- button in the control, or sliding/flipping a value
 
@@ -357,8 +365,8 @@ trigger:
          - *s* - Second
 
   dorefresh :
-    short : Refresh control
-    long : |
+    short   : Refresh control
+    long    : |
       This trigger will refresh the datebox control.  Functionally equivalent to the 
       public refresh function
 
@@ -367,8 +375,8 @@ trigger:
       ```
 
   doset :
-    short : Refresh input element value
-    long : |
+    short   : Refresh input element value
+    long    : |
       This trigger will refresh / populate the value of the original input
 
       ```js
@@ -376,8 +384,8 @@ trigger:
       ```
 
   open :
-    short : Open the DateBox
-    long : |
+    short   : Open the DateBox
+    long    : |
       This trigger will close the DateBox control
 
       ```js
@@ -385,8 +393,8 @@ trigger:
       ```
 
   set :
-    short : Set the date
-    long : |
+    short   : Set the date
+    long    : |
       This trigger will set the date for the DateBox control.
 
       ```js

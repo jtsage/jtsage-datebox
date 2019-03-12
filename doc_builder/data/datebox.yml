@@ -8,48 +8,48 @@ url : http://127.0.0.1:8080
 
 menu :
   - name : Getting Started
-    url : "/"
+    url  : "/"
 
   - name : Configuration Overview
-    url : "/config/"
+    url  : "/config/"
 
   - name : Themeing DateBox
-    url : "/themes/"
+    url  : "/themes/"
 
   - name : Localization
-    url : "/i18n/"
+    url  : "/i18n/"
 
   - name : Date & Time Formats
-    url : '/formats/'
+    url  : '/formats/'
 
   - name : Default Values
-    url : "/defaults/"
+    url  : "/defaults/"
 
   - name : Date & Time Limits
-    url : "/limits/"
+    url  : "/limits/"
 
   - name : Callbacks, Listeners, Functions, & Triggers
-    url : "/callbacks/"
+    url  : "/callbacks/"
 
   - name : Full Option List
-    url : "/api/"
+    url  : "/api/"
 
-  - name : Download Builder
+  - name   : Download Builder
     exturl : https://jtsage.dev/DateBox/builder/
 
 
 demo :
   - name : Option Demos
-    url : "/optDemo/"
+    url  : "/optDemo/"
 
   - name : " - CalBox"
-    url : "/optDemo-calBox"
+    url  : "/optDemo-calBox"
 
   - name : " - DateBox"
-    url : "/optDemo-dateBox"
+    url  : "/optDemo-dateBox"
 
   - name : " - TimeBox"
-    url : "/optDemo-timeBox"
+    url  : "/optDemo-timeBox"
 
   - name : " - DateTimeBox"
-    url : "/optDemo-datetimeBox"
+    url  : "/optDemo-datetimeBox"
