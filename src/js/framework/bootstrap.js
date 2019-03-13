@@ -62,22 +62,10 @@ mergeOpts({
 	},
 	theme_headStyle : false,
 
-
+	flipboxLensAdjust : 9,
 	buttonIconDate: "calendar",
 	buttonIconTime: "time",
 	disabledState: "disabled",
-
-	btnCls: " btn btn-sm btn-",
-	icnCls: " glyphicon glyphicon-",
-
-	s: {
-		cal: {
-			prevMonth : "<span title='{text}' class='glyphicon glyphicon-{icon}'></span>",
-			nextMonth : "<span title='{text}' class='glyphicon glyphicon-{icon}'></span>",
-			botButton : "<a href='#' class='{cls}' role='button'>" +
-				"<span class='{icon}'></span> {text}</a>",
-		}
-	},
 
 	clickEvent: "click",
 	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
@@ -145,9 +133,14 @@ JTSageDateBox.styleFunctions = {
 		var returnVal = $("<div style='padding-bottom: 5px;'>");
 
 
-		$( this.button(firstBtnCls + " pull-left dbCalPrev", firstBtnIcn, "") ).appendTo( returnVal );
-		$( this.button(secondBtnCls + " pull-right dbCalNext", secondBtnIcn, "") ).appendTo( returnVal );
-		$("<h4 class='text-center' style='line-height: 1.5'>" + txt + "</h4>").appendTo( returnVal );
+		$( this.button(firstBtnCls + " pull-left dbCalPrev", firstBtnIcn, "") )
+			.appendTo( returnVal );
+
+		$( this.button(secondBtnCls + " pull-right dbCalNext", secondBtnIcn, "") )
+			.appendTo( returnVal );
+
+		$("<h4 class='text-center' style='line-height: 1.5'>" + txt + "</h4>")
+			.appendTo( returnVal );
 
 		return returnVal;
 	},
@@ -239,38 +232,43 @@ JTSageDateBox.styleFunctions = {
 	},
 	fboxContainer         : function ( size ) {
 		return $(
-			"<div class='d-flex border-top border-bottom m-2' style='height: " + 
-			size + 
-			"; overflow: hidden'>"
+			"<div style='height: " + 
+			 size + 
+			 "; overflow: hidden; padding: 5px;'>"
 		);
 	},
 	fboxDurLabels         : function ( ) {
 		return $(
-			"<div class='d-flex mx-2 mt-2' style='margin-bottom: -8px;'>"
+			"<div style='padding: 0 5px;'>"
 		);
 	},
 	fboxDurLabel          : function ( text, items ) {
 		return $( 
-			"<div class='text-center' style='width: " + ( 100 / items ) + "%'>" + 
-			text + 
+			"<div class='text-center' style='display: inline-block; width: " + 
+			( 100 / items ) + "%'>" + text + 
 			"</div>"
 		);
 	},
-	fboxRollerContain     : function () {
-		return $( "<div class='flex-fill'>" );
+	fboxRollerContain     : function ( items ) {
+
+		return $( "<div style='float: left; width: " + ( 100 / items ) + "%'>" );
 	},
 	fboxRollerParent      : function () {
 		return $( "<ul class='list-group'>" );
 	},
 	fboxRollerChild       : function ( text, cls ) {
 		return $( 
-			"<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" + 
+			"<li class='list-group-item text-center list-group-item-" + cls + "'" +
+			" style='padding: 10px 0;'>" + 
 			text + 
 			"</li>"
 		);
 	},
 	fboxLens              : function () {
-		return $( "<div class='p-4 border border-dark shadow mx-1'>" );
+		return $( 
+			"<div style='margin: 0px 2px; box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); " +
+			"border: 1px solid black; height: 50px;'>"
+		);
 	}
 };
 

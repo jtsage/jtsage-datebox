@@ -17,7 +17,6 @@ mergeOpts({
 	useTomorrowButton : false,
 	useClearButton    : false,
 	useCollapsedBut   : false,
-	flipboxLensAdjust : false,
 
 	flen : { 
 		"y" : 25,
@@ -41,12 +40,14 @@ JTSageDateBox._fbox_pos = function () {
 	// Position the lens and the reels on widget open and 
 	// when they are changed
 	var fullRoller, firstItem, height_Roller, intended_Top,
-		w                = this,
-		o                = this.options,
-		height_Container = w.d.intHTML.find( ".dbRollerC" ).height(),
-		height_Outside   = w.d.intHTML.find( ".dbRollerV" ).outerHeight( true ),
-		theLens          = w.d.intHTML.find( ".dbLens" ).first(),
-		height_Lens      = theLens.outerHeight();
+		w                 = this,
+		o                 = this.options,
+		height_Container1 = w.d.intHTML.find( ".dbRollerC" ).height(),
+		height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight( true ),
+		height_Container2 = w.d.intHTML.find( ".dbRollerV" ).height(),
+		theLens           = w.d.intHTML.find( ".dbLens" ).first(),
+		height_Lens       = theLens.outerHeight(),
+		height_Container  = ( height_Container1 > 1000 ) ? height_Container2 : height_Container1;
 
 	// Lens top:
 	// Negative Half the parent height is center.
@@ -61,7 +62,7 @@ JTSageDateBox._fbox_pos = function () {
 		fullRoller    = $(this),
 		firstItem     = fullRoller.children().first(),
 
-		height_Roller = fullRoller.height();
+		height_Roller = fullRoller.outerHeight(true);
 
 		// Negative Half the height of the roller ( gets center to top border of view)
 		// Add half of the view container height.
@@ -259,7 +260,7 @@ JTSageDateBox._build.flipbox         = function () {
 	for ( cntlFieldIdx = 0; cntlFieldIdx < w.fldOrder.length; cntlFieldIdx++ ) {
 		thisField = w.fldOrder[ cntlFieldIdx ];
 
-		cntlContain = _sf.fboxRollerContain().addClass( "dbRollerC" );
+		cntlContain = _sf.fboxRollerContain( w.fldOrder.length ).addClass( "dbRollerC" );
 		cntlRoller  = _sf.fboxRollerParent().addClass( "dbRoller" );
 
 		cntlContain.data({
@@ -359,7 +360,7 @@ JTSageDateBox._build.flipbox         = function () {
 				e.originalEvent.changedTouches[0].pageY : 
 				e.pageY;
 			g.end = false;
-			g.direc = ( dur ) ? 1 : -1;
+			g.direc = 1; //( dur ) ? 1 : -1;
 			g.velocity = 0;
 			g.time = Date.now();
 			e.stopPropagation();
