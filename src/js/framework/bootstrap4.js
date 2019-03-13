@@ -62,6 +62,9 @@ mergeOpts({
 	},
 	theme_headStyle : false,
 
+	buttonIconDate: "calendar",
+	buttonIconTime: "time",
+
 	disabledState  : "disabled",
 
 	clickEvent: "click",
@@ -183,6 +186,9 @@ JTSageDateBox.styleFunctions = {
 		return $(returnVal);
 	},
 	dboxContainer         : function () {
+		return $("<div>");
+	},
+	dboxRow               : function () {
 		return $("<div class='d-flex p-1'>");
 	},
 	dboxControl           : function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label ) {
@@ -243,15 +249,4 @@ JTSageDateBox.styleFunctions = {
 
 JTSageDateBox.baseMode = "bootstrap4";
 
-JTSageDateBox._controlGroup = function(element) {
-	var o = this.options;
-
-	if ( o.useCollapsedBut ) {
-		element.find( "a" ).css({ width: "auto" });
-		element.addClass( "btn-group btn-group-justified" );
-	} else {
-		element.addClass( "btn-group-vertical" );
-	}
-	return element;
-};
 

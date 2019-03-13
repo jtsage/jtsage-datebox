@@ -193,7 +193,12 @@ sfs :
 
   dboxContainer :
     definition : "function ()"
-    short : DateBox container
+    short : DateBox mode container (outer)
+    long : Return a div with classes or styles that will hold the DateBox
+
+  dboxRow :
+    definition : "function ()"
+    short : DateBox mode container (inner)
     long : Return a div with classes or styles that will hold the DateBox
 
   dboxControl :

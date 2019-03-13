@@ -135,7 +135,7 @@ JTSageDateBox._build.datetimebox = function () { this._build.datebox.apply( this
 JTSageDateBox._build.durationbox = function () { this._build.datebox.apply( this, [] ); };
 
 JTSageDateBox._build.datebox = function () {
-	var offAmount, i, ctrlWrk,
+	var offAmount, i, ctrlWrk, ctrlRow,
 		w             = this,
 		o             = this.options,
 		_sf           = this.styleFunctions,
@@ -184,8 +184,10 @@ JTSageDateBox._build.datebox = function () {
 			.appendTo( w.d.intHTML );
 	}
 	
-	for ( i = 0; i < w.fldOrder.length; i++ ) {
+	ctrlRow = _sf.dboxRow();
 
+	for ( i = 0; i < w.fldOrder.length; i++ ) {
+		
 		if ( w.fldOrder[i] === "a" && w.__( "timeFormat" ) !== 12 ) { continue; }
 
 		if ( dur ) {
@@ -215,9 +217,10 @@ JTSageDateBox._build.datebox = function () {
 			amount: offAmount * -1
 		});
 
-		ctrlContainer.append( ctrlWrk );
+		ctrlRow.append( ctrlWrk );
 	}
 
+	ctrlContainer.append( ctrlRow );
 	ctrlContainer.appendTo( w.d.intHTML );
 
 	w._dbox_run_update( true );
