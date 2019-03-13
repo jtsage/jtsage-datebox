@@ -1,11 +1,16 @@
-/* JTSage-DateBox 
- *
- * Basic boilerplate
- *
- * Contains open, close, create, etc.  The stuff that used to be in frameworks and is now agnostic.
- * 
- */
+ /**
+     * JTSage-DateBox
+     * @fileOverview Base options object and options getters / setters.
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author Other GitHub Contributors
+     * @license MIT
+     * @version 5.0.0
+     */
 	
+/**
+ * Create the widget, called automatically on initilization
+ *
+ */
 JTSageDateBox._create = function() {
 	// Create the widget, called automatically by widget system
 	$( document ).trigger( "dateboxcreate" );
@@ -184,6 +189,11 @@ JTSageDateBox._create = function() {
 	$( document ).trigger( "dateboxaftercreate" );
 };
 
+
+/**
+ * Open the DateBox widget
+ *
+ */
 JTSageDateBox.open = function () {
 	// PUBLIC function to open the control
 	var w = this,
@@ -385,6 +395,11 @@ JTSageDateBox.open = function () {
 	}, 200);
 };
 
+
+/**
+ * Close the DateBox widget
+ *
+ */
 JTSageDateBox.close = function() {
 	// Provide a PUBLIC function to close the element.
 	var w = this,
@@ -450,6 +465,11 @@ JTSageDateBox.close = function() {
 	}
 };
 
+
+/**
+ * Destroy the DateBox widget and data
+ *
+ */
 JTSageDateBox._destroy = function() {
 	var w = this,
 		o = this.options,
@@ -477,6 +497,14 @@ JTSageDateBox._destroy = function() {
 		.off( w.drag.eEndA );
 };
 
+/**
+ * Create a simple select html element
+ *
+ * @param {!Array<Array>} data Each inside array is [ value, title, selected(bool) ]
+ * @param {string} id HTML ID for the select
+ * @param {string} cls Class for the select
+ * @returns {String} Completed select element 
+ */
 JTSageDateBox._stdSel = function(data, id, cls) {
 	var i, returnVal = "<select class='" + cls + "' id='" + id + "'>";
 
@@ -490,7 +518,17 @@ JTSageDateBox._stdSel = function(data, id, cls) {
 	return returnVal;
 };
 
+
 JTSageDateBox._stdBtn = {
+
+	/**
+	 * Make a cancel button.
+	 *
+	 * @memberof! JTSageDateBox#
+	 * @instance _stdBtn.cancel
+	 * @alias _stdBtn.cancel
+	 * @returns {Object} JQuery button object, with events attached
+	 */
 	cancel: function() {
 		var w = this, o = this.options;
 		return $( w.styleFunctions.button(

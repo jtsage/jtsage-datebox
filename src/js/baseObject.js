@@ -1,21 +1,44 @@
-/* JTSage-DateBox 
- *
- * Basic Options, Base Object definition.
- *
- * Contains the option getters/setters
- * 
- */
+/* jshint unused: false */
 
+ /**
+     * JTSage-DateBox
+     * @fileOverview Base options object and options getters / setters.
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author Other GitHub Contributors
+     * @license MIT
+     * @version 5.0.0
+     */
+
+/**
+ * DateBox widget
+ * 
+ * @kind class
+ */
 var JTSageDateBox = {};
 
+/**
+ * Merge options together. Deliberatly shallow merge.
+ *
+ * @param {Object} newOpts
+ */
 var mergeOpts = function (newOpts) {
 	for (var attrname in newOpts) { 
 		JTSageDateBox.options[attrname] = newOpts[attrname];
 	}
 };
 
+/**
+ * Selector to auto-enhance
+ * 
+ * @type {string}
+ */
 JTSageDateBox.initSelector = "input[data-role='datebox']";
 
+/**
+ * Widget Options
+ * 
+ * @type {Object}
+ */
 JTSageDateBox.options = {
 	// All widget options, including some internal runtime details
 
@@ -174,8 +197,19 @@ JTSageDateBox.options = {
 	}
 };
 
+/** 
+ * Functions that control the actual style of datebox elements
+ * 
+ * @type {Object}
+*/
 JTSageDateBox.styleFunctions = {};
 	
+/**
+ * Get the "long" version of the options from the input
+ *
+ * @param {Object} element - jQuery object, original input element
+ * @returns {Object} Found elements, shallow object
+ */
 JTSageDateBox._getLongOptions = function( element ) {
 	// Pull "long" options from the element, i.e.
 	// data-datebox-mode="datebox" --> options.mode
@@ -196,11 +230,23 @@ JTSageDateBox._getLongOptions = function( element ) {
 	return returnObj;
 };
 
+/**
+ * Set an option, then refresh display
+ *
+ * @param {string} Option Name
+ * @param {string} Option Value
+ */
 JTSageDateBox._setOption = function() {
 	$.Widget.prototype._setOption.apply( this, arguments );
 	this.refresh();
 };
 
+/**
+ * Get the value of an option, auto-search the i18n values (first)
+ *
+ * @param {string} opt - Option name
+ * @returns {string} Option value
+ */
 JTSageDateBox.getOption = function( opt ) {
 	// Provide a PUBLIC function to get a defined option or i18n member
 	var i18nTester = this.__(opt);

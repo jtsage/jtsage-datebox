@@ -1,11 +1,11 @@
-/* JTSage-DateBox 
- *
- * Widget Binder
- *
- * Contains the logic to auto-init the widget.
- * Used only in test enviroment
- *
- */
+ /**
+     * JTSage-DateBox
+     * @fileOverview Widget binding and auto-init (used only in test enviroment)
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author Other GitHub Contributors
+     * @license MIT
+     * @version 5.0.0
+     */
 
 (function( $ ) {
 	$(document).ready( function() {
