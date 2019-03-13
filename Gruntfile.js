@@ -149,6 +149,7 @@ module.exports = function(grunt) {
 					configFile: "doc_builder/data/datebox.yml",
 					apidocFile: "doc_builder/data/api.yml",
 					interfFile: "doc_builder/data/interface.yml",
+					framesFile: "doc_builder/data/frames.yml",
 				},
 				files: [{
 					expand: true,

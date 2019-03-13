@@ -114,6 +114,36 @@ var startTime     = new Date(),
 
 		return theCard;
 	},
+	makeFrame = function ( rec ) {
+		var theCard = "<div class=\"card border-dark my-2\">";
+
+		theCard += "<div class=\"card-header d-flex\">" + rec.name + 
+			"<span class=\"d-inline-block ml-auto mr-0 text-muted\">" + rec.short +
+			"</span></div>";
+
+		theCard += "<div class=\"card-body\">" + mdConvert.makeHtml(rec.long) + "</div>";
+
+		theCard += "<ul class=\"list-group list-group-flush\">";
+		theCard += "<li class=\"list-group-item d-flex list-group-item-info\">" +
+			"<strong>Prototype:</strong><em class=\"d-block-inline ml-auto mr-0\">" + 
+			rec.definition + "</em></li>";
+
+		if ( typeof rec.args === "object" && rec.args !== "" ) {
+			theCard += "<li class=\"list-group-item list-group-item-dark\">Arguments</li>";
+			for ( var i = 0; i < rec.args.length; i++ ) {
+				for ( var argKey in rec.args[i] ) {
+					theCard += "<li class=\"list-group-item d-flex\"><strong>" + argKey + 
+						"</strong><em class=\"d-block-inline ml-auto mr-0\">" +
+						rec.args[i][argKey] + "</em></li>";
+				}
+			}
+		}
+		theCard += "</ul>";
+
+		theCard += "</div>";
+
+		return theCard;
+	},
 	makeFunc = function( rec ) {
 		var theCard = "<div class=\"card border-dark\">";
 
@@ -220,6 +250,17 @@ var startTime     = new Date(),
 			}
 			return filePart + "</div>";
 		},
+		getFrame : function( api, type ) {
+			var filePart = "";
+			for ( var apiKey in api[ type ] ) {
+				var rec = api[type][apiKey];
+
+				rec.name   = apiKey;
+
+				filePart += makeFrame(rec);
+			}
+			return filePart;
+		}
 	};
 
 
@@ -235,6 +276,7 @@ module.exports = function(grunt) {
 			api    = yaml.safeLoad( grunt.file.read( o.apidocFile ) ),
 			config = yaml.safeLoad( grunt.file.read( o.configFile ) ),
 			iface  = yaml.safeLoad( grunt.file.read( o.interfFile ) ),
+			frames = yaml.safeLoad( grunt.file.read( o.framesFile ) ),
 
 			compFile = "",
 			doneFile = "";
@@ -266,6 +308,8 @@ module.exports = function(grunt) {
 								return apiGen.getFunc( iface, "listen", "Listener" );
 							case "funcGen.getTrigger":
 								return apiGen.getFunc( iface, "trigger", "Trigger" );
+							case "frameGen":
+								return apiGen.getFrame( frames, "sfs" );
 						}
 						break;
 					case "dmo:":

@@ -120,7 +120,7 @@ sfs :
 
   calRow :
     definition : "function ()"
-    short      : Make a calenar row
+    short      : Make a calendar row
     long       : Probably a TR
 
   calButton :
@@ -143,96 +143,121 @@ sfs :
 
       This should return a jQuery object.  The button should also have the class ___"dbEvent"___
 
-  # calNonButton          : function ( text, header, totalElements ) {
-  #   var style = ( totalElements !== undefined ?
-  #       " style='width: " + ( 100 / totalElements ) + "%'" :
-  #       ""
-  #     ),
-  #     cls = ( header ) ? " font-weight-bold" : "";
+  calNonButton :
+    definition : "function ( text, header, totalElements )"
+    short      : Make a calendar non-button grid element
+    args       :
+      - text          : Text to display
+      - header        : Bool, this is a header element (bold it)
+      - totalElements : Number of elements in a row.  7 or 8.
+    long       : |
+      This returns a similar object to ___calButton___, but it has no action attached to it.
 
-  #   return $("<td class='m-0 p-0 text-center" + cls + "'" + style + ">" + text + "</td>");
-  # },
-  # calPickers            : function ( ranges ) {
-  #   var returnVal = "";
+  calPickers :
+    definition : "function ( ranges )"
+    short      : Build calendar month / year pickers
+    args       :
+      - ranges : Object of arrays.  See below.
+    long       : |
+      This is responsible for building the selects for months and years.
 
-  #   returnVal += "<div class='row my-2 mx-1'>";
+      __ranges__ contains two keys:
 
-  #   returnVal += "<div class='col-sm-8 p-0 m-0'>";
-  #   returnVal += this._stdSel( ranges.month, "dbCalPickMonth", "form-control" );
-  #     returnVal += "</div>";
+       - __month__ : Month array
+       - __year__ : Year array
 
-  #   returnVal += "<div class='col-sm-4 p-0 m-0'>";
-  #   returnVal += this._stdSel( ranges.year, "dbCalPickYear", "form-control" );
-  #     returnVal += "</div>";
+      Each of these are an array of arrays, the individual element is
 
-  #   returnVal += "</div>";
+       - __array[0]__ : Value for <option>
+       - __array[1]__ : Text for <option>
+       - __array[2]__ : Boolean, is the <option> selected?
 
-  #   return $(returnVal);
-  # },
-  # calDateList           : function ( listLabel, list ) {
-  #   var returnVal = "";
+      Consider using _stdSel() which makes a base select box.
 
-  #   list.unshift([false, listLabel, true]);
+  calDateList :
+    definition : "function ( listLabel, list )"
+    short      : Build quick pick list for calendar
+    args       :
+      listLabel : Lable for the pick list
+      list : list array
+    long       : |
+      This is responsible for building the selects for months and years.
 
-  #   returnVal += "<div class='row my-2 mx-1'>";
-  #   returnVal += this._stdSel( list, "dbCalPickList", "form-control" );
-  #   returnVal += "</div>";
+      __list__ is an array of arrays, the individual element is
 
-  #   return $(returnVal);
-  # },
-  # dboxContainer         : function () {
-  #   return $("<div class='d-flex p-1'>");
-  # },
-  # dboxControl           : function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label ) {
-  #   var returnVal = "";
+       - __array[0]__ : Value for <option>
+       - __array[1]__ : Text for <option>
+       - __array[2]__ : Boolean, is the <option> selected?
 
-  #   returnVal += "<div class='btn-group-vertical flex-fill dbBox" + mainCls + "'>";
+      Consider using _stdSel() which makes a base select box.
 
-  #   returnVal += this.button( nextCls + " dbBoxNext" , nextIcn, "" );
-  #   if ( label !== null ) {
-  #     returnVal += "<div class='w-100 form-control rounded-0 p-0 text-center' " +
-  #       "style='height:auto'>" + label + "</div>";
-  #   }
-  #   returnVal += "<input type='text' ";
-  #   returnVal += "class='form-control form-control-sm text-center px-0 rounded-0'>";
-  #   returnVal += this.button( prevCls + " dbBoxPrev" , prevIcn, "" );
+  dboxContainer :
+    definition : "function ()"
+    short : DateBox container
+    long : Return a div with classes or styles that will hold the DateBox
 
-  #   returnVal += "</div>";
+  dboxControl :
+    definition : "function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label )"
+    short      : Create the datebox mode +/input/- control
+    args       :
+      - prevIcn : Icon class for previous button
+      - prevCls : Theme class for previous button
+      - nextIcn : Icon class for next button
+      - nextCls : Theme class for next button
+      - mainCls : Class for wrapper
+      - label : Label for input, if needed (optional)
+    long       : |
+      Return a control consisting of a stacked next button, label (if needed), input box, and 
+      minus button.
 
-  #   return $(returnVal);
-  # },
-  # fboxContainer         : function ( size ) {
-  #   return $(
-  #     "<div class='d-flex border-top border-bottom m-2' style='height: " + 
-  #     size + 
-  #     "; overflow: hidden'>"
-  #   );
-  # },
-  # fboxDurLabels         : function ( ) {
-  #   return $(
-  #     "<div class='d-flex mx-2 mt-2' style='margin-bottom: -8px;'>"
-  #   );
-  # },
-  # fboxDurLabel          : function ( text, items ) {
-  #   return $( 
-  #     "<div class='text-center' style='width: " + ( 100 / items ) + "%'>" + 
-  #     text + 
-  #     "</div>"
-  #   );
-  # },
-  # fboxRollerContain     : function () {
-  #   return $( "<div class='flex-fill'>" );
-  # },
-  # fboxRollerParent      : function () {
-  #   return $( "<ul class='list-group'>" );
-  # },
-  # fboxRollerChild       : function ( text, cls ) {
-  #   return $( 
-  #     "<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" + 
-  #     text + 
-  #     "</li>"
-  #   );
-  # },
-  # fboxLens              : function () {
-  #   return $( "<div class='p-4 border border-dark shadow mx-1'>" );
-  # }
+      The wrapper should have __<mainCls>__ and must have the __dbBox__ class
+      The next button must have the __dbBoxNext__ class
+      The previous button must have the __dbBoxPrev__ class
+
+      Best use case calls __button()__ to make the buttons.
+
+  fboxContainer :
+    definition : "function ( size )"
+    short      : Build the flipbox control container
+    args       :
+      - size : Height of the control.
+    long : This is the wrapper for all of the rollers for flipbox
+
+  fboxDurLabels :
+    definition : "function ( )"
+    short      : Wrapper for flipbox labels
+    long       : This is a wrapper for flipbox labels, if used.
+
+  fboxDurLabel :
+    definition : "function ( text, items )"
+    short      : Build a label for flipbox
+    args       :
+      - text  : Text of the label
+      - items : Total number of labels
+    long       : |
+      Return a label.  __items__ exists for width math, if nessesary.
+
+  fboxRollerContain :
+    definition : "function ()"
+    short      : Container for each roller
+    long       : Build the container for each roller.
+
+  fboxRollerParent :
+    definition : "function ()"
+    short      : Opening of each roller
+    long       : Opener of each roller.  This is usually a <ul>
+
+  fboxRollerChild :
+    definition : "function ( text, cls )"
+    short      : Build the roller elements
+    args       :
+      - text : Text of item
+      - cls  : Class of item
+    long       : |
+      Each list item.  Usually a <li>.
+
+  fboxLens :
+    definition : "function ()"
+    short      : The "lens" of the flipbox
+    long       : Build the lens element of the flipbox
+

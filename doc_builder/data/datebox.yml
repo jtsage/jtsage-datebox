@@ -37,6 +37,9 @@ menu :
   - name   : Download Builder
     exturl : https://jtsage.dev/DateBox/builder/
 
+  - name : Adding Frameworks
+    url  : "/frames/"
+
 
 demo :
   - name : Option Demos
