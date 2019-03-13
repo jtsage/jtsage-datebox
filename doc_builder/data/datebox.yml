@@ -56,3 +56,18 @@ demo :
 
   - name : " - DateTimeBox"
     url  : "/optDemo-datetimeBox"
+
+  - name : " - FlipBox"
+    url  : "/optDemo-flipBox"
+
+  - name : " - TimeFlipBox"
+    url  : "/optDemo-timeflipBox/"
+
+  - name : " - DateTimeFlipBox"
+    url  : "/optDemo-datetimeflipBox/"
+
+  - name : " - DurationBox"
+    url  : "/optDemo-durationBox/"
+
+  - name : " - DurationFlipBox"
+    url  : "/optDemo-durationflipBox/"

@@ -4,12 +4,18 @@ The pages linked below are a per-mode page that include a fair cross section of 
 
 #### Individual Modes:
 
- * [calbox](../optDemo-calbox/)
+ * [calbox](../optDemo-calBox/)
 
- * [datebox](../optDemo-datebox/)
- * [timebox](../optDemo-timebox/)
- * [datetimebox](../optDemo-datetimebox/)
+ * [datebox](../optDemo-dateBox/)
+ * [timebox](../optDemo-timeBox/)
+ * [datetimebox](../optDemo-datetimeBox/)
 
+ * [flipbox](../optDemo-flipBox/)
+ * [timeflipbox](../optDemo-timeflipBox/)
+ * [datetimeflipbox](../optDemo-datetimeflipBox/)
+
+ * [durationbox](../optDemo-durationBox/)
+ * [durationflipbox](../optDemo-durationflipBox/)
 
 
 #### dateFormat demo

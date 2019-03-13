@@ -8,16 +8,26 @@ These demos use a good bit of pseduo-code - remember to look at the page source 
 This sample is the most simple version of the "calbox" varient. Note that DateBox automatically enhances properlly tagged elements.  If you need a simple date input with no limits, logic, or customization, it is as simple as adding an input element. __Note the use of the data-role attribute__, which is what allows DateBox to auto enhance.  At least the mode option is required if your build includes more than one mode.
 
 <div class="form-group">
-	<label class="control-label"for="db1">CalBox DateBox</label>
-	<input class="form-control" name="db1" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang1">
+	<label class="control-label"for="db1">CalBox style DateBox</label>
+	<input class="form-control" name="db1" type="text" data-role="datebox" data-datebox-mode="calbox" id="db1">
+</div>
+
+<div class="form-group">
+	<label class="control-label"for="db2">DateBox style DateBox</label>
+	<input class="form-control" name="db2" type="text" data-role="datebox" data-datebox-mode="datebox" id="db2">
+</div>
+
+<div class="form-group">
+	<label class="control-label"for="db3">FlipBox style DateBox</label>
+	<input class="form-control" name="db3" type="text" data-role="datebox" data-datebox-mode="flipbox" id="db3">
 </div>
 
 ##### Code
 
 ```html
 <div class="form-group">
-	<label class="control-label"for="db1">CalBox DateBox</label>
-	<input class="form-control" name="db1" type="text" data-role="datebox" data-datebox-mode="calbox" id="lang1">
+	<label class="control-label"for="db1">CalBox style DateBox</label>
+	<input class="form-control" name="db1" type="text" data-role="datebox" data-datebox-mode="calbox" id="db1">
 </div>
 ```
 
