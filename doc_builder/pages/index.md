@@ -22,6 +22,11 @@ This sample is the most simple version of the "calbox" varient. Note that DateBo
 	<input class="form-control" name="db3" type="text" data-role="datebox" data-datebox-mode="flipbox" id="db3">
 </div>
 
+<div class="form-group">
+	<label class="control-label"for="db4">SlideBox style DateBox</label>
+	<input class="form-control" name="db4" type="text" data-role="datebox" data-datebox-mode="slidebox" id="db4">
+</div>
+
 ##### Code
 
 ```html

@@ -51,6 +51,9 @@ demo :
   - name : " - CalBox"
     url  : "/optDemo-calBox"
 
+  - name : " - SlideBox"
+    url  : "/optDemo-slideBox"
+
   - name : " - DateBox"
     url  : "/optDemo-dateBox"
 
