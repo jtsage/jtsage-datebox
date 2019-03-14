@@ -219,9 +219,10 @@ JTSageDateBox.options = {
 JTSageDateBox.icons = {
 	getIcon  : function ( name ) {
 		// If the icon name starts with a tag, it's svg.
+
 		if ( name === false ) { return false; }
 
-		if ( name.substr(4) === "<svg" ) { return name; }
+		if ( name.substr(0,4) === "<svg" ) { return name; }
 
 		if ( typeof this[name] !== "undefined" ) { return this[name]; }
 
