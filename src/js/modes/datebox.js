@@ -196,14 +196,14 @@ JTSageDateBox._build.datebox = function () {
 			offAmount = ( w.fldOrder[i] === "i" ) ? o.minuteStep: 1;
 		}
 
-		ctrlWrk = _sf.dboxControl( 
+		ctrlWrk = _sf.dboxControl.apply( w, [ 
 			o.theme_dbox_PrevBtnIcn,
 			o.theme_dbox_PrevBtnCls,
 			o.theme_dbox_NextBtnIcn,
 			o.theme_dbox_NextBtnCls,
 			w.fldOrder[i],
 			( dur ) ? w.__( "durationLabel" )[ $.inArray( w.fldOrder[i], defDurOrder ) ] : null
-		);
+		] );
 		ctrlWrk.find( "input" ).data({ 
 			field: w.fldOrder[i],
 			amount: offAmount

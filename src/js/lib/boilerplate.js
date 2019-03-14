@@ -59,7 +59,7 @@ JTSageDateBox._create = function() {
 
 	$( "head" ).append( $( styleTag ) );
 
-	$.extend(w, {d: d, drag: drag, touch:touch});
+	$.extend(w, {d: d, drag: drag, touch:touch, icons:this.icons});
 
 	if ( o.usePlaceholder !== false ) {
 		if ( o.usePlaceholder === true && w._grabLabel() !== "" ) { 
@@ -95,7 +95,7 @@ JTSageDateBox._create = function() {
 		w.d.input.val( w._formatter( w.__fmt(), w.theDate ) );
 	}
 
-	w.d.wrap = w.styleFunctions.baseInputWrap(w.d.input);
+	w.d.wrap = w.styleFunctions.baseInputWrap.apply( w, [ w.d.input ] );
 	
 	if ( o.mode !== false ) {
 		if ( o.buttonIcon === false ) {
@@ -108,7 +108,7 @@ JTSageDateBox._create = function() {
 	}
 
 	if ( o.useButton ) {
-		$( w.styleFunctions.baseInputButton( o.buttonIcon, w.__( "tooltip") ) )
+		$( w.styleFunctions.baseInputButton.apply( w, [ o.buttonIcon, w.__( "tooltip") ] ) )
 			.on(o.clickEvent, function( e ) {
 				e.preventDefault();
 				if ( o.useFocus ) {
@@ -231,13 +231,13 @@ JTSageDateBox.open = function () {
 	w.d.mainWrap.empty();
 
 	if ( o.useHeader ) {
-		w.d.mainWrap.append( $( w.styleFunctions.widgetHeader(
+		w.d.mainWrap.append( $( w.styleFunctions.widgetHeader.apply( w, [
 			w.d.headerText,
 			o.theme_headerTheme,
 			o.theme_headerBtnCls,
 			o.theme_headerBtnIcn
-		) ) )
-		.find( ".closer" ).on( o.clickEventAlt, function( e ) {
+		] ) ) )
+		.find( ".dbCloser" ).on( o.clickEventAlt, function( e ) {
 			e.preventDefault();
 			w._t( { method: "close", closeCancel: true } );
 		} );
@@ -472,9 +472,9 @@ JTSageDateBox.close = function() {
  *
  */
 JTSageDateBox._destroy = function() {
-	var w = this,
-		o = this.options,
-		button = this.styleFunctions.baseInputButtonFinder(this.d.wrap);
+	var w      = this,
+		o      = this.options,
+		button = w.d.wrap.find( "bdOpenButton" );
 
 	if ( o.useButton === true ) {
 		button.remove();
@@ -536,11 +536,11 @@ JTSageDateBox._stdBtn = {
 	 */
 	cancel: function() {
 		var w = this, o = this.options;
-		return $( w.styleFunctions.button(
+		return $( w.styleFunctions.button.apply( w, [
 				o.theme_cancelBtnCls,
 				o.theme_cancelBtnIcn,
 				w.__("cancelButton")
-			) )
+			] ) )
 			.on(o.clickEventAlt, function (e) {
 				e.preventDefault();
 				w._t({ method: "close", closeCancel: true });
@@ -555,11 +555,11 @@ JTSageDateBox._stdBtn = {
 	 */
 	clear: function() {
 		var w = this, o = this.options;
-		return $( w.styleFunctions.button(
+		return $( w.styleFunctions.button.apply( w, [
 				o.theme_clearBtnCls,
 				o.theme_clearBtnIcn,
 				w.__("clearButton")
-			) )
+			] ) )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.d.input.val("");
@@ -581,7 +581,11 @@ JTSageDateBox._stdBtn = {
 
 		if ( typeof trigger === "undefined" ) { trigger = false; }
 
-		return $( w.styleFunctions.button( o.theme_closeBtnCls, o.theme_closeBtnIcn, txt ) ) 
+		return $( w.styleFunctions.button.apply( this, [ 
+				o.theme_closeBtnCls,
+				o.theme_closeBtnIcn,
+				txt
+			] ) ) 
 			.addClass( "" +
 				( ( w.dateOK === true ) ? "" : "disabled")
 			)
@@ -611,11 +615,11 @@ JTSageDateBox._stdBtn = {
 	 */
 	today: function() {
 		var w = this, o = this.options;
-		return $( w.styleFunctions.button(
+		return $( w.styleFunctions.button.apply( w, [
 				o.theme_todayBtnCls,
 				o.theme_todayBtnIcn,
 				w.__("todayButtonLabel")
-			) )
+			] ) )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date());
@@ -632,11 +636,11 @@ JTSageDateBox._stdBtn = {
 	 */
 	tomorrow: function() {
 		var w = this, o = this.options;
-		return $( w.styleFunctions.button(
+		return $( w.styleFunctions.button.apply( w, [
 				o.theme_tomorrowBtnCls,
 				o.theme_tomorrowBtnIcn,
 				w.__("tomorrowButtonLabel") 
-			) )
+			] ) )
 			.on(o.clickEventAlt, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );

@@ -7,7 +7,6 @@
      * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
      * @version 5.0.0
      *
-
      */
 
 mergeOpts({
@@ -94,17 +93,9 @@ mergeOpts({
 	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 });
 
+JTSageDateBox.baseMode = "bootstrap4";
+
 JTSageDateBox.styleFunctions = {
-
-	/**
-	 * Grab an icon SVG
-	 *
-	 * @param {string} icon Icon name of full SVG of override
-	 * @returns {string} SVG Icon
-	 * @memberof JTSageDateBox.styleFunctions
-	 */
-	getIcon               : function( icon ) { return window.JTSageDateBoxIcons.getIcon( icon ); },
-
 	/**
 	 * Make a button
 	 * 
@@ -113,12 +104,13 @@ JTSageDateBox.styleFunctions = {
 	 * @param  {string} contents Text contents of the button (if any)
 	 * @return {string} Created button
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
 	 */
 	button                : function( themeClass, icon, contents ) {
 		var retty;
 
 		retty  = "<a href='#' role='button' class='btn btn-sm btn-" + themeClass + "'>";
-		retty += ( icon !== false ) ? "<span>" + this.getIcon(icon) + "</span> " : "";
+		retty += ( icon !== false ) ? "<span>" + this.icons.getIcon(icon) + "</span> " : "";
 		retty += contents + "</a>";
 
 		return retty;
@@ -130,6 +122,7 @@ JTSageDateBox.styleFunctions = {
 	 * @param  {boolean} collapse Attempt to display buttons on one line
 	 * @return {object} jQuery object of a button group that buttons can be appended to 
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
 	 */
 	buttonGroup           : function ( collapse ) {
 		var cls = ( collapse === true ) ? "btn-group" : "btn-group-vertical";
@@ -143,6 +136,7 @@ JTSageDateBox.styleFunctions = {
 	 * @param  {object} originalInput Original input element, jQuery object
 	 * @return {object} jQuery object now wrapped with some sort of div
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
 	 */
 	baseInputWrap         : function ( originalInput ) { 
 		/* Set up a wrap around the input for styling, and return it */
@@ -152,27 +146,19 @@ JTSageDateBox.styleFunctions = {
 	/**
 	 * Create the open button that is added to the input
 	 * 
+	 * MUST contain dbOpenButton class. (outer)
+	 * 
 	 * @param  {string} icon Icon to use (name or SVG)
 	 * @param  {string} title Hover text for the button
 	 * @return {string} Rendered HTML of the open button
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
 	 */
 	baseInputButton       : function ( icon, title ) {
-		return "<div class='input-group-append' title='" + title + "'>" +
+		return "<div class='dbOpenButton input-group-append' title='" + title + "'>" +
 			"<div class='input-group-text'>" + 
-			"<span>" + this.getIcon( icon ) + "</span>" + 
+			"<span>" + this.icons.getIcon( icon ) + "</span>" + 
 			"</div></div>";
-	},
-
-	/**
-	 * Find the open button (NUKE THIS!)
-	 * 
-	 * @param  {object} originalInputWrap jQuery Object
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 */
-	baseInputButtonFinder : function ( originalInputWrap ) {
-		return originalInputWrap.find(".input-group-append");
 	},
 
 	/**
@@ -180,6 +166,7 @@ JTSageDateBox.styleFunctions = {
 	 * 
 	 * @param  {object} originalInputWrap jQuery object
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
 	 */
 	baseInputNoButton     : function ( originalInputWrap ) {
 		originalInputWrap.addClass( "w-100" );
@@ -190,6 +177,7 @@ JTSageDateBox.styleFunctions = {
 	 * 
 	 * @param  {object} originalInput jQuery object
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
 	 */
 	focusInput            : function ( originalInput ) {
 		originalInput.addClass( "ui-focus" );
@@ -198,8 +186,11 @@ JTSageDateBox.styleFunctions = {
 	/**
 	 * Run when the input is un-focused
 	 * 
+	 * this = styleFunctions
+	 * 
 	 * @param  {object} originalInput jQuery object
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
 	 */
 	blurInput             : function ( originalInput ) {
 		originalInput.removeClass( "ui-focus" );
@@ -208,7 +199,7 @@ JTSageDateBox.styleFunctions = {
 	/**
 	 * Make the header for every mode
 	 * 
-	 * Close button MUST include the "closer" class.
+	 * Close button MUST include the "dbCloser" class.
 	 * 
 	 * @param  {string} text Text of the header
 	 * @param  {string} themeBar Theme class for the header
@@ -216,11 +207,13 @@ JTSageDateBox.styleFunctions = {
 	 * @param  {string} icon Icon for the close button ( name or SVG )
 	 * @return {string} Rendered HTML
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
 	 */
 	widgetHeader          : function ( text, themeBar, themeIcon, icon ) {
 		return "<div class='navbar " + themeBar + "'>" + 
 			"<h5 class='text-white'>" + text + "</h5>" + 
-			this.button( themeIcon + " closer", icon, "") + "</div>";
+			this.styleFunctions.button.apply( this, [ themeIcon + " dbCloser", icon, "" ] ) +
+			"</div>";
 	},
 
 	/**
@@ -231,6 +224,7 @@ JTSageDateBox.styleFunctions = {
 	 * @param  {string} text Text to display
 	 * @return {object} jQuery object
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
 	 */
 	intHeader             : function ( text ) {
 		return $(
@@ -253,13 +247,24 @@ JTSageDateBox.styleFunctions = {
 	 * @param  {string} secondBtnCls Next button theme class
 	 * @return {object} jQuery Object
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
 	 */
 	calHeader             : function ( txt, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
 		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
 
-		$( this.button(firstBtnCls + " mx-2 dbCalPrev", firstBtnIcn, "") ).appendTo( returnVal );
+		$( this.styleFunctions.button.apply( this, [ 
+			firstBtnCls + " mx-2 dbCalPrev",
+			firstBtnIcn,
+			""
+		] ) ).appendTo( returnVal );
+
 		$("<h5>" + txt + "</h5>").appendTo( returnVal );
-		$( this.button(secondBtnCls + " mx-2 dbCalNext", secondBtnIcn, "") ).appendTo( returnVal );
+
+		$( this.styleFunctions.button.apply( this, [
+			secondBtnCls + " mx-2 dbCalNext",
+			secondBtnIcn,
+			""
+		] ) ).appendTo( returnVal );
 
 		return returnVal;
 	},
@@ -269,6 +274,7 @@ JTSageDateBox.styleFunctions = {
 	 * 
 	 * @return {object} jQuery object
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
 	 */
 	calGrid               : function () {
 		return $( "<div class='w-100 p-1'><table class='dbCalGrid w-100'></table></div>" );
@@ -277,8 +283,11 @@ JTSageDateBox.styleFunctions = {
 	/**
 	 * Create a calbox grid row.  Probably a tr
 	 * 
+	 * this = styleFunctions
+	 * 
 	 * @return {object} jQuery object
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
 	 */
 	calRow                : function () {
 		return $( "<tr>" );
@@ -289,7 +298,7 @@ JTSageDateBox.styleFunctions = {
 	 * 
 	 * MUST have the "dbEvent" class
 	 * 
-	 * @param  {object} data Date information object
+	 * @param {object} data Date information object
 	 * @param {boolean} data.bad True if the date is invalid
 	 * @param {boolean} data.good True if the date is valid
 	 * @param {string} data.theme Theme class for the button
@@ -299,6 +308,7 @@ JTSageDateBox.styleFunctions = {
 	 * @param  {number} totalElements Number of elements in the row ( 7 or 8 )
 	 * @return {object} jQuery Object
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
 	 */
 	calButton             : function ( data, totalElements ) {
 		var style = ( totalElements !== undefined ?
@@ -323,6 +333,7 @@ JTSageDateBox.styleFunctions = {
 	 * @param  {number} totalElements Number of elements in the row ( 7 or 8 )
 	 * @return {object} jQuery object
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
 	 */
 	calNonButton          : function ( text, header, totalElements ) {
 		var style = ( totalElements !== undefined ?
@@ -345,8 +356,9 @@ JTSageDateBox.styleFunctions = {
 	 * @param  {object} ranges Year and Month arrays
 	 * @param {array} ranges.year Containing arrays of [ value, text, selected (boolean) ]
 	 * @param {array} ranges.month Containing arrays of [ value, text, selected (boolean) ]
-	 * @return {object}
+	 * @return {object} jQuery Object
 	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
 	 */
 	calPickers            : function ( ranges ) {
 		var returnVal = "";
@@ -365,6 +377,18 @@ JTSageDateBox.styleFunctions = {
 
 		return $(returnVal);
 	},
+
+	/**
+	 * Make the calendar drop down quick pick list.
+	 * 
+	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}
+	 *
+	 * @param {string} listLabel Label for the list
+	 * @param {array} list Containing arrays of [ value, text, selected (boolean) ]
+	 * @return {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
 	calDateList           : function ( listLabel, list ) {
 		var returnVal = "";
 
@@ -376,30 +400,82 @@ JTSageDateBox.styleFunctions = {
 
 		return $(returnVal);
 	},
+
+	/**
+	 * Make the datebox mode container.
+	 *
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	dboxContainer         : function () {
 		return $("<div>");
 	},
+
+	/**
+	 * Make the datebox control row
+	 *
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	dboxRow               : function () {
 		return $("<div class='d-flex p-1'>");
 	},
+
+	/**
+	 * Make a datebox +/-/input control
+	 * 
+	 * Next button MUST have "dbBoxNext" class
+	 * Previous button MUST have "dbBoxPrev" class
+	 *
+	 * @param {string} prevIcn Previous button icon (name or SVG)
+	 * @param {string} prevCls Previous button theme class
+	 * @param {string} nextIcn Next button icon (name of SVG)
+	 * @param {string} nextCls Next button theme class
+	 * @param {string} mainCls Class for the control (input type)
+	 * @param {string} label Label, if needed
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 * @returns {object} jQuery Object
+	 */
 	dboxControl           : function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label ) {
 		var returnVal = "";
 
 		returnVal += "<div class='btn-group-vertical flex-fill dbBox" + mainCls + "'>";
 
-		returnVal += this.button( nextCls + " dbBoxNext" , nextIcn, "" );
+		returnVal += this.styleFunctions.button.apply( this, [
+			nextCls + " dbBoxNext" ,
+			nextIcn,
+			""
+		] );
+
 		if ( label !== null ) {
 			returnVal += "<div class='w-100 form-control rounded-0 p-0 text-center' " +
 				"style='height:auto'>" + label + "</div>";
 		}
 		returnVal += "<input type='text' ";
 		returnVal += "class='form-control form-control-sm text-center px-0 rounded-0'>";
-		returnVal += this.button( prevCls + " dbBoxPrev" , prevIcn, "" );
+
+		returnVal += this.styleFunctions.button.apply( this, [
+			prevCls + " dbBoxPrev" ,
+			prevIcn,
+			""
+		] );
 
 		returnVal += "</div>";
 
 		return $(returnVal);
 	},
+
+	/**
+	 * Make the container for the flipbox
+	 *
+	 * @param {number} size Height CSS property
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	fboxContainer         : function ( size ) {
 		return $(
 			"<div class='d-flex border-top border-bottom m-2' style='height: " + 
@@ -407,11 +483,29 @@ JTSageDateBox.styleFunctions = {
 			"; overflow: hidden'>"
 		);
 	},
+
+	/**
+	 * Make a container for flipbox labels
+	 *
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	fboxDurLabels         : function ( ) {
 		return $(
 			"<div class='d-flex mx-2 mt-2' style='margin-bottom: -8px;'>"
 		);
 	},
+
+	/**
+	 * Make a flibox label
+	 *
+	 * @param {string} text Text of the label
+	 * @param {number} items Total number of items
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	fboxDurLabel          : function ( text, items ) {
 		return $( 
 			"<div class='text-center' style='width: " + ( 100 / items ) + "%'>" + 
@@ -419,12 +513,38 @@ JTSageDateBox.styleFunctions = {
 			"</div>"
 		);
 	},
+
+	/**
+	 * Make a flipbox roller container (outermost)
+	 *
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	fboxRollerContain     : function () {
 		return $( "<div class='flex-fill'>" );
 	},
+
+	/**
+	 * Make a flipbox roller container (middle) - usually a UL
+	 *
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */	
 	fboxRollerParent      : function () {
 		return $( "<ul class='list-group'>" );
 	},
+
+	/**
+	 * Make a flipbox element (innermost) - usually a LI
+	 *
+	 * @param {string} text
+	 * @param {string} cls
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	fboxRollerChild       : function ( text, cls ) {
 		return $( 
 			"<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" + 
@@ -432,18 +552,68 @@ JTSageDateBox.styleFunctions = {
 			"</li>"
 		);
 	},
+
+	/**
+	 * Make the flipbox lens
+	 *
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	fboxLens              : function () {
 		return $( "<div class='p-4 border border-dark shadow mx-1'>" );
 	},
+
+	/**
+	 * Make the header for slidebox
+	 * 
+	 * Previous button MUST have "dbSlidePrev" class
+	 * Next button MUST have "sbSlideNext" class
+	 *
+	 * @param {string} txt Text of header
+	 * @param {string} prevBtnIcn Previous button icon ( name or SVG )
+	 * @param {string} prevBtnCls Previous button theme class
+	 * @param {string} nextBtnIcn Next button icon ( name or SVG )
+	 * @param {string} nextBtnCls Nevt button theme class
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
 	slideHeader           : function ( txt, prevBtnIcn, prevBtnCls, nextBtnIcn, nextBtnCls ) {
 		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
 
-		$( this.button(prevBtnCls + " mx-2 dbSlidePrev", prevBtnIcn, "") ).appendTo( returnVal );
+		$( this.styleFunctions.button.apply( this, [
+			prevBtnCls + " mx-2 dbSlidePrev",
+			prevBtnIcn,
+			""
+		] ) ).appendTo( returnVal );
+
 		$("<h5>" + txt + "</h5>").appendTo( returnVal );
-		$( this.button(nextBtnCls + " mx-2 dbSlideNext", nextBtnIcn, "") ).appendTo( returnVal );
+
+		$( this.styleFunctions.button.apply( this, [ 
+			nextBtnCls + " mx-2 dbSlideNext",
+			nextBtnIcn,
+			""
+		] ) ).appendTo( returnVal );
 
 		return returnVal;
 	},
+
+	/**
+	 * Create the year and month picker for slide.
+	 * 
+	 * Month picker MUST have the "dbSlidePickMonth" class
+	 * Year picker MUST have the "dbSlidePickYear" class 
+	 *
+	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}.
+	 * 
+	 * @param  {object} ranges Year and Month arrays
+	 * @param {array} ranges.year Containing arrays of [ value, text, selected (boolean) ]
+	 * @param {array} ranges.month Containing arrays of [ value, text, selected (boolean) ]
+	 * @return {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
 	slidePickers            : function ( ranges ) {
 		var returnVal = "";
 
@@ -461,6 +631,18 @@ JTSageDateBox.styleFunctions = {
 
 		return $(returnVal);
 	},
+
+	/**
+	 * Make the slidebox drop down quick pick list.
+	 * 
+	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}
+	 *
+	 * @param {string} listLabel Label for the list
+	 * @param {array} list Containing arrays of [ value, text, selected (boolean) ]
+	 * @return {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
 	slideDateList           : function ( listLabel, list ) {
 		var returnVal = "";
 
@@ -472,12 +654,44 @@ JTSageDateBox.styleFunctions = {
 
 		return $(returnVal);
 	},
+
+	/**
+	 * Make the grid container for slidebox (usually a table)
+	 *
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	slideGrid               : function () {
 		return $( "<div class='w-100 py-1'><table class='dbSlideGrid w-100'></table></div>" );
 	},
+
+	/**
+	 * Make the grid for for slidebox (usually a TR)
+	 *
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	slideRow                : function () {
 		return $( "<tr>" );
 	},
+
+	/**
+	 * Create a clickable box for each grid date in slidebox.
+	 * 
+	 * MUST have the "dbEventS" class
+	 * 
+	 * @param {object} data Date information object
+	 * @param {boolean} data.bad True if the date is invalid
+	 * @param {boolean} data.good True if the date is valid
+	 * @param {string} data.theme Theme class for the button
+	 * @param {object} data.dateObj Date object
+	 * 
+	 * @return {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox.styleFunctions
+	 */
 	slideDateButton         : function ( data ) {
 		var style   = " style='width: " + ( ( 100 / 8 ) ) + "%'",
 			disable = ( data.bad ? "disabled='disabled'" : ""),
@@ -490,6 +704,17 @@ JTSageDateBox.styleFunctions = {
 			"</small><br>" + data.dateObj.getDate() +  
 			"</a>" + "</td>");
 	},
+
+	/**
+	 * Create next/prev week buttons for slidebox
+	 *
+	 * @param {string} eventCls The event class.  Should be placed on the button
+	 * @param {string} icon Icon to use for button ( name or SVG )
+	 * @param {string} theme Theme class for button
+	 * @returns {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
 	slideMoveButton         : function ( eventCls, icon, theme ) {
 		var style = " style='width: " + ( ( 100 / 8 ) / 2 ) + "%'",
 			cls   = "class='w-100 p-1 rounded-circle btn-sm btn btn-" +
@@ -498,13 +723,7 @@ JTSageDateBox.styleFunctions = {
 		return $(
 			"<td class='m-0 p-1 text-center'" + style + ">" +
 			"<a href='#' " + cls + ">" + 
-			this.getIcon(icon) + "</a></td>"
+			this.icons.getIcon( icon )  + "</a></td>"
 		);
-
 	},
 };
-
-
-JTSageDateBox.baseMode = "bootstrap4";
-
-

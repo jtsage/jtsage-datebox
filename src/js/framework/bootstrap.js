@@ -2,6 +2,9 @@
      * JTSage-DateBox
      * @fileOverview BootStrap v3 Themes and StyleFunctions
      * This file supports: datebox, flipbox, slidebox, calbox.
+	 * 
+	 * Warning - copying with docs intact will duplicate sections of the jsDoc output.
+	 * 
      * @author J.T.Sage <jtsage+datebox@gmail.com>
      * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
      * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
@@ -97,14 +100,13 @@ mergeOpts({
 JTSageDateBox.baseMode = "bootstrap";
 
 JTSageDateBox.styleFunctions = {
-	getIcon               : function( icon ) { return JTSageDateBox.icons.getIcon( icon ); },
 	button                : function( themeClass, iconClass, contents ) {
 		var retty;
 
 		retty  = "<a href='#' role='button' class='btn btn-sm btn-" + themeClass + "'>";
 		retty += ( iconClass !== false ) ?
 			"<span style='top: 3px; display: inline-block; position: relative;'>" + 
-			this.getIcon(iconClass) + "</span> " :
+			this.icons.getIcon(iconClass) + "</span> " :
 			"";
 		retty += contents + "</a>";
 		return retty;
@@ -124,7 +126,7 @@ JTSageDateBox.styleFunctions = {
 	},
 	baseInputButton       : function ( iconClass, title ) {
 		return "<div class='input-group-addon' title='" + title + "'>" +
-			"<span>" + this.getIcon(iconClass) + "</span>" + 
+			"<span>" + this.icons.getIcon(iconClass) + "</span>" + 
 			"</div>";
 	},
 	baseInputButtonFinder : function ( originalInputWrap ) {
@@ -143,7 +145,7 @@ JTSageDateBox.styleFunctions = {
 		return "<div class='navbar " + themeBar + "'><div class=\"navbar-header\">" + 
 			"<span class=\"navbar-brand\">" + text + "</span>" + 
 			"</div>" + "<ul class=\"nav navbar-nav navbar-right\">" +
-			"<li><a href=\"#\" class=\"closer\"><span>" + this.getIcon(iconClass) + 
+			"<li><a href=\"#\" class=\"closer\"><span>" + this.icons.getIcon(iconClass) + 
 			"</span>&nbsp;&nbsp;</a></li></ul></div>";
 	},
 	intHeader             : function ( text ) {
@@ -157,11 +159,17 @@ JTSageDateBox.styleFunctions = {
 		var returnVal = $("<div style='padding-bottom: 5px;'>");
 
 
-		$( this.button(firstBtnCls + " pull-left dbCalPrev", firstBtnIcn, "") )
-			.appendTo( returnVal );
+		$( this.styleFunctions.button.apply(this, [
+			firstBtnCls + " pull-left dbCalPrev",
+			firstBtnIcn,
+			""
+		] ) ).appendTo( returnVal );
 
-		$( this.button(secondBtnCls + " pull-right dbCalNext", secondBtnIcn, "") )
-			.appendTo( returnVal );
+		$( this.styleFunctions.button.apply( this, [ 
+			secondBtnCls + " pull-right dbCalNext",
+			secondBtnIcn,
+			""
+		] ) ).appendTo( returnVal );
 
 		$("<h4 class='text-center' style='line-height: 1.5'>" + txt + "</h4>")
 			.appendTo( returnVal );
@@ -240,7 +248,12 @@ JTSageDateBox.styleFunctions = {
 
 		returnVal += "<td><div class='btn-group-vertical dbBox" + mainCls + "'>";
 
-		returnVal += this.button( nextCls + " dbBoxNext" , nextIcn, "" );
+		returnVal += this.styleFunctions.button.apply( this, [
+			nextCls + " dbBoxNext" ,
+			nextIcn,
+			""
+		] );
+		
 		if ( label !== null ) {
 			returnVal += "<div class='w-100 form-control rounded-0 p-0 text-center' " +
 				"style='height:auto'>" + label + "</div>";
@@ -248,7 +261,12 @@ JTSageDateBox.styleFunctions = {
 		returnVal += "<input type='text' ";
 		returnVal += "class='form-control input-sm text-center' ";
 		returnVal += "style='border-radius: 0; padding: 5px 0;'>";
-		returnVal += this.button( prevCls + " dbBoxPrev" , prevIcn, "" );
+		
+		returnVal += this.styleFunctions.button.apply( this, [
+			prevCls + " dbBoxPrev" ,
+			prevIcn,
+			""
+		] );
 
 		returnVal += "</div></td>";
 
@@ -298,11 +316,17 @@ JTSageDateBox.styleFunctions = {
 		var returnVal = $("<div style='padding-bottom: 5px;'>");
 
 
-		$( this.button(prevBtnCls + " pull-left dbSlidePrev", prevBtnIcn, "") )
-			.appendTo( returnVal );
+		$( this.styleFunctions.button.apply( this, [
+			prevBtnCls + " pull-left dbSlidePrev",
+			prevBtnIcn,
+			""
+		] ) ).appendTo( returnVal );
 
-		$( this.button(nextBtnCls + " pull-right dbSlideNext", nextBtnIcn, "") )
-			.appendTo( returnVal );
+		$( this.styleFunctions.button.apply( this, [
+			nextBtnCls + " pull-right dbSlideNext",
+			nextBtnIcn,
+			""
+		] ) ).appendTo( returnVal );
 
 		$("<h4 class='text-center' style='line-height: 1.5'>" + txt + "</h4>")
 			.appendTo( returnVal );
@@ -369,7 +393,7 @@ JTSageDateBox.styleFunctions = {
 		return $(
 			"<td class='m-0 p-1 text-center'" + style + ">" +
 			"<a href='#' style='border-radius: 50%; width:100%; padding:2px; margin:0;' " + 
-			cls + ">" + this.getIcon(icon) + "</a></td>"
+			cls + ">" + this.icons.getIcon(icon) + "</a></td>"
 		);
 
 	},

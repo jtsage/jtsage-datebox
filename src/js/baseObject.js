@@ -199,6 +199,8 @@ JTSageDateBox.options = {
 	}
 };
 
+/*jshint -W101 */
+// Line width check disabled for these only, or it's a mess.
 /**
  * Widget Icons
  * 
@@ -213,9 +215,8 @@ JTSageDateBox.options = {
  * @property {string} clear Trash Can
  * @property {string} clock Clock
  * @property {string} calendar Calendar
+ * @property {function} getIcon Retrieve an icon by name (override with SVG)
  */
-/*jshint -W101 */
-// Line width check disabled for these only, or it's a mess.
 JTSageDateBox.icons = {
 	getIcon  : function ( name ) {
 		// If the icon name starts with a tag, it's svg.
@@ -240,9 +241,6 @@ JTSageDateBox.icons = {
 	calendar : "<svg width=\"14\" height=\"16\" viewBox=\"0 0 14 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M13 2H12V3.5C12 3.78 11.78 4 11.5 4H9.5C9.22 4 9 3.78 9 3.5V2H6V3.5C6 3.78 5.78 4 5.5 4H3.5C3.22 4 3 3.78 3 3.5V2H2C1.45 2 1 2.45 1 3V14C1 14.55 1.45 15 2 15H13C13.55 15 14 14.55 14 14V3C14 2.45 13.55 2 13 2ZM13 14H2V5H13V14ZM5 3H4V1H5V3ZM11 3H10V1H11V3ZM6 7H5V6H6V7ZM8 7H7V6H8V7ZM10 7H9V6H10V7ZM12 7H11V6H12V7ZM4 9H3V8H4V9ZM6 9H5V8H6V9ZM8 9H7V8H8V9ZM10 9H9V8H10V9ZM12 9H11V8H12V9ZM4 11H3V10H4V11ZM6 11H5V10H6V11ZM8 11H7V10H8V11ZM10 11H9V10H10V11ZM12 11H11V10H12V11ZM4 13H3V12H4V13ZM6 13H5V12H6V13ZM8 13H7V12H8V13ZM10 13H9V12H10V13Z\" fill=\"currentColor\"/></svg>",
 };
 /*jshint +W101 */
-// Due to scoping, this ought to be a global.
-window.JTSageDateBoxIcons = JTSageDateBox.icons;
-
 
 /**
  * Create actual HTML controls per framework

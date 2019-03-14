@@ -210,13 +210,13 @@ JTSageDateBox._build.slidebox = function () {
 	//
 	// Expects a ".dbCalNext" and ".dbCalPrev" for prev/next button events.
 	if ( o.slideNoHeader === false ) {
-		_sf.slideHeader( 
+		_sf.slideHeader.apply( w, [
 			w._formatter( w.__( "calHeaderFormat"), w.theDate ),
 			o.theme_slide_PrevBtnIcn,
 			o.theme_slide_PrevBtnCls,
 			o.theme_slide_NextBtnIcn,
 			o.theme_slide_NextBtnCls
-		).appendTo( w.d.intHTML );
+		] ).appendTo( w.d.intHTML );
 		w.d.intHTML
 			.on( o.clickEvent, ".dbSlideNext", function(e) {
 				e.preventDefault();
@@ -258,11 +258,11 @@ JTSageDateBox._build.slidebox = function () {
 
 	calCntlRow = _sf.slideRow();
 
-	calCntlRow.append( _sf.slideMoveButton(
+	calCntlRow.append( _sf.slideMoveButton.apply( w, [
 		"dbSlideWkPrev",
 		o.theme_slide_PrevDateBtnIcn,
 		o.theme_slide_PrevDateBtnCls
-	) );
+	] ) );
 
 	for ( cntlCol = -3; cntlCol <= 3; cntlCol++ ) {
 
@@ -270,7 +270,7 @@ JTSageDateBox._build.slidebox = function () {
 			w._newDateChecker( date_working ),
 			w._slide_ThemeDate( date_working )
 		);
-		console.log(cntlObj);
+
 		cntlObj.htmlObj = _sf.slideDateButton.apply( w, [ cntlObj ] );
 
 		// Add data object to event object
@@ -283,11 +283,11 @@ JTSageDateBox._build.slidebox = function () {
 
 	}
 
-	calCntlRow.append( _sf.slideMoveButton(
+	calCntlRow.append( _sf.slideMoveButton.apply( this, [
 		"dbSlideWkNext",
 		o.theme_slide_NextDateBtnIcn,
 		o.theme_slide_NextDateBtnCls
-	) );
+	] ) );
 	
 	// Deal with RTL languages (flex is easiest)
 	if ( w.__( "isRTL" ) === true ) { 

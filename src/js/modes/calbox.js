@@ -244,13 +244,13 @@ JTSageDateBox._build.calbox = function () {
 	//
 	// Expects a ".dbCalNext" and ".dbCalPrev" for prev/next button events.
 	if ( o.calNoHeader === false ) {
-		_sf.calHeader( 
+		_sf.calHeader.apply( w, [
 			w._formatter( w.__( "calHeaderFormat"), w.theDate ),
 			o.theme_cal_PrevBtnIcn,
 			o.theme_cal_PrevBtnCls,
 			o.theme_cal_NextBtnIcn,
 			o.theme_cal_NextBtnCls
-		).appendTo( w.d.intHTML );
+		] ).appendTo( w.d.intHTML );
 		w.d.intHTML
 			.on( o.clickEvent, ".dbCalNext", function(e) {
 				e.preventDefault();
