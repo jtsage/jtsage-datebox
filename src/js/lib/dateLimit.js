@@ -269,8 +269,11 @@ JTSageDateBox._getCleanDur = function() {
 		o            = this,
 		thisDuration = w.theDate.getEpoch() - w.initDate.getEpoch();
 
-	// Check for less than zero.
-	thisDuration = ( thisDuration < 0 ) ? 1 : thisDuration;
+	// Check for less than zero. (and fix it)
+	if ( thisDuration < 0 ) {
+		thisDuration = 0;
+		w.theDate = w.initDate.copy();
+	}
 
 	if ( o.minDur !== false && thisDuration < o.minDur ) {
 		w.theDate = new Date( w.initDate.getTime() + ( o.minDur * 1000 ) );
