@@ -2,8 +2,8 @@
      * JTSage-DateBox
      * @fileOverview Responsible for creation / open / close / destroy of widget
      * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author Other GitHub Contributors
-     * @license MIT
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
      * @version 5.0.0
      */
 	

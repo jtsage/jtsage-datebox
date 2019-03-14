@@ -4,8 +4,8 @@
      * JTSage-DateBox
      * @fileOverview Base options object and options getters / setters.
      * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author Other GitHub Contributors
-     * @license MIT
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
      * @version 5.0.0
 
      */
@@ -47,7 +47,7 @@ JTSageDateBox.options = {
 	// Check Header for Build Date.
 	version                 : "5.0.0",
 	// These are never used, just information
-	bootstrap3Version       : "3.3.7",
+	bootstrap3Version       : "3.4.1",
 	bootstrap4Version       : "4.3.1",
 
 	mode                    : false,
@@ -241,11 +241,13 @@ JTSageDateBox.icons = {
 };
 /*jshint +W101 */
 
-/** 
- * Functions that control the actual style of datebox elements
- * 
- * @type {Object}
-*/
+/**
+ * Create actual HTML controls per framework
+ *
+ * @type Object
+ * @memberof JTSageDateBox
+ * @namespace JTSageDateBox.styleFunctions
+ */
 JTSageDateBox.styleFunctions = {};
 	
 /**

@@ -1,8 +1,13 @@
-/* JTSage-DateBox 
- *
- * Bootstrap option overrides and 
- * basic input/output functions
- */
+ /**
+     * JTSage-DateBox
+     * @fileOverview BootStrap v3 Themes and StyleFunctions
+     * This file supports: datebox, flipbox, slidebox, calbox.
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+     * @version 5.0.0
+     *
+     */
 
 mergeOpts({
 	theme_clearBtnCls : "default",
@@ -51,6 +56,23 @@ mergeOpts({
 	theme_fbox_Default    : "light",
 	theme_fbox_Forbidden  : "danger",
 	theme_fbox_RollHeight : "135px",
+
+	theme_slide_Today       : "info",
+	theme_slide_DayHigh     : "warning",
+	theme_slide_Selected    : "success",
+	theme_slide_DateHigh    : "warning",
+	theme_slide_DateHighAlt : "danger",
+	theme_slide_DateHighRec : "warning",
+	theme_slide_Default     : "default",
+
+	theme_slide_NextBtnIcn     : "plus",
+	theme_slide_NextBtnCls     : "default",
+	theme_slide_PrevBtnIcn     : "minus",
+	theme_slide_PrevBtnCls     : "default",
+	theme_slide_NextDateBtnIcn : "next",
+	theme_slide_NextDateBtnCls : "default",
+	theme_slide_PrevDateBtnIcn : "prev",
+	theme_slide_PrevDateBtnCls : "default",
 
 	theme_backgroundMask : {
 		position: "fixed",
@@ -121,8 +143,8 @@ JTSageDateBox.styleFunctions = {
 		return "<div class='navbar " + themeBar + "'><div class=\"navbar-header\">" + 
 			"<span class=\"navbar-brand\">" + text + "</span>" + 
 			"</div>" + "<ul class=\"nav navbar-nav navbar-right\">" +
-			"<li><a href=\"#\" class=\"closer\"><span class='glyphicon glyphicon-" + 
-			iconClass + "'></span>&nbsp;&nbsp;</a></li></ul></div>";
+			"<li><a href=\"#\" class=\"closer\"><span>" + this.getIcon(iconClass) + 
+			"</span>&nbsp;&nbsp;</a></li></ul></div>";
 	},
 	intHeader             : function ( text ) {
 		return $(
@@ -271,7 +293,86 @@ JTSageDateBox.styleFunctions = {
 			"<div style='margin: 0px 2px; box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); " +
 			"border: 1px solid black; height: 50px;'>"
 		);
-	}
+	},
+	slideHeader           : function ( txt, prevBtnIcn, prevBtnCls, nextBtnIcn, nextBtnCls ) {
+		var returnVal = $("<div style='padding-bottom: 5px;'>");
+
+
+		$( this.button(prevBtnCls + " pull-left dbSlidePrev", prevBtnIcn, "") )
+			.appendTo( returnVal );
+
+		$( this.button(nextBtnCls + " pull-right dbSlideNext", nextBtnIcn, "") )
+			.appendTo( returnVal );
+
+		$("<h4 class='text-center' style='line-height: 1.5'>" + txt + "</h4>")
+			.appendTo( returnVal );
+
+		return returnVal;
+
+	},
+	slidePickers            : function ( ranges ) {
+		var returnVal = "";
+
+		returnVal += "<div style='padding:5px;'>";
+
+		returnVal += "<div class='col-sm-8' style='padding:0; margin:0'>";
+		returnVal += this._stdSel( ranges.month, "dbSlidePickMonth", "form-control" );
+  		returnVal += "</div>";
+
+		returnVal += "<div class='col-sm-4' style='padding:0; margin:0'>";
+		returnVal += this._stdSel( ranges.year, "dbSlidePickYear", "form-control" );
+  		returnVal += "</div>";
+
+		returnVal += "</div>";
+
+		return $(returnVal);
+	},
+	slideDateList           : function ( listLabel, list ) {
+		var returnVal = "";
+
+		list.unshift([false, listLabel, true]);
+
+		returnVal += "<div style='padding:5px'>";
+		returnVal += this._stdSel( list, "dbSlidePickList", "form-control" );
+		returnVal += "</div>";
+
+		return $(returnVal);
+	},
+	slideGrid               : function () {
+		return $(
+			"<div style='padding-top:5px; padding-bottom:5px; clear:both'>" +
+			"<table class='dbSlideGrid' style='width:100%'>" +
+			"</table></div>"
+		);
+	},
+	slideRow                : function () {
+		return $( "<tr>" );
+	},
+	slideDateButton         : function ( data ) {
+		var style   = " style='width: " + ( ( 100 / 8 ) ) + "%'",
+			disable = ( data.bad ? "disabled='disabled'" : ""),
+			cls = "class='dbEventS btn-sm btn btn-" + 
+				data.theme + ( data.bad ? " disabled":"" ) + "'";
+
+		return $("<td class='text-center'" + style + ">" +
+			"<a href='#' style='border-radius: 50%;width:100%' " + cls + " " + disable + ">" + 
+			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
+			"</small><br>" + data.dateObj.getDate() + 
+			"</a>" + "</td>");
+
+	},
+	slideMoveButton         : function ( eventCls, icon, theme ) {
+		var style = " style='width: " + ( ( 100 / 8 ) / 2 ) + "%'",
+			cls   = "class='btn-sm btn btn-" +
+				theme + " " + eventCls + "'";
+
+		return $(
+			"<td class='m-0 p-1 text-center'" + style + ">" +
+			"<a href='#' style='border-radius: 50%; width:100%; padding:2px; margin:0;' " + 
+			cls + ">" + this.getIcon(icon) + "</a></td>"
+		);
+
+	},
 };
 
 
