@@ -52,6 +52,23 @@ mergeOpts({
 	theme_fbox_Forbidden  : "danger",
 	theme_fbox_RollHeight : "135px",
 
+	theme_slide_Today       : "outline-info",
+	theme_slide_DayHigh     : "outline-warning",
+	theme_slide_Selected    : "outline-success",
+	theme_slide_DateHigh    : "outline-warning",
+	theme_slide_DateHighAlt : "outline-danger",
+	theme_slide_DateHighRec : "outline-warning",
+	theme_slide_Default     : "outline-primary",
+
+	theme_slide_NextBtnIcn     : "plus",
+	theme_slide_NextBtnCls     : "outline-dark border-0",
+	theme_slide_PrevBtnIcn     : "minus",
+	theme_slide_PrevBtnCls     : "outline-dark border-0",
+	theme_slide_NextDateBtnIcn : "next",
+	theme_slide_NextDateBtnCls : "outline-dark border-0",
+	theme_slide_PrevDateBtnIcn : "prev",
+	theme_slide_PrevDateBtnCls : "outline-dark border-0",
+
 	theme_backgroundMask : {
 		position: "fixed",
 		left: 0,
@@ -245,7 +262,74 @@ JTSageDateBox.styleFunctions = {
 	},
 	fboxLens              : function () {
 		return $( "<div class='p-4 border border-dark shadow mx-1'>" );
-	}
+	},
+	slideHeader           : function ( txt, prevBtnIcn, prevBtnCls, nextBtnIcn, nextBtnCls ) {
+		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
+
+		$( this.button(prevBtnCls + " mx-2 dbSlidePrev", prevBtnIcn, "") ).appendTo( returnVal );
+		$("<h5>" + txt + "</h5>").appendTo( returnVal );
+		$( this.button(nextBtnCls + " mx-2 dbSlideNext", nextBtnIcn, "") ).appendTo( returnVal );
+
+		return returnVal;
+	},
+	slidePickers            : function ( ranges ) {
+		var returnVal = "";
+
+		returnVal += "<div class='row my-2 mx-1'>";
+
+		returnVal += "<div class='col-sm-8 p-0 m-0'>";
+		returnVal += this._stdSel( ranges.month, "dbSlidePickMonth", "form-control" );
+  		returnVal += "</div>";
+
+		returnVal += "<div class='col-sm-4 p-0 m-0'>";
+		returnVal += this._stdSel( ranges.year, "dbSlidePickYear", "form-control" );
+  		returnVal += "</div>";
+
+		returnVal += "</div>";
+
+		return $(returnVal);
+	},
+	slideDateList           : function ( listLabel, list ) {
+		var returnVal = "";
+
+		list.unshift([false, listLabel, true]);
+
+		returnVal += "<div class='row my-2 mx-1'>";
+		returnVal += this._stdSel( list, "dbSlidePickList", "form-control" );
+		returnVal += "</div>";
+
+		return $(returnVal);
+	},
+	slideGrid               : function () {
+		return $( "<div class='w-100 py-1'><table class='dbSlideGrid w-100'></table></div>" );
+	},
+	slideRow                : function () {
+		return $( "<tr>" );
+	},
+	slideDateButton         : function ( data ) {
+		var style   = " style='width: " + ( ( 100 / 8 ) ) + "%'",
+			disable = ( data.bad ? "disabled='disabled'" : ""),
+			cls     = "class='dbEventS w-100 rounded-circle btn-sm btn btn-" +
+				data.theme + ( data.bad ? " disabled":"" ) + "'";
+
+		return $("<td class='m-0 p-0 text-center'" + style + ">" +
+			"<a href='#' " + cls + " " + disable + ">" + 
+			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
+			"</small><br>" + data.dateObj.getDate() +  
+			"</a>" + "</td>");
+	},
+	slideMoveButton         : function ( eventCls, icon, theme ) {
+		var style = " style='width: " + ( ( 100 / 8 ) / 2 ) + "%'",
+			cls   = "class='w-100 p-1 rounded-circle btn-sm btn btn-" +
+				theme + " " + eventCls + "'";
+
+		return $(
+			"<td class='m-0 p-1 text-center'" + style + ">" +
+			"<a href='#' " + cls + ">" + 
+			this.getIcon(icon) + "</a></td>"
+		);
+
+	},
 };
 
 
