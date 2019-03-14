@@ -317,17 +317,12 @@ JTSageDateBox._build.slidebox = function () {
 
 	// Bottom Buttons
 	if ( 
-			o.useSetButton      ||
 			o.useTodayButton    ||
 			o.useTomorrowButton ||
 			o.useClearButton    ||
 			o.useCancelButton
 	) {
 		calCntlRow = _sf.buttonGroup( o.useCollapsedBut );
-
-		if ( o.useSetButton ) {
-			calCntlRow.append( w._stdBtn.close.apply( w, [ w.__( "setDateButtonLabel" ) ] ) );
-		}
 		
 		if ( o.useTodayButton ) {
 			calCntlRow.append( w._stdBtn.today.apply( w ) );
