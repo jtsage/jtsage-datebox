@@ -354,12 +354,13 @@ opts :
   calHeaderFormat :
     short   : Header format for calendar mode
     long    : |
-      This is a parsed format for the header (if shown) in CalBox.
+      This is a parsed format for the header (if shown) in CalBox and SlideBox
 
       For more information on date format variables, see the _Output Formats_ section of the documentation
     type    : String
     modes   :
       - calbox
+      - slidebox
     default : "%B %Y"
     dynamic : true
     cat     : i18n
@@ -396,7 +397,7 @@ opts :
   calHighPick :
     short   : Highlight currently selected date
     long    : |
-      Highlight the currently selected date with the theme in ___theme.cal_Selected___
+      Highlight the currently selected date with the theme in ___theme\_cal_Selected___
 
       For more information on the themeing system, please see the _Themeing_ section of the documentation
 
@@ -1650,23 +1651,174 @@ opts :
     optdemo : false
     sample  : false
 
-  slideFieldOrder :
-    short   : Field order for slide mode
+    slideHighToday :
+    short   : Highlight today's date
     long    : |
-      If you want a slider that does date and time, try something like:
+      Highlight today's date with the theme in ___theme\_slide_Today___
 
-      ```js
-      overrideSlideFieldOrder: ["y","m","d","h","i"]
-      ```
+      For more information on the themeing system, please see the _Themeing_ section of the documentation
+
+      Precedence:
+       * OutOfBounds
+       * Selected
+       * Today
+       * highDates
+       * highDatesAlt
+       * highDatesRec
+       * highDays
+       * default
+    type    : Boolean
     modes   :
       - slidebox
-    cat     : i18n
-    default : "[ 'y', 'm', 'd' ]"
-    type    : Array
+    default : true
     dynamic : true
-    i18n : *i18n
-    overrideName : overrideSlideFieldOrder
-    optdemo : false
+    cat     : Theme
+    optdemo : true
+    sample  : false
+
+  slideHighPick :
+    short   : Highlight currently selected date
+    long    : |
+      Highlight the currently selected date with the theme in ___theme\_slide_Selected___
+
+      For more information on the themeing system, please see the _Themeing_ section of the documentation
+
+      Precedence:
+       * OutOfBounds
+       * Selected
+       * Today
+       * highDates
+       * highDatesAlt
+       * highDatesRec
+       * highDays
+       * default
+    type    : Boolean
+    modes   :
+      - slidebox
+    default : true
+    dynamic : true
+    cat     : Theme
+    optdemo : true
+    sample  : false
+  
+  slideUsePickers :
+    short   : Show month and year select boxes
+    long    : |
+      Show a month and year select box above the slide grid.  Often used with ___slideNoHeader___
+    type    : Boolean
+    modes   :
+      - slidebox
+    default : false
+    dynamic : true
+    cat     : Display-Control
+    optdemo : true
+    sample  : false
+
+  slideNoHeader :
+    short   : Suppress standard control header
+    long    : |
+      This option allows hiding of the standard calendar header (Month & Year, Previous / Next Buttons)
+
+      It is particularly useful when you want to replace it with ___slideUsePickers___
+    type    : Boolean
+    modes   :
+      - slidebox
+    default : false
+    dynamic : true
+    cat     : Display-Control
+    optdemo : true
+    sample  : false
+  
+  slideYearPickMin :
+    short   : Year picker upper limit
+    long    : |
+      This is the upper limit for the year select box.
+
+      Special cases:
+       * __Integer > 1,800__ : Hard coded year
+       * __Integer < 1,800__ : Number of years from current year or current selection.
+       * __String "NOW"__ : Today's year
+
+      See also: ___calYearPickRelative___
+    type    : Integer || String
+    modes   :
+      - slidebox
+    default : 6
+    dynamic : true
+    cat     : Display-Control
+    optdemo : true
+    sample  : false
+
+  slideYearPickMax :
+    short   : Year picker lower limit
+    long    : |
+      This is the lower limit for the year select box.
+
+      Special cases:
+       * __Integer > 1,800__ : Hard coded year
+       * __Integer < 1,800__ : Number of years from current year or current selection.
+       * __String "NOW"__ : Today's year
+
+      See also: ___calYearPickRelative___
+    type    : Integer || String
+    modes   :
+      - slidebox
+    default : -6
+    dynamic : true
+    cat     : Display-Control
+    optdemo : true
+    sample  : false
+
+  slideYearPickRelative :
+    short   : Year picker relativity switch
+    long    : |
+      When true, the year picker min/max are relative to the currently visible date
+
+      When false, the year picker min/max are relative to today's year
+    type    : Boolean
+    modes   :
+      - slidebox
+    default : true
+    dynamic : true
+    cat     : Display-Control
+    optdemo : true
+    sample  : false
+
+  slideDateList :
+    short   : List of dates for special pick list
+    long    : |
+      List of 2-element arrays to show in a special pick list. Used with ___slideShowDateList___.
+
+      The inner array structure is:
+
+      ```js
+      [ISO-Date, Description]
+      ```
+
+      ##### Example
+
+      ```js
+      [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ]
+      ```
+    type    : Array
+    modes   :
+      - slidebox
+    default : false
+    dynamic : true
+    cat     : Limits
+    optdemo : true
+    sample  : "[ [\"1980-04-25\", \"JT's Date of Birth\"], [\"1809-02-12\", \"Lincoln's Birthday\"] ]"
+
+  slideShowDateList : Show special date picker
+    long    : |
+      This is the on/off switch for the display of dates provided by ___slideDateList___
+    type    : Boolean
+    modes   :
+      - slidebox
+    default : false
+    dynamic : true
+    cat     : Display-Control
+    optdemo : true
     sample  : false
 
   startOffsetDays/Months/Years :
@@ -2114,6 +2266,187 @@ opts :
     default : "135px"
     optdemo : true
     sample  : false
+
+  theme_slide_Today :
+    short   : Highlight for Today
+    long    : Class used to highlight today's date when ___slideHighToday___ is on
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "outline-info"
+    optdemo : true
+    sample  : false
+
+  theme_slide_DayHigh :
+    short   : Highlight for highDays
+    long    : Class used to highlight days in ___highDays___
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "outline-warning"
+    optdemo : true
+    sample  : false
+
+  theme_slide_Selected :
+    short   : Highlight for selected date
+    long    : Class used to highlight selected date is ___slideHighSelected___ is on
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "outline-success"
+    optdemo : true
+    sample  : false
+
+  theme_slide_DateHigh :
+    short   : Highlight for highDates
+    long    : Class used to highlight dates in ___highDates___
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "outline-warning"
+    optdemo : true
+    sample  : false
+
+  theme_slide_DateHighAlt :
+    short   : Highlight for highDatesAlt
+    long    : Class used to highlight dates in ___highDatesAlt___
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "outline-danger"
+    optdemo : true
+    sample  : false
+
+  theme_slide_DateHighRec :
+    short   : Highlight for highDatesRec
+    long    : Class used to highlight dates in ___highDatesRec___
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "outline-warning"
+    optdemo : true
+    sample  : false
+
+  theme_slide_Default :
+    short   : Default class
+    long    : Class used by default on all dates, unless another is more appropriate
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : "outline-primary"
+    optdemo : true
+    sample  : false
+
+
+  theme_slide_NextBtnIcn :
+    short   : Next Month Button Icon
+    long    : Icon class used for next month button
+    modes   :
+      - slide
+    cat     : Theme
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+    default : "plus"
+
+  theme_slide_NextBtnCls :
+    short   : Next Month Button Theme
+    long    : Theme class added to the next month button
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+    default : "outline-dark border-0"
+
+  theme_slide_PrevBtnIcn :
+    short   : Previous Month Button Icon
+    long    : Icon class used for previous month button
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+    default : "minus"
+
+  theme_slide_PrevBtnCls :
+    short   : Previous Month Button Theme
+    long    : Theme class added to the previous month button
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+    default : "outline-dark border-0"
+
+  theme_slide_NextDateBtnIcn :
+    short   : Next Week Button Icon
+    long    : Icon class used for next week button
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+    default : "next"
+
+  theme_slide_NextDateBtnCls :
+    short   : Next Week Button Theme
+    long    : Theme class added to the next week button
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+    default : "outline-dark border-0"
+
+  theme_slide_PrevDateBtnIcn :
+    short   : Previous Week Button Icon
+    long    : Icon class used for previous week button
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+    default : "prev"
+
+  theme_slide_PrevDateBtnCls :
+    short   : Previous Week Button Theme
+    long    : Theme class added to the previous week button
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+    default : "outline-dark border-0"
 
   theme_backgroundMask :
     short   : Modal and Dropdown background mask
