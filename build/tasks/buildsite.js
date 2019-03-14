@@ -54,13 +54,13 @@ var startTime     = new Date(),
 		return retHtml;
 	},
 	makeCard = function( rec ) {
-		var theCard = "<div class=\"card border-dark\">";
+		var theCard = "<div class=\"card border-dark\" id=\"" + rec.safeID + "\">";
 
 		theCard += "<button class=\"btn card-header text-left py-4 d-flex align-items-center\" " +
 			"id=\"heading" + rec.safeID + "\" data-toggle=\"collapse\" data-target=\"#collapse" + 
 			rec.safeID + "\">";
 
-		theCard += "<div class=\"w-25 h5 my-0\">" + rec.name + "</div>";
+		theCard += "<div class=\"w-25 h6 my-0\">" + rec.name + "</div>";
 		theCard += "<div class=\"w-50 text-muted pl-3\">" +  rec.short + "</div>";
 		theCard += "<div class=\"ml-auto h5 my-0 text-right\">" +
 			"<span class=\"badge badge-pill " + rec.badge + "\">" +
@@ -115,7 +115,7 @@ var startTime     = new Date(),
 		return theCard;
 	},
 	makeFrame = function ( rec ) {
-		var theCard = "<div class=\"card border-dark my-2\">";
+		var theCard = "<div class=\"card border-dark my-2\" id=\"" + rec.safeID + "\">";
 
 		theCard += "<div class=\"card-header d-flex\">" + rec.name + 
 			"<span class=\"d-inline-block ml-auto mr-0 text-muted\">" + rec.short +
@@ -151,7 +151,7 @@ var startTime     = new Date(),
 			"id=\"heading" + rec.safeID + "\" data-toggle=\"collapse\" data-target=\"#collapse" + 
 			rec.safeID + "\">";
 
-		theCard += "<div class=\"w-25 h5 my-0\">" + rec.name + "</div>";
+		theCard += "<div class=\"w-25 h6 my-0\">" + rec.name + "</div>";
 		theCard += "<div class=\"w-50 text-muted pl-3\">" +  rec.short + "</div>";
 		theCard += "<div class=\"ml-auto h5 my-0 text-right\">" +
 			"<span class=\"badge badge-pill badge-danger\">" +

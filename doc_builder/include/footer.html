@@ -25,6 +25,12 @@
 			$(thisBox).datebox(thisObj);
 			$(thisBox).datebox("refresh");
 		});
+		$(document).ready( function() {
+			if ( window.location.hash !== "" ) {
+				var collapse = $('#collapse' + window.location.hash.substr(1) );
+				if ( collapse.length > 0 ) { collapse.collapse('show'); }
+			}
+		})
 		function makeJSON(str) {
 			try {
 				return jQuery.parseJSON(str);
