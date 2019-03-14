@@ -1,6 +1,6 @@
  /**
      * JTSage-DateBox
-     * @fileOverview Base options object and options getters / setters.
+     * @fileOverview Responsible for creation / open / close / destroy of widget
      * @author J.T.Sage <jtsage+datebox@gmail.com>
      * @author Other GitHub Contributors
      * @license MIT
@@ -106,6 +106,7 @@ JTSageDateBox._create = function() {
 			}
 		}
 	}
+
 	if ( o.useButton ) {
 		$( w.styleFunctions.baseInputButton( o.buttonIcon, w.__( "tooltip") ) )
 			.on(o.clickEvent, function( e ) {
@@ -518,16 +519,20 @@ JTSageDateBox._stdSel = function(data, id, cls) {
 	return returnVal;
 };
 
-
+/**
+ * Create standard buttons
+ *
+ * @type Object
+ * @memberof JTSageDateBox
+ * @namespace JTSageDateBox._stdbtn
+ */
 JTSageDateBox._stdBtn = {
 
 	/**
 	 * Make a cancel button.
 	 *
-	 * @memberof! JTSageDateBox#
-	 * @instance _stdBtn.cancel
-	 * @alias _stdBtn.cancel
 	 * @returns {Object} JQuery button object, with events attached
+	 * @memberof JTSageDateBox._stdbtn
 	 */
 	cancel: function() {
 		var w = this, o = this.options;
@@ -541,6 +546,13 @@ JTSageDateBox._stdBtn = {
 				w._t({ method: "close", closeCancel: true });
 			});
 	},
+
+	/**
+	 * Make a clear button
+	 * 
+	 * @return {Object} JQuery button object, with events attached
+	 * @memberOf JTSageDateBox._stdbtn
+	 */
 	clear: function() {
 		var w = this, o = this.options;
 		return $( w.styleFunctions.button(
@@ -555,6 +567,15 @@ JTSageDateBox._stdBtn = {
 				w._t( { method: "close", closeCancel: true } );
 			});
 	},
+
+	/**
+	 * Make a close button
+	 * 
+	 * @param  {string} txt Button text, if any
+	 * @param  {boolean|string} trigger If trigger is false, run set, otherwise run named trigger 
+	 * @return {Object} JQuery button object, with events attached
+	 * @memberOf JTSageDateBox._stdbtn
+	 */
 	close: function(txt, trigger) {
 		var w = this, o = this.options;
 
@@ -581,6 +602,13 @@ JTSageDateBox._stdBtn = {
 				
 			});
 	},
+
+	/**
+	 * Make a today button
+	 * 
+	 * @return {Object} JQuery button object, with events attached
+	 * @memberOf JTSageDateBox._stdbtn
+	 */
 	today: function() {
 		var w = this, o = this.options;
 		return $( w.styleFunctions.button(
@@ -595,6 +623,13 @@ JTSageDateBox._stdBtn = {
 				if ( o.closeTodayButton === true ) { w._t( { method: "close" } ); }
 			});
 	},
+
+	/**
+	 * Make a tomorrow button
+	 * 
+	 * @return {Object} JQuery button object, with events attached
+	 * @memberOf JTSageDateBox._stdbtn
+	 */
 	tomorrow: function() {
 		var w = this, o = this.options;
 		return $( w.styleFunctions.button(
@@ -611,6 +646,9 @@ JTSageDateBox._stdBtn = {
 	},
 };
 
+/**
+ * Disable the control
+ */
 JTSageDateBox.disable = function() {
 	var w = this;
 	// Provide a PUBLIC function to Disable the element
@@ -619,6 +657,9 @@ JTSageDateBox.disable = function() {
 	w._t( { method: "disable" } );
 };
 
+/**
+ * Enable the control
+ */
 JTSageDateBox.enable = function() {
 	var w = this;
 	// Provide a PUBLIC function to Enable the element

@@ -6,19 +6,19 @@
 
 mergeOpts({
 	theme_clearBtnCls : "outline-secondary",
-	theme_clearBtnIcn : "eraser",
+	theme_clearBtnIcn : "clear",
 
 	theme_closeBtnCls : "outline-secondary",
 	theme_closeBtnIcn : "check",
 
 	theme_cancelBtnCls : "outline-secondary",
-	theme_cancelBtnIcn : "times",
+	theme_cancelBtnIcn : "cancel",
 
 	theme_tomorrowBtnCls : "outline-secondary",
-	theme_tomorrowBtnIcn : "fast-forward",
+	theme_tomorrowBtnIcn : "goto",
 
 	theme_todayBtnCls : "outline-secondary",
-	theme_todayBtnIcn : "step-forward",
+	theme_todayBtnIcn : "goto",
 
 	theme_dropdownContainer : "bg-light border border-dark mt-1",
 	theme_modalContainer : "bg-light border border-dark p-2 m-0",
@@ -26,7 +26,7 @@ mergeOpts({
 
 	theme_headerTheme : "bg-dark",
 	theme_headerBtnCls : "outline-secondary",
-	theme_headerBtnIcn : "times",
+	theme_headerBtnIcn : "cancel",
 
 	theme_cal_Today       : "outline-info",
 	theme_cal_DayHigh     : "outline-warning",
@@ -37,9 +37,9 @@ mergeOpts({
 	theme_cal_Default     : "outline-primary",
 	theme_cal_OutOfBounds : "outline-secondary border-0",
 
-	theme_cal_NextBtnIcn : "plus",
+	theme_cal_NextBtnIcn : "next",
 	theme_cal_NextBtnCls : "outline-dark",
-	theme_cal_PrevBtnIcn : "minus",
+	theme_cal_PrevBtnIcn : "prev",
 	theme_cal_PrevBtnCls : "outline-dark",
 
 	theme_dbox_NextBtnIcn : "plus",
@@ -63,7 +63,7 @@ mergeOpts({
 	theme_headStyle : false,
 
 	buttonIconDate: "calendar",
-	buttonIconTime: "time",
+	buttonIconTime: "clock",
 
 	disabledState  : "disabled",
 
@@ -72,15 +72,17 @@ mergeOpts({
 });
 
 JTSageDateBox.styleFunctions = {
+	getIcon               : function( icon ) { return JTSageDateBox.icons.getIcon( icon ); },
 	button                : function( themeClass, iconClass, contents ) {
 		var retty;
 
 		retty  = "<a href='#' role='button' class='btn btn-sm btn-" + themeClass + "'>";
-		retty += ( iconClass !== false ) ? "<span class='fa fa-" + iconClass + "'></span> " : "";
+		retty += ( iconClass !== false ) ? "<span>" + this.getIcon(iconClass) + "</span> " : "";
 		retty += contents + "</a>";
+
 		return retty;
 	},
-	buttonGroup           : function ( collapse) {
+	buttonGroup           : function ( collapse ) {
 		var cls = ( collapse === true ) ? "btn-group" : "btn-group-vertical";
 
 		return $("<div class='" + cls + " w-100 p-1'>");
@@ -92,7 +94,7 @@ JTSageDateBox.styleFunctions = {
 	baseInputButton       : function ( iconClass, title ) {
 		return "<div class='input-group-append' title='" + title + "'>" +
 			"<div class='input-group-text'>" + 
-			"<span class='fa fa-" + iconClass + "'></span>" + 
+			"<span>" + this.getIcon( iconClass ) + "</span>" + 
 			"</div></div>";
 	},
 	baseInputButtonFinder : function ( originalInputWrap ) {

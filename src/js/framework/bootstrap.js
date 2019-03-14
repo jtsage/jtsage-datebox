@@ -6,19 +6,19 @@
 
 mergeOpts({
 	theme_clearBtnCls : "default",
-	theme_clearBtnIcn : "erase",
+	theme_clearBtnIcn : "clear",
 
 	theme_closeBtnCls : "default",
-	theme_closeBtnIcn : "ok",
+	theme_closeBtnIcn : "check",
 
 	theme_cancelBtnCls : "default",
-	theme_cancelBtnIcn : "remove",
+	theme_cancelBtnIcn : "cancel",
 
 	theme_tomorrowBtnCls : "default",
-	theme_tomorrowBtnIcn : "send",
+	theme_tomorrowBtnIcn : "goto",
 
 	theme_todayBtnCls : "default",
-	theme_todayBtnIcn : "send",
+	theme_todayBtnIcn : "goto",
 
 	theme_dropdownContainer : "panel panel-default",
 	theme_modalContainer : "panel panel-default",
@@ -26,7 +26,7 @@ mergeOpts({
 
 	theme_headerTheme : "navbar-default",
 	theme_headerBtnCls : "default",
-	theme_headerBtnIcn : "remove",
+	theme_headerBtnIcn : "cancel",
 
 	theme_cal_Today       : "info",
 	theme_cal_DayHigh     : "warning",
@@ -37,9 +37,9 @@ mergeOpts({
 	theme_cal_Default     : "default",
 	theme_cal_OutOfBounds : "link",
 
-	theme_cal_NextBtnIcn : "plus",
+	theme_cal_NextBtnIcn : "next",
 	theme_cal_NextBtnCls : "default",
-	theme_cal_PrevBtnIcn : "minus",
+	theme_cal_PrevBtnIcn : "prev",
 	theme_cal_PrevBtnCls : "default",
 
 	theme_dbox_NextBtnIcn : "plus",
@@ -63,9 +63,9 @@ mergeOpts({
 	theme_headStyle : false,
 
 	flipboxLensAdjust : 9,
-	buttonIconDate: "calendar",
-	buttonIconTime: "time",
-	disabledState: "disabled",
+	buttonIconDate    : "calendar",
+	buttonIconTime    : "clock",
+	disabledState     : "disabled",
 
 	clickEvent: "click",
 	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
@@ -75,12 +75,14 @@ mergeOpts({
 JTSageDateBox.baseMode = "bootstrap";
 
 JTSageDateBox.styleFunctions = {
+	getIcon               : function( icon ) { return JTSageDateBox.icons.getIcon( icon ); },
 	button                : function( themeClass, iconClass, contents ) {
 		var retty;
 
 		retty  = "<a href='#' role='button' class='btn btn-sm btn-" + themeClass + "'>";
 		retty += ( iconClass !== false ) ?
-			"<span class='glyphicon glyphicon-" + iconClass + "'></span> " :
+			"<span style='top: 3px; display: inline-block; position: relative;'>" + 
+			this.getIcon(iconClass) + "</span> " :
 			"";
 		retty += contents + "</a>";
 		return retty;
@@ -100,7 +102,7 @@ JTSageDateBox.styleFunctions = {
 	},
 	baseInputButton       : function ( iconClass, title ) {
 		return "<div class='input-group-addon' title='" + title + "'>" +
-			"<span class='glyphicon glyphicon-" + iconClass + "'></span>" + 
+			"<span>" + this.getIcon(iconClass) + "</span>" + 
 			"</div>";
 	},
 	baseInputButtonFinder : function ( originalInputWrap ) {
