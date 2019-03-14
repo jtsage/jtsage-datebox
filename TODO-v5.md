@@ -2,6 +2,7 @@
 
  - get rid of styleFunction.baseInputButtonFinder, force a "dbOpenButton" class instead.
  - widgetHeader : close --> dbCloser
+ - getIcon only works on testing.  scope issue.
 
 # "Done" files:
 
