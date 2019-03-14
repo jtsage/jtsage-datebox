@@ -40,6 +40,9 @@ menu :
   - name : Adding Frameworks
     url  : "/frames/"
 
+  - name : JSDoc Documentation
+    url  : "/jsdoc/"
+
 
 demo :
   - name : Option Demos

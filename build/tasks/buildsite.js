@@ -335,7 +335,7 @@ module.exports = function(grunt) {
 
 			grunt.file.write( thisFile.dest, doneFile );
 
-			grunt.log.writelns( 
+			grunt.log.writeln( 
 				"Converting " + 
 				(thisFile.src[0]).cyan + 
 				" -> " + 

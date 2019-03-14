@@ -59,22 +59,22 @@ module.exports = function(grunt) {
 					src: [ "src/js/*.js", "!src/js/extWidgetLib.js" ]
 				},
 				options: {
-					"undef": true,
-					"unused": true,
-					"boss": true,
-					"curly": true,
-					"eqeqeq": true,
-					"eqnull": true,
-					"expr": true,
-					"immed": true,
-					"noarg": true,
-					"onevar": true,
-					"quotmark": true,
-					"smarttabs": true,
-					"trailing": true,
-					"indent": 4,
-					"node": true,
-					"predef": [ "jQuery", "document", "window", "setTimeout", "clearTimeout" ]
+					"undef"     : true,
+					"unused"    : true,
+					"boss"      : true,
+					"curly"     : true,
+					"eqeqeq"    : true,
+					"eqnull"    : true,
+					"expr"      : true,
+					"immed"     : true,
+					"noarg"     : true,
+					"onevar"    : true,
+					"quotmark"  : true,
+					"smarttabs" : true,
+					"trailing"  : true,
+					"indent"    : 4,
+					"node"      : true,
+					"predef"    : [ "jQuery", "document", "window", "setTimeout", "clearTimeout" ]
 				}
 			},
 			grunt: {
@@ -87,11 +87,11 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
-			web: ["doc_builder/dist/"],
-			latest: ["dist/latest/"],
-			release: ["dist/<%= pkg.version %>/"],
-			i18n: ["dist/i18n"],
-			builder: ["node_builder/src/<%= pkg.version %>/"]
+			web     : ["doc_builder/dist/"],
+			latest  : ["dist/latest/"],
+			release : ["dist/<%= pkg.version %>/"],
+			i18n    : ["dist/i18n"],
+			builder : ["node_builder/src/<%= pkg.version %>/"]
 		},
 		uglify: {
 			options: {
@@ -100,20 +100,20 @@ module.exports = function(grunt) {
 			},
 			release: {
 				files: [ {
-					expand: true,
-					src: ["dist/<%= pkg.version %>/*.js"],
-					dest: "",
-					ext: ".min.js",
-					extDot: "last" 
+					expand : true,
+					src    : ["dist/<%= pkg.version %>/*.js"],
+					dest   : "",
+					ext    : ".min.js",
+					extDot : "last"
 				} ]
 			},
 			i18n: {
 				files: [ {
-					expand: true,
-					src: ["dist/i18n/*.js"],
-					dest: "",
-					ext: ".min.js",
-					extDot: "last" 
+					expand : true,
+					src    : ["dist/i18n/*.js"],
+					dest   : "",
+					ext    : ".min.js",
+					extDot : "last"
 				} ]
 			},
 			latest: {
@@ -121,19 +121,19 @@ module.exports = function(grunt) {
 					sourceMap: true,
 				},
 				files: [ {
-					expand: true,
-					src: ["dist/latest/*.js"],
-					dest: "",
-					ext: ".min.js",
-					extDot: "last" 
+					expand : true,
+					src    : ["dist/latest/*.js"],
+					dest   : "",
+					ext    : ".min.js",
+					extDot : "last"
 				} ]
 			}
 		},
 		committers: {
 			options: {
-				sort: "commits",
-				email: true,
-				nomerges: true,
+				sort     : "commits",
+				email    : true,
+				nomerges : true,
 			}
 		},
 		makei18n: {
@@ -144,19 +144,19 @@ module.exports = function(grunt) {
 		buildSite: {
 			main_site:{
 				options : {
-					headerFile: "doc_builder/include/header.html",
-					footerFile: "doc_builder/include/footer.html",
-					configFile: "doc_builder/data/datebox.yml",
-					apidocFile: "doc_builder/data/api.yml",
-					interfFile: "doc_builder/data/interface.yml",
-					framesFile: "doc_builder/data/frames.yml",
+					headerFile : "doc_builder/include/header.html",
+					footerFile : "doc_builder/include/footer.html",
+					configFile : "doc_builder/data/datebox.yml",
+					apidocFile : "doc_builder/data/api.yml",
+					interfFile : "doc_builder/data/interface.yml",
+					framesFile : "doc_builder/data/frames.yml",
 				},
 				files: [{
-					expand: true,
-					cwd: "doc_builder/pages/",
-					src: "*.md",
-					dest: "doc_builder/dist/",
-					rename: function(dest, src) {
+					expand : true,
+					cwd    : "doc_builder/pages/",
+					src    : "*.md",
+					dest   : "doc_builder/dist/",
+					rename : function(dest, src) {
 						return dest + src.replace(/^(.+)\.md$/, function ( match, file ) {
 							if ( file === "index" ) { return "index.html"; }
 							return file + "/index.html";
@@ -173,8 +173,8 @@ module.exports = function(grunt) {
 				},
 				libFiles: [ "src/js/external/*.js" ],
 				files: [{
-					expand: true,
-					src: [
+					expand : true,
+					src    : [
 						"src/js/baseObject.js",
 						"src/js/framework/bootstrap.js",
 						"src/js/lib/*.js",
@@ -189,8 +189,8 @@ module.exports = function(grunt) {
 				},
 				libFiles: [ "src/js/external/*.js" ],
 				files: [{
-					expand: true,
-					src: [
+					expand : true,
+					src    : [
 						"src/js/baseObject.js",
 						"src/js/framework/bootstrap4.js",
 						"src/js/lib/*.js",
@@ -205,8 +205,8 @@ module.exports = function(grunt) {
 				},
 				libFiles: [ "src/js/external/*.js" ],
 				files: [{
-					expand: true,
-					src: [
+					expand : true,
+					src    : [
 						"src/js/baseObject.js",
 						"src/js/framework/jqueryui.js",
 						"src/js/lib/*.js",
@@ -221,8 +221,8 @@ module.exports = function(grunt) {
 				},
 				libFiles: [ "src/js/external/*.js" ],
 				files: [{
-					expand: true,
-					src: [
+					expand : true,
+					src    : [
 						"src/js/baseObject.js",
 						"src/js/framework/bootstrap.js",
 						"src/js/lib/*.js",
@@ -237,8 +237,8 @@ module.exports = function(grunt) {
 				},
 				libFiles: [ "src/js/external/*.js" ],
 				files: [{
-					expand: true,
-					src: [
+					expand : true,
+					src    : [
 						"src/js/baseObject.js",
 						"src/js/framework/bootstrap4.js",
 						"src/js/lib/*.js",
@@ -251,10 +251,10 @@ module.exports = function(grunt) {
 					dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqueryui.js",
 					includeBinding: true,
 				},
-				libFiles: [ "src/js/external/*.js" ],
-				files: [{
-					expand: true,
-					src: [
+				libFiles : [ "src/js/external/*.js" ],
+				files    : [{
+					expand : true,
+					src    : [
 						"src/js/baseObject.js",
 						"src/js/framework/jqueryui.js",
 						"src/js/lib/*.js",
@@ -265,17 +265,17 @@ module.exports = function(grunt) {
 			},
 		copy: {
 			builder1: {
-				expand: true,
-				cwd: "src/js",
-				src: "**/*.js",
-				dest: "node_builder/src/<%= pkg.version %>/js/"
+				expand : true,
+				cwd    : "src/js",
+				src    : "**/*.js",
+				dest   : "node_builder/src/<%= pkg.version %>/js/"
 			},
 			builder2: {
-				expand: true,
-				cwd: "dist/<%= pkg.version %>/",
-				src: "*.css",
-				dest: "node_builder/src/<%= pkg.version %>/css/",
-				rename: function(dest, src) {
+				expand : true,
+				cwd    : "dist/<%= pkg.version %>/",
+				src    : "*.css",
+				dest   : "node_builder/src/<%= pkg.version %>/css/",
+				rename : function(dest, src) {
 					return dest + src.replace( "jtsage-datebox-" + pkgJSON.version + "." , "" );
 				}
 			}
@@ -285,20 +285,30 @@ module.exports = function(grunt) {
 				// Task-specific options go here.
 			},
 			all: {
-				expand: true,
-				cwd: "docs/_site/",
-				ext: ".html",
-				src: ["**/*.html"],
-				dest: "docs/_site/"
+				expand : true,
+				cwd    : "docs/_site/",
+				ext    : ".html",
+				src    : ["**/*.html"],
+				dest   : "docs/_site/"
 			},
 		},
 		connect: {
 			web: {
 				options: {
-					port: 8080,
-					base: "doc_builder/dist",
-					useAvailablePort: true,
-					keepalive: true,
+					port             : 8080,
+					base             : "doc_builder/dist",
+					useAvailablePort : true,
+					keepalive        : true,
+				}
+			}
+		},
+		jsdoc : {
+			dist : {
+				src: ["src/js/**/*.js"],
+				options: {
+					destination : "doc_builder/dist/jsdoc",
+					template    : "node_modules/ink-docstrap/template",
+					configure   : "node_modules/ink-docstrap/template/jsdoc.conf.json"
 				}
 			}
 		}
@@ -311,7 +321,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-git-committers" );
 	grunt.loadNpmTasks( "grunt-prettify" );
 	grunt.loadNpmTasks( "grunt-contrib-connect" );
-	
+	grunt.loadNpmTasks( "grunt-jsdoc" );
+
 	grunt.task.loadTasks( "build/tasks" );
 	
 	grunt.registerTask( "jshint_reg", "Run Full jsHint Testing", [
@@ -361,7 +372,7 @@ module.exports = function(grunt) {
 	] );
 
 	grunt.registerTask( "web", "Build the documentation site", [
-		"clean:web", "buildSite"
+		"clean:web", "buildSite", "jsdoc"
 	] );
 	grunt.registerTask( "serveweb", "Start a local HTTP server on localhost:8080 for the docs.", [
 		"connect:web"
