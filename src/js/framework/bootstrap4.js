@@ -103,7 +103,7 @@ JTSageDateBox.styleFunctions = {
 	 * @returns {string} SVG Icon
 	 * @memberof JTSageDateBox.styleFunctions
 	 */
-	getIcon               : function( icon ) { return JTSageDateBox.icons.getIcon( icon ); },
+	getIcon               : function( icon ) { return window.JTSageDateBoxIcons.getIcon( icon ); },
 
 	/**
 	 * Make a button
