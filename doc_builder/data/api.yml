@@ -1651,7 +1651,7 @@ opts :
     optdemo : false
     sample  : false
 
-    slideHighToday :
+  slideHighToday :
     short   : Highlight today's date
     long    : |
       Highlight today's date with the theme in ___theme\_slide_Today___
@@ -1809,9 +1809,9 @@ opts :
     optdemo : true
     sample  : "[ [\"1980-04-25\", \"JT's Date of Birth\"], [\"1809-02-12\", \"Lincoln's Birthday\"] ]"
 
-  slideShowDateList : Show special date picker
-    long    : |
-      This is the on/off switch for the display of dates provided by ___slideDateList___
+  slideShowDateList : 
+    short   : Show special date picker
+    long    : This is the on/off switch for the display of dates provided by ___slideDateList___
     type    : Boolean
     modes   :
       - slidebox
