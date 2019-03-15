@@ -93,10 +93,10 @@ mergeOpts({
 	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 });
 
-JTSageDateBox.baseMode = "bootstrap4";
+JTSageDateBox.baseMode = "foundation6";
 
 JTSageDateBox.styleFunctions = {
-	/**
+	/*
 	 * Make a button
 	 * 
 	 * @param  {string} themeClass Theme class for the button
@@ -116,7 +116,7 @@ JTSageDateBox.styleFunctions = {
 		return retty;
 	},
 
-	/**
+	/*
 	 * Make a button group
 	 * 
 	 * @param  {boolean} collapse Attempt to display buttons on one line
@@ -130,7 +130,7 @@ JTSageDateBox.styleFunctions = {
 		return $("<div class='" + cls + " w-100 p-1'>");
 	},
 
-	/**
+	/*
 	 * Wrap the original input in a div so we can add a button to it
 	 * 
 	 * @param  {object} originalInput Original input element, jQuery object
@@ -144,7 +144,7 @@ JTSageDateBox.styleFunctions = {
 		return originalInput.wrap("<div class='input-group'>").parent();
 	},
 
-	/**
+	/*
 	 * Create the open button that is added to the input
 	 * 
 	 * MUST contain dbOpenButton class. (outer)
@@ -156,13 +156,13 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	baseInputButton       : function ( icon, title ) {
-		return "<div class='input-group-button' title='" + title + "'>" +
-			"<a href='#' class='button hollow secondary dbOpenButton'>" + 
+		return "" + //"<div class='dbOpenButton' title='" + title + "'>" +
+			"<span class='input-group-label dbOpenButton'>" + 
 			this.icons.getIcon( icon ) +
-			"</a></div>";
+			"</span>";//</div>";
 	},
 
-	/**
+	/*
 	 * When not using the open button, we may need to alter the wrap class differently
 	 * 
 	 * @param  {object} originalInputWrap jQuery object
@@ -173,7 +173,7 @@ JTSageDateBox.styleFunctions = {
 		originalInputWrap.addClass( "w-100" );
 	},
 
-	/**
+	/*
 	 * Run when the input is focused
 	 * 
 	 * @param  {object} originalInput jQuery object
@@ -181,10 +181,10 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	focusInput            : function ( originalInput ) {
-		originalInput.addClass( "ui-focus" );
+		return true;
 	},
 
-	/**
+	/*
 	 * Run when the input is un-focused
 	 * 
 	 * this = styleFunctions
@@ -194,10 +194,10 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	blurInput             : function ( originalInput ) {
-		originalInput.removeClass( "ui-focus" );
+		return true;
 	},
 
-	/**
+	/*
 	 * Make the header for every mode
 	 * 
 	 * Close button MUST include the "dbCloser" class.
@@ -211,10 +211,13 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	widgetHeader          : function ( text, themeBar, themeIcon, icon ) {
-		return "<div class='navbar " + themeBar + "'>" + 
-			"<h5 class='text-white'>" + text + "</h5>" + 
-			this.styleFunctions.button.apply( this, [ themeIcon + " dbCloser", icon, "" ] ) +
-			"</div>";
+		return "<div class='title-bar'>" + 
+			"<div class='title-bar-left'>" +
+			"<span class='title-bar-title'>" + text + "</span>" + 
+			"</div><div class='title-bar-right'>" +
+			"<button class='dbCloser " + themeIcon + "' style='color:white' type='button'>" + 
+			this.icons.getIcon(icon) + "</button>" +
+			"</div></div>";
 	},
 
 	/**
