@@ -27,6 +27,7 @@
     "archiver": "^3.0.0",
     "gettext-parser": ">=3.1.0",
     "grunt": ">=1.0.0",
+    "grunt-cloc": "0.0.2",
     "grunt-contrib-clean": ">=0.6.0",
     "grunt-contrib-connect": "^2.0.0",
     "grunt-contrib-copy": ">=0.8.1",

@@ -311,6 +311,16 @@ module.exports = function(grunt) {
 					configure   : "node_modules/ink-docstrap/template/jsdoc.conf.json"
 				}
 			}
+		},
+		cloc: {
+			just_datebox : {
+				options : ["--exclude-dir=external"],
+				src     : ["src/js"]
+			},
+			everything   : {
+				options : ["--exclude-list-file=.clocignore"],
+				src : ["."]
+			}
 		}
 	});
 
@@ -322,6 +332,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-prettify" );
 	grunt.loadNpmTasks( "grunt-contrib-connect" );
 	grunt.loadNpmTasks( "grunt-jsdoc" );
+	grunt.loadNpmTasks( "grunt-cloc" );
 
 	grunt.task.loadTasks( "build/tasks" );
 	
@@ -378,6 +389,7 @@ module.exports = function(grunt) {
 		"connect:web"
 	] );
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
+	grunt.registerTask( "countcode", "Count all code", [ "cloc" ] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint:js", "jshint:js2"] );
 
 	grunt.registerTask( "default", "Test and Build working version", [
