@@ -1,18 +1,30 @@
 # Refactor TODO:
 
- - get rid of styleFunction.baseInputButtonFinder, force a "dbOpenButton" class instead.
- - widgetHeader : close --> dbCloser
- - getIcon only works on testing.  scope issue.
+offset.js is a mess
 
 # "Done" files:
 
 Everything needs love with docs and style.  This is a massive pile of "oh, just add this"
 
 Finished-ish:
- - all the modes
  - boilerplate.js
  - autoInit.js
  - baseObject.js
+ - bootstrap4.js
+ - bootstrap.js
+ - calbox.js
+ - eventHandler.js
+ - shortUtil.js
+ - slidebox.js
+ - dateLimit.js
+ - dateEnhance.js
+ - widgetBinding.js
+ - datebox.js
+ - flipbox.js
+ - dateFormatter.js
+ - dateParser.js
+ - offset.js (needs a re-write too)
+ - public.js
 
 
 # Frameworks:

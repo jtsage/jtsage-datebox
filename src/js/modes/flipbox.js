@@ -1,23 +1,14 @@
-/* JTSage-DateBox 
- *
- * MODE File
- *
- * Provide the following display modes:
- * * flipbox
- * * timeflipbox
- * * durationflipbox
- *
- * Define the standard options as well
- */
+ /**
+     * JTSage-DateBox
+     * @fileOverview Provides the flipbox, timeflipbox, durationflipbox, and datetimeflipbox modes
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+     * @version 5.0.0
+     *
+     */
 
 mergeOpts({
-	useSetButton      : true,
-	useCancelButton   : false,
-	useTodayButton    : false,
-	useTomorrowButton : false,
-	useClearButton    : false,
-	useCollapsedBut   : false,
-
 	flen : { 
 		"y" : 25,
 		"m" : 24,
@@ -36,6 +27,9 @@ mergeOpts({
 	}
 });
 
+/**
+ * Calculate position of the rollers and the lens
+ */
 JTSageDateBox._fbox_pos = function () {
 	// Position the lens and the reels on widget open and 
 	// when they are changed
@@ -74,6 +68,14 @@ JTSageDateBox._fbox_pos = function () {
 	});
 };
 
+/**
+ * Get the numbers for duration box, also deal with breaks on 24 hrs, 60 min, 60 sec.
+ * 
+ * @param  {string} term Field we are working on: d,h,i,s
+ * @param  {number} offset Amount +/- from current
+ * @param  {number} position Position in the display.
+ * @return {string} Text to display
+ */
 JTSageDateBox._fbox_do_dur_math = function ( term, offset, position ) {
 	var current, possibleReturn,
 		w          = this,
@@ -114,6 +116,13 @@ JTSageDateBox._fbox_do_dur_math = function ( term, offset, position ) {
 	}
 };
 
+/**
+ * Find the appropriate tern for a flipbox element
+ * 
+ * @param  {string} term Which element to work on: y,m,d,h,i,s,a
+ * @param  {number} offset +/- from the current
+ * @return {string} Text to display
+ */
 JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
 	// Returns an array [ text, value ]
 	var i,
@@ -174,12 +183,36 @@ JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
 };
 
 
-
-// Really, timeflipbox and durationflipbox are just aliases
+/**
+ * Build the timeflipbox
+ *
+ * @memberOf JTSageDateBox._build
+ * @this JTSageDateBox
+ */
 JTSageDateBox._build.timeflipbox     = function () { this._build.flipbox.apply( this ); };
+
+/**
+ * Build the datetimeflipbox
+ *
+ * @memberOf JTSageDateBox._build
+ * @this JTSageDateBox
+ */
 JTSageDateBox._build.datetimeflipbox = function () { this._build.flipbox.apply( this ); };
+
+/**
+ * Build the durationflipbox
+ *
+ * @memberOf JTSageDateBox._build
+ * @this JTSageDateBox
+ */
 JTSageDateBox._build.durationflipbox = function () { this._build.flipbox.apply( this ); };
 
+/**
+ * Build the flipbox
+ *
+ * @memberOf JTSageDateBox._build
+ * @this JTSageDateBox
+ */
 JTSageDateBox._build.flipbox         = function () {
 	var thisField, cntlFieldIdx, cntlRow, cntlWrk,
 		w           = this,
@@ -192,6 +225,7 @@ JTSageDateBox._build.flipbox         = function () {
 		dur         = ( o.mode === "durationflipbox" ? true : false );
 
 
+	// Empty internal HTML if needed.  Otherwise refresh position?
 	if ( typeof w.d.intHTML !== "boolean" ) {
 		w.d.intHTML.empty().remove();
 	} else {
@@ -202,6 +236,7 @@ JTSageDateBox._build.flipbox         = function () {
 		});
 	}
 
+	// Get apprpriate header text
 	w.d.headerText = ( ( w._grabLabel() !== false) ? 
 		w._grabLabel() : 
 		( (o.mode === "flipbox") ?
@@ -216,6 +251,7 @@ JTSageDateBox._build.flipbox         = function () {
 		w._fbox_pos(); 
 	});
 
+	// Choose the correct field order for the mode
 	switch ( o.mode ) {
 		case "durationflipbox" :
 			w.fldOrder = w.__( "durationOrder" );
@@ -230,7 +266,9 @@ JTSageDateBox._build.flipbox         = function () {
 			w.fldOrder = w.__( "dateFieldOrder" );
 			break;
 	}
-			
+	
+	// If not in duration mode, check the date and reset the minute stepper
+	// If in duration mode, fix the duration stepper
 	if ( !dur ) {
 		w._check();
 		w._minStepFix();
@@ -240,11 +278,13 @@ JTSageDateBox._build.flipbox         = function () {
 		w._fixstepper( w.fldOrder );
 	}
 
+	// Create a header for flipbox and datetimeflipbox modes
 	if ( o.mode === "flipbox" || o.mode === "datetimeflipbox" ) { 
 		_sf.intHeader( w._formatter( w.__( "headerFormat" ), w.theDate ) )
 			.appendTo( w.d.intHTML );
 	}
 
+	// For duration mode, create labels
 	if ( dur ) {
 		cntlContain = _sf.fboxDurLabels();
 		for ( cntlFieldIdx = 0; cntlFieldIdx < w.fldOrder.length; cntlFieldIdx++ ) {
@@ -257,6 +297,7 @@ JTSageDateBox._build.flipbox         = function () {
 		w.d.intHTML.append( cntlContain );
 	}
 
+	// Build the control
 	for ( cntlFieldIdx = 0; cntlFieldIdx < w.fldOrder.length; cntlFieldIdx++ ) {
 		thisField = w.fldOrder[ cntlFieldIdx ];
 
@@ -297,12 +338,14 @@ JTSageDateBox._build.flipbox         = function () {
 
 	w.d.intHTML.append( flipContent );
 	
+	// Add the lens
 	_sf.fboxLens()
 		.addClass( "dbLens" )
 		.css( { "pointerEvents" : "none", "position" : "relative" } )
 		.appendTo( w.d.intHTML );
 
 
+	// Do bottom buttons
 	if (
 			o.useSetButton      ||
 			o.useTodayButton    ||
@@ -342,37 +385,63 @@ JTSageDateBox._build.flipbox         = function () {
 		cntlContain.appendTo( w.d.intHTML );
 	}
 
-	
-	if ( w.wheelExists ) { // Mousewheel operation, if plugin is loaded
-		w.d.intHTML.on( "mousewheel", ".ui-overlay-shadow", function(e,d) {
+	// Attach events
+
+	w.d.intHTML
+		.on( "mousewheel", ".ui-overlay-shadow", function(e,d) {
 			e.preventDefault();
 			w._offset($(this).data("field"), ((d<0)?1:-1)*$(this).data("amount"));
+		})
+		.on(g.eStart, ".dbRoller", function(e,f) {
+			if ( !g.move ) {
+				if ( typeof f !== "undefined" ) { e = f; }
+				g.move = true;
+				g.target = $(this).children().first();
+				g.pos = parseInt( g.target.css( "marginTop" ).replace( /px/i, "" ),10 );
+				g.start = ( e.type.substr(0,5) === "touch" ) ? 
+					e.originalEvent.changedTouches[0].pageY : 
+					e.pageY;
+				g.end = false;
+				g.direc = 1; //( dur ) ? 1 : -1;
+				g.velocity = 0;
+				g.time = Date.now();
+				e.stopPropagation();
+				e.preventDefault();
+			}
 		});
-	}
-	
-	w.d.intHTML.on(g.eStart, ".dbRoller", function(e,f) {
-		if ( !g.move ) {
-			if ( typeof f !== "undefined" ) { e = f; }
-			g.move = true;
-			g.target = $(this).children().first();
-			g.pos = parseInt( g.target.css( "marginTop" ).replace( /px/i, "" ),10 );
-			g.start = ( e.type.substr(0,5) === "touch" ) ? 
-				e.originalEvent.changedTouches[0].pageY : 
-				e.pageY;
-			g.end = false;
-			g.direc = 1; //( dur ) ? 1 : -1;
-			g.velocity = 0;
-			g.time = Date.now();
-			e.stopPropagation();
-			e.preventDefault();
-		}
-	});
 };
 
+/**
+ * Build timeflipbox drag events
+ *
+ * @memberOf JTSageDateBox._drag
+ * @this JTSageDateBox
+ */
 JTSageDateBox._drag.timeflipbox     = function () { this._drag.flipbox.apply( this ); };
+
+/**
+ * Build datetimeflipbox drag events
+ *
+ * @memberOf JTSageDateBox._drag
+ * @this JTSageDateBox
+ */
 JTSageDateBox._drag.datetimeflipbox = function () { this._drag.flipbox.apply( this ); };
+
+/**
+ * Build durationflipbox drag events
+ *
+ * @memberOf JTSageDateBox._drag
+ * @this JTSageDateBox
+ */
 JTSageDateBox._drag.durationflipbox = function () { this._drag.flipbox.apply( this ); };
 
+/**
+ * Build flipbox drag events
+ *
+ * @memberOf JTSageDateBox._drag
+ * @this JTSageDateBox
+ * @todo Rebuild this method.  It works, but I've no idea how anymore
+ */
 JTSageDateBox._drag.flipbox          = function () {
 	var w = this,
 		o = this.options,

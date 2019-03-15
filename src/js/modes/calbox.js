@@ -1,12 +1,12 @@
-/* JTSage-DateBox 
- *
- * MODE File
- *
- * Provide the following display modes:
- * * calbox
- *
- * Define the standard options as well
- */
+ /**
+     * JTSage-DateBox
+     * @fileOverview Provides the calbox mode
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+     * @version 5.0.0
+     *
+     */
 
  mergeOpts({
 	calHighToday        : true,
@@ -36,70 +36,19 @@
 });
 
 
-JTSageDateBox._cal_ThemeDateCK = {
-	selected : function ( testDate ) {
-		if ( this.options.calHighPick === false ) { return false; }
-		if ( this.originalDate.iso() === testDate.iso() ) { 
-			this.calDateVisible = true;
-			return true;
-		}
-		return false;
-	},
-	today : function ( testDate ) {
-		if ( this.options.calHighToday === false ) { return false; }
-		if ( this.realToday.iso() === testDate.iso() ) { return true; }
-		return false;
-	},
-	highDates : function ( testDate ) {
-		/* Return true if found */
-		var testOption = this.options.highDates;
+/**
+ * @typedef {Object} _cal_ThemeDate_Return
+ * @property {string} theme Theme class to use
+ * @property {boolean} inBounds Date appears in the "current" month
+ */
 
-		if ( testOption === false ) { return false; }
-
-		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
-			return true;
-		}
-		return false;
-	},
-	highDatesAlt : function ( testDate ) {
-		/* Return true if found */
-		var testOption = this.options.highDatesAlt;
-
-		if ( testOption === false ) { return false; }
-
-		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
-			return true;
-		}
-		return false;
-	},
-	highDatesRec : function ( testDate ) {
-		/* return true if the date is listed in the recurring dates */
-		var i, testOption = this.options.highDatesRec;
-
-		if ( testOption === false ) { return false; }
-
-		for ( i = 0; i < testOption.length; i++ ) {
-			if (
-				( testOption[i][0] === -1 || testOption[i][0] === testDate.get(0) ) &&
-				( testOption[i][1] === -1 || testOption[i][1] === testDate.get(1) ) &&
-				( testOption[i][2] === -1 || testOption[i][2] === testDate.get(2) )
-			) { return true ;}
-		}
-		return false;
-	},
-	highDays : function ( testDate ) {
-		/* return true if the date matched blacked out days of the week */
-		var testOption = this.options.highDays;
-
-		if ( testOption === false ) { return false; }
-
-		if ( $.inArray( testDate.getDay(), testOption ) > -1 ) {
-			return true;
-		}
-		return false;
-	}
-};
-
+/**
+ * Apply theme information for a date
+ * 
+ * @param  {object} javascript Date Object
+ * @param  {number} dispMonth Current month of display
+ * @return {_cal_ThemeDate_Return} Theme information
+ */
 JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 	/* Newest Version of the date checker.  With less mess? */
 	/*
@@ -125,6 +74,7 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 
 	w.realToday = new w._date();
 
+	// Shortcut if out of bounds, no other theme can apply.
 	if ( testDate.get(1) !== dispMonth ) { 
 		returnObject.inBounds = false;
 
@@ -135,7 +85,7 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 	}
 
 	for ( itt = 0; itt < dateThemes.length && !done; itt++ ) {
-		if ( w._cal_ThemeDateCK[ dateThemes[ itt ][0] ].apply( w, [ testDate ] ) ) {
+		if ( w._ThemeDateCK[ dateThemes[ itt ][0] ].apply( w, [ testDate ] ) ) {
 			returnObject.theme = o[ dateThemes[ itt ][1] ];
 			done = true;
 		}
@@ -144,54 +94,12 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 	return returnObject;
 };
 
-JTSageDateBox._cal_pickRanges = function ( dispMonth, dispYear, realYear ) {
-	var w         = this, i,
-		o         = this.options,
-		calcYear  = ( o.calYearPickRelative === false ) ? realYear : dispYear,
-		startYear = 0,
-		endYear   = 0,
-		returnVal = {
-			month: [],
-			year: []
-		};
-
-	for ( i = 0; i <= 11; i++ ) {
-		if ( i === dispMonth ) {
-			returnVal.month.push( [ i, w.__( "monthsOfYear" )[i], true ] );
-		} else {
-			returnVal.month.push( [ i, w.__( "monthsOfYear" )[i], false ] );
-		}
-	}
-
-	if ( o.calYearPickMin < 1 ) {
-		startYear = calcYear + o.calYearPickMin;
-	} else if ( o.calYearPickMin < 1800 ) {
-		startYear = calcYear - o.calYearPickMin;
-	} else if ( o.calYearPickMin === "NOW" ) {
-		startYear = realYear;
-	} else {
-		startYear = o.calYearPickMin;
-	}
-
-	if ( o.calYearPickMax < 1800 ) {
-		endYear = calcYear + o.calYearPickMax;
-	} else if ( o.calYearPickMax === "NOW" ) {
-		endYear = realYear;
-	} else {
-		endYear = o.calYearPickMax;
-	}
-
-	for ( i = startYear; i <= endYear; i++ ) {
-		if ( i === dispYear ) {
-			returnVal.year.push( [ i, i, true ] );
-		} else {
-			returnVal.year.push( [ i, i, false ] );
-		}
-	}
-
-	return returnVal;
-};
-
+/**
+ * Build the calbox
+ *
+ * @memberOf JTSageDateBox._build
+ * @this JTSageDateBox
+ */
 JTSageDateBox._build.calbox = function () {
 	var w                 = this, i,
 		o                 = this.options,
@@ -229,15 +137,18 @@ JTSageDateBox._build.calbox = function () {
 		// This holds the day of week display
 		weekdayControl    = $("");
 
+	// Clear internal widget HTML, if not already empty.
 	if ( typeof w.d.intHTML !== "boolean" ) { 
 		w.d.intHTML.remove(); 
 		w.d.intHTML = null;
 	}
 	
+	// Attempt to grab associated label, fallback to i18n string if none found
 	w.d.headerText = ( ( w._grabLabel() !== false ) ? 
 		w._grabLabel() :
 		w.__( "titleDateDialogLabel" )
 	);
+
 	w.d.intHTML = $( "<span>" );
 
 	// Internal header (not the widget master header, a header for the calendar)
@@ -273,7 +184,12 @@ JTSageDateBox._build.calbox = function () {
 	if ( o.calUsePickers === true ) {
 		_sf.calPickers.apply(
 			this,
-			[ w._cal_pickRanges( date_displayMonth, date_displayYear, date_realToday.get(0) ) ]
+			[ w._pickRanges(
+				date_displayMonth,
+				date_displayYear,
+				date_realToday.get(0),
+				o.calYearPickRelative
+			) ]
 		).appendTo( w.d.intHTML );
 
 		w.d.intHTML.on( "change", "#dbCalPickMonth, #dbCalPickYear", function() {
@@ -313,12 +229,16 @@ JTSageDateBox._build.calbox = function () {
 		}
 	}
 
+	// if options.calFormatter is just a string, attempt to pull it as a function
+	// reference from the global namespace
 	if ( ! $.isFunction( o.calFormatter ) && 
 		o.calFormatter !== false &&
 		$.isFunction( window[ o.calFormatter ] ) ) {
 			o.calFormatter = window[ o.calFormatter ];
 	}
 
+	// if options.calBeforeAppendFunc is just a string, attempt to pull it as a
+	// function reference from the global namespace
 	if ( ! $.isFunction( o.calBeforeAppendFunc ) && 
 		o.calBeforeAppendFunc !== false &&
 		$.isFunction( window[ o.calBeforeAppendFunc ] ) ) {
@@ -353,7 +273,7 @@ JTSageDateBox._build.calbox = function () {
 
 			// Create HTML
 			//
-			// Event "button" needs to have the class of ".dbEvent"
+			// Event "button" MUST have the class of ".dbEvent"
 			cntlObj.htmlObj = _sf.calButton( cntlObj, grid_Cols );
 
 			// Add data object to event object

@@ -21,6 +21,15 @@ JTSageDateBox._create = function() {
 			this._getLongOptions( this.element ),
 			this.element.data( "options" )
 		),
+		/**
+		 * Display elements
+		 * @type {Object}
+		 * @memberOf JTSageDateBox
+		 * @property {object} input jQuery input element
+		 * @property {object} wrap JQuery input element parent
+		 * @property {object} mainWrap Control HTML wrap
+		 * @property {object} intHTML Contol HTML insides
+		 */
 		d = {
 			input: this.element,
 			wrap: this.element.parent(),
@@ -76,10 +85,26 @@ JTSageDateBox._create = function() {
 	w.runButton      = false;
 	w._date          = window.Date;
 	w._enhanceDate();
+
+	/**
+	 * @member {string} baseID ID of the datebox Input
+	 * @memberOf JTSageDateBox
+	 */
+	
 	w.baseID         = w.d.input.attr( "id" );
+
+	/**
+	 * @member {object} initDate JavaScript date object, initialization date
+	 * @memberOf JTSageDateBox
+	 */
 
 	w.initDate       = new w._date();
 	w.initDate.setMilliseconds(0);
+
+	/**
+	 * @member {object} theDate JavaScript date object, current date
+	 * @memberOf JTSageDateBox
+	 */
 
 	w.theDate = ( o.defaultValue ) ?
 		w._makeDate() :

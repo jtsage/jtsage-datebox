@@ -1,18 +1,24 @@
-/* JTSage-DateBox 
- *
- * Date Limiting
- *
- * Contains the shared elements of date limiting.
- * 
- * CalBox specific code is in the calbox build.
- */
+ /**
+     * JTSage-DateBox
+     * @fileOverview Handle date limits
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+     * @version 5.0.0
+     *
+     */
 
+/**
+ * Fix minutes of the date based on minuteStep option.
+ *
+ * Round according to minStepRound
+ */
 JTSageDateBox._minStepFix = function() {
 	// Round "extra" minutes when using a stepper.
-	var newMinute = this.theDate.get(4), 
-		mstep = this.options.minuteStep,
+	var newMinute      = this.theDate.get(4), 
+		mstep          = this.options.minuteStep,
 		roundDirection = this.options.minStepRound,
-		remainder = newMinute % mstep;
+		remainder      = newMinute % mstep;
 
 	if ( mstep > 1 && remainder > 0 ) {
 		if ( roundDirection < 0 ) {
@@ -30,6 +36,30 @@ JTSageDateBox._minStepFix = function() {
 	}
 };
 
+/**
+ * Contains functions to check the date
+ *
+ * All functions expect a date object, and return a boolean for qualification
+ * 
+ * @type {Object}
+ * @property {function} enableDate Date exists in enableDates option
+ * @property {function} whiteDate Date exists in whiteDates option
+ * @property {function} notToday Date is today
+ * @property {function} maxYear Date is beyond maxYear
+ * @property {function} minYear Date is prior to minYear
+ * @property {function} afterToday Date is after today
+ * @property {function} beforeToday Date is before today
+ * @property {function} minDays Date is before minimum
+ * @property {function} maxDays Date is after maximum
+ * @property {function} minHour Time is before minimum
+ * @property {function} maxHour Time is after maximum
+ * @property {function} minTime Time is before minimum
+ * @property {function} maxTime Time is after maximum
+ * @property {function} validHours Hour is in validHours option
+ * @property {function} blackDays Day is in blackDays option
+ * @property {function} blackDates Date is in blackDates
+ * @property {function} blackDatesRec Date is in blackDatesRec
+ */
 JTSageDateBox._newDateCheck = {
 	/* NOTE: These return true if the test passes.  i.e., dobule negatives galore. */
 	enableDate : function ( testDate ) {
@@ -194,17 +224,25 @@ JTSageDateBox._newDateCheck = {
 	}
 };
 
+/**
+ * @typedef {object} _newDateChecker_Return
+ * @property {boolean} good Date is good
+ * @property {boolean} bad Date is bad
+ * @property {string|boolean} failrule Rule the date failed, or false
+ * @property {string|boolean} passrule Rule the date passed, or false
+ * @property {object} dateObj Date object
+ */
+
+/**
+ * Check if the date is valid.
+ *
+ * Note both failrule and passrule can be false if the date is valid but not
+ * explicitly valid.
+ * 
+ * @param  {object}
+ * @return {_newDateChecker_Return}
+ */
 JTSageDateBox._newDateChecker = function( testDate ) {
-	/* Newest Version of the date checker.  With less mess? */
-	/*
-	 * 
-	 * Returns an object:
-	 * 
-	 * object.good = bool (true == good date)
-	 * object.bad = bool (true == bad date)
-	 * object.failrule = false, or the rule that failed us.
-	 * object.passrule = false, or the whitelist location.
-	 */
 	var w = this,
 		itt, done = false,
 		returnObject = {
@@ -264,6 +302,24 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 	return returnObject;
 };
 
+/**
+ * @member {number} lastDuration Last entered duration in seconds
+ * @memberOf JTSageDateBox
+ */
+
+/**
+ * @member {array} lastDurationA Last entered duration, [ days, hours, minutes, seconds ]
+ * @memberOf JTSageDateBox
+ */
+
+/**
+ * Clean up the duration amount.
+ *
+ * Checks for negatives, and applies minDur/maxDur if set
+ *
+ * Returns nothing but sets {@link JTSageDateBox.lastDuration} and 
+ * {@link JTSageDateBox.lastDurationA}
+ */
 JTSageDateBox._getCleanDur = function() {
 	var w            = this,
 		o            = this,
@@ -290,6 +346,18 @@ JTSageDateBox._getCleanDur = function() {
 	return [ thisDuration, w._dur( thisDuration * 1000 ) ];
 };
 
+/**
+ * @member {boolean} dateOK The selected date is valid
+ * @memberOf JTSageDateBox
+ */
+
+/**
+ * Check if the date is good - older method.
+ *
+ * Also sets {@link JTSageDateBox.dateOK}
+ * 
+ * @return {boolean} Date is good
+ */
 JTSageDateBox._check = function() {
 	// Check to see if a date is valid. (Old way, left as a shim)
 	var checkObj = this._newDateChecker( this.theDate );
@@ -299,6 +367,12 @@ JTSageDateBox._check = function() {
 	return checkObj.good;
 };
 
+/**
+ * This makes durationStep apply to the least precise duration
+ * field.  Stepping an earlier field has rather unexpected results.
+ * 
+ * @param  {array} order Field display order
+ */
 JTSageDateBox._fixstepper = function( order ) {
 	// Turn back off steppers when displaying a less precise 
 	// unit in the same control.
@@ -319,5 +393,81 @@ JTSageDateBox._fixstepper = function( order ) {
 	if ( $.inArray( "s", order ) > -1 ) {
 		step.i = 1;
 		step.s = actual;
+	}
+};
+
+/**
+ * Contains functions to choose the appropriate theme.
+ *
+ * All functions expect a date object, and return a boolean for qualification
+ * 
+ * @type {Object}
+ * @property {function} selected Date is currently selected
+ * @property {function} today Date is today
+ * @property {function} highDates Date is in the highDates array
+ * @property {function} highDatesAlt Date is in the highDatesAlt array
+ * @property {function} highDatesRec Date is referenced in the highDatesRec option
+ * @property {function} highDays Day is in the highDays array
+ */
+JTSageDateBox._ThemeDateCK = {
+	selected : function ( testDate ) {
+		if ( this.options.slideHighPick === false ) { return false; }
+		if ( this.originalDate.iso() === testDate.iso() ) { 
+			return true;
+		}
+		return false;
+	},
+	today : function ( testDate ) {
+		if ( this.options.slideHighToday === false ) { return false; }
+		if ( this.realToday.iso() === testDate.iso() ) { return true; }
+		return false;
+	},
+	highDates : function ( testDate ) {
+		/* Return true if found */
+		var testOption = this.options.highDates;
+
+		if ( testOption === false ) { return false; }
+
+		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
+			return true;
+		}
+		return false;
+	},
+	highDatesAlt : function ( testDate ) {
+		/* Return true if found */
+		var testOption = this.options.highDatesAlt;
+
+		if ( testOption === false ) { return false; }
+
+		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
+			return true;
+		}
+		return false;
+	},
+	highDatesRec : function ( testDate ) {
+		/* return true if the date is listed in the recurring dates */
+		var i, testOption = this.options.highDatesRec;
+
+		if ( testOption === false ) { return false; }
+
+		for ( i = 0; i < testOption.length; i++ ) {
+			if (
+				( testOption[i][0] === -1 || testOption[i][0] === testDate.get(0) ) &&
+				( testOption[i][1] === -1 || testOption[i][1] === testDate.get(1) ) &&
+				( testOption[i][2] === -1 || testOption[i][2] === testDate.get(2) )
+			) { return true ;}
+		}
+		return false;
+	},
+	highDays : function ( testDate ) {
+		/* return true if the date matched blacked out days of the week */
+		var testOption = this.options.highDays;
+
+		if ( testOption === false ) { return false; }
+
+		if ( $.inArray( testDate.getDay(), testOption ) > -1 ) {
+			return true;
+		}
+		return false;
 	}
 };

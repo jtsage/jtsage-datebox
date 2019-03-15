@@ -1,17 +1,46 @@
-/* JTSage-DateBox 
- * v5.0.0
- *
- * Date Input Parser
- *
- * Contains the RegExp to read the date back in
- * from the input element
- */
+ /**
+     * JTSage-DateBox
+     * @fileOverview Parse dates
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+     * @version 5.0.0
+     *
+     */
+
 
 
 // Custom Parser Definitions, single String argument provided.
+/**
+ * Custom date parsers
+ *
+ * These recive the input value, and should return a date, or whatever the mode is 
+ * expecting to be in the usual date object.  It is possible for it to be another type,
+ * although most of the build in functions would not be useful on it any longer.
+ *
+ * Custom parsers need to be named for the mode they run on.
+ * 
+ * @type {Object}
+ * @namespace  JTSageDateBox._parser
+ */
 JTSageDateBox._parser = {};
-JTSageDateBox._parser.default = function () { return false; };
 
+/**
+ * Sample custom parser prototype
+ * 
+ * @param  {string} str Input value
+ * @return {*} Date object ideally, but whatever the mode file is expecting will work
+ * @memberOf JTSageDateBox._parser
+ */
+JTSageDateBox._parser.default = function ( str ) { return str; };
+
+/**
+ * Attempt to parse a date string.  Format is pulled from {@link JTSageDateBox.__fmt}
+ * 
+ * @param  {string} Date string to parse
+ * @param  {boolean} When true, return an array instead with the status of the parse as arr[1]
+ * @return {object} JavaScript Date Object
+ */
 JTSageDateBox._makeDate = function ( str, extd ) {
 	// Date Parser
 	var i,  exp_temp, exp_format, grbg,
@@ -36,18 +65,25 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 			yday: false,
 			meri: 0
 		};
+
+	// Set a default, no extended data
 	if ( typeof extd === "undefined" ) { extd = false; }
 	
+	// Convert indic numers t those we can deal with
 	str = $.trim( ( ( w.__( "useArabicIndic" ) === true && typeof str !== "undefined" ) ? 
 			w._dRep( str, -1 ) : 
 			str 
 		) );
 
+	// Do nothing if no mode loaded
 	if ( typeof o.mode === "undefined" ) { return date; }
+
+	// Run custom parser instead if it exists
 	if ( typeof w._parser[ o.mode ] !== "undefined" ) { 
 		return w._parser[ o.mode ].apply( w, [ str ] ); 
 	}
 
+	// Deal with duration mode.
 	if ( o.mode === "durationbox" || o.mode === "durationflipbox" ) {
 		adv = adv.replace(/%D([a-z])/gi, function( match, oper ) {
 			switch ( oper ) {
@@ -94,12 +130,16 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 		return new w._date( exp_temp * 1000 );
 	}
 
+	// JSON style dates are simple.  Shortcut them
 	if ( adv === "%J" ) { 
 		date = new w._date(str);
 		if ( isNaN(date.getDate()) ) { date = new w._date(); }
 		return date;
 	}
 
+	// Try to read it back in.  We attempt to use the most granular option where possible
+	// as text options particularly can be unreliable.  Some bits, like day name, we can 
+	// hopefully just ignore.
 	adv = adv.replace( /%(0|-)*([a-z])/gi, function( match, pad, oper ) {
 		exp_names.push( oper );
 		switch ( oper ) {

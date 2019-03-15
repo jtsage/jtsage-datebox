@@ -1,10 +1,23 @@
-/* JTSage-DateBox 
- *
- * Date Offset
- *
- * Contains the logic to offset the date
- */
+ /**
+     * JTSage-DateBox
+     * @fileOverview Offset dates
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+     * @version 5.0.0
+     *
+     */
 
+
+
+/**
+ * This method offsets the current date. Do it in such a way that rollover can be prevented
+ * 
+ * @param  {string} mode Element to shift
+ * @param  {number} amount Amount to shift +/-
+ * @param  {boolean} update Set to false, will not update display
+ * @todo  Re-write.  I'm not sure how half this works anymore.  Variable names are horrid.
+ */
 JTSageDateBox._offset = function(mode, amount, update) {
 	// Compute a date/time offset.
 	//   update = false to prevent controls refresh
@@ -122,6 +135,12 @@ JTSageDateBox._offset = function(mode, amount, update) {
 	} );
 };
 
+/**
+ * Alter a date by the startOffset values.
+ * 
+ * @param  {object} date JavaScript date object
+ * @return {object} JavaScript date object
+ */
 JTSageDateBox._startOffset = function(date) {
 	var o = this.options;
 

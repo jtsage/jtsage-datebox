@@ -1,12 +1,12 @@
-/* JTSage-DateBox 
- *
- * MODE File
- *
- * Provide the following display modes:
- * * calbox
- *
- * Define the standard options as well
- */
+ /**
+     * JTSage-DateBox
+     * @fileOverview Provides the slidebox mode
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+     * @version 5.0.0
+     *
+     */
 
  mergeOpts({
 	slideHighToday        : true,
@@ -28,83 +28,23 @@
 	slideShowDateList     : false
 });
 
+/**
+ * @typedef {Object} _slide_ThemeDate_Return
+ * @property {string} theme Theme class to use
+ */
 
-JTSageDateBox._slide_ThemeDateCK = {
-	selected : function ( testDate ) {
-		if ( this.options.sslideHighPick === false ) { return false; }
-		if ( this.originalDate.iso() === testDate.iso() ) { 
-			return true;
-		}
-		return false;
-	},
-	today : function ( testDate ) {
-		if ( this.options.slideHighToday === false ) { return false; }
-		if ( this.realToday.iso() === testDate.iso() ) { return true; }
-		return false;
-	},
-	highDates : function ( testDate ) {
-		/* Return true if found */
-		var testOption = this.options.highDates;
-
-		if ( testOption === false ) { return false; }
-
-		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
-			return true;
-		}
-		return false;
-	},
-	highDatesAlt : function ( testDate ) {
-		/* Return true if found */
-		var testOption = this.options.highDatesAlt;
-
-		if ( testOption === false ) { return false; }
-
-		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
-			return true;
-		}
-		return false;
-	},
-	highDatesRec : function ( testDate ) {
-		/* return true if the date is listed in the recurring dates */
-		var i, testOption = this.options.highDatesRec;
-
-		if ( testOption === false ) { return false; }
-
-		for ( i = 0; i < testOption.length; i++ ) {
-			if (
-				( testOption[i][0] === -1 || testOption[i][0] === testDate.get(0) ) &&
-				( testOption[i][1] === -1 || testOption[i][1] === testDate.get(1) ) &&
-				( testOption[i][2] === -1 || testOption[i][2] === testDate.get(2) )
-			) { return true ;}
-		}
-		return false;
-	},
-	highDays : function ( testDate ) {
-		/* return true if the date matched blacked out days of the week */
-		var testOption = this.options.highDays;
-
-		if ( testOption === false ) { return false; }
-
-		if ( $.inArray( testDate.getDay(), testOption ) > -1 ) {
-			return true;
-		}
-		return false;
-	}
-};
-
+/**
+ * Apply theme information for a date
+ * 
+ * @param  {object} javascript Date Object
+ * @return {_slide_ThemeDate_Return} Theme information
+ */
 JTSageDateBox._slide_ThemeDate = function( testDate ) {
-	/* Newest Version of the date checker.  With less mess? */
-	/*
-	 * Returns an object:
-	 * 
-	 * object.theme = Theme to use for the date
-	 */
 	var w = this,
 		o = this.options,
 		itt, done = false,
 		returnObject = {
-			theme: o.theme_slide_Default,
-			inBounds: true
+			theme: o.theme_slide_Default
 		},
 		dateThemes = [
 			[ "selected",     "theme_slide_Selected" ],
@@ -118,7 +58,7 @@ JTSageDateBox._slide_ThemeDate = function( testDate ) {
 	w.realToday = new w._date();
 
 	for ( itt = 0; itt < dateThemes.length && !done; itt++ ) {
-		if ( w._slide_ThemeDateCK[ dateThemes[ itt ][0] ].apply( w, [ testDate ] ) ) {
+		if ( w._ThemeDateCK[ dateThemes[ itt ][0] ].apply( w, [ testDate ] ) ) {
 			returnObject.theme = o[ dateThemes[ itt ][1] ];
 			done = true;
 		}
@@ -127,54 +67,12 @@ JTSageDateBox._slide_ThemeDate = function( testDate ) {
 	return returnObject;
 };
 
-JTSageDateBox._slide_pickRanges = function ( dispMonth, dispYear, realYear ) {
-	var w         = this, i,
-		o         = this.options,
-		calcYear  = ( o.slideYearPickRelative === false ) ? realYear : dispYear,
-		startYear = 0,
-		endYear   = 0,
-		returnVal = {
-			month: [],
-			year: []
-		};
-
-	for ( i = 0; i <= 11; i++ ) {
-		if ( i === dispMonth ) {
-			returnVal.month.push( [ i, w.__( "monthsOfYear" )[i], true ] );
-		} else {
-			returnVal.month.push( [ i, w.__( "monthsOfYear" )[i], false ] );
-		}
-	}
-
-	if ( o.slideYearPickMin < 1 ) {
-		startYear = calcYear + o.slideYearPickMin;
-	} else if ( o.slideYearPickMin < 1800 ) {
-		startYear = calcYear - o.slideYearPickMin;
-	} else if ( o.slideYearPickMin === "NOW" ) {
-		startYear = realYear;
-	} else {
-		startYear = o.slideYearPickMin;
-	}
-
-	if ( o.slideYearPickMax < 1800 ) {
-		endYear = calcYear + o.slideYearPickMax;
-	} else if ( o.slideYearPickMax === "NOW" ) {
-		endYear = realYear;
-	} else {
-		endYear = o.slideYearPickMax;
-	}
-
-	for ( i = startYear; i <= endYear; i++ ) {
-		if ( i === dispYear ) {
-			returnVal.year.push( [ i, i, true ] );
-		} else {
-			returnVal.year.push( [ i, i, false ] );
-		}
-	}
-
-	return returnVal;
-};
-
+/**
+ * Build the slidebox
+ *
+ * @memberOf JTSageDateBox._build
+ * @this JTSageDateBox
+ */
 JTSageDateBox._build.slidebox = function () {
 	var w                 = this,
 		o                 = this.options,
@@ -198,6 +96,7 @@ JTSageDateBox._build.slidebox = function () {
 		w.d.intHTML = null;
 	}
 
+	// slide dates are always ok, handle disabled set logic elsewhere
 	w.dateOK = true;
 	
 	w.d.headerText = ( ( w._grabLabel() !== false ) ? 
@@ -239,7 +138,12 @@ JTSageDateBox._build.slidebox = function () {
 	if ( o.slideUsePickers === true ) {
 		_sf.slidePickers.apply(
 			this,
-			[ w._slide_pickRanges( date_displayMonth, date_displayYear, date_realToday.get(0) ) ]
+			[ w._pickRanges(
+				date_displayMonth,
+				date_displayYear,
+				date_realToday.get(0),
+				o.slideYearPickRelative
+			) ]
 		).appendTo( w.d.intHTML );
 
 		w.d.intHTML.on( "change", "#dbSlidePickMonth, #dbSlidePickYear", function() {

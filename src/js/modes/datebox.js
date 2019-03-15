@@ -1,21 +1,23 @@
-/* JTSage-DateBox 
- *
- * MODE File
- *
- * Provide the following display modes:
- * * datebox
- * * timebox
- * * durationbox
- * * datetimebox
- *
- * Define the standard options as well
- */
+ /**
+     * JTSage-DateBox
+     * @fileOverview Provides the datebox, timebox, durationbox, and datetimebox modes
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+     * @version 5.0.0
+     *
+     */
 
 mergeOpts({
 	durationStep     : 1,
 	durationSteppers : { "d" : 1, "h" : 1, "i" : 1, "s" : 1 }
 });
 
+/**
+ * Update the input boxes in the control
+ * 
+ * @param  {boolean} shortRun Use shortrun (skip checking the date and setting the header)
+ */
 JTSageDateBox._dbox_run_update = function(shortRun) {
 	// Update the current view of the datebox.
 	//
@@ -90,6 +92,12 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 };
 
 
+/**
+ * This handles manual input to the input boxes in datebox, timebox,
+ * durationbox, and datetimebox.
+ * 
+ * @param  {object} item jQuery input object
+ */
 JTSageDateBox._dbox_enter = function (item) {
 	var tmp,
 		w = this, 
@@ -129,11 +137,36 @@ JTSageDateBox._dbox_enter = function (item) {
 	setTimeout(function() { w.refresh(); }, 150);
 };
 
-
+/**
+ * Build the timebox
+ *
+ * @memberOf JTSageDateBox._build
+ * @this JTSageDateBox
+ */
 JTSageDateBox._build.timebox     = function () { this._build.datebox.apply( this, [] ); };
+
+/**
+ * Build the datetimebox
+ *
+ * @memberOf JTSageDateBox._build
+ * @this JTSageDateBox
+ */
 JTSageDateBox._build.datetimebox = function () { this._build.datebox.apply( this, [] ); };
+
+/**
+ * Build the durationbox
+ *
+ * @memberOf JTSageDateBox._build
+ * @this JTSageDateBox
+ */
 JTSageDateBox._build.durationbox = function () { this._build.datebox.apply( this, [] ); };
 
+/**
+ * Build the datebox
+ *
+ * @memberOf JTSageDateBox._build
+ * @this JTSageDateBox
+ */
 JTSageDateBox._build.datebox = function () {
 	var offAmount, i, ctrlWrk, ctrlRow,
 		w             = this,
@@ -143,10 +176,12 @@ JTSageDateBox._build.datebox = function () {
 		dur           = ( o.mode === "durationbox" ? true : false ),
 		defDurOrder   = ["d","h","i","s"];
 	
+	// If the internal HTML is set, clear it
 	if ( typeof w.d.intHTML !== "boolean" ) {
 		w.d.intHTML.empty().remove();
 	}
 	
+	// Select appropriate header text
 	w.d.headerText = ( ( w._grabLabel() !== false ) ?
 		w._grabLabel() : 
 		( ( o.mode === "datebox" || o.mode === "datetimebox" ) ? 
@@ -156,6 +191,7 @@ JTSageDateBox._build.datebox = function () {
 	);
 	w.d.intHTML = $( "<span>" );
 	
+	// Select field order based on mode
 	switch ( o.mode ) {
 		case "durationbox" :
 			w.fldOrder = w.__( "durationOrder" );
@@ -171,6 +207,8 @@ JTSageDateBox._build.datebox = function () {
 			break;
 	}
 
+	// If not in duration mode, check the date and reset the minute stepper
+	// If in duration mode, fix the duration stepper
 	if ( !dur ) {
 		w._check();
 		w._minStepFix();
@@ -179,6 +217,7 @@ JTSageDateBox._build.datebox = function () {
 		w._fixstepper( w.fldOrder );
 	}
 	
+	// Create a header for datebox and datetimebox modes
 	if ( o.mode === "datebox" || o.mode === "datetimebox" ) { 
 		_sf.intHeader( w._formatter( w.__( "headerFormat" ), w.theDate ) )
 			.appendTo( w.d.intHTML );
@@ -186,6 +225,7 @@ JTSageDateBox._build.datebox = function () {
 	
 	ctrlRow = _sf.dboxRow();
 
+	// Build the controls
 	for ( i = 0; i < w.fldOrder.length; i++ ) {
 		
 		if ( w.fldOrder[i] === "a" && w.__( "timeFormat" ) !== 12 ) { continue; }
@@ -223,8 +263,10 @@ JTSageDateBox._build.datebox = function () {
 	ctrlContainer.append( ctrlRow );
 	ctrlContainer.appendTo( w.d.intHTML );
 
+	// Populate the input boxes
 	w._dbox_run_update( true );
 
+	// Do bottom buttons
 	if ( 
 			o.useSetButton      ||
 			o.useTodayButton    ||
@@ -236,12 +278,12 @@ JTSageDateBox._build.datebox = function () {
 		
 		if ( o.useSetButton ) {
 			switch (o.mode) {
-				case "timebox" :
+				case "timebox"     :
 					ctrlWrk = w.__( "setTimeButtonLabel" ); break;
 				case "durationbox" :
 					ctrlWrk = w.__( "setDurationButtonLabel" ); break;
-				case "datebox":
-				case "datetimebox":
+				case "datebox"     :
+				case "datetimebox" :
 					ctrlWrk = w.__( "setDateButtonLabel" ); break;
 			}
 			w.setBut = w._stdBtn.close.apply( w, [ ctrlWrk ] );
@@ -264,6 +306,7 @@ JTSageDateBox._build.datebox = function () {
 		ctrlContainer.appendTo( w.d.intHTML );
 	}
 
+	// Set up events
 	w.d.intHTML
 		.on( "change",   "input", function()  { w._dbox_enter( $( this ) ); })
 		.on( "keypress", "input", function(e) {
