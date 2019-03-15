@@ -1,0 +1,222 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>JTSage-DateBox (Foundation 6)</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<!-- HUGE NOTE:  THIS FILE IS FOR DEVELOPMENT.  DON'T LINK TO THESE COPIES,
+		THEY CHANGE AND **BREAK** CONSTANTLY.  USE -latest, OR BETTER, A NUMBERED
+		VERSION -->
+
+	<!-- SECOND NOTE:  MOST OF THE OPTIONS ARE INCLUDED IN THE DEFINITION BELOW
+		SO YOU CAN JUST UNCOMMENT WHAT YOU ARE WORKING ON -->
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css" integrity="sha256-xpOKVlYXzQ3P03j397+jWFZLMBXLES3IiryeClgU5og= sha384-gP4DhqyoT9b1vaikoHi9XQ8If7UNLO73JFOOlQV1RATrA7D0O7TjJZifac6NwPps sha512-AKwIib1E+xDeXe0tCgbc9uSvPwVYl6Awj7xl0FoaPFostZHOuDQ1abnDNCYtxL/HWEnVOMrFyf91TDgLPi9pNg==" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js" integrity="sha256-/PFxCnsMh+nTuM0k3VJCRch1gwnCfKjaP8rJNq5SoBg= sha384-9ksAFjQjZnpqt6VtpjMjlp2S0qrGbcwF/rvrLUg2vciMhwc1UJJeAAOLuJ96w+Nj sha512-UMSn6RHqqJeJcIfV1eS2tPKCjzaHkU/KqgAnQ7Nzn0mLicFxaVhm9vq7zG5+0LALt15j1ljlg8Fp9PT1VGNmDw==" crossorigin="anonymous"></script>
+
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="../src/js/external/jqueryui.js"></script>
+
+
+	<script type="text/javascript" src="../src/js/baseObject.js"></script>
+
+	<script type="text/javascript" src="../src/js/lib/dateEnhance.js"></script>
+	<script type="text/javascript" src="../src/js/lib/dateFormatter.js"></script>
+	<script type="text/javascript" src="../src/js/lib/dateLimit.js"></script>
+	<script type="text/javascript" src="../src/js/lib/dateParser.js"></script>
+	<script type="text/javascript" src="../src/js/lib/eventHandler.js"></script>
+	<script type="text/javascript" src="../src/js/lib/offset.js"></script>
+	<script type="text/javascript" src="../src/js/lib/public.js"></script>
+	<script type="text/javascript" src="../src/js/lib/shortUtil.js"></script>
+	<script type="text/javascript" src="../src/js/lib/boilerplate.js"></script>
+
+	<script type="text/javascript" src="../src/js/framework/foundation6.js"></script>
+
+	<script type="text/javascript" src="../src/js/modes/datebox.js"></script>
+	<script type="text/javascript" src="../src/js/modes/flipbox.js"></script>
+	<script type="text/javascript" src="../src/js/modes/calbox.js"></script>
+	<script type="text/javascript" src="../src/js/modes/slidebox.js"></script>
+
+	<script type="text/javascript" src="../src/js/widgetBinding.js"></script>
+	<script type="text/javascript" src="../src/js/autoInit.js"></script>
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
+	
+	<script type="text/javascript">
+		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+			/* Mode */
+			//buttonIcon : '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C9.79 1 8 2.31 8 3.92C8 5.86 8.5 6.95 8 10C8 5.5 5.23 3.66 4 3.66C4.05 3.16 3.52 3 3.52 3C3.52 3 3.3 3.11 3.22 3.34C2.95 3.03 2.66 3.07 2.66 3.07L2.53 3.65C2.53 3.65 0.7 4.29 0.68 6.87C0.88 7.2 2.21 7.47 3.15 7.3C4.04 7.35 3.82 8.09 3.62 8.29C2.78 9.13 2 8 1 8C0 8 0 9 1 9C2 9 2 10 4 10C0.91 11.2 4 14 4 14H3C2 14 2 15 2 15C2 15 6 15 8 15C11 15 13 14 13 11.53C13 10.68 12.57 9.74 12 9C10.89 7.54 12.23 6.32 13 7C13.77 7.68 16 8 16 5C16 2.79 14.21 1 12 1ZM2.5 6C2.22 6 2 5.78 2 5.5C2 5.22 2.22 5 2.5 5C2.78 5 3 5.22 3 5.5C3 5.78 2.78 6 2.5 6Z" fill="#1B1F23"/></svg>',
+			mode : "slidebox",
+
+			/* Display */
+			displayMode : "inline",
+			// hideInput   : true,
+
+			// displayDropdownPosition : "top-left",
+			// displayInlinePosition   : "left",
+
+			// defaultValue : new Date(2001, 0, 1),
+
+			// useHeader : false,
+
+
+			/* Input control */
+			// showInitialValue : true,
+			// useImmediate     : true,
+			// useFocus         : true,
+
+			// lockInput : true,
+			// useButton : false,
+
+
+			/* Linked fields */
+			linkedField : false,
+
+
+			/* Callbacks */
+			// beforeOpenCallbackArgs : [ "hi", "bye"],
+			// beforeOpenCallback     : function(a, b) { console.log(a); console.log(b); return true;},,
+
+			// closeCallbackArgs : [ "hi", "bye"],
+			// closeCallback     : function(a, b) { console.log(a); console.log(b); },,
+
+			// openCallbackArgs : [ "hi", "bye"],
+			// openCallback     : function(a, b) { console.log(a); console.log(b); },,
+
+			// calBeforeAppendFunc : function( myObject ) { console.log( myObject.dateObj ); return myObject; },
+			// calFormatter : function( date )  { return ( date.get(2) < 10 ) ? "<span style='color:red'>" + date.get(2) + "</span>" : date.get(2); },
+
+
+			/* Limits */
+			// blackDates    : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// blackDatesRec : [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ],
+			// blackDays     : [ 0, 6 ],
+
+			// enableDates : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// validHours  : [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ],
+			// whiteDates  : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+
+			// highDatesAlt : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// highDates    : ["2001-01-01", "2000-12-31", "2000-12-25", "2000-12-24"],
+			// highDatesRec : [ [-1,0,1], [-1,11,31], [-1,11,25], [-1,11,24] ],
+			// highDays     : [ 0, 6 ],
+
+			calDateList     : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			calShowDateList : true,
+
+			// slideDateList     : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			// slideShowDateList : true,
+
+			// afterToday  : true,
+			// beforeToday : true,
+			// notToday    : true,
+
+			// minDays : 10,
+			// maxDays : 10,
+
+			// minDur : 34652,
+			// maxDur : 34700,
+
+			// minHour : 9,
+			// maxHour : 5,
+
+			// minTime : "9:00",
+			// maxTime : "17:00",
+
+			// minYear : 2001,
+			// maxYear : 2020,
+
+			/* CSS */
+			// breakpointWidth : "600px",
+			// controlWidth    : "290px",
+
+
+			/* calbox Mode */
+			// calHighOutOfBounds : false,
+			// calHighPick        : false,
+			// calHighToday       : false,,
+			// calNoHeader        : true,
+			// calOnlyMonth       : true,
+			// calShowDays        : false,
+			// calShowWeek        : true,
+
+			// overrideCalStartDay : 1,
+
+			calUsePickers       : true,
+			// calYearPickMax      : 2050,
+			// calYearPickMin      : 1950,
+			// calYearPickRelative : false,
+
+			/* slidebox Mode */
+			// slideHighPick        : false,
+			// slideHighToday       : false,,
+			// slideNoHeader        : true,
+
+			slideUsePickers       : true,
+			// slideYearPickMax      : 2050,
+			// slideYearPickMin      : 1950,
+			// slideYearPickRelative : false,
+
+
+			/* Steppers */
+			// durationStep : 2,
+			// minuteStep   : 2,
+
+
+			/* flipBox Mode */
+			// flipboxAdjustLens : 12,
+
+
+			/* Control Buttons */
+			// closeTodayButton    : true,
+			// closeTomorrowButton : true,
+			useCancelButton     : true,
+			useClearButton      : true,
+			// useSetButton        : false,
+			useTodayButton      : true,
+			// useTomorrowButton   : true,
+			useCollapsedBut     : true,
+		});
+	</script>
+	
+</head>
+<body>
+	<div class="container" role="main">
+		<h1>DateBox <small>DateBox Dev Page</small></h1>
+
+		<form>
+		<div class="form-group">
+			<label  for="username">E-Mail Address</label>
+			<input type="text" name="username" id="username" class="x1 form-control" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label class="control-label"for="db">DateBox</label>
+			<input class="form-control" name="db" type="text" data-role="datebox" id="db" />
+		</div>
+
+		</form>
+
+		<p>My name is Rhoda Morgenstern. I was born in the Bronx, New York in December of 1941. I've always felt responsible for World War II. The first thing I remember liking that liked me back was food. I had a bad puberty; it lasted seventeen years. I'm a high school graduate. I went to art school. My entrance exam was on a book of matches. I decided to move out of the house when I was twenty-four. My mother still refers to this as the time I ran away from home. Eventually, I ran to Minneapolis, where it's cold and I figured I'd keep better. Now I'm back in Manhattan. New York, this is your last chance!</p>
+
+		<p>It's time to play the music, it's time to light the lights. It's time to meet the Muppets on the Muppet Show tonight! It's time to put on makeup, it's time to dress up right. It's time to raise the curtain on the Muppet Show tonight. Why do we always come here? I guess we'll never know. It's like a kind of torture to have to watch the show! And now let's get things started - why don't you get things started? It's time to get things started on the most sensational inspirational celebrational Muppetational... This is what we call the Muppet Show!</p>
+
+		<p>There are those who believe that life here began out there... far across the universe, with tribes of humans who may have been the forefathers of the Egyptians or the Toltecs or the Mayans. Some believe that there may yet be brothers of man who even now fight to survive somewhere beyond the heavens. Fleeing from the Cylon Tyranny, the last Battlestar - Galactica - leads a rag-tag fugitive fleet on a lonely quest. A shining planet, known as Earth.</p>
+
+		<p>Making the world a better place, starts with one more smiling face. And Ronald's smile is just the thing, To make everybody sing! Put a smile on, put a smile on, everybody come on! Put a smile on!</p>
+
+		<p>Life is like a hurricane here in Duckburg. Race cars, lasers, aeroplanes - it's a duck blur. You might solve a mystery or rewrite history - Duck Tales, Oo-oo! Tales of derring-do, bad and good luck tales, oo-oo! D-d-d-danger, watch behind you - there's a stranger out to find you! What to do? Just grab onto some Duck Tales, oo-oo! Not pony tails or cotton tails but Duck Tales, oo-oo! When it seems they're headed for the final curtain Bold deduction never fails, that's for certain The worst of messes become successes!</p>
+
+
+
+	</div>
+
+</html>
