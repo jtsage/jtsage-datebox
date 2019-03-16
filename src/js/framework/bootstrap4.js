@@ -722,7 +722,7 @@ JTSageDateBox.styleFunctions = {
 				theme + " " + eventCls + "'";
 
 		return $(
-			"<td class='m-0 p-1 text-center'" + style + ">" +
+			"<td class='m-0 p-0 text-center'" + style + ">" +
 			"<a href='#' " + cls + ">" + 
 			this.icons.getIcon( icon )  + "</a></td>"
 		);
