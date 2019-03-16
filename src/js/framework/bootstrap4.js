@@ -83,6 +83,7 @@ mergeOpts({
 		backgroundColor: "rgba(0,0,0,.4)"
 	},
 	theme_headStyle : false,
+	theme_spanStyle : false,
 
 	buttonIconDate: "calendar",
 	buttonIconTime: "clock",

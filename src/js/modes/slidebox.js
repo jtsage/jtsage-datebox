@@ -105,6 +105,8 @@ JTSageDateBox._build.slidebox = function () {
 	);
 	w.d.intHTML = $( "<span>" );
 
+	if ( typeof o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
+
 	// Internal header (not the widget master header, a header for the calendar)
 	//
 	// Expects a ".dbCalNext" and ".dbCalPrev" for prev/next button events.

@@ -10,42 +10,42 @@
      */
 
 mergeOpts({
-	theme_clearBtnCls : "outline-secondary",
+	theme_clearBtnCls : "secondary",
 	theme_clearBtnIcn : "clear",
 
-	theme_closeBtnCls : "outline-secondary",
+	theme_closeBtnCls : "secondary",
 	theme_closeBtnIcn : "check",
 
-	theme_cancelBtnCls : "outline-secondary",
+	theme_cancelBtnCls : "secondary",
 	theme_cancelBtnIcn : "cancel",
 
-	theme_tomorrowBtnCls : "outline-secondary",
+	theme_tomorrowBtnCls : "secondary",
 	theme_tomorrowBtnIcn : "goto",
 
-	theme_todayBtnCls : "outline-secondary",
+	theme_todayBtnCls : "secondary",
 	theme_todayBtnIcn : "goto",
 
-	theme_dropdownContainer : "bg-light border border-dark mt-1",
-	theme_modalContainer : "bg-light border border-dark p-2 m-0",
-	theme_inlineContainer : "bg-light border border-dark my-2",
+	theme_dropdownContainer : "card",
+	theme_modalContainer : "card",
+	theme_inlineContainer : "card",
 
 	theme_headerTheme : "bg-dark",
 	theme_headerBtnCls : "outline-secondary",
 	theme_headerBtnIcn : "cancel",
 
-	theme_cal_Today       : "outline-info",
-	theme_cal_DayHigh     : "outline-warning",
-	theme_cal_Selected    : "outline-success",
-	theme_cal_DateHigh    : "outline-warning",
-	theme_cal_DateHighAlt : "outline-danger",
-	theme_cal_DateHighRec : "outline-warning",
-	theme_cal_Default     : "outline-primary",
-	theme_cal_OutOfBounds : "outline-secondary border-0",
+	theme_cal_Today       : "primary",
+	theme_cal_DayHigh     : "warning",
+	theme_cal_Selected    : "success",
+	theme_cal_DateHigh    : "warning",
+	theme_cal_DateHighAlt : "alert",
+	theme_cal_DateHighRec : "warning",
+	theme_cal_Default     : "hollow primary",
+	theme_cal_OutOfBounds : "clear secondary",
 
 	theme_cal_NextBtnIcn : "next",
-	theme_cal_NextBtnCls : "outline-dark",
+	theme_cal_NextBtnCls : "hollow secondary",
 	theme_cal_PrevBtnIcn : "prev",
-	theme_cal_PrevBtnCls : "outline-dark",
+	theme_cal_PrevBtnCls : "hollow secondary",
 
 	theme_dbox_NextBtnIcn : "plus",
 	theme_dbox_NextBtnCls : "outline-dark",
@@ -83,6 +83,9 @@ mergeOpts({
 		backgroundColor: "rgba(0,0,0,.4)"
 	},
 	theme_headStyle : false,
+	theme_spanStyle : "card-section",
+
+	controlWidth : "320px",
 
 	buttonIconDate: "calendar",
 	buttonIconTime: "clock",
@@ -110,7 +113,10 @@ JTSageDateBox.styleFunctions = {
 		var retty;
 
 		retty  = "<a href='#' role='button' class='button small " + themeClass + "'>";
-		retty += ( icon !== false ) ? "<span>" + this.icons.getIcon(icon) + "</span> " : "";
+		retty += ( icon !== false ) ? 
+			"<span style='display:inline-block;height:16px;line-height:1.5'>" + 
+				this.icons.getIcon(icon) + "</span> " :
+			"";
 		retty += contents + "</a>";
 
 		return retty;
@@ -125,9 +131,11 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	buttonGroup           : function ( collapse ) {
-		var cls = ( collapse === true ) ? "button-group" : "button-group stacked";
+		var cls = ( collapse === true ) ? 
+			"button-group small expanded" :
+			"button-group stacked small";
 
-		return $("<div class='" + cls + " w-100 p-1'>");
+		return $("<div class='" + cls + "'>");
 	},
 
 	/*
@@ -254,21 +262,25 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	calHeader             : function ( txt, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
-		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
+		var returnVal = $("<div class='grid-x'>");
 
-		$( this.styleFunctions.button.apply( this, [ 
-			firstBtnCls + " mx-2 dbCalPrev",
-			firstBtnIcn,
-			""
-		] ) ).appendTo( returnVal );
+		$("<div class='cell small-2'>").append(
+			$( this.styleFunctions.button.apply( this, [ 
+				firstBtnCls + " expanded dbCalPrev",
+				firstBtnIcn,
+				""
+			] ) )
+		).appendTo( returnVal );
 
-		$("<h5>" + txt + "</h5>").appendTo( returnVal );
+		$("<div class='cell small-8 text-center'><h5>" + txt + "</h5></div>").appendTo( returnVal );
 
-		$( this.styleFunctions.button.apply( this, [
-			secondBtnCls + " mx-2 dbCalNext",
-			secondBtnIcn,
-			""
-		] ) ).appendTo( returnVal );
+		$("<div class='cell small-2'>").append(
+			$( this.styleFunctions.button.apply( this, [
+				secondBtnCls + " expanded dbCalNext",
+				secondBtnIcn,
+				""
+			] ) )
+		).appendTo( returnVal );
 
 		return returnVal;
 	},
@@ -281,7 +293,7 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	calGrid               : function () {
-		return $( "<div class='w-100 p-1'><table class='dbCalGrid w-100'></table></div>" );
+		return $( "<div><table class='dbCalGrid' style='width:100%'></table></div>" );
 	},
 
 	/**
@@ -320,11 +332,12 @@ JTSageDateBox.styleFunctions = {
 				""
 			),
 			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls = "class='dbEvent w-100 btn-sm btn btn-" + 
+			cls = "class='dbEvent w-100 button expanded " + 
+				(( totalElements > 7 ) ? "tiny " : "small ") +
 				data.theme + ( data.bad ? " disabled":"" ) + "'";
 
-		return $("<td class='m-0 p-0 text-center'" + style + ">" +
-			"<a href='#' " + cls + " " + disable + ">" + 
+		return $("<td class='text-center'" + style + ">" +
+			"<a style='margin-bottom:0;' href='#' " + cls + " " + disable + ">" + 
 			data.displayText + 
 			"</a>" + "</td>");
 	},
@@ -346,7 +359,7 @@ JTSageDateBox.styleFunctions = {
 			),
 			cls = ( header ) ? " font-weight-bold" : "";
 
-		return $("<td class='m-0 p-0 text-center" + cls + "'" + style + ">" + text + "</td>");
+		return $("<td class='text-center" + cls + "'" + style + ">" + text + "</td>");
 	},
 
 	/**
@@ -367,13 +380,13 @@ JTSageDateBox.styleFunctions = {
 	calPickers            : function ( ranges ) {
 		var returnVal = "";
 
-		returnVal += "<div class='row my-2 mx-1'>";
+		returnVal += "<div class='grid-x'>";
 
-		returnVal += "<div class='col-sm-8 p-0 m-0'>";
+		returnVal += "<div class='cell small-8'>";
 		returnVal += this._stdSel( ranges.month, "dbCalPickMonth", "form-control" );
   		returnVal += "</div>";
 
-		returnVal += "<div class='col-sm-4 p-0 m-0'>";
+		returnVal += "<div class='cell small-4'>";
 		returnVal += this._stdSel( ranges.year, "dbCalPickYear", "form-control" );
   		returnVal += "</div>";
 

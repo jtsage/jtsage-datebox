@@ -32,7 +32,7 @@ Finished-ish:
  - jQuery (maybe)
  - jQM (meh. likely)
  - Skeleton (likely)
- - Foundation 6 (very likely)
+ - Foundation 6 (very likely) (started)
  - Bulma (very likely)
  - purecss (probably
 

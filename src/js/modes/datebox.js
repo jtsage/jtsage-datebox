@@ -190,6 +190,8 @@ JTSageDateBox._build.datebox = function () {
 		)
 	);
 	w.d.intHTML = $( "<span>" );
+
+	if ( typeof o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
 	
 	// Select field order based on mode
 	switch ( o.mode ) {

@@ -246,6 +246,8 @@ JTSageDateBox._build.flipbox         = function () {
 	);
 	w.d.intHTML = $( "<span>" );
 
+	if ( typeof o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
+
 	$(document).one( "popupafteropen", function() { 
 		// This fixes bad positioning on initial open - not found a way around this yet.
 		w._fbox_pos(); 

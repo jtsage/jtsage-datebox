@@ -86,6 +86,7 @@ mergeOpts({
 		backgroundColor: "rgba(0,0,0,.4)"
 	},
 	theme_headStyle : false,
+	theme_spanStyle : false,
 
 	flipboxLensAdjust : 9,
 	buttonIconDate    : "calendar",
