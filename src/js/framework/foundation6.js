@@ -38,7 +38,7 @@ mergeOpts({
 	theme_inlineContainer : "card",
 
 	theme_headerTheme : "bg-dark",
-	theme_headerBtnCls : "outline-secondary",
+	theme_headerBtnCls : false, // UNUSED
 	theme_headerBtnIcn : "cancel",
 
 	theme_cal_Today       : "primary",
@@ -61,7 +61,7 @@ mergeOpts({
 	theme_dbox_PrevBtnCls : "hollow seconday",
 
 	theme_fbox_Selected   : "success",
-	theme_fbox_Default    : "light",
+	theme_fbox_Default    : "",
 	theme_fbox_Forbidden  : "danger",
 	theme_fbox_RollHeight : "135px",
 
@@ -194,19 +194,12 @@ JTSageDateBox.styleFunctions = {
 			"</div></div>";
 	},
 
-	/**
+	/*
 	 * Make an internal header ( datebox & flipbox )
-	 * 
-	 * MUST have the "dbHeader" class
-	 * 
-	 * @param  {string} text Text to display
-	 * @return {object} jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	intHeader             : function ( text ) {
 		return $(
-			"<div class='my-2 text-center dbHeader'>" +
+			"<div class='text-center dbHeader'>" +
 			"<h5>" + text + "</h5>" +
 			"</div>"
 		);
@@ -246,7 +239,7 @@ JTSageDateBox.styleFunctions = {
 		return $( "<div><table class='dbCalGrid' style='width:100%'></table></div>" );
 	},
 
-	/**
+	/*
 	 * Create a calbox grid row.  Probably a tr
 	 */
 	calRow                : function () {
@@ -369,7 +362,7 @@ JTSageDateBox.styleFunctions = {
 		return $(returnVal);
 	},
 
-	/**
+	/*
 	 * Make the container for the flipbox
 	 *
 	 * @param {number} size Height CSS property
@@ -385,7 +378,7 @@ JTSageDateBox.styleFunctions = {
 		);
 	},
 
-	/**
+	/*
 	 * Make a container for flipbox labels
 	 *
 	 * @returns {object} jQuery Object
@@ -398,7 +391,7 @@ JTSageDateBox.styleFunctions = {
 		);
 	},
 
-	/**
+	/*
 	 * Make a flibox label
 	 *
 	 * @param {string} text Text of the label
@@ -415,7 +408,7 @@ JTSageDateBox.styleFunctions = {
 		);
 	},
 
-	/**
+	/*
 	 * Make a flipbox roller container (outermost)
 	 *
 	 * @returns {object} jQuery Object
@@ -426,7 +419,7 @@ JTSageDateBox.styleFunctions = {
 		return $( "<div class='flex-fill'>" );
 	},
 
-	/**
+	/*
 	 * Make a flipbox roller container (middle) - usually a UL
 	 *
 	 * @returns {object} jQuery Object
@@ -437,7 +430,7 @@ JTSageDateBox.styleFunctions = {
 		return $( "<ul class='list-group'>" );
 	},
 
-	/**
+	/*
 	 * Make a flipbox element (innermost) - usually a LI
 	 *
 	 * @param {string} text
@@ -454,7 +447,7 @@ JTSageDateBox.styleFunctions = {
 		);
 	},
 
-	/**
+	/*
 	 * Make the flipbox lens
 	 *
 	 * @returns {object} jQuery Object
@@ -492,20 +485,8 @@ JTSageDateBox.styleFunctions = {
 		return returnVal;
 	},
 
-	/**
+	/*
 	 * Create the year and month picker for slide.
-	 * 
-	 * Month picker MUST have the "dbSlidePickMonth" class
-	 * Year picker MUST have the "dbSlidePickYear" class 
-	 *
-	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}.
-	 * 
-	 * @param  {object} ranges Year and Month arrays
-	 * @param {array} ranges.year Containing arrays of [ value, text, selected (boolean) ]
-	 * @param {array} ranges.month Containing arrays of [ value, text, selected (boolean) ]
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	slidePickers            : function ( ranges ) {
 		var returnVal = "";

@@ -29,12 +29,13 @@ Finished-ish:
 
 # Frameworks:
 
- - jQuery (maybe)
+ - jQuery (doubtful)
  - jQM (meh. likely)
  - Skeleton (likely)
- - Foundation 6 (very likely) (started)
+ - Foundation 6 (mostly finished)
  - Bulma (very likely)
- - purecss (probably
+ - purecss (probably)
+ 
 
 # Build:
 
