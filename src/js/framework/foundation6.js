@@ -114,7 +114,7 @@ JTSageDateBox.styleFunctions = {
 		var retty, style = "";
 
 		if ( typeof styleOverride !== "undefined" && styleOverride !== "") {
-			style = "style='" + styleOverride + "'"
+			style = "style='" + styleOverride + "'";
 		}
 
 		retty  = "<a href='#' role='button' " + style + " class='button small " + themeClass + "'>";
@@ -150,7 +150,7 @@ JTSageDateBox.styleFunctions = {
 	 * Create the open button that is added to the input
 	 */
 	baseInputButton       : function ( icon, title ) {
-		return "<span class='input-group-label dbOpenButton'>" + 
+		return "<span title='" + title + "' class='input-group-label dbOpenButton'>" + 
 			this.icons.getIcon( icon ) +
 			"</span>";
 	},
@@ -162,7 +162,7 @@ JTSageDateBox.styleFunctions = {
 	 * @memberof JTSageDateBox.styleFunctions
 	 * @this JTSageDateBox.styleFunctions
 	 */
-	baseInputNoButton     : function ( originalInputWrap ) {
+	baseInputNoButton     : function ( ) {
 		return true;
 		//originalInputWrap.addClass( "w-100" );
 	},
@@ -170,14 +170,14 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Run when the input is focused
 	 */
-	focusInput            : function ( originalInput ) {
+	focusInput            : function ( ) {
 		return true;
 	},
 
 	/*
 	 * Run when the input is un-focused
 	 */
-	blurInput             : function ( originalInput ) {
+	blurInput             : function ( ) {
 		return true;
 	},
 
