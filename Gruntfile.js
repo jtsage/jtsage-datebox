@@ -165,104 +165,48 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
-		buildDBox: {
-			latest_bootstrap: {
+		buildDBoxes: {
+			latest_bundled: {
 				options: {
-					dest: "dist/latest/jtsage-datebox.bootstrap.js",
-					includeBinding: true,
+					dest           : "dist/latest/",
+					filename       : "jtsage-datebox",
+					includeBinding : true,
 				},
-				libFiles: [ "src/js/external/*.js" ],
+				externalLibs : [ "src/js/external/*.js" ],
+				baseObject   : [ "src/js/baseObject.js" ],
+				frameWorks   : [
+					"src/js/framework/*.js",
+					"!src/js/framework/jqm.js"
+				],
 				files: [{
 					expand : true,
 					src    : [
-						"src/js/baseObject.js",
-						"src/js/framework/bootstrap.js",
 						"src/js/lib/*.js",
 						"src/js/modes/*.js"
 					],
 				}]
 			},
-			latest_bootstrap4: {
+			release_bundled: {
 				options: {
-					dest: "dist/latest/jtsage-datebox.bootstrap4.js",
-					includeBinding: true,
+					dest           : "dist/<%= pkg.version %>/",
+					filename       : "jtsage-datebox-<%= pkg.version %>",
+					includeBinding : true,
 				},
-				libFiles: [ "src/js/external/*.js" ],
+				externalLibs : [ "src/js/external/*.js" ],
+				baseObject   : [ "src/js/baseObject.js" ],
+				frameWorks   : [
+					"src/js/framework/*.js",
+					"!src/js/framework/jqm.js"
+				],
 				files: [{
 					expand : true,
 					src    : [
-						"src/js/baseObject.js",
-						"src/js/framework/bootstrap4.js",
 						"src/js/lib/*.js",
 						"src/js/modes/*.js"
 					],
 				}]
 			},
-			latest_jqueryui: {
-				options: {
-					dest: "dist/latest/jtsage-datebox.jqueryui.js",
-					includeBinding: true,
-				},
-				libFiles: [ "src/js/external/*.js" ],
-				files: [{
-					expand : true,
-					src    : [
-						"src/js/baseObject.js",
-						"src/js/framework/jqueryui.js",
-						"src/js/lib/*.js",
-						"src/js/modes/*.js"
-					],
-				}]
-			},
-			main_bootstrap: {
-				options: {
-					dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap.js",
-					includeBinding: true,
-				},
-				libFiles: [ "src/js/external/*.js" ],
-				files: [{
-					expand : true,
-					src    : [
-						"src/js/baseObject.js",
-						"src/js/framework/bootstrap.js",
-						"src/js/lib/*.js",
-						"src/js/modes/*.js"
-					],
-				}]
-			},
-			main_bootstrap4: {
-				options: {
-					dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.bootstrap4.js",
-					includeBinding: true,
-				},
-				libFiles: [ "src/js/external/*.js" ],
-				files: [{
-					expand : true,
-					src    : [
-						"src/js/baseObject.js",
-						"src/js/framework/bootstrap4.js",
-						"src/js/lib/*.js",
-						"src/js/modes/*.js"
-					],
-				}]
-			},
-			main_jqueryui: {
-				options: {
-					dest: "dist/<%= pkg.version %>/jtsage-datebox-<%= pkg.version %>.jqueryui.js",
-					includeBinding: true,
-				},
-				libFiles : [ "src/js/external/*.js" ],
-				files    : [{
-					expand : true,
-					src    : [
-						"src/js/baseObject.js",
-						"src/js/framework/jqueryui.js",
-						"src/js/lib/*.js",
-						"src/js/modes/*.js"
-					],
-				}]
-			},
-			},
+		},
 		copy: {
 			builder1: {
 				expand : true,
@@ -352,21 +296,16 @@ module.exports = function(grunt) {
 		"jshint:js2",
 		"clean:release",
 		"clean:web",
-		"buildDBox:main_jqm",
-		"buildDBox:main_bootstrap",
-		"buildDBox:main_bootstrap4",
+		"buildDBoxes:release_bundled",
 		"uglify:release",
 		"committers",
 		"updatebuilder",
-		"prettify",
 		"makei18n"
 	] );
 
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
 		"clean:latest",
-		"buildDBox:latest_bootstrap",
-		"buildDBox:latest_bootstrap4",
-		"buildDBox:latest_jqueryui",
+		"buildDBoxes:latest_bundled",
 		"uglify:latest",
 	]);
 
