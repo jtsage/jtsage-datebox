@@ -13,19 +13,19 @@
      */
 
 mergeOpts({
-	theme_clearBtnCls : "outline-secondary",
+	theme_clearBtnCls : "is-fullwidth is-marginless is-secondary",
 	theme_clearBtnIcn : "clear",
 
-	theme_closeBtnCls : "outline-secondary",
+	theme_closeBtnCls : "is-fullwidth is-marginless is-secondary",
 	theme_closeBtnIcn : "check",
 
-	theme_cancelBtnCls : "outline-secondary",
+	theme_cancelBtnCls : "is-fullwidth is-marginless is-secondary",
 	theme_cancelBtnIcn : "cancel",
 
-	theme_tomorrowBtnCls : "outline-secondary",
+	theme_tomorrowBtnCls : "is-fullwidth is-marginless is-secondary",
 	theme_tomorrowBtnIcn : "goto",
 
-	theme_todayBtnCls : "outline-secondary",
+	theme_todayBtnCls : "is-fullwidth is-marginless is-secondary",
 	theme_todayBtnIcn : "goto",
 
 	theme_dropdownContainer : "card",
@@ -51,9 +51,9 @@ mergeOpts({
 	theme_cal_PrevBtnCls : "outline-dark",
 
 	theme_dbox_NextBtnIcn : "plus",
-	theme_dbox_NextBtnCls : "outline-dark",
+	theme_dbox_NextBtnCls : "is-outlined is-dark",
 	theme_dbox_PrevBtnIcn : "minus",
-	theme_dbox_PrevBtnCls : "outline-dark",
+	theme_dbox_PrevBtnCls : "is-outlined is-dark",
 
 	theme_fbox_Selected   : "success",
 	theme_fbox_Default    : "light",
@@ -129,9 +129,11 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	buttonGroup           : function ( collapse ) {
-		var cls = ( collapse === true ) ? "btn-group" : "btn-group-vertical";
-
-		return $("<div class='" + cls + " w-100 p-1'>");
+		var cls = ( collapse === true ) ? "buttons" : "btn-group-vertical";
+		return $(
+			"<div class='buttons is-fullwidth' style='padding: .3em;'>"
+		);
+		return $("<div class='" + cls + " is-fullwidth'>");
 	},
 
 	/*
@@ -147,7 +149,7 @@ JTSageDateBox.styleFunctions = {
 	 * Create the open button that is added to the input
 	 */
 	baseInputButton       : function ( icon, title ) {
-		return "<div class=\"control\"><a class=\"button is-primary\">" +
+		return "<div class=\"control\"><a title=\"" + title + "\" class=\"button is-primary\">" +
 			this.icons.getIcon( icon ) + "</a></div>";
 	},
 
@@ -174,16 +176,6 @@ JTSageDateBox.styleFunctions = {
 
 	/*
 	 * Make the header for every mode
-	 * 
-	 * Close button MUST include the "dbCloser" class.
-	 * 
-	 * @param  {string} text Text of the header
-	 * @param  {string} themeBar Theme class for the header
-	 * @param  {string} themeIcon Theme for the close button
-	 * @param  {string} icon Icon for the close button ( name or SVG )
-	 * @return {string} Rendered HTML
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	widgetHeader          : function ( text, themeBar, themeIcon, icon ) {
 		return "" +
@@ -193,23 +185,11 @@ JTSageDateBox.styleFunctions = {
 			"<div class=\"navbar-end\"><div class=\"navbar-item\">" +
 			this.styleFunctions.button.apply( this, [ themeIcon + " dbCloser", icon, "" ] ) +
 			"</div></div></div></div>";
-
-		// return "<div class='navbar " + themeBar + "'>" + 
-		// 	"<h5 class='text-white'>" + text + "</h5>" + 
-		// 	this.styleFunctions.button.apply( this, [ themeIcon + " dbCloser", icon, "" ] ) +
-		// 	"</div>";
 	},
 
 
 	/*
 	 * Make an internal header ( datebox & flipbox )
-	 * 
-	 * MUST have the "dbHeader" class
-	 * 
-	 * @param  {string} text Text to display
-	 * @return {object} jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	intHeader             : function ( text ) {
 		return $(
@@ -405,7 +385,10 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	dboxRow               : function () {
-		return $("<div class='d-flex p-1'>");
+		return $(
+			"<div class='columns is-gapless' " +
+			"style='padding-left:.3em; padding-right: .3em; margin-bottom: .3em' >"
+		);
 	},
 
 	/*
@@ -427,10 +410,10 @@ JTSageDateBox.styleFunctions = {
 	dboxControl           : function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label ) {
 		var returnVal = "";
 
-		returnVal += "<div class='btn-group-vertical flex-fill dbBox" + mainCls + "'>";
+		returnVal += "<div class='column dbBox" + mainCls + "'>";
 
 		returnVal += this.styleFunctions.button.apply( this, [
-			nextCls + " dbBoxNext" ,
+			nextCls + " dbBoxNext is-fullwidth" ,
 			nextIcn,
 			""
 		] );
@@ -440,10 +423,10 @@ JTSageDateBox.styleFunctions = {
 				"style='height:auto'>" + label + "</div>";
 		}
 		returnVal += "<input type='text' ";
-		returnVal += "class='form-control form-control-sm text-center px-0 rounded-0'>";
+		returnVal += "class='input has-text-centered'>";
 
 		returnVal += this.styleFunctions.button.apply( this, [
-			prevCls + " dbBoxPrev" ,
+			prevCls + " dbBoxPrev is-fullwidth" ,
 			prevIcn,
 			""
 		] );
