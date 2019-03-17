@@ -224,6 +224,7 @@ JTSageDateBox.open = function () {
 	// PUBLIC function to open the control
 	var w = this,
 		o = this.options,
+		attachPoint = false,
 		basepop = {};
 
 	if ( o.useFocus && w.fastReopen === true ) { 
@@ -316,9 +317,14 @@ JTSageDateBox.open = function () {
 		}
 	}
 
+	attachPoint = $('body').find("#" + w.baseID + "-dbAttach");
+
+	if ( attachPoint.length !== 1 ) { attachPoint = w.d.wrap.parent(); }
+	
+	console.log(attachPoint.length);
 	switch ( o.displayMode ) {
 		case "inline":
-			w.d.wrap.parent().append( w.d.mainWrap );
+			attachPoint.append( w.d.mainWrap );
 			w.d.mainWrap.addClass( o.theme_inlineContainer );
 			w.d.mainWrap.css( { zIndex: "auto" } );
 			switch ( o.displayInlinePosition ) {
@@ -341,7 +347,7 @@ JTSageDateBox.open = function () {
 				w.refresh();
 				w.d.mainWrap.slideDown();
 			} else {
-				w.d.wrap.parent().append( w.d.mainWrap );
+				attachPoint.append( w.d.mainWrap );
 				w.d.mainWrap.addClass( o.theme_inlineContainer );
 				w.d.mainWrap.css( { zIndex: "auto", display: "none" } );
 				switch ( o.displayInlinePosition ) {
@@ -365,7 +371,7 @@ JTSageDateBox.open = function () {
 			w.d.mainWrap
 				.show()
 				.addClass( o.theme_modalContainer )
-				.appendTo( w.d.wrap.parent() )
+				.appendTo( attachPoint )
 				.one( o.tranDone, function() { 
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();
@@ -391,7 +397,7 @@ JTSageDateBox.open = function () {
 			w.d.mainWrap
 				.show()
 				.addClass( o.theme_dropdownContainer )
-				.appendTo( w.d.wrap.parent() )
+				.appendTo( attachPoint )
 				.one( o.tranDone, function() { 
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();

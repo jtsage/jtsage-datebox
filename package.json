@@ -1,28 +1,24 @@
 {
   "name": "jtsage-datebox",
   "title": "JTSage DateBox",
-  "description": "Plugin to provide a framework agnostic Date and Time Picker (Bootstrap currently supported)",
+  "description": "Plugin to provide a CSS framework agnostic Date and Time Picker",
   "version": "5.0.0",
   "supports": {
-    "bootstrap": "4.3.1"
+    "bootstrap": "4.3.1",
+    "bootstrap": "3.4.1",
+    "zurb-foundation": "6.5.3"
   },
-  "homepage": "http://dev.jtsage.com/DateBox/",
+  "homepage": "http://datebox.jtsage.dev/",
   "author": {
     "name": "JTSage and other contributors",
-    "url": "https://github.com/jtsage/jquery-mobile-datebox/blob/master/AUTHORS.txt"
+    "url": "https://github.com/jtsage/jtsage-datebox/blob/master/AUTHORS.txt"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jtsage/jquery-mobile-datebox.git"
+    "url": "https://github.com/jtsage/jtsage-datebox.git"
   },
-  "bugs": "https://github.com/jtsage/jquery-mobile-datebox/issues",
+  "bugs": "https://github.com/jtsage/jtsage-datebox/issues",
   "license": "MIT",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/jtsage/jquery-mobile-datebox/blob/master/LICENSE.txt"
-    }
-  ],
   "devDependencies": {
     "archiver": "^3.0.0",
     "gettext-parser": ">=3.1.0",

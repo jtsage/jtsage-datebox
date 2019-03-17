@@ -33,15 +33,9 @@ Finished-ish:
  - jQM (meh. likely)
  - Skeleton (likely)
  - Foundation 6 (mostly finished)
- - Bulma (very likely)
+ - Bulma (started)
  - purecss (probably)
  
-
-# Build:
-
- - there has to be a better way.
-
- Ideally, send all the files to the builder, frameworks seperate, have it loop through those.  so adding a new framework does not require editing the massive Gruntfile.
 
 # Broken:
 
@@ -49,4 +43,4 @@ Finished-ish:
 
 # Docs:
 
-not even close.  
+!! Document #[id]-dbAttach !!
