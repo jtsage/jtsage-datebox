@@ -2466,7 +2466,18 @@ opts :
     cat     : Theme
     type    : String
     dynamic : false
-    default: false
+    default : false
+    optdemo : false
+    sample  : false
+
+  theme_spanStyle :
+    short   : Extra style info to inject into the control span.
+    long    : Some frameworks require some extra styles.  This helps move away from a largely depreciated CSS file
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
+    dynamic : false
+    default : false
     optdemo : false
     sample  : false
 
