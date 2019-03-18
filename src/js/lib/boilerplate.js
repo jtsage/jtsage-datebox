@@ -383,6 +383,7 @@ JTSageDateBox.open = function () {
 
 			w.d.backdrop = $("<div class='jtsage-datebox-backdrop-div'></div>")
 				.css( o.theme_backgroundMask )
+				.css( "zIndex", ( o.zindex - 1 ) )
 				.appendTo( "body" )
 				.on( o.clickEvent, function (e) {
 					e.preventDefault();
@@ -409,6 +410,7 @@ JTSageDateBox.open = function () {
 
 			w.d.backdrop = $("<div class='jtsage-datebox-backdrop-div'></div>")
 				.css( o.theme_backgroundMask )
+				.css( "zIndex", ( o.zindex - 1 ) )
 				.appendTo( "body" )
 				.on( o.clickEvent, function (e) {
 					e.preventDefault();
