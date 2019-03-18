@@ -36,6 +36,14 @@ This sample is the most simple version of the "calbox" varient. Note that DateBo
 </div>
 ```
 
+##### Placement Override
+
+Should you wish to direct the placement of the rendered DateBox control for inline or blind display methods (some frameworks actually require this, notable Bulma due to it's heavy nesting of input elements), Drop a named div anywhere on the page with the id of __[DateBox ID]-dbAttach__
+
+```html
+<div id="db1-dbAttach"></div>
+```
+
 ## Features
 
 DateBox is extreamlly full featured.  Included are:
