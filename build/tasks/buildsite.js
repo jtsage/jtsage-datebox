@@ -322,6 +322,8 @@ module.exports = function(grunt) {
 								return makeMenu( config, config.menu );
 							case "demo" :
 								return makeMenu( config, config.demo );
+							case "sample" :
+								return makeMenu( config, config.sample );
 							case "supports" :
 								return makeSup( config );
 							case "url" :

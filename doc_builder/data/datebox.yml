@@ -43,6 +43,18 @@ menu :
   - name : JSDoc Documentation
     url  : "/jsdoc/"
 
+sample :
+  - name : "- Bootstrap v4"
+    url  : "/samples/bootstrap4.html"
+
+  - name : "- Bootstrap v3"
+    url  : "/samples/bootstrap3.html"
+
+  - name : "- Bulma"
+    url  : "/samples/bulma.html"
+
+  - name : "- Foundation v6"
+    url  : "/samples/foundation6.html"
 
 demo :
   - name : Option Demos

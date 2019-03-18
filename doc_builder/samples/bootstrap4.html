@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>JTSage-DateBox (Bootstrap v4)</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/5.0.0/jtsage-datebox.bootstrap4.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
+	
+	<script type="text/javascript">
+		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+			highDays          : [ 0, 6 ],
+
+			calDateList       : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			calShowDateList   : true,
+
+			slideDateList     : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			slideShowDateList : true,
+
+			calUsePickers     : true,
+			slideUsePickers   : true,
+			useCancelButton   : true,
+			useClearButton    : true,
+			useTodayButton    : true,
+			useCollapsedBut   : true,
+		});
+	</script>
+	
+</head>
+<body>
+	<div class="container" role="main">
+		<h1>DateBox <small>Bootstrap v4 Samples</small></h1>
+
+		<p>Build responsive, mobile-first projects on the web with the world’s most popular front-end component library.</p>
+
+		<p><strong><a href="https://getbootstrap.com/">Bootstrap</a></strong> is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with our Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery.</p>
+
+		<form>
+		<div class="form-group">
+			<label  for="username">Sample Input</label>
+			<input type="text" name="username" id="username" class="x1 form-control" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label class="control-label"for="db1">DateBox</label>
+			<input class="form-control" name="db1" type="text" data-datebox-mode="datebox" data-role="datebox" id="db1" />
+		</div>
+
+		<div class="form-group">
+			<label class="control-label"for="db2">CalBox</label>
+			<input class="form-control" name="db2" type="text" data-datebox-mode="calbox" data-role="datebox" id="db2" />
+		</div>
+
+		<div class="form-group">
+			<label class="control-label"for="db3">SlideBox</label>
+			<input class="form-control" name="db3" type="text" data-datebox-mode="slidebox" data-role="datebox" id="db3" />
+		</div>
+
+		<div class="form-group">
+			<label class="control-label"for="db4">DateTimeFlipBox</label>
+			<input class="form-control" name="db4" type="text" data-datebox-mode="datetimeflipbox" data-role="datebox" id="db4" />
+		</div>
+
+		</form>
+
+	</div>
+
+</html>

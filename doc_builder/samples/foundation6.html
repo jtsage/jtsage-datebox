@@ -1,0 +1,88 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>JTSage-DateBox (Foundation 6)</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js"></script>
+
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/5.0.0/jtsage-datebox.foundation6.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
+	
+	<script type="text/javascript">
+		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+			highDays          : [ 0, 6 ],
+
+			calDateList       : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			calShowDateList   : true,
+
+			slideDateList     : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			slideShowDateList : true,
+
+			calUsePickers     : true,
+			slideUsePickers   : true,
+			useCancelButton   : true,
+			useClearButton    : true,
+			useTodayButton    : true,
+			useCollapsedBut   : true,
+		});
+	</script>
+	
+</head>
+<body>
+	<div class="grid-container" role="main">
+		<h1>DateBox <small>Foundation v6 Samples</small></h1>
+
+		<p><strong><a href="https://foundation.zurb.com/">Foundation</a></strong>: The most advanced responsive front-end framework in the world.</p>
+
+		<p>Foundation does not currently include the flipbox mode.</p>
+
+		<form>
+		<div class="grid-x grid-margin-x">
+			<div class="cell small-2">
+				<label for="username">Sample Input</label>
+			</div><div class="cell small-10">
+				<input type="text" name="username" id="username" autocomplete="off">
+			</div>
+		</div>
+
+		<div class="grid-x grid-margin-x">
+			<div class="cell small-2">
+				<label class="control-label"for="db1">DateBox</label>
+			</div><div class="cell small-10">
+				<input name="db1" type="text" data-datebox-mode="datebox" data-role="datebox" id="db1" />
+			</div>
+		</div>
+
+		<div class="grid-x grid-margin-x">
+			<div class="cell small-2">
+				<label class="control-label"for="db2">CalBox</label>
+			</div><div class="cell small-10">
+				<input name="db2" type="text" data-datebox-mode="calbox" data-role="datebox" id="db2" />
+			</div>
+		</div>
+
+		<div class="grid-x grid-margin-x">
+			<div class="cell small-2">
+				<label class="control-label"for="db3">SlideBox</label>
+			</div><div class="cell small-10">
+				<input name="db3" type="text" data-datebox-mode="slidebox" data-role="datebox" id="db3" />
+			</div>
+		</div>
+
+		</form>
+
+
+	</div>
+
+</html>
