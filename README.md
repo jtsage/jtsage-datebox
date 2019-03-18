@@ -68,5 +68,18 @@ Build the documentation : `grunt web`
 
 Run a local server @:8080 for the documentation : `grunt serveweb`
 
+External Libraries
+------------------
+
+Packaged with the builds of bootstrap4 : jqueryui widget
+
+Packaged with the builds of jqm : popper.js
+
+Packaged with everything else : jqueryui widget and popper.js
+
+Please refere to the licesenses of the included files for details.
+
+Also note, these are copies, not dependancies, so that the maintainer has
+more control over version incompatabilities.
 
 

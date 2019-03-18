@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>JTSage-DateBox (Bulma)</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css" />
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/5.0.0/jtsage-datebox.bulma.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
+	
+	<script type="text/javascript">
+		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+			highDays          : [ 0, 6 ],
+
+			calDateList       : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			calShowDateList   : true,
+
+			slideDateList     : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			slideShowDateList : true,
+
+			calUsePickers     : true,
+			slideUsePickers   : true,
+			useCancelButton   : true,
+			useClearButton    : true,
+			useTodayButton    : true,
+			useCollapsedBut   : true,
+		});
+	</script>
+	
+</head>
+<body>
+	<div class="container" role="main">
+		<h1 class="title">DateBox <small>Bulma Samples</small></h1>
+
+		<form>
+
+		<div class="field is-horizontal">
+			<div class="field-label is-normal">
+				<label class="label">Regular Input</label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<p class="control is-expanded">
+						<input class="input" type="text" placeholder="Sample Input">
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="field is-horizontal">
+			<div class="field-label is-normal">
+				<label class="label" for="db1">DateBox</label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<div class="control">
+						<input class="input" name="db1" type="text" data-datebox-mode="datebox" data-role="datebox" id="db1" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="db1-dbAttach" style="margin-bottom: 1em;"></div>
+
+		</form>
+	</div>
+
+</html>

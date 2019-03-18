@@ -166,7 +166,7 @@ module.exports = function(grunt) {
 			}
 		},
 		buildDBoxes: {
-			latest_bundled: {
+			latest_both_bundled: {
 				options: {
 					dest           : "dist/latest/",
 					filename       : "jtsage-datebox",
@@ -176,7 +176,27 @@ module.exports = function(grunt) {
 				baseObject   : [ "src/js/baseObject.js" ],
 				frameWorks   : [
 					"src/js/framework/*.js",
+					"!src/js/framework/bootstrap4.js",
 					"!src/js/framework/jqm.js"
+				],
+				files: [{
+					expand : true,
+					src    : [
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
+			latest_widget_bundled: {
+				options: {
+					dest           : "dist/latest/",
+					filename       : "jtsage-datebox",
+					includeBinding : true,
+				},
+				externalLibs : [ "src/js/external/jqueryui.js" ],
+				baseObject   : [ "src/js/baseObject.js" ],
+				frameWorks   : [
+					"src/js/framework/bootstrap4.js"
 				],
 				files: [{
 					expand : true,
@@ -222,6 +242,12 @@ module.exports = function(grunt) {
 				rename : function(dest, src) {
 					return dest + src.replace( "jtsage-datebox-" + pkgJSON.version + "." , "" );
 				}
+			},
+			web1:    {
+				expand : true,
+				cwd    : "doc_builder/samples",
+				src    : "*.html",
+				dest   : "doc_builder/dist/samples/"
 			}
 		},
 		prettify: {
@@ -305,7 +331,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
 		"clean:latest",
-		"buildDBoxes:latest_bundled",
+		"buildDBoxes:latest_widget_bundled",
+		"buildDBoxes:latest_both_bundled",
 		"uglify:latest",
 	]);
 
@@ -322,7 +349,7 @@ module.exports = function(grunt) {
 	] );
 
 	grunt.registerTask( "web", "Build the documentation site", [
-		"clean:web", "buildSite", "jsdoc"
+		"clean:web", "buildSite", "copy:web1", "jsdoc"
 	] );
 	grunt.registerTask( "serveweb", "Start a local HTTP server on localhost:8080 for the docs.", [
 		"connect:web"
