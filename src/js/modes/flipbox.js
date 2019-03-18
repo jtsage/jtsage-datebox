@@ -172,7 +172,7 @@ JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
 		case "s" :
 			return w._zPad( ( w.theDate.copy( [ 0, 0, 0, 0, 0, offset ] )).get(5) );
 		case "a" :
-			if ( w.theDate.get(3) < 12 ) {
+			if ( w.theDate.get(3) > 11 ) {
 				// It currenly is AM, odd offset would be PM
 				return w.__("meridiem")[( offset % 2 === 0 ) ? 1 : 0 ];
 			} else {
