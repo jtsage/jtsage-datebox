@@ -320,7 +320,7 @@ JTSageDateBox.open = function () {
 	attachPoint = $('body').find("#" + w.baseID + "-dbAttach");
 
 	if ( attachPoint.length !== 1 ) { attachPoint = w.d.wrap.parent(); }
-	
+
 	console.log(attachPoint.length);
 	switch ( o.displayMode ) {
 		case "inline":
@@ -414,8 +414,11 @@ JTSageDateBox.open = function () {
 					e.preventDefault();
 					w._t( { method: "close", closeCancel: true } );
 				});
-
-			w.popper = new Popper(w.d.wrap, w.d.mainWrap, { placement: o.displayDropdownPosition });
+			w.popper = new Popper(
+				( attachPoint.length !== 1 ) ? w.d.wrap : attachPoint,
+				w.d.mainWrap,
+				{ placement: o.displayDropdownPosition }
+			);
 			
 			break;
 	}
