@@ -371,7 +371,7 @@ JTSageDateBox.open = function () {
 			w.d.mainWrap
 				.show()
 				.addClass( o.theme_modalContainer )
-				.appendTo( attachPoint )
+				.appendTo( 'body' )
 				.one( o.tranDone, function() { 
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();
@@ -397,7 +397,7 @@ JTSageDateBox.open = function () {
 			w.d.mainWrap
 				.show()
 				.addClass( o.theme_dropdownContainer )
-				.appendTo( attachPoint )
+				.appendTo( 'body' )
 				.one( o.tranDone, function() { 
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();
@@ -415,7 +415,7 @@ JTSageDateBox.open = function () {
 					w._t( { method: "close", closeCancel: true } );
 				});
 			w.popper = new Popper(
-				( attachPoint.length !== 1 ) ? w.d.wrap : attachPoint,
+				w.d.wrap,
 				w.d.mainWrap,
 				{ placement: o.displayDropdownPosition }
 			);
