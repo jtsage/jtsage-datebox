@@ -727,4 +727,46 @@ JTSageDateBox.styleFunctions = {
 			this.icons.getIcon( icon )  + "</a></td>"
 		);
 	},
+
+	flipPosition            : function () {
+		var fullRoller, firstItem, height_Roller, intended_Top,
+			w                 = this,
+			o                 = this.options,
+			height_Container  = w.d.intHTML.find( ".dbRollerC" ).height(),
+			height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight( true ),
+			theLens           = w.d.intHTML.find( ".dbLens" ).first(),
+			height_Lens       = theLens.outerHeight();
+
+
+		// Trap for run too early.
+		if ( height_Container < 1 ) { return true; }
+
+		// Lens top:
+		// Negative Half the parent height is center.
+		// Add Negative half the lens height.
+		intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
+		theLens.css( { 
+			top          : intended_Top,
+			marginBottom : -1 * height_Lens
+		} );
+		
+		w.d.intHTML.find( ".dbRoller" ).each( function() {
+			fullRoller    = $(this);
+			firstItem     = fullRoller.children().first();
+
+			// No RE-DO's, if it has a style, it's probably right.
+			if ( typeof firstItem.attr( "style" ) === "undefined" ) {
+					
+				height_Roller = fullRoller.outerHeight(false);
+
+				// Negative Half the height of the roller ( gets center to top border of view)
+				// Add half of the view container height.
+				intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Container / 2 );
+
+				if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
+
+				firstItem.attr( "style", "margin-top: " + intended_Top + "px !important" );
+			}
+		});
+	}
 };

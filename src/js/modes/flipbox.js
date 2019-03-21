@@ -43,6 +43,16 @@ JTSageDateBox._fbox_pos = function () {
 		height_Lens       = theLens.outerHeight(),
 		height_Container  = ( height_Container1 > 1000 ) ? height_Container2 : height_Container1;
 
+	// Allow this whole bit to be overridden by the loaded framework if need be.
+	// Note: this works most of the time, but sometimes that trap fails for some unknown reason.
+	if ( $.isFunction( w.styleFunctions.flipPosition ) ) {
+		w.styleFunctions.flipPosition.apply( w );
+		return true;
+	} 
+
+	// Trap for run too early.
+		if ( height_Container < 1 ) { return true; }
+
 	// Lens top:
 	// Negative Half the parent height is center.
 	// Add Negative half the lens height.
@@ -53,18 +63,20 @@ JTSageDateBox._fbox_pos = function () {
 	} );
 
 	w.d.intHTML.find( ".dbRoller" ).each( function() {
-		fullRoller    = $(this),
-		firstItem     = fullRoller.children().first(),
-
+		fullRoller    = $(this);
+		firstItem     = fullRoller.children().first();
 		height_Roller = fullRoller.outerHeight(true);
 
-		// Negative Half the height of the roller ( gets center to top border of view)
-		// Add half of the view container height.
-		intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Container / 2 );
+		if ( typeof firstItem.attr( "style" ) === "undefined" ) {
 
-		if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
+			// Negative Half the height of the roller ( gets center to top border of view)
+			// Add half of the view container height.
+			intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Container / 2 );
 
-		firstItem.attr( "style", "margin-top: " + intended_Top + "px !important" );
+			if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
+
+			firstItem.attr( "style", "margin-top: " + intended_Top + "px !important" );
+		}
 	});
 };
 
@@ -247,11 +259,6 @@ JTSageDateBox._build.flipbox         = function () {
 	w.d.intHTML = $( "<span>" );
 
 	if ( typeof o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
-
-	$(document).one( "popupafteropen", function() { 
-		// This fixes bad positioning on initial open - not found a way around this yet.
-		w._fbox_pos(); 
-	});
 
 	// Choose the correct field order for the mode
 	switch ( o.mode ) {

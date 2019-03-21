@@ -317,7 +317,7 @@ JTSageDateBox.open = function () {
 		}
 	}
 
-	attachPoint = $('body').find("#" + w.baseID + "-dbAttach");
+	attachPoint = $( "body" ).find( "#" + w.baseID + "-dbAttach" );
 
 	if ( attachPoint.length !== 1 ) { attachPoint = w.d.wrap.parent(); }
 
@@ -371,7 +371,7 @@ JTSageDateBox.open = function () {
 			w.d.mainWrap
 				.show()
 				.addClass( o.theme_modalContainer )
-				.appendTo( 'body' )
+				.appendTo( "body" )
 				.one( o.tranDone, function() { 
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();
@@ -398,7 +398,7 @@ JTSageDateBox.open = function () {
 			w.d.mainWrap
 				.show()
 				.addClass( o.theme_dropdownContainer )
-				.appendTo( 'body' )
+				.appendTo( "body" )
 				.one( o.tranDone, function() { 
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();
