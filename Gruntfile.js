@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 						"src/js/framework/*.js",
 						"src/js/modes/*.js",
 						"!src/js/baseObject.js",
-						"!src/js/extWidgetLib.js"
+						"!src/js/external/*.js"
 					]
 				},
 				options: {
@@ -56,7 +56,7 @@ module.exports = function(grunt) {
 			},
 			js_sane: {
 				files: {
-					src: [ "src/js/*.js", "!src/js/extWidgetLib.js" ]
+					src: [ "src/js/*.js", "!src/js/external/*.js" ]
 				},
 				options: {
 					"undef"     : true,
@@ -193,7 +193,7 @@ module.exports = function(grunt) {
 					filename       : "jtsage-datebox",
 					includeBinding : true,
 				},
-				externalLibs : [ "src/js/external/jqueryui.js" ],
+				externalLibs : [ "src/js/external/widgetLib.js" ],
 				baseObject   : [ "src/js/baseObject.js" ],
 				frameWorks   : [
 					"src/js/framework/bootstrap4.js"
