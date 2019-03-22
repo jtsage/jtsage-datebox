@@ -26,10 +26,10 @@ mergeOpts({
 	theme_todayBtnIcn : "goto",
 
 	theme_dropdownContainer : "bg-light border border-dark mt-1",
-	theme_modalContainer : "bg-light border border-dark p-2 m-0",
-	theme_inlineContainer : "bg-light border border-dark my-2",
+	theme_modalContainer    : "bg-light border border-dark p-2 m-0",
+	theme_inlineContainer   : "bg-light border border-dark my-2",
 
-	theme_headerTheme : "bg-dark",
+	theme_headerTheme  : "bg-dark",
 	theme_headerBtnCls : "outline-secondary",
 	theme_headerBtnIcn : "cancel",
 
