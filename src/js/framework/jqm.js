@@ -33,19 +33,19 @@ mergeOpts({
 	theme_headerBtnCls : "outline-secondary",
 	theme_headerBtnIcn : "cancel",
 
-	theme_cal_Today       : "outline-info",
-	theme_cal_DayHigh     : "outline-warning",
-	theme_cal_Selected    : "outline-success",
-	theme_cal_DateHigh    : "outline-warning",
-	theme_cal_DateHighAlt : "outline-danger",
-	theme_cal_DateHighRec : "outline-warning",
-	theme_cal_Default     : "outline-primary",
-	theme_cal_OutOfBounds : "outline-secondary border-0",
+	theme_cal_Today       : "b",
+	theme_cal_DayHigh     : "b",
+	theme_cal_Selected    : "b",
+	theme_cal_DateHigh    : "b",
+	theme_cal_DateHighAlt : "b",
+	theme_cal_DateHighRec : "b",
+	theme_cal_Default     : "a",
+	theme_cal_OutOfBounds : "a",
 
 	theme_cal_NextBtnIcn : "next",
-	theme_cal_NextBtnCls : "outline-dark",
+	theme_cal_NextBtnCls : "a",
 	theme_cal_PrevBtnIcn : "prev",
-	theme_cal_PrevBtnCls : "outline-dark",
+	theme_cal_PrevBtnCls : "a",
 
 	theme_dbox_NextBtnIcn : "plus",
 	theme_dbox_NextBtnCls : "outline-dark",
@@ -97,20 +97,13 @@ mergeOpts({
 JTSageDateBox.baseMode = "bootstrap4";
 
 JTSageDateBox.styleFunctions = {
-	/**
-	 * Make a button
-	 * 
-	 * @param  {string} themeClass Theme class for the button
-	 * @param  {string} icon Icon to use (name or SVG)
-	 * @param  {string} contents Text contents of the button (if any)
-	 * @return {string} Created button
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
-	 */
+	/*
+     * Make a button
+     */
 	button                : function( themeClass, icon, contents ) {
 		var retty;
 
-		retty  = "<a href='#' role='button' class='btn btn-sm btn-" + themeClass + "'>";
+		retty  = "<a href='#' role='button' class='ui-btn ui-mini ui-btn-" + themeClass + "'>";
 		retty += ( icon !== false ) ? "<span>" + this.icons.getIcon(icon) + "</span> " : "";
 		retty += contents + "</a>";
 
@@ -126,9 +119,10 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	buttonGroup           : function ( collapse ) {
-		var cls = ( collapse === true ) ? "btn-group" : "btn-group-vertical";
+        // DOES NOT WORK YET.
+		var cls = ( collapse === true ) ? "ui-controlgroup-horizontal" : "ui-controlgroup-vertical";
 
-		return $("<div class='" + cls + " w-100 p-1'>");
+		return $("<div class='" + cls + " ui-controlgroup'><div class='ui-controlgroup-controls'>");
 	},
 
 	/**
@@ -270,75 +264,47 @@ JTSageDateBox.styleFunctions = {
 		return returnVal;
 	},
 
-	/**
+	/*
 	 * Create the calbox grid container.  Probably a table
-	 * 
-	 * @return {object} jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	calGrid               : function () {
-		return $( "<div class='w-100 p-1'><table class='dbCalGrid w-100'></table></div>" );
+		return $(
+            "<div><table class='dbCalGrid' style='width: 100%'></table></div>"
+        );
 	},
 
-	/**
+	/*
 	 * Create a calbox grid row.  Probably a tr
-	 * 
-	 * this = styleFunctions
-	 * 
-	 * @return {object} jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	calRow                : function () {
 		return $( "<tr>" );
 	},
 
-	/**
+	/*
 	 * Create a clickable box for each grid item in calbox.
-	 * 
-	 * MUST have the "dbEvent" class
-	 * 
-	 * @param {object} data Date information object
-	 * @param {boolean} data.bad True if the date is invalid
-	 * @param {boolean} data.good True if the date is valid
-	 * @param {string} data.theme Theme class for the button
-	 * @param {string} data.displayText Text of the date
-	 * @param {object} data.dateObj Date object
-	 * 
-	 * @param  {number} totalElements Number of elements in the row ( 7 or 8 )
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	calButton             : function ( data, totalElements ) {
 		var style = ( totalElements !== undefined ?
-				" style='width: " + ( 100 / totalElements ) + "%'" :
+				" style='padding:0; margin: 0; width: " + ( 100 / totalElements ) + "%'" :
 				""
 			),
 			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls = "class='dbEvent w-100 btn-sm btn btn-" + 
+			cls = "class='dbEvent ui-btn ui-mini ui-btn-" + 
 				data.theme + ( data.bad ? " disabled":"" ) + "'";
 
-		return $("<td class='m-0 p-0 text-center'" + style + ">" +
-			"<a href='#' " + cls + " " + disable + ">" + 
+		return $("<td" + style + ">" +
+            "<a style='margin:0;padding-right:0;padding-left:0;' href='#' " +
+            cls + " " + disable + ">" + 
 			data.displayText + 
 			"</a>" + "</td>");
 	},
 
-	/**
+	/*
 	 * Create a non-button calbox grid box
-	 * 
-	 * @param  {string} text Text to display
-	 * @param  {boolean} header Is this a header (bold?)
-	 * @param  {number} totalElements Number of elements in the row ( 7 or 8 )
-	 * @return {object} jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	calNonButton          : function ( text, header, totalElements ) {
 		var style = ( totalElements !== undefined ?
-				" style='width: " + ( 100 / totalElements ) + "%'" :
+				" style='text-align:center;padding:0;margin:0;width:" + (100/totalElements) + "%'" :
 				""
 			),
 			cls = ( header ) ? " font-weight-bold" : "";
