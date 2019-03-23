@@ -16,4 +16,6 @@ The __mergeOpts()__ function at the top of the framework file can be used to cre
 
 This is a list of options that you __MUST__ define.  Note that you can alter the number of arguments you expect to be less than what will be supplied, but can not alter the order of them.
 
-{{run:frameGen}}
+This list now resides in the jsDoc documentation.
+
+<a href="../jsdoc/JTSageDateBox.styleFunctions.html">Read more...</a>
