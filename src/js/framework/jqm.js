@@ -61,22 +61,22 @@ mergeOpts({
 	theme_fbox_Forbidden  : "danger",
 	theme_fbox_RollHeight : "135px",
 
-	theme_slide_Today       : "outline-info",
-	theme_slide_DayHigh     : "outline-warning",
-	theme_slide_Selected    : "outline-success",
-	theme_slide_DateHigh    : "outline-warning",
-	theme_slide_DateHighAlt : "outline-danger",
-	theme_slide_DateHighRec : "outline-warning",
-	theme_slide_Default     : "outline-primary",
+	theme_slide_Today       : "b",
+	theme_slide_DayHigh     : "b",
+	theme_slide_Selected    : "active",
+	theme_slide_DateHigh    : "b",
+	theme_slide_DateHighAlt : "b",
+	theme_slide_DateHighRec : "b",
+	theme_slide_Default     : "a",
 
 	theme_slide_NextBtnIcn     : "plus",
-	theme_slide_NextBtnCls     : "outline-dark border-0",
+	theme_slide_NextBtnCls     : "a",
 	theme_slide_PrevBtnIcn     : "minus",
-	theme_slide_PrevBtnCls     : "outline-dark border-0",
-	theme_slide_NextDateBtnIcn : "next",
-	theme_slide_NextDateBtnCls : "outline-dark border-0",
-	theme_slide_PrevDateBtnIcn : "prev",
-	theme_slide_PrevDateBtnCls : "outline-dark border-0",
+	theme_slide_PrevBtnCls     : "a",
+	theme_slide_NextDateBtnIcn : "carat-r",
+	theme_slide_NextDateBtnCls : "a",
+	theme_slide_PrevDateBtnIcn : "carat-l",
+	theme_slide_PrevDateBtnCls : "a",
 
 	theme_backgroundMask : {
 		position          : "fixed",
@@ -547,166 +547,82 @@ JTSageDateBox.styleFunctions = {
 		return $( "<div class='p-4 border border-dark shadow mx-1'>" );
 	},
 
-	/**
+	/*
 	 * Make the header for slidebox
-	 * 
-	 * Previous button MUST have "dbSlidePrev" class
-	 * Next button MUST have "sbSlideNext" class
-	 *
-	 * @param {string} txt Text of header
-	 * @param {string} prevBtnIcn Previous button icon ( name or SVG )
-	 * @param {string} prevBtnCls Previous button theme class
-	 * @param {string} nextBtnIcn Next button icon ( name or SVG )
-	 * @param {string} nextBtnCls Nevt button theme class
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	slideHeader           : function ( txt, prevBtnIcn, prevBtnCls, nextBtnIcn, nextBtnCls ) {
-		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
-
-		$( this.styleFunctions.button.apply( this, [
-			prevBtnCls + " mx-2 dbSlidePrev",
+		return this.styleFunctions.genHeader.apply( this, [
+			txt,
 			prevBtnIcn,
-			""
-		] ) ).appendTo( returnVal );
-
-		$("<h5>" + txt + "</h5>").appendTo( returnVal );
-
-		$( this.styleFunctions.button.apply( this, [ 
-			nextBtnCls + " mx-2 dbSlideNext",
+			prevBtnCls,
 			nextBtnIcn,
-			""
-		] ) ).appendTo( returnVal );
-
-		return returnVal;
+			nextBtnCls,
+			"dbSlidePrev",
+			"dbSlideNext"
+		] );
 	},
 
-	/**
+	/*
 	 * Create the year and month picker for slide.
-	 * 
-	 * Month picker MUST have the "dbSlidePickMonth" class
-	 * Year picker MUST have the "dbSlidePickYear" class 
-	 *
-	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}.
-	 * 
-	 * @param  {object} ranges Year and Month arrays
-	 * @param {array} ranges.year Containing arrays of [ value, text, selected (boolean) ]
-	 * @param {array} ranges.month Containing arrays of [ value, text, selected (boolean) ]
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	slidePickers            : function ( ranges ) {
-		var returnVal = "";
-
-		returnVal += "<div class='row my-2 mx-1'>";
-
-		returnVal += "<div class='col-sm-8 p-0 m-0'>";
-		returnVal += this._stdSel( ranges.month, "dbSlidePickMonth", "form-control" );
-  		returnVal += "</div>";
-
-		returnVal += "<div class='col-sm-4 p-0 m-0'>";
-		returnVal += this._stdSel( ranges.year, "dbSlidePickYear", "form-control" );
-  		returnVal += "</div>";
-
-		returnVal += "</div>";
-
-		return $(returnVal);
+		return this.styleFunctions.genPickers.apply(
+			this,
+			[ ranges, "dbSlidePickMonth", "dbSlidePickYear" ]
+		);
 	},
 
-	/**
+	/*
 	 * Make the slidebox drop down quick pick list.
-	 * 
-	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}
-	 *
-	 * @param {string} listLabel Label for the list
-	 * @param {array} list Containing arrays of [ value, text, selected (boolean) ]
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	slideDateList           : function ( listLabel, list ) {
-		var returnVal = "";
-
-		list.unshift([false, listLabel, true]);
-
-		returnVal += "<div class='row my-2 mx-1'>";
-		returnVal += this._stdSel( list, "dbSlidePickList", "form-control" );
-		returnVal += "</div>";
-
-		return $(returnVal);
+		return this.styleFunctions.genDateList.apply(
+			this,
+			[ listLabel, list, "dbSlidePickList" ]
+		);
 	},
 
-	/**
+	/*
 	 * Make the grid container for slidebox (usually a table)
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	slideGrid               : function () {
-		return $( "<div class='w-100 py-1'><table class='dbSlideGrid w-100'></table></div>" );
+		return $( "<div><table class='dbSlideGrid' style='width:100%'></table></div>" );
 	},
 
-	/**
+	/*
 	 * Make the grid for for slidebox (usually a TR)
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	slideRow                : function () {
 		return $( "<tr>" );
 	},
 
-	/**
+	/*
 	 * Create a clickable box for each grid date in slidebox.
-	 * 
-	 * MUST have the "dbEventS" class
-	 * 
-	 * @param {object} data Date information object
-	 * @param {boolean} data.bad True if the date is invalid
-	 * @param {boolean} data.good True if the date is valid
-	 * @param {string} data.theme Theme class for the button
-	 * @param {object} data.dateObj Date object
-	 * 
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	slideDateButton         : function ( data ) {
 		var style   = " style='width: " + ( ( 100 / 8 ) ) + "%'",
 			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls     = "class='dbEventS w-100 rounded-circle btn-sm btn btn-" +
+			cls     = "class='dbEventS w-100 ui-btn ui-mini ui-btn-" +
 				data.theme + ( data.bad ? " disabled":"" ) + "'";
 
 		return $("<td class='m-0 p-0 text-center'" + style + ">" +
-			"<a href='#' " + cls + " " + disable + ">" + 
+			"<a style='margin:0;padding:.7em 0;' href='#' " + cls + " " + disable + ">" + 
 			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
 			"</small><br>" + data.dateObj.getDate() +  
 			"</a>" + "</td>");
 	},
 
-	/**
+	/*
 	 * Create next/prev week buttons for slidebox
-	 *
-	 * @param {string} eventCls The event class.  Should be placed on the button
-	 * @param {string} icon Icon to use for button ( name or SVG )
-	 * @param {string} theme Theme class for button
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	slideMoveButton         : function ( eventCls, icon, theme ) {
 		var style = " style='width: " + ( ( 100 / 8 ) / 2 ) + "%'",
-			cls   = "class='w-100 p-1 rounded-circle btn-sm btn btn-" +
-				theme + " " + eventCls + "'";
+			cls   = "class='ui-corner-all ui-btn ui-mini ui-btn-icon-notext ui-btn-" +
+				theme + " " + eventCls + " ui-icon-" + icon + "'";
 
 		return $(
-			"<td class='m-0 p-0 text-center'" + style + ">" +
-			"<a href='#' " + cls + ">" + 
-			this.icons.getIcon( icon )  + "</a></td>"
+			"<td " + style + ">" +
+			"<a style='margin:0' href='#' " + cls + "></a></td>"
 		);
 	},
 
