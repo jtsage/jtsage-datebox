@@ -559,7 +559,6 @@ JTSageDateBox.styleFunctions = {
 
 			// No RE-DO's, if it has a style, it's probably right.
 			if ( firstItem.css( "marginTop" ) === "0px" ) {
-				console.log("run");
 					
 				height_Roller = fullRoller.outerHeight(false);
 

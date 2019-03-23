@@ -321,7 +321,6 @@ JTSageDateBox.open = function () {
 
 	if ( attachPoint.length !== 1 ) { attachPoint = w.d.wrap.parent(); }
 
-	console.log(attachPoint.length);
 	switch ( o.displayMode ) {
 		case "inline":
 			attachPoint.append( w.d.mainWrap );
