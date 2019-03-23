@@ -391,6 +391,11 @@ JTSageDateBox._build.flipbox         = function () {
 			cntlContain.append( w._stdBtn.cancel.apply( w ) );
 		}
 
+		if ( typeof _sf.buttonGroupOutside === "function" ) {
+			// Used if the framework requires an additional wrap to button
+			// groups.  Some do, notable jQM.
+			cntlContain = _sf.buttonGroupOutside( o.useCollapsedBut, cntlContain );
+		}
 		cntlContain.appendTo( w.d.intHTML );
 	}
 

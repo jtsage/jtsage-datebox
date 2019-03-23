@@ -339,6 +339,11 @@ JTSageDateBox._build.calbox = function () {
 			calCntlRow.append( w._stdBtn.cancel.apply( w ) );
 		}
 
+		if ( typeof _sf.buttonGroupOutside === "function" ) {
+			// Used if the framework requires an additional wrap to button
+			// groups.  Some do, notable jQM.
+			calCntlRow = _sf.buttonGroupOutside( o.useCollapsedBut, calCntlRow );
+		}
 		calCntlRow.appendTo( w.d.intHTML );
 	}
 

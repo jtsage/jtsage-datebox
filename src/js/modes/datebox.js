@@ -305,6 +305,11 @@ JTSageDateBox._build.datebox = function () {
 			ctrlContainer.append( w._stdBtn.cancel.apply( w ) );
 		}
 
+		if ( typeof _sf.buttonGroupOutside === "function" ) {
+			// Used if the framework requires an additional wrap to button
+			// groups.  Some do, notable jQM.
+			ctrlContainer = _sf.buttonGroupOutside( o.useCollapsedBut, ctrlContainer );
+		}
 		ctrlContainer.appendTo( w.d.intHTML );
 	}
 
