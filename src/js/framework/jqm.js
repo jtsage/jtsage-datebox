@@ -1,10 +1,15 @@
  /**
      * JTSage-DateBox
-     * @fileOverview BootStrap v4 Themes and StyleFunctions
+     * @fileOverview jQueryMobile Themes and StyleFunctions
      * This file supports: datebox, flipbox, slidebox, calbox.
 	 * 
 	 * Note that icons work differently in jQM, they are the built in icon classes, as jQM
 	 * may run on devices that lack SVG support.
+	 * 
+	 * CalBox   : A+
+     * DateBox  : A+
+     * FlipBox  : F (not yet)
+     * SlideBox : A+ (could use some borders maybe)
 	 * 
      * @author J.T.Sage <jtsage+datebox@gmail.com>
      * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
@@ -56,9 +61,9 @@ mergeOpts({
 	theme_dbox_PrevBtnIcn : "minus",
 	theme_dbox_PrevBtnCls : "outline-dark",
 
-	theme_fbox_Selected   : "success",
-	theme_fbox_Default    : "light",
-	theme_fbox_Forbidden  : "danger",
+	theme_fbox_Selected   : "a ui-flipswitch-active",
+	theme_fbox_Default    : "a",
+	theme_fbox_Forbidden  : "a ui-disabled",
 	theme_fbox_RollHeight : "135px",
 
 	theme_slide_Today       : "b",
@@ -174,25 +179,15 @@ JTSageDateBox.styleFunctions = {
 		originalInputWrap.addClass( "w-100" );
 	},
 
-	/**
+	/*
 	 * Run when the input is focused
-	 * 
-	 * @param  {object} originalInput jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	focusInput            : function ( originalInput ) {
 		originalInput.addClass( "ui-focus" );
 	},
 
-	/**
+	/*
 	 * Run when the input is un-focused
-	 * 
-	 * this = styleFunctions
-	 * 
-	 * @param  {object} originalInput jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	blurInput             : function ( originalInput ) {
 		originalInput.removeClass( "ui-focus" );
@@ -211,15 +206,8 @@ JTSageDateBox.styleFunctions = {
 			"</div>";
 	},
 
-	/**
+	/*
 	 * Make an internal header ( datebox & flipbox )
-	 * 
-	 * MUST have the "dbHeader" class
-	 * 
-	 * @param  {string} text Text to display
-	 * @return {object} jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	intHeader             : function ( text ) {
 		return $(
@@ -451,100 +439,70 @@ JTSageDateBox.styleFunctions = {
 		return $(returnVal);
 	},
 
-	/**
+	/*
 	 * Make the container for the flipbox
-	 *
-	 * @param {number} size Height CSS property
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxContainer         : function ( size ) {
 		return $(
-			"<div class='d-flex border-top border-bottom m-2' style='height: " + 
+			"<div style='margin: 0 5px 8px; height: " + 
 			size + 
 			"; overflow: hidden'>"
 		);
 	},
 
-	/**
+	/*
 	 * Make a container for flipbox labels
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxDurLabels         : function ( ) {
 		return $(
-			"<div class='d-flex mx-2 mt-2' style='margin-bottom: -8px;'>"
+			"<div style='margin: 5px;'>"
 		);
 	},
 
-	/**
+	/*
 	 * Make a flibox label
-	 *
-	 * @param {string} text Text of the label
-	 * @param {number} items Total number of items
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxDurLabel          : function ( text, items ) {
 		return $( 
-			"<div class='text-center' style='width: " + ( 100 / items ) + "%'>" + 
+			"<div class='text-center' " +
+			"style='display:inline-block; text-align:center; width: " + ( 100 / items ) + "%'>" + 
 			text + 
 			"</div>"
 		);
 	},
 
-	/**
+	/*
 	 * Make a flipbox roller container (outermost)
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
-	fboxRollerContain     : function () {
-		return $( "<div class='flex-fill'>" );
+	fboxRollerContain     : function ( totalItems ) {
+		return $( "<div style='float:left; width:" + ( 100 / totalItems ) + "%'>" );
 	},
 
-	/**
+	/*
 	 * Make a flipbox roller container (middle) - usually a UL
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */	
 	fboxRollerParent      : function () {
-		return $( "<ul class='list-group'>" );
+		return $( "<ul style='list-style-type: none; display: inline;'>" );
 	},
 
-	/**
+	/*
 	 * Make a flipbox element (innermost) - usually a LI
-	 *
-	 * @param {string} text
-	 * @param {string} cls
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxRollerChild       : function ( text, cls ) {
 		return $( 
-			"<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" + 
-			text + 
-			"</li>"
+			"<li style='height: 30px; line-height: 30px; text-align:center;' class='ui-body-" + 
+			cls + "'>" + text + "</li>"
 		);
 	},
 
-	/**
+	/*
 	 * Make the flipbox lens
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxLens              : function () {
-		return $( "<div class='p-4 border border-dark shadow mx-1'>" );
+		return $(
+			"<div style='width: 96%; height: 40px; border: 1px solid #eee; margin: 0 1.5%;' " +
+			"class='ui-overlay-shadow'>"
+		);
 	},
 
 	/*
@@ -626,31 +584,23 @@ JTSageDateBox.styleFunctions = {
 		);
 	},
 
-	/**
+	/*
 	 * Position the flip elements.  Overrides the base function if it exists
-	 * 
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	flipPosition            : function () {
 		var fullRoller, firstItem, height_Roller, intended_Top,
 			w                 = this,
 			o                 = this.options,
-			height_Container  = w.d.intHTML.find( ".dbRollerC" ).height(),
-			height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight( true ),
+			height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight(),
 			theLens           = w.d.intHTML.find( ".dbLens" ).first(),
 			height_Lens       = theLens.outerHeight();
-
-
-		// Trap for run too early.
-		if ( height_Container < 1 ) { return true; }
-
+		
 		// Lens top:
 		// Negative Half the parent height is center.
 		// Add Negative half the lens height.
 		intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
 		theLens.css( { 
-			top          : intended_Top,
+			top          : intended_Top + -3,
 			marginBottom : -1 * height_Lens
 		} );
 		
@@ -659,17 +609,19 @@ JTSageDateBox.styleFunctions = {
 			firstItem     = fullRoller.children().first();
 
 			// No RE-DO's, if it has a style, it's probably right.
-			if ( typeof firstItem.attr( "style" ) === "undefined" ) {
+			if ( firstItem.css( "marginTop" ) === "0px" ) {
 					
-				height_Roller = fullRoller.outerHeight(false);
+				height_Roller = (fullRoller.children().length + 1 ) * firstItem.outerHeight();
 
 				// Negative Half the height of the roller ( gets center to top border of view)
 				// Add half of the view container height.
-				intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Container / 2 );
+				intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Outside / 2 );
 
 				if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
 
-				firstItem.attr( "style", "margin-top: " + intended_Top + "px !important" );
+				firstItem.attr( "style",
+					firstItem.attr( "style" ) + ";margin-top: " + intended_Top + "px !important"
+				);
 			}
 		});
 	}
