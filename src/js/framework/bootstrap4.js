@@ -728,6 +728,12 @@ JTSageDateBox.styleFunctions = {
 		);
 	},
 
+	/**
+	 * Position the flip elements.  Overrides the base function if it exists
+	 * 
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
 	flipPosition            : function () {
 		var fullRoller, firstItem, height_Roller, intended_Top,
 			w                 = this,

@@ -29,10 +29,10 @@ mergeOpts({
 	theme_todayBtnIcn : "goto",
 
 	theme_dropdownContainer : "panel panel-default",
-	theme_modalContainer : "panel panel-default",
-	theme_inlineContainer : "panel panel-default",
+	theme_modalContainer    : "panel panel-default",
+	theme_inlineContainer   : "panel panel-default",
 
-	theme_headerTheme : "navbar-default",
+	theme_headerTheme  : "navbar-default",
 	theme_headerBtnCls : "default",
 	theme_headerBtnIcn : "cancel",
 
@@ -78,12 +78,12 @@ mergeOpts({
 	theme_slide_PrevDateBtnCls : "default",
 
 	theme_backgroundMask : {
-		position: "fixed",
-		left: 0,
-		top: 0,
-		right: 0,
-		bottom: 0,
-		backgroundColor: "rgba(0,0,0,.4)"
+		position          : "fixed",
+		left              : 0,
+		top               : 0,
+		right             : 0,
+		bottom            : 0,
+		backgroundColor   : "rgba(0,0,0,.4)"
 	},
 	theme_headStyle : false,
 	theme_spanStyle : false,
@@ -93,8 +93,8 @@ mergeOpts({
 	buttonIconTime    : "clock",
 	disabledState     : "disabled",
 
-	clickEvent: "click",
-	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
+	clickEvent : "click",
+	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 });
 
 
@@ -398,6 +398,43 @@ JTSageDateBox.styleFunctions = {
 		);
 
 	},
+	flipPosition           : function () {
+		var fullRoller, firstItem, height_Roller, intended_Top,
+			w                 = this,
+			o                 = this.options,
+			height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight( true ),
+			height_Container  = w.d.intHTML.find( ".dbRollerV" ).height(),
+			theLens           = w.d.intHTML.find( ".dbLens" ).first(),
+			height_Lens       = theLens.outerHeight();
+
+		// Trap for run too early.
+		if ( height_Container < 1 ) { return true; }
+
+		// Lens top:
+		// Negative Half the parent height is center.
+		// Add Negative half the lens height.
+		intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
+		theLens.css( { 
+			top          : intended_Top,
+			marginBottom : -1 * height_Lens
+		} );
+
+		w.d.intHTML.find( ".dbRoller" ).each( function() {
+			fullRoller    = $(this);
+			firstItem     = fullRoller.children().first();
+			height_Roller = fullRoller.outerHeight(true);
+
+			if ( firstItem.css( "marginTop" ) === "0px" ) {
+				// Negative Half the height of the roller ( gets center to top border of view)
+				// Add half of the view container height.
+				intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Container / 2 );
+
+				if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
+
+				firstItem.attr( "style", "margin-top: " + intended_Top + "px !important" );
+			}
+		});
+	}
 };
 
 
