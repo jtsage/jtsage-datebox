@@ -205,6 +205,25 @@ module.exports = function(grunt) {
 					],
 				}]
 			},
+			latest_popper_bundled: {
+				options: {
+					dest           : "dist/latest/",
+					filename       : "jtsage-datebox",
+					includeBinding : true,
+				},
+				externalLibs : [ "src/js/external/popper.js" ],
+				baseObject   : [ "src/js/baseObject.js" ],
+				frameWorks   : [
+					"src/js/framework/jqm.js"
+				],
+				files: [{
+					expand : true,
+					src    : [
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
 			release_bundled: {
 				options: {
 					dest           : "dist/<%= pkg.version %>/",
@@ -332,6 +351,7 @@ module.exports = function(grunt) {
 		"clean:latest",
 		"buildDBoxes:latest_widget_bundled",
 		"buildDBoxes:latest_both_bundled",
+		"buildDBoxes:latest_popper_bundled",
 		"uglify:latest",
 	]);
 
