@@ -2,6 +2,9 @@
 
 There are several ways to interact with DateBox programatically.
 
+If you are simply trying to get multiple date formats, or parts of the date, this is much easier
+to accomplish with the ___linkedField___ option.
+
 DateBox provides a number of callbacks that will run automatically, exports some functions publicly, regularly bubbles it's own events up the DOM tree, and accepts some .trigger()'s.
 
 ### Callbacks

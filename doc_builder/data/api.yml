@@ -1206,10 +1206,14 @@ opts :
       This is a jQuery selector of the field(s) that you want to fill with the selected date
       when chosen.  Uses ___linkedFieldFormat___ as the format.  Often used with a hidden
       form element to simplify backend date processing.
+
+      Alternativle, it can be passed an object of multiple fields, in the form of:
+      
+      [ { id: "#someInput", format: "someFormat" }, ... ]
     modes   : *modeAll
     cat     : Callback
     default : false
-    type    : String
+    type    : String | Object
     dynamic : true
     optdemo : false
     sample  : false

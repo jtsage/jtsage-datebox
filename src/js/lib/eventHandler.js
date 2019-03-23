@@ -55,8 +55,16 @@ JTSageDateBox._event = function(e, p) {
 					}
 					$( this ).val( p.value );
 					if ( o.linkedField !== false ) {
-						$( o.linkedField )
-							.val( w.callFormat( o.linkedFieldFormat, w.theDate, false ) );
+						if ( typeof o.linkedField === "string" ) {
+							$( o.linkedField )
+								.val( w.callFormat( o.linkedFieldFormat, w.theDate, false ) );
+						} else {
+							$.each( o.linkedField, function( idx, thisField ) {
+								$( thisField.id ).val(
+									w.callFormat( thisField.format, w.theDate, false )
+								);
+							});
+						}
 					}
 					$( this ).trigger( "change" );
 				}
