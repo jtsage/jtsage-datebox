@@ -224,7 +224,7 @@ module.exports = function(grunt) {
 					],
 				}]
 			},
-			release_bundled: {
+			release_both_bundled: {
 				options: {
 					dest           : "dist/<%= pkg.version %>/",
 					filename       : "jtsage-datebox-<%= pkg.version %>",
@@ -234,7 +234,46 @@ module.exports = function(grunt) {
 				baseObject   : [ "src/js/baseObject.js" ],
 				frameWorks   : [
 					"src/js/framework/*.js",
+					"!src/js/framework/bootstrap4.js",
 					"!src/js/framework/jqm.js"
+				],
+				files: [{
+					expand : true,
+					src    : [
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
+			release_widget_bundled: {
+				options: {
+					dest           : "dist/<%= pkg.version %>/",
+					filename       : "jtsage-datebox-<%= pkg.version %>",
+					includeBinding : true,
+				},
+				externalLibs : [ "src/js/external/widgetLib.js" ],
+				baseObject   : [ "src/js/baseObject.js" ],
+				frameWorks   : [
+					"src/js/framework/bootstrap4.js"
+				],
+				files: [{
+					expand : true,
+					src    : [
+						"src/js/lib/*.js",
+						"src/js/modes/*.js"
+					],
+				}]
+			},
+			release_popper_bundled: {
+				options: {
+					dest           : "dist/<%= pkg.version %>/",
+					filename       : "jtsage-datebox-<%= pkg.version %>",
+					includeBinding : true,
+				},
+				externalLibs : [ "src/js/external/popper.js" ],
+				baseObject   : [ "src/js/baseObject.js" ],
+				frameWorks   : [
+					"src/js/framework/jqm.js"
 				],
 				files: [{
 					expand : true,
@@ -270,14 +309,17 @@ module.exports = function(grunt) {
 		},
 		prettify: {
 			options: {
+				condense : true,
+				indent: 2,
+				indent_char: " ",
 				// Task-specific options go here.
 			},
 			all: {
 				expand : true,
-				cwd    : "docs/_site/",
+				cwd    : "doc_builder/dist/",
 				ext    : ".html",
 				src    : ["**/*.html"],
-				dest   : "docs/_site/"
+				dest   : "doc_builder/dist/"
 			},
 		},
 		connect: {
@@ -292,7 +334,7 @@ module.exports = function(grunt) {
 		},
 		jsdoc : {
 			dist : {
-				src: ["src/js/**/*.js"],
+				src: ["src/js/**/*.js", "!src/js/external/*.js"],
 				options: {
 					destination : "doc_builder/dist/jsdoc",
 					template    : "node_modules/ink-docstrap/template",
@@ -340,7 +382,9 @@ module.exports = function(grunt) {
 		"jshint:js2",
 		"clean:release",
 		"clean:web",
-		"buildDBoxes:release_bundled",
+		"buildDBoxes:release_widget_bundled",
+		"buildDBoxes:release_both_bundled",
+		"buildDBoxes:release_popper_bundled",
 		"uglify:release",
 		"committers",
 		"updatebuilder",
@@ -368,7 +412,7 @@ module.exports = function(grunt) {
 	] );
 
 	grunt.registerTask( "web", "Build the documentation site", [
-		"clean:web", "buildSite", "copy:web1", "jsdoc"
+		"clean:web", "buildSite", "copy:web1", "jsdoc", "prettify"
 	] );
 	grunt.registerTask( "serveweb", "Start a local HTTP server on localhost:8080 for the docs.", [
 		"connect:web"
