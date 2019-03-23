@@ -99,7 +99,7 @@ mergeOpts({
 
 	disabledState  : "disabled",
 
-	clickEvent : "click",
+	clickEvent : "vclick",
 	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 });
 
