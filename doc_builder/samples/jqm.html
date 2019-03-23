@@ -1,0 +1,91 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>JTSage-DateBox (jQueryMobile)</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.css" />
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.js"></script>
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/5.0.0/jtsage-datebox.jqm.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
+	
+	<script type="text/javascript">
+		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+			highDays          : [ 0, 6 ],
+
+			calDateList       : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			calShowDateList   : true,
+
+			slideDateList     : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			slideShowDateList : true,
+
+			calUsePickers     : true,
+			slideUsePickers   : true,
+			useCancelButton   : true,
+			useClearButton    : true,
+			useTodayButton    : true,
+			useCollapsedBut   : false,
+		});
+	</script>
+	
+</head>
+<body>
+	<div data-role="page" id="main"> 
+		<div data-role="header" data-position="fixed"> 
+			<h1>DateBox <small>jQueryMobile Samples</small></h1>
+		</div>
+
+		<div class="ui-content" role="main">
+			<p><a href="http://jquerymobile.com/">jQuery Mobile</a> is a HTML5-based user interface system designed to make responsive web sites and apps that are accessible on all smartphone, tablet and desktop devices.</p>
+		
+			<form>
+			
+			<div class="ui-field-contain">
+				<label for="username">Sample Input</label>
+				<input name="username" type="text" data-mini="true" id="username"/>
+			</div>
+
+			<div class="ui-field-contain">
+				<label for="db1">DateBox</label>
+				<input name="db1" type="text" data-mini="true" data-datebox-mode="datebox" data-role="datebox" id="db1" />
+			</div>
+			<div id="db1-dbAttach"></div>
+
+			<div class="ui-field-contain">
+				<label for="db2">CalBox</label>
+				<input name="db2" type="text" data-mini="true" data-datebox-mode="calbox" data-role="datebox" id="db2" />
+			</div>
+			<div id="db2-dbAttach"></div>
+
+			<div class="ui-field-contain">
+				<label for="db3">SlideBox</label>
+				<input name="db3" type="text" data-mini="true" data-datebox-mode="slidebox" data-role="datebox" id="db3" />
+			</div>
+			<div id="db3-dbAttach"></div>
+
+			<div class="ui-field-contain">
+				<label for="db4">DateTimeFlipBox</label>
+				<input name="db4" type="text" data-mini="true" data-datebox-mode="datetimeflipbox" data-role="datebox" id="db4" />
+			</div>
+			<div id="db4-dbAttach"></div>
+
+			</form>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h1>Ssample Fixed Footer</h1>
+		</div>
+
+	</div>
+
+</html>

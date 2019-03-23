@@ -56,6 +56,9 @@ sample :
   - name : "- Foundation v6"
     url  : "/samples/foundation6.html"
 
+  - name : "- jQueryMobile"
+    url  : "/samples/jqm.html"
+
 demo :
   - name : Option Demos
     url  : "/optDemo/"
