@@ -115,13 +115,8 @@ JTSageDateBox.styleFunctions = {
 		return retty;
 	},
 
-	/**
+	/*
 	 * Make a button group
-	 * 
-	 * @param  {boolean} collapse Attempt to display buttons on one line
-	 * @return {object} jQuery object of a button group that buttons can be appended to 
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	buttonGroup           : function ( ) {
 		var style = "style='margin: 0 .446em'";
@@ -228,8 +223,8 @@ JTSageDateBox.styleFunctions = {
 	 */
 	intHeader             : function ( text ) {
 		return $(
-			"<div class='my-2 text-center dbHeader'>" +
-			"<h5>" + text + "</h5>" +
+			"<div class='dbHeader'>" +
+			"<h3 style='text-align:center'>" + text + "</h3>" +
 			"</div>"
 		);
 	},
@@ -405,67 +400,51 @@ JTSageDateBox.styleFunctions = {
 		);
 	},
 
-	/**
+	/*
 	 * Make the datebox mode container.
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	dboxContainer         : function () {
-		return $("<div>");
+		return $("<table style='width:100%'>");
 	},
 
-	/**
+	/*
 	 * Make the datebox control row
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	dboxRow               : function () {
-		return $("<div class='d-flex p-1'>");
+		return $("<tr>");
 	},
 
-	/**
+	/*
 	 * Make a datebox +/-/input control
-	 * 
-	 * Next button MUST have "dbBoxNext" class
-	 * Previous button MUST have "dbBoxPrev" class
-	 *
-	 * @param {string} prevIcn Previous button icon (name or SVG)
-	 * @param {string} prevCls Previous button theme class
-	 * @param {string} nextIcn Next button icon (name of SVG)
-	 * @param {string} nextCls Next button theme class
-	 * @param {string} mainCls Class for the control (input type)
-	 * @param {string} label Label, if needed
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
-	 * @returns {object} jQuery Object
 	 */
 	dboxControl           : function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label ) {
 		var returnVal = "";
 
-		returnVal += "<div class='btn-group-vertical flex-fill dbBox" + mainCls + "'>";
+		returnVal += "<td class='dbBox" + mainCls + "'>";
 
-		returnVal += this.styleFunctions.button.apply( this, [
-			nextCls + " dbBoxNext" ,
-			nextIcn,
-			""
-		] );
+		returnVal += "<a href='#' role='button' class='ui-corner-all ui-btn ui-mini ui-btn-";
+		returnVal += nextCls + " ui-icon-" + nextIcn + " ui-btn-icon-top dbBoxNext' ";
+		returnVal += "style='margin:0; padding-top:2.1em; border-bottom-left-radius:0;" +
+			"border-bottom-right-radius:0;'>";
+		returnVal += "</a>";
+
 
 		if ( label !== null ) {
-			returnVal += "<div class='w-100 form-control rounded-0 p-0 text-center' " +
-				"style='height:auto'>" + label + "</div>";
+			returnVal += "<div class='ui-input-text ui-body-inherit' " +
+				"style='height:auto; margin:0; padding: .3em 0; text-align:center'>" +
+				label + "</div>";
 		}
-		returnVal += "<input type='text' ";
-		returnVal += "class='form-control form-control-sm text-center px-0 rounded-0'>";
 
-		returnVal += this.styleFunctions.button.apply( this, [
-			prevCls + " dbBoxPrev" ,
-			prevIcn,
-			""
-		] );
+		returnVal += "<div style='margin:0' " +
+			"class='ui-input-text ui-mini ui-body-inherit'>";
+		returnVal += "<input style='padding:0;text-align:center' type='text'></div>";
+
+		
+		returnVal += "<a href='#' role='button' class='ui-corner-all ui-btn ui-mini ui-btn-";
+		returnVal += prevCls + " ui-icon-" + prevIcn + " ui-btn-icon-top dbBoxPrev' ";
+		returnVal += "style='margin:0; padding-top:2.1em; border-top-left-radius:0;" +
+			"border-top-right-radius:0;'>";
+		returnVal += "</a>";
 
 		returnVal += "</div>";
 
