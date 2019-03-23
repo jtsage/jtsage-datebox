@@ -8,7 +8,7 @@
      * CalBox   : A+
      * DateBox  : A+
      * FlipBox  : A- (need multiline buttons.  pending in the project repo)
-     * SlideBox : F (not supported yet. there's no list group.)
+     * SlideBox : A (could use some borders maybe)
      * 
      * @author J.T.Sage <jtsage+datebox@gmail.com>
      * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
@@ -33,13 +33,13 @@ mergeOpts({
 	theme_todayBtnCls : "is-fullwidth is-marginless is-secondary",
 	theme_todayBtnIcn : "goto",
 
-	theme_dropdownContainer : "card",
-	theme_modalContainer : "card",
-	theme_inlineContainer : "card",
+	theme_dropdownContainer    : "card",
+	theme_modalContainer       : "card",
+	theme_inlineContainer      : "card",
 
-	theme_headerTheme : "is-dark",
-	theme_headerBtnCls : "is-light",
-	theme_headerBtnIcn : "cancel",
+	theme_headerTheme          : "is-dark",
+	theme_headerBtnCls         : "is-light",
+	theme_headerBtnIcn         : "cancel",
 
 	theme_cal_Today       : "is-info",
 	theme_cal_DayHigh     : "is-warning",
@@ -60,9 +60,9 @@ mergeOpts({
 	theme_dbox_PrevBtnIcn : "minus",
 	theme_dbox_PrevBtnCls : "is-outlined is-dark",
 
-	theme_fbox_Selected   : "success",
-	theme_fbox_Default    : "light",
-	theme_fbox_Forbidden  : "danger",
+	theme_fbox_Selected   : "is-success",
+	theme_fbox_Default    : "is-light",
+	theme_fbox_Forbidden  : "is-danger",
 	theme_fbox_RollHeight : "135px",
 
 	theme_slide_Today       : "is-info",
@@ -83,26 +83,26 @@ mergeOpts({
 	theme_slide_PrevDateBtnCls : "is-white",
 
 	theme_backgroundMask : {
-		position: "fixed",
-		left: 0,
-		top: 0,
-		right: 0,
-		bottom: 0,
-		backgroundColor: "rgba(0,0,0,.4)"
+		position          : "fixed",
+		left              : 0,
+		top               : 0,
+		right             : 0,
+		bottom            : 0,
+		backgroundColor   : "rgba(0,0,0,.4)"
 	},
 	theme_headStyle : false,
 	theme_spanStyle : false,
 
-	buttonIconDate: "calendar",
-	buttonIconTime: "clock",
+	buttonIconDate : "calendar",
+	buttonIconTime : "clock",
 
 	disabledState  : "disabled",
 
-	clickEvent: "click",
-	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
+	clickEvent : "click",
+	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 });
 
-JTSageDateBox.baseMode = "bootstrap4";
+JTSageDateBox.baseMode = "bulma";
 
 JTSageDateBox.styleFunctions = {
 	/*
@@ -354,15 +354,10 @@ JTSageDateBox.styleFunctions = {
 
 	/*
 	 * Make the container for the flipbox
-	 *
-	 * @param {number} size Height CSS property
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxContainer         : function ( size ) {
 		return $(
-			"<div class='d-flex border-top border-bottom m-2' style='height: " + 
+			"<div class='columns is-gapless' style='margin: 0; padding: 0 3px; height: " + 
 			size + 
 			"; overflow: hidden'>"
 		);
@@ -370,29 +365,19 @@ JTSageDateBox.styleFunctions = {
 
 	/*
 	 * Make a container for flipbox labels
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxDurLabels         : function ( ) {
 		return $(
-			"<div class='d-flex mx-2 mt-2' style='margin-bottom: -8px;'>"
+			"<div class='columns is-gapless' style='margin-bottom: 0px;'>"
 		);
 	},
 
 	/*
 	 * Make a flibox label
-	 *
-	 * @param {string} text Text of the label
-	 * @param {number} items Total number of items
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxDurLabel          : function ( text, items ) {
 		return $( 
-			"<div class='text-center' style='width: " + ( 100 / items ) + "%'>" + 
+			"<div class='column has-text-centered' style='width: " + ( 100 / items ) + "%'>" + 
 			text + 
 			"</div>"
 		);
@@ -400,52 +385,38 @@ JTSageDateBox.styleFunctions = {
 
 	/*
 	 * Make a flipbox roller container (outermost)
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxRollerContain     : function () {
-		return $( "<div class='flex-fill'>" );
+		return $( "<div class='column'>" );
 	},
 
 	/*
 	 * Make a flipbox roller container (middle) - usually a UL
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */	
 	fboxRollerParent      : function () {
-		return $( "<ul class='list-group'>" );
+		return $( "<div>" );
 	},
 
 	/*
 	 * Make a flipbox element (innermost) - usually a LI
-	 *
-	 * @param {string} text
-	 * @param {string} cls
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxRollerChild       : function ( text, cls ) {
 		return $( 
-			"<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" + 
+			"<p class='field' style='margin-bottom: 0px'>" + 
+			"<span style='width: 100%' class='tag is-medium " + cls + "'>" + 
 			text + 
-			"</li>"
+			"</span></p>"
 		);
 	},
 
 	/*
 	 * Make the flipbox lens
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxLens              : function () {
-		return $( "<div class='p-4 border border-dark shadow mx-1'>" );
+		return $( 
+			"<div class='lensylens' style='height:48px; border:1px solid black; " +
+			"box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); margin-left: 1px; margin-right: 1px;' >"
+		);
 	},
 
 	/*
@@ -559,4 +530,49 @@ JTSageDateBox.styleFunctions = {
 			this.icons.getIcon( icon )  + "</a></td>"
 		);
 	},
+	
+	flipPosition            : function () {
+		var fullRoller, firstItem, height_Roller, intended_Top,
+			w                 = this,
+			o                 = this.options,
+			height_Container  = w.d.intHTML.find( ".dbRollerC" ).height(),
+			height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight( true ),
+			theLens           = w.d.intHTML.find( ".dbLens" ).first(),
+			height_Lens       = theLens.outerHeight();
+
+
+		// Trap for run too early.
+		if ( height_Container < 1 ) { return true; }
+
+		// Lens top:
+		// Negative Half the parent height is center.
+		// Add Negative half the lens height.
+		intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
+		theLens.css( { 
+			top          : intended_Top,
+			marginBottom : -1 * height_Lens
+		} );
+		
+		w.d.intHTML.find( ".dbRoller" ).each( function() {
+			fullRoller    = $(this);
+			firstItem     = fullRoller.children().first();
+
+			// No RE-DO's, if it has a style, it's probably right.
+			if ( firstItem.css( "marginTop" ) === "0px" ) {
+				console.log("run");
+					
+				height_Roller = fullRoller.outerHeight(false);
+
+				// Negative Half the height of the roller ( gets center to top border of view)
+				// Add half of the view container height.
+				intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Container / 2 );
+
+				if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
+
+				firstItem.attr( "style",
+					firstItem.attr( "style" ) + ";margin-top: " + intended_Top + "px !important"
+				);
+			}
+		});
+	}
 };
