@@ -2,6 +2,10 @@
      * JTSage-DateBox
      * @fileOverview BootStrap v4 Themes and StyleFunctions
      * This file supports: datebox, flipbox, slidebox, calbox.
+	 * 
+	 * Note that icons work differently in jQM, they are the built in icon classes, as jQM
+	 * may run on devices that lack SVG support.
+	 * 
      * @author J.T.Sage <jtsage+datebox@gmail.com>
      * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
      * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
@@ -10,41 +14,41 @@
      */
 
 mergeOpts({
-	theme_clearBtnCls : "outline-secondary",
-	theme_clearBtnIcn : "clear",
+	theme_clearBtnCls : "a",
+	theme_clearBtnIcn : "recycle",
 
-	theme_closeBtnCls : "outline-secondary",
+	theme_closeBtnCls : "a",
 	theme_closeBtnIcn : "check",
 
-	theme_cancelBtnCls : "outline-secondary",
-	theme_cancelBtnIcn : "cancel",
+	theme_cancelBtnCls : "a",
+	theme_cancelBtnIcn : "delete",
 
-	theme_tomorrowBtnCls : "outline-secondary",
-	theme_tomorrowBtnIcn : "goto",
+	theme_tomorrowBtnCls : "a",
+	theme_tomorrowBtnIcn : "action",
 
-	theme_todayBtnCls : "outline-secondary",
-	theme_todayBtnIcn : "goto",
+	theme_todayBtnCls : "a",
+	theme_todayBtnIcn : "action",
 
-	theme_dropdownContainer : "bg-light border border-dark mt-1",
-	theme_modalContainer    : "bg-light border border-dark p-2 m-0",
-	theme_inlineContainer   : "bg-light border border-dark my-2",
+	theme_dropdownContainer : "ui-body-a",
+	theme_modalContainer    : "ui-body-a",
+	theme_inlineContainer   : "ui-body-a",
 
-	theme_headerTheme  : "bg-dark",
-	theme_headerBtnCls : "outline-secondary",
-	theme_headerBtnIcn : "cancel",
+	theme_headerTheme  : "inherit",
+	theme_headerBtnCls : "a",
+	theme_headerBtnIcn : "delete",
 
 	theme_cal_Today       : "b",
 	theme_cal_DayHigh     : "b",
-	theme_cal_Selected    : "b",
+	theme_cal_Selected    : "active",
 	theme_cal_DateHigh    : "b",
 	theme_cal_DateHighAlt : "b",
 	theme_cal_DateHighRec : "b",
 	theme_cal_Default     : "a",
 	theme_cal_OutOfBounds : "a",
 
-	theme_cal_NextBtnIcn : "next",
+	theme_cal_NextBtnIcn : "plus",
 	theme_cal_NextBtnCls : "a",
-	theme_cal_PrevBtnIcn : "prev",
+	theme_cal_PrevBtnIcn : "minus",
 	theme_cal_PrevBtnCls : "a",
 
 	theme_dbox_NextBtnIcn : "plus",
@@ -75,23 +79,23 @@ mergeOpts({
 	theme_slide_PrevDateBtnCls : "outline-dark border-0",
 
 	theme_backgroundMask : {
-		position: "fixed",
-		left: 0,
-		top: 0,
-		right: 0,
-		bottom: 0,
-		backgroundColor: "rgba(0,0,0,.4)"
+		position          : "fixed",
+		left              : 0,
+		top               : 0,
+		right             : 0,
+		bottom            : 0,
+		backgroundColor   : "rgba(0,0,0,.4)"
 	},
 	theme_headStyle : false,
 	theme_spanStyle : false,
 
-	buttonIconDate: "calendar",
-	buttonIconTime: "clock",
+	buttonIconDate : "calendar",
+	buttonIconTime : "clock",
 
 	disabledState  : "disabled",
 
-	clickEvent: "click",
-	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
+	clickEvent : "click",
+	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 });
 
 JTSageDateBox.baseMode = "bootstrap4";
@@ -103,9 +107,10 @@ JTSageDateBox.styleFunctions = {
 	button                : function( themeClass, icon, contents ) {
 		var retty;
 
-		retty  = "<a href='#' role='button' class='ui-btn ui-mini ui-btn-" + themeClass + "'>";
-		retty += ( icon !== false ) ? "<span>" + this.icons.getIcon(icon) + "</span> " : "";
-		retty += contents + "</a>";
+		retty  = "<a href='#' role='button' class='ui-btn ui-mini ui-btn-" + themeClass + "";
+		retty += ( icon !== false ) ? " ui-icon-" + icon : "";
+		retty += ( contents === "" ) ? " ui-corner-all ui-btn-icon-notext" : " ui-btn-icon-left";
+		retty += "'>" + contents + "</a>";
 
 		return retty;
 	},
@@ -118,11 +123,18 @@ JTSageDateBox.styleFunctions = {
 	 * @memberof JTSageDateBox.styleFunctions
 	 * @this JTSageDateBox.styleFunctions
 	 */
-	buttonGroup           : function ( collapse ) {
-        // DOES NOT WORK YET.
+	buttonGroup           : function ( ) {
+		var style = "style='margin: 0 .446em'";
+
+		return $("<div " + style + " class='ui-controlgroup-controls'>");
+	},
+
+	buttonGroupOutside    : function ( collapse, inner ) {
+		// DOES NOT WORK YET.
 		var cls = ( collapse === true ) ? "ui-controlgroup-horizontal" : "ui-controlgroup-vertical";
 
-		return $("<div class='" + cls + " ui-controlgroup'><div class='ui-controlgroup-controls'>");
+		inner.find( ".ui-btn" ).last().addClass( "ui-last-child" );
+		return $("<div class='ui-controlgroup " + cls + "'>").append( inner );
 	},
 
 	/**
@@ -191,23 +203,16 @@ JTSageDateBox.styleFunctions = {
 		originalInput.removeClass( "ui-focus" );
 	},
 
-	/**
+	/*
 	 * Make the header for every mode
-	 * 
-	 * Close button MUST include the "dbCloser" class.
-	 * 
-	 * @param  {string} text Text of the header
-	 * @param  {string} themeBar Theme class for the header
-	 * @param  {string} themeIcon Theme for the close button
-	 * @param  {string} icon Icon for the close button ( name or SVG )
-	 * @return {string} Rendered HTML
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	widgetHeader          : function ( text, themeBar, themeIcon, icon ) {
-		return "<div class='navbar " + themeBar + "'>" + 
-			"<h5 class='text-white'>" + text + "</h5>" + 
-			this.styleFunctions.button.apply( this, [ themeIcon + " dbCloser", icon, "" ] ) +
+		return "<div class='ui-header ui-bar-" + themeBar + "'>" + 
+			"<h1 class='ui-title'>" + text + "</h5>" + 
+			this.styleFunctions.button.apply(
+				this,
+				[ themeIcon + " dbCloser ui-btn-right", icon, "" ]
+			) +
 			"</div>";
 	},
 
@@ -229,39 +234,42 @@ JTSageDateBox.styleFunctions = {
 		);
 	},
 
-	/**
-	 * Make the header for calbox (month, year, prev/next buttons)
-	 * 
-	 * Previous button MUST have the "dbCalPrev" class
-	 * Next button MUST have the "dbCalNext" class
-	 * 
-	 * @param  {string} txt Text to display
-	 * @param  {string} firstBtnIcn Previous button icon (name or SVG)
-	 * @param  {string} firstBtnCls Previous button theme class
-	 * @param  {string} secondBtnIcn Next button icon (name or SVG)
-	 * @param  {string} secondBtnCls Next button theme class
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
+	/*
+	 * Make the header for something (month, year, prev/next buttons)
 	 */
-	calHeader             : function ( txt, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
-		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
+	genHeader             : function ( txt, icn1, cls1, icn2, cls2, ctl1, ctl2 ) {
+		var returnVal = $("<div class='ui-header' style='border:0; padding: 0 3px 8px;'>");
 
 		$( this.styleFunctions.button.apply( this, [ 
-			firstBtnCls + " mx-2 dbCalPrev",
-			firstBtnIcn,
+			cls1 + " ui-btn-left " + ctl1,
+			icn1,
 			""
 		] ) ).appendTo( returnVal );
 
-		$("<h5>" + txt + "</h5>").appendTo( returnVal );
+		$("<h1 class='ui-title' style='margin: 0 15%'>" + txt + "</h1>").appendTo( returnVal );
 
 		$( this.styleFunctions.button.apply( this, [
-			secondBtnCls + " mx-2 dbCalNext",
-			secondBtnIcn,
+			cls2 + " ui-btn-right " + ctl2,
+			icn2,
 			""
 		] ) ).appendTo( returnVal );
 
 		return returnVal;
+	},
+
+	/*
+	 * Make the header for calbox (month, year, prev/next buttons)
+	 */
+	calHeader             : function ( txt, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
+		return this.styleFunctions.genHeader.apply( this, [
+			txt,
+			firstBtnIcn,
+			firstBtnCls,
+			secondBtnIcn,
+			secondBtnCls,
+			"dbCalPrev",
+			"dbCalNext"
+		] );
 	},
 
 	/*
@@ -284,88 +292,117 @@ JTSageDateBox.styleFunctions = {
 	 * Create a clickable box for each grid item in calbox.
 	 */
 	calButton             : function ( data, totalElements ) {
-		var style = ( totalElements !== undefined ?
-				" style='padding:0; margin: 0; width: " + ( 100 / totalElements ) + "%'" :
-				""
-			),
-			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls = "class='dbEvent ui-btn ui-mini ui-btn-" + 
-				data.theme + ( data.bad ? " disabled":"" ) + "'";
-
-		return $("<td" + style + ">" +
-            "<a style='margin:0;padding-right:0;padding-left:0;' href='#' " +
-            cls + " " + disable + ">" + 
-			data.displayText + 
-			"</a>" + "</td>");
+		var styles_TD = [
+				"padding:0",
+				"margin:0",
+				"width:" + ( 100 / totalElements ) + "%"
+			],
+			styles_A  = [
+				"margin:0",
+				"padding-right:0",
+				"padding-left:0"
+			],
+			class_A   = [
+				"dbEvent",
+				"ui-btn",
+				"ui-mini",
+				"ui-btn-" + data.theme,
+				( data.bad ? "ui-disabled" : "" )
+			],
+			disable   = ( data.bad ? "disabled='disabled'" : "");
+		
+		return $( 
+			"<td style='" + styles_TD.join( ";" ) + "'>" +
+			"<a style='" + styles_A.join( ";" ) +
+				"' class='" + class_A.join( " " ) + "' href='#' " + disable + ">" +
+			data.displayText +
+			"</a></td>"
+		);
 	},
 
 	/*
 	 * Create a non-button calbox grid box
 	 */
 	calNonButton          : function ( text, header, totalElements ) {
-		var style = ( totalElements !== undefined ?
-				" style='text-align:center;padding:0;margin:0;width:" + (100/totalElements) + "%'" :
-				""
-			),
-			cls = ( header ) ? " font-weight-bold" : "";
+		var styles = [
+				"text-align:center",
+				"padding:0",
+				"margin:0",
+				"width:" + ( 100 / totalElements ) + "%",
+				( header ) ? "font-weight:bold" : ""
+			];
 
-		return $("<td class='m-0 p-0 text-center" + cls + "'" + style + ">" + text + "</td>");
+		return $("<td style='" + styles.join( ";" ) + "'>" + text + "</td>");
 	},
 
-	/**
-	 * Create the year and month picker for calbox.
-	 * 
-	 * Month picker MUST have the "dbCalPickMonth" class
-	 * Year picker MUST have the "dbCalPickYear" class 
-	 *
-	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}.
-	 * 
-	 * @param  {object} ranges Year and Month arrays
-	 * @param {array} ranges.year Containing arrays of [ value, text, selected (boolean) ]
-	 * @param {array} ranges.month Containing arrays of [ value, text, selected (boolean) ]
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
-	 */
-	calPickers            : function ( ranges ) {
-		var returnVal = "";
+	/* Generic pickers */
+	genPickers            : function ( ranges, ctlMonth, ctlYear ) {
+		var returnVal = "<div style='padding-bottom: 8px' class='" +
+			"ui-controlgroup ui-controlgroup-horizontal ui-corner-all ui-mini'>";
 
-		returnVal += "<div class='row my-2 mx-1'>";
+		returnVal += "<div class='ui-controlgroup-controls' style='width:100%'>";
 
-		returnVal += "<div class='col-sm-8 p-0 m-0'>";
-		returnVal += this._stdSel( ranges.month, "dbCalPickMonth", "form-control" );
-  		returnVal += "</div>";
+		returnVal += "<div class='ui-select' style='width:60%'>";
+		returnVal += "<div id='" + ctlMonth + "-button' " + 
+			"class='ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow'>";
+		$.each( ranges.month, function(idx, value) {
+			if ( value[2] === true ) {
+				returnVal += "<span>" + value[1] + "</span>";
+			}
+		});
+		returnVal += this._stdSel( ranges.month, ctlMonth, "" );
+		returnVal += "</div></div>";
 
-		returnVal += "<div class='col-sm-4 p-0 m-0'>";
-		returnVal += this._stdSel( ranges.year, "dbCalPickYear", "form-control" );
-  		returnVal += "</div>";
+		returnVal += "<div class='ui-select' style='width:40%'>";
+		returnVal += "<div id='" + ctlYear + "-button' class='" +
+			"ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow ui-last-child'>";
+		$.each( ranges.year, function(idx, value) {
+			if ( value[2] === true ) {
+				returnVal += "<span>" + value[1] + "</span>";
+			}
+		});
+		returnVal += this._stdSel( ranges.year, ctlYear, "" );
+		returnVal += "</div></div>";
 
-		returnVal += "</div>";
+		returnVal += "</div></div>";
 
 		return $(returnVal);
 	},
 
-	/**
-	 * Make the calendar drop down quick pick list.
-	 * 
-	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}
-	 *
-	 * @param {string} listLabel Label for the list
-	 * @param {array} list Containing arrays of [ value, text, selected (boolean) ]
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
+	/*
+	 * Create the year and month picker for calbox.
 	 */
-	calDateList           : function ( listLabel, list ) {
+	calPickers            : function ( ranges ) {
+		return this.styleFunctions.genPickers.apply(
+			this,
+			[ ranges, "dbCalPickMonth", "dbCalPickYear" ]
+		);
+	},
+
+	/*
+	 * Make the calendar drop down quick pick list.
+	 */
+	genDateList           : function ( listLabel, list, ctl ) {
 		var returnVal = "";
 
 		list.unshift([false, listLabel, true]);
 
-		returnVal += "<div class='row my-2 mx-1'>";
-		returnVal += this._stdSel( list, "dbCalPickList", "form-control" );
-		returnVal += "</div>";
+		returnVal += "<div class='ui-select'>";
+		returnVal += "<div id='" + ctl + "-button' style='margin: 0 .446em 8px;' class='" +
+			"ui-mini ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all'>";
+		
+		returnVal += "<span>" + listLabel + "</span>";
+		returnVal += this._stdSel( list, ctl, "" );
+		returnVal += "</div></div>";
 
 		return $(returnVal);
+	},
+
+	calDateList           : function ( listLabel, list ) {
+		return this.styleFunctions.genDateList.apply(
+			this,
+			[ listLabel, list, "dbCalPickList" ]
+		);
 	},
 
 	/**
