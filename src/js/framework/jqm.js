@@ -8,8 +8,8 @@
 	 * 
 	 * CalBox   : A+
      * DateBox  : A+
-     * FlipBox  : F (not yet)
-     * SlideBox : A+ (could use some borders maybe)
+     * FlipBox  : A+
+     * SlideBox : A+
 	 * 
      * @author J.T.Sage <jtsage+datebox@gmail.com>
      * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
@@ -137,60 +137,42 @@ JTSageDateBox.styleFunctions = {
 		return $("<div class='ui-controlgroup " + cls + "'>").append( inner );
 	},
 
-	/**
-	 * Wrap the original input in a div so we can add a button to it
-	 * 
-	 * @param  {object} originalInput Original input element, jQuery object
-	 * @return {object} jQuery object now wrapped with some sort of div
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
+	/*
+	 * Wrap the original input in a div so we can add a button to it (not really in this mode.)
 	 */
 	baseInputWrap         : function ( originalInput ) { 
 		/* Set up a wrap around the input for styling, and return it */
-		return originalInput.wrap("<div class='input-group'>").parent();
+		return originalInput.parent().addClass("ui-input-has-clear");
 	},
 
-	/**
+	/*
 	 * Create the open button that is added to the input
-	 * 
-	 * MUST contain dbOpenButton class. (outer)
-	 * 
-	 * @param  {string} icon Icon to use (name or SVG)
-	 * @param  {string} title Hover text for the button
-	 * @return {string} Rendered HTML of the open button
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	baseInputButton       : function ( icon, title ) {
-		return "<div class='dbOpenButton input-group-append' title='" + title + "'>" +
-			"<div class='input-group-text'>" + 
-			"<span>" + this.icons.getIcon( icon ) + "</span>" + 
-			"</div></div>";
+		return "<a href='javascript: return false;' " +
+			"class='ui-input-clear ui-btn ui-icon-" + icon + " ui-btn-icon-notext ui-corner-all' " +
+			"title='" + title + "'>" + title + "</a>";
 	},
 
-	/**
+	/*
 	 * When not using the open button, we may need to alter the wrap class differently
-	 * 
-	 * @param  {object} originalInputWrap jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	baseInputNoButton     : function ( originalInputWrap ) {
-		originalInputWrap.addClass( "w-100" );
+		originalInputWrap.parent().removeClass( "ui-has-clear" );
 	},
 
 	/*
 	 * Run when the input is focused
 	 */
-	focusInput            : function ( originalInput ) {
-		originalInput.addClass( "ui-focus" );
+	focusInput            : function ( ) {
+		return true;
 	},
 
 	/*
 	 * Run when the input is un-focused
 	 */
-	blurInput             : function ( originalInput ) {
-		originalInput.removeClass( "ui-focus" );
+	blurInput             : function ( ) {
+		return true;
 	},
 
 	/*
