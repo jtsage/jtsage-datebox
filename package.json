@@ -4,9 +4,11 @@
   "description": "Plugin to provide a CSS framework agnostic Date and Time Picker",
   "version": "5.0.0",
   "supports": {
-    "bootstrap": "4.3.1",
-    "bootstrap": "3.4.1",
-    "zurb-foundation": "6.5.3"
+    "bootstrap-v3": "4.3.1",
+    "bootstrap-v4": "3.4.1",
+    "zurb-foundation": "6.5.3",
+    "bulma": "0.7.4",
+    "jquery-mobile": "1.4.5"
   },
   "homepage": "http://datebox.jtsage.dev/",
   "author": {
