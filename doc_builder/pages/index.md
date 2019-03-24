@@ -66,8 +66,6 @@ DateBox is extreamlly full featured.  Included are:
 
 DateBox requires the [Popper.js](https://popper.js.org/) and [jQueryUI](https://jqueryui.com/) library. Built versions of DateBox include both in their source files, unless the framework in use typically requires one already. (Example: the Bootstrap 4 build does not include popper.js, as Bootstrap already does).
 
-If your CSS framework does not include icons, [FontAwesome](https://fontawesome.com/) is also required.
-
 ## Frameworks
 
 DateBox is currently has builds for the following:
