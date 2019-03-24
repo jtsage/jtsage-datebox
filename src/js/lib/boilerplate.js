@@ -263,7 +263,7 @@ JTSageDateBox.open = function () {
 			o.theme_headerBtnCls,
 			o.theme_headerBtnIcn
 		] ) ) )
-		.find( ".dbCloser" ).on( o.clickEventAlt, function( e ) {
+		.find( ".dbCloser" ).on( o.clickEvent, function( e ) {
 			e.preventDefault();
 			w._t( { method: "close", closeCancel: true } );
 		} );
@@ -576,7 +576,7 @@ JTSageDateBox._stdBtn = {
 				o.theme_cancelBtnIcn,
 				w.__("cancelButton")
 			] ) )
-			.on(o.clickEventAlt, function (e) {
+			.on(o.clickEvent, function (e) {
 				e.preventDefault();
 				w._t({ method: "close", closeCancel: true });
 			});
@@ -595,7 +595,7 @@ JTSageDateBox._stdBtn = {
 				o.theme_clearBtnIcn,
 				w.__("clearButton")
 			] ) )
-			.on(o.clickEventAlt, function(e) {
+			.on(o.clickEvent, function(e) {
 				e.preventDefault();
 				w.d.input.val("");
 				w._t( { method: "clear" } );
@@ -624,8 +624,9 @@ JTSageDateBox._stdBtn = {
 			.addClass( "" +
 				( ( w.dateOK === true ) ? "" : "disabled")
 			)
-			.on(o.clickEventAlt, function(e) {
+			.on(o.clickEvent, function(e) {
 				e.preventDefault();
+				console.log('aaa');
 				if ( w.dateOK === true ) {
 					if ( trigger === false ) {
 						w._t( {
@@ -655,7 +656,7 @@ JTSageDateBox._stdBtn = {
 				o.theme_todayBtnIcn,
 				w.__("todayButtonLabel")
 			] ) )
-			.on(o.clickEventAlt, function(e) {
+			.on(o.clickEvent, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date());
 				w._t( { method: "doset" } );
@@ -676,7 +677,7 @@ JTSageDateBox._stdBtn = {
 				o.theme_tomorrowBtnIcn,
 				w.__("tomorrowButtonLabel") 
 			] ) )
-			.on(o.clickEventAlt, function(e) {
+			.on(o.clickEvent, function(e) {
 				e.preventDefault();
 				w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
 				w._t( { method: "doset" } );
