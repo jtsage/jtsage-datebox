@@ -92,6 +92,24 @@ If you prefer to have the files elsewhere, complete (all modes) builds are avail
 <script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@{{cnf:version}}/jtsage-datebox.min.js" type="text/javascript"></script>
 ```
 
+##### Bulma
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bulmas@{{cnf:version}}/jtsage-datebox.min.js" type="text/javascript"></script>
+```
+
+##### Foundation v6
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-foundation6@{{cnf:version}}/jtsage-datebox.min.js" type="text/javascript"></script>
+```
+
+##### jQueryMobile
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqm@{{cnf:version}}/jtsage-datebox.min.js" type="text/javascript"></script>
+```
+
 ### Language / Localization
 
 You should (but are not required) to include at least one language file. The defaults in DateBox are sort of an international english, with a bent of following ISO-8601. To find the most appropriate language, browse the list on the [i18n CDN](https://cdn.jsdelivr.net/npm/jtsage-datebox-i18n/). It is also possible to serve the ".lang" file and leverage the ___useLang___ option (discussed later).
@@ -101,4 +119,6 @@ You should (but are not required) to include at least one language file. The def
 <script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-i18n/jquery.mobile.datebox.i18n.en_US.utf8.js" type="text/javascript" ></script>
 ```
 
+## Upgradeing
 
+Upgrading from version 4?  Most things will work as-is.  Check out the UPGRADEING.md document in the repository for details.
