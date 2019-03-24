@@ -60,6 +60,7 @@ mergeOpts({
 	theme_dbox_NextBtnCls : "outline-dark",
 	theme_dbox_PrevBtnIcn : "minus",
 	theme_dbox_PrevBtnCls : "outline-dark",
+	theme_dbox_Inputs     : "inherit",
 
 	theme_fbox_Selected   : "a ui-flipswitch-active",
 	theme_fbox_Default    : "a",
@@ -104,7 +105,7 @@ mergeOpts({
 	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 });
 
-JTSageDateBox.baseMode = "bootstrap4";
+JTSageDateBox.baseMode = "jqm";
 
 JTSageDateBox.styleFunctions = {
 	/*
@@ -388,7 +389,7 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Make a datebox +/-/input control
 	 */
-	dboxControl           : function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label ) {
+	dboxControl           : function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label, inCls ) {
 		var returnVal = "";
 
 		returnVal += "<td class='dbBox" + mainCls + "'>";
@@ -407,7 +408,7 @@ JTSageDateBox.styleFunctions = {
 		}
 
 		returnVal += "<div style='margin:0' " +
-			"class='ui-input-text ui-mini ui-body-inherit'>";
+			"class='ui-input-text ui-mini ui-body-" + inCls + "'>";
 		returnVal += "<input style='padding:0;text-align:center' type='text'></div>";
 
 		

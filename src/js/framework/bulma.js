@@ -59,6 +59,7 @@ mergeOpts({
 	theme_dbox_NextBtnCls : "is-outlined is-dark",
 	theme_dbox_PrevBtnIcn : "minus",
 	theme_dbox_PrevBtnCls : "is-outlined is-dark",
+	theme_dbox_Inputs     : false, //UNUSED
 
 	theme_fbox_Selected   : "is-success",
 	theme_fbox_Default    : "is-light",

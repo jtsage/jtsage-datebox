@@ -59,6 +59,7 @@ mergeOpts({
 	theme_dbox_NextBtnCls : "hollow seconday",
 	theme_dbox_PrevBtnIcn : "minus",
 	theme_dbox_PrevBtnCls : "hollow seconday",
+	theme_dbox_Inputs     : false, //UNUSED
 
 	theme_fbox_Selected   : "success",
 	theme_fbox_Default    : "primary",

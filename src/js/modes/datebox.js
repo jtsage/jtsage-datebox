@@ -244,7 +244,8 @@ JTSageDateBox._build.datebox = function () {
 			o.theme_dbox_NextBtnIcn,
 			o.theme_dbox_NextBtnCls,
 			w.fldOrder[i],
-			( dur ) ? w.__( "durationLabel" )[ $.inArray( w.fldOrder[i], defDurOrder ) ] : null
+			( dur ) ? w.__( "durationLabel" )[ $.inArray( w.fldOrder[i], defDurOrder ) ] : null,
+			o.theme_dbox_Inputs
 		] );
 		ctrlWrk.find( "input" ).data({ 
 			field: w.fldOrder[i],
