@@ -277,11 +277,11 @@ JTSageDateBox.styleFunctions = {
 
 		returnVal += "<div class='column is-8'><div class='select is-fullwidth'>";
 		returnVal += this._stdSel( ranges.month, "dbCalPickMonth", "" );
-  		returnVal += "</div></div>";
+		returnVal += "</div></div>";
 
 		returnVal += "<div class='column is-4'><div class='select is-fullwidth'>";
 		returnVal += this._stdSel( ranges.year, "dbCalPickYear", "" );
-  		returnVal += "</div></div>";
+		returnVal += "</div></div>";
 
 		returnVal += "</div>";
 
