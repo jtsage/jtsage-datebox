@@ -467,7 +467,7 @@ JTSageDateBox._drag.flipbox          = function () {
 				e.originalEvent.changedTouches[0].pageY : 
 				e.pageY;
 
-			g.target.attr("style", "margin-top: " + (g.pos + g.end - g.start) + "px !important" );
+			g.target.css("margin-top", (g.pos + g.end - g.start) );
 
 			g.elapsed = Date.now()-g.time;
 			g.velocity = 0.8 * ( 100 * (g.end - g.start) / ( 1 + g.elapsed ) ) + 0.2 * g.velocity;

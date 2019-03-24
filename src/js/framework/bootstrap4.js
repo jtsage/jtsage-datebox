@@ -771,7 +771,8 @@ JTSageDateBox.styleFunctions = {
 
 				if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
 
-				firstItem.attr( "style", "margin-top: " + intended_Top + "px !important" );
+				//firstItem.attr( "style", "margin-top: " + intended_Top + "px !important" );
+				firstItem.css("margin-top", intended_Top);
 			}
 		});
 	}
