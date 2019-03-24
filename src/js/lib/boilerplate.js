@@ -626,7 +626,7 @@ JTSageDateBox._stdBtn = {
 			)
 			.on(o.clickEvent, function(e) {
 				e.preventDefault();
-				console.log('aaa');
+
 				if ( w.dateOK === true ) {
 					if ( trigger === false ) {
 						w._t( {
