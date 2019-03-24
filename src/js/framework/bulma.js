@@ -195,7 +195,7 @@ JTSageDateBox.styleFunctions = {
 	 * Make the header for calbox (month, year, prev/next buttons)
 	 */
 	calHeader             : function ( txt, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
-		var returnVal = $("<div class='columns is-vcentered' style='padding:.3em'>");
+		var returnVal = $("<div class='columns is-mobile is-vcentered' style='padding:.3em'>");
 
 		$("<div class='column is-2'>").append(
 			$( this.styleFunctions.button.apply( this, [ 
@@ -272,7 +272,7 @@ JTSageDateBox.styleFunctions = {
 	calPickers            : function ( ranges ) {
 		var returnVal = "";
 
-		returnVal += "<div class='columns is-gapless' style='padding:.3em'>";
+		returnVal += "<div class='columns is-mobile is-gapless' style='padding:.3em'>";
 
 		returnVal += "<div class='column is-8'><div class='select is-fullwidth'>";
 		returnVal += this._stdSel( ranges.month, "dbCalPickMonth", "" );
@@ -315,7 +315,7 @@ JTSageDateBox.styleFunctions = {
 	 */
 	dboxRow               : function () {
 		return $(
-			"<div class='columns is-gapless' " +
+			"<div class='columns is-mobile is-gapless' " +
 			"style='padding-left:.3em; padding-right: .3em; margin-bottom: .3em' >"
 		);
 	},
@@ -357,7 +357,7 @@ JTSageDateBox.styleFunctions = {
 	 */
 	fboxContainer         : function ( size ) {
 		return $(
-			"<div class='columns is-gapless' style='margin: 0; padding: 0 3px; height: " + 
+			"<div class='columns is-mobile is-gapless' style='margin: 0; padding: 0 3px; height: " +
 			size + 
 			"; overflow: hidden'>"
 		);
@@ -368,7 +368,7 @@ JTSageDateBox.styleFunctions = {
 	 */
 	fboxDurLabels         : function ( ) {
 		return $(
-			"<div class='columns is-gapless' style='margin-bottom: 0px;'>"
+			"<div class='columns is-mobile is-gapless' style='margin-bottom: 0px;'>"
 		);
 	},
 
@@ -423,7 +423,7 @@ JTSageDateBox.styleFunctions = {
 	 * Make the header for slidebox
 	 */
 	slideHeader           : function ( txt, prevBtnIcn, prevBtnCls, nextBtnIcn, nextBtnCls ) {
-		var returnVal = $("<div class='columns is-vcentered' style='padding:.3em'>");
+		var returnVal = $("<div class='columns is-mobile is-vcentered' style='padding:.3em'>");
 
 		$("<div class='column is-2'>").append(
 			$( this.styleFunctions.button.apply( this, [ 
@@ -453,7 +453,7 @@ JTSageDateBox.styleFunctions = {
 	slidePickers            : function ( ranges ) {
 		var returnVal = "";
 
-		returnVal += "<div class='columns is-gapless' style='padding:.3em'>";
+		returnVal += "<div class='columns is-mobile is-gapless' style='padding:.3em'>";
 
 		returnVal += "<div class='column is-8'><div class='select is-fullwidth'>";
 		returnVal += this._stdSel( ranges.month, "dbSlidePickMonth", "" );
