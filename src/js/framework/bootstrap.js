@@ -3,8 +3,6 @@
      * @fileOverview BootStrap v3 Themes and StyleFunctions
      * This file supports: datebox, flipbox, slidebox, calbox.
 	 * 
-	 * Warning - copying with docs intact will duplicate sections of the jsDoc output.
-	 * 
      * @author J.T.Sage <jtsage+datebox@gmail.com>
      * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
      * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}

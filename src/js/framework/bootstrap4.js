@@ -2,6 +2,12 @@
      * JTSage-DateBox
      * @fileOverview BootStrap v4 Themes and StyleFunctions
      * This file supports: datebox, flipbox, slidebox, calbox.
+     * 
+     * calbox: A+
+     * datebox: A+
+     * slidebox: A+
+     * flipbox: A+
+     * 
      * @author J.T.Sage <jtsage+datebox@gmail.com>
      * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
      * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
@@ -33,9 +39,9 @@ mergeOpts({
 	theme_headerBtnCls : "outline-secondary",
 	theme_headerBtnIcn : "cancel",
 
-	theme_cal_Today       : "outline-info",
+	theme_cal_Today       : "info",
 	theme_cal_DayHigh     : "outline-warning",
-	theme_cal_Selected    : "outline-success",
+	theme_cal_Selected    : "success",
 	theme_cal_DateHigh    : "outline-warning",
 	theme_cal_DateHighAlt : "outline-danger",
 	theme_cal_DateHighRec : "outline-warning",
@@ -76,23 +82,23 @@ mergeOpts({
 	theme_slide_PrevDateBtnCls : "outline-dark border-0",
 
 	theme_backgroundMask : {
-		position: "fixed",
-		left: 0,
-		top: 0,
-		right: 0,
-		bottom: 0,
-		backgroundColor: "rgba(0,0,0,.4)"
+		position          : "fixed",
+		left              : 0,
+		top               : 0,
+		right             : 0,
+		bottom            : 0,
+		backgroundColor   : "rgba(0,0,0,.4)"
 	},
 	theme_headStyle : false,
 	theme_spanStyle : false,
 
-	buttonIconDate: "calendar",
-	buttonIconTime: "clock",
+	buttonIconDate : "calendar",
+	buttonIconTime : "clock",
 
 	disabledState  : "disabled",
 
-	clickEvent: "click",
-	tranDone: "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
+	clickEvent : "click",
+	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 });
 
 JTSageDateBox.baseMode = "bootstrap4";
@@ -141,7 +147,6 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	baseInputWrap         : function ( originalInput ) { 
-		/* Set up a wrap around the input for styling, and return it */
 		return originalInput.wrap("<div class='input-group'>").parent();
 	},
 
@@ -230,10 +235,42 @@ JTSageDateBox.styleFunctions = {
 	 */
 	intHeader             : function ( text ) {
 		return $(
-			"<div class='my-2 text-center dbHeader'>" +
-			"<h5>" + text + "</h5>" +
-			"</div>"
+			"<div class='my-2 text-center dbHeader'><h5>" + text + "</h5></div>"
 		);
+	},
+
+	/**
+	 * Make the header for calbox / slidebox (generic) 
+	 * 
+	 * @param  {string} txt Text to display
+	 * @param  {string} prevIcn Previous button icon (name or SVG)
+	 * @param  {string} prevCls Previous button theme class
+	 * @param  {string} nextIcn Next button icon (name or SVG)
+	 * @param  {string} nextCls Next button theme class
+	 * @param  {string} prevCtl Control class for previous button
+	 * @param  {string} nextCtl Control class for next button
+	 * @return {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
+	genHeader             : function ( txt, prevIcn, prevCls, nextIcn, nextCls, prevCtl, nextCtl ) {
+		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
+
+		$( this.styleFunctions.button.apply( this, [ 
+			prevCls + " mx-2 " + prevCtl,
+			prevIcn,
+			""
+		] ) ).appendTo( returnVal );
+
+		$("<h5>" + txt + "</h5>").appendTo( returnVal );
+
+		$( this.styleFunctions.button.apply( this, [
+			nextCls + " mx-2 " + nextCtl,
+			nextIcn,
+			""
+		] ) ).appendTo( returnVal );
+
+		return returnVal;
 	},
 
 	/**
@@ -243,32 +280,25 @@ JTSageDateBox.styleFunctions = {
 	 * Next button MUST have the "dbCalNext" class
 	 * 
 	 * @param  {string} txt Text to display
-	 * @param  {string} firstBtnIcn Previous button icon (name or SVG)
-	 * @param  {string} firstBtnCls Previous button theme class
-	 * @param  {string} secondBtnIcn Next button icon (name or SVG)
-	 * @param  {string} secondBtnCls Next button theme class
+	 * @param  {string} prevIcn Previous button icon (name or SVG)
+	 * @param  {string} prevCls Previous button theme class
+	 * @param  {string} nextIcn Next button icon (name or SVG)
+	 * @param  {string} nextCls Next button theme class
 	 * @return {object} jQuery Object
 	 * @memberof JTSageDateBox.styleFunctions
 	 * @this JTSageDateBox
 	 */
-	calHeader             : function ( txt, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
-		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
-
-		$( this.styleFunctions.button.apply( this, [ 
-			firstBtnCls + " mx-2 dbCalPrev",
-			firstBtnIcn,
-			""
-		] ) ).appendTo( returnVal );
-
-		$("<h5>" + txt + "</h5>").appendTo( returnVal );
-
-		$( this.styleFunctions.button.apply( this, [
-			secondBtnCls + " mx-2 dbCalNext",
-			secondBtnIcn,
-			""
-		] ) ).appendTo( returnVal );
-
-		return returnVal;
+	calHeader             : function ( txt, prevIcn, prevCls, nextIcn, nextCls ) {
+		// Actually use a general header, works for both calbox and slidebox.
+		return this.styleFunctions.genHeader.apply( this, [
+			txt,
+			prevIcn,
+			prevCls,
+			nextIcn,
+			nextCls,
+			"dbCalPrev",
+			"dbCalNext"
+		] );
 	},
 
 	/**
@@ -285,8 +315,6 @@ JTSageDateBox.styleFunctions = {
 	/**
 	 * Create a calbox grid row.  Probably a tr
 	 * 
-	 * this = styleFunctions
-	 * 
 	 * @return {object} jQuery object
 	 * @memberof JTSageDateBox.styleFunctions
 	 * @this JTSageDateBox.styleFunctions
@@ -300,12 +328,12 @@ JTSageDateBox.styleFunctions = {
 	 * 
 	 * MUST have the "dbEvent" class
 	 * 
-	 * @param {object} data Date information object
-	 * @param {boolean} data.bad True if the date is invalid
-	 * @param {boolean} data.good True if the date is valid
-	 * @param {string} data.theme Theme class for the button
-	 * @param {string} data.displayText Text of the date
-	 * @param {object} data.dateObj Date object
+	 * @param {object}  data             Date information object
+	 * @param {boolean} data.bad         True if the date is invalid
+	 * @param {boolean} data.good        True if the date is valid
+	 * @param {string}  data.theme       Theme class for the button
+	 * @param {string}  data.displayText Text of the date
+	 * @param {object}  data.dateObj     Date object
 	 * 
 	 * @param  {number} totalElements Number of elements in the row ( 7 or 8 )
 	 * @return {object} jQuery Object
@@ -313,18 +341,30 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	calButton             : function ( data, totalElements ) {
-		var style = ( totalElements !== undefined ?
-				" style='width: " + ( 100 / totalElements ) + "%'" :
-				""
-			),
-			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls = "class='dbEvent w-100 btn-sm btn btn-" + 
-				data.theme + ( data.bad ? " disabled":"" ) + "'";
+		var styles_TD = [
+				"width : " + ( 100 / totalElements ) + "%"
+			],
+			class_TD = [
+				"m-0",
+				"p-0",
+				"text-center"
+			],
+			class_A = [
+				"dbEvent",
+				"w-100",
+				"btn-sm",
+				"btn",
+				"btn-" + data.theme,
+				( data.bad ? " disabled":"" )
+			],
+			disable = ( data.bad ? "disabled='disabled'" : "" );
 
-		return $("<td class='m-0 p-0 text-center'" + style + ">" +
-			"<a href='#' " + cls + " " + disable + ">" + 
+		return $(
+			"<td class='" + class_TD.join( " " ) + "' style='" + styles_TD.join( ";" ) + "'>" +
+			"<a href='#' class='" + class_A.join( " " ) + "' " + disable + ">" + 
 			data.displayText + 
-			"</a>" + "</td>");
+			"</a>" + "</td>"
+		);
 	},
 
 	/**
@@ -338,13 +378,48 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	calNonButton          : function ( text, header, totalElements ) {
-		var style = ( totalElements !== undefined ?
-				" style='width: " + ( 100 / totalElements ) + "%'" :
-				""
-			),
-			cls = ( header ) ? " font-weight-bold" : "";
+		var styles_TD =
+				"width : " + ( 100 / totalElements ) + "%",
+			class_TD = [
+				"m-0",
+				"p-0",
+				"text-center",
+				( header ) ? "font-weight-bold" : ""
+			];
 
-		return $("<td class='m-0 p-0 text-center" + cls + "'" + style + ">" + text + "</td>");
+		return $(
+			"<td class='" + class_TD.join( " " ) + "' style='" + styles_TD + "'>" + text + "</td>"
+		);
+	},
+
+	/**
+	 * Create the year and month picker for calbox / slidebox
+	 * 
+	 * @param  {object} ranges Year and Month arrays
+	 * @param {array} ranges.year Containing arrays of [ value, text, selected (boolean) ]
+	 * @param {array} ranges.month Containing arrays of [ value, text, selected (boolean) ]
+	 * @param {string} monthCtl Control class for month picker
+	 * @param {string} yearCtl Control class for year picker
+	 * @return {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
+	genPickers            : function ( ranges, monthCtl, yearCtl ) {
+		var returnVal = "";
+
+		returnVal += "<div class='row my-2 mx-1'>";
+
+		returnVal += "<div class='col-sm-8 p-0 m-0'>";
+		returnVal += this._stdSel( ranges.month, monthCtl, "form-control" );
+  		returnVal += "</div>";
+
+		returnVal += "<div class='col-sm-4 p-0 m-0'>";
+		returnVal += this._stdSel( ranges.year, yearCtl, "form-control" );
+  		returnVal += "</div>";
+
+		returnVal += "</div>";
+
+		return $(returnVal);
 	},
 
 	/**
@@ -363,18 +438,32 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	calPickers            : function ( ranges ) {
+		return this.styleFunctions.genPickers.apply( this, [
+			ranges,
+			"dbCalPickMonth",
+			"dbCalPickYear"
+		] );
+	},
+
+	/**
+	 * Make the calbox/slidebox drop down quick pick list.
+	 * 
+	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}
+	 *
+	 * @param {string} listLabel Label for the list
+	 * @param {array} list Containing arrays of [ value, text, selected (boolean) ]
+	 * @param {string} ctlCls Control class for select
+	 * @return {object} jQuery Object
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
+	genDateList           : function ( listLabel, list, ctlCls ) {
 		var returnVal = "";
 
+		list.unshift([false, listLabel, true]);
+
 		returnVal += "<div class='row my-2 mx-1'>";
-
-		returnVal += "<div class='col-sm-8 p-0 m-0'>";
-		returnVal += this._stdSel( ranges.month, "dbCalPickMonth", "form-control" );
-  		returnVal += "</div>";
-
-		returnVal += "<div class='col-sm-4 p-0 m-0'>";
-		returnVal += this._stdSel( ranges.year, "dbCalPickYear", "form-control" );
-  		returnVal += "</div>";
-
+		returnVal += this._stdSel( list, ctlCls, "form-control" );
 		returnVal += "</div>";
 
 		return $(returnVal);
@@ -392,15 +481,11 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	calDateList           : function ( listLabel, list ) {
-		var returnVal = "";
-
-		list.unshift([false, listLabel, true]);
-
-		returnVal += "<div class='row my-2 mx-1'>";
-		returnVal += this._stdSel( list, "dbCalPickList", "form-control" );
-		returnVal += "</div>";
-
-		return $(returnVal);
+		return this.styleFunctions.genDateList.apply( this, [
+			listLabel,
+			list,
+			"dbCalPickList"
+		] );
 	},
 
 	/**
@@ -411,7 +496,7 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	dboxContainer         : function () {
-		return $("<div>");
+		return $( "<div>" );
 	},
 
 	/**
@@ -422,7 +507,7 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	dboxRow               : function () {
-		return $("<div class='d-flex p-1'>");
+		return $( "<div class='d-flex p-1'>" );
 	},
 
 	/**
@@ -430,6 +515,7 @@ JTSageDateBox.styleFunctions = {
 	 * 
 	 * Next button MUST have "dbBoxNext" class
 	 * Previous button MUST have "dbBoxPrev" class
+	 * Container must have "mainCls"
 	 *
 	 * @param {string} prevIcn Previous button icon (name or SVG)
 	 * @param {string} prevCls Previous button theme class
@@ -570,35 +656,27 @@ JTSageDateBox.styleFunctions = {
 	 * Make the header for slidebox
 	 * 
 	 * Previous button MUST have "dbSlidePrev" class
-	 * Next button MUST have "sbSlideNext" class
+	 * Next button MUST have "dbSlideNext" class
 	 *
 	 * @param {string} txt Text of header
-	 * @param {string} prevBtnIcn Previous button icon ( name or SVG )
-	 * @param {string} prevBtnCls Previous button theme class
-	 * @param {string} nextBtnIcn Next button icon ( name or SVG )
-	 * @param {string} nextBtnCls Nevt button theme class
+	 * @param {string} prevIcn Previous button icon ( name or SVG )
+	 * @param {string} prevCls Previous button theme class
+	 * @param {string} nextIcn Next button icon ( name or SVG )
+	 * @param {string} nextCls Nevt button theme class
 	 * @returns {object} jQuery Object
 	 * @memberof JTSageDateBox.styleFunctions
 	 * @this JTSageDateBox
 	 */
-	slideHeader           : function ( txt, prevBtnIcn, prevBtnCls, nextBtnIcn, nextBtnCls ) {
-		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
-
-		$( this.styleFunctions.button.apply( this, [
-			prevBtnCls + " mx-2 dbSlidePrev",
-			prevBtnIcn,
-			""
-		] ) ).appendTo( returnVal );
-
-		$("<h5>" + txt + "</h5>").appendTo( returnVal );
-
-		$( this.styleFunctions.button.apply( this, [ 
-			nextBtnCls + " mx-2 dbSlideNext",
-			nextBtnIcn,
-			""
-		] ) ).appendTo( returnVal );
-
-		return returnVal;
+	slideHeader           : function ( txt, prevIcn, prevCls, nextIcn, nextCls ) {
+		return this.styleFunctions.genHeader.apply( this, [
+			txt,
+			prevIcn,
+			prevCls,
+			nextIcn,
+			nextCls,
+			"dbSlidePrev",
+			"dbSlideNext"
+		] );
 	},
 
 	/**
@@ -617,21 +695,11 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	slidePickers            : function ( ranges ) {
-		var returnVal = "";
-
-		returnVal += "<div class='row my-2 mx-1'>";
-
-		returnVal += "<div class='col-sm-8 p-0 m-0'>";
-		returnVal += this._stdSel( ranges.month, "dbSlidePickMonth", "form-control" );
-  		returnVal += "</div>";
-
-		returnVal += "<div class='col-sm-4 p-0 m-0'>";
-		returnVal += this._stdSel( ranges.year, "dbSlidePickYear", "form-control" );
-  		returnVal += "</div>";
-
-		returnVal += "</div>";
-
-		return $(returnVal);
+		return this.styleFunctions.genPickers.apply( this, [
+			ranges,
+			"dbSlidePickMonth",
+			"dbSlidePickYear"
+		] );
 	},
 
 	/**
@@ -646,15 +714,11 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	slideDateList           : function ( listLabel, list ) {
-		var returnVal = "";
-
-		list.unshift([false, listLabel, true]);
-
-		returnVal += "<div class='row my-2 mx-1'>";
-		returnVal += this._stdSel( list, "dbSlidePickList", "form-control" );
-		returnVal += "</div>";
-
-		return $(returnVal);
+		return this.styleFunctions.genDateList.apply( this, [
+			listLabel,
+			list,
+			"dbSlidePickList"
+		] );
 	},
 
 	/**
@@ -695,16 +759,29 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	slideDateButton         : function ( data ) {
-		var style   = " style='width: " + ( ( 100 / 8 ) ) + "%'",
-			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls     = "class='dbEventS w-100 rounded-circle btn-sm btn btn-" +
-				data.theme + ( data.bad ? " disabled":"" ) + "'";
+		var styles_TD = "width: " + ( 100 / 8 ) + "%",
+			class_TD = [
+				"m-0",
+				"p-0",
+				"text-center"
+			],
+			class_A = [
+				"dbEventS",
+				"w-100",
+				"rounded-circle",
+				"btn-sm",
+				"btn",
+				"btn-" + data.theme,
+				( data.bad ? "disabled" : "" )
+			],
+			disable = ( data.bad ? "disabled='disabled'" : "");
 
-		return $("<td class='m-0 p-0 text-center'" + style + ">" +
-			"<a href='#' " + cls + " " + disable + ">" + 
-			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
-			"</small><br>" + data.dateObj.getDate() +  
-			"</a>" + "</td>");
+		return $(
+			"<td class='" + class_TD.join( " " ) + "' style='" + styles_TD + "'>" +
+			"<a href='#' class='" + class_A.join( " " ) + "' " + disable + ">" + 
+			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] + "</small>" +
+			"<br>" + data.dateObj.getDate() +  
+			"</a></td>");
 	},
 
 	/**
@@ -718,13 +795,25 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	slideMoveButton         : function ( eventCls, icon, theme ) {
-		var style = " style='width: " + ( ( 100 / 8 ) / 2 ) + "%'",
-			cls   = "class='w-100 p-1 rounded-circle btn-sm btn btn-" +
-				theme + " " + eventCls + "'";
+		var styles_TD = "width: " + ( ( 100 / 8 ) / 2 ) + "%",
+			class_TD = [
+				"m-0",
+				"p-0",
+				"text-center"
+			],
+			class_A = [
+				"w-100",
+				"p-1",
+				"rounded-circle",
+				"btn-sm",
+				"btn",
+				"btn-" + theme,
+				eventCls
+			];
 
 		return $(
-			"<td class='m-0 p-0 text-center'" + style + ">" +
-			"<a href='#' " + cls + ">" + 
+			"<td class='" +  class_TD.join( " " ) + "' style='" + styles_TD + "'>" +
+			"<a href='#' class='" + class_A.join( " " ) + "'>" + 
 			this.icons.getIcon( icon )  + "</a></td>"
 		);
 	},
@@ -772,7 +861,6 @@ JTSageDateBox.styleFunctions = {
 
 				if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
 
-				//firstItem.attr( "style", "margin-top: " + intended_Top + "px !important" );
 				firstItem.css("margin-top", intended_Top);
 			}
 		});
