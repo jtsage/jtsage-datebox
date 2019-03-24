@@ -97,7 +97,8 @@ mergeOpts({
 	buttonIconDate : "calendar",
 	buttonIconTime : "clock",
 
-	disabledState  : "disabled",
+	disabledState    : "disabled",
+	flipSizeOverride : 30,
 
 	clickEvent : "vclick",
 	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"

@@ -487,9 +487,13 @@ JTSageDateBox._drag.flipbox          = function () {
 					e.preventDefault();
 					e.stopPropagation();
 					g.tmp = g.target.closest( ".dbRollerC" );
+					eachItem = (o.flipSizeOverride !== false ) ?
+						o.flipSizeOverride :
+						g.target.outerHeight();
+					
 					w._offset(
 						g.tmp.data("field"),
-						( parseInt( ( g.start - g.end ) / ( g.target.outerHeight() - 2 ), 10 ) *
+						( parseInt( ( g.start - g.end ) / ( eachItem ), 10 ) *
 							g.tmp.data( "amount" ) * g.direc ) );
 				}
 				g.start = false;
@@ -500,7 +504,9 @@ JTSageDateBox._drag.flipbox          = function () {
 				g.end = false;
 				g.tmp = g.target.closest( ".dbRollerC" );
 
-				eachItem = g.target.outerHeight();
+				eachItem = (o.flipSizeOverride !== false ) ?
+					o.flipSizeOverride :
+					g.target.outerHeight();
 
 				delta = ( -( g.velocity * 0.8 ) * Math.exp( -g.elapsed / 325 ) * 8 ) * -1;
 
