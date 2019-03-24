@@ -447,7 +447,7 @@ JTSageDateBox.styleFunctions = {
 	 */
 	fboxDurLabel          : function ( text, items ) {
 		return $( 
-			"<div class='text-center' " +
+			"<div " +
 			"style='display:inline-block; text-align:center; width: " + ( 100 / items ) + "%'>" + 
 			text + 
 			"</div>"
