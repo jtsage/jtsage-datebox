@@ -38,6 +38,24 @@
 				return false;
 			}
 		}
+		window.doOptLimit = function() {
+			var newVal = $( "#filterman" ).val().toLowerCase();
+			if ( newVal === "" ) { 
+				$( ".card.d-none" ).removeClass( "d-none" );
+			} else {
+				$( ".card.d-none" ).removeClass( "d-none" );
+				$( ".card .h6" ).each( function () { 
+					if ( $( this ).text().toLowerCase().indexOf( newVal ) === -1 ) { 
+						$( this ).parent().parent().addClass( "d-none" );
+					}
+				}); 
+			}
+		};
+		$(document).on( "keyup change", "#filterman", function() { window.doOptLimit(); });
+		$(document).on( "click", "#filtermanbtn", function(e) { 
+			e.preventDefault();
+			window.doOptLimit();
+		});
 	</script>
 </body>
 </html>
