@@ -31,7 +31,8 @@ func :
       $(input).datebox( "applyMinMax" );
       ```
 
-      This refers to the actual min and max attributes, with are translated to ___minDays___ and ___maxDays
+      This refers to the actual min and max attributes, with are translated to ___minDate___ 
+      and ___maxDate___. (ISO date strings)
 
       DateBox does not "watch" the min/max HTML attributes, other than on widget initialization.
       If you programmatically change them via JavaScript, you will need to run this function to
