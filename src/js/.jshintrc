@@ -16,5 +16,6 @@
 	"indent": 4,
 	"node": true,
 	"loopfunc": true,
-	"predef": [ "jQuery", "document", "window", "setTimeout", "clearTimeout", "$", "JTSageDateBox", "mergeOpts", "Popper" ]
+	"devel": false,
+	"predef": [ "-console", "jQuery", "document", "window", "setTimeout", "clearTimeout", "$", "JTSageDateBox", "mergeOpts", "Popper" ]
 }
