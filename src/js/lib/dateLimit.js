@@ -102,6 +102,27 @@ JTSageDateBox._newDateCheck = {
 
 		return ( testDate.get(0) < testOption ); 
 	},
+	minDate : function ( testDate ) {
+		/* return true if the date is before the minimum */
+		var testOption = this.options.minDate;
+
+		if ( testOption === false ) { return false; }
+
+		testOption = this.parseISO( testOption );
+
+		return ( testDate < testOption );
+	},
+	maxDate : function ( testDate ) {
+		/* return true if the date is after the minimum */
+		var testOption = this.options.maxDate;
+
+		if ( testOption === false ) { return false; }
+
+		testOption = this.parseISO( testOption );
+		testOption.adj(2,1);
+
+		return ( testOption < testDate );
+	},
 	afterToday : function ( testDate ) {
 		/* Return true if the date is BEFORE today's date (dates AFTER are allowed) */
 		var testOption = this.options.afterToday;
@@ -255,7 +276,8 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 		badChecks = [
 			"blackDays", "blackDates", "blackDatesRec",
 			"notToday", "maxYear", "minYear", "afterToday", "beforeToday",
-			"minDays", "maxDays", "minHour", "maxHour", "minTime", "maxTime"
+			"maxDate", "minDate", "minDays", "maxDays",
+			"minHour", "maxHour", "minTime", "maxTime"
 		];
 
 	w.realToday = new w._date();

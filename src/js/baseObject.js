@@ -113,6 +113,8 @@ JTSageDateBox.options = {
 	afterToday              : false,
 	beforeToday             : false,
 	notToday                : false,
+	maxDate                 : false,
+	minDate                 : false,
 	maxDays                 : false,
 	minDays                 : false,
 	maxYear                 : false,

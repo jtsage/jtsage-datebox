@@ -71,6 +71,16 @@ JTSageDateBox.parseDate = function( format, strdate ) {
 	return retty;
 };
 
+/** 
+ * Parse a string ISO date
+ * 
+ * @param {string} strdate ISO string to parse (YYYY-MM-DD)
+ * @return {object} JavaScript date
+ */
+JTSageDateBox.parseISO = function( strDate ) {
+	return this.parseDate( "%Y-%m-%d", strDate );
+};
+
 /**
  * Format a date via {@link JTSageDateBox._makeDate}
  * 
@@ -104,39 +114,31 @@ JTSageDateBox.refresh = function() {
 };
 
 /**
- * Apply the HTML min/max attributes
+ * Apply the HTML min/max attributes (minDate / maxDate)
  * 
  * @param  {boolean} refresh Refresh the display when done
- * @param  {boolean} override Allow overriding minDays/maxDays if already set
+ * @param  {boolean} override Allow overriding minDate/maxDate if already set
  */
 JTSageDateBox.applyMinMax = function( refresh, override ) {
-	// PUBLIC function to apply min/max attributes
-	var todayClean, fromEl, fromElDate, daysRaw,
-		w = this,
-		o = this.options,
-		today = new this._date(),
-		lod = 24 * 60 * 60 * 1000;
+	var valueFromAttr,
+		w             = this,
+		o             = this.options,
+		ISOPattern    = RegExp(/\d\d\d\d-\d\d-\d\d/);
 
-	todayClean = w._pa([0,0,0], today);
-	
-	if ( typeof refresh === "undefined" ) { refresh = true; }
+	if ( typeof refresh === "undefined"  ) { refresh = true; }
 	if ( typeof override === "undefined" ) { override = true; }
 
-	if ( ( override === true || o.minDays === false ) && 
-			( typeof w.d.input.attr( "min" ) !== "undefined" ) ) {
-
-		fromEl =  w.d.input.attr( "min" ).split( "-" );
-		fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
-		daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
-		o.minDays = Math.round( daysRaw * -1 , 10 );
+	if ( override === true || o.minDate === false ) {
+		valueFromAttr = w.d.input.attr( "min" );
+		if ( ISOPattern.test( valueFromAttr ) ) {
+			o.minDate = valueFromAttr;
+		}
 	}
-	if ( ( override === true || o.maxDays === false ) && 
-			( typeof w.d.input.attr( "max" ) !== "undefined" ) ) {
-
-		fromEl = w.d.input.attr( "max" ).split( "-" );
-		fromElDate = new w._date(fromEl[0], fromEl[1]-1, fromEl[2], 0, 0, 0, 0 );
-		daysRaw = ( fromElDate.getTime() - todayClean.getTime() ) / lod;
-		o.maxDays = Math.round( daysRaw, 10 );
+	if ( override === true || o.maxDate === false ) {
+		valueFromAttr = w.d.input.attr( "max" );
+		if ( ISOPattern.test( valueFromAttr ) ) {
+			o.maxDate = valueFromAttr;
+		}
 	}
 
 	if ( refresh === true ) { 

@@ -1242,6 +1242,28 @@ opts :
     optdemo : false
     sample  : false
 
+  minDate :
+    short   : Minimum date (HTML min attribute)
+    long    : ISO string minimum date (YYYY-MM-DD) (Inclusive!)
+    modes   : *modeDate
+    cat     : Limits
+    default : false
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+
+  maxDate :
+    short   : Maximum date (HTML max attribute)
+    long    : ISO string maximum date (YYYY-MM-DD) (Inclusive!)
+    modes   : *modeDate
+    cat     : Limits
+    default : false
+    type    : String
+    dynamic : true
+    optdemo : true
+    sample  : false
+
   minDays :
     short   : Min number of days past today
     long    : |
@@ -1255,8 +1277,6 @@ opts :
       ```
 
       This would allow only days that are 5 to 10 days in the past to be choosen.
-
-      Corresponds somewhat to the html min/max attributes.
     modes   : *modeDate
     cat     : Limits
     default : false
@@ -1278,8 +1298,6 @@ opts :
       ```
 
       This would allow only days that are 5 to 10 days in the past to be choosen.
-
-      Corresponds somewhat to the html min/max attributes.
     modes   : *modeDate
     cat     : Limits
     default : false
