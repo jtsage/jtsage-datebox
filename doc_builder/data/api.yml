@@ -2214,7 +2214,7 @@ opts :
     optdemo : true
     sample  : false
 
-	theme_cal_DateList :
+  theme_cal_DateList :
     short   : CalBox DateList theme
     long    : Theme class added to the calbox datelist (jQM only)
     modes   :
@@ -2550,7 +2550,7 @@ opts :
     optdemo : true
     sample  : false
 
-	theme_slide_DateList :
+  theme_slide_DateList :
     short   : SlideBox DateList theme
     long    : Theme class added to the slidebox datelist (jQM only)
     modes   :

@@ -357,7 +357,12 @@ module.exports = function(grunt) {
 				options : ["--exclude-list-file=.clocignore"],
 				src : ["."]
 			}
-		}
+		},
+		yaml_validator: {
+			defaults: {
+			  src: [ "doc_builder/data/*.yml" ]
+			}
+		  }
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
@@ -369,6 +374,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-contrib-connect" );
 	grunt.loadNpmTasks( "grunt-jsdoc" );
 	grunt.loadNpmTasks( "grunt-cloc" );
+	grunt.loadNpmTasks( "grunt-yaml-validator" );
 
 	grunt.task.loadTasks( "build/tasks" );
 	
@@ -386,6 +392,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( "release", "Build a release version of DateBox", [
 		"jshint:js",
 		"jshint:js2",
+		"yaml_validator",
 		"clean:release",
 		"clean:web",
 		"buildDBoxes:release_widget_bundled",
@@ -430,9 +437,18 @@ module.exports = function(grunt) {
 		"connect:web"
 	] );
 	
-	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
+	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [
+		"jshint_reg",
+		"yaml_validator"
+	] );
+
 	grunt.registerTask( "countcode", "Count all code", [ "cloc" ] );
-	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint:js", "jshint:js2"] );
+
+	grunt.registerTask( "test", "Test the DateBox Suite", [
+		"jshint:js",
+		"jshint:js2",
+		"yaml_validator"
+	] );
 
 	grunt.registerTask( "default", "Test and Build working version", [
 		"jshint_sane",
