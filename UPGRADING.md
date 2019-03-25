@@ -26,6 +26,10 @@ inspiration for some)
 
 # Option changes
 
+## min/max Attribute
+
+These are now mapped to minDate and maxDate, ___NOT___ minDays and maxDays.  This may break some code!!
+
 ## New Options
 
  * **calHighOutOfBounds** - apply a different class to dates that fall outside the displayed

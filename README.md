@@ -1,7 +1,7 @@
 JTSage-DateBox
 =================
 
-DateBox is a jQuery date and time picker. [Full Documentation and Demos](http://dev.jtsage.com/DateBox/), that works with a multitude of CSS frameworks.
+DateBox is a jQuery date and time picker. [Full Documentation and Demos](http://datebox.jtsage.dev/), that works with a multitude of CSS frameworks.
 
 
 DateBox Features
@@ -28,7 +28,7 @@ Special Thanks
 
 An extra special thanks to [Phill Pafford](http://stackoverflow.com/users/93966/phill-pafford) for answering tons of questions about DateBox, and jQueryMobile in general on StackOverflow.
 
-And last but not least, thanks to all the [contributors](https://github.com/jtsage/jquery-mobile-datebox/contributors) to the project on github.
+And last but not least, thanks to all the [contributors](https://github.com/jtsage/jtsage-datebox/contributors) to the project on github.
 
 Downloading
 -----------
@@ -45,13 +45,12 @@ DateBox uses the following version scheme:
 
 #### Custom Download Builder:
 
-[script](http://dev.jtsage.com/DateBox/builder/)
-[css](http://dev.jtsage.com/DateBox/theme/)
+[script](http://datebox.jtsage.dev/builder/)
 
 Available Options
 -----------------
 
-Please see the full api documentation at: [dev.jtsage.com](http://dev.jtsage.com/DateBox/)
+Please see the full api documentation at: [dev.jtsage.com](http://datebox.jtsage.dev/)
 
 Developers
 ----------
