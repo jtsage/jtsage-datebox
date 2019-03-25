@@ -434,6 +434,9 @@ JTSageDateBox._fixstepper = function( order ) {
 JTSageDateBox._ThemeDateCK = {
 	selected : function ( testDate ) {
 		if ( this.options.slideHighPick === false ) { return false; }
+
+		if ( typeof this.originalDate === "undefined" ) { return false; }
+		
 		if ( this.originalDate.iso() === testDate.iso() ) { 
 			return true;
 		}
