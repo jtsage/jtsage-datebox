@@ -32,7 +32,7 @@ mergeOpts({
 	theme_todayBtnIcn : "goto",
 
 	theme_dropdownContainer : "bg-light border border-dark mt-1",
-	theme_modalContainer    : "bg-light border border-dark p-2 m-0",
+	theme_modalContainer    : "bg-light border border-dark p-2",
 	theme_inlineContainer   : "bg-light border border-dark my-2",
 
 	theme_headerTheme  : "bg-dark",
@@ -870,5 +870,52 @@ JTSageDateBox.styleFunctions = {
 				firstItem.css("margin-top", intended_Top);
 			}
 		});
+	},
+
+	/** 
+	 * Find the attacment point for the control
+	 * 
+	 * @param {boolean} isInline control is being inlined
+	 * @returns {object} jQuery attachment point
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
+	findAttachPoint : function( isInline ) {
+		var w               = this,
+			possibleAttach  = w.d.wrap.parent(),
+			hardAttachPoint = $( "body" ).find( "#" + w.baseID + "-dbAttach" );
+			
+
+		// If [id]-dbAttach exists, that's the attachment point, always.
+		if ( hardAttachPoint.length === 1 ) { return hardAttachPoint; }
+
+		// Not inline, either modal or popup
+		if ( !isInline ) {
+			return $( "body" );
+		}
+
+		// Inline or blind
+		if ( possibleAttach.hasClass( "form-group" ) ) {
+			return possibleAttach;
+		} else {
+			return w.d.wrap;
+		}
+	},
+
+	/** 
+	 * Hide the input element completely.
+	 * 
+	 * @memberof JTSageDateBox.styleFunctions
+	 * @this JTSageDateBox
+	 */
+	hideInput : function() {
+		var w = this,
+			hideMe = w.d.wrap.parent();
+
+		if ( hideMe.hasClass("form-group") ) {
+			hideMe.hide();
+		} else {
+			w.d.wrap.hide();
+		}
 	}
 };

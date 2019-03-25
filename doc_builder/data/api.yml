@@ -1089,7 +1089,10 @@ opts :
 
   hideInput :
     short   : Hide the Input Element
-    long    : Cause the original input to be hidden on the page.
+    long    : |
+      Cause the original input to be hidden on the page. (Including the lable if possible)
+
+      Works with inline, blind and modal.  Unpredictable on dropdown display.
     modes   : *modeAll
     cat     : Display-Form
     default : false
