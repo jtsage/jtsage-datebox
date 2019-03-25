@@ -305,6 +305,12 @@ module.exports = function(grunt) {
 				cwd    : "doc_builder/samples",
 				src    : "*.html",
 				dest   : "doc_builder/dist/samples/"
+			},
+			web2:    {
+				expand : true,
+				cwd    : "doc_builder/webroot",
+				src    : "*",
+				dest   : "doc_builder/dist/"
 			}
 		},
 		prettify: {
@@ -412,11 +418,18 @@ module.exports = function(grunt) {
 	] );
 
 	grunt.registerTask( "web", "Build the documentation site", [
-		"clean:web", "buildSite", "copy:web1", "jsdoc", "prettify"
+		"clean:web",
+		"buildSite",
+		"copy:web1",
+		"copy:web2",
+		"jsdoc",
+		"prettify"
 	] );
+
 	grunt.registerTask( "serveweb", "Start a local HTTP server on localhost:8080 for the docs.", [
 		"connect:web"
 	] );
+	
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [ "jshint_reg"] );
 	grunt.registerTask( "countcode", "Count all code", [ "cloc" ] );
 	grunt.registerTask( "test", "Test the DateBox Suite", ["jshint:js", "jshint:js2"] );
