@@ -31,3 +31,70 @@ These are events that change something about DateBox.
 
 {{run:funcGen.getTrigger}}
 
+### Example - Linked Dateboxes
+
+<script type="text/javascript">
+function linker(obby, nextDatebox) {
+    var setDate = obby.date;
+
+    setDate.adj(2, 1); // Add One Day
+
+    // Format the date for min/max attribute
+    minDateString = this.callFormat('%Y-%m-%d', setDate);
+
+    // Set min date and a default on "next" datebox
+    $('#' + nextDatebox).datebox({
+        minDate      : minDateString,
+        defaultValue : setDate
+    });
+
+    // Open "next" datebox
+    $('#' + nextDatebox).datebox('open');
+}
+</script>
+<div class="form-group">
+	<label for="in_date">Check In Date</label>
+	<input id="in_date" class="form-control" data-role="datebox" data-options='{"mode":"calbox","afterToday":true,"closeCallback":"linker","closeCallbackArgs":["out_date"]}' type="text">
+</div>
+<div class="form-group">
+	<label for="out_date">Check Out Date</label>
+	<input id="out_date" class="form-control" data-role="datebox" data-options='{"mode":"calbox"}' type="text">
+</div>
+
+##### Source - Script
+```js
+function linker(obby, nextDatebox) {
+    var setDate = obby.date;
+
+    setDate.adj(2, 1); // Add One Day
+
+    // Format the date for min/max attribute
+    minDateString = this.callFormat('%Y-%m-%d', setDate);
+
+    // Set min date and a default on "next" datebox
+    // We set the min to not allow dates before a day after checkin to be picked.
+    // We set the default to make sure the view is appropriate.
+
+    // In this case, should you want to "suggest" a one week stay, add 6 more days to
+    // setDate, *after* pulling the minimum date ISO string.
+    $('#' + nextDatebox).datebox({
+        minDate      : minDateString,
+        defaultValue : setDate
+    });
+
+    // Open "next" datebox
+    $('#' + nextDatebox).datebox('open');
+}
+```
+
+##### Source - HTML
+```html
+<div class="form-group">
+	<label for="in_date">Check In Date</label>
+	<input id="in_date" class="form-control" data-role="datebox" data-options='{"mode":"calbox","afterToday":true,"closeCallback":"linker","closeCallbackArgs":["out_date"]}' type="text">
+</div>
+<div class="form-group">
+	<label for="out_date">Check Out Date</label>
+	<input id="out_date" class="form-control" data-role="datebox" data-options='{"mode":"calbox"}' type="text">
+</div>
+``` 
