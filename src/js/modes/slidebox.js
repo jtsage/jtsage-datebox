@@ -145,7 +145,7 @@ JTSageDateBox._build.slidebox = function () {
 				date_displayYear,
 				date_realToday.get(0),
 				o.slideYearPickRelative
-			) ]
+			), o.theme_slide_Pickers ]
 		).appendTo( w.d.intHTML );
 
 		w.d.intHTML.on( "change", "#dbSlidePickMonth, #dbSlidePickYear", function() {
@@ -208,7 +208,7 @@ JTSageDateBox._build.slidebox = function () {
 	if ( o.slideShowDateList === true && o.slideDateList !== false ) {
 		_sf.slideDateList.apply(
 			this,  
-			[ w.__( "calDateListLabel" ), o.slideDateList ]
+			[ w.__( "calDateListLabel" ), o.slideDateList, o.theme_slide_DateList ]
 		).appendTo(w.d.intHTML);
 		w.d.intHTML.on( "change", "#dbSlidePickList", function() {
 			w.theDate = new w._date(

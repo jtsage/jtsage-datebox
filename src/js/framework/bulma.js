@@ -55,6 +55,9 @@ mergeOpts({
 	theme_cal_PrevBtnIcn : "prev",
 	theme_cal_PrevBtnCls : "is-white",
 
+	theme_cal_Pickers  : false, // UNUSED
+	theme_cal_DateList : false, // UNUSED
+
 	theme_dbox_NextBtnIcn : "plus",
 	theme_dbox_NextBtnCls : "is-outlined is-dark",
 	theme_dbox_PrevBtnIcn : "minus",
@@ -82,6 +85,9 @@ mergeOpts({
 	theme_slide_NextDateBtnCls : "is-white",
 	theme_slide_PrevDateBtnIcn : "prev",
 	theme_slide_PrevDateBtnCls : "is-white",
+
+	theme_slide_Pickers  : false, // UNUSED
+	theme_slide_DateList : false, // UNUSED
 
 	theme_backgroundMask : {
 		position          : "fixed",

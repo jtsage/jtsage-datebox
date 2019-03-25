@@ -162,7 +162,7 @@ JTSageDateBox._build.calbox = function () {
 			o.theme_cal_PrevBtnIcn,
 			o.theme_cal_PrevBtnCls,
 			o.theme_cal_NextBtnIcn,
-			o.theme_cal_NextBtnCls
+			o.theme_cal_NextBtnCls,
 		] ).appendTo( w.d.intHTML );
 		w.d.intHTML
 			.on( o.clickEvent, ".dbCalNext", function(e) {
@@ -191,7 +191,7 @@ JTSageDateBox._build.calbox = function () {
 				date_displayYear,
 				date_realToday.get(0),
 				o.calYearPickRelative
-			) ]
+			), o.theme_cal_Pickers ]
 		).appendTo( w.d.intHTML );
 
 		w.d.intHTML.on( "change", "#dbCalPickMonth, #dbCalPickYear", function() {
@@ -309,7 +309,7 @@ JTSageDateBox._build.calbox = function () {
 	if ( o.calShowDateList === true && o.calDateList !== false ) {
 		_sf.calDateList.apply(
 			this,  
-			[ w.__( "calDateListLabel" ), o.calDateList ]
+			[ w.__( "calDateListLabel" ), o.calDateList, o.theme_cal_DateList ]
 		).appendTo(w.d.intHTML);
 		w.d.intHTML.on( "change", "#dbCalPickList", function() {
 			w.theDate = new w._date(

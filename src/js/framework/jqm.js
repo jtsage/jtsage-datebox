@@ -56,6 +56,9 @@ mergeOpts({
 	theme_cal_PrevBtnIcn : "minus",
 	theme_cal_PrevBtnCls : "a",
 
+	theme_cal_Pickers  : "a",
+	theme_cal_DateList : "a",
+
 	theme_dbox_NextBtnIcn : "plus",
 	theme_dbox_NextBtnCls : "outline-dark",
 	theme_dbox_PrevBtnIcn : "minus",
@@ -84,6 +87,9 @@ mergeOpts({
 	theme_slide_PrevDateBtnIcn : "carat-l",
 	theme_slide_PrevDateBtnCls : "a",
 
+	theme_slide_Pickers  : "a",
+	theme_slide_DateList : "a",
+
 	theme_backgroundMask : {
 		position          : "fixed",
 		left              : 0,
@@ -98,7 +104,7 @@ mergeOpts({
 	buttonIconDate : "calendar",
 	buttonIconTime : "clock",
 
-	disabledState    : "disabled",
+	disabledState    : "ui-disabled",
 	flipSizeOverride : 30,
 
 	clickEvent : "vclick",
@@ -227,13 +233,13 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Make the header for calbox (month, year, prev/next buttons)
 	 */
-	calHeader             : function ( txt, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
+	calHeader             : function ( txt, prevIcn, prevCls, nextIcn, nextCls ) {
 		return this.styleFunctions.genHeader.apply( this, [
 			txt,
-			firstBtnIcn,
-			firstBtnCls,
-			secondBtnIcn,
-			secondBtnCls,
+			prevIcn,
+			prevCls,
+			nextIcn,
+			nextCls,
 			"dbCalPrev",
 			"dbCalNext"
 		] );
@@ -303,15 +309,15 @@ JTSageDateBox.styleFunctions = {
 	},
 
 	/* Generic pickers */
-	genPickers            : function ( ranges, ctlMonth, ctlYear ) {
+	genPickers            : function ( ranges, theme, ctlMonth, ctlYear ) {
 		var returnVal = "<div style='padding-bottom: 8px' class='" +
 			"ui-controlgroup ui-controlgroup-horizontal ui-corner-all ui-mini'>";
 
 		returnVal += "<div class='ui-controlgroup-controls' style='width:100%'>";
 
 		returnVal += "<div class='ui-select' style='width:60%'>";
-		returnVal += "<div id='" + ctlMonth + "-button' " + 
-			"class='ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow'>";
+		returnVal += "<div id='" + ctlMonth + "-button' class='ui-btn-" + theme +
+			" ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow ui-first-child'>";
 		$.each( ranges.month, function(idx, value) {
 			if ( value[2] === true ) {
 				returnVal += "<span>" + value[1] + "</span>";
@@ -321,8 +327,8 @@ JTSageDateBox.styleFunctions = {
 		returnVal += "</div></div>";
 
 		returnVal += "<div class='ui-select' style='width:40%'>";
-		returnVal += "<div id='" + ctlYear + "-button' class='" +
-			"ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow ui-last-child'>";
+		returnVal += "<div id='" + ctlYear + "-button' class='ui-btn-" + theme +
+			" ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow ui-last-child'>";
 		$.each( ranges.year, function(idx, value) {
 			if ( value[2] === true ) {
 				returnVal += "<span>" + value[1] + "</span>";
@@ -339,24 +345,24 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Create the year and month picker for calbox.
 	 */
-	calPickers            : function ( ranges ) {
+	calPickers            : function ( ranges, theme ) {
 		return this.styleFunctions.genPickers.apply(
 			this,
-			[ ranges, "dbCalPickMonth", "dbCalPickYear" ]
+			[ ranges, theme, "dbCalPickMonth", "dbCalPickYear" ]
 		);
 	},
 
 	/*
 	 * Make the calendar drop down quick pick list.
 	 */
-	genDateList           : function ( listLabel, list, ctl ) {
+	genDateList           : function ( listLabel, list, theme, ctl ) {
 		var returnVal = "";
 
 		list.unshift([false, listLabel, true]);
 
 		returnVal += "<div class='ui-select'>";
 		returnVal += "<div id='" + ctl + "-button' style='margin: 0 .446em 8px;' class='" +
-			"ui-mini ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all'>";
+			"ui-mini ui-btn ui-icon-carat-d ui-btn-" + theme + " ui-btn-icon-right ui-corner-all'>";
 		
 		returnVal += "<span>" + listLabel + "</span>";
 		returnVal += this._stdSel( list, ctl, "" );
@@ -365,10 +371,10 @@ JTSageDateBox.styleFunctions = {
 		return $(returnVal);
 	},
 
-	calDateList           : function ( listLabel, list ) {
+	calDateList           : function ( listLabel, list, theme ) {
 		return this.styleFunctions.genDateList.apply(
 			this,
-			[ listLabel, list, "dbCalPickList" ]
+			[ listLabel, list, theme, "dbCalPickList" ]
 		);
 	},
 
@@ -507,20 +513,20 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Create the year and month picker for slide.
 	 */
-	slidePickers            : function ( ranges ) {
+	slidePickers            : function ( ranges, theme ) {
 		return this.styleFunctions.genPickers.apply(
 			this,
-			[ ranges, "dbSlidePickMonth", "dbSlidePickYear" ]
+			[ ranges, theme, "dbSlidePickMonth", "dbSlidePickYear" ]
 		);
 	},
 
 	/*
 	 * Make the slidebox drop down quick pick list.
 	 */
-	slideDateList           : function ( listLabel, list ) {
+	slideDateList           : function ( listLabel, list, theme ) {
 		return this.styleFunctions.genDateList.apply(
 			this,
-			[ listLabel, list, "dbSlidePickList" ]
+			[ listLabel, list, theme, "dbSlidePickList" ]
 		);
 	},
 

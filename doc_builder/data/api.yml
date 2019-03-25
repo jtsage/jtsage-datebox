@@ -1017,7 +1017,10 @@ opts :
 
       Defaults should be fine on most screens, unless maybe you are setting up an oddly proportioned
       kiosk or something.
-    modes   : *modeAll
+    modes   : 
+      - flipbox
+      - timeflipbox
+      - datetimeflipbox
     cat     : Operation
     default : "{ 'y': 25, 'm':24, 'd':50, 'h':25, 'i':30, 's':30 }"
     type    : Object
@@ -1033,11 +1036,33 @@ opts :
       Sometimes, external themes don't play nicely and you'll need a few pixels either way - in particular, 
       the default bootstrap4 theme needs 5 pixels positive (hardcoded), while most of the 3rd party color themes
       for bootstrap4 do not require any movement (set it to zero).
-    modes   : *modeAll
+    modes   : 
+      - flipbox
+      - timeflipbox
+      - datetimeflipbox
+      - durationflipbox
     cat     : Display-Control
     default : false
     type    : Integer
     dynamic : true
+    optdemo : false
+    sample  : false
+
+  flipSizeOverride :
+    short   : Override the size of the flip elements for calculations.
+    long    : |
+      Some frameworks do not play nicely with the DOM (jQM, I'm looking at you), and the calculation
+      to get how tall each of the flipbox items are returns a value not even close to reality.  This
+      allows you to override that number so that dragging the roller tracks as expected. 
+    modes   : 
+      - flipbox
+      - timeflipbox
+      - datetimeflipbox
+      - durationflipbox
+    cat     : Display-Control
+    default : false
+    type    : Integer
+    dynamic : false
     optdemo : false
     sample  : false
 
@@ -2177,6 +2202,30 @@ opts :
     optdemo : true
     sample  : false
 
+  theme_cal_Pickers  :
+    short   : CalBox Pickers theme
+    long    : Theme class added to the calbox pickers (jQM only)
+    modes   :
+      - calbox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : false
+    optdemo : true
+    sample  : false
+
+	theme_cal_DateList :
+    short   : CalBox DateList theme
+    long    : Theme class added to the calbox datelist (jQM only)
+    modes   :
+      - calbox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : false
+    optdemo : true
+    sample  : false
+
   theme_dbox_NextBtnIcn :
     short   : Next Button Icon
     long    : Icon class used for the next button
@@ -2184,6 +2233,7 @@ opts :
       - datebox
       - timebox
       - datetimebox
+      - durationbox
     cat     : Theme
     type    : String
     dynamic : true
@@ -2198,6 +2248,7 @@ opts :
       - datebox
       - timebox
       - datetimebox
+      - durationbox
     cat     : Theme
     type    : String
     dynamic : true
@@ -2212,6 +2263,7 @@ opts :
       - datebox
       - timebox
       - datetimebox
+      - durationbox
     cat     : Theme
     type    : String
     dynamic : true
@@ -2226,10 +2278,26 @@ opts :
       - datebox
       - timebox
       - datetimebox
+      - durationbox
     cat     : Theme
     type    : String
     dynamic : true
     default : "outline-dark"
+    optdemo : true
+    sample  : false
+
+  theme_dbox_Inputs :
+    short   : DateBox mode inputs
+    long    : Theme class added to the datebox inputs.  Applicable to jQM only.
+    modes   :
+      - datebox
+      - timebox
+      - datetimebox
+      - durationbox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : false
     optdemo : true
     sample  : false
 
@@ -2469,6 +2537,30 @@ opts :
     optdemo : true
     sample  : false
     default : "outline-dark border-0"
+
+  theme_slide_Pickers  :
+    short   : SlideBox Pickers theme
+    long    : Theme class added to the slidebox pickers (jQM only)
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : false
+    optdemo : true
+    sample  : false
+
+	theme_slide_DateList :
+    short   : SlideBox DateList theme
+    long    : Theme class added to the slidebox datelist (jQM only)
+    modes   :
+      - slidebox
+    cat     : Theme
+    type    : String
+    dynamic : true
+    default : false
+    optdemo : true
+    sample  : false
 
   theme_backgroundMask :
     short   : Modal and Dropdown background mask
