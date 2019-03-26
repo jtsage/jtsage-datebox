@@ -1,7 +1,28 @@
+ /**
+     * JTSage-DateBox
+     * @fileOverview Responsible for positioning the widget
+     * @author J.T.Sage <jtsage+datebox@gmail.com>
+     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+     * @version 5.0.0
+     */
+
+
+/**
+ * Make sure a position number isn't less than zero
+ * 
+ * @param {number} test Number to test
+ * @return {number} Resulting number
+ */
 JTSageDateBox._posZero = function ( test ) {
 	return ( test < 0 ) ? 0 : test;
 };
 
+/** 
+ * Find position for modal
+ * 
+ * @return {object} CSS for the datebox in modal mode
+ */
 JTSageDateBox.getModalPosition = function ( ) {
 	var w      = this, 
 		widget = w.d.mainWrap[0].getBoundingClientRect();
@@ -15,6 +36,13 @@ JTSageDateBox.getModalPosition = function ( ) {
 	};
 };
 
+/** 
+ * Find position for dropdown
+ * 
+ * We do all of the possible calculations every time. Simple math is cheap.
+ * 
+ * @return {object} CSS for the widget in dropdown mode.
+ */
 JTSageDateBox.getDropPosition = function ( placement ) {
 	var w = this, compd,
 		rect = w.d.wrap[0].getBoundingClientRect(),
