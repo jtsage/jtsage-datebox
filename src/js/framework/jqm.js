@@ -356,16 +356,17 @@ JTSageDateBox.styleFunctions = {
 	 * Make the calendar drop down quick pick list.
 	 */
 	genDateList           : function ( listLabel, list, theme, ctl ) {
-		var returnVal = "";
+		var returnVal = "",
+			newList = list.slice();
 
-		list.unshift([false, listLabel, true]);
+		newList.unshift([false, listLabel, true]);
 
 		returnVal += "<div class='ui-select'>";
 		returnVal += "<div id='" + ctl + "-button' style='margin: 0 .446em 8px;' class='" +
 			"ui-mini ui-btn ui-icon-carat-d ui-btn-" + theme + " ui-btn-icon-right ui-corner-all'>";
 		
 		returnVal += "<span>" + listLabel + "</span>";
-		returnVal += this._stdSel( list, ctl, "" );
+		returnVal += this._stdSel( newList, ctl, "" );
 		returnVal += "</div></div>";
 
 		return $(returnVal);

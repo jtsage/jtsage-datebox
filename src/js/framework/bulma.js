@@ -298,13 +298,15 @@ JTSageDateBox.styleFunctions = {
 	 * Make the calendar drop down quick pick list.
 	 */
 	calDateList           : function ( listLabel, list ) {
-		var returnVal = "";
+		var returnVal = "",
+			newList = list.slice();
 
-		list.unshift([false, listLabel, true]);
+
+		newList.unshift([false, listLabel, true]);
 
 		returnVal += "<div class='select is-fullwidth' ";
 		returnVal += "style='margin:.8em 0; padding:0 .3em;'>";
-		returnVal += this._stdSel( list, "dbCalPickList", "" );
+		returnVal += this._stdSel( newList, "dbCalPickList", "" );
 		returnVal += "</div>";
 
 		return $(returnVal);
@@ -479,13 +481,14 @@ JTSageDateBox.styleFunctions = {
 	 * Make the slidebox drop down quick pick list.
 	 */
 	slideDateList           : function ( listLabel, list ) {
-		var returnVal = "";
+		var returnVal = "",
+			newList = list.slice();
 
-		list.unshift([false, listLabel, true]);
+		newList.unshift([false, listLabel, true]);
 
 		returnVal += "<div class='select is-fullwidth' ";
 		returnVal += "style='margin:.8em 0; padding:0 .3em;'>";
-		returnVal += this._stdSel( list, "dbSlidePickList", "" );
+		returnVal += this._stdSel( newList, "dbSlidePickList", "" );
 		returnVal += "</div>";
 
 		return $(returnVal);

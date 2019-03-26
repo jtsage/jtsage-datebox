@@ -233,12 +233,14 @@ JTSageDateBox.styleFunctions = {
 		return $(returnVal);
 	},
 	calDateList           : function ( listLabel, list ) {
-		var returnVal = "";
+		var returnVal = "",
+			newList = list.slice();
 
-		list.unshift([false, listLabel, true]);
+
+		newList.unshift([false, listLabel, true]);
 
 		returnVal += "<div style='padding:5px'>";
-		returnVal += this._stdSel( list, "dbCalPickList", "form-control" );
+		returnVal += this._stdSel( newList, "dbCalPickList", "form-control" );
 		returnVal += "</div>";
 
 		return $(returnVal);
@@ -358,12 +360,14 @@ JTSageDateBox.styleFunctions = {
 		return $(returnVal);
 	},
 	slideDateList           : function ( listLabel, list ) {
-		var returnVal = "";
+		var returnVal = "",
+		newList = list.slice();
 
-		list.unshift([false, listLabel, true]);
+
+		newList.unshift([false, listLabel, true]);
 
 		returnVal += "<div style='padding:5px'>";
-		returnVal += this._stdSel( list, "dbSlidePickList", "form-control" );
+		returnVal += this._stdSel( newList, "dbSlidePickList", "form-control" );
 		returnVal += "</div>";
 
 		return $(returnVal);

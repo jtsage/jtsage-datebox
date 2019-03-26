@@ -464,12 +464,14 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	genDateList           : function ( listLabel, list, ctlCls ) {
-		var returnVal = "";
+		var returnVal = "",
+			newList = list.slice();
 
-		list.unshift([false, listLabel, true]);
+
+		newList.unshift([false, listLabel, true]);
 
 		returnVal += "<div class='row my-2 mx-1'>";
-		returnVal += this._stdSel( list, ctlCls, "form-control" );
+		returnVal += this._stdSel( newList, ctlCls, "form-control" );
 		returnVal += "</div>";
 
 		return $(returnVal);
