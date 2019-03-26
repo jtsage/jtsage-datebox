@@ -19,7 +19,7 @@ mergeOpts({
 	theme_clearBtnCls : "yellow",
 	theme_clearBtnIcn : "clear",
 
-	theme_closeBtnCls : "success",
+	theme_closeBtnCls : "positive",
 	theme_closeBtnIcn : "check",
 
 	theme_cancelBtnCls : "negative",
@@ -51,38 +51,38 @@ mergeOpts({
 	theme_cal_NextBtnIcn : "next",
 	theme_cal_NextBtnCls : false, // UN-USED
 	theme_cal_PrevBtnIcn : "prev",
-	theme_cal_PrevBtnCls : false, //UN-USED
+	theme_cal_PrevBtnCls : false, // UN-USED
 
 	theme_cal_Pickers  : false, // UNUSED
 	theme_cal_DateList : false, // UNUSED
 
 	theme_dbox_NextBtnIcn : "plus",
-	theme_dbox_NextBtnCls : "outline-dark",
+	theme_dbox_NextBtnCls : "primary",
 	theme_dbox_PrevBtnIcn : "minus",
-	theme_dbox_PrevBtnCls : "outline-dark",
-	theme_dbox_Inputs     : false, //UNUSED
+	theme_dbox_PrevBtnCls : "primary",
+	theme_dbox_Inputs     : false, // UNUSED
 
 	theme_fbox_Selected   : "success",
 	theme_fbox_Default    : "light",
 	theme_fbox_Forbidden  : "danger",
 	theme_fbox_RollHeight : "135px",
 
-	theme_slide_Today       : "outline-info",
-	theme_slide_DayHigh     : "outline-warning",
-	theme_slide_Selected    : "outline-success",
-	theme_slide_DateHigh    : "outline-warning",
-	theme_slide_DateHighAlt : "outline-danger",
-	theme_slide_DateHighRec : "outline-warning",
-	theme_slide_Default     : "outline-primary",
+	theme_slide_Today       : "primary",
+	theme_slide_DayHigh     : "yellow",
+	theme_slide_Selected    : "positive",
+	theme_slide_DateHigh    : "red",
+	theme_slide_DateHighAlt : "orange",
+	theme_slide_DateHighRec : "olive",
+	theme_slide_Default     : "basic secondary",
 
 	theme_slide_NextBtnIcn     : "plus",
-	theme_slide_NextBtnCls     : "outline-dark border-0",
+	theme_slide_NextBtnCls     : false, // UN-USED
 	theme_slide_PrevBtnIcn     : "minus",
-	theme_slide_PrevBtnCls     : "outline-dark border-0",
+	theme_slide_PrevBtnCls     : false, // UN-USED
 	theme_slide_NextDateBtnIcn : "next",
-	theme_slide_NextDateBtnCls : "outline-dark border-0",
+	theme_slide_NextDateBtnCls : "tertiary secondary",
 	theme_slide_PrevDateBtnIcn : "prev",
-	theme_slide_PrevDateBtnCls : "outline-dark border-0",
+	theme_slide_PrevDateBtnCls : "tertiary secondary",
 
 	theme_slide_Pickers  : false, // UNUSED
 	theme_slide_DateList : false, // UNUSED
@@ -206,19 +206,12 @@ JTSageDateBox.styleFunctions = {
 			"</div></div>";
 	},
 
-	/**
+	/*
 	 * Make an internal header ( datebox & flipbox )
-	 * 
-	 * MUST have the "dbHeader" class
-	 * 
-	 * @param  {string} text Text to display
-	 * @return {object} jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	intHeader             : function ( text ) {
 		return $(
-			"<div class='my-2 text-center dbHeader'><h5>" + text + "</h5></div>"
+			"<div style='text-align:center' class='dbHeader'><h3>" + text + "</h3></div>"
 		);
 	},
 
@@ -401,53 +394,45 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	dboxRow               : function () {
-		return $( "<div class='d-flex p-1'>" );
+		return $( "<div style='margin: .3em .3em' class='ui equal width grid'>" );
 	},
 
-	/**
+	/*
 	 * Make a datebox +/-/input control
-	 * 
-	 * Next button MUST have "dbBoxNext" class
-	 * Previous button MUST have "dbBoxPrev" class
-	 * Container must have "mainCls"
-	 *
-	 * @param {string} prevIcn Previous button icon (name or SVG)
-	 * @param {string} prevCls Previous button theme class
-	 * @param {string} nextIcn Next button icon (name of SVG)
-	 * @param {string} nextCls Next button theme class
-	 * @param {string} mainCls Class for the control (input type)
-	 * @param {string} label Label, if needed
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
-	 * @returns {object} jQuery Object
 	 */
 	dboxControl           : function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label ) {
 		var returnVal = "";
 
-		returnVal += "<div class='btn-group-vertical flex-fill dbBox" + mainCls + "'>";
+		returnVal += "<div style='margin:0;padding:0;' class='column dbBox" + mainCls + "'>";
 
 		returnVal += this.styleFunctions.button.apply( this, [
-			nextCls + " dbBoxNext" ,
+			nextCls + " top attached dbBoxNext" ,
 			nextIcn,
 			""
 		] );
 
 		if ( label !== null ) {
-			returnVal += "<div class='w-100 form-control rounded-0 p-0 text-center' " +
-				"style='height:auto'>" + label + "</div>";
+			returnVal += "<div class='ui fluid label' " +
+				"style='border-radius:0; text-align:center; margin:0'>" + label + "</div>";
 		}
 		returnVal += "<input type='text' ";
-		returnVal += "class='form-control form-control-sm text-center px-0 rounded-0'>";
+		returnVal += "style='border-radius:0;text-align:center;padding-right:0;padding-left:0;'>";
 
 		returnVal += this.styleFunctions.button.apply( this, [
-			prevCls + " dbBoxPrev" ,
+			prevCls + " bottom attached dbBoxPrev" ,
 			prevIcn,
 			""
 		] );
 
 		returnVal += "</div>";
+		returnVal = $(returnVal);
 
-		return $(returnVal);
+		returnVal.find(".dbBoxNext,.dbBoxPrev").css({
+			"padding-right": 0,
+			"padding-left" : 0
+		});
+
+		return returnVal;
 	},
 
 	/**
@@ -546,20 +531,8 @@ JTSageDateBox.styleFunctions = {
 		return $( "<div class='p-4 border border-dark shadow mx-1'>" );
 	},
 
-	/**
+	/*
 	 * Make the header for slidebox
-	 * 
-	 * Previous button MUST have "dbSlidePrev" class
-	 * Next button MUST have "dbSlideNext" class
-	 *
-	 * @param {string} txt Text of header
-	 * @param {string} prevIcn Previous button icon ( name or SVG )
-	 * @param {string} prevCls Previous button theme class
-	 * @param {string} nextIcn Next button icon ( name or SVG )
-	 * @param {string} nextCls Nevt button theme class
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	slideHeader           : function ( txt, prevIcn, prevCls, nextIcn, nextCls ) {
 		return this.styleFunctions.genHeader.apply( this, [
@@ -573,20 +546,8 @@ JTSageDateBox.styleFunctions = {
 		] );
 	},
 
-	/**
+	/*
 	 * Create the year and month picker for slide.
-	 * 
-	 * Month picker MUST have the "dbSlidePickMonth" class
-	 * Year picker MUST have the "dbSlidePickYear" class 
-	 *
-	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}.
-	 * 
-	 * @param  {object} ranges Year and Month arrays
-	 * @param {array} ranges.year Containing arrays of [ value, text, selected (boolean) ]
-	 * @param {array} ranges.month Containing arrays of [ value, text, selected (boolean) ]
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	slidePickers            : function ( ranges ) {
 		return this.styleFunctions.genPickers.apply( this, [
@@ -596,16 +557,8 @@ JTSageDateBox.styleFunctions = {
 		] );
 	},
 
-	/**
+	/*
 	 * Make the slidebox drop down quick pick list.
-	 * 
-	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}
-	 *
-	 * @param {string} listLabel Label for the list
-	 * @param {array} list Containing arrays of [ value, text, selected (boolean) ]
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	slideDateList           : function ( listLabel, list ) {
 		return this.styleFunctions.genDateList.apply( this, [
@@ -615,99 +568,72 @@ JTSageDateBox.styleFunctions = {
 		] );
 	},
 
-	/**
+	/*
 	 * Make the grid container for slidebox (usually a table)
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	slideGrid               : function () {
-		return $( "<div class='w-100 py-1'><table class='dbSlideGrid w-100'></table></div>" );
+		return $( "<div><table class='dbSlideGrid' style='width:100%'></table></div>" );
 	},
 
-	/**
+	/*
 	 * Make the grid for for slidebox (usually a TR)
-	 *
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	slideRow                : function () {
 		return $( "<tr>" );
 	},
 
-	/**
+	/*
 	 * Create a clickable box for each grid date in slidebox.
-	 * 
-	 * MUST have the "dbEventS" class
-	 * 
-	 * @param {object} data Date information object
-	 * @param {boolean} data.bad True if the date is invalid
-	 * @param {boolean} data.good True if the date is valid
-	 * @param {string} data.theme Theme class for the button
-	 * @param {object} data.dateObj Date object
-	 * 
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	slideDateButton         : function ( data ) {
 		var styles_TD = "width: " + ( 100 / 8 ) + "%",
-			class_TD = [
-				"m-0",
-				"p-0",
-				"text-center"
+			styles_A = [
+				"padding-left: 0",
+				"padding-right: 0",
 			],
 			class_A = [
 				"dbEventS",
-				"w-100",
-				"rounded-circle",
-				"btn-sm",
-				"btn",
-				"btn-" + data.theme,
+				"ui",
+				"button",
+				"fluid",
+				"tiny",
+				data.theme,
 				( data.bad ? "disabled" : "" )
 			],
 			disable = ( data.bad ? "disabled='disabled'" : "");
 
 		return $(
-			"<td class='" + class_TD.join( " " ) + "' style='" + styles_TD + "'>" +
-			"<a href='#' class='" + class_A.join( " " ) + "' " + disable + ">" + 
+			"<td style='" + styles_TD + "'>" +
+			"<a href='#' style='" + styles_A.join( ";" ) +
+				"' class='" + class_A.join( " " ) + "' " + disable + ">" + 
 			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] + "</small>" +
 			"<br>" + data.dateObj.getDate() +  
 			"</a></td>");
 	},
 
-	/**
+	/*
 	 * Create next/prev week buttons for slidebox
-	 *
-	 * @param {string} eventCls The event class.  Should be placed on the button
-	 * @param {string} icon Icon to use for button ( name or SVG )
-	 * @param {string} theme Theme class for button
-	 * @returns {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	slideMoveButton         : function ( eventCls, icon, theme ) {
 		var styles_TD = "width: " + ( ( 100 / 8 ) / 2 ) + "%",
-			class_TD = [
-				"m-0",
-				"p-0",
-				"text-center"
+			styles_A = [
+				"padding-left: 0",
+				"padding-right: 0"
 			],
 			class_A = [
-				"w-100",
-				"p-1",
-				"rounded-circle",
-				"btn-sm",
-				"btn",
-				"btn-" + theme,
+				"ui",
+				"fluid",
+				"button",
+				"mini",
+				"button",
+				theme,
 				eventCls
 			];
 
 		return $(
-			"<td class='" +  class_TD.join( " " ) + "' style='" + styles_TD + "'>" +
-			"<a href='#' class='" + class_A.join( " " ) + "'>" + 
+			"<td style='" + styles_TD + "'>" +
+			"<a href='#' style='" + styles_A.join( ";" ) +
+				"'class='" + class_A.join( " " ) + "'>" + 
 			this.icons.getIcon( icon )  + "</a></td>"
 		);
 	},
@@ -760,13 +686,8 @@ JTSageDateBox.styleFunctions = {
 		});
 	},
 
-	/** 
+	/*
 	 * Find the attacment point for the control
-	 * 
-	 * @param {boolean} isInline control is being inlined
-	 * @returns {object} jQuery attachment point
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	findAttachPoint : function( isInline ) {
 		var w               = this,
@@ -783,24 +704,21 @@ JTSageDateBox.styleFunctions = {
 		}
 
 		// Inline or blind
-		if ( possibleAttach.hasClass( "form-group" ) ) {
+		if ( possibleAttach.hasClass( "field" ) ) {
 			return possibleAttach;
 		} else {
 			return w.d.wrap;
 		}
 	},
 
-	/** 
+	/*
 	 * Hide the input element completely.
-	 * 
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	hideInput : function() {
 		var w = this,
 			hideMe = w.d.wrap.parent();
 
-		if ( hideMe.hasClass("form-group") ) {
+		if ( hideMe.hasClass("field") ) {
 			hideMe.hide();
 		} else {
 			w.d.wrap.hide();
