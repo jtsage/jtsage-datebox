@@ -9,111 +9,89 @@
      */
 
 
-
 /**
  * This method offsets the current date. Do it in such a way that rollover can be prevented
  * 
  * @param  {string} mode Element to shift
  * @param  {number} amount Amount to shift +/-
  * @param  {boolean} update Set to false, will not update display
- * @todo  Re-write.  I'm not sure how half this works anymore.  Variable names are horrid.
  */
-JTSageDateBox._offset = function(mode, amount, update) {
+JTSageDateBox._offset = function( oper, amount, update ) {
 	// Compute a date/time offset.
 	//   update = false to prevent controls refresh
-	var w = this,
-		o = this.options,
-		now = this.theDate,
-		ok = false, tempBad, bad = false,
-		monthEnd = 32 - w.theDate.copy([0],[0,0,32,13]).getDate(),
-		dPart = false;
+	var testCurrent, condHigh, condLow, condMulti,
+		w        = this,
+		o        = w.options,
+		operNum  = $.inArray( oper, [ "y", "m", "d", "h", "i", "s" ] ),
+		lastDate = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
 
-	mode = ( mode || "" ).toLowerCase();
-	dPart = $.inArray(mode, [ "y", "m", "d", "h", "i", "s" ]);
 
+	// Trap for un-set argument.
 	if ( typeof update === "undefined" ) { update = true; }
-
-	if ( mode !== "a" && 
-			( typeof o.rolloverMode[mode] === "undefined" || o.rolloverMode[mode] === true )
-		) {
-		ok = dPart;
+	
+	if (
+			oper === "y" ||
+			typeof o.rolloverMode[oper] === "undefined" ||
+			o.rolloverMode[oper] === true
+	) {
+		// Rollover allowed, or year operator, just do the update. (year is always ok)
+		if ( oper === "a" ) {
+			w.theDate.adj( 3, 12 * amount );
+		} else {
+			w.theDate.adj( operNum, amount );
+		}
+	} else if ( oper === "a" ) {
+		// Rollover disallowed, handle meridiem specially.
+		if ( amount % 2 !== 0 ) {
+			// do something.  same for all, no matter the amount direction.
+			// we modulus divide by 2, because if we move it twice, it's the same
+			// as before.
+			if ( w.theDate.get( 3 ) > 11 ) {
+				w.theDate.adj( 3, -12 );
+			} else {
+				w.theDate.adj( 3, 12 );
+			}
+		}
 	} else {
-		switch(mode) {
-			case "y": ok = 0; break;
-			case "m":
-				if ( w._btwn( now.get(1) + amount, -1, 12 ) ) { 
-					ok = 1;
-				} else {
-					tempBad = now.get(1) + amount;
-					if ( tempBad < 0 ) { 
-						bad = [1, 12 + tempBad];
-					} else {
-						bad = [1, tempBad % 12];
-					}
-				}
+		// Rollover not allowed, need to do it piece by piece.
+
+		// Edge case unhandled: May 31 offset month -1 Results in April 31, a.k.a May 1.
+		// Not sure how to handle this.
+		switch ( oper ) {
+			case "m" :
+				condHigh  = 11;
+				condLow   = 0;
+				condMulti = 12;
 				break;
-			case "d":
-				if ( w._btwn( 
-						now.get(2) + amount, 
-						0, 
-						( monthEnd + 1 ) 
-					)) { 
-						ok = 2;
-					} else {
-						tempBad = now.get(2) + amount;
-						if ( tempBad < 1 ) {
-							bad = [2, monthEnd + tempBad];
-						} else {
-							bad = [2, tempBad % monthEnd];
-						}
-					}
+			case "d" :
+				condHigh  = lastDate;
+				condLow   = 1;
+				condMulti = lastDate;
 				break;
-			case "h":
-				if ( w._btwn( now.get(3) + amount, -1, 24 ) ) { 
-					ok = 3;
-				} else {
-					tempBad = now.get(3) + amount;
-					if ( tempBad < 0 ) { 
-						bad = [3, 24 + tempBad];
-					} else {
-						bad = [3, tempBad % 24];
-					}
-				}
+			case "h" :
+				condHigh  = 23;
+				condLow   = 0;
+				condMulti = 24;
 				break;
-			case "i":
-				if ( w._btwn( now.get(4) + amount, -1, 60 ) ) { 
-					ok = 4;
-				} else {
-					tempBad = now.get(4) + amount;
-					if ( tempBad < 0 ) { 
-						bad = [4, 59 + tempBad];
-					} else {
-						bad = [4, tempBad % 60];
-					}
-				}
-				break;
-			case "s":
-				if ( w._btwn( now.get(5) + amount, -1, 60 ) ) { 
-					ok = 5; 
-				} else {
-					tempBad = now.get(5) + amount;
-					if ( tempBad < 0 ) { 
-						bad = [5, 59 + tempBad];
-					} else {
-						bad = [5, tempBad % 60];
-					}
-				}
-				break;
-			case "a":
-				w._offset( "h", ( ( amount > 0 ) ? 1 : -1 ) * 12, false );
+			case "i" :
+			case "s" :
+				condHigh  = 59;
+				condLow   = 0;
+				condMulti = 60;
 				break;
 		}
+
+		testCurrent = w.theDate.get( operNum ) + amount;
+
+		if ( testCurrent < condLow ) {
+			w.theDate.setD( operNum, ( testCurrent % condMulti ) + condMulti );
+		} else if ( testCurrent > condHigh ) {
+			w.theDate.setD( operNum, testCurrent % condMulti );
+		} else {
+			w.theDate.setD( operNum, testCurrent );
+		}
 	}
-	if ( ok !== false ) { 
-		w.theDate.adj( ok, amount );
-	} else {
-		w.theDate.setD(bad[0],bad[1]);
-	}
+
 	if ( update === true ) { w.refresh(); }
 	if ( o.useImmediate ) { w._t( { method: "doset" } ); }
 
@@ -122,14 +100,14 @@ JTSageDateBox._offset = function(mode, amount, update) {
 			method: "displayChange",
 			selectedDate: w.calBackDate,
 			shownDate: w.theDate,
-			thisChange: mode,
+			thisChange: oper,
 			thisChangeAmount: amount,
 		});
 	}
 		
 	w._t( {
 		method: "offset",
-		type: mode,
+		type: oper,
 		amount: amount,
 		newDate: w.theDate
 	} );
