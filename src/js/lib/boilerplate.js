@@ -40,11 +40,12 @@ JTSageDateBox._create = function() {
 			intHTML: false
 		},
 		styleTag = "<style>" +
-				".dbContainer_" + this.uuid + " { width: " + o.controlWidth + "}" +
+				".dbContainer_" + this.uuid + " { " + 
+					"touch-action: none; width: " + o.controlWidth + "}" +
 				
 				"@media (max-width: " + o.breakpointWidth + ") { " +
 				".dbContainer_" + this.uuid + " { " +
-					"width: 95%; margin-left: auto; margin-right: auto; } }" +
+					"width: 100% } } " +
 
 				( ( o.theme_headStyle !== false ) ? o.theme_headStyle : "" ) +
 			"</style>",
@@ -388,7 +389,7 @@ JTSageDateBox.open = function () {
 				});
 
 			w.d.mainWrap.css(
-				w.getModalPosition.apply( this, [ o.displayDropdownPosition ] )
+				w.getModalPosition.apply( this )
 			);
 			
 			break;
@@ -422,6 +423,28 @@ JTSageDateBox.open = function () {
 
 			break;
 	}
+
+	$( window ).on( "resize" + w.eventNamespace, $.proxy( function() {
+		// For dropdown and modal modes , we need to handle resizing.
+		switch ( this.options.displayMode ) {
+			case "inline":
+			case "blind":
+				// Do Nothing
+				break;
+			case "modal" :
+				this.d.mainWrap.css(
+					this.getModalPosition.apply( this )
+				);
+				break;
+			//case "dropdown" : // Note: dropdown is a true default, hence the drop-through
+			default :
+				this.d.mainWrap.css(
+					this.getDropPosition.apply( this, [ this.options.displayDropdownPosition ] )
+				);
+				break;
+		}
+	}, w ) );
+
 	window.setTimeout(function () {
 		w.d.mainWrap.addClass( "db-show" );
 	}, 0);
@@ -484,11 +507,12 @@ JTSageDateBox.close = function() {
 			break;
 	}
 
-	// Unbind all drag handlers.
+	// Unbind all drag handlers, and the resize catch
 	$( document )
 		.off( w.drag.eMove )
 		.off( w.drag.eEnd  )
-		.off( w.drag.eEndA );
+		.off( w.drag.eEndA )
+		.off( "resize" + w.eventNamespace );
 
 	if ( o.useFocus ) {
 		w.fastReopen = true;

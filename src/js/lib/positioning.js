@@ -44,11 +44,16 @@ JTSageDateBox.getModalPosition = function ( ) {
  * @return {object} CSS for the widget in dropdown mode.
  */
 JTSageDateBox.getDropPosition = function ( placement ) {
-	var w = this, compd,
-		rect = w.d.wrap[0].getBoundingClientRect(),
-		widget = w.d.mainWrap[0].getBoundingClientRect(),
-		tOff = window.pageYOffset,
-		lOff = window.pageXOffset;
+	var w         = this, compd,
+		o         = this.options,
+		rect      = w.d.wrap[0].getBoundingClientRect(),
+		widget    = w.d.mainWrap[0].getBoundingClientRect(),
+		tOff      = window.pageYOffset,
+		lOff      = window.pageXOffset,
+		smallScr  = ( 
+			Math.max(document.documentElement.clientWidth, window.innerWidth || 0) <=
+			o.breakpointWidth.replace("px", "")
+		);
 
 	compd = {
 		centerLeft : {
@@ -96,7 +101,7 @@ JTSageDateBox.getDropPosition = function ( placement ) {
 	return {
 		position : "absolute",
 		top      : compd[placement].top,
-		left     : compd[placement].left
+		left     : ( smallScr ) ? 0 : compd[placement].left
 	};
 	
 };

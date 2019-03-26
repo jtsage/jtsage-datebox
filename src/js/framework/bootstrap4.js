@@ -415,11 +415,11 @@ JTSageDateBox.styleFunctions = {
 
 		returnVal += "<div class='row my-2 mx-1'>";
 
-		returnVal += "<div class='col-sm-8 p-0 m-0'>";
+		returnVal += "<div class='col-8 p-0 m-0'>";
 		returnVal += this._stdSel( ranges.month, monthCtl, "form-control" );
   		returnVal += "</div>";
 
-		returnVal += "<div class='col-sm-4 p-0 m-0'>";
+		returnVal += "<div class='col-4 p-0 m-0'>";
 		returnVal += this._stdSel( ranges.year, yearCtl, "form-control" );
   		returnVal += "</div>";
 
