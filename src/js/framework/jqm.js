@@ -109,9 +109,6 @@ mergeOpts({
 
 	clickEvent : "vclick",
 	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
-
-	// jQM doesn't play well with "auto"
-	displayDropdownPosition : "top-end",
 });
 
 JTSageDateBox.baseMode = "jqm";

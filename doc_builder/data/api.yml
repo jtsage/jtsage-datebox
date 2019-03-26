@@ -869,14 +869,17 @@ opts :
   displayDropdownPosition :
     short   : Position of dropdown method open
     long    : |
-      String directing placement of dropdown.  See popper.js docs for options. 
+      String directing placement of dropdown.
 
-      Good defaults: top-end, top-start, top
+      Options: topLeft, topMiddle, topRight, centerLeft, centerMiddle, centerRight,
+               bottomLeft, bottomMiddle, bottomRight
+
+      Where the first term is vertical, the second is horizontal.
     modes   : *modeAll
     cat     : Display-Control
     type    : String
     dynamic : true
-    default : top-end
+    default : bottomRight
     optdemo : false
     sample  : false
 

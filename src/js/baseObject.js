@@ -74,9 +74,12 @@ JTSageDateBox.options = {
 	/* One of dropdown, inline, blind, or modal */
 	displayMode             : "dropdown",
 
-	/* For dropdown, position string.  See popper.js docs.  *
-	*  Typical              : top-end or top-start or top      */
-	displayDropdownPosition : "auto-end",
+	/* For dropdown, position string.  *
+	*  Valid : topRight, topMiddle, topLeft
+	*          bottomRight, bottomMiddle, bottomLeft
+	*          centerRight, centerMiddle, centerLeft
+	*/
+	displayDropdownPosition : "bottomRight",
 
 	/* For inline display   : left, right, center (defaults center) */
 	displayInlinePosition   : "center",

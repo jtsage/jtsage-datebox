@@ -107,9 +107,6 @@ mergeOpts({
 
 	clickEvent : "click",
 	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
-
-	// Bulma does not seem to play nice with auto either.
-	displayDropdownPosition : "top-end",
 });
 
 JTSageDateBox.baseMode = "bulma";

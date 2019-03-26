@@ -165,27 +165,6 @@ module.exports = function(grunt) {
 			}
 		},
 		buildDBoxes: {
-			latest_both_bundled: {
-				options: {
-					dest           : "dist/latest/",
-					filename       : "jtsage-datebox",
-					includeBinding : true,
-				},
-				externalLibs : [ "src/js/external/*.js" ],
-				baseObject   : [ "src/js/baseObject.js" ],
-				frameWorks   : [
-					"src/js/framework/*.js",
-					"!src/js/framework/bootstrap4.js",
-					"!src/js/framework/jqm.js"
-				],
-				files: [{
-					expand : true,
-					src    : [
-						"src/js/lib/*.js",
-						"src/js/modes/*.js"
-					],
-				}]
-			},
 			latest_widget_bundled: {
 				options: {
 					dest           : "dist/latest/",
@@ -195,7 +174,8 @@ module.exports = function(grunt) {
 				externalLibs : [ "src/js/external/widgetLib.js" ],
 				baseObject   : [ "src/js/baseObject.js" ],
 				frameWorks   : [
-					"src/js/framework/bootstrap4.js"
+					"src/js/framework/*.js",
+					"!src/js/framework/jqm.js"
 				],
 				files: [{
 					expand : true,
@@ -205,37 +185,16 @@ module.exports = function(grunt) {
 					],
 				}]
 			},
-			latest_popper_bundled: {
+			latest_none_bundled: {
 				options: {
 					dest           : "dist/latest/",
 					filename       : "jtsage-datebox",
 					includeBinding : true,
 				},
-				externalLibs : [ "src/js/external/popper.js" ],
+				externalLibs : [ ],
 				baseObject   : [ "src/js/baseObject.js" ],
 				frameWorks   : [
 					"src/js/framework/jqm.js"
-				],
-				files: [{
-					expand : true,
-					src    : [
-						"src/js/lib/*.js",
-						"src/js/modes/*.js"
-					],
-				}]
-			},
-			release_both_bundled: {
-				options: {
-					dest           : "dist/<%= pkg.version %>/",
-					filename       : "jtsage-datebox-<%= pkg.version %>",
-					includeBinding : true,
-				},
-				externalLibs : [ "src/js/external/*.js" ],
-				baseObject   : [ "src/js/baseObject.js" ],
-				frameWorks   : [
-					"src/js/framework/*.js",
-					"!src/js/framework/bootstrap4.js",
-					"!src/js/framework/jqm.js"
 				],
 				files: [{
 					expand : true,
@@ -254,7 +213,8 @@ module.exports = function(grunt) {
 				externalLibs : [ "src/js/external/widgetLib.js" ],
 				baseObject   : [ "src/js/baseObject.js" ],
 				frameWorks   : [
-					"src/js/framework/bootstrap4.js"
+					"src/js/framework/*.js",
+					"!src/js/framework/jqm.js"
 				],
 				files: [{
 					expand : true,
@@ -264,13 +224,13 @@ module.exports = function(grunt) {
 					],
 				}]
 			},
-			release_popper_bundled: {
+			release_none_bundled: {
 				options: {
 					dest           : "dist/<%= pkg.version %>/",
 					filename       : "jtsage-datebox-<%= pkg.version %>",
 					includeBinding : true,
 				},
-				externalLibs : [ "src/js/external/popper.js" ],
+				externalLibs : [  ],
 				baseObject   : [ "src/js/baseObject.js" ],
 				frameWorks   : [
 					"src/js/framework/jqm.js"
@@ -396,8 +356,7 @@ module.exports = function(grunt) {
 		"clean:release",
 		"clean:web",
 		"buildDBoxes:release_widget_bundled",
-		"buildDBoxes:release_both_bundled",
-		"buildDBoxes:release_popper_bundled",
+		"buildDBoxes:release_none_bundled",
 		"uglify:release",
 		"committers",
 		"updatebuilder",
@@ -407,8 +366,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
 		"clean:latest",
 		"buildDBoxes:latest_widget_bundled",
-		"buildDBoxes:latest_both_bundled",
-		"buildDBoxes:latest_popper_bundled",
+		"buildDBoxes:latest_none_bundled",
 		"uglify:latest",
 	]);
 

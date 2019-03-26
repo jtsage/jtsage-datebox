@@ -364,15 +364,11 @@ JTSageDateBox.open = function () {
 			w._t( { method: "postrefresh" } );
 			break;
 		case "modal":
-			w.d.modalWrap = $("<div style='width:100%'>")
-				.css( "zIndex", ( o.zindex ) )
-				.append(w.d.mainWrap)
-				.appendTo( _sf.findAttachPoint.apply( w, [ false ] ) );
-
 			w.d.mainWrap
 				.show()
+				.css( "zIndex", ( o.zindex ) )
+				.appendTo( _sf.findAttachPoint.apply( w, [ false ] ) )
 				.addClass( o.theme_modalContainer )
-				.css( "margin", "0 auto" )
 				.one( o.tranDone, function() { 
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();
@@ -391,7 +387,9 @@ JTSageDateBox.open = function () {
 					w._t( { method: "close", closeCancel: true } );
 				});
 
-			w.popper = new Popper( w.d.backdrop, w.d.modalWrap, { placement: "auto" });
+			w.d.mainWrap.css(
+				w.getModalPosition.apply( this, [ o.displayDropdownPosition ] )
+			);
 			
 			break;
 		// case "dropdown":
@@ -417,12 +415,11 @@ JTSageDateBox.open = function () {
 					e.preventDefault();
 					w._t( { method: "close", closeCancel: true } );
 				});
-			w.popper = new Popper(
-				w.d.wrap,
-				w.d.mainWrap,
-				{ placement: o.displayDropdownPosition }
-			);
 			
+			w.d.mainWrap.css(
+				w.getDropPosition.apply( this, [ o.displayDropdownPosition ] )
+			);
+
 			break;
 	}
 	window.setTimeout(function () {
@@ -476,13 +473,7 @@ JTSageDateBox.close = function() {
 			w.d.mainWrap.slideUp();
 			basepop.afterclose.call();
 			return true;
-		case "modal" :
-			w.d.modalWrap.remove();
-			$( ".jtsage-datebox-backdrop-div" ).remove();
-			w.d.mainWrap.removeClass( "db-show" );
-			basepop.afterclose.call();
-			w.d.mainWrap.hide();
-			break;
+		//case "modal" :
 		//case "dropdown":
 		default :
 			$( ".jtsage-datebox-backdrop-div" ).remove();
