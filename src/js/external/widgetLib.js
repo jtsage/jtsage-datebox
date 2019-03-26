@@ -456,16 +456,6 @@ $.Widget.prototype = {
 		return this;
 	},
 
-	_setOptionDisabled: function( value ) {
-		this._toggleClass( this.widget(), this.widgetFullName + "-disabled", null, !!value );
-
-		// If the widget is becoming disabled, then nothing is interactive
-		if ( value ) {
-			this._removeClass( this.hoverable, null, "ui-state-hover" );
-			this._removeClass( this.focusable, null, "ui-state-focus" );
-		}
-	},
-
 	enable: function() {
 		return this._setOptions( { disabled: false } );
 	},
