@@ -16,19 +16,19 @@
      */
 
 mergeOpts({
-	theme_clearBtnCls : "outline-secondary",
+	theme_clearBtnCls : "yellow",
 	theme_clearBtnIcn : "clear",
 
-	theme_closeBtnCls : "outline-secondary",
+	theme_closeBtnCls : "success",
 	theme_closeBtnIcn : "check",
 
-	theme_cancelBtnCls : "outline-secondary",
+	theme_cancelBtnCls : "negative",
 	theme_cancelBtnIcn : "cancel",
 
-	theme_tomorrowBtnCls : "outline-secondary",
+	theme_tomorrowBtnCls : "grey",
 	theme_tomorrowBtnIcn : "goto",
 
-	theme_todayBtnCls : "outline-secondary",
+	theme_todayBtnCls : "grey",
 	theme_todayBtnIcn : "goto",
 
 	theme_dropdownContainer : "ui card",
@@ -39,19 +39,19 @@ mergeOpts({
 	theme_headerBtnCls : false, // UN-USED
 	theme_headerBtnIcn : "cancel",
 
-	theme_cal_Today       : "info",
-	theme_cal_DayHigh     : "outline-warning",
-	theme_cal_Selected    : "success",
-	theme_cal_DateHigh    : "outline-warning",
-	theme_cal_DateHighAlt : "outline-danger",
-	theme_cal_DateHighRec : "outline-warning",
-	theme_cal_Default     : "outline-primary",
-	theme_cal_OutOfBounds : "outline-secondary border-0",
+	theme_cal_Today       : "primary",
+	theme_cal_DayHigh     : "yellow",
+	theme_cal_Selected    : "positive",
+	theme_cal_DateHigh    : "red",
+	theme_cal_DateHighAlt : "orange",
+	theme_cal_DateHighRec : "olive",
+	theme_cal_Default     : "basic secondary",
+	theme_cal_OutOfBounds : "grey tertiary",
 
 	theme_cal_NextBtnIcn : "next",
-	theme_cal_NextBtnCls : "outline-dark",
+	theme_cal_NextBtnCls : false, // UN-USED
 	theme_cal_PrevBtnIcn : "prev",
-	theme_cal_PrevBtnCls : "outline-dark",
+	theme_cal_PrevBtnCls : false, //UN-USED
 
 	theme_cal_Pickers  : false, // UNUSED
 	theme_cal_DateList : false, // UNUSED
@@ -107,41 +107,27 @@ mergeOpts({
 	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
 });
 
-JTSageDateBox.baseMode = "bootstrap4";
+JTSageDateBox.baseMode = "fomantic";
 
 JTSageDateBox.styleFunctions = {
-	/**
+	/*
 	 * Make a button
-	 * 
-	 * @param  {string} themeClass Theme class for the button
-	 * @param  {string} icon Icon to use (name or SVG)
-	 * @param  {string} contents Text contents of the button (if any)
-	 * @return {string} Created button
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	button                : function( themeClass, icon, contents ) {
 		var retty;
 
-		retty  = "<a href='#' role='button' class='btn btn-sm btn-" + themeClass + "'>";
+		retty  = "<a href='#' role='button' class='ui button fluid " + themeClass + "'>";
 		retty += ( icon !== false ) ? "<span>" + this.icons.getIcon(icon) + "</span> " : "";
 		retty += contents + "</a>";
 
 		return retty;
 	},
 
-	/**
-	 * Make a button group
-	 * 
-	 * @param  {boolean} collapse Attempt to display buttons on one line
-	 * @return {object} jQuery object of a button group that buttons can be appended to 
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
+	/*
+	 * Make a button group ( collapse unsupported )
 	 */
-	buttonGroup           : function ( collapse ) {
-		var cls = ( collapse === true ) ? "btn-group" : "btn-group-vertical";
-
-		return $("<div class='" + cls + " w-100 p-1'>");
+	buttonGroup           : function ( ) {
+		return $("<div style='padding:.3em'>");
 	},
 
 	/**
@@ -289,119 +275,75 @@ JTSageDateBox.styleFunctions = {
 		return $( "<tr>" );
 	},
 
-	/**
+	/*
 	 * Create a clickable box for each grid item in calbox.
-	 * 
-	 * MUST have the "dbEvent" class
-	 * 
-	 * @param {object}  data             Date information object
-	 * @param {boolean} data.bad         True if the date is invalid
-	 * @param {boolean} data.good        True if the date is valid
-	 * @param {string}  data.theme       Theme class for the button
-	 * @param {string}  data.displayText Text of the date
-	 * @param {object}  data.dateObj     Date object
-	 * 
-	 * @param  {number} totalElements Number of elements in the row ( 7 or 8 )
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	calButton             : function ( data, totalElements ) {
 		var styles_TD = [
 				"width : " + ( 100 / totalElements ) + "%"
 			],
-			class_TD = [
-				"m-0",
-				"p-0",
-				"text-center"
+			styles_A = [
+				"margin: 0",
+				"padding-right: 0",
+				"padding-left: 0"
 			],
 			class_A = [
 				"dbEvent",
-				"w-100",
-				"btn-sm",
-				"btn",
-				"btn-" + data.theme,
+				"ui",
+				"button",
+				"tiny",
+				"fluid",
+				data.theme,
 				( data.bad ? " disabled":"" )
 			],
 			disable = ( data.bad ? "disabled='disabled'" : "" );
 
 		return $(
-			"<td class='" + class_TD.join( " " ) + "' style='" + styles_TD.join( ";" ) + "'>" +
-			"<a href='#' class='" + class_A.join( " " ) + "' " + disable + ">" + 
+			"<td style='" + styles_TD.join( ";" ) + "'>" +
+			"<a href='#' style='" + styles_A.join( ";" ) +
+				 "' class='" + class_A.join( " " ) + "' " + disable + ">" + 
 			data.displayText + 
 			"</a>" + "</td>"
 		);
 	},
 
-	/**
+	/*
 	 * Create a non-button calbox grid box
-	 * 
-	 * @param  {string} text Text to display
-	 * @param  {boolean} header Is this a header (bold?)
-	 * @param  {number} totalElements Number of elements in the row ( 7 or 8 )
-	 * @return {object} jQuery object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox.styleFunctions
 	 */
 	calNonButton          : function ( text, header, totalElements ) {
 		var styles_TD =
-				"width : " + ( 100 / totalElements ) + "%",
-			class_TD = [
-				"m-0",
-				"p-0",
-				"text-center",
-				( header ) ? "font-weight-bold" : ""
-			];
+				"width : " + ( 100 / totalElements ) + "%; " +
+				"text-align : center; " +
+				(( header ) ? "font-weight: bold" : "");
 
 		return $(
-			"<td class='" + class_TD.join( " " ) + "' style='" + styles_TD + "'>" + text + "</td>"
+			"<td style='" + styles_TD + "'>" + text + "</td>"
 		);
 	},
 
-	/**
+	/*
 	 * Create the year and month picker for calbox / slidebox
-	 * 
-	 * @param  {object} ranges Year and Month arrays
-	 * @param {array} ranges.year Containing arrays of [ value, text, selected (boolean) ]
-	 * @param {array} ranges.month Containing arrays of [ value, text, selected (boolean) ]
-	 * @param {string} monthCtl Control class for month picker
-	 * @param {string} yearCtl Control class for year picker
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	genPickers            : function ( ranges, monthCtl, yearCtl ) {
 		var returnVal = "";
 
-		returnVal += "<div class='row my-2 mx-1'>";
+		returnVal += "<div class='ui grid celled'><div class='row'>";
 
-		returnVal += "<div class='col-8 p-0 m-0'>";
+		returnVal += "<div class='nine wide column'>";
 		returnVal += this._stdSel( ranges.month, monthCtl, "form-control" );
   		returnVal += "</div>";
 
-		returnVal += "<div class='col-4 p-0 m-0'>";
+		returnVal += "<div class='seven wide column'>";
 		returnVal += this._stdSel( ranges.year, yearCtl, "form-control" );
   		returnVal += "</div>";
 
-		returnVal += "</div>";
+		returnVal += "</div></div>";
 
 		return $(returnVal);
 	},
 
-	/**
+	/*
 	 * Create the year and month picker for calbox.
-	 * 
-	 * Month picker MUST have the "dbCalPickMonth" class
-	 * Year picker MUST have the "dbCalPickYear" class 
-	 *
-	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}.
-	 * 
-	 * @param  {object} ranges Year and Month arrays
-	 * @param {array} ranges.year Containing arrays of [ value, text, selected (boolean) ]
-	 * @param {array} ranges.month Containing arrays of [ value, text, selected (boolean) ]
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	calPickers            : function ( ranges ) {
 		return this.styleFunctions.genPickers.apply( this, [
@@ -411,40 +353,26 @@ JTSageDateBox.styleFunctions = {
 		] );
 	},
 
-	/**
+	/*
 	 * Make the calbox/slidebox drop down quick pick list.
-	 * 
-	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}
-	 *
-	 * @param {string} listLabel Label for the list
-	 * @param {array} list Containing arrays of [ value, text, selected (boolean) ]
-	 * @param {string} ctlCls Control class for select
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	genDateList           : function ( listLabel, list, ctlCls ) {
-		var returnVal = "";
+		var returnVal = "",
+			newList = list.slice();
 
-		list.unshift([false, listLabel, true]);
 
-		returnVal += "<div class='row my-2 mx-1'>";
-		returnVal += this._stdSel( list, ctlCls, "form-control" );
-		returnVal += "</div>";
+		newList.unshift([false, listLabel, true]);
+
+		returnVal += "<div class='ui grid celled'><div class='row'>";
+		returnVal += "<div class='sixteen wide column'>";
+		returnVal += this._stdSel( newList, ctlCls, "form-control" );
+		returnVal += "</div></div></div>";
 
 		return $(returnVal);
 	},
 
-	/**
+	/*
 	 * Make the calendar drop down quick pick list.
-	 * 
-	 * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}
-	 *
-	 * @param {string} listLabel Label for the list
-	 * @param {array} list Containing arrays of [ value, text, selected (boolean) ]
-	 * @return {object} jQuery Object
-	 * @memberof JTSageDateBox.styleFunctions
-	 * @this JTSageDateBox
 	 */
 	calDateList           : function ( listLabel, list ) {
 		return this.styleFunctions.genDateList.apply( this, [
