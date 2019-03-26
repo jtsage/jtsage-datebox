@@ -439,6 +439,45 @@ JTSageDateBox.styleFunctions = {
 				firstItem.css("margin-top", intended_Top);
 			}
 		});
+	},
+
+	/*
+	 * Find the attacment point for the control
+	 */
+	findAttachPoint : function( isInline ) {
+		var w               = this,
+			possibleAttach  = w.d.wrap.parent(),
+			hardAttachPoint = $( "body" ).find( "#" + w.baseID + "-dbAttach" );
+			
+
+		// If [id]-dbAttach exists, that's the attachment point, always.
+		if ( hardAttachPoint.length === 1 ) { return hardAttachPoint; }
+
+		// Not inline, either modal or popup
+		if ( !isInline ) {
+			return $( "body" );
+		}
+
+		// Inline or blind
+		if ( possibleAttach.hasClass( "form-group" ) ) {
+			return possibleAttach;
+		} else {
+			return w.d.wrap;
+		}
+	},
+
+	/*
+	 * Hide the input element completely.
+	 */
+	hideInput : function() {
+		var w = this,
+			hideMe = w.d.wrap.parent();
+
+		if ( hideMe.hasClass("form-group") ) {
+			hideMe.hide();
+		} else {
+			w.d.wrap.hide();
+		}
 	}
 };
 

@@ -97,7 +97,7 @@ mergeOpts({
 		bottom            : 0,
 		backgroundColor   : "rgba(0,0,0,.4)"
 	},
-	theme_headStyle : false,
+	theme_headStyle : " .db-show {padding-bottom: .3em; margin-bottom:.3em}",
 	theme_spanStyle : false,
 
 	buttonIconDate : "calendar",
@@ -106,7 +106,10 @@ mergeOpts({
 	disabledState  : "disabled",
 
 	clickEvent : "click",
-	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
+	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
+
+	// Bulma does not seem to play nice with auto either.
+	displayDropdownPosition : "top-end",
 });
 
 JTSageDateBox.baseMode = "bulma";
@@ -578,5 +581,52 @@ JTSageDateBox.styleFunctions = {
 				firstItem.css("margin-top", intended_Top);
 			}
 		});
+	},
+
+	/*
+	 * Find the attacment point for the control
+	 */
+	findAttachPoint : function( isInline ) {
+		var w               = this, last, exitLoop = 0,
+			possibleAttach  = w.d.wrap,
+			hardAttachPoint = $( "body" ).find( "#" + w.baseID + "-dbAttach" );
+			
+
+		// If [id]-dbAttach exists, that's the attachment point, always.
+		if ( hardAttachPoint.length === 1 ) { return hardAttachPoint; }
+
+		// Not inline, either modal or popup
+		if ( !isInline ) {
+			return $( "body" );
+		}
+
+		// Inline or blind
+		last = possibleAttach;
+		while ( true ) {
+			exitLoop++;
+			possibleAttach = possibleAttach.parent();
+			if ( possibleAttach.is( "form" ) ) { return last; }
+			if ( exitLoop > 20 ) { return $( "body" ); }
+			last = possibleAttach;
+		}
+
+	},
+
+	/*
+	 * Hide the input element completely.
+	 */
+	hideInput : function() {
+		var w          = this,
+			last       = w.d.wrap,
+			exitLoop   = 0,
+			hideMe     = w.d.wrap;
+
+		while ( true ) {
+			exitLoop++;
+			hideMe = hideMe.parent();
+			if ( hideMe.is( "form" ) ) { last.hide(); return true; }
+			if ( exitLoop > 20 ) { w.d.wrap.hide(); return true; }
+			last = hideMe;
+		}
 	}
 };

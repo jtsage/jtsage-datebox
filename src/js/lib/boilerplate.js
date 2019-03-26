@@ -148,13 +148,7 @@ JTSageDateBox._create = function() {
 		_sf.baseInputNoButton(w.d.wrap);
 	}
 
-	if ( o.hideInput ) { 
-		if ( $.isFunction( _sf.hideInput ) ) {
-			_sf.hideInput.apply( this );
-		} else {
-			w.d.wrap.hide();
-		}
-	}
+	if ( o.hideInput ) { _sf.hideInput.apply( this ); }
 
 	w.d.input
 		.on( "focus.datebox", function(){

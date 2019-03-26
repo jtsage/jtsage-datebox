@@ -108,7 +108,10 @@ mergeOpts({
 	flipSizeOverride : 30,
 
 	clickEvent : "vclick",
-	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend"
+	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
+
+	// jQM doesn't play well with "auto"
+	displayDropdownPosition : "top-end",
 });
 
 JTSageDateBox.baseMode = "jqm";
@@ -612,5 +615,50 @@ JTSageDateBox.styleFunctions = {
 				firstItem.css("margin-top", intended_Top);
 			}
 		});
+	},
+
+	/*
+	 * Find the attacment point for the control
+	 */
+	findAttachPoint : function( isInline ) {
+		var w               = this,
+			possibleAttach  = w.d.wrap.parent(),
+			hardAttachPoint = $( "body" ).find( "#" + w.baseID + "-dbAttach" );
+			
+
+		// If [id]-dbAttach exists, that's the attachment point, always.
+		if ( hardAttachPoint.length === 1 ) { return hardAttachPoint; }
+
+		// Not inline, either modal or popup
+		if ( !isInline ) {
+			possibleAttach = $( ".ui-page-active" );
+			if ( possibleAttach.length === 1 ) { return possibleAttach; }
+			
+			possibleAttach = w.d.input.closest( "[data-role='page']");
+			if ( possibleAttach.length === 1 ) { return possibleAttach; }
+			
+			return $( "body" );
+		}
+
+		// Inline or blind
+		if ( possibleAttach.hasClass( "ui-field-contain" ) ) {
+			return possibleAttach;
+		} else {
+			return w.d.wrap;
+		}
+	},
+
+	/*
+	 * Hide the input element completely.
+	 */
+	hideInput : function() {
+		var w = this,
+			hideMe = w.d.wrap.parent();
+
+		if ( hideMe.hasClass("ui-field-contain") ) {
+			hideMe.hide();
+		} else {
+			w.d.wrap.hide();
+		}
 	}
 };
