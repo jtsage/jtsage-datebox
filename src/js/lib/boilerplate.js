@@ -405,7 +405,7 @@ JTSageDateBox.open = function () {
 			w.d.mainWrap
 				.show()
 				.addClass( o.theme_dropdownContainer )
-				.appendTo( "body" )
+				.appendTo( _sf.findAttachPoint.apply( w, [ false ] ) )
 				.one( o.tranDone, function() { 
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();
