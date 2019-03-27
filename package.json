@@ -9,7 +9,7 @@
     "zurb-foundation": "6.5.3",
     "bulma": "0.7.4",
     "jquery-mobile": "1.4.5",
-    "fomantic-ui" : "2.7.2"
+    "fomantic-ui": "2.7.2"
   },
   "homepage": "http://datebox.jtsage.dev/",
   "author": {
@@ -29,6 +29,8 @@
   },
   "devDependencies": {
     "archiver": "^3.0.0",
+    "eslint": "^5.15.3",
+    "eslint-config-google": "^0.12.0",
     "gettext-parser": ">=3.1.0",
     "grunt": ">=1.0.0",
     "grunt-cloc": "0.0.2",

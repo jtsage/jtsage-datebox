@@ -1,12 +1,11 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Formats the date via formatting string.
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Formats the date via formatting string.
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 
 /**
@@ -47,6 +46,7 @@ JTSageDateBox._ord.default = function (num) {
 JTSageDateBox._customformat = {};
 
 /*jshint -W098 */
+/* eslint-disable no-unused-vars*/
 // Unused arguments disabled for this stub.
 /**
  * Sample custom formatter prototype.  Does nothing
@@ -59,7 +59,7 @@ JTSageDateBox._customformat = {};
  * @memberOf JTSageDateBox._customformat
  */
 JTSageDateBox._customformat.default = function( oper, date, o ) { return false; };
-/*jshint +W098 */
+/* eslint-enable no-unused-vars*/
 
 /**
  * Format a date with a given string format.
@@ -74,25 +74,25 @@ JTSageDateBox._formatter = function(format, date, allowArIn) {
 		o = this.options, tmp,
 		dur = 0;
 
-		// Set default for allowArIn
-		if ( typeof(allowArIn) === "undefined" ) { allowArIn = true; }
+	// Set default for allowArIn
+	if ( typeof(allowArIn) === "undefined" ) { allowArIn = true; }
 
-		// "Stack" duration elements if not all operators are present.
-		// i.e. - if you set 1 day, 2 hrs, but display only days, DateBox
-		// needs to report 26 hrs, not just 2.
-		if ( o.mode.substr( 0, 4 ) === "dura" ) {
-			dur = w._dur(this.theDate.getTime() - this.initDate.getTime());
+	// "Stack" duration elements if not all operators are present.
+	// i.e. - if you set 1 day, 2 hrs, but display only days, DateBox
+	// needs to report 26 hrs, not just 2.
+	if ( o.mode.substr( 0, 4 ) === "dura" ) {
+		dur = w._dur(this.theDate.getTime() - this.initDate.getTime());
 
-			if ( ! format.match( /%Dd/ ) ) { dur[1] += (dur[0]*24);}
-			if ( ! format.match( /%Dl/ ) ) { dur[2] += (dur[1]*60);}
-			if ( ! format.match( /%DM/ ) ) { dur[3] += (dur[2]*60);}
-		}
+		if ( ! format.match( /%Dd/ ) ) { dur[1] += (dur[0]*24);}
+		if ( ! format.match( /%Dl/ ) ) { dur[2] += (dur[1]*60);}
+		if ( ! format.match( /%DM/ ) ) { dur[3] += (dur[2]*60);}
+	}
 
 	// Do the translation
 	format = format.replace(/%(D|X|0|-)*([1-9a-zA-Z])/g, function(match, pad, oper) {
 		// Deal with custom elements
 		if ( pad === "X" ) {
-			if ( typeof w._customformat[o.mode] !== "undefined" ) { 
+			if ( typeof w._customformat[o.mode] !== "undefined" ) {
 				return w._customformat[o.mode](oper, date, o);
 			}
 			return match;

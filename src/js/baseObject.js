@@ -1,32 +1,32 @@
 /* jshint unused: false */
 
- /**
-     * JTSage-DateBox
-     * @fileOverview Base options object and options getters / setters.
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Base options object and options getters / setters.
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 /**
  * DateBox widget
  * 
  * @kind class
  */
-var JTSageDateBox = {};
+var JTSageDateBox = {},
 
-/**
- * Merge options together. Deliberatly shallow merge.
- *
- * @param {Object} newOpts
- */
-var mergeOpts = function (newOpts) {
-	for (var attrname in newOpts) { 
-		JTSageDateBox.options[attrname] = newOpts[attrname];
-	}
-};
+	/* exported mergeOpts */
+	/**
+	 * Merge options together. Deliberatly shallow merge.
+	 *
+	 * @param {Object} newOpts
+	 */
+	mergeOpts = function (newOpts) {
+		for (var attrname in newOpts) {
+			JTSageDateBox.options[attrname] = newOpts[attrname];
+		}
+	};
 
 
 /**
@@ -140,16 +140,16 @@ JTSageDateBox.options = {
 
 	flipboxLensAdjust       : false,
 
-	rolloverMode: { 
-		"m": true,
-		"d": true,
-		"h": true,
-		"i": true,
-		"s": true
+	rolloverMode : {
+		"m"   : true,
+		"d"   : true,
+		"h"   : true,
+		"i"   : true,
+		"s"   : true
 	},
 
-	useLang: "default",
-	lang: {
+	useLang : "default",
+	lang : {
 		"default" : {
 			setDateButtonLabel     : "Set Date",
 			setTimeButtonLabel     : "Set Time",
@@ -158,17 +158,17 @@ JTSageDateBox.options = {
 			tomorrowButtonLabel    : "Jump to Tomorrow",
 			titleDateDialogLabel   : "Set Date",
 			titleTimeDialogLabel   : "Set Time",
-			daysOfWeek: [
-				"Sunday", "Monday", "Tuesday", 
-				"Wednesday", "Thursday", "Friday", 
+			daysOfWeek : [
+				"Sunday", "Monday", "Tuesday",
+				"Wednesday", "Thursday", "Friday",
 				"Saturday"
 			],
-			daysOfWeekShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-			monthsOfYear: [
+			daysOfWeekShort : ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+			monthsOfYear : [
 				"January", "February", "March", "April", "May", "June",
 				"July", "August", "September", "October", "November", "December"
 			],
-			monthsOfYearShort: [
+			monthsOfYearShort : [
 				"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 				"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 			],
@@ -204,6 +204,7 @@ JTSageDateBox.options = {
 };
 
 /*jshint -W101,-W108 */
+/* eslint-disable quotes,max-len*/
 // Line width check disabled for these only, or it's a mess.
 /**
  * Widget Icons
@@ -245,6 +246,7 @@ JTSageDateBox.icons = {
 	calendar : '<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M10.5 1h-.8v1.3c0 .2-.2.4-.4.4H7.6a.4.4 0 0 1-.4-.4V1H4.7v1.3c0 .2-.2.4-.4.4H2.6a.4.4 0 0 1-.4-.4V1h-.8c-.5 0-.8.4-.8.8V11c0 .5.4.8.8.8h9.3c.5 0 .8-.4.8-.8V1.8c0-.5-.4-.8-.8-.8zm0 10.1H1.2V3.5h9.3v7.6zM3.7 1.9h-.8V.2h.8v1.7zm5.1 0H8V.2h.8v1.7zM4.5 5.3h-.8v-.8h.8v.8zm1.7 0h-.8v-.8h.8v.8zm1.7 0h-.8v-.8h.8v.8zm1.7 0h-.8v-.8h.8v.8zM2.8 7H2v-.8h.8V7zm1.7 0h-.8v-.8h.8V7zm1.7 0h-.8v-.8h.8V7zm1.7 0h-.8v-.8h.8V7zm1.7 0h-.8v-.8h.8V7zM2.8 8.7H2v-.8h.8v.8zm1.7 0h-.8v-.8h.8v.8zm1.7 0h-.8v-.8h.8v.8zm1.7 0h-.8v-.8h.8v.8zm1.7 0h-.8v-.8h.8v.8zm-6.8 1.7H2v-.8h.8v.8zm1.7 0h-.8v-.8h.8v.8zm1.7 0h-.8v-.8h.8v.8zm1.7 0h-.8v-.8h.8v.8z"/></svg>',
 };
 /*jshint +W101,+W108 */
+/* eslint-enable quotes,max-len */
 
 /**
  * Create actual HTML controls per framework

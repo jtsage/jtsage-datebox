@@ -1,19 +1,18 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview BootStrap v4 Themes and StyleFunctions
-     * This file supports: datebox, flipbox, slidebox, calbox.
-     * 
-     * calbox: A+
-     * datebox: A+
-     * slidebox: A+
-     * flipbox: A+
-     * 
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview BootStrap v4 Themes and StyleFunctions
+ * This file supports: datebox, flipbox, slidebox, calbox.
+ * 
+ * calbox: A+
+ * datebox: A+
+ * slidebox: A+
+ * flipbox: A+
+ * 
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 mergeOpts({
 	theme_clearBtnCls : "outline-secondary",
@@ -152,7 +151,7 @@ JTSageDateBox.styleFunctions = {
 	 * @memberof JTSageDateBox.styleFunctions
 	 * @this JTSageDateBox
 	 */
-	baseInputWrap         : function ( originalInput ) { 
+	baseInputWrap         : function ( originalInput ) {
 		return originalInput.wrap("<div class='input-group'>").parent();
 	},
 
@@ -169,8 +168,8 @@ JTSageDateBox.styleFunctions = {
 	 */
 	baseInputButton       : function ( icon, title ) {
 		return "<div class='dbOpenButton input-group-append' title='" + title + "'>" +
-			"<div class='input-group-text'>" + 
-			"<span>" + this.icons.getIcon( icon ) + "</span>" + 
+			"<div class='input-group-text'>" +
+			"<span>" + this.icons.getIcon( icon ) + "</span>" +
 			"</div></div>";
 	},
 
@@ -223,8 +222,8 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox
 	 */
 	widgetHeader          : function ( text, themeBar, themeIcon, icon ) {
-		return "<div class='navbar " + themeBar + "'>" + 
-			"<h5 class='text-white'>" + text + "</h5>" + 
+		return "<div class='navbar " + themeBar + "'>" +
+			"<h5 class='text-white'>" + text + "</h5>" +
 			this.styleFunctions.button.apply( this, [ themeIcon + " dbCloser", icon, "" ] ) +
 			"</div>";
 	},
@@ -262,7 +261,7 @@ JTSageDateBox.styleFunctions = {
 	genHeader             : function ( txt, prevIcn, prevCls, nextIcn, nextCls, prevCtl, nextCtl ) {
 		var returnVal = $("<div class='my-2 text-center d-flex justify-content-between'>");
 
-		$( this.styleFunctions.button.apply( this, [ 
+		$( this.styleFunctions.button.apply( this, [
 			prevCls + " mx-2 " + prevCtl,
 			prevIcn,
 			""
@@ -367,8 +366,8 @@ JTSageDateBox.styleFunctions = {
 
 		return $(
 			"<td class='" + class_TD.join( " " ) + "' style='" + styles_TD.join( ";" ) + "'>" +
-			"<a href='#' class='" + class_A.join( " " ) + "' " + disable + ">" + 
-			data.displayText + 
+			"<a href='#' class='" + class_A.join( " " ) + "' " + disable + ">" +
+			data.displayText +
 			"</a>" + "</td>"
 		);
 	},
@@ -417,11 +416,11 @@ JTSageDateBox.styleFunctions = {
 
 		returnVal += "<div class='col-8 p-0 m-0'>";
 		returnVal += this._stdSel( ranges.month, monthCtl, "form-control" );
-  		returnVal += "</div>";
+		returnVal += "</div>";
 
 		returnVal += "<div class='col-4 p-0 m-0'>";
 		returnVal += this._stdSel( ranges.year, yearCtl, "form-control" );
-  		returnVal += "</div>";
+		returnVal += "</div>";
 
 		returnVal += "</div>";
 
@@ -574,8 +573,8 @@ JTSageDateBox.styleFunctions = {
 	 */
 	fboxContainer         : function ( size ) {
 		return $(
-			"<div class='d-flex border-top border-bottom m-2' style='height: " + 
-			size + 
+			"<div class='d-flex border-top border-bottom m-2' style='height: " +
+			size +
 			"; overflow: hidden'>"
 		);
 	},
@@ -603,9 +602,9 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxDurLabel          : function ( text, items ) {
-		return $( 
-			"<div class='text-center' style='width: " + ( 100 / items ) + "%'>" + 
-			text + 
+		return $(
+			"<div class='text-center' style='width: " + ( 100 / items ) + "%'>" +
+			text +
 			"</div>"
 		);
 	},
@@ -642,9 +641,9 @@ JTSageDateBox.styleFunctions = {
 	 * @this JTSageDateBox.styleFunctions
 	 */
 	fboxRollerChild       : function ( text, cls ) {
-		return $( 
-			"<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" + 
-			text + 
+		return $(
+			"<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" +
+			text +
 			"</li>"
 		);
 	},
@@ -786,9 +785,9 @@ JTSageDateBox.styleFunctions = {
 
 		return $(
 			"<td class='" + class_TD.join( " " ) + "' style='" + styles_TD + "'>" +
-			"<a href='#' class='" + class_A.join( " " ) + "' " + disable + ">" + 
+			"<a href='#' class='" + class_A.join( " " ) + "' " + disable + ">" +
 			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] + "</small>" +
-			"<br>" + data.dateObj.getDate() +  
+			"<br>" + data.dateObj.getDate() +
 			"</a></td>");
 	},
 
@@ -821,7 +820,7 @@ JTSageDateBox.styleFunctions = {
 
 		return $(
 			"<td class='" +  class_TD.join( " " ) + "' style='" + styles_TD + "'>" +
-			"<a href='#' class='" + class_A.join( " " ) + "'>" + 
+			"<a href='#' class='" + class_A.join( " " ) + "'>" +
 			this.icons.getIcon( icon )  + "</a></td>"
 		);
 	},
@@ -849,7 +848,7 @@ JTSageDateBox.styleFunctions = {
 		// Negative Half the parent height is center.
 		// Add Negative half the lens height.
 		intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
-		theLens.css( { 
+		theLens.css( {
 			top          : intended_Top,
 			marginBottom : -1 * height_Lens
 		} );

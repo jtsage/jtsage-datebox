@@ -1,12 +1,11 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Contains event handler logic, stubs of attach and build methods
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Contains event handler logic, stubs of attach and build methods
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 /**
  * Handle events of the "datebox" type.
@@ -36,19 +35,19 @@ JTSageDateBox._event = function(e, p) {
 
 	if ( ! e.isPropagationStopped() ) {
 		switch (p.method) {
-			case "close":
-				if ( typeof p.closeCancel === "undefined" ) { 
+			case "close" :
+				if ( typeof p.closeCancel === "undefined" ) {
 					p.closeCancel = false;
 				}
 				w.cancelClose = p.closeCancel;
 				w.close();
 				break;
-			case "open":
+			case "open"  :
 				w.open(); break;
-			case "set":
+			case "set"   :
 				if ( typeof p.value === "object" ) {
 					w.theDate = p.value;
-					w._t( { method: "doset" } );
+					w._t( { method : "doset" } );
 				} else {
 					if ( o.displayMode === "inline" || o.displayMode === "blind" ) {
 						w.originalDate = w.theDate;
@@ -69,30 +68,30 @@ JTSageDateBox._event = function(e, p) {
 					$( this ).trigger( "change" );
 				}
 				break;
-			case "doset":
+			case "doset" :
 				tmp = "_" + w.options.mode + "DoSet";
 				if ( $.isFunction( w[ tmp ] ) ) {
 					w[ tmp ].apply( w, [] );
 				} else {
-					w._t( { 
-						method: "set",
-						value: w._formatter( w.__fmt(), w.theDate ),
-						date: w.theDate
+					w._t( {
+						method : "set",
+						value  : w._formatter( w.__fmt(), w.theDate ),
+						date   : w.theDate
 					} );
 				}
 				break;
-			case "dooffset":
-				if ( p.type ) { 
+			case "dooffset" :
+				if ( p.type ) {
 					w._offset( p.type, p.amount, true );
-				} 
+				}
 				break;
-			case "dorefresh":
+			case "dorefresh" :
 				w.refresh();
 				break;
-			case "doclear":
+			case "doclear" :
 				$( this ).val( "" ).trigger( "change" );
 				break;
-			case "clear":
+			case "clear" :
 				$( this ).trigger( "change" );
 				break;
 		}
@@ -119,7 +118,7 @@ JTSageDateBox._build.default = function () {
 	if ( this.d.intHTML !== false ) {
 		this.d.intHTML.remove().empty();
 	}
-	this.d.intHTML = $("<div style='width:100%'><h2 style='text-align:center;color:red;'" + 
+	this.d.intHTML = $("<div style='width:100%'><h2 style='text-align:center;color:red;'" +
 		">Unknown Mode</h2></div>" );
 };
 

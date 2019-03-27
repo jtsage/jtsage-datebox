@@ -1,12 +1,11 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Provides the datebox, timebox, durationbox, and datetimebox modes
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Provides the datebox, timebox, durationbox, and datetimebox modes
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 mergeOpts({
 	durationStep     : 1,
@@ -34,12 +33,14 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 	
 		if ( o.mode === "datebox" || o.mode === "datetimebox" ) {
 			w.d.intHTML
-				.find( ".dbHeader" ).childern().first()
-					.text( w._formatter( w.__( "headerFormat" ), w.theDate ) );
+				.find( ".dbHeader" )
+				.childern()
+				.first()
+				.text( w._formatter( w.__( "headerFormat" ), w.theDate ) );
 		}
 		
 		if ( o.useSetButton ) {
-			if ( w.dateOK === false ) { 
+			if ( w.dateOK === false ) {
 				w.setBut.addClass( o.disabledState );
 			} else {
 				w.setBut.removeClass( o.disabledState );
@@ -63,7 +64,7 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 					if ( w.__("timeFormat") === 12 ) {
 						$(this).val( w.theDate.get12hr() );
 					} else {
-						$(this).val( w.theDate.get(3) ); 
+						$(this).val( w.theDate.get(3) );
 					}
 				}
 				break;
@@ -72,7 +73,7 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 					$(this).val( w.lastDurationA[2] );
 				} else {
 					$(this).val( w._zPad( w.theDate.get(4) ) );
-				} 
+				}
 				break;
 			case "M":
 				$(this).val( w.__( "monthsOfYearShort" )[w.theDate.get(1)] ); break;
@@ -84,7 +85,7 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
 					$(this).val( w.lastDurationA[3] );
 				} else {
 					$(this).val( w._zPad( w.theDate.get(5) ) );
-				} 
+				}
 				break;
 		}
 	});
@@ -100,7 +101,7 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
  */
 JTSageDateBox._dbox_enter = function (item) {
 	var tmp,
-		w = this, 
+		w = this,
 		t = 0;
 	
 	if ( item.data( "field" ) === "M" ) {
@@ -127,11 +128,11 @@ JTSageDateBox._dbox_enter = function (item) {
 				break;
 			case "s":
 				w.theDate.setD( 5, parseInt(item.val(),10));
-				t += parseInt(item.val(),10); 
+				t += parseInt(item.val(),10);
 				break;
 		}
 	}
-	if ( this.options.mode === "durationbox" ) { 
+	if ( this.options.mode === "durationbox" ) {
 		w.theDate.setTime( w.initDate.getTime() + ( t * 1000 ) );
 	}
 	setTimeout(function() { w.refresh(); }, 150);
@@ -183,15 +184,15 @@ JTSageDateBox._build.datebox = function () {
 	
 	// Select appropriate header text
 	w.d.headerText = ( ( w._grabLabel() !== false ) ?
-		w._grabLabel() : 
-		( ( o.mode === "datebox" || o.mode === "datetimebox" ) ? 
+		w._grabLabel() :
+		( ( o.mode === "datebox" || o.mode === "datetimebox" ) ?
 			w.__( "titleDateDialogLabel" ) :
 			w.__( "titleTimeDialogLabel" )
 		)
 	);
 	w.d.intHTML = $( "<span>" );
 
-	if ( typeof o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
+	if ( o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
 	
 	// Select field order based on mode
 	switch ( o.mode ) {
@@ -220,7 +221,7 @@ JTSageDateBox._build.datebox = function () {
 	}
 	
 	// Create a header for datebox and datetimebox modes
-	if ( o.mode === "datebox" || o.mode === "datetimebox" ) { 
+	if ( o.mode === "datebox" || o.mode === "datetimebox" ) {
 		_sf.intHeader( w._formatter( w.__( "headerFormat" ), w.theDate ) )
 			.appendTo( w.d.intHTML );
 	}
@@ -238,7 +239,7 @@ JTSageDateBox._build.datebox = function () {
 			offAmount = ( w.fldOrder[i] === "i" ) ? o.minuteStep: 1;
 		}
 
-		ctrlWrk = _sf.dboxControl.apply( w, [ 
+		ctrlWrk = _sf.dboxControl.apply( w, [
 			o.theme_dbox_PrevBtnIcn,
 			o.theme_dbox_PrevBtnCls,
 			o.theme_dbox_NextBtnIcn,
@@ -247,17 +248,17 @@ JTSageDateBox._build.datebox = function () {
 			( dur ) ? w.__( "durationLabel" )[ $.inArray( w.fldOrder[i], defDurOrder ) ] : null,
 			o.theme_dbox_Inputs
 		] );
-		ctrlWrk.find( "input" ).data({ 
-			field: w.fldOrder[i],
-			amount: offAmount
+		ctrlWrk.find( "input" ).data({
+			field  : w.fldOrder[i],
+			amount : offAmount
 		});
 		ctrlWrk.find( ".dbBoxNext" ).data({
-			field: w.fldOrder[i],
-			amount: offAmount
+			field  : w.fldOrder[i],
+			amount : offAmount
 		});
 		ctrlWrk.find( ".dbBoxPrev" ).data({
-			field: w.fldOrder[i],
-			amount: offAmount * -1
+			field  : w.fldOrder[i],
+			amount : offAmount * -1
 		});
 
 		ctrlRow.append( ctrlWrk );
@@ -270,12 +271,12 @@ JTSageDateBox._build.datebox = function () {
 	w._dbox_run_update( true );
 
 	// Do bottom buttons
-	if ( 
-			o.useSetButton      ||
-			o.useTodayButton    ||
-			o.useTomorrowButton ||
-			o.useClearButton    ||
-			o.useCancelButton
+	if (
+		o.useSetButton      ||
+		o.useTodayButton    ||
+		o.useTomorrowButton ||
+		o.useClearButton    ||
+		o.useCancelButton
 	) {
 		ctrlContainer = _sf.buttonGroup( o.useCollapsedBut );
 		
@@ -321,16 +322,16 @@ JTSageDateBox._build.datebox = function () {
 			if ( e.which === 13 && w.dateOK === true ) {
 				w._dbox_enter( $( this ) );
 				w._t( {
-					method: "set",
-					value: w._formatter(w.__fmt(),w.theDate),
-					date: w.theDate
+					method : "set",
+					value  : w._formatter(w.__fmt(),w.theDate),
+					date   : w.theDate
 				} );
-				w._t( { method: "close" } );
+				w._t( { method : "close" } );
 			}
 		})
 		.on( "mousewheel", "input", function( e, d ) {
 			e.preventDefault();
-			w._offset( 
+			w._offset(
 				$( this ).data( "field" ),
 				( ( d < 0 ) ? -1 : 1 ) * $( this ).data( "amount" )
 			);

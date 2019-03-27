@@ -1,12 +1,12 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Parse dates
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Parse dates
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ *
+ */
 
 
 
@@ -52,35 +52,35 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 		exp_names = [],
 		faildate = false,
 		date = new w._date(),
-		d = { 
-			year: -1,
-			mont: -1,
-			date: -1,
-			hour: -1,
-			mins: -1,
-			secs: -1,
-			week: false,
-			wtyp: 4,
-			wday: false,
-			yday: false,
-			meri: 0
+		d = {
+			year   : -1,
+			mont   : -1,
+			date   : -1,
+			hour   : -1,
+			mins   : -1,
+			secs   : -1,
+			week   : false,
+			wtyp   : 4,
+			wday   : false,
+			yday   : false,
+			meri   : 0
 		};
 
 	// Set a default, no extended data
 	if ( typeof extd === "undefined" ) { extd = false; }
 	
 	// Convert indic numers t those we can deal with
-	str = $.trim( ( ( w.__( "useArabicIndic" ) === true && typeof str !== "undefined" ) ? 
-			w._dRep( str, -1 ) : 
-			str 
-		) );
+	str = $.trim( ( ( w.__( "useArabicIndic" ) === true && typeof str !== "undefined" ) ?
+		w._dRep( str, -1 ) :
+		str
+	) );
 
 	// Do nothing if no mode loaded
 	if ( typeof o.mode === "undefined" ) { return date; }
 
 	// Run custom parser instead if it exists
-	if ( typeof w._parser[ o.mode ] !== "undefined" ) { 
-		return w._parser[ o.mode ].apply( w, [ str ] ); 
+	if ( typeof w._parser[ o.mode ] !== "undefined" ) {
+		return w._parser[ o.mode ].apply( w, [ str ] );
 	}
 
 	// Deal with duration mode.
@@ -114,24 +114,24 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 		for ( i=1; i<exp_input.length; i++ ) {
 			grbg = parseInt( exp_input[i], 10);
 
-			if ( exp_format[i].match( /^%Dd$/i ) ) { 
+			if ( exp_format[i].match( /^%Dd$/i ) ) {
 				exp_temp = exp_temp + ( grbg * 86400 );
 			}
-			if ( exp_format[i].match( /^%Dl$/i ) ) { 
+			if ( exp_format[i].match( /^%Dl$/i ) ) {
 				exp_temp = exp_temp + ( grbg * 3600 );
 			}
-			if ( exp_format[i].match( /^%DM$/i ) ) { 
+			if ( exp_format[i].match( /^%DM$/i ) ) {
 				exp_temp = exp_temp + ( grbg * 60 );
 			}
-			if ( exp_format[i].match( /^%DS$/i ) ) { 
-				exp_temp = exp_temp + ( grbg ); 
+			if ( exp_format[i].match( /^%DS$/i ) ) {
+				exp_temp = exp_temp + ( grbg );
 			}
 		}
 		return new w._date( exp_temp * 1000 );
 	}
 
 	// JSON style dates are simple.  Shortcut them
-	if ( adv === "%J" ) { 
+	if ( adv === "%J" ) {
 		date = new w._date(str);
 		if ( isNaN(date.getDate()) ) { date = new w._date(); }
 		return date;
@@ -143,32 +143,32 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 	adv = adv.replace( /%(0|-)*([a-z])/gi, function( match, pad, oper ) {
 		exp_names.push( oper );
 		switch ( oper ) {
-			case "p":
-			case "P":
-			case "b":
-			case "B": return "(" + match + "|.+?)";
-			case "H":
-			case "k":
-			case "I":
-			case "l":
-			case "m":
-			case "M":
-			case "S":
-			case "V":
-			case "U":
-			case "u":
-			case "W":
-			case "d": 
-				return "(" + match + "|[0-9]{" + 
+			case "p" :
+			case "P" :
+			case "b" :
+			case "B" : return "(" + match + "|.+?)";
+			case "H" :
+			case "k" :
+			case "I" :
+			case "l" :
+			case "m" :
+			case "M" :
+			case "S" :
+			case "V" :
+			case "U" :
+			case "u" :
+			case "W" :
+			case "d" :
+				return "(" + match + "|[0-9]{" +
 					(( pad === "-" ) ? "1," : "" ) + "2})";
-			case "j": return "(" + match + "|[0-9]{3})";
-			case "s": return "(" + match + "|[0-9]+)";
-			case "g":
-			case "y": return "(" + match + "|[0-9]{2})";
-			case "E":
-			case "G":
-			case "Y": return "(" + match + "|[0-9]{1,4})";
-			default: exp_names.pop(); return ".+?";
+			case "j" : return "(" + match + "|[0-9]{3})";
+			case "s" : return "(" + match + "|[0-9]+)";
+			case "g" :
+			case "y" : return "(" + match + "|[0-9]{2})";
+			case "E" :
+			case "G" :
+			case "Y" : return "(" + match + "|[0-9]{1,4})";
+			default  : exp_names.pop(); return ".+?";
 		}
 	});
 
@@ -190,24 +190,24 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 								( o.mode.substr(0,4) === "time" ? date : false )
 							);
 						}
-					} 
+					}
 					break;
 				case "number":
 					date =  new w._date( defVal * 1000 ); break;
 				case "string":
 					if ( o.mode.substr(0,4) === "time" ) {
 						exp_temp = $.extend(
-								[0,0,0],
-								defVal.split( ":" )
-							).slice( 0, 3 );
-						date = w._pa( exp_temp, date ); 
+							[0,0,0],
+							defVal.split( ":" )
+						).slice( 0, 3 );
+						date = w._pa( exp_temp, date );
 					} else {
-						exp_temp = $.extend( 
-								[0,0,0],
-								defVal.split( "-" )
-							).slice( 0, 3 );
+						exp_temp = $.extend(
+							[0,0,0],
+							defVal.split( "-" )
+						).slice( 0, 3 );
 						exp_temp[1]--;
-						date = w._pa( exp_temp, false ); 
+						date = w._pa( exp_temp, false );
 					} break;
 			}
 		}
@@ -216,41 +216,41 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 		for ( i=1; i<exp_input.length; i++ ) {
 			grbg = parseInt( exp_input[i], 10);
 			switch ( exp_names[i-1] ) {
-				case "s": return new w._date( parseInt( exp_input[i], 10 ) * 1000 );
-				case "Y":
-				case "G": d.year = grbg; break;
-				case "E": d.year = grbg - 543; break;
-				case "y":
-				case "g":
+				case "s" : return new w._date( parseInt( exp_input[i], 10 ) * 1000 );
+				case "Y" :
+				case "G" : d.year = grbg; break;
+				case "E" : d.year = grbg - 543; break;
+				case "y" :
+				case "g" :
 					if ( o.afterToday || grbg < o.twoDigitYearCutoff ) {
 						d.year = 2000 + grbg;
 					} else {
 						d.year = 1900 + grbg;
 					} break;
-				case "m": d.mont = grbg - 1; break;
-				case "d": d.date = grbg; break;
-				case "H":
-				case "k":
-				case "I":
-				case "l": d.hour = grbg; break;
-				case "M": d.mins = grbg; break;
-				case "S": d.secs = grbg; break;
-				case "u": d.wday = grbg - 1; break;
-				case "w": d.wday = grbg; break;
-				case "j": d.yday = grbg; break;
-				case "V": d.week = grbg; d.wtyp = 4; break;
-				case "U": d.week = grbg; d.wtyp = 0; break;
-				case "W": d.week = grbg; d.wtyp = 1; break;
-				case "p":
-				case "P": 
+				case "m" : d.mont = grbg - 1; break;
+				case "d" : d.date = grbg; break;
+				case "H" :
+				case "k" :
+				case "I" :
+				case "l" : d.hour = grbg; break;
+				case "M" : d.mins = grbg; break;
+				case "S" : d.secs = grbg; break;
+				case "u" : d.wday = grbg - 1; break;
+				case "w" : d.wday = grbg; break;
+				case "j" : d.yday = grbg; break;
+				case "V" : d.week = grbg; d.wtyp = 4; break;
+				case "U" : d.week = grbg; d.wtyp = 0; break;
+				case "W" : d.week = grbg; d.wtyp = 1; break;
+				case "p" :
+				case "P" :
 					grbg = new RegExp("^" + exp_input[i] + "$", "i");
 					d.meri = ( grbg.test( w.__( "meridiem" )[0] ) ? -1 : 1 );
 					break;
-				case "b":
+				case "b" :
 					exp_temp = $.inArray( exp_input[i], w.__( "monthsOfYearShort" ) );
 					if ( exp_temp > -1 ) { d.mont = exp_temp; }
 					break;
-				case "B":
+				case "B" :
 					exp_temp = $.inArray( exp_input[i], w.__( "monthsOfYear" ) );
 					if ( exp_temp > -1 ) { d.mont = exp_temp; }
 					break;
@@ -282,10 +282,10 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 			date.setDWeek( d.wtyp, d.week );
 			if ( d.date > -1 ) { date.setDate( d.date ); }
 		}
-		if ( d.yday !== false ) { 
+		if ( d.yday !== false ) {
 			date.setD( 1, 0 ).setD( 2, 1 ).adj( 2, ( d.yday - 1 ) );
 		}
-		if ( d.wday !== false ) { 
+		if ( d.wday !== false ) {
 			date.adj( 2 , ( d.wday - date.getDay() ) );
 		}
 	}

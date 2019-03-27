@@ -1,14 +1,13 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Provides the slidebox mode
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Provides the slidebox mode
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
- mergeOpts({
+mergeOpts({
 	slideHighToday        : true,
 	slideHighPick         : true,
 	
@@ -44,7 +43,7 @@ JTSageDateBox._slide_ThemeDate = function( testDate ) {
 		o = this.options,
 		itt, done = false,
 		returnObject = {
-			theme: o.theme_slide_Default
+			theme : o.theme_slide_Default
 		},
 		dateThemes = [
 			[ "selected",     "theme_slide_Selected" ],
@@ -91,21 +90,21 @@ JTSageDateBox._build.slidebox = function () {
 		// Control variables.
 		cntlCol, cntlObj = {};
 
-	if ( typeof w.d.intHTML !== "boolean" ) { 
-		w.d.intHTML.remove(); 
+	if ( typeof w.d.intHTML !== "boolean" ) {
+		w.d.intHTML.remove();
 		w.d.intHTML = null;
 	}
 
 	// slide dates are always ok, handle disabled set logic elsewhere
 	w.dateOK = true;
 	
-	w.d.headerText = ( ( w._grabLabel() !== false ) ? 
+	w.d.headerText = ( ( w._grabLabel() !== false ) ?
 		w._grabLabel() :
 		w.__( "titleDateDialogLabel" )
 	);
 	w.d.intHTML = $( "<span>" );
 
-	if ( typeof o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
+	if ( o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
 
 	// Internal header (not the widget master header, a header for the calendar)
 	//
@@ -132,7 +131,7 @@ JTSageDateBox._build.slidebox = function () {
 				if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
 				w._offset( "m", -1 );
 				return false;
-			});	
+			});
 	}
 
 	// Picker controls, if enabled.
@@ -196,8 +195,8 @@ JTSageDateBox._build.slidebox = function () {
 	] ) );
 	
 	// Deal with RTL languages (flex is easiest)
-	if ( w.__( "isRTL" ) === true ) { 
-		calCntlRow.css( { display: "flex", flexDirection: "row-reverse" } );
+	if ( w.__( "isRTL" ) === true ) {
+		calCntlRow.css( { display : "flex", flexDirection : "row-reverse" } );
 	}
 
 	// Add row to grid.
@@ -207,26 +206,26 @@ JTSageDateBox._build.slidebox = function () {
 	// Quick Date Picker if turned on.
 	if ( o.slideShowDateList === true && o.slideDateList !== false ) {
 		_sf.slideDateList.apply(
-			this,  
+			this,
 			[ w.__( "calDateListLabel" ), o.slideDateList, o.theme_slide_DateList ]
 		).appendTo(w.d.intHTML);
 		w.d.intHTML.on( "change", "#dbSlidePickList", function() {
 			w.theDate = new w._date(
-					$( this ).val().split( "-" )[0],
-					$( this ).val().split( "-" )[1] - 1,
-					$( this ).val().split( "-" )[2],
-					12, 1, 1, 1
+				$( this ).val().split( "-" )[0],
+				$( this ).val().split( "-" )[1] - 1,
+				$( this ).val().split( "-" )[2],
+				12, 1, 1, 1
 			);
-			w._t( { method: "doset" } );
+			w._t( { method : "doset" } );
 		});
 	}
 
 	// Bottom Buttons
-	if ( 
-			o.useTodayButton    ||
-			o.useTomorrowButton ||
-			o.useClearButton    ||
-			o.useCancelButton
+	if (
+		o.useTodayButton    ||
+		o.useTomorrowButton ||
+		o.useClearButton    ||
+		o.useCancelButton
 	) {
 		calCntlRow = _sf.buttonGroup( o.useCollapsedBut );
 		
@@ -258,11 +257,11 @@ JTSageDateBox._build.slidebox = function () {
 			if ( $( this ).data( "good" ) ) {
 				w.theDate = $( this ).data( "dateObj" ).copy();
 				w._t( {
-					method: "set",
-					value: w._formatter( w.__fmt(),w.theDate ),
-					date: w.theDate
+					method : "set",
+					value  : w._formatter( w.__fmt(),w.theDate ),
+					date   : w.theDate
 				} );
-				w._t( { method: "close" } );
+				w._t( { method : "close" } );
 			}
 		})
 		.on( o.clickEvent, ".dbSlideWkNext", function(e) {

@@ -1,12 +1,11 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Public function methods
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Public function methods
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 
 /**
@@ -59,7 +58,7 @@ JTSageDateBox.setTheDate = function( newDate ) {
 		this.theDate = this._makeDate( newDate );
 	}
 	this.refresh();
-	this._t( { method: "doset" });
+	this._t( { method : "doset" });
 };
 
 /**
@@ -115,11 +114,11 @@ JTSageDateBox.refresh = function() {
 	} else {
 		w._build[ o.mode ].apply( w, [] );
 	}
-	if ( w.__( "useArabicIndic" ) === true ) { 
-		w._doIndic(); 
+	if ( w.__( "useArabicIndic" ) === true ) {
+		w._doIndic();
 	}
 	w.d.mainWrap.append( w.d.intHTML );
-	w._t( {method: "postrefresh"});
+	w._t( { method : "postrefresh" } );
 };
 
 /**
@@ -150,7 +149,7 @@ JTSageDateBox.applyMinMax = function( refresh, override ) {
 		}
 	}
 
-	if ( refresh === true ) { 
-		w._t( { method: "refresh" } );
+	if ( refresh === true ) {
+		w._t( { method : "refresh" } );
 	}
 };

@@ -1,3 +1,16 @@
+/**
+ * JTSage-DateBox
+ * @fileOverview Short Utility Functions
+ * 
+ * Contains often used short utility functions that don't
+ * easily fit elsewhere
+ * 
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
+
 /* JTSage-DateBox 
  *
  * Short Utility Functions 
@@ -16,15 +29,16 @@
 JTSageDateBox._dur = function(ms) {
 	/* Break the duration value down into days/hrs/mins/secs */
 	var theDuration = [
-			ms / ( 60*60*1000*24 ),
-			ms / ( 60*60*1000) % 24,
-			ms / ( 60*1000) % 60,
-			ms / ( 1000 ) % 60,
-		];
+		ms / ( 60*60*1000*24 ),
+		ms / ( 60*60*1000) % 24,
+		ms / ( 60*1000) % 60,
+		ms / ( 1000 ) % 60,
+	];
+
 	$.each(theDuration, function( index, value ){
-		if ( value < 0 ) { 
+		if ( value < 0 ) {
 			theDuration[ index ] = 0;
-		} else { 
+		} else {
 			theDuration[ index ] = Math.floor( value );
 		}
 	});
@@ -48,15 +62,15 @@ JTSageDateBox.__ = function(val) {
 		oride = "override" + val.charAt(0).toUpperCase() + val.slice(1);
 
 	if ( typeof o[ oride ] !== "undefined" ) {
-		return o[ oride ]; 
+		return o[ oride ];
 	}
 	if ( typeof lang !== "undefined" && typeof lang[ val ] !== "undefined" ) {
 		return lang[ val ];
 	}
-	if ( ( typeof mode !== "undefined" ) && ( typeof mode[ val ] !== "undefined" ) ) { 
-		return mode[ val ]; 
+	if ( ( typeof mode !== "undefined" ) && ( typeof mode[ val ] !== "undefined" ) ) {
+		return mode[ val ];
 	}
-	if ( typeof o.lang["default"][val] !== "undefined" ) {
+	if ( typeof o.lang[ "default" ][val] !== "undefined" ) {
 		return o.lang[ "default" ][ val ];
 	}
 	return "Err:NotFound";
@@ -114,16 +128,16 @@ JTSageDateBox._zPad = function(number, pad) {
  */
 JTSageDateBox._dRep = function( oper, direction ) {
 	// Digit replacement Indic/Arabic
-	var ch, i, 
-		start = 48,
-		end = 57,
-		adder = 1584,
+	var ch, i,
+		start     = 48,
+		end       = 57,
+		adder     = 1584,
 		newString = "";
 
 	if ( direction === -1 ) {
 		start += adder;
-		end += adder;
-		adder = -1584;
+		end   += adder;
+		adder  = -1584;
 	}
 	for ( i = 0; i < oper.length; i++ ) {
 		ch = oper.charCodeAt( i );
@@ -148,7 +162,7 @@ JTSageDateBox._doIndic = function() {
 
 			$( this ).html( w._dRep( $( this ).html() ) );
 
-		} 
+		}
 	});
 
 	w.d.intHTML.find( "input" ).each(function() {
@@ -186,10 +200,10 @@ JTSageDateBox._n = function ( val, def ) {
  */
 JTSageDateBox._pa = function (arr,date) {
 	// "Clean" a date for use.
-	if ( typeof date === "boolean" ) { 
+	if ( typeof date === "boolean" ) {
 		return new this._date( arr[0], arr[1], arr[2], 0, 0, 0, 0 );
 	}
-	return new this._date( 
+	return new this._date(
 		date.get(0),
 		date.get(1),
 		date.get(2),
@@ -280,8 +294,8 @@ JTSageDateBox._pickRanges = function ( dispMonth, dispYear, realYear, relative )
 		startYear = 0,
 		endYear   = 0,
 		returnVal = {
-			month: [],
-			year: []
+			month : [],
+			year  : []
 		};
 
 	for ( i = 0; i <= 11; i++ ) {

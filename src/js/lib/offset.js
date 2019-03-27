@@ -1,12 +1,11 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Offset dates
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Offset dates
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 
 /**
@@ -28,10 +27,10 @@ JTSageDateBox._offset = function( oper, amount, update ) {
 		operNum         = $.inArray( oper, [ "y", "m", "d", "h", "i", "s" ] ),
 		lastDate        = 32 - w.theDate.copy([0],[0,0,32,13]).getDate(),
 		thisYear        = [ // Only used when rollover prevented.
-							31, 32 - w.theDate.copy([0],[0,1,32,13]).getDate(), 31,
-							30, 31, 30,
-							31, 31, 30,
-							31, 30, 31
+			31, 32 - w.theDate.copy([0],[0,1,32,13]).getDate(), 31,
+			30, 31, 30,
+			31, 31, 30,
+			31, 30, 31
 		],
 		rolloverAllowed = ( oper !== "a" && ( oper === "y" ||
 				typeof o.rolloverMode[oper] === "undefined" ||
@@ -130,7 +129,7 @@ JTSageDateBox._offset = function( oper, amount, update ) {
 	if ( update === true ) { w.refresh(); }
 
 	// Immediate settting?  do so.
-	if ( o.useImmediate ) { w._t( { method: "doset" } ); }
+	if ( o.useImmediate ) { w._t( { method : "doset" } ); }
 
 	// This fires when we change the calendar display, but don't set the date.
 	if ( o.mode === "calbox" ) {

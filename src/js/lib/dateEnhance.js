@@ -1,12 +1,11 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Widget binder.  Used only in the test enviroment.
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Widget binder.  Used only in the test enviroment.
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 /**
  * Enhance the date object for easier use.
@@ -35,7 +34,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {object} JavaScript date object
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		copy: function( adjust, override ) {
+		copy : function( adjust, override ) {
 			
 			adjust = $.extend( [0,0,0,0,0,0,0], adjust );
 			override = $.extend( [0,0,0,0,0,0,0], override );
@@ -56,7 +55,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {object} JavaScript date object
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		adj: function (type, amount) {
+		adj : function (type, amount) {
 			// Adjust the date.  Yes, this is chainable 
 			if ( typeof amount !== "number" || typeof type !== "number" ) {
 				throw new Error( "Invalid Arguments" );
@@ -84,7 +83,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {object} JavaScript date object
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		setD: function(type, amount) {
+		setD : function(type, amount) {
 			// A chainable version of setWhatever() 
 			switch ( type ) {
 				case 0 : this.setFullYear( amount );     break;
@@ -105,7 +104,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {number} Date part
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		get: function(type) {
+		get : function(type) {
 			// Chainable version of get. Also shorter.
 			switch ( type ) {
 				case 0 : return this.getFullYear();
@@ -123,7 +122,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {number} Hour
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		get12hr: function() {
+		get12hr : function() {
 			if ( this.get( 3 ) === 0 ) { return 12; }
 			if ( this.get( 3 ) < 13 )  { return this.get( 3 ); }
 			return this.get( 3 ) - 12;
@@ -135,7 +134,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {string} ISO-8601 String
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		iso: function() {
+		iso : function() {
 			var arr = [0,0,0], i = 0;
 			for ( i=0; i < 3; i++ ) {
 				arr[ i ] = this.get( i );
@@ -151,7 +150,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {number} Date as an integer
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		comp: function () {
+		comp : function () {
 			return parseInt( this.iso().replace( /-/g, "" ), 10 );
 		},
 
@@ -161,7 +160,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {number} Seconds
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		getEpoch: function() {
+		getEpoch : function() {
 			return Math.floor( this.getTime() / 1000 );
 		},
 
@@ -171,7 +170,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {number} Days
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		getEpochDays: function() {
+		getEpochDays : function() {
 			return Math.floor( this.getTime() / ( 1000*60*60*24 ) );
 		},
 
@@ -181,7 +180,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {array} [y,m,d,h,i,s]
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		getArray: function() {
+		getArray : function() {
 			var arr = [ 0, 0, 0, 0, 0, 0 ], i = 0;
 			for ( i = 0; i < 6; i++ ) {
 				arr[i] = this.get( i );
@@ -196,7 +195,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {object} JavaScript date object
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		setFirstDay: function (day) {
+		setFirstDay : function (day) {
 			// Grabs first valid (day) of current month
 			this.setD( 2, 1 ).adj( 2, ( day - this.getDay() ) );
 			if ( this.get( 2 ) > 10 ) { this.adj( 2, 7 ); }
@@ -216,7 +215,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {object} JavaScript date object
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		setDWeek: function (type,num) {
+		setDWeek : function (type,num) {
 			if ( type === 4 ) {
 				return this.setD(1,0).setD(2,1).setFirstDay(4).adj(2,-3).adj(2,(num-1)*7);
 			}
@@ -235,7 +234,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @return {number} Week number
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
-		getDWeek: function (type) {
+		getDWeek : function (type) {
 			var t1, t2;
 
 			switch ( type ) {

@@ -1,21 +1,20 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Bulma Themes and StyleFunctions
-     * This file supports: datebox, flipbox, slidebox, calbox.
-     *
-     * This framework requires use of [id]-dbAttach ID's. (hella-nest)
-     *
-     * CalBox   : A+
-     * DateBox  : A+
-     * FlipBox  : A- (need multiline buttons.  pending in the project repo)
-     * SlideBox : A (could use some borders maybe)
-     * 
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Bulma Themes and StyleFunctions
+ * This file supports: datebox, flipbox, slidebox, calbox.
+ *
+ * This framework requires use of [id]-dbAttach ID's. (hella-nest)
+ *
+ * CalBox   : A+
+ * DateBox  : A+
+ * FlipBox  : A- (need multiline buttons.  pending in the project repo)
+ * SlideBox : A (could use some borders maybe)
+ * 
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 mergeOpts({
 	theme_clearBtnCls : "is-fullwidth is-marginless is-secondary",
@@ -138,7 +137,7 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Wrap the original input in a div so we can add a button to it
 	 */
-	baseInputWrap         : function ( originalInput ) { 
+	baseInputWrap         : function ( originalInput ) {
 		originalInput.closest( ".field" ).addClass( "has-addons" );
 		originalInput.closest( ".control" ).addClass( "is-expanded" );
 		return originalInput.closest( ".field" );
@@ -205,7 +204,7 @@ JTSageDateBox.styleFunctions = {
 		var returnVal = $("<div class='columns is-mobile is-vcentered' style='padding:.3em'>");
 
 		$("<div class='column is-2'>").append(
-			$( this.styleFunctions.button.apply( this, [ 
+			$( this.styleFunctions.button.apply( this, [
 				firstBtnCls + " is-fullwidth dbCalPrev",
 				firstBtnIcn,
 				""
@@ -251,12 +250,12 @@ JTSageDateBox.styleFunctions = {
 				""
 			),
 			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls = "class='dbEvent is-fullwidth button " + 
+			cls = "class='dbEvent is-fullwidth button " +
 				data.theme + ( data.bad ? " disabled":"" ) + "'";
 
 		return $("<td class='has-text-centered'" + style + ">" +
-			"<a href='#' style='padding-left:0; padding-right:0;' " + cls + " " + disable + ">" + 
-			data.displayText + 
+			"<a href='#' style='padding-left:0; padding-right:0;' " + cls + " " + disable + ">" +
+			data.displayText +
 			"</a>" + "</td>");
 	},
 
@@ -367,7 +366,7 @@ JTSageDateBox.styleFunctions = {
 	fboxContainer         : function ( size ) {
 		return $(
 			"<div class='columns is-mobile is-gapless' style='margin: 0; padding: 0 3px; height: " +
-			size + 
+			size +
 			"; overflow: hidden'>"
 		);
 	},
@@ -385,9 +384,9 @@ JTSageDateBox.styleFunctions = {
 	 * Make a flibox label
 	 */
 	fboxDurLabel          : function ( text, items ) {
-		return $( 
-			"<div class='column has-text-centered' style='width: " + ( 100 / items ) + "%'>" + 
-			text + 
+		return $(
+			"<div class='column has-text-centered' style='width: " + ( 100 / items ) + "%'>" +
+			text +
 			"</div>"
 		);
 	},
@@ -410,10 +409,10 @@ JTSageDateBox.styleFunctions = {
 	 * Make a flipbox element (innermost) - usually a LI
 	 */
 	fboxRollerChild       : function ( text, cls ) {
-		return $( 
-			"<p class='field' style='margin-bottom: 0px'>" + 
-			"<span style='width: 100%' class='tag is-medium " + cls + "'>" + 
-			text + 
+		return $(
+			"<p class='field' style='margin-bottom: 0px'>" +
+			"<span style='width: 100%' class='tag is-medium " + cls + "'>" +
+			text +
 			"</span></p>"
 		);
 	},
@@ -422,7 +421,7 @@ JTSageDateBox.styleFunctions = {
 	 * Make the flipbox lens
 	 */
 	fboxLens              : function () {
-		return $( 
+		return $(
 			"<div class='lensylens' style='height:48px; border:1px solid black; " +
 			"box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); margin-left: 1px; margin-right: 1px;' >"
 		);
@@ -435,7 +434,7 @@ JTSageDateBox.styleFunctions = {
 		var returnVal = $("<div class='columns is-mobile is-vcentered' style='padding:.3em'>");
 
 		$("<div class='column is-2'>").append(
-			$( this.styleFunctions.button.apply( this, [ 
+			$( this.styleFunctions.button.apply( this, [
 				prevBtnCls + " is-fullwidth dbSlidePrev",
 				prevBtnIcn,
 				""
@@ -466,11 +465,11 @@ JTSageDateBox.styleFunctions = {
 
 		returnVal += "<div class='column is-8'><div class='select is-fullwidth'>";
 		returnVal += this._stdSel( ranges.month, "dbSlidePickMonth", "" );
-  		returnVal += "</div></div>";
+		returnVal += "</div></div>";
 
 		returnVal += "<div class='column is-4'><div class='select is-fullwidth'>";
 		returnVal += this._stdSel( ranges.year, "dbSlidePickYear", "" );
-  		returnVal += "</div></div>";
+		returnVal += "</div></div>";
 
 		returnVal += "</div>";
 
@@ -519,10 +518,10 @@ JTSageDateBox.styleFunctions = {
 
 		return $("" +
 			"<td class='has-text-centered'" + style + ">" +
-			"<span class='is-size-7'>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] + 
+			"<span class='is-size-7'>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
 			"</span>" +
-			"<a href='#' " + cls + " " + disable + ">" + 
-			"<span class='is-size-4'>" + data.dateObj.getDate() +  
+			"<a href='#' " + cls + " " + disable + ">" +
+			"<span class='is-size-4'>" + data.dateObj.getDate() +
 			"</span></a>" + "</td>");
 	},
 
@@ -536,7 +535,7 @@ JTSageDateBox.styleFunctions = {
 
 		return $(
 			"<td class='has-text-centered'" + style + ">" +
-			"<a href='#' " + cls + ">" + 
+			"<a href='#' " + cls + ">" +
 			this.icons.getIcon( icon )  + "</a></td>"
 		);
 	},
@@ -558,7 +557,7 @@ JTSageDateBox.styleFunctions = {
 		// Negative Half the parent height is center.
 		// Add Negative half the lens height.
 		intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
-		theLens.css( { 
+		theLens.css( {
 			top          : intended_Top,
 			marginBottom : -1 * height_Lens
 		} );
@@ -602,7 +601,7 @@ JTSageDateBox.styleFunctions = {
 
 		// Inline or blind
 		last = possibleAttach;
-		while ( true ) {
+		for (;;) {
 			exitLoop++;
 			possibleAttach = possibleAttach.parent();
 			if ( possibleAttach.is( "form" ) ) { return last; }
@@ -621,7 +620,7 @@ JTSageDateBox.styleFunctions = {
 			exitLoop   = 0,
 			hideMe     = w.d.wrap;
 
-		while ( true ) {
+		for (;;) {
 			exitLoop++;
 			hideMe = hideMe.parent();
 			if ( hideMe.is( "form" ) ) { last.hide(); return true; }

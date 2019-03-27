@@ -1,22 +1,21 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Fomantic UI Themes and StyleFunctions
-     * This file supports: datebox, flipbox, slidebox, calbox.
-     * 
-     * calbox: A+
-     * datebox: A+
-     * slidebox: A+
-     * flipbox: A+
-	 * 
-	 * As FomanticUI is a fork of SemanticUI, this very well may work, at least in part
-	 * with that framework as well.
-     * 
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Fomantic UI Themes and StyleFunctions
+ * This file supports: datebox, flipbox, slidebox, calbox.
+ * 
+ * calbox: A+
+ * datebox: A+
+ * slidebox: A+
+ * flipbox: A+
+ * 
+ * As FomanticUI is a fork of SemanticUI, this very well may work, at least in part
+ * with that framework as well.
+ * 
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 mergeOpts({
 	theme_clearBtnCls : "yellow",
@@ -136,7 +135,7 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Wrap the original input in a div so we can add a button to it
 	 */
-	baseInputWrap         : function ( originalInput ) { 
+	baseInputWrap         : function ( originalInput ) {
 		return originalInput.wrap("<div class='ui right action input'>").parent();
 	},
 
@@ -173,10 +172,10 @@ JTSageDateBox.styleFunctions = {
 	 * Make the header for every mode
 	 */
 	widgetHeader          : function ( text, themeBar, themeIcon, icon ) {
-		return "<div class='ui menu " + themeBar + "'>" + 
-			"<div class='item'>" + text + "</div>" + 
-			"<div class='right menu'>" + 
-			"<a class='item dbCloser' href='#'>" + this.icons.getIcon( icon ) + "</a>" + 
+		return "<div class='ui menu " + themeBar + "'>" +
+			"<div class='item'>" + text + "</div>" +
+			"<div class='right menu'>" +
+			"<a class='item dbCloser' href='#'>" + this.icons.getIcon( icon ) + "</a>" +
 			"</div></div>";
 	},
 
@@ -195,7 +194,7 @@ JTSageDateBox.styleFunctions = {
 	genHeader             : function ( txt, prevIcn, prevCls, nextIcn, nextCls, prevCtl, nextCtl ) {
 		var returnVal = $("<div class='ui three item menu secondary'>");
 
-		$( this.styleFunctions.button.apply( this, [ 
+		$( this.styleFunctions.button.apply( this, [
 			prevCls + " item " + prevCtl,
 			prevIcn,
 			""
@@ -268,8 +267,8 @@ JTSageDateBox.styleFunctions = {
 		return $(
 			"<td style='" + styles_TD.join( ";" ) + "'>" +
 			"<a href='#' style='" + styles_A.join( ";" ) +
-				 "' class='" + class_A.join( " " ) + "' " + disable + ">" + 
-			data.displayText + 
+				"' class='" + class_A.join( " " ) + "' " + disable + ">" +
+			data.displayText +
 			"</a>" + "</td>"
 		);
 	},
@@ -298,11 +297,11 @@ JTSageDateBox.styleFunctions = {
 
 		returnVal += "<div class='nine wide column'>";
 		returnVal += this._stdSel( ranges.month, monthCtl, "form-control" );
-  		returnVal += "</div>";
+		returnVal += "</div>";
 
 		returnVal += "<div class='seven wide column'>";
 		returnVal += this._stdSel( ranges.year, yearCtl, "form-control" );
-  		returnVal += "</div>";
+		returnVal += "</div>";
 
 		returnVal += "</div></div>";
 
@@ -394,8 +393,8 @@ JTSageDateBox.styleFunctions = {
 		returnVal = $(returnVal);
 
 		returnVal.find(".dbBoxNext,.dbBoxPrev").css({
-			"padding-right": 0,
-			"padding-left" : 0
+			"padding-right" : 0,
+			"padding-left"  : 0
 		});
 
 		return returnVal;
@@ -406,8 +405,8 @@ JTSageDateBox.styleFunctions = {
 	 */
 	fboxContainer         : function ( size ) {
 		return $(
-			"<div style='height: " + 
-			size + 
+			"<div style='height: " +
+			size +
 			"; overflow: hidden; margin: .3em .3em 0'>"
 		);
 	},
@@ -425,9 +424,9 @@ JTSageDateBox.styleFunctions = {
 	 * Make a flibox label
 	 */
 	fboxDurLabel          : function ( text, items ) {
-		return $( 
+		return $(
 			"<div style='text-align: center; display:inline-block; width: " +
-			( 100 / items ) + "%'>" + text + 
+			( 100 / items ) + "%'>" + text +
 			"</div>"
 		);
 	},
@@ -459,10 +458,10 @@ JTSageDateBox.styleFunctions = {
 			"display:block"
 		];
 
-		return $( 
+		return $(
 			"<li class='ui label fluid large " + cls + "' " +
-			"style='" + styles.join( ";" ) + "'>" + 
-			text + 
+			"style='" + styles.join( ";" ) + "'>" +
+			text +
 			"</li>"
 		);
 	},
@@ -552,9 +551,9 @@ JTSageDateBox.styleFunctions = {
 		return $(
 			"<td style='" + styles_TD + "'>" +
 			"<a href='#' style='" + styles_A.join( ";" ) +
-				"' class='" + class_A.join( " " ) + "' " + disable + ">" + 
+				"' class='" + class_A.join( " " ) + "' " + disable + ">" +
 			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] + "</small>" +
-			"<br>" + data.dateObj.getDate() +  
+			"<br>" + data.dateObj.getDate() +
 			"</a></td>");
 	},
 
@@ -580,7 +579,7 @@ JTSageDateBox.styleFunctions = {
 		return $(
 			"<td style='" + styles_TD + "'>" +
 			"<a href='#' style='" + styles_A.join( ";" ) +
-				"'class='" + class_A.join( " " ) + "'>" + 
+				"'class='" + class_A.join( " " ) + "'>" +
 			this.icons.getIcon( icon )  + "</a></td>"
 		);
 	},
@@ -604,7 +603,7 @@ JTSageDateBox.styleFunctions = {
 		// Negative Half the parent height is center.
 		// Add Negative half the lens height.
 		intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
-		theLens.css( { 
+		theLens.css( {
 			top          : intended_Top + 7,
 			marginBottom : -1 * height_Lens
 		} );

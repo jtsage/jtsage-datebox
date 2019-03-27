@@ -1,15 +1,14 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Provides the flipbox, timeflipbox, durationflipbox, and datetimeflipbox modes
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Provides the flipbox, timeflipbox, durationflipbox, and datetimeflipbox modes
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 mergeOpts({
-	flen : { 
+	flen : {
 		"y" : 25,
 		"m" : 24,
 		"d" : 40,
@@ -48,16 +47,16 @@ JTSageDateBox._fbox_pos = function () {
 	if ( $.isFunction( w.styleFunctions.flipPosition ) ) {
 		w.styleFunctions.flipPosition.apply( w );
 		return true;
-	} 
+	}
 
 	// Trap for run too early.
-		if ( height_Container < 1 ) { return true; }
+	if ( height_Container < 1 ) { return true; }
 
 	// Lens top:
 	// Negative Half the parent height is center.
 	// Add Negative half the lens height.
 	intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
-	theLens.css( { 
+	theLens.css( {
 		top          : intended_Top,
 		marginBottom : -1 * height_Lens
 	} );
@@ -117,7 +116,7 @@ JTSageDateBox._fbox_do_dur_math = function ( term, offset, position ) {
 		// First position just counts up indfinatly, and can't go negative.
 		return ( possibleReturn < 0 ) ? "&nbsp;" : possibleReturn;
 	} else {
-		if ( possibleReturn < 0 ) { 
+		if ( possibleReturn < 0 ) {
 			possibleReturn += multiplier;
 		}
 
@@ -170,12 +169,10 @@ JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
 
 				if ( safeOffset < 0 ) {
 					return finder[ finder.length + safeOffset ];
-				} else {
-					return finder[ safeOffset ];
 				}
-			} else {
-				return w.theDate.copy( [ 0, 0, offset ]).get(2);
-			} break;
+				return finder[ safeOffset ];
+			}
+			return w.theDate.copy( [ 0, 0, offset ]).get(2);
 		case "h" :
 			testDate = w.theDate.copy( [ 0, 0, 0, offset ] );
 			return ( ( w.__("timeFormat") === 12 ) ? testDate.get12hr() : testDate.get(3) );
@@ -249,16 +246,16 @@ JTSageDateBox._build.flipbox         = function () {
 	}
 
 	// Get apprpriate header text
-	w.d.headerText = ( ( w._grabLabel() !== false) ? 
-		w._grabLabel() : 
+	w.d.headerText = ( ( w._grabLabel() !== false) ?
+		w._grabLabel() :
 		( (o.mode === "flipbox") ?
 			w.__( "titleDateDialogLabel" ) :
-			w.__( "titleTimeDialogLabel" ) 
+			w.__( "titleTimeDialogLabel" )
 		)
 	);
 	w.d.intHTML = $( "<span>" );
 
-	if ( typeof o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
+	if ( o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
 
 	// Choose the correct field order for the mode
 	switch ( o.mode ) {
@@ -288,7 +285,7 @@ JTSageDateBox._build.flipbox         = function () {
 	}
 
 	// Create a header for flipbox and datetimeflipbox modes
-	if ( o.mode === "flipbox" || o.mode === "datetimeflipbox" ) { 
+	if ( o.mode === "flipbox" || o.mode === "datetimeflipbox" ) {
 		_sf.intHeader( w._formatter( w.__( "headerFormat" ), w.theDate ) )
 			.appendTo( w.d.intHTML );
 	}
@@ -298,7 +295,7 @@ JTSageDateBox._build.flipbox         = function () {
 		cntlContain = _sf.fboxDurLabels();
 		for ( cntlFieldIdx = 0; cntlFieldIdx < w.fldOrder.length; cntlFieldIdx++ ) {
 			thisField = w.fldOrder[ cntlFieldIdx ];
-			cntlContain.append( _sf.fboxDurLabel( 
+			cntlContain.append( _sf.fboxDurLabel(
 				w.__( "durationLabel" )[ $.inArray( thisField, ["d","h","i","s"] ) ],
 				w.fldOrder.length
 			) );
@@ -315,7 +312,7 @@ JTSageDateBox._build.flipbox         = function () {
 
 		cntlContain.data({
 			field  : thisField,
-			amount : ( dur ) ? 
+			amount : ( dur ) ?
 				o.durationSteppers[ thisField ] :
 				( ( thisField === "i" ) ? o.minuteStep : 1 )
 		});
@@ -323,16 +320,16 @@ JTSageDateBox._build.flipbox         = function () {
 		for ( cntlRow = -1 * o.flen[thisField]; cntlRow < ( o.flen[thisField] + 1 ); cntlRow++ ) {
 
 			if ( !dur ) {
-				cntlRoller.append( _sf.fboxRollerChild( 
+				cntlRoller.append( _sf.fboxRollerChild(
 					w._fbox_do_roll_math( thisField, cntlRow ),
-					( cntlRow === 0 ) ? 
+					( cntlRow === 0 ) ?
 						( ( w.dateOK ) ? o.theme_fbox_Selected : o.theme_fbox_Forbidden ) :
 						o.theme_fbox_Default
 				) );
 			} else {
 				cntlRoller.append( _sf.fboxRollerChild(
 					w._fbox_do_dur_math( thisField, cntlRow, cntlFieldIdx ),
-					( cntlRow === 0 ) ? 
+					( cntlRow === 0 ) ?
 						o.theme_fbox_Selected :
 						o.theme_fbox_Default
 				) );
@@ -356,11 +353,11 @@ JTSageDateBox._build.flipbox         = function () {
 
 	// Do bottom buttons
 	if (
-			o.useSetButton      ||
-			o.useTodayButton    ||
-			o.useTomorrowButton ||
-			o.useClearButton    ||
-			o.useCancelButton
+		o.useSetButton      ||
+		o.useTodayButton    ||
+		o.useTomorrowButton ||
+		o.useClearButton    ||
+		o.useCancelButton
 	) {
 		cntlContain = _sf.buttonGroup( o.useCollapsedBut );
 		
@@ -412,8 +409,8 @@ JTSageDateBox._build.flipbox         = function () {
 				g.move = true;
 				g.target = $(this).children().first();
 				g.pos = parseInt( g.target.css( "marginTop" ).replace( /px/i, "" ),10 );
-				g.start = ( e.type.substr(0,5) === "touch" ) ? 
-					e.originalEvent.changedTouches[0].pageY : 
+				g.start = ( e.type.substr(0,5) === "touch" ) ?
+					e.originalEvent.changedTouches[0].pageY :
 					e.pageY;
 				g.end = false;
 				g.direc = 1; //( dur ) ? 1 : -1;
@@ -463,13 +460,13 @@ JTSageDateBox._drag.flipbox          = function () {
 	
 	$( document ).on( g.eMove, function(e) {
 		if ( g.move && o.mode.slice(-7) === "flipbox" ) {
-			g.end = ( e.type.substr(0,5) === "touch" ) ? 
-				e.originalEvent.changedTouches[0].pageY : 
+			g.end = ( e.type.substr(0,5) === "touch" ) ?
+				e.originalEvent.changedTouches[0].pageY :
 				e.pageY;
 
 			g.target.css("margin-top", (g.pos + g.end - g.start) );
 
-			g.elapsed = Date.now()-g.time;
+			g.elapsed  = Date.now()-g.time;
 			g.velocity = 0.8 * ( 100 * (g.end - g.start) / ( 1 + g.elapsed ) ) + 0.2 * g.velocity;
 
 			e.preventDefault();
@@ -497,12 +494,12 @@ JTSageDateBox._drag.flipbox          = function () {
 							g.tmp.data( "amount" ) * g.direc ) );
 				}
 				g.start = false;
-				g.end = false;
+				g.end   = false;
 			} else {
-				g.move = false;
+				g.move  = false;
 				g.start = false;
-				g.end = false;
-				g.tmp = g.target.closest( ".dbRollerC" );
+				g.end   = false;
+				g.tmp   = g.target.closest( ".dbRollerC" );
 
 				eachItem = (o.flipSizeOverride !== false ) ?
 					o.flipSizeOverride :
@@ -510,20 +507,20 @@ JTSageDateBox._drag.flipbox          = function () {
 
 				delta = ( -( g.velocity * 0.8 ) * Math.exp( -g.elapsed / 325 ) * 8 ) * -1;
 
-				currentPosition = parseInt( g.target.css("marginTop").replace(/px/i, ""), 10 );
-				goodPosition = parseInt( currentPosition + delta, 10 );
+				currentPosition = parseInt( g.target.css( "marginTop" ).replace( /px/i, "" ), 10 );
+				goodPosition    = parseInt( currentPosition + delta, 10 );
 
-				totalMove = g.pos - goodPosition; 
+				totalMove  = g.pos - goodPosition;
 				numberFull = Math.round(totalMove / ( eachItem ));
-				goodGuess = numberFull * g.tmp.data( "amount" ) * g.direc;
+				goodGuess  = numberFull * g.tmp.data( "amount" ) * g.direc;
 				
 				g.target.animate(
 					{
-						marginTop: goodPosition
-					}, 
+						marginTop : goodPosition
+					},
 					parseInt(10000/g.velocity) + 1000,
 					function() {
-						w._offset( g.tmp.data("field"), goodGuess);
+						w._offset( g.tmp.data("field"), goodGuess );
 					}
 				);
 

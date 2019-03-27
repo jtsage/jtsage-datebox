@@ -1,12 +1,11 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Handle date limits
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Handle date limits
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 /**
  * Fix minutes of the date based on minuteStep option.
@@ -15,7 +14,7 @@
  */
 JTSageDateBox._minStepFix = function() {
 	// Round "extra" minutes when using a stepper.
-	var newMinute      = this.theDate.get(4), 
+	var newMinute      = this.theDate.get(4),
 		mstep          = this.options.minuteStep,
 		roundDirection = this.options.minStepRound,
 		remainder      = newMinute % mstep;
@@ -32,7 +31,7 @@ JTSageDateBox._minStepFix = function() {
 				newMinute = newMinute + ( mstep - remainder );
 			}
 		}
-	this.theDate.setMinutes(newMinute);
+		this.theDate.setMinutes(newMinute);
 	}
 };
 
@@ -77,13 +76,17 @@ JTSageDateBox._newDateCheck = {
 		if ( this.options.notToday === false ) { return false; }
 
 		if (
-			this.realToday.get(0) === testDate.get(0) && 
+			this.realToday.get(0) === testDate.get(0) &&
 			this.realToday.get(1) === testDate.get(1) &&
 			this.realToday.get(2) === testDate.get(2)
-			) {
-				return true; 
+		) {
+
+			return true;
+
 		} else {
+
 			return false;
+
 		}
 	},
 	maxYear : function ( testDate ) {
@@ -92,7 +95,7 @@ JTSageDateBox._newDateCheck = {
 
 		if ( testOption === false ) { return false; }
 
-		return  ( testDate.get(0) > testOption ); 
+		return  ( testDate.get(0) > testOption );
 	},
 	minYear : function ( testDate ) {
 		/* return true if the date is beyond the max year */
@@ -100,7 +103,7 @@ JTSageDateBox._newDateCheck = {
 
 		if ( testOption === false ) { return false; }
 
-		return ( testDate.get(0) < testOption ); 
+		return ( testDate.get(0) < testOption );
 	},
 	minDate : function ( testDate ) {
 		/* return true if the date is before the minimum */
@@ -267,11 +270,11 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 	var w = this,
 		itt, done = false,
 		returnObject = {
-			good: true,
-			bad: false,
-			failrule: false,
-			passrule: false,
-			dateObj: testDate.copy()
+			good     : true,
+			bad      : false,
+			failrule : false,
+			passrule : false,
+			dateObj  : testDate.copy()
 		},
 		badChecks = [
 			"blackDays", "blackDates", "blackDatesRec",
@@ -283,12 +286,12 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 	w.realToday = new w._date();
 
 	// If "enableDates" is in use, no other checks are performed
-	if ( this.options.enableDates !== false ) { 
+	if ( this.options.enableDates !== false ) {
 		if ( w._newDateCheck.whiteDate.apply( w, [ testDate ] ) ) {
 			returnObject.passrule = "enableDates";
 		} else {
-			returnObject.bad = true;
-			returnObject.good = false;
+			returnObject.bad      = true;
+			returnObject.good     = false;
 			returnObject.failrule = "enableDates";
 		}
 		return returnObject;
@@ -299,8 +302,8 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 		if ( w._newDateCheck.validHours.apply( w, [ testDate] ) ) {
 			returnObject.passrule = "validHours";
 		} else {
-			returnObject.bad = true;
-			returnObject.good = false;
+			returnObject.bad      = true;
+			returnObject.good     = false;
 			returnObject.failrule = "validHours";
 		}
 		return returnObject;
@@ -314,8 +317,8 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 
 	for ( itt = 0; itt < badChecks.length && !done; itt++ ) {
 		if ( w._newDateCheck[ badChecks[ itt ] ].apply( w, [ testDate ] ) ) {
-			returnObject.bad = true;
-			returnObject.good = false;
+			returnObject.bad      = true;
+			returnObject.good     = false;
 			returnObject.failrule = badChecks[ itt ];
 			done = true;
 		}
@@ -437,7 +440,7 @@ JTSageDateBox._ThemeDateCK = {
 
 		if ( typeof this.originalDate === "undefined" ) { return false; }
 		
-		if ( this.originalDate.iso() === testDate.iso() ) { 
+		if ( this.originalDate.iso() === testDate.iso() ) {
 			return true;
 		}
 		return false;
@@ -477,9 +480,9 @@ JTSageDateBox._ThemeDateCK = {
 
 		for ( i = 0; i < testOption.length; i++ ) {
 			if (
-				( testOption[i][0] === -1 || testOption[i][0] === testDate.get(0) ) &&
-				( testOption[i][1] === -1 || testOption[i][1] === testDate.get(1) ) &&
-				( testOption[i][2] === -1 || testOption[i][2] === testDate.get(2) )
+				( testOption[i][0] === -1 || testOption[i][0] === testDate.get( 0 ) ) &&
+				( testOption[i][1] === -1 || testOption[i][1] === testDate.get( 1 ) ) &&
+				( testOption[i][2] === -1 || testOption[i][2] === testDate.get( 2 ) )
 			) { return true ;}
 		}
 		return false;

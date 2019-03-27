@@ -1,14 +1,13 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview BootStrap v3 Themes and StyleFunctions
-     * This file supports: datebox, flipbox, slidebox, calbox.
-	 * 
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview BootStrap v3 Themes and StyleFunctions
+ * This file supports: datebox, flipbox, slidebox, calbox.
+ * 
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 mergeOpts({
 	theme_clearBtnCls : "default",
@@ -111,7 +110,7 @@ JTSageDateBox.styleFunctions = {
 
 		retty  = "<a href='#' role='button' class='btn btn-sm btn-" + themeClass + "'>";
 		retty += ( iconClass !== false ) ?
-			"<span style='top: 3px; display: inline-block; position: relative;'>" + 
+			"<span style='top: 3px; display: inline-block; position: relative;'>" +
 			this.icons.getIcon(iconClass) + "</span> " :
 			"";
 		retty += contents + "</a>";
@@ -126,13 +125,13 @@ JTSageDateBox.styleFunctions = {
 			"<div style='width: 100%; padding: 5px;' class='" +  cls + "'>"
 		);
 	},
-	baseInputWrap         : function ( originalInput ) { 
+	baseInputWrap         : function ( originalInput ) {
 		/* Set up a wrap around the input for styling, and return it */
 		return originalInput.wrap("<div class='input-group'>").parent();
 	},
 	baseInputButton       : function ( iconClass, title ) {
 		return "<div class='input-group-addon' title='" + title + "'>" +
-			"<span>" + this.icons.getIcon(iconClass) + "</span>" + 
+			"<span>" + this.icons.getIcon(iconClass) + "</span>" +
 			"</div>";
 	},
 	baseInputButtonFinder : function ( originalInputWrap ) {
@@ -148,10 +147,10 @@ JTSageDateBox.styleFunctions = {
 		return true;
 	},
 	widgetHeader          : function ( text, themeBar, themeIcon, iconClass ) {
-		return "<div class='navbar " + themeBar + "'><div class=\"navbar-header\">" + 
-			"<span class=\"navbar-brand\">" + text + "</span>" + 
+		return "<div class='navbar " + themeBar + "'><div class=\"navbar-header\">" +
+			"<span class=\"navbar-brand\">" + text + "</span>" +
 			"</div>" + "<ul class=\"nav navbar-nav navbar-right\">" +
-			"<li><a href=\"#\" class=\"closer\"><span>" + this.icons.getIcon(iconClass) + 
+			"<li><a href=\"#\" class=\"closer\"><span>" + this.icons.getIcon(iconClass) +
 			"</span>&nbsp;&nbsp;</a></li></ul></div>";
 	},
 	intHeader             : function ( text ) {
@@ -171,7 +170,7 @@ JTSageDateBox.styleFunctions = {
 			""
 		] ) ).appendTo( returnVal );
 
-		$( this.styleFunctions.button.apply( this, [ 
+		$( this.styleFunctions.button.apply( this, [
 			secondBtnCls + " pull-right dbCalNext",
 			secondBtnIcn,
 			""
@@ -198,12 +197,12 @@ JTSageDateBox.styleFunctions = {
 				""
 			),
 			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls = "class='dbEvent btn-sm btn btn-" + 
+			cls = "class='dbEvent btn-sm btn btn-" +
 				data.theme + ( data.bad ? " disabled":"" ) + "'";
 
 		return $("<td class='text-center'" + style + ">" +
-			"<a href='#' style='width:100%' " + cls + " " + disable + ">" + 
-			data.displayText + 
+			"<a href='#' style='width:100%' " + cls + " " + disable + ">" +
+			data.displayText +
 			"</a>" + "</td>");
 	},
 	calNonButton          : function ( text, header, totalElements ) {
@@ -222,11 +221,11 @@ JTSageDateBox.styleFunctions = {
 
 		returnVal += "<div class='col-sm-8' style='padding:0; margin:0'>";
 		returnVal += this._stdSel( ranges.month, "dbCalPickMonth", "form-control" );
-  		returnVal += "</div>";
+		returnVal += "</div>";
 
 		returnVal += "<div class='col-sm-4' style='padding:0; margin:0'>";
 		returnVal += this._stdSel( ranges.year, "dbCalPickYear", "form-control" );
-  		returnVal += "</div>";
+		returnVal += "</div>";
 
 		returnVal += "</div>";
 
@@ -282,9 +281,9 @@ JTSageDateBox.styleFunctions = {
 	},
 	fboxContainer         : function ( size ) {
 		return $(
-			"<div style='height: " + 
-			 size + 
-			 "; overflow: hidden; padding: 5px;'>"
+			"<div style='height: " +
+			size +
+			"; overflow: hidden; padding: 5px;'>"
 		);
 	},
 	fboxDurLabels         : function ( ) {
@@ -293,9 +292,9 @@ JTSageDateBox.styleFunctions = {
 		);
 	},
 	fboxDurLabel          : function ( text, items ) {
-		return $( 
-			"<div class='text-center' style='display: inline-block; width: " + 
-			( 100 / items ) + "%'>" + text + 
+		return $(
+			"<div class='text-center' style='display: inline-block; width: " +
+			( 100 / items ) + "%'>" + text +
 			"</div>"
 		);
 	},
@@ -307,15 +306,15 @@ JTSageDateBox.styleFunctions = {
 		return $( "<ul class='list-group'>" );
 	},
 	fboxRollerChild       : function ( text, cls ) {
-		return $( 
+		return $(
 			"<li class='list-group-item text-center list-group-item-" + cls + "'" +
-			" style='padding: 10px 0;'>" + 
-			text + 
+			" style='padding: 10px 0;'>" +
+			text +
 			"</li>"
 		);
 	},
 	fboxLens              : function () {
-		return $( 
+		return $(
 			"<div style='margin: 0px 2px; box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); " +
 			"border: 1px solid black; height: 50px;'>"
 		);
@@ -349,11 +348,11 @@ JTSageDateBox.styleFunctions = {
 
 		returnVal += "<div class='col-sm-8' style='padding:0; margin:0'>";
 		returnVal += this._stdSel( ranges.month, "dbSlidePickMonth", "form-control" );
-  		returnVal += "</div>";
+		returnVal += "</div>";
 
 		returnVal += "<div class='col-sm-4' style='padding:0; margin:0'>";
 		returnVal += this._stdSel( ranges.year, "dbSlidePickYear", "form-control" );
-  		returnVal += "</div>";
+		returnVal += "</div>";
 
 		returnVal += "</div>";
 
@@ -361,7 +360,7 @@ JTSageDateBox.styleFunctions = {
 	},
 	slideDateList           : function ( listLabel, list ) {
 		var returnVal = "",
-		newList = list.slice();
+			newList   = list.slice();
 
 
 		newList.unshift([false, listLabel, true]);
@@ -385,13 +384,13 @@ JTSageDateBox.styleFunctions = {
 	slideDateButton         : function ( data ) {
 		var style   = " style='width: " + ( ( 100 / 8 ) ) + "%'",
 			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls = "class='dbEventS btn-sm btn btn-" + 
+			cls = "class='dbEventS btn-sm btn btn-" +
 				data.theme + ( data.bad ? " disabled":"" ) + "'";
 
 		return $("<td class='text-center'" + style + ">" +
-			"<a href='#' style='border-radius: 50%;width:100%' " + cls + " " + disable + ">" + 
+			"<a href='#' style='border-radius: 50%;width:100%' " + cls + " " + disable + ">" +
 			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
-			"</small><br>" + data.dateObj.getDate() + 
+			"</small><br>" + data.dateObj.getDate() +
 			"</a>" + "</td>");
 
 	},
@@ -402,7 +401,7 @@ JTSageDateBox.styleFunctions = {
 
 		return $(
 			"<td class='m-0 p-1 text-center'" + style + ">" +
-			"<a href='#' style='border-radius: 50%; width:100%; padding:2px; margin:0;' " + 
+			"<a href='#' style='border-radius: 50%; width:100%; padding:2px; margin:0;' " +
 			cls + ">" + this.icons.getIcon(icon) + "</a></td>"
 		);
 
@@ -423,7 +422,7 @@ JTSageDateBox.styleFunctions = {
 		// Negative Half the parent height is center.
 		// Add Negative half the lens height.
 		intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
-		theLens.css( { 
+		theLens.css( {
 			top          : intended_Top,
 			marginBottom : -1 * height_Lens
 		} );

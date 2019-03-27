@@ -1,12 +1,12 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Responsible for creation / open / close / destroy of widget
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     */
-	
+/**
+ * JTSage-DateBox
+ * @fileOverview Responsible for creation / open / close / destroy of widget
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
+
 /**
  * Create the widget, called automatically on initilization
  *
@@ -32,15 +32,13 @@ JTSageDateBox._create = function() {
 		 * @property {object} intHTML Contol HTML insides
 		 */
 		d = {
-			input: this.element,
-			wrap: this.element.parent(),
-			mainWrap: $( "<div>", { 
-				"class": "dbContainer_" + this.uuid
-				} ).css( "zIndex", o.zindex ),
-			intHTML: false
+			input    : this.element,
+			wrap     : this.element.parent(),
+			mainWrap : $( "<div class='dbContainer_" + this.uuid + "'>" ).css( "zIndex", o.zindex ),
+			intHTML  : false
 		},
 		styleTag = "<style>" +
-				".dbContainer_" + this.uuid + " { " + 
+				".dbContainer_" + this.uuid + " { " +
 					"touch-action: none; width: " + o.controlWidth + "}" +
 				
 				"@media (max-width: " + o.breakpointWidth + ") { " +
@@ -53,12 +51,9 @@ JTSageDateBox._create = function() {
 		touch = ( typeof window.ontouchstart !== "undefined" ),
 		drag = {
 			eStart : "touchstart" + evtid + " mousedown" + evtid,
-			eMove  : "touchmove" + evtid + " mousemove" + evtid,
-			eEnd   : "touchend" + evtid + " mouseup" + evtid,
-			eEndA  : (true ?
-				(["mouseup","touchend","touchcancel","touchmove"].join(evtid+" ") + evtid) :
-				"mouseup" + evtid
-			),
+			eMove  : "touchmove"  + evtid + " mousemove" + evtid,
+			eEnd   : "touchend"   + evtid + " mouseup"   + evtid,
+			eEndA  : [ "mouseup", "touchend", "touchcancel", "touchmove" ].join( evtid + " " ),
 			move   : false,
 			start  : false,
 			end    : false,
@@ -70,10 +65,10 @@ JTSageDateBox._create = function() {
 
 	$( "head" ).append( $( styleTag ) );
 
-	$.extend(w, {d: d, drag: drag, touch:touch, icons:this.icons});
+	$.extend(w, { d : d, drag : drag, touch : touch, icons : this.icons } );
 
 	if ( o.usePlaceholder !== false ) {
-		if ( o.usePlaceholder === true && w._grabLabel() !== "" ) { 
+		if ( o.usePlaceholder === true && w._grabLabel() !== "" ) {
 			w.d.input.attr( "placeholder", w._grabLabel());
 		}
 		if ( typeof o.usePlaceholder === "string" ) {
@@ -145,7 +140,7 @@ JTSageDateBox._create = function() {
 				if ( o.useFocus ) {
 					w.d.input.focus();
 				} else {
-					if ( !w.disabled ) { w._t( { method: "open" } ); }
+					if ( !w.disabled ) { w._t( { method : "open" } ); }
 				}
 			})
 			.appendTo(w.d.wrap);
@@ -159,7 +154,7 @@ JTSageDateBox._create = function() {
 		.on( "focus.datebox", function(){
 			_sf.focusInput(w.d.input);
 			if ( w.disabled === false && o.useFocus ) {
-				w._t( { method: "open" } );
+				w._t( { method : "open" } );
 			}
 		})
 		.on( "blur.datebox", function() {
@@ -174,12 +169,12 @@ JTSageDateBox._create = function() {
 			if ( typeof o.runOnBlurCallback === "function" ) {
 				runTmp = w._makeDate( w.d.input.val(), true );
 				ranTmp = o.runOnBlurCallback.apply( w, [{
-					oldDate: w.theDate,
-					newDate: runTmp[0],
-					wasGoodDate: !runTmp[1],
-					wasBadDate: runTmp[1]
+					oldDate     : w.theDate,
+					newDate     : runTmp[0],
+					wasGoodDate : !runTmp[1],
+					wasBadDate  : runTmp[1]
 				}]);
-				if ( typeof ranTmp !== "object" ) { 
+				if ( typeof ranTmp !== "object" ) {
 					w.theDate = w._makeDate( w.d.input.val() );
 					w.refresh();
 				} else {
@@ -196,8 +191,8 @@ JTSageDateBox._create = function() {
 		})
 		.on( "datebox", w._event );
 
-	if ( o.lockInput ) { 
-		w.d.input.attr( "readonly", "readonly" ); 
+	if ( o.lockInput ) {
+		w.d.input.attr( "readonly", "readonly" );
 	}
 
 	// Check if mousewheel plugin is loaded
@@ -233,7 +228,7 @@ JTSageDateBox.open = function () {
 		_sf           = this.styleFunctions,
 		basepop       = {};
 
-	if ( o.useFocus && w.fastReopen === true ) { 
+	if ( o.useFocus && w.fastReopen === true ) {
 		w.d.input.blur();
 		return false;
 	}
@@ -253,7 +248,7 @@ JTSageDateBox.open = function () {
 		w._drag[ o.mode ].apply( w, [] );
 	}
 
-	w._t( { method: "refresh" } );
+	w._t( { method : "refresh" } );
 
 	if ( w.__( "useArabicIndic" ) === true ) { w._doIndic(); }
 
@@ -263,21 +258,22 @@ JTSageDateBox.open = function () {
 	w.d.mainWrap.empty();
 
 	if ( o.useHeader ) {
-		w.d.mainWrap.append( $( _sf.widgetHeader.apply( w, [
-			w.d.headerText,
-			o.theme_headerTheme,
-			o.theme_headerBtnCls,
-			o.theme_headerBtnIcn
-		] ) ) )
-		.find( ".dbCloser" ).on( o.clickEvent, function( e ) {
-			e.preventDefault();
-			w._t( { method: "close", closeCancel: true } );
-		} );
+		w.d.mainWrap
+			.append( $( _sf.widgetHeader.apply( w, [
+				w.d.headerText,
+				o.theme_headerTheme,
+				o.theme_headerBtnCls,
+				o.theme_headerBtnIcn
+			] ) ) )
+			.find( ".dbCloser" ).on( o.clickEvent, function( e ) {
+				e.preventDefault();
+				w._t( { method : "close", closeCancel : true } );
+			} );
 	}
 	
 	w.d.mainWrap.append( w.d.intHTML ).css( "zIndex", o.zindex );
 
-	w._t( { method: "postrefresh" } );
+	w._t( { method : "postrefresh" } );
 
 	// Perpare open callback, if provided. Additionally, if this
 	// returns false then the open/update will stop.
@@ -288,20 +284,20 @@ JTSageDateBox.open = function () {
 			}
 		}
 		basepop.afteropen = function() {
-			w._t( { method: "postrefresh" } );
+			w._t( { method : "postrefresh" } );
 			if ( o.openCallback.apply( w, $.merge([{
-						custom: w.customCurrent,
-						initDate: w.initDate,
-						date: w.theDate,
-						duration: w.lastDuration
-					}], o.openCallbackArgs ) ) === false ) {
+				custom   : w.customCurrent,
+				initDate : w.initDate,
+				date     : w.theDate,
+				duration : w.lastDuration
+			}], o.openCallbackArgs ) ) === false ) {
 
-				w._t( {method: "close"} );
+				w._t( {method : "close"} );
 			}
 		};
 	} else {
 		basepop.afteropen = function() {
-			w._t( { method: "postrefresh" } );
+			w._t( { method : "postrefresh" } );
 		};
 	}
 
@@ -313,13 +309,17 @@ JTSageDateBox.open = function () {
 				o.beforeOpenCallback = window[ o.beforeOpenCallback ];
 			}
 		}
-		if ( o.beforeOpenCallback.apply( w, $.merge([{
-				custom: w.customCurrent,
-				initDate: w.initDate,
-				date: w.theDate,
-				duration: w.lastDuration
-			}], o.beforeOpenCallbackArgs ) ) === false ) {
-				return false;
+		if ( o.beforeOpenCallback.apply(
+			w,
+			$.merge([{
+				custom   : w.customCurrent,
+				initDate : w.initDate,
+				date     : w.theDate,
+				duration : w.lastDuration
+			}],
+			o.beforeOpenCallbackArgs ) ) === false
+		) {
+			return false;
 		}
 	}
 
@@ -327,21 +327,21 @@ JTSageDateBox.open = function () {
 		case "inline":
 			w.d.mainWrap.insertAfter( _sf.findAttachPoint.apply( w, [ true ] ) );
 			w.d.mainWrap.addClass( o.theme_inlineContainer );
-			w.d.mainWrap.css( { zIndex: "auto" } );
+			w.d.mainWrap.css( { zIndex : "auto" } );
 			switch ( o.displayInlinePosition ) {
 				case "right":
-					w.d.mainWrap.css( { marginRight: 0, marginLeft: "auto" } );
+					w.d.mainWrap.css( { marginRight : 0, marginLeft : "auto" } );
 					break;
 				case "left":
-					w.d.mainWrap.css( { marginLeft: 0, marginRight: "auto" } );
+					w.d.mainWrap.css( { marginLeft : 0, marginRight : "auto" } );
 					break;
 				//case "center":
 				//case "middle":
 				default:
-					w.d.mainWrap.css( { marginLeft: "auto", marginRight: "auto" } );
+					w.d.mainWrap.css( { marginLeft : "auto", marginRight : "auto" } );
 					break;
 			}
-			w._t( { method: "postrefresh" } );
+			w._t( { method : "postrefresh" } );
 			break;
 		case "blind":
 			if ( w.initDone ) {
@@ -350,23 +350,23 @@ JTSageDateBox.open = function () {
 			} else {
 				w.d.mainWrap.insertAfter( _sf.findAttachPoint.apply( w, [ true ] ) );
 				w.d.mainWrap.addClass( o.theme_inlineContainer );
-				w.d.mainWrap.css( { zIndex: "auto", display: "none" } );
+				w.d.mainWrap.css( { zIndex : "auto", display : "none" } );
 				switch ( o.displayInlinePosition ) {
 					case "right":
-						w.d.mainWrap.css( { marginRight: 0, marginLeft: "auto" } );
+						w.d.mainWrap.css( { marginRight : 0, marginLeft : "auto" } );
 						break;
 					case "left":
-						w.d.mainWrap.css( { marginLeft: 0, marginRight: "auto" } );
+						w.d.mainWrap.css( { marginLeft : 0, marginRight : "auto" } );
 						break;
 					//case "center":
 					//case "middle":
 					default:
-						w.d.mainWrap.css( { marginLeft: "auto", marginRight: "auto" } );
+						w.d.mainWrap.css( { marginLeft : "auto", marginRight : "auto" } );
 						break;
 				}
 				w.initDone = true;
 			}
-			w._t( { method: "postrefresh" } );
+			w._t( { method : "postrefresh" } );
 			break;
 		case "modal":
 			w.d.mainWrap
@@ -374,7 +374,7 @@ JTSageDateBox.open = function () {
 				.css( "zIndex", ( o.zindex ) )
 				.appendTo( _sf.findAttachPoint.apply( w, [ false ] ) )
 				.addClass( o.theme_modalContainer )
-				.one( o.tranDone, function() { 
+				.one( o.tranDone, function() {
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();
 					} else {
@@ -389,7 +389,7 @@ JTSageDateBox.open = function () {
 				.appendTo( _sf.findAttachPoint.apply( w, [ false ] ) )
 				.on( o.clickEvent, function (e) {
 					e.preventDefault();
-					w._t( { method: "close", closeCancel: true } );
+					w._t( { method : "close", closeCancel : true } );
 				});
 
 			w.d.mainWrap.css(
@@ -403,7 +403,7 @@ JTSageDateBox.open = function () {
 				.show()
 				.addClass( o.theme_dropdownContainer )
 				.appendTo( _sf.findAttachPoint.apply( w, [ false ] ) )
-				.one( o.tranDone, function() { 
+				.one( o.tranDone, function() {
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();
 					} else {
@@ -418,7 +418,7 @@ JTSageDateBox.open = function () {
 				.appendTo( "body" )
 				.on( o.clickEvent, function (e) {
 					e.preventDefault();
-					w._t( { method: "close", closeCancel: true } );
+					w._t( { method : "close", closeCancel : true } );
 				});
 			
 			w.d.mainWrap.css(
@@ -520,9 +520,9 @@ JTSageDateBox.close = function() {
 
 	if ( o.useFocus ) {
 		w.fastReopen = true;
-		setTimeout( (function( t ) { 
-			return function () { 
-				t.fastReopen = false; 
+		setTimeout( (function( t ) {
+			return function () {
+				t.fastReopen = false;
 			};
 		}( w )), 300 );
 	}
@@ -540,7 +540,7 @@ JTSageDateBox._destroy = function() {
 
 	if ( o.useButton === true ) {
 		button.remove();
-		w.d.input.unwrap();	
+		w.d.input.unwrap();
 	}
 
 	if ( o.lockInput ) {
@@ -569,11 +569,11 @@ JTSageDateBox._destroy = function() {
  * @param {string} cls Class for the select
  * @returns {String} Completed select element 
  */
-JTSageDateBox._stdSel = function(data, id, cls) {
+JTSageDateBox._stdSel = function( data, id, cls ) {
 	var i, returnVal = "<select class='" + cls + "' id='" + id + "'>";
 
 	for ( i = 0; i < data.length; i++ ) {
-		returnVal += "<option value='" + data[i][0] + "'" + 
+		returnVal += "<option value='" + data[i][0] + "'" +
 			( data[i][2] === true ? " selected='selected'" : "" ) + ">" +
 			data[i][1] + "</option>";
 	}
@@ -597,17 +597,20 @@ JTSageDateBox._stdBtn = {
 	 * @returns {Object} JQuery button object, with events attached
 	 * @memberof JTSageDateBox._stdbtn
 	 */
-	cancel: function() {
-		var w = this, o = this.options;
-		return $( w.styleFunctions.button.apply( w, [
+	cancel : function() {
+		var w = this,
+			o = this.options;
+
+		return $(
+			w.styleFunctions.button.apply( w, [
 				o.theme_cancelBtnCls,
 				o.theme_cancelBtnIcn,
-				w.__("cancelButton")
+				w.__( "cancelButton" )
 			] ) )
-			.on(o.clickEvent, function (e) {
+			.on( o.clickEvent, function ( e ) {
 				e.preventDefault();
-				w._t({ method: "close", closeCancel: true });
-			});
+				w._t({ method : "close", closeCancel : true });
+			} );
 	},
 
 	/**
@@ -616,18 +619,21 @@ JTSageDateBox._stdBtn = {
 	 * @return {Object} JQuery button object, with events attached
 	 * @memberOf JTSageDateBox._stdbtn
 	 */
-	clear: function() {
-		var w = this, o = this.options;
-		return $( w.styleFunctions.button.apply( w, [
+	clear : function() {
+		var w = this,
+			o = this.options;
+
+		return $(
+			w.styleFunctions.button.apply( w, [
 				o.theme_clearBtnCls,
 				o.theme_clearBtnIcn,
-				w.__("clearButton")
+				w.__( "clearButton" )
 			] ) )
-			.on(o.clickEvent, function(e) {
+			.on( o.clickEvent, function( e ) {
 				e.preventDefault();
-				w.d.input.val("");
-				w._t( { method: "clear" } );
-				w._t( { method: "close", closeCancel: true } );
+				w.d.input.val( "" );
+				w._t( { method : "clear" } );
+				w._t( { method : "close", closeCancel : true } );
 			});
 	},
 
@@ -639,35 +645,36 @@ JTSageDateBox._stdBtn = {
 	 * @return {Object} JQuery button object, with events attached
 	 * @memberOf JTSageDateBox._stdbtn
 	 */
-	close: function(txt, trigger) {
-		var w = this, o = this.options;
+	close : function( txt, trigger ) {
+		var w = this,
+			o = this.options;
 
 		if ( typeof trigger === "undefined" ) { trigger = false; }
 
-		return $( w.styleFunctions.button.apply( this, [ 
+		return $(
+			w.styleFunctions.button.apply( this, [
 				o.theme_closeBtnCls,
 				o.theme_closeBtnIcn,
 				txt
-			] ) ) 
+			] ) )
 			.addClass( "" +
-				( ( w.dateOK === true ) ? "" : "disabled")
+				( ( w.dateOK === true ) ? "" : "disabled" )
 			)
-			.on(o.clickEvent, function(e) {
+			.on( o.clickEvent, function( e ) {
 				e.preventDefault();
 
 				if ( w.dateOK === true ) {
 					if ( trigger === false ) {
 						w._t( {
-							method: "set", 
-							value: w._formatter(w.__fmt(),w.theDate),
-							date: w.theDate
+							method : "set",
+							value  : w._formatter( w.__fmt(), w.theDate ),
+							date   : w.theDate
 						} );
 					} else {
 						w._t( trigger );
 					}
-					w._t( { method: "close" } );
+					w._t( { method : "close" } );
 				}
-				
 			});
 	},
 
@@ -677,18 +684,20 @@ JTSageDateBox._stdBtn = {
 	 * @return {Object} JQuery button object, with events attached
 	 * @memberOf JTSageDateBox._stdbtn
 	 */
-	today: function() {
-		var w = this, o = this.options;
-		return $( w.styleFunctions.button.apply( w, [
+	today : function() {
+		var w = this,
+			o = this.options;
+		return $(
+			w.styleFunctions.button.apply( w, [
 				o.theme_todayBtnCls,
 				o.theme_todayBtnIcn,
-				w.__("todayButtonLabel")
+				w.__( "todayButtonLabel" )
 			] ) )
-			.on(o.clickEvent, function(e) {
+			.on( o.clickEvent, function( e ) {
 				e.preventDefault();
-				w.theDate = w._pa([0,0,0], new w._date());
-				w._t( { method: "doset" } );
-				if ( o.closeTodayButton === true ) { w._t( { method: "close" } ); }
+				w.theDate = w._pa( [ 0, 0, 0 ], new w._date() );
+				w._t( { method : "doset" } );
+				if ( o.closeTodayButton === true ) { w._t( { method : "close" } ); }
 			});
 	},
 
@@ -698,18 +707,21 @@ JTSageDateBox._stdBtn = {
 	 * @return {Object} JQuery button object, with events attached
 	 * @memberOf JTSageDateBox._stdbtn
 	 */
-	tomorrow: function() {
-		var w = this, o = this.options;
-		return $( w.styleFunctions.button.apply( w, [
+	tomorrow : function() {
+		var w = this,
+			o = this.options;
+
+		return $(
+			w.styleFunctions.button.apply( w, [
 				o.theme_tomorrowBtnCls,
 				o.theme_tomorrowBtnIcn,
-				w.__("tomorrowButtonLabel") 
+				w.__( "tomorrowButtonLabel" )
 			] ) )
-			.on(o.clickEvent, function(e) {
+			.on( o.clickEvent, function( e ) {
 				e.preventDefault();
-				w.theDate = w._pa([0,0,0], new w._date()).adj( 2, 1 );
-				w._t( { method: "doset" } );
-				if ( o.closeTomorrowButton === true ) { w._t( { method: "close" } ); }
+				w.theDate = w._pa( [ 0, 0, 0 ], new w._date() ).adj( 2, 1 );
+				w._t( { method : "doset" } );
+				if ( o.closeTomorrowButton === true ) { w._t( { method : "close" } ); }
 			});
 	},
 };
@@ -722,7 +734,7 @@ JTSageDateBox.disable = function() {
 	// Provide a PUBLIC function to Disable the element
 	w.d.input.attr( "disabled", true );
 	w.disabled = true;
-	w._t( { method: "disable" } );
+	w._t( { method : "disable" } );
 };
 
 /**
@@ -733,5 +745,5 @@ JTSageDateBox.enable = function() {
 	// Provide a PUBLIC function to Enable the element
 	w.d.input.attr( "disabled", false );
 	w.disabled = false;
-	w._t( { method: "enable" } );
+	w._t( { method : "enable" } );
 };

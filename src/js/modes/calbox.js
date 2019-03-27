@@ -1,14 +1,13 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Provides the calbox mode
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Provides the calbox mode
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
- mergeOpts({
+mergeOpts({
 	calHighToday        : true,
 	calHighPick         : true,
 	calHighOutOfBounds  : true,
@@ -64,8 +63,8 @@ JTSageDateBox.isSelectedInCalGrid = function() {
 	if ( w.firstOfGrid === false || w.lastOfGrid === false ) {
 		return false;
 	}
-	return ( 
-		w.firstOfGrid.comp() <= w.originalDate.comp() && 
+	return (
+		w.firstOfGrid.comp() <= w.originalDate.comp() &&
 		w.originalDate.comp() <= w.lastOfGrid.comp()
 	);
 };
@@ -113,8 +112,8 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 		o = this.options,
 		itt, done = false,
 		returnObject = {
-			theme: o.theme_cal_Default,
-			inBounds: true
+			theme    : o.theme_cal_Default,
+			inBounds : true
 		},
 		dateThemes = [
 			[ "selected",     "theme_cal_Selected" ],
@@ -128,7 +127,7 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 	w.realToday = new w._date();
 
 	// Shortcut if out of bounds, no other theme can apply.
-	if ( testDate.get(1) !== dispMonth ) { 
+	if ( testDate.get(1) !== dispMonth ) {
 		returnObject.inBounds = false;
 
 		if ( o.calHighOutOfBounds === true ) {
@@ -176,7 +175,7 @@ JTSageDateBox._build.calbox = function () {
 		// Last date of the grid (possibly blanked out)
 		date_lastOfGrid   = date_lastOfMonth.copy( [ 0, 0, grid_tailOffset ] ),
 		// How many weeks the grid has (Low 4, Max 6.)
-		grid_Weeks        = ( 
+		grid_Weeks        = (
 			date_lastOfGrid.getEpochDays() - date_firstOfGrid.getEpochDays() + 1 ) / 7,
 		// The current working date. Stepped from first to last date of the grid
 		date_working      = date_firstOfGrid.copy(),
@@ -195,20 +194,20 @@ JTSageDateBox._build.calbox = function () {
 	w.lastOfGrid  = date_lastOfGrid;
 	
 	// Clear internal widget HTML, if not already empty.
-	if ( typeof w.d.intHTML !== "boolean" ) { 
-		w.d.intHTML.remove(); 
+	if ( typeof w.d.intHTML !== "boolean" ) {
+		w.d.intHTML.remove();
 		w.d.intHTML = null;
 	}
 	
 	// Attempt to grab associated label, fallback to i18n string if none found
-	w.d.headerText = ( ( w._grabLabel() !== false ) ? 
+	w.d.headerText = ( ( w._grabLabel() !== false ) ?
 		w._grabLabel() :
 		w.__( "titleDateDialogLabel" )
 	);
 
 	w.d.intHTML = $( "<span>" );
 
-	if ( typeof o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
+	if ( o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
 
 	// Internal header (not the widget master header, a header for the calendar)
 	//
@@ -235,7 +234,7 @@ JTSageDateBox._build.calbox = function () {
 				if ( w.theDate.getDate() > 28 ) { w.theDate.setDate(1); }
 				w._offset( "m", -1 );
 				return false;
-			});	
+			});
 	}
 
 	// Picker controls, if enabled.
@@ -275,7 +274,7 @@ JTSageDateBox._build.calbox = function () {
 		}
 
 		for ( i=0; i<=6;i++ ) {
-			weekdayControl.append( _sf.calNonButton( 
+			weekdayControl.append( _sf.calNonButton(
 				w._cal_days[ ( i + w.__( "calStartDay") ) % 7 ],
 				true,
 				grid_Cols
@@ -283,25 +282,27 @@ JTSageDateBox._build.calbox = function () {
 		}
 		weekdayControl.appendTo( calContent );
 
-		if ( w.__( "isRTL" ) === true ) { 
-			weekdayControl.css( { display: "flex", flexDirection: "row-reverse" } );
+		if ( w.__( "isRTL" ) === true ) {
+			weekdayControl.css( { display : "flex", flexDirection : "row-reverse" } );
 		}
 	}
 
 	// if options.calFormatter is just a string, attempt to pull it as a function
 	// reference from the global namespace
-	if ( ! $.isFunction( o.calFormatter ) && 
+	if ( ! $.isFunction( o.calFormatter ) &&
 		o.calFormatter !== false &&
-		$.isFunction( window[ o.calFormatter ] ) ) {
-			o.calFormatter = window[ o.calFormatter ];
+		$.isFunction( window[ o.calFormatter ] )
+	) {
+		o.calFormatter = window[ o.calFormatter ];
 	}
 
 	// if options.calBeforeAppendFunc is just a string, attempt to pull it as a
 	// function reference from the global namespace
-	if ( ! $.isFunction( o.calBeforeAppendFunc ) && 
+	if ( ! $.isFunction( o.calBeforeAppendFunc ) &&
 		o.calBeforeAppendFunc !== false &&
-		$.isFunction( window[ o.calBeforeAppendFunc ] ) ) {
-			o.calBeforeAppendFunc = window[ o.calBeforeAppendFunc ];
+		$.isFunction( window[ o.calBeforeAppendFunc ] )
+	) {
+		o.calBeforeAppendFunc = window[ o.calBeforeAppendFunc ];
 	}
 
 	w.calDateVisible = false;
@@ -350,12 +351,12 @@ JTSageDateBox._build.calbox = function () {
 			}
 
 			//Add ONE day
-			date_working.adj( 2, 1 ); 
+			date_working.adj( 2, 1 );
 		}
 
 		// Deal with RTL languages (flex is easiest)
-		if ( w.__( "isRTL" ) === true ) { 
-			calCntlRow.css( { display: "flex", flexDirection: "row-reverse" } );
+		if ( w.__( "isRTL" ) === true ) {
+			calCntlRow.css( { display : "flex", flexDirection : "row-reverse" } );
 		}
 
 		// Add row to grid.
@@ -365,17 +366,17 @@ JTSageDateBox._build.calbox = function () {
 	// Quick Date Picker if turned on.
 	if ( o.calShowDateList === true && o.calDateList !== false ) {
 		_sf.calDateList.apply(
-			this,  
+			this,
 			[ w.__( "calDateListLabel" ), o.calDateList, o.theme_cal_DateList ]
 		).appendTo(w.d.intHTML);
 		w.d.intHTML.on( "change", "#dbCalPickList", function() {
 			w.theDate = new w._date(
-					$( this ).val().split( "-" )[0],
-					$( this ).val().split( "-" )[1] - 1,
-					$( this ).val().split( "-" )[2],
-					12, 1, 1, 1
+				$( this ).val().split( "-" )[0],
+				$( this ).val().split( "-" )[1] - 1,
+				$( this ).val().split( "-" )[2],
+				12, 1, 1, 1
 			);
-			w._t( { method: "doset" } );
+			w._t( { method : "doset" } );
 		});
 	}
 
@@ -411,14 +412,14 @@ JTSageDateBox._build.calbox = function () {
 			if ( $( this ).data( "good" ) ) {
 				w.theDate = $( this ).data( "dateObj" ).copy();
 				w._t( {
-					method: "set",
-					value: w._formatter( w.__fmt(),w.theDate ),
-					date: w.theDate
+					method : "set",
+					value  : w._formatter( w.__fmt(),w.theDate ),
+					date   : w.theDate
 				} );
-				w._t( { method: "close" } );
+				w._t( { method : "close" } );
 			}
 		})
-		.on( "swipeleft",  function() { w._offset( "m", 1 ); } )
+		.on( "swipeleft",  function() { w._offset( "m", 1  ); } )
 		.on( "swiperight", function() { w._offset( "m", -1 ); } )
 		.on( "mousewheel", function(e,d) {
 			e.preventDefault();

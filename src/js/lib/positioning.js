@@ -1,11 +1,11 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview Responsible for positioning the widget
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview Responsible for positioning the widget
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 
 /**
@@ -24,8 +24,8 @@ JTSageDateBox._posZero = function ( test ) {
  * @return {object} CSS for the datebox in modal mode
  */
 JTSageDateBox.getModalPosition = function ( ) {
-	var w      = this, 
-		widget = w.d.mainWrap[0].getBoundingClientRect();
+	var w      = this,
+		widget = w.d.mainWrap[ 0 ].getBoundingClientRect();
 
 	return {
 		position        : "fixed",
@@ -50,7 +50,7 @@ JTSageDateBox.getDropPosition = function ( placement ) {
 		widget    = w.d.mainWrap[0].getBoundingClientRect(),
 		tOff      = window.pageYOffset,
 		lOff      = window.pageXOffset,
-		smallScr  = ( 
+		smallScr  = (
 			Math.max(document.documentElement.clientWidth, window.innerWidth || 0) <=
 			o.breakpointWidth.replace("px", "")
 		);
@@ -68,7 +68,7 @@ JTSageDateBox.getDropPosition = function ( placement ) {
 			top  : w._posZero( tOff + rect.top + ( rect.height / 2 ) - ( widget.height / 2 ) ),
 			left : w._posZero( lOff + rect.left + ( rect.width / 2 ) - ( widget.width / 2 ) )
 		},
-		topLeft : { 
+		topLeft : {
 			top  : w._posZero( tOff + rect.top - widget.height - 1 ),
 			left : w._posZero( lOff + rect.left )
 		},

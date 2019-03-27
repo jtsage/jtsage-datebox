@@ -1,22 +1,21 @@
- /**
-     * JTSage-DateBox
-     * @fileOverview jQueryMobile Themes and StyleFunctions
-     * This file supports: datebox, flipbox, slidebox, calbox.
-	 * 
-	 * Note that icons work differently in jQM, they are the built in icon classes, as jQM
-	 * may run on devices that lack SVG support.
-	 * 
-	 * CalBox   : A+
-     * DateBox  : A+
-     * FlipBox  : A+
-     * SlideBox : A+
-	 * 
-     * @author J.T.Sage <jtsage+datebox@gmail.com>
-     * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
-     * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
-     * @version 5.0.0
-     *
-     */
+/**
+ * JTSage-DateBox
+ * @fileOverview jQueryMobile Themes and StyleFunctions
+ * This file supports: datebox, flipbox, slidebox, calbox.
+ * 
+ * Note that icons work differently in jQM, they are the built in icon classes, as jQM
+ * may run on devices that lack SVG support.
+ * 
+ * CalBox   : A+
+ * DateBox  : A+
+ * FlipBox  : A+
+ * SlideBox : A+
+ * 
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
 mergeOpts({
 	theme_clearBtnCls : "a",
@@ -148,7 +147,7 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Wrap the original input in a div so we can add a button to it (not really in this mode.)
 	 */
-	baseInputWrap         : function ( originalInput ) { 
+	baseInputWrap         : function ( originalInput ) {
 		/* Set up a wrap around the input for styling, and return it */
 		return originalInput.parent().addClass("ui-input-has-clear");
 	},
@@ -187,8 +186,8 @@ JTSageDateBox.styleFunctions = {
 	 * Make the header for every mode
 	 */
 	widgetHeader          : function ( text, themeBar, themeIcon, icon ) {
-		return "<div class='ui-header ui-bar-" + themeBar + "'>" + 
-			"<h1 class='ui-title'>" + text + "</h5>" + 
+		return "<div class='ui-header ui-bar-" + themeBar + "'>" +
+			"<h1 class='ui-title'>" + text + "</h5>" +
 			this.styleFunctions.button.apply(
 				this,
 				[ themeIcon + " dbCloser ui-btn-right", icon, "" ]
@@ -213,7 +212,7 @@ JTSageDateBox.styleFunctions = {
 	genHeader             : function ( txt, icn1, cls1, icn2, cls2, ctl1, ctl2 ) {
 		var returnVal = $("<div class='ui-header' style='border:0; padding: 0 3px 8px;'>");
 
-		$( this.styleFunctions.button.apply( this, [ 
+		$( this.styleFunctions.button.apply( this, [
 			cls1 + " ui-btn-left " + ctl1,
 			icn1,
 			""
@@ -250,8 +249,8 @@ JTSageDateBox.styleFunctions = {
 	 */
 	calGrid               : function () {
 		return $(
-            "<div><table class='dbCalGrid' style='width: 100%'></table></div>"
-        );
+			"<div><table class='dbCalGrid' style='width: 100%'></table></div>"
+		);
 	},
 
 	/*
@@ -284,7 +283,7 @@ JTSageDateBox.styleFunctions = {
 			],
 			disable   = ( data.bad ? "disabled='disabled'" : "");
 		
-		return $( 
+		return $(
 			"<td style='" + styles_TD.join( ";" ) + "'>" +
 			"<a style='" + styles_A.join( ";" ) +
 				"' class='" + class_A.join( " " ) + "' href='#' " + disable + ">" +
@@ -298,12 +297,12 @@ JTSageDateBox.styleFunctions = {
 	 */
 	calNonButton          : function ( text, header, totalElements ) {
 		var styles = [
-				"text-align:center",
-				"padding:0",
-				"margin:0",
-				"width:" + ( 100 / totalElements ) + "%",
-				( header ) ? "font-weight:bold" : ""
-			];
+			"text-align:center",
+			"padding:0",
+			"margin:0",
+			"width:" + ( 100 / totalElements ) + "%",
+			( header ) ? "font-weight:bold" : ""
+		];
 
 		return $("<td style='" + styles.join( ";" ) + "'>" + text + "</td>");
 	},
@@ -435,8 +434,8 @@ JTSageDateBox.styleFunctions = {
 	 */
 	fboxContainer         : function ( size ) {
 		return $(
-			"<div style='margin: 0 5px 8px; height: " + 
-			size + 
+			"<div style='margin: 0 5px 8px; height: " +
+			size +
 			"; overflow: hidden'>"
 		);
 	},
@@ -454,10 +453,10 @@ JTSageDateBox.styleFunctions = {
 	 * Make a flibox label
 	 */
 	fboxDurLabel          : function ( text, items ) {
-		return $( 
+		return $(
 			"<div " +
-			"style='display:inline-block; text-align:center; width: " + ( 100 / items ) + "%'>" + 
-			text + 
+			"style='display:inline-block; text-align:center; width: " + ( 100 / items ) + "%'>" +
+			text +
 			"</div>"
 		);
 	},
@@ -480,8 +479,8 @@ JTSageDateBox.styleFunctions = {
 	 * Make a flipbox element (innermost) - usually a LI
 	 */
 	fboxRollerChild       : function ( text, cls ) {
-		return $( 
-			"<li style='height: 30px; line-height: 30px; text-align:center;' class='ui-body-" + 
+		return $(
+			"<li style='height: 30px; line-height: 30px; text-align:center;' class='ui-body-" +
 			cls + "'>" + text + "</li>"
 		);
 	},
@@ -555,9 +554,9 @@ JTSageDateBox.styleFunctions = {
 				data.theme + ( data.bad ? " disabled":"" ) + "'";
 
 		return $("<td class='m-0 p-0 text-center'" + style + ">" +
-			"<a style='margin:0;padding:.7em 0;' href='#' " + cls + " " + disable + ">" + 
+			"<a style='margin:0;padding:.7em 0;' href='#' " + cls + " " + disable + ">" +
 			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
-			"</small><br>" + data.dateObj.getDate() +  
+			"</small><br>" + data.dateObj.getDate() +
 			"</a>" + "</td>");
 	},
 
@@ -590,7 +589,7 @@ JTSageDateBox.styleFunctions = {
 		// Negative Half the parent height is center.
 		// Add Negative half the lens height.
 		intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
-		theLens.css( { 
+		theLens.css( {
 			top          : intended_Top + -3,
 			marginBottom : -1 * height_Lens
 		} );
