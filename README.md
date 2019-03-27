@@ -70,11 +70,7 @@ Run a local server @:8080 for the documentation : `grunt serveweb`
 External Libraries
 ------------------
 
-Packaged with the builds of bootstrap4 : jqueryui widget
-
-Packaged with the builds of jqm : popper.js
-
-Packaged with everything else : jqueryui widget and popper.js
+Most frameworks include a stripped down version of the jQueryUI widget library
 
 Please refere to the licesenses of the included files for details.
 

@@ -7,3 +7,8 @@ src/js/baseObject.js
 
 # grunt latest
 # grunt release
+
+To up a version of a framework:
+
+package.json
+doc_builder/data/datebox.yml

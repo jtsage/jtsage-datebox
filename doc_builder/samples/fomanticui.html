@@ -1,0 +1,88 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>JTSage-DateBox (Fomantic UI)</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<!-- HUGE NOTE:  THIS FILE IS FOR DEVELOPMENT.  DON'T LINK TO THESE COPIES,
+		THEY CHANGE AND **BREAK** CONSTANTLY.  USE -latest, OR BETTER, A NUMBERED
+		VERSION -->
+
+	<!-- SECOND NOTE:  MOST OF THE OPTIONS ARE INCLUDED IN THE DEFINITION BELOW
+		SO YOU CAN JUST UNCOMMENT WHAT YOU ARE WORKING ON -->
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.2/dist/semantic.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.2/dist/semantic.min.js"></script>
+
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/5.0.0/jtsage-datebox.fomanticui.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
+	
+	<script type="text/javascript">
+		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+			highDays          : [ 0, 6 ],
+
+			calDateList       : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			calShowDateList   : true,
+
+			slideDateList     : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			slideShowDateList : true,
+
+			calUsePickers     : true,
+			slideUsePickers   : true,
+			useCancelButton   : true,
+			useClearButton    : true,
+			useTodayButton    : true,
+		});
+	</script>
+	
+</head>
+<body>
+	<div class="ui container" role="main">
+		<h1>DateBox <small>Fomantic UI Samples</small></h1>
+
+		<p>A community fork of Semantic-UI</p>
+
+		<p><strong><a href="https://fomantic-ui.com/">Fomantic</a></strong> is a development framework that helps create beautiful, responsive layouts using human-friendly HTML.</p>
+
+		<form class="ui form">
+
+		<div class="field">
+			<label for="username">Sample Input</label>
+			<input type="text" name="username" id="username" autocomplete="off">
+		</div>
+
+		<div class="field">
+			<label for="db1">DateBox</label>
+			<input name="db1" type="text" data-role="datebox" data-datebox-mode="datebox" id="db1" />
+		</div>
+
+		<div class="field">
+			<label for="db2">CalBox</label>
+			<input name="db2" type="text" data-role="datebox" data-datebox-mode="calbox" id="db2" />
+		</div>
+
+		<div class="field">
+			<label for="db3">SlideBox</label>
+			<input name="db3" type="text" data-role="datebox" data-datebox-mode="slidebox" id="db3" />
+		</div>
+
+		<div class="field">
+			<label for="db4">DateTimeFlipBox</label>
+			<input name="db4" type="text" data-role="datebox" data-datebox-mode="datetimeflipbox" id="db4" />
+		</div>
+
+		</form>
+
+
+	</div>
+
+</html>

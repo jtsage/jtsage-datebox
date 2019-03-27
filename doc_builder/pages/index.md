@@ -104,6 +104,12 @@ If you prefer to have the files elsewhere, complete (all modes) builds are avail
 <script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-foundation6@{{cnf:version}}/jtsage-datebox.min.js" type="text/javascript"></script>
 ```
 
+##### Fomantic UI v6
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-fomanticui@{{cnf:version}}/jtsage-datebox.min.js" type="text/javascript"></script>
+```
+
 ##### jQueryMobile
 
 ```html

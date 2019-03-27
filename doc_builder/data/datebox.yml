@@ -5,6 +5,7 @@ supports :
   - Bootstrap v3.4.1
   - Bulma v0.7.4
   - Foundation v6.5.3
+  - Fomantic UI v2.7.2
   - JQueryMobile v1.4.5
 
 url : ""
@@ -37,8 +38,8 @@ menu :
   - name : Full Option List
     url  : "/api/"
 
-  - name   : Download Builder
-    url    : "/builder/"
+  - name : Download Builder
+    url  : "/builder/"
 
   - name : Adding Frameworks
     url  : "/frames/"
@@ -56,6 +57,9 @@ sample :
   - name : "- Bulma"
     url  : "/samples/bulma.html"
 
+  - name : "- Fomantic UI"
+    url  : "/samples/fomanticui.html"
+
   - name : "- Foundation v6"
     url  : "/samples/foundation6.html"
 
@@ -67,22 +71,22 @@ demo :
     url  : "/optDemo/"
 
   - name : " - CalBox"
-    url  : "/optDemo-calBox"
+    url  : "/optDemo-calBox/"
 
   - name : " - SlideBox"
-    url  : "/optDemo-slideBox"
+    url  : "/optDemo-slideBox/"
 
   - name : " - DateBox"
-    url  : "/optDemo-dateBox"
+    url  : "/optDemo-dateBox/"
 
   - name : " - TimeBox"
-    url  : "/optDemo-timeBox"
+    url  : "/optDemo-timeBox/"
 
   - name : " - DateTimeBox"
-    url  : "/optDemo-datetimeBox"
+    url  : "/optDemo-datetimeBox/"
 
   - name : " - FlipBox"
-    url  : "/optDemo-flipBox"
+    url  : "/optDemo-flipBox/"
 
   - name : " - TimeFlipBox"
     url  : "/optDemo-timeflipBox/"
