@@ -544,16 +544,17 @@ JTSageDateBox._destroy = function() {
 	}
 
 	w.d.input
-		.off( "datebox" )
-		.off( "focus.datebox" )
-		.off( "blur.datebox" )
+		.off( "datebox"        )
+		.off( "focus.datebox"  )
+		.off( "blur.datebox"   )
 		.off( "change.datebox" );
 		
 	$( document )
-		.off( w.drag.eMove )
+		.off( w.drag.eMove  )
 		.off( w.drag.eStart )
-		.off( w.drag.eEnd )
-		.off( w.drag.eEndA );
+		.off( w.drag.eEnd   )
+		.off( w.drag.eEndA  )
+		.off( "resize" + w.eventNamespace );
 };
 
 /**
