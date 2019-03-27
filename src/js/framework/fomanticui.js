@@ -34,9 +34,9 @@ mergeOpts({
 	theme_todayBtnCls : "grey",
 	theme_todayBtnIcn : "goto",
 
-	theme_dropdownContainer : "ui card",
-	theme_modalContainer    : "ui card",
-	theme_inlineContainer   : "ui card",
+	theme_dropdownContainer : "ui card form",
+	theme_modalContainer    : "ui card form",
+	theme_inlineContainer   : "ui card form",
 
 	theme_headerTheme  : "inverted borderless",
 	theme_headerBtnCls : false, // UN-USED
