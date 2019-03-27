@@ -89,6 +89,30 @@ func :
       $(input).datebox( "enable" );
       ```
 
+  getCalStartDate :
+    short   : Return the beginning date of the visible calendar grid
+    returns : "JavaScript Date() Object"
+    long    : |
+      Return the beginning date of the currently visible calbox grid.
+
+      If the calendar has not yet been open, or not in calbox, it'll return false.
+
+      ```js
+      $(input).datebox( "getCalStartDate" );
+      ```
+
+  getCalEndDate :
+    short   : Return the ending date of the visible calendar grid
+    returns : "JavaScript Date() Object"
+    long    : |
+      Return the ending date of the currently visible calbox grid.
+
+      If the calendar has not yet been open, or not in calbox, it'll return false.
+
+      ```js
+      $(input).datebox( "getCalEndDate" );
+      ```
+
   getLastDur :
     short   : Get the last set duration
     returns : Integer
@@ -111,6 +135,18 @@ func :
 
       Option Name can be any datebox option.
 
+  getSelectedDate :
+    short   : Return the currently selected date object
+    returns : "JavaScript Date() Object"
+    long    : |
+      Return the currently selected date object for any date mode.
+
+      __getTheDate__ is a better option usually, except for CalBox mode.
+
+      ```js
+      $(input).datebox( "getSelectedDate" );
+      ```
+
   getTheDate :
     short   : Return the current date object
     returns : "JavaScript Date() Object"
@@ -119,6 +155,34 @@ func :
 
       ```js
       $(input).datebox( "getTheDate" );
+      ```
+
+  isInCalGrid :
+    short   : Does supplied date appear in CalBox grid
+    returns : boolean
+    long    : |
+      Boolean if the specified date (object) appears in the visible calendar grid.
+      
+      If the calendar has not yet been open, or not in calbox, it'll return false.
+
+      ```js
+      if ( $( "#datebox" ).datebox( "isInCalGrid", new Date() ) ) {
+        ...
+      }
+      ```
+
+  isSelectedInCalGrid :
+    short   : Does selected date appear in CalBox grid
+    returns : boolean
+    long    : |
+      Boolean if the selected date appears in the visible calendar grid.
+      
+      If the calendar has not yet been open, or not in calbox, it'll return false.
+
+      ```js
+      if ( $( "#datebox" ).datebox( "isSelectedInCalGrid" ) ) {
+        ...
+      }
       ```
 
   open :
@@ -243,6 +307,34 @@ listen:
       ```
 
       The object will contain a "method" key set to "clear".
+
+  displayChange :
+    short    : The CalBox display has changed
+    long     : |
+      This only fires for calbox mode, and means an offset event has occured (the offset listener
+      will still fire), but the selected date has not changed.
+
+      In the payload is -
+
+      ```js
+      {
+        // Method happening, in this case "displayChange"
+        method             : "displayChange",
+
+        // The date that the user has selected, or the default, or today
+        selectedDate       : {object},
+
+        // The date that is shown (place where the calculations begin)
+
+        shownDate          : {object},
+
+        // Which part of the date to change: y,m,d,h,i,s,a
+        thisChange         : "y", 
+
+        // How much to change
+        thisChangeAmount   : 1,
+      }
+      ```
 
   enable :
     short   : DateBox has been enabled
