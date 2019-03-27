@@ -35,6 +35,59 @@
 	calShowDateList     : false
 });
 
+/**  
+ * Return first date of visible calendar grid
+ * 
+ * @return {object} JavaScript Date Object
+ */
+JTSageDateBox.getCalStartGrid = function () {
+	return this.firstOfGrid;
+};
+
+/**  
+ * Return last date of visible calendar grid
+ * 
+ * @return {object} JavaScript Date Object
+ */
+JTSageDateBox.getCalEndGrid = function() {
+	return this.lastOfGrid;
+};
+
+/**  
+ * Is the currently selected date in the visible calendar grid?
+ * 
+ * @return {boolean} True = yes it is
+ */
+JTSageDateBox.isSelectedInCalGrid = function() {
+	var w = this;
+
+	if ( w.firstOfGrid === false || w.lastOfGrid === false ) {
+		return false;
+	}
+	return ( 
+		w.firstOfGrid.comp() <= w.originalDate.comp() && 
+		w.originalDate.comp() <= w.lastOfGrid.comp()
+	);
+};
+
+/**  
+ * Is the specified date in the visible calendar grid?
+ * 
+ * @param {object} JavaScript Date Object
+ * @return {boolean} True = yes it is
+ */
+JTSageDateBox.isInCalGrid = function ( date ) {
+	var w = this;
+
+	if ( w.firstOfGrid === false || w.lastOfGrid === false ) {
+		return false;
+	}
+
+	return (
+		w.firstOfGrid.comp() <= date.comp() &&
+		date.comp() <= w.lastOfGrid.comp()
+	);
+};
 
 /**
  * @typedef {Object} _cal_ThemeDate_Return
@@ -137,6 +190,10 @@ JTSageDateBox._build.calbox = function () {
 		// This holds the day of week display
 		weekdayControl    = $("");
 
+	// Set up some info to pull from calbox if needed.
+	w.firstOfGrid = date_firstOfGrid;
+	w.lastOfGrid  = date_lastOfGrid;
+	
 	// Clear internal widget HTML, if not already empty.
 	if ( typeof w.d.intHTML !== "boolean" ) { 
 		w.d.intHTML.remove(); 

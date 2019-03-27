@@ -132,13 +132,11 @@ JTSageDateBox._offset = function( oper, amount, update ) {
 	// Immediate settting?  do so.
 	if ( o.useImmediate ) { w._t( { method: "doset" } ); }
 
-	// This will always or never fire.  I don't remember why it's here.
-	// Working on that next.  But I suspect it has something to do with 
-	// calFormatter?
-	if ( w.calBackDate !== false ) {
+	// This fires when we change the calendar display, but don't set the date.
+	if ( o.mode === "calbox" ) {
 		w._t( {
 			method             : "displayChange",
-			selectedDate       : w.calBackDate,
+			selectedDate       : w.originalDate,
 			shownDate          : w.theDate,
 			thisChange         : oper,
 			thisChangeAmount   : amount,

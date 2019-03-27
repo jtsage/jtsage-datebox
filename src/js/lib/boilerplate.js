@@ -81,6 +81,10 @@ JTSageDateBox._create = function() {
 		}
 	}
 
+	w.firstOfGrid    = false;
+	w.lastOfGrid     = false;
+	w.selectedInGrid = false;
+
 	w.cancelClose    = false;
 	w.calDateVisible = true;
 	w.disabled       = false;

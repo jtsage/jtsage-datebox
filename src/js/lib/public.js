@@ -19,6 +19,15 @@ JTSageDateBox.getTheDate = function() {
 };
 
 /**
+ * Get the currently selected date
+ * 
+ * @return {object} Current Date, JavaScript date object
+ */
+JTSageDateBox.getSelectedDate = function() {
+	return this.originalDate;
+};
+
+/**
  * Get the current duration
  * 
  * @return {number} Current duration
