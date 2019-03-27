@@ -19,97 +19,139 @@
 JTSageDateBox._offset = function( oper, amount, update ) {
 	// Compute a date/time offset.
 	//   update = false to prevent controls refresh
+	// 
+	// The rollover option has no effect on year or meridiem.  It makes no sense with year, and
+	// meridiem feels odd when allowed to rollover, so it's set to not.
 	var testCurrent, condHigh, condLow, condMulti,
-		w        = this,
-		o        = w.options,
-		operNum  = $.inArray( oper, [ "y", "m", "d", "h", "i", "s" ] ),
-		lastDate = 32 - w.theDate.copy([0],[0,0,32,13]).getDate();
+		w               = this,
+		o               = w.options,
+		operNum         = $.inArray( oper, [ "y", "m", "d", "h", "i", "s" ] ),
+		lastDate        = 32 - w.theDate.copy([0],[0,0,32,13]).getDate(),
+		thisYear        = [ // Only used when rollover prevented.
+							31, 32 - w.theDate.copy([0],[0,1,32,13]).getDate(), 31,
+							30, 31, 30,
+							31, 31, 30,
+							31, 30, 31
+		],
+		rolloverAllowed = ( oper !== "a" && ( oper === "y" ||
+				typeof o.rolloverMode[oper] === "undefined" ||
+				o.rolloverMode[oper] === true) );
 
 
 	// Trap for un-set argument.
 	if ( typeof update === "undefined" ) { update = true; }
+
+	if ( oper === "y" && w.theDate.get( 1 ) === 1 && w.theDate.get( 2 ) === 29 ) {
+		// Extreme edge case of altering year when date is set to february 29th (a leap year).
+
+		// For this case, we do not check if the new year is a leap year, I'm willing to be a day 
+		// off every 4 years or so.
+
+		// This check is not based on rollover mode, it always happens.
+		w.theDate.setD( 2, 28 );
+	}
 	
-	if (
-			oper === "y" ||
-			typeof o.rolloverMode[oper] === "undefined" ||
-			o.rolloverMode[oper] === true
-	) {
-		// Rollover allowed, or year operator, just do the update. (year is always ok)
-		if ( oper === "a" ) {
-			w.theDate.adj( 3, 12 * amount );
-		} else {
-			w.theDate.adj( operNum, amount );
-		}
-	} else if ( oper === "a" ) {
-		// Rollover disallowed, handle meridiem specially.
+	if ( oper === "a" ) {
+
+		// Rollover independant, handle meridiem specially.
+
 		if ( amount % 2 !== 0 ) {
-			// do something.  same for all, no matter the amount direction.
-			// we modulus divide by 2, because if we move it twice, it's the same
-			// as before.
-			if ( w.theDate.get( 3 ) > 11 ) {
-				w.theDate.adj( 3, -12 );
-			} else {
-				w.theDate.adj( 3, 12 );
-			}
+
+			// we modulus divide by 2, because if we move it twice, it's the same as before.
+			// Otherwise, if it is PM, we move 12 hours back, if it's AM, we move 12 hours forward.
+
+			testCurrent = ( w.theDate.get( 3 ) > 11 ) ? -12 : 12;
+
+			w.theDate.adj( 3, testCurrent );
 		}
+	} else if ( rolloverAllowed ) {
+
+		// Rollover allowed, or year operator, just do the update. (year is always ok)
+		w.theDate.adj( operNum, amount );
+
 	} else {
+
 		// Rollover not allowed, need to do it piece by piece.
 
-		// Edge case unhandled: May 31 offset month -1 Results in April 31, a.k.a May 1.
-		// Not sure how to handle this.
 		switch ( oper ) {
-			case "m" :
+			case "m" : // 12 months in a year, zero based
 				condHigh  = 11;
 				condLow   = 0;
 				condMulti = 12;
 				break;
-			case "d" :
+			case "d" : // "lastDate" days in a year, one based
 				condHigh  = lastDate;
 				condLow   = 1;
 				condMulti = lastDate;
 				break;
-			case "h" :
+			case "h" : // 24 hours in a day, zero based
 				condHigh  = 23;
 				condLow   = 0;
 				condMulti = 24;
 				break;
-			case "i" :
-			case "s" :
+			case "i" : // 60 minutes in an hour, zero based
+			case "s" : // 60 seconds in an hour, zero based
 				condHigh  = 59;
 				condLow   = 0;
 				condMulti = 60;
 				break;
 		}
 
+		// Get what the new value will be.
 		testCurrent = w.theDate.get( operNum ) + amount;
 
 		if ( testCurrent < condLow ) {
-			w.theDate.setD( operNum, ( testCurrent % condMulti ) + condMulti );
+
+			// If it's less than a reasonable minimum, normalize it to be in the range
+			testCurrent = ( testCurrent % condMulti ) + condMulti;
+
 		} else if ( testCurrent > condHigh ) {
-			w.theDate.setD( operNum, testCurrent % condMulti );
-		} else {
-			w.theDate.setD( operNum, testCurrent );
+
+			// Same for higher than reasonable
+			testCurrent = testCurrent % condMulti;
+
 		}
+
+		// Trap for month offset, when the date is very near the end of the month
+		// and might make things move oddly.  
+		//
+		// For instance, May 31 -> offset 1 month previous -> April 30
+		//  * note the date change as well, since April does not have 31 days.
+		//  * this is done carfully, so that May 31 -> offset 2 month prev -> March 31
+		if ( oper === "m" && w.theDate.get( 2 ) > thisYear[ testCurrent ] ) {
+			w.theDate.setD( 2, thisYear[ testCurrent ] );
+		}
+
+		// Finally, update the value
+		w.theDate.setD( operNum, testCurrent );
 	}
 
+	// If we wish to update the display, do so
 	if ( update === true ) { w.refresh(); }
+
+	// Immediate settting?  do so.
 	if ( o.useImmediate ) { w._t( { method: "doset" } ); }
 
+	// This will always or never fire.  I don't remember why it's here.
+	// Working on that next.  But I suspect it has something to do with 
+	// calFormatter?
 	if ( w.calBackDate !== false ) {
 		w._t( {
-			method: "displayChange",
-			selectedDate: w.calBackDate,
-			shownDate: w.theDate,
-			thisChange: oper,
-			thisChangeAmount: amount,
+			method             : "displayChange",
+			selectedDate       : w.calBackDate,
+			shownDate          : w.theDate,
+			thisChange         : oper,
+			thisChangeAmount   : amount,
 		});
 	}
-		
+	
+	// This is the listener event, to let know whatever might be listening that
+	// and offset just occured.
 	w._t( {
-		method: "offset",
-		type: oper,
-		amount: amount,
-		newDate: w.theDate
+		method    : "offset",
+		type      : oper,
+		amount    : amount,
+		newDate   : w.theDate
 	} );
 };
 
