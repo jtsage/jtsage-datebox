@@ -44,12 +44,6 @@ JTSageDateBox.initSelector = "input[data-role='datebox']";
 JTSageDateBox.options = {
 	// All widget options, including some internal runtime details
 
-	// Check Header for Build Date.
-	version                 : "5.0.0",
-	// These are never used, just information
-	bootstrap3Version       : "3.4.1",
-	bootstrap4Version       : "4.3.1",
-
 	mode                    : false,
 
 	hideInput               : false,

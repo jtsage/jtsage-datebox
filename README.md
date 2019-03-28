@@ -57,15 +57,17 @@ Developers
 
 To build locally:
 
-The full release : `grunt release`
+The full release : `npm run release`
 
-Update dist/latest only : `grunt latest`
+Update dist/latest only : `npm run latest`
 
-Run the test suite : `grunt fulltest`
+Run the test suite : `npm run lint`
 
-Build the documentation : `grunt web`
+Build the documentation : `npm run docs`
 
-Run a local server @:8080 for the documentation : `grunt serveweb`
+Run a local server @:8080 for the documentation : `npm run serve`
+
+Check the package.json for more options. 
 
 External Libraries
 ------------------

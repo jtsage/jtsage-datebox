@@ -1,12 +1,13 @@
 To up the version:
 
 package.json
-doc_builder/data/datebox.yml
 node_builder/builderServer.js
-src/js/baseObject.js
 
-# grunt latest
-# grunt release
+# npm run prerelease
+-> commit and tag here
+
+# npm run latest
+# npm run release
 
 To up a version of a framework:
 

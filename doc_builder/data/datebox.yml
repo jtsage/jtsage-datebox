@@ -1,5 +1,3 @@
-version : "5.0.0"
-
 supports :
   - Bootstrap v4.3.1
   - Bootstrap v3.4.1
@@ -49,53 +47,53 @@ menu :
 
 sample :
   - name : "- Bootstrap v4"
-    url  : "/samples/bootstrap4.html"
+    url  : "/samples/bootstrap4/"
 
   - name : "- Bootstrap v3"
-    url  : "/samples/bootstrap3.html"
+    url  : "/samples/bootstrap3/"
 
   - name : "- Bulma"
-    url  : "/samples/bulma.html"
+    url  : "/samples/bulma/"
 
   - name : "- Fomantic UI"
-    url  : "/samples/fomanticui.html"
+    url  : "/samples/fomanticui/"
 
   - name : "- Foundation v6"
-    url  : "/samples/foundation6.html"
+    url  : "/samples/foundation6/"
 
   - name : "- jQueryMobile"
-    url  : "/samples/jqm.html"
+    url  : "/samples/jqm/"
 
 demo :
   - name : Option Demos
     url  : "/optDemo/"
 
   - name : " - CalBox"
-    url  : "/optDemo-calBox/"
+    url  : "/optDemo/calBox/"
 
   - name : " - SlideBox"
-    url  : "/optDemo-slideBox/"
+    url  : "/optDemo/slideBox/"
 
   - name : " - DateBox"
-    url  : "/optDemo-dateBox/"
+    url  : "/optDemo/dateBox/"
 
   - name : " - TimeBox"
-    url  : "/optDemo-timeBox/"
+    url  : "/optDemo/timeBox/"
 
   - name : " - DateTimeBox"
-    url  : "/optDemo-datetimeBox/"
+    url  : "/optDemo/datetimeBox/"
 
   - name : " - FlipBox"
-    url  : "/optDemo-flipBox/"
+    url  : "/optDemo/flipBox/"
 
   - name : " - TimeFlipBox"
-    url  : "/optDemo-timeflipBox/"
+    url  : "/optDemo/timeflipBox/"
 
   - name : " - DateTimeFlipBox"
-    url  : "/optDemo-datetimeflipBox/"
+    url  : "/optDemo/datetimeflipBox/"
 
   - name : " - DurationBox"
-    url  : "/optDemo-durationBox/"
+    url  : "/optDemo/durationBox/"
 
   - name : " - DurationFlipBox"
-    url  : "/optDemo-durationflipBox/"
+    url  : "/optDemo/durationflipBox/"
