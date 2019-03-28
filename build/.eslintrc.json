@@ -7,9 +7,7 @@
     "extends": "eslint:recommended",
     "globals": {
         "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly",
-        "JTSageDateBox": "writable",
-        "mergeOpts": "readonly"
+        "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
         "ecmaVersion": 2018

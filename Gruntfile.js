@@ -10,15 +10,7 @@ module.exports = function(grunt) {
 		pkg : grunt.file.readJSON( "package.json" ),
 		clean : {
 			web     : ["doc_builder/dist/"],
-			latest  : ["dist/latest/"],
-			release : ["dist/<%= pkg.version %>/"],
-			i18n    : ["dist/i18n"],
 			builder : ["node_builder/src/<%= pkg.version %>/"]
-		},
-		makei18n : {
-			all : {
-				src : [ "i18n/locale/*/datebox.po"]
-			}
 		},
 		buildSite : {
 			main_site : {
@@ -98,30 +90,10 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		cloc : {
-			just_datebox : {
-				options : ["--exclude-dir=external"],
-				src     : ["src/js"]
-			},
-			everything   : {
-				options : ["--exclude-list-file=.clocignore"],
-				src : ["."]
-			}
-		},
+
 	});
 
 	
-	grunt.loadNpmTasks( "grunt-contrib-clean" );
-	
-	grunt.loadNpmTasks( "grunt-contrib-copy" );
-	
-	grunt.loadNpmTasks( "grunt-prettify" );
-	grunt.loadNpmTasks( "grunt-contrib-connect" );
-	grunt.loadNpmTasks( "grunt-jsdoc" );
-	grunt.loadNpmTasks( "grunt-cloc" );
-	
-
-	grunt.task.loadTasks( "build/tasks" );
 
 	grunt.registerTask( "release", "Build a release version of DateBox", [
 		"eslint",
@@ -136,18 +108,9 @@ module.exports = function(grunt) {
 		"makei18n"
 	] );
 
-	grunt.registerTask( "latest", "Build a working version of DateBox (no testing)", [
-		"clean:latest",
-		"buildDBoxes:latest_widget_bundled",
-		"buildDBoxes:latest_none_bundled",
-		"uglify:latest",
-	]);
 
-	grunt.registerTask( "i18n", "Build the i18n files", [
-		"clean:i18n",
-		"makei18n",
-		"uglify:i18n"
-	] );
+
+
 
 	grunt.registerTask( "updatebuilder", "Update web builder sources", [
 		"clean:builder",
@@ -166,24 +129,5 @@ module.exports = function(grunt) {
 	grunt.registerTask( "serveweb", "Start a local HTTP server on localhost:8080 for the docs.", [
 		"connect:web"
 	] );
-	
-	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [
-		"eslint",
-		"yaml_validator"
-	] );
-
-	grunt.registerTask( "countcode", "Count all code", [ "cloc" ] );
-
-	grunt.registerTask( "test", "Test the DateBox Suite", [
-		"eslint",
-		"yaml_validator"
-	] );
-
-	grunt.registerTask( "default", "Test and Build working version", [
-		"eslint:datebox",
-		"latest"
-	] );
-	
-	
 
 };

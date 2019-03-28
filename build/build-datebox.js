@@ -1,3 +1,17 @@
+/**
+ * JTSage-DateBox
+ * @fileOverview Build the datebox files
+ * 
+ * DO NOT RUN THIS FILE DIRECTLY! CALL FROM NPM!
+ * 
+ *  # npm run [ build-latest | build-release ]
+ * 
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
+
 const config    = require( "../package.json" ),
 	fs          = require( "fs" ),
 	m           = require( "module" ),
@@ -5,6 +19,7 @@ const config    = require( "../package.json" ),
 	pretty      = require( "js-object-pretty-print" ).pretty,
 	vm          = require( "vm" ),
 	glob        = require( "glob" ),
+	rimraf      = require( "rimraf" ),
 
 	dontBundle  = [ "jqm" ];
 
@@ -57,6 +72,8 @@ var frameName, inCode, outCodeFull, outCodeMin, outCodeObj,
 			" }); }); })( jQuery );\n"
 	};
 
+rimraf.sync( outFolder );
+
 fs.mkdirSync( outFolder , { recursive : true } );
 
 for ( var i = 0, len = externalLibs.length; i < len; i++ ) {
@@ -73,7 +90,6 @@ for ( i = 0, len = modes.length; i < len; i++ ) {
 
 frameWorks.forEach( function( thisFramework ) {
 	frameName = thisFramework.split( "/" ).pop().split( "." )[ 0 ];
-	console.log(frameName);
 
 	buildFiles.push( {
 		name           : frameName,
