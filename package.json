@@ -27,6 +27,12 @@
       "pre-commit": "grunt fulltest"
     }
   },
+  "scripts": {
+    "lint-datebox" : "eslint --cache --cache-location .cache/.eslintcache src/js",
+    "lint-build" : "eslint --cache --cache-location .cache/.eslintcache build",
+    "lint-all" : "npm-run-all lint-datebox lint-build",
+    "lint" : "npm-run-all lint-datebox lint-build"
+  },
   "devDependencies": {
     "archiver": "^3.0.0",
     "eslint": "^5.15.3",
@@ -49,6 +55,7 @@
     "js-object-pretty-print": ">=0.2.0",
     "js-yaml": "^3.12.2",
     "node-gettext": ">=0.2.14",
+    "npm-run-all": "^4.1.5",
     "showdown": "^1.9.0",
     "uglify-js": ">=2.4.24"
   },

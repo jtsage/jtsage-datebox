@@ -2,24 +2,15 @@
 ## Grunt dependancies
 node_modules
 
-## Built Jekyll site
-docs/_site
-docs/.jekyll-metadata
-docs/theme/jqm/sheet.php
-docs/theme/jqueryui/sheet.php
-docs/theme/bootstrap/sheet.php
-docs/theme/bootstrap4/sheet.php
-
 
 ## Build folder
 dist
 
-## Personal todo list
-TODO
 
 node_builder/src
 node_builder/starter.sh
 node_builder/log.txt
 
 .DS_Store
-*.sublime-*
+.cache
+
