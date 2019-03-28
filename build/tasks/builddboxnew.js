@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 			buildFiles.push( {
 				name           : frameName,
 				outputFileName : o.dest + o.filename + "." + frameName + ".js",
-				inputJS        : 
+				inputJS        :
 					baseObjectJS +
 					grunt.file.read( thisFramework ) +
 					dbLibsModesJS +
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 
 			if ( o.includeBinding === true ) {
 				inCode = inCode +
-					"\n\n(function( $ ) { " + 
+					"\n\n(function( $ ) { " +
 					"$(document).ready( function() { " +
 					"$( \"[data-role='datebox']\" ).each( function() { " +
 					"$( this ).datebox(); " +
@@ -76,7 +76,7 @@ module.exports = function(grunt) {
 				}
 			} );
 
-			grunt.file.write( fileObj.outputFileName, 
+			grunt.file.write( fileObj.outputFileName,
 				grunt.config.get("txt.banner.long") +
 				"\n\n" +
 				externalLibJS +

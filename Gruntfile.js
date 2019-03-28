@@ -1,16 +1,17 @@
+/* eslint-env node */
 var pkgJSON = require( "./package.json" );
 
 module.exports = function(grunt) {
 
 	grunt.initConfig({
-		pkg: grunt.file.readJSON( "package.json" ),
-		txt: {
-			copyYear: grunt.template.today( "UTC:yyyy" ),
+		pkg : grunt.file.readJSON( "package.json" ),
+		txt : {
+			copyYear : grunt.template.today( "UTC:yyyy" ),
 			banner : {
-				long: [
+				long : [
 					"/*",
 					" * JTSage-DateBox-" + pkgJSON.version,
-					" * For: " + JSON.stringify(pkgJSON.supports),
+					" * For: " + JSON.stringify( pkgJSON.supports ),
 					" * Date: " + grunt.template.today( "UTC:ddd mmm d yyyy HH:MM:ss Z" ),
 					" * http://dev.jtsage.com/DateBox/",
 					" * https://github.com/jtsage/jquery-mobile-datebox",
@@ -21,85 +22,42 @@ module.exports = function(grunt) {
 					" *",
 					" */",
 					"" ].join( grunt.util.linefeed ),
-				short: "/*! JTSage-DateBox-" + pkgJSON.version + " |" + 
-					grunt.template.today( "UTC:yyyy-mm-dd" ) + "T" + 
+				short : "/*! JTSage-DateBox-" + pkgJSON.version + " |" +
+					grunt.template.today( "UTC:yyyy-mm-dd" ) + "T" +
 					grunt.template.today( "UTC:HH:MM:ss" ) +
 					"Z | (c) 2010,  <%= txt.copyYear %> JTSage | " +
 					"https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt */\n"
 			}
 		},
-		jshint: {
-			js: {
-				files: {
-					src: [
-						"src/js/*.js",
-						"src/js/lib/*.js",
-						"src/js/framework/*.js",
-						"src/js/modes/*.js",
-						"!src/js/baseObject.js",
-						"!src/js/external/*.js"
+		eslint : {
+			datebox : {
+				files : {
+					src : [ "src/js/**/*.js" ]
+				}
+			},
+			build : {
+				files : {
+					src : [
+						"build/tasks/*.js",
+						"Gruntfile.js"
 					]
-				},
-				options: {
-					jshintrc: "src/js/.jshintrc"
-				}
-			},
-			js2: {
-				files: {
-					src: [
-						"src/js/baseObject.js"
-					]
-				},
-				options: {
-					jshintrc: "src/js/.jshintrc2"
-				}
-			},
-			js_sane: {
-				files: {
-					src: [ "src/js/*.js", "!src/js/external/*.js" ]
-				},
-				options: {
-					"undef"     : true,
-					"unused"    : true,
-					"boss"      : true,
-					"curly"     : true,
-					"eqeqeq"    : true,
-					"eqnull"    : true,
-					"expr"      : true,
-					"immed"     : true,
-					"noarg"     : true,
-					"onevar"    : true,
-					"quotmark"  : true,
-					"smarttabs" : true,
-					"trailing"  : true,
-					"indent"    : 4,
-					"node"      : true,
-					"predef"    : [ "jQuery", "document", "window", "setTimeout", "clearTimeout" ]
-				}
-			},
-			grunt: {
-				files: {
-					src: [ "Gruntfile.js", "build/tasks/*.js" ]
-				},
-				options: {
-					jshintrc: ".jshintrc"
 				}
 			}
 		},
-		clean: {
+		clean : {
 			web     : ["doc_builder/dist/"],
 			latest  : ["dist/latest/"],
 			release : ["dist/<%= pkg.version %>/"],
 			i18n    : ["dist/i18n"],
 			builder : ["node_builder/src/<%= pkg.version %>/"]
 		},
-		uglify: {
-			options: {
-				banner: "<%= txt.banner.short %>",
-				verbose: true
+		uglify : {
+			options : {
+				banner  : "<%= txt.banner.short %>",
+				verbose : true
 			},
-			release: {
-				files: [ {
+			release : {
+				files : [ {
 					expand : true,
 					src    : ["dist/<%= pkg.version %>/*.js"],
 					dest   : "",
@@ -107,20 +65,20 @@ module.exports = function(grunt) {
 					extDot : "last"
 				} ]
 			},
-			i18n: {
-				files: [ {
+			i18n : {
+				files : [ {
 					expand : true,
-					src    : ["dist/i18n/*.js"],
+					src    : [ "dist/i18n/*.js", "!dist/i18n/*.min.js" ],
 					dest   : "",
 					ext    : ".min.js",
 					extDot : "last"
 				} ]
 			},
-			latest: {
-				options: {
-					sourceMap: true,
+			latest : {
+				options : {
+					sourceMap : true,
 				},
-				files: [ {
+				files : [ {
 					expand : true,
 					src    : ["dist/latest/*.js"],
 					dest   : "",
@@ -129,20 +87,20 @@ module.exports = function(grunt) {
 				} ]
 			}
 		},
-		committers: {
-			options: {
+		committers : {
+			options : {
 				sort     : "commits",
 				email    : true,
 				nomerges : true,
 			}
 		},
-		makei18n: {
-			all: {
-				src: [ "i18n/locale/*/datebox.po"]
+		makei18n : {
+			all : {
+				src : [ "i18n/locale/*/datebox.po"]
 			}
 		},
-		buildSite: {
-			main_site:{
+		buildSite : {
+			main_site : {
 				options : {
 					headerFile : "doc_builder/include/header.html",
 					footerFile : "doc_builder/include/footer.html",
@@ -150,7 +108,7 @@ module.exports = function(grunt) {
 					apidocFile : "doc_builder/data/api.yml",
 					interfFile : "doc_builder/data/interface.yml",
 				},
-				files: [{
+				files : [{
 					expand : true,
 					cwd    : "doc_builder/pages/",
 					src    : "*.md",
@@ -164,9 +122,9 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
-		buildDBoxes: {
-			latest_widget_bundled: {
-				options: {
+		buildDBoxes : {
+			latest_widget_bundled : {
+				options : {
 					dest           : "dist/latest/",
 					filename       : "jtsage-datebox",
 					includeBinding : true,
@@ -177,7 +135,7 @@ module.exports = function(grunt) {
 					"src/js/framework/*.js",
 					"!src/js/framework/jqm.js"
 				],
-				files: [{
+				files : [{
 					expand : true,
 					src    : [
 						"src/js/lib/*.js",
@@ -185,8 +143,8 @@ module.exports = function(grunt) {
 					],
 				}]
 			},
-			latest_none_bundled: {
-				options: {
+			latest_none_bundled : {
+				options : {
 					dest           : "dist/latest/",
 					filename       : "jtsage-datebox",
 					includeBinding : true,
@@ -196,7 +154,7 @@ module.exports = function(grunt) {
 				frameWorks   : [
 					"src/js/framework/jqm.js"
 				],
-				files: [{
+				files : [{
 					expand : true,
 					src    : [
 						"src/js/lib/*.js",
@@ -204,8 +162,8 @@ module.exports = function(grunt) {
 					],
 				}]
 			},
-			release_widget_bundled: {
-				options: {
+			release_widget_bundled : {
+				options : {
 					dest           : "dist/<%= pkg.version %>/",
 					filename       : "jtsage-datebox-<%= pkg.version %>",
 					includeBinding : true,
@@ -216,7 +174,7 @@ module.exports = function(grunt) {
 					"src/js/framework/*.js",
 					"!src/js/framework/jqm.js"
 				],
-				files: [{
+				files : [{
 					expand : true,
 					src    : [
 						"src/js/lib/*.js",
@@ -224,8 +182,8 @@ module.exports = function(grunt) {
 					],
 				}]
 			},
-			release_none_bundled: {
-				options: {
+			release_none_bundled : {
+				options : {
 					dest           : "dist/<%= pkg.version %>/",
 					filename       : "jtsage-datebox-<%= pkg.version %>",
 					includeBinding : true,
@@ -235,7 +193,7 @@ module.exports = function(grunt) {
 				frameWorks   : [
 					"src/js/framework/jqm.js"
 				],
-				files: [{
+				files : [{
 					expand : true,
 					src    : [
 						"src/js/lib/*.js",
@@ -244,43 +202,34 @@ module.exports = function(grunt) {
 				}]
 			},
 		},
-		copy: {
-			builder1: {
+		copy : {
+			builder1 : {
 				expand : true,
 				cwd    : "src/js",
 				src    : "**/*.js",
 				dest   : "node_builder/src/<%= pkg.version %>/js/"
 			},
-			builder2: {
-				expand : true,
-				cwd    : "dist/<%= pkg.version %>/",
-				src    : "*.css",
-				dest   : "node_builder/src/<%= pkg.version %>/css/",
-				rename : function(dest, src) {
-					return dest + src.replace( "jtsage-datebox-" + pkgJSON.version + "." , "" );
-				}
-			},
-			web1:    {
+			web1 :    {
 				expand : true,
 				cwd    : "doc_builder/samples",
 				src    : "*.html",
 				dest   : "doc_builder/dist/samples/"
 			},
-			web2:    {
+			web2 :    {
 				expand : true,
 				cwd    : "doc_builder/webroot",
 				src    : "*",
 				dest   : "doc_builder/dist/"
 			}
 		},
-		prettify: {
-			options: {
+		prettify : {
+			options : {
 				condense : true,
-				indent: 2,
-				indent_char: " ",
+				indent : 2,
+				indent_char : " ",
 				// Task-specific options go here.
 			},
-			all: {
+			all : {
 				expand : true,
 				cwd    : "doc_builder/dist/",
 				ext    : ".html",
@@ -288,9 +237,9 @@ module.exports = function(grunt) {
 				dest   : "doc_builder/dist/"
 			},
 		},
-		connect: {
-			web: {
-				options: {
+		connect : {
+			web : {
+				options : {
 					port             : 8080,
 					base             : "doc_builder/dist",
 					useAvailablePort : true,
@@ -300,15 +249,15 @@ module.exports = function(grunt) {
 		},
 		jsdoc : {
 			dist : {
-				src: ["src/js/**/*.js", "!src/js/external/*.js"],
-				options: {
+				src : ["src/js/**/*.js", "!src/js/external/*.js"],
+				options : {
 					destination : "doc_builder/dist/jsdoc",
 					template    : "node_modules/ink-docstrap/template",
 					configure   : "node_modules/ink-docstrap/template/jsdoc.conf.json"
 				}
 			}
 		},
-		cloc: {
+		cloc : {
 			just_datebox : {
 				options : ["--exclude-dir=external"],
 				src     : ["src/js"]
@@ -318,14 +267,14 @@ module.exports = function(grunt) {
 				src : ["."]
 			}
 		},
-		yaml_validator: {
-			defaults: {
-			  src: [ "doc_builder/data/*.yml" ]
+		yaml_validator : {
+			defaults : {
+				src : [ "doc_builder/data/*.yml" ]
 			}
-		  }
+		}
 	});
 
-	grunt.loadNpmTasks( "grunt-contrib-jshint" );
+	grunt.loadNpmTasks( "grunt-eslint" );
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
@@ -337,21 +286,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( "grunt-yaml-validator" );
 
 	grunt.task.loadTasks( "build/tasks" );
-	
-	grunt.registerTask( "jshint_reg", "Run Full jsHint Testing", [
-		"jshint:grunt",
-		"jshint:js",
-		"jshint:js2"
-	]);
-	
-	grunt.registerTask( "jshint_sane", "Run jsHint with sane values", [
-		"jshint:js_sane",
-	]);
-
 
 	grunt.registerTask( "release", "Build a release version of DateBox", [
-		"jshint:js",
-		"jshint:js2",
+		"eslint",
 		"yaml_validator",
 		"clean:release",
 		"clean:web",
@@ -376,10 +313,9 @@ module.exports = function(grunt) {
 		"uglify:i18n"
 	] );
 
-	grunt.registerTask( "updatebuilder", "Update web builder sources", [ 
+	grunt.registerTask( "updatebuilder", "Update web builder sources", [
 		"clean:builder",
-		"copy:builder1",
-		"copy:builder2"
+		"copy:builder1"
 	] );
 
 	grunt.registerTask( "web", "Build the documentation site", [
@@ -396,20 +332,19 @@ module.exports = function(grunt) {
 	] );
 	
 	grunt.registerTask( "fulltest", "Deeply test the DateBox Suite", [
-		"jshint_reg",
+		"eslint",
 		"yaml_validator"
 	] );
 
 	grunt.registerTask( "countcode", "Count all code", [ "cloc" ] );
 
 	grunt.registerTask( "test", "Test the DateBox Suite", [
-		"jshint:js",
-		"jshint:js2",
+		"eslint",
 		"yaml_validator"
 	] );
 
 	grunt.registerTask( "default", "Test and Build working version", [
-		"jshint_sane",
+		"eslint:datebox",
 		"latest"
 	] );
 	

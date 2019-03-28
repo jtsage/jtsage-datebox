@@ -38,12 +38,15 @@ var startTime     = new Date(),
 		retHtml += "</div><div class=\"col-sm-9\">";
 
 		if ( rec.type === "Boolean" ) {
-			retHtml += "<select class=\"form-control demopick\" data-link=\"db\" data-opt=\"" + rec.name + "\">";
-			retHtml += "<option " + ( !rec.default ? "selected=\"selected\"" : "" ) + " value=\"false\">False</option>";
-			retHtml += "<option " + (  rec.default ? "selected=\"selected\"" : "" ) + " value=\"true\">True</option>";
+			retHtml += "<select class=\"form-control demopick\" data-link=\"db\" data-opt=\"" +
+				rec.name + "\">";
+			retHtml += "<option " + ( !rec.default ? "selected=\"selected\"" : "" ) +
+				" value=\"false\">False</option>";
+			retHtml += "<option " + (  rec.default ? "selected=\"selected\"" : "" ) +
+				" value=\"true\">True</option>";
 			retHtml += "</select>";
 		} else {
-			retHtml += "<input class=\"form-control demopick\" data-link=\"db\" data-opt=\"" + 
+			retHtml += "<input class=\"form-control demopick\" data-link=\"db\" data-opt=\"" +
 				rec.name + "\" value=\"" + rec.default +
 				"\" placeholder=\"" + rec.default + "\"/>";
 		}
@@ -57,7 +60,7 @@ var startTime     = new Date(),
 		var theCard = "<div class=\"card border-dark\" id=\"" + rec.safeID + "\">";
 
 		theCard += "<button class=\"btn card-header text-left py-4 d-flex align-items-center\" " +
-			"id=\"heading" + rec.safeID + "\" data-toggle=\"collapse\" data-target=\"#collapse" + 
+			"id=\"heading" + rec.safeID + "\" data-toggle=\"collapse\" data-target=\"#collapse" +
 			rec.safeID + "\">";
 
 		theCard += "<div class=\"w-25 h6 my-0\">" + rec.name + "</div>";
@@ -68,7 +71,8 @@ var startTime     = new Date(),
 	
 		theCard += "</button>";
 
-		theCard += "<div id=\"collapse" + rec.safeID + "\" class=\"collapse\" data-parent=\"#apiDoc\">";
+		theCard += "<div id=\"collapse" + rec.safeID +
+			"\" class=\"collapse\" data-parent=\"#apiDoc\">";
 		theCard += "<div class=\"pb-2 pt-4 px-4\">";
 		theCard += mdConvert.makeHtml(rec.long);
 		theCard += "</div>";
@@ -79,7 +83,7 @@ var startTime     = new Date(),
 		}
 
 		if ( rec.overrideName !== undefined ) {
-			theCard += cardSnip( 
+			theCard += cardSnip(
 				"Override Name",
 				rec.overrideName,
 				"Option to be passed to override default value"
@@ -100,7 +104,10 @@ var startTime     = new Date(),
 
 		theCard += cardSnip(
 			"Option is Dynamic",
-			((rec.dynamic) ? "<em class='text-success'>yes</em>" : "<em class='text-danger'>no</em>"),
+			((rec.dynamic) ?
+				"<em class='text-success'>yes</em>" :
+				"<em class='text-danger'>no</em>"
+			),
 			"The option can be toggled or reset after the control has loaded"
 		);
 
@@ -118,7 +125,7 @@ var startTime     = new Date(),
 		var theCard = "<div class=\"card border-dark\">";
 
 		theCard += "<button class=\"btn card-header text-left py-4 d-flex align-items-center\" " +
-			"id=\"heading" + rec.safeID + "\" data-toggle=\"collapse\" data-target=\"#collapse" + 
+			"id=\"heading" + rec.safeID + "\" data-toggle=\"collapse\" data-target=\"#collapse" +
 			rec.safeID + "\">";
 
 		theCard += "<div class=\"w-25 h6 my-0\">" + rec.name + "</div>";
@@ -129,7 +136,7 @@ var startTime     = new Date(),
 	
 		theCard += "</button>";
 
-		theCard += "<div id=\"collapse" + rec.safeID + 
+		theCard += "<div id=\"collapse" + rec.safeID +
 			"\" class=\"collapse\" data-parent=\"#apiDoc" +
 			rec.type + "\">";
 		theCard += "<div class=\"pb-2 pt-4 px-4\">";
@@ -137,7 +144,7 @@ var startTime     = new Date(),
 		theCard += "</div>";
 
 		if ( rec.returns !== undefined ) {
-			theCard += cardSnip( 
+			theCard += cardSnip(
 				"Return Type",
 				rec.overrideName,
 				"Datatype of value returned from function"
@@ -242,7 +249,7 @@ module.exports = function(grunt) {
 		//console.log(config);
 
 		this.files.forEach( function( thisFile ) {
-			compFile = 
+			compFile =
 				headerHTML +
 				mdConvert.makeHtml( grunt.file.read( thisFile.src[0] ) ) +
 				footerHTML;
@@ -293,11 +300,11 @@ module.exports = function(grunt) {
 
 			grunt.file.write( thisFile.dest, doneFile );
 
-			grunt.log.writeln( 
-				"Converting " + 
-				(thisFile.src[0]).cyan + 
-				" -> " + 
-				(thisFile.dest).cyan + 
+			grunt.log.writeln(
+				"Converting " +
+				(thisFile.src[0]).cyan +
+				" -> " +
+				(thisFile.dest).cyan +
 				"..." + "OK".green
 			);
 

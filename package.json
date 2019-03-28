@@ -30,7 +30,6 @@
   "devDependencies": {
     "archiver": "^3.0.0",
     "eslint": "^5.15.3",
-    "eslint-config-google": "^0.12.0",
     "gettext-parser": ">=3.1.0",
     "grunt": ">=1.0.0",
     "grunt-cloc": "0.0.2",
@@ -39,6 +38,7 @@
     "grunt-contrib-copy": ">=0.8.1",
     "grunt-contrib-jshint": ">=0.10.0",
     "grunt-contrib-uglify": ">=0.5.1",
+    "grunt-eslint": "^21.0.0",
     "grunt-git-committers": ">=0.1.2",
     "grunt-jsdoc": "^2.3.0",
     "grunt-prettify": ">=0.3.5",
