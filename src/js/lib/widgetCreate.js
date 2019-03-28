@@ -39,11 +39,11 @@ JTSageDateBox._create = function() {
 		},
 		styleTag = "<style>" +
 				".dbContainer_" + this.uuid + " { " +
-					"touch-action: none; width: " + o.controlWidth + "}" +
+					"touch-action: none; width: " + o.controlWidth + o.controlWidthImp + "}" +
 				
-				"@media (max-width: " + o.breakpointWidth + ") { " +
+				" @media (max-width: " + o.breakpointWidth + ") { " +
 				".dbContainer_" + this.uuid + " { " +
-					"width: 100% } } " +
+					"width: 100% " + o.controlWidthImp + "} } " +
 
 				( ( o.theme_headStyle !== false ) ? o.theme_headStyle : "" ) +
 			"</style>",

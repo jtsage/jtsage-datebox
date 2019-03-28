@@ -52,6 +52,8 @@ JTSageDateBox.options = {
 	lockInput               : true,
 
 	controlWidth            : "290px",
+	/* Set to "!important" if the framework needs it */
+	controlWidthImp         : "",
 	breakpointWidth         : "567px",
 	zindex                  : "1100",
 	clickEvent              : "click",

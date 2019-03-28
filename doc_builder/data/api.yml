@@ -688,6 +688,17 @@ opts :
     optdemo : false
     sample  : false
 
+  controlWidthImp :
+    short   : Force the Width of the control
+    long    : Added to the style block in the head.  " !important", if nessesary for the framework
+    modes   : *modeAll
+    cat     : Display-Control
+    type    : String
+    dynamic : false
+    default : ""
+    optdemo : false
+    sample  : false
+
   dateFieldOrder :
     short   : Field order for date entry
     long    : |

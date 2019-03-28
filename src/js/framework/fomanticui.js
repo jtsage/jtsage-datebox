@@ -99,6 +99,7 @@ mergeOpts({
 	},
 	theme_headStyle : false,
 	theme_spanStyle : false,
+	controlWidthImp : " !important",
 
 	buttonIconDate : "calendar",
 	buttonIconTime : "clock",
