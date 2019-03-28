@@ -1,98 +1,19 @@
 /* eslint-env node */
-var pkgJSON = require( "./package.json" );
 
+
+/*
+THIS FILE IS BROKEN!!!!  MOVING TO NPM TO BUILD!!!
+*/
 module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg : grunt.file.readJSON( "package.json" ),
-		txt : {
-			copyYear : grunt.template.today( "UTC:yyyy" ),
-			banner : {
-				long : [
-					"/*",
-					" * JTSage-DateBox-" + pkgJSON.version,
-					" * For: " + JSON.stringify( pkgJSON.supports ),
-					" * Date: " + grunt.template.today( "UTC:ddd mmm d yyyy HH:MM:ss Z" ),
-					" * http://dev.jtsage.com/DateBox/",
-					" * https://github.com/jtsage/jquery-mobile-datebox",
-					" *",
-					" * Copyright 2010, <%= txt.copyYear %> JTSage. and other contributors",
-					" * Released under the MIT license.",
-					" * https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt",
-					" *",
-					" */",
-					"" ].join( grunt.util.linefeed ),
-				short : "/*! JTSage-DateBox-" + pkgJSON.version + " |" +
-					grunt.template.today( "UTC:yyyy-mm-dd" ) + "T" +
-					grunt.template.today( "UTC:HH:MM:ss" ) +
-					"Z | (c) 2010,  <%= txt.copyYear %> JTSage | " +
-					"https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt */\n"
-			}
-		},
-		eslint : {
-			datebox : {
-				files : {
-					src : [ "src/js/**/*.js" ]
-				}
-			},
-			build : {
-				files : {
-					src : [
-						"build/tasks/*.js",
-						"Gruntfile.js"
-					]
-				}
-			}
-		},
 		clean : {
 			web     : ["doc_builder/dist/"],
 			latest  : ["dist/latest/"],
 			release : ["dist/<%= pkg.version %>/"],
 			i18n    : ["dist/i18n"],
 			builder : ["node_builder/src/<%= pkg.version %>/"]
-		},
-		uglify : {
-			options : {
-				banner  : "<%= txt.banner.short %>",
-				verbose : true
-			},
-			release : {
-				files : [ {
-					expand : true,
-					src    : ["dist/<%= pkg.version %>/*.js"],
-					dest   : "",
-					ext    : ".min.js",
-					extDot : "last"
-				} ]
-			},
-			i18n : {
-				files : [ {
-					expand : true,
-					src    : [ "dist/i18n/*.js", "!dist/i18n/*.min.js" ],
-					dest   : "",
-					ext    : ".min.js",
-					extDot : "last"
-				} ]
-			},
-			latest : {
-				options : {
-					sourceMap : true,
-				},
-				files : [ {
-					expand : true,
-					src    : ["dist/latest/*.js"],
-					dest   : "",
-					ext    : ".min.js",
-					extDot : "last"
-				} ]
-			}
-		},
-		committers : {
-			options : {
-				sort     : "commits",
-				email    : true,
-				nomerges : true,
-			}
 		},
 		makei18n : {
 			all : {
@@ -121,86 +42,6 @@ module.exports = function(grunt) {
 					}
 				}]
 			}
-		},
-		buildDBoxes : {
-			latest_widget_bundled : {
-				options : {
-					dest           : "dist/latest/",
-					filename       : "jtsage-datebox",
-					includeBinding : true,
-				},
-				externalLibs : [ "src/js/external/widgetLib.js" ],
-				baseObject   : [ "src/js/baseObject.js" ],
-				frameWorks   : [
-					"src/js/framework/*.js",
-					"!src/js/framework/jqm.js"
-				],
-				files : [{
-					expand : true,
-					src    : [
-						"src/js/lib/*.js",
-						"src/js/modes/*.js"
-					],
-				}]
-			},
-			latest_none_bundled : {
-				options : {
-					dest           : "dist/latest/",
-					filename       : "jtsage-datebox",
-					includeBinding : true,
-				},
-				externalLibs : [ ],
-				baseObject   : [ "src/js/baseObject.js" ],
-				frameWorks   : [
-					"src/js/framework/jqm.js"
-				],
-				files : [{
-					expand : true,
-					src    : [
-						"src/js/lib/*.js",
-						"src/js/modes/*.js"
-					],
-				}]
-			},
-			release_widget_bundled : {
-				options : {
-					dest           : "dist/<%= pkg.version %>/",
-					filename       : "jtsage-datebox-<%= pkg.version %>",
-					includeBinding : true,
-				},
-				externalLibs : [ "src/js/external/widgetLib.js" ],
-				baseObject   : [ "src/js/baseObject.js" ],
-				frameWorks   : [
-					"src/js/framework/*.js",
-					"!src/js/framework/jqm.js"
-				],
-				files : [{
-					expand : true,
-					src    : [
-						"src/js/lib/*.js",
-						"src/js/modes/*.js"
-					],
-				}]
-			},
-			release_none_bundled : {
-				options : {
-					dest           : "dist/<%= pkg.version %>/",
-					filename       : "jtsage-datebox-<%= pkg.version %>",
-					includeBinding : true,
-				},
-				externalLibs : [  ],
-				baseObject   : [ "src/js/baseObject.js" ],
-				frameWorks   : [
-					"src/js/framework/jqm.js"
-				],
-				files : [{
-					expand : true,
-					src    : [
-						"src/js/lib/*.js",
-						"src/js/modes/*.js"
-					],
-				}]
-			},
 		},
 		copy : {
 			builder1 : {
@@ -267,23 +108,18 @@ module.exports = function(grunt) {
 				src : ["."]
 			}
 		},
-		yaml_validator : {
-			defaults : {
-				src : [ "doc_builder/data/*.yml" ]
-			}
-		}
 	});
 
-	grunt.loadNpmTasks( "grunt-eslint" );
+	
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
-	grunt.loadNpmTasks( "grunt-contrib-uglify" );
+	
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
-	grunt.loadNpmTasks( "grunt-git-committers" );
+	
 	grunt.loadNpmTasks( "grunt-prettify" );
 	grunt.loadNpmTasks( "grunt-contrib-connect" );
 	grunt.loadNpmTasks( "grunt-jsdoc" );
 	grunt.loadNpmTasks( "grunt-cloc" );
-	grunt.loadNpmTasks( "grunt-yaml-validator" );
+	
 
 	grunt.task.loadTasks( "build/tasks" );
 

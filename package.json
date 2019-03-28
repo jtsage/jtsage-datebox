@@ -24,19 +24,26 @@
   "license": "MIT",
   "husky": {
     "hooks": {
-      "pre-commit": "grunt fulltest"
+      "pre-commit": "npm run lint"
     }
   },
   "scripts": {
-    "lint-datebox" : "eslint --cache --cache-location .cache/.eslintcache src/js",
-    "lint-build" : "eslint --cache --cache-location .cache/.eslintcache build",
-    "lint-all" : "npm-run-all lint-datebox lint-build",
-    "lint" : "npm-run-all lint-datebox lint-build"
+    "lint-datebox": "eslint --cache --cache-location .cache/.eslintcache src/js",
+    "lint-build": "eslint --cache --cache-location .cache/.eslintcache build",
+    "lint-docs": "yamllint doc_builder/data/*.yml",
+    "lint-all": "npm-run-all lint-datebox lint-build lint-docs",
+    "lint": "npm-run-all lint-datebox lint-build lint-docs",
+    "authors": "git log --pretty=\"%<(30)%aN <%aE>\" | sort | uniq -c |  sort -Vf | sort -gr > AUTHORS.txt",
+    "build-latest": "node build/build-datebox.js",
+    "build-release": "node build/build-datebox.js release",
+    "build": "npm-run-all lint-build build-latest",
+    "release": "npm-run-all lint-all build-release"
   },
   "devDependencies": {
     "archiver": "^3.0.0",
     "eslint": "^5.15.3",
     "gettext-parser": ">=3.1.0",
+    "glob": "^7.1.3",
     "grunt": ">=1.0.0",
     "grunt-cloc": "0.0.2",
     "grunt-contrib-clean": ">=0.6.0",
@@ -57,7 +64,8 @@
     "node-gettext": ">=0.2.14",
     "npm-run-all": "^4.1.5",
     "showdown": "^1.9.0",
-    "uglify-js": ">=2.4.24"
+    "uglify-js": ">=2.4.24",
+    "yaml-lint": "^1.2.4"
   },
   "dependencies": {}
 }
