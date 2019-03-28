@@ -73,12 +73,23 @@ var frameName, inCode, outCodeFull, outCodeMin, outCodeObj,
 	};
 
 rimraf.sync( outFolder );
+console.log( "Distribution folder cleaned...ok" );
 
 fs.mkdirSync( outFolder , { recursive : true } );
+console.log( "Distribution folder created...ok" );
 
 for ( var i = 0, len = externalLibs.length; i < len; i++ ) {
 	externalLibsJS += fs.readFileSync( externalLibs[i] );
 }
+
+externalLibsJS = UglifyJS.minify( externalLibsJS, {
+	mangle   : false,
+	compress : false,
+	output   : {
+		code     : true,
+		beautify : true
+	}
+} );
 
 for ( i = 0, len = internalLibs.length; i < len; i++ ) {
 	dbModeLibsJS += fs.readFileSync( internalLibs[i] );
@@ -127,9 +138,13 @@ buildFiles.forEach( function( fileObj ) {
 	outCodeFull = "" +
 		preamble.long( fileObj.name ) +
 		"\n\n" +
-		( ( dontBundle.includes( fileObj.name ) ) ? "" : externalLibsJS ) +
+		( ( dontBundle.includes( fileObj.name ) ) ? "" : externalLibsJS.code ) +
 		"\n\n" +
 		outCodeObj.code;
+
+	fs.writeFileSync( fileObj.outputFileName, outCodeFull );
+
+	console.log( fileObj.outputFileName + " written...ok" );
 
 	outCodeMin = UglifyJS.minify( outCodeFull, {
 		mangle   : true,
@@ -144,12 +159,14 @@ buildFiles.forEach( function( fileObj ) {
 		}
 	} );
 
-	fs.writeFileSync( fileObj.outputFileName, outCodeFull );
+	
 	fs.writeFileSync( fileObj.outputMinName,  outCodeMin.code );
 	fs.writeFileSync( fileObj.outputMapName,  outCodeMin.map );
 
-	console.log( fileObj.outputFileName + " written." );
+	console.log( fileObj.outputMinName + " written...ok" );
 } );
+
+console.log( "done." );
 
 
 

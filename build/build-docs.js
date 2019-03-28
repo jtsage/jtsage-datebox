@@ -93,9 +93,9 @@ var inFile = "",
 	iface      = yaml.safeLoad( fs.readFileSync( docFolder + "data/interface.yml", "utf8" ) );
 
 rimraf.sync( distFolder );
+console.log( "Docs folder cleaned...ok" );
 
 fs.mkdirSync( distFolder, { recursive : true } );
-
 fs.mkdirSync( distFolder + "/samples", { recursive : true } );
 
 copyFiles.forEach( function ( thisFile ) {
@@ -113,10 +113,12 @@ copyFiles.forEach( function ( thisFile ) {
 		outFile
 	);
 } );
+console.log( "Doc Samples processed and copied...ok" );
 
 webRoot.forEach( function ( thisFile ) {
 	fs.copyFileSync( thisFile, distFolder + "/" + path.basename(thisFile) );
 });
+console.log( "Doc Web Root processed and copied...ok" );
 
 for ( var i = 0; i < buildFiles.length; i++ ) {
 	var thisFile = buildFiles[i];
@@ -197,3 +199,5 @@ for ( var i = 0; i < buildFiles.length; i++ ) {
 		outFile
 	);
 }
+console.log( "Doc Pages processed and copied...ok" );
+console.log( "done." );

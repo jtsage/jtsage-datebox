@@ -164,8 +164,10 @@ function makeSingleFile( lang, data ) {
 }
 
 rimraf.sync( outFolder );
+console.log( "i18n Distribution folder cleaned...ok" );
 
 fs.mkdirSync( outFolder , { recursive : true } );
+console.log( "i18n Distribution folder created...ok" );
 
 poFiles.forEach( function( thisFile ) {
 	thisLang     = thisFile.replace("i18n/locale/","").replace("/datebox.po","");
@@ -196,7 +198,7 @@ poFiles.forEach( function( thisFile ) {
 		minJS.code
 	);
 
-	console.log( outFilePrefix + thisLang + ".utf8.js written.");
+	console.log( outFilePrefix + thisLang + ".utf8.js written...ok");
 
 });
 
@@ -220,4 +222,5 @@ fs.writeFileSync(
 	minJS.code
 );
 
-console.log( outFolder + "/jtsage-datebox.lang.utf8.js written.");
+console.log( outFolder + "/jtsage-datebox.lang.utf8.js written...ok");
+console.log( "done.");

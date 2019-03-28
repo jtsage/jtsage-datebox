@@ -36,14 +36,6 @@
 	* http://jquery.org/license
 	*/
 
-	//>>label: Widget
-	//>>group: Core
-	//>>description: Provides a factory for creating stateful widgets with a common API.
-	//>>docs: http://api.jqueryui.com/jQuery.widget/
-	//>>demos: http://jqueryui.com/widget/
-
-
-
 	var widgetUuid = 0,
 		widgetSlice = Array.prototype.slice;
 
@@ -235,14 +227,16 @@
 						}
 
 						if ( !instance ) {
-							return $.error( "cannot call methods on " + name +
-								" prior to initialization; " +
-								"attempted to call method '" + options + "'" );
+							return $.error("x");
+							// "cannot call methods on " + name +
+							//" prior to initialization; " +
+							//"attempted to call method '" + options + "'" );
 						}
 
 						if ( !$.isFunction( instance[ options ] ) || options.charAt( 0 ) === "_" ) {
-							return $.error( "no such method '" + options + "' for " + name +
-								" widget instance" );
+							return $.error("X");
+							// "no such method '" + options + "' for " + name +
+							//" widget instance" );
 						}
 
 						methodValue = instance[ options ].apply( instance, args );
@@ -308,13 +302,7 @@
 
 			if ( element !== this ) {
 				$.data( element, this.widgetFullName, this );
-				this._on( true, this.element, {
-					remove : function( event ) {
-						if ( event.target === element ) {
-							this.destroy();
-						}
-					}
-				} );
+
 				this.document = $( element.style ?
 
 					// Element within the document
@@ -334,10 +322,6 @@
 
 			this._create();
 
-			if ( this.options.disabled ) {
-				this._setOptionDisabled( this.options.disabled );
-			}
-
 			this._trigger( "create", null, this._getCreateEventData() );
 			this._init();
 		},
@@ -353,12 +337,8 @@
 		_init : $.noop,
 
 		destroy : function() {
-			var that = this;
 
 			this._destroy();
-			$.each( this.classesElementLookup, function( key, value ) {
-				that._removeClass( value, key );
-			} );
 
 			// We can probably remove the unbind calls in 2.0
 			// all event bindings should go through this._on()
@@ -435,10 +415,6 @@
 
 			this.options[ key ] = value;
 
-			if ( key === "disabled" ) {
-				this._setOptionDisabled( value );
-			}
-
 			return this;
 		},
 
@@ -448,71 +424,6 @@
 
 		disable : function() {
 			return this._setOptions( { disabled : true } );
-		},
-
-		_on : function( suppressDisabledCheck, element, handlers ) {
-			var delegateElement;
-			var instance = this;
-
-			// No suppressDisabledCheck flag, shuffle arguments
-			if ( typeof suppressDisabledCheck !== "boolean" ) {
-				handlers = element;
-				element = suppressDisabledCheck;
-				suppressDisabledCheck = false;
-			}
-
-			// No element argument, shuffle and use this.element
-			if ( !handlers ) {
-				handlers = element;
-				element = this.element;
-				delegateElement = this.widget();
-			} else {
-				element = delegateElement = $( element );
-				this.bindings = this.bindings.add( element );
-			}
-
-			$.each( handlers, function( event, handler ) {
-				function handlerProxy() {
-
-					// Allow widgets to customize the disabled handling
-					// - disabled as an array instead of boolean
-					// - disabled class as method for disabling individual parts
-					if ( !suppressDisabledCheck &&
-							( instance.options.disabled === true ||
-							$( this ).hasClass( "ui-state-disabled" ) ) ) {
-						return;
-					}
-					return ( typeof handler === "string" ? instance[ handler ] : handler )
-						.apply( instance, arguments );
-				}
-
-				// Copy the guid so direct unbinding works
-				if ( typeof handler !== "string" ) {
-					handlerProxy.guid = handler.guid =
-						handler.guid || handlerProxy.guid || $.guid++;
-				}
-
-				var match = event.match( /^([\w:-]*)\s*(.*)$/ );
-				var eventName = match[ 1 ] + instance.eventNamespace;
-				var selector = match[ 2 ];
-
-				if ( selector ) {
-					delegateElement.on( eventName, selector, handlerProxy );
-				} else {
-					element.on( eventName, handlerProxy );
-				}
-			} );
-		},
-
-		_off : function( element, eventName ) {
-			eventName = ( eventName || "" ).split( " " ).join( this.eventNamespace + " " ) +
-				this.eventNamespace;
-			element.off( eventName ).off( eventName );
-
-			// Clear the stack to avoid memory leaks (#10056)
-			this.bindings  = $( this.bindings.not( element ).get() );
-			this.focusable = $( this.focusable.not( element ).get() );
-			this.hoverable = $( this.hoverable.not( element ).get() );
 		},
 
 		_trigger : function( type, event, data ) {

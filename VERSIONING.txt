@@ -1,13 +1,13 @@
 To up the version:
 
-package.json
-node_builder/builderServer.js
+--> edit package.json
 
 # npm run prerelease
 -> commit and tag here
 
 # npm run latest
 # npm run release
+--> RESTART THE BUILDER SERVER, IF IT'S RUNNING!
 
 To up a version of a framework:
 

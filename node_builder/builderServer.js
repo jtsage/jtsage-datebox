@@ -1,175 +1,249 @@
-var http = require('http'),
-	querystring = require('querystring'),
-	Archiver = require('archiver'),
-	fs = require('fs'),
-	m = require('module'),
-	UglifyJS = require("uglify-js"),
-	pretty = require('js-object-pretty-print').pretty;
+/**
+ * JTSage-DateBox
+ * @fileOverview Builder Server
+ * 
+ * @author J.T.Sage <jtsage+datebox@gmail.com>
+ * @author {@link https://github.com/jtsage/jtsage-datebox/contributors|GitHub Contributors}
+ * @license {@link https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt|MIT}
+ * @version 5.0.0
+ */
 
-const PORT=8086;
+const config     = require( "../package.json"),
+	http         = require( "http" ),
+	querystring  = require( "querystring" ),
+	Archiver     = require( "archiver" ),
+	fs           = require( "fs" ),
+	glob         = require( "glob" ),
+	path         = require( "path" ),
+	m            = require( "module" ),
+	vm           = require( "vm" ),
+	UglifyJS     = require( "uglify-js" ),
+	pretty       = require( "js-object-pretty-print" ).pretty,
+	form         = require( "./builderForm.js" ),
+	PORT         = 8086,
+	runasUID     = "www-data",
+	runasGID     = "www-data";
 
-var path = "src/4.4.2/",
-	formFile = fs.readFileSync("form.html", 'utf8');
+var libFilesJS       = "",
+	modeFilesJS      = {},
+	frameFilesJS     = {},
+	srcPath          = "build_src/",
+	libFiles         = glob.sync( srcPath + "lib/*.js" ),
+	modeFiles        = glob.sync( srcPath + "mode/*.js" ),
+	frameFiles       = glob.sync( srcPath + "frame/*.js" ),
+	bundleFilesJS    = UglifyJS.minify(
+		fs.readFileSync( srcPath + "bundle/widgetLib.js", "utf8" ),
+		{
+			mangle   : false,
+			compress : false,
+			output   : {
+				code     : true,
+				beautify : true
+			}
+		}
+	),
+	baseFilesJS      = fs.readFileSync( srcPath + "baseObject.js", "utf8" ),
+	dontBundle       = [ "jqm" ],
+	supportMap       = {
+		"bootstrap"   : "bootstrap-v3",
+		"bootstrap4"  : "bootstrap-v4",
+		"foundation6" : "zurb-foundation",
+		"bulma"       : "bulma",
+		"jqm"         : "jquery-mobile",
+		"fomanticui"  : "fomantic-ui"
+	},
+	prettyMap        = {
+		"bootstrap"   : "Twitter Bootstrap",
+		"bootstrap4"  : "Twitter Bootstrap",
+		"foundation6" : "Zurb Foundation",
+		"bulma"       : "Bulma.io",
+		"jqm"         : "jQueryMobile",
+		"fomanticui"  : "FomanticUI"
+	},
+	prettyMapMode    = {
+		"calbox"    : "CalBox",
+		"datebox"   : "DateBox & TimeBox & DurationBox & DateTimeBox",
+		"slidebox"  : "SlideBox",
+		"flipbox"   : "FlipBox & TimeFlipBox & DurationFlipBox & DateTimeFlipBox"
+	};
+
+libFiles.forEach( function( thisFile ) {
+	libFilesJS += fs.readFileSync( thisFile, "utf8" );
+});
+
+modeFiles.forEach( function( thisFile ) {
+	modeFilesJS[ path.basename( thisFile ).replace( ".js", "" ) ] =
+		fs.readFileSync( thisFile, "utf8" );
+});
+
+frameFiles.forEach( function( thisFile ) {
+	frameFilesJS[ path.basename( thisFile ).replace( ".js" , "" ) ] =
+		fs.readFileSync( thisFile, "utf8" );
+});
 
 
 //We need a function which handles requests and send response
 function handleRequest(request, response){
 	if ( request.method !== "POST" ) {
-		response.writeHead(200, {'Content-Type': 'text/html'});
-		response.end(formFile);
+		response.writeHead( 200, { "Content-Type" : "text/html" } );
+		response.end(
+			form.header( config.version ) +
+			form.framePick( config, supportMap, prettyMap, frameFilesJS ) +
+			form.modePick( prettyMapMode, modeFilesJS ) +
+			form.downloadButton +
+			form.footer( config.version )
+		);
 	} else {
-		var chunk = '';
-		request.on('data', function (data) {
+		var chunk = "";
+
+		request.on( "data", function ( data ) {
 			chunk += data;
 		});
-		request.on('end', function () {
-			console.log("Build Processing...");
 
-			var inputQ = querystring.parse(chunk),
-				frame = "bootstrap",
-				today = new Date(),
-				baseFiles = [
-					path + "js/baseObject.js",
-					path + "js/lib/dateEnhance.js",
-					path + "js/lib/dateFormatter.js",
-					path + "js/lib/dateLimit.js",
-					path + "js/lib/dateParser.js",
-					path + "js/lib/eventHandler.js",
-					path + "js/lib/offset.js",
-					path + "js/lib/public.js",
-					path + "js/lib/shortUtil.js"
-				];
-				
+		request.on( "end", function () {
+			console.log( "Build Processing..." );
 
-			switch ( inputQ.framework ) {
-				case "jqm" :
-					baseFiles.push( path + "js/framework/jqm.js" );
-					frame = "jqm";
-					break;
-				case "jqueryui":
-					baseFiles.push( path + "js/framework/jqueryui.js" );
-					frame = "jqueryui";
-					break;
-				case "bootstrap4":
-					baseFiles.push( path + "js/framework/bootstrap4.js" );
-					frame = "bootstrap4";
-					break;
-				default:
-					baseFiles.push( path + "js/framework/bootstrap.js" );
-					break;
-			}
+			var outCodeObj,
+				inputQ    = querystring.parse( chunk ),
+				today     = new Date(),
+				zip       = Archiver( "zip" ),
+				buildFile = "",
+				fullFile  = "",
+				minFile   = "",
+				preamble  = {
+					long : function (framework, modes) {
+						return [
+							"/*",
+							" * JTSage-DateBox-" + config.version + " (" + framework + ")",
+							" * Date: " + today.toISOString(),
+							" * Modes: " + modes.join( ", " ),
+							" * http://datebox.jtsage.dev/",
+							" * https://github.com/jtsage/jtsage-datebox",
+							" *",
+							" * Copyright 2010, " + today.getFullYear() +
+								" JTSage and other contributors",
+							" * Released under the MIT license.",
+							" * https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt",
+							" *",
+							" */",
+							""
+						].join( "\n");
+					},
 
-			modeArray = [];
+					short : function( framework, modes ) {
+						return [
+							"/* JTSage-DateBox-" + config.version + " (" + framework + ")",
+							"Modes:" + modes.join( "," ),
+							today.toISOString(),
+							"(c)2010," + today.getFullYear() + " JTSage",
+							"https://github.com/jtsage/jtsage-datebox/blob/master/LICENSE.txt */\n"
+						].join( " | " );
+					},
 
-			if ( Array.isArray(inputQ.modes)) {
-				modeArray = inputQ.modes;
+					binding : "\n\n(function( $ ) { " +
+						"$(document).ready( function() { " +
+						"$( \"[data-role='datebox']\" ).each( function() { " +
+						"$( this ).datebox(); " +
+						" }); }); })( jQuery );\n"
+				};
+
+			if ( typeof inputQ.framework === "undefined" || inputQ.framework === "false" ) {
+				response.writeHead( 404, "You must pick a framework" );
+				response.end();
+			} else if ( typeof inputQ.modes === "undefined" ) {
+				response.writeHead( 404, "You must select at least one mode" );
+				response.end();
 			} else {
-				modeArray[0] = inputQ.modes;
-			}
+				buildFile += baseFilesJS + libFilesJS + frameFilesJS[ inputQ.framework ];
 
-			var preamble = [
-				"/*",
-				" * JTSage-DateBox",
-				" * For: " + frame + "; With: " + modeArray.join(", "),
-				" * Date: " + today.toJSON(),
-				" * http://dev.jtsage.com/DateBox/",
-				" * https://github.com/jtsage/jquery-mobile-datebox",
-				" *",
-				" * Copyright 2010, " + today.getFullYear() + " JTSage. and other contributors",
-				" * Released under the MIT license.",
-				" * https://github.com/jtsage/jquery-mobile-datebox/blob/master/LICENSE.txt",
-				" *",
-				" */" ].join("\n");
-
-			modeArray.forEach( function (mode) {
-				switch (mode) {
-					case "datebox":
-						baseFiles.push( path + "js/modes/datebox.js" ); break;
-					case "flipbox":
-						baseFiles.push( path + "js/modes/flipbox.js" ); break;
-					case "calbox":
-						baseFiles.push( path + "js/modes/calbox.js" ); break;
-					case "slidebox":
-						baseFiles.push( path + "js/modes/slidebox.js" ); break;
+				if ( ! Array.isArray( inputQ.modes ) ) {
+					inputQ.modes = [ inputQ.modes ];
 				}
-			});
 
-			var tempFile = "";
-			baseFiles.forEach(function (file) {
-				tempFile = tempFile + fs.readFileSync(file, 'utf8');
-			});
+				for ( var i = 0; i < inputQ.modes.length; i++ ) {
+					buildFile += modeFilesJS[ inputQ.modes[i] ];
+				}
 
-			tempFile = tempFile + "\n\nexports.JTSageDateBox = JTSageDateBox;\n\n";
+				buildFile += "\n\nexports.JTSageDateBox = JTSageDateBox;\n\n";
 
+				vm.runInThisContext(
+					m.wrap( buildFile )
+				)( exports, require, module, __filename, __dirname );
 
-			var res = require('vm').runInThisContext(
-					m.wrap( tempFile )
-				)(
-					exports,
-					require,
-					module,
-					__filename,
-					__dirname
-			);
+				var inCode = "" +
+					"(function( $ ) { $.widget( \"jtsage.datebox\"," +
+					pretty( module.exports.JTSageDateBox, 4, "PRINT", true ) +
+					" ); })( jQuery );" + preamble.binding;
 
-			var fileWriter = "" +
-				"(function( $ ) { $.widget( \"jtsage.datebox\"," +
-				pretty(module.exports.JTSageDateBox, 4, "PRINT", true) +
-				" ); })( jQuery );";
+				outCodeObj = UglifyJS.minify( inCode, {
+					parse    : {},
+					mangle   : false,
+					compress : false,
+					output   : {
+						ast      : true,
+						code     : true,
+						beautify : true
+					}
+				} );
 
-			if ( frame !== "jqm" ) {
-				fileWriter = fileWriter +
-					"\n\n(function( $ ) { " + 
-					"$(document).ready( function() { " +
-					"$( \"[data-role='datebox']\" ).each( function() { " +
-					"$( this ).datebox(); " +
-					" }); }); })( jQuery );\n"
+				fullFile = "" +
+					preamble.long( inputQ.framework, inputQ.modes ) +
+					"\n\n" +
+					( ( dontBundle.includes( inputQ.framework ) ) ? "" : bundleFilesJS.code ) +
+					"\n\n" +
+					outCodeObj.code;
+
+				minFile = UglifyJS.minify( fullFile, {
+					mangle   : true,
+					compress : true,
+					output   : {
+						beautify : false,
+						preamble : preamble.short( inputQ.framework, inputQ.modes )
+					},
+					sourceMap : {
+						filename : "jtsage-datebox.js",
+						url      : "jtsage-datebox.min.js.map",
+					}
+				} );
+
+				response.writeHead( 200, {
+					"Content-Type"        : "application/zip",
+					"Content-disposition" : "attachment; filename=JTSage-DateBox-" +
+						inputQ.framework + "." +  config.version + ".zip"
+				} );
+
+				zip.pipe( response );
+
+				zip
+					.append( fullFile,     { name : "DateBox/js/jtsage-datebox.js" } )
+					.append( minFile.code, { name : "DateBox/js/jtsage-datebox.min.js" } )
+					.append( minFile.map,  { name : "DateBox/js/jtsage-datebox.min.js.map" } )
+					.finalize();
+
 			}
 
-			var rslt = UglifyJS.minify(fileWriter, {
-				parse: {},
-				compress: false,
-				mangle: false,
-				output: {
-					ast: true,
-					code: true,
-					beautify: true
-    			}
-			});
-
-			var finished_uncomp = preamble + "\n\n" + rslt.code;
-			var finished_comp = UglifyJS.minify(finished_uncomp, {sourceMap: { filename: "jtsage-datebox.min.js", url: "jtsage-datebox.js.map"}});
-			var finished_css_uncomp = fs.readFileSync( path + "css/" + frame + ".css" );
-			var finished_css_comp = fs.readFileSync( path + "css/" + frame + ".min.css" )
-
-			response.writeHead(200, {
-				'Content-Type': 'application/zip',
-				'Content-disposition': 'attachment; filename=JTSage-DateBox-'+frame+'.zip'
-			});
-
-			var zip = Archiver('zip');
-
-			zip.pipe(response);
-
-			// Create zip with some files.
-    		zip
-    			.append(finished_uncomp, { name: 'DateBox/js/jtsage-datebox.js' })
-    			.append(finished_comp.code, { name: 'DateBox/js/jtsage-datebox.min.js' })
-    			.append(finished_comp.map, { name: 'DateBox/js/jtsage-datebox.js.map' })
-    			.append(finished_css_uncomp, { name: 'DateBox/css/jtsage-datebox.css' })
-    			.append(finished_css_comp, { name: 'DateBox/css/jtsage-datebox.min.css' })
-        		.finalize();
 		});
 	}
 }
 
-process.setgid('www-data');
-process.setuid('www-data');
+if ( process.getuid && process.getuid() === 0 ) {
+	// Attempt to set GID / UID
+	try {
+		process.setgid( runasGID );
+		process.setuid( runasUID );
+		console.log( "Dropped to set UID/GID" );
+	} catch ( e ) {
+		console.log( "DANGER: Possibly running as root!!" );
+	}
+} else {
+	console.log( "Running as un-privledged user");
+}
+
 
 var server = http.createServer(handleRequest);
 
-server.listen(PORT, '127.0.0.1', function(){
-    console.log("DateBox Build Server listening on: http://localhost:%s", PORT);
+server.listen( PORT, "127.0.0.1", function() {
+	console.log( "DateBox Build Server listening on: http://localhost:%s", PORT );
 });
 
 

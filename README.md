@@ -18,7 +18,7 @@ DateBox is extreamlly full featured.  Included are:
     * A calendar
     * Input boxes for each date part with +/- buttons
     * Slidable columns where the date reads right-to-left or left-to-right
-    * Slidable rows where the date reads top-to-bottom
+    * Slidable weeks where the date reads top-to-bottom
  * Full localization with translations in 40+ languages and locales
  * CSS Framework agnostic.  If there is not a pre-configured version for your preferred choice, adding it is simple.
  * No CSS includes, all styling done by CSS framework or very sparing style hooks.
@@ -57,6 +57,8 @@ Developers
 
 To build locally:
 
+Full lint test, all files : `npm test`
+
 The full release : `npm run release`
 
 Update dist/latest only : `npm run latest`
@@ -66,6 +68,8 @@ Run the test suite : `npm run lint`
 Build the documentation : `npm run docs`
 
 Run a local server @:8080 for the documentation : `npm run serve`
+
+Run a local version of the builder server: `npm run build-builder && npm run servebuild`
 
 Check the package.json for more options. 
 
