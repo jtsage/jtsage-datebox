@@ -1,27 +1,15 @@
--rw-r--r-- 1 webby www-data   278 Mar  6 10:28 ./autoInit.js
--rw-r--r-- 1 webby www-data  4845 Mar  7 21:55 ./baseObject.js
--rw-r--r-- 1 webby www-data 18190 Mar  7 21:55 ./framework/bootstrap4.js
--rw-r--r-- 1 webby www-data 17840 Mar  7 21:55 ./framework/bootstrap.js
--rw-r--r-- 1 webby www-data 15689 Mar  7 21:55 ./framework/jqm.js
--rw-r--r-- 1 webby www-data 16657 Mar  6 10:28 ./framework/jqueryui.js
--rw-r--r-- 1 webby www-data  4891 Mar  7 21:55 ./lib/dateEnhance.js
--rw-r--r-- 1 webby www-data  4571 Mar  6 10:28 ./lib/dateFormatter.js
--rw-r--r-- 1 webby www-data  3726 Mar  7 21:55 ./lib/dateLimit.js
--rw-r--r-- 1 webby www-data  6575 Mar  7 21:55 ./lib/dateParser.js
--rw-r--r-- 1 webby www-data  1876 Mar  7 21:55 ./lib/eventHandler.js
--rw-r--r-- 1 webby www-data  2969 Mar  6 10:28 ./lib/offset.js
--rw-r--r-- 1 webby www-data  3026 Mar  7 21:55 ./lib/public.js
--rw-r--r-- 1 webby www-data  4472 Mar  6 10:56 ./lib/shortUtil.js
--rw-r--r-- 1 webby www-data 10073 Mar  6 10:28 ./mode.customflip.js
--rw-r--r-- 1 webby www-data 23704 Mar  7 21:55 ./modes/calbox.js
--rw-r--r-- 1 webby www-data 12886 Mar  7 21:55 ./modes/datebox.js
--rw-r--r-- 1 webby www-data 13730 Mar  6 10:28 ./modes/flipbox.js
--rw-r--r-- 1 webby www-data  7079 Mar  6 10:28 ./modes/slidebox.js
--rw-r--r-- 1 webby www-data   219 Mar  7 21:55 ./widgetBinding.js
 
-Total: 173296 (6012 lines)
+jtsage-datebox-4.4.2.bootstrap.js                  27-Feb-2019 18:10              152118
+jtsage-datebox-4.4.2.bootstrap.min.js              27-Feb-2019 18:10               65281
 
-old:
+jtsage-datebox-4.4.2.bootstrap4.js                 27-Feb-2019 18:10              152423
+jtsage-datebox-4.4.2.bootstrap4.min.js             27-Feb-2019 18:10               65542
+
+jtsage-datebox-4.4.2.jqm.js                        27-Feb-2019 18:10              148632
+jtsage-datebox-4.4.2.jqm.min.js                    27-Feb-2019 18:10               63686
+
+
+4.4.2:
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
@@ -31,14 +19,14 @@ Markdown                         1              7              0             16
 SUM:                            21            694            378           5476
 -------------------------------------------------------------------------------
 
+
 current:
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-JavaScript                      20            816           1804           4200
-Markdown                         1              7              0             16
+JavaScript                      27           1143           2285           5501
+Markdown                         1              7              0             31
 -------------------------------------------------------------------------------
-SUM:                            21            823           1804           4216
+SUM:                            28           1150           2285           5532
 -------------------------------------------------------------------------------
-
 

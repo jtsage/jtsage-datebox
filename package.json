@@ -38,7 +38,7 @@
     "build-release": "node build/build-datebox.js release",
     "build-i18n": "node build/build-i18n.js",
     "build-docs": "node build/build-docs.js",
-    "build-jsdoc": "jsdoc -c jsdoc.json",
+    "build-jsdoc": "jsdoc -c .jsdoc.json",
     "build": "npm-run-all lint-build build-latest",
     "prerelease": "npm-run-all lint-all authors",
     "release": "npm-run-all lint-all build-release build-i18n build-docs build-jsdoc",
@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "archiver": "^3.0.0",
+    "cloc": "^2.4.0",
     "eslint": "^5.15.3",
     "gettext-parser": ">=3.1.0",
     "glob": "^7.1.3",
