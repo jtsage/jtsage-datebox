@@ -43,29 +43,7 @@ var libFilesJS       = "",
 		}
 	),
 	baseFilesJS      = fs.readFileSync( srcPath + "baseObject.js", "utf8" ),
-	dontBundle       = [ "jqm" ],
-	supportMap       = {
-		"bootstrap"   : "bootstrap-v3",
-		"bootstrap4"  : "bootstrap-v4",
-		"foundation6" : "zurb-foundation",
-		"bulma"       : "bulma",
-		"jqm"         : "jquery-mobile",
-		"fomanticui"  : "fomantic-ui"
-	},
-	prettyMap        = {
-		"bootstrap"   : "Twitter Bootstrap",
-		"bootstrap4"  : "Twitter Bootstrap",
-		"foundation6" : "Zurb Foundation",
-		"bulma"       : "Bulma.io",
-		"jqm"         : "jQueryMobile",
-		"fomanticui"  : "FomanticUI"
-	},
-	prettyMapMode    = {
-		"calbox"    : "CalBox",
-		"datebox"   : "DateBox & TimeBox & DurationBox & DateTimeBox",
-		"slidebox"  : "SlideBox",
-		"flipbox"   : "FlipBox & TimeFlipBox & DurationFlipBox & DateTimeFlipBox"
-	};
+	dontBundle       = [ "jqm" ];
 
 libFiles.forEach( function( thisFile ) {
 	libFilesJS += fs.readFileSync( thisFile, "utf8" );
@@ -88,8 +66,8 @@ function handleRequest(request, response){
 		response.writeHead( 200, { "Content-Type" : "text/html" } );
 		response.end(
 			form.header( config.version ) +
-			form.framePick( config, supportMap, prettyMap, frameFilesJS ) +
-			form.modePick( prettyMapMode, modeFilesJS ) +
+			form.framePick( config, frameFilesJS ) +
+			form.modePick( config, modeFilesJS ) +
 			form.downloadButton +
 			form.footer( config.version )
 		);

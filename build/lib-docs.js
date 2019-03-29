@@ -182,12 +182,15 @@ exports.makeMenu = function ( conf, menu ) {
 	return menuHtml;
 };
 
-exports.makeSup = function ( conf ) {
+exports.makeSup = function ( config ) {
 	var retHtml = "<ul>";
 
-	for ( var i = 0; i < conf.supports.length; i++ ) {
-		retHtml += "<li>" + conf.supports[i] + "</li>";
-	}
+	Object.keys( config.prettyMap ).forEach( thisKey => {
+		retHtml += "<li>";
+		retHtml += config.prettyMap[thisKey] + " v." +
+			config.supports[ config.supportMap[ thisKey ] ];
+		retHtml += "</li>";
+	} );
 
 	return retHtml + "</ul>";
 };

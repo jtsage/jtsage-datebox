@@ -11,6 +11,28 @@
     "jquery-mobile": "1.4.5",
     "fomantic-ui": "2.7.2"
   },
+  "supportMap": {
+		"bootstrap"   : "bootstrap-v3",
+		"bootstrap4"  : "bootstrap-v4",
+		"foundation6" : "zurb-foundation",
+		"bulma"       : "bulma",
+		"jqm"         : "jquery-mobile",
+		"fomanticui"  : "fomantic-ui"
+	},
+	"prettyMap": {
+		"bootstrap"   : "Twitter Bootstrap",
+		"bootstrap4"  : "Twitter Bootstrap",
+		"foundation6" : "Zurb Foundation",
+		"bulma"       : "Bulma.io",
+		"jqm"         : "jQueryMobile",
+		"fomanticui"  : "FomanticUI"
+  },
+  "prettyMapMode": {
+		"calbox"    : "CalBox",
+		"datebox"   : "DateBox & TimeBox & DurationBox & DateTimeBox",
+		"slidebox"  : "SlideBox",
+		"flipbox"   : "FlipBox & TimeFlipBox & DurationFlipBox & DateTimeFlipBox"
+	},
   "homepage": "http://datebox.jtsage.dev/",
   "author": {
     "name": "JTSage and other contributors",

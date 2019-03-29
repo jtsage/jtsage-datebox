@@ -46,7 +46,7 @@ exports.footer = function ( version ) {
 	].join("\n");
 };
 
-exports.framePick = function( config, supportMap, prettyMap, frameFilesJS ) {
+exports.framePick = function( config, frameFilesJS ) {
 	var returnHTML = "<div class=\"form-group row py-3\"><label class=\"col-sm-2 col-form-label\" for=\"framework\">CSS Framework</label>";
 
 	returnHTML += "<div class=\"col-sm-10\">";
@@ -55,7 +55,7 @@ exports.framePick = function( config, supportMap, prettyMap, frameFilesJS ) {
 
 	Object.keys( frameFilesJS ).forEach( thisKey => {
 		returnHTML += "<option value=\"" +  thisKey + "\">";
-		returnHTML += prettyMap[thisKey] + " v." + config.supports[ supportMap[ thisKey ] ];
+		returnHTML += config.prettyMap[thisKey] + " v." + config.supports[ config.supportMap[ thisKey ] ];
 		returnHTML += "</option>";
 		
 	});
@@ -65,7 +65,7 @@ exports.framePick = function( config, supportMap, prettyMap, frameFilesJS ) {
 	return returnHTML;
 };
 
-exports.modePick = function( prettyMap, modeFilesJS ) {
+exports.modePick = function( config, modeFilesJS ) {
 	var returnHTML = "<div class=\"form-group row py-3\"><label class=\"col-sm-2 col-form-label\" for=\"mode\">Include Modes</label>";
 
 	returnHTML += "<div class=\"col-sm-10\">";
@@ -74,7 +74,7 @@ exports.modePick = function( prettyMap, modeFilesJS ) {
 		returnHTML += "<div class=\"form-check\">";
 		returnHTML += "<input class=\"form-check-input\" type=\"checkbox\" name=\"modes\" value=\"" + thisKey + "\" id=\"mode-" + thisKey + "\">";
 		returnHTML += "<label class=\"form-check-label\" for=\"mode-" + thisKey + "\">";
-		returnHTML += prettyMap[ thisKey ];
+		returnHTML += config.prettyMapMode[ thisKey ];
 		returnHTML += "</label></div>";
 	});
 

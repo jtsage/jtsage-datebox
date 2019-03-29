@@ -1,11 +1,3 @@
-supports :
-  - Bootstrap v4.3.1
-  - Bootstrap v3.4.1
-  - Bulma v0.7.4
-  - Foundation v6.5.3
-  - Fomantic UI v2.7.2
-  - JQueryMobile v1.4.5
-
 url : ""
 
 menu :

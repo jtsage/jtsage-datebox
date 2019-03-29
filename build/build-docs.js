@@ -184,7 +184,7 @@ for ( var i = 0; i < buildFiles.length; i++ ) {
 					case "sample" :
 						return docs.makeMenu( config, config.sample );
 					case "supports" :
-						return docs.makeSup( config );
+						return docs.makeSup( pkgconf );
 					case "url" :
 						return config.url;
 				}
