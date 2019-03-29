@@ -444,6 +444,56 @@ opts :
     optdemo : true
     sample  : false
 
+  calHighSelected :
+    short   : Highlight selected date
+    long    : |
+      Highlight selected date with the theme in ___theme.cal_Selected___
+
+      For more information on the themeing system, please see the _Themeing_ section of the documentation
+
+      Precedence:
+       * OutOfBounds
+       * Selected
+       * Today
+       * highDates
+       * highDatesAlt
+       * highDatesRec
+       * highDays
+       * default
+    type    : Boolean
+    modes   :
+      - calbox
+    default : true
+    dynamic : true
+    cat     : Theme
+    optdemo : true
+    sample  : false
+
+  calSelectedOutOfBounds :
+    short   : Highlight selected date even if it's out of bounds
+    long    : |
+      Highlight selected date (if out of bounds) with the theme in ___theme.cal_Selected___
+
+      For more information on the themeing system, please see the _Themeing_ section of the documentation
+
+      Precedence:
+       * OutOfBounds
+       * Selected
+       * Today
+       * highDates
+       * highDatesAlt
+       * highDatesRec
+       * highDays
+       * default
+    type    : Boolean
+    modes   :
+      - calbox
+    default : true
+    dynamic : true
+    cat     : Theme
+    optdemo : true
+    sample  : false
+
   calNoHeader :
     short   : Suppress standard control header
     long    : |
@@ -1630,21 +1680,63 @@ opts :
     long    : |
       This option can only be supplied as a function.  It will recieve an object containing:
 
-       * oldDate - the Date that existed prior to the control closing.  Usually, this is the last good date.
+       * oldDate - the Date that existed prior to the control closing.  The __internal__ date
+       * origDate - last confirmed, good, user set date. Does not reflect changes in the control prior to a set button being clicked.
        * newDate - should the input be re-read, this is the date the control thinks it is.
-       * wasGoodDate - the input can be succesfully processed
-       * wasBadDate - the input can NOT be succesfully processed
+       * isGood - the input was be succesfully processed
+       * isBad - the input was NOT be succesfully processed
+       * input - Value of the input
 
-      The function *must* return an object with 2 properties:
+      The function return either:
 
-       * didSomething - the function performed in some manner, and the below newDate should be used
-       * newDate - a **string** of the new date, in the correct output format.  Not a date object.
- 
+       * A new date OBJECT to set the control today.
+
+      __OR__
+
+       * false ( in fact, anything other than an object), meaning that the date is fine - and DateBox should use the value of newDate instead.
+
+      Sample:
+
+      ```js
+      function( obj ) {
+        if ( obj.isGood ) {
+          // Good date parsed, do nothing.
+          return false;
+        }
+
+        var newd = chrono.parseDate(obj.input);
+
+        if ( newd === null ) {
+          return new Date();
+        } else {
+          return newd;
+        }
+      }
+      ```
+
       For more information, please see the _Callbacks and Listeners_ section of the documentation.
     modes   : *modeAll
     cat     : Callback
     default : false
     type    : Function
+    dynamic : true
+    optdemo : false
+    sample  : false
+
+  safeEdit :
+    short   : Edit input safely
+    long    : |
+      It'd be a bad idea to turn this off.  With it off, unreadable dates will set the internal
+      date to "today", but will not update the input.
+
+      runOnBlurCallback ignores (bypasses) this option.  It won't do both.
+
+      The only reason to shut this down would be on legacy code where you are doing this yourself
+      somehow.
+    modes   : *modeAll
+    cat     : Operation
+    default : true
+    type    : boolean
     dynamic : true
     optdemo : false
     sample  : false
