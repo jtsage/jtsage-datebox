@@ -8,9 +8,10 @@
  */
 
 mergeOpts({
-	calHighToday        : true,
-	calHighPick         : true,
-	calHighOutOfBounds  : true,
+	calHighToday           : true,
+	calHighPick            : true,
+	calHighOutOfBounds     : true,
+	calSelectedOutOfBounds : true,
 	
 	calShowDays         : true,
 	calOnlyMonth        : false,
@@ -133,6 +134,13 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 		if ( o.calHighOutOfBounds === true ) {
 			returnObject.theme = o.theme_cal_OutOfBounds;
 			done = true;
+			// Allow only selected theme if specifly enabled.
+			if (
+				o.calSelectedOutOfBounds === true &&
+				w._ThemeDateCK.selected.apply( w, [ testDate] )
+			) {
+				returnObject.theme = o.theme_cal_Selected;
+			}
 		}
 	}
 
