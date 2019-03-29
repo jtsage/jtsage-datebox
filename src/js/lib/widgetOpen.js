@@ -115,6 +115,7 @@ JTSageDateBox.open = function () {
 
 	switch ( o.displayMode ) {
 		case "inline":
+			if ( w.initDone ) { break; }
 			w.d.mainWrap.insertAfter( _sf.findAttachPoint.apply( w, [ true ] ) );
 			w.d.mainWrap.addClass( o.theme_inlineContainer );
 			w.d.mainWrap.css( { zIndex : "auto" } );
@@ -132,6 +133,7 @@ JTSageDateBox.open = function () {
 					break;
 			}
 			w._t( { method : "postrefresh" } );
+			w.initDone = true;
 			break;
 		case "blind":
 			if ( w.initDone ) {
