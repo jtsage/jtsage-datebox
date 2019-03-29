@@ -215,15 +215,15 @@ JTSageDateBox.styleFunctions = {
 	},
 
 	/*
-	 * Make the header for calbox (month, year, prev/next buttons)
+	 * Make the header for calbox/slidebox (month, year, prev/next buttons)
 	 */
-	calHeader             : function ( txt, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
+	genHeader             : function ( txt, prevIcn, prevCls, nextIcn, nextCls, prevCtl, nextCtl ) {
 		var returnVal = $("<div class='grid-x'>");
 
 		$("<div class='cell small-2'>").append(
 			$( this.styleFunctions.button.apply( this, [
-				firstBtnCls + " expanded dbCalPrev",
-				firstBtnIcn,
+				prevCls + " expanded " + prevCtl,
+				prevIcn,
 				""
 			] ) )
 		).appendTo( returnVal );
@@ -232,13 +232,27 @@ JTSageDateBox.styleFunctions = {
 
 		$("<div class='cell small-2'>").append(
 			$( this.styleFunctions.button.apply( this, [
-				secondBtnCls + " expanded dbCalNext",
-				secondBtnIcn,
+				nextCls + " expanded " + nextCtl,
+				nextIcn,
 				""
 			] ) )
 		).appendTo( returnVal );
 
 		return returnVal;
+	},
+	/*
+	 * Make the header for calbox (month, year, prev/next buttons)
+	 */
+	calHeader             : function ( txt, prevIcn, prevCls, nextIcn, nextCls ) {
+		return this.styleFunctions.genHeader.apply( this, [
+			txt,
+			prevIcn,
+			prevCls,
+			nextIcn,
+			nextCls,
+			"dbCalPrev",
+			"dbCalNext"
+		]);
 	},
 
 	/*
@@ -287,41 +301,55 @@ JTSageDateBox.styleFunctions = {
 		return $("<td class='text-center" + cls + "'" + style + ">" + text + "</td>");
 	},
 
-	/*
-	 * The year and month picker for calbox.
-	 */
-	calPickers            : function ( ranges ) {
+	genPickers            : function ( ranges, ctlMonth, ctlYear ) {
 		var returnVal = "";
 
 		returnVal += "<div class='grid-x'>";
 
 		returnVal += "<div class='cell small-8'>";
-		returnVal += this._stdSel( ranges.month, "dbCalPickMonth", "form-control" );
+		returnVal += this._stdSel( ranges.month, ctlMonth, "form-control" );
 		returnVal += "</div>";
 
 		returnVal += "<div class='cell small-4'>";
-		returnVal += this._stdSel( ranges.year, "dbCalPickYear", "form-control" );
+		returnVal += this._stdSel( ranges.year, ctlYear, "form-control" );
 		returnVal += "</div>";
 
 		returnVal += "</div>";
 
 		return $(returnVal);
 	},
-
 	/*
-	 * Make the calendar drop down quick pick list.
+	 * The year and month picker for calbox.
 	 */
-	calDateList           : function ( listLabel, list ) {
+	calPickers            : function ( ranges ) {
+		return this.styleFunctions.genPickers.apply( this, [
+			ranges,
+			"dbCalPickMonth",
+			"dbCalPickYear"
+		]);
+	},
+
+	genDateList           : function ( listLabel, list, ctl ) {
 		var returnVal = "",
 			newList = list.slice();
 
 		newList.unshift([false, listLabel, true]);
 
 		returnVal += "<div>";
-		returnVal += this._stdSel( newList, "dbCalPickList", "form-control" );
+		returnVal += this._stdSel( newList, ctl, "form-control" );
 		returnVal += "</div>";
 
 		return $(returnVal);
+	},
+	/*
+	 * Make the calendar drop down quick pick list.
+	 */
+	calDateList           : function ( listLabel, list ) {
+		return this.styleFunctions.genDateList.apply( this, [
+			listLabel,
+			list,
+			"dbCalPickList"
+		]);
 	},
 
 	/*
@@ -457,65 +485,38 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Make the header for slidebox
 	 */
-	slideHeader           : function ( txt, prevBtnIcn, prevBtnCls, nextBtnIcn, nextBtnCls ) {
-		var returnVal = $("<div class='grid-x'>");
-
-		$("<div class='cell small-2'>").append(
-			$( this.styleFunctions.button.apply( this, [
-				prevBtnCls + " expanded dbSlidePrev",
-				prevBtnIcn,
-				""
-			] ) )
-		).appendTo( returnVal );
-
-		$("<div class='cell small-8 text-center'><h5>" + txt + "</h5></div>").appendTo( returnVal );
-
-		$("<div class='cell small-2'>").append(
-			$( this.styleFunctions.button.apply( this, [
-				nextBtnCls + " expanded dbSlideNext",
-				nextBtnIcn,
-				""
-			] ) )
-		).appendTo( returnVal );
-
-		return returnVal;
+	slideHeader           : function ( txt, prevIcn, prevCls, nextIcn, nextCls ) {
+		return this.styleFunctions.genHeader.apply( this, [
+			txt,
+			prevIcn,
+			prevCls,
+			nextIcn,
+			nextCls,
+			"dbSlidePrev",
+			"dbSlideNext"
+		]);
 	},
 
 	/*
 	 * Create the year and month picker for slide.
 	 */
 	slidePickers            : function ( ranges ) {
-		var returnVal = "";
-
-		returnVal += "<div class='grid-x'>";
-
-		returnVal += "<div class='cell small-8'>";
-		returnVal += this._stdSel( ranges.month, "dbSlidePickMonth", "form-control" );
-		returnVal += "</div>";
-
-		returnVal += "<div class='cell small-4'>";
-		returnVal += this._stdSel( ranges.year, "dbSlidePickYear", "form-control" );
-		returnVal += "</div>";
-
-		returnVal += "</div>";
-
-		return $(returnVal);
+		return this.styleFunctions.genPickers.apply( this, [
+			ranges,
+			"dbSlidePickMonth",
+			"dbSlidePickYear"
+		]);
 	},
 
 	/*
 	 * Make the slidebox drop down quick pick list.
 	 */
 	slideDateList           : function ( listLabel, list ) {
-		var returnVal = "",
-			newList = list.slice();
-
-		newList.unshift([false, listLabel, true]);
-
-		returnVal += "<div class='row my-2 mx-1'>";
-		returnVal += this._stdSel( newList, "dbSlidePickList", "form-control" );
-		returnVal += "</div>";
-
-		return $(returnVal);
+		return this.styleFunctions.genDateList.apply( this, [
+			listLabel,
+			list,
+			"dbSlidePickList"
+		]);
 	},
 
 	/*
