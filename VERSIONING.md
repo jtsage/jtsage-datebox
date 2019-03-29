@@ -13,13 +13,13 @@ This document explains how to change the version of DateBox.
 }
 ```
 
-```shell
+```sh
 # npm run prerelease
 ```
 
 --> commit and tag here
 
-```shell
+```sh
 # npm run latest
 # npm run release
 ```
@@ -32,7 +32,7 @@ This document explains how to change the version of DateBox.
 --> edit package.json
 
 ```json
-  supports : {
+  "supports" : {
     "npm-package-name" : "version"
   }
 ```
@@ -42,7 +42,7 @@ This document explains how to change the version of DateBox.
 --> edit package.json
 
 ```json
-  supports : {
+  "supports" : {
     "npm-package-name-of-framework" : "version-supported"
   },
   "prettyMap": {
