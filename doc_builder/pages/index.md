@@ -38,7 +38,7 @@ This sample is the most simple version of the "calbox" varient. Note that DateBo
 
 ##### Placement Override
 
-Should you wish to direct the placement of the rendered DateBox control for inline or blind display methods (some frameworks actually require this, notable Bulma due to it's heavy nesting of input elements), Drop a named div anywhere on the page with the id of __[DateBox ID]-dbAttach__
+Should you wish to direct the placement of the rendered DateBox control for inline or blind display methods, Drop a named div anywhere on the page with the id of __[DateBox ID]-dbAttach__.  Note that this may very well break positioning on the dropdown mode, but is very useful for inline and blind modes.
 
 ```html
 <div id="db1-dbAttach"></div>
