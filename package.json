@@ -69,7 +69,7 @@
     "release": "npm-run-all lint-all build-release build-i18n build-docs build-jsdoc build-builder",
     "count-datebox": "cloc --exclude-dir=external src/js",
     "count-all": "cloc --exclude-list-file=.clocignore .",
-    "count": "npm-run-all count-call count-datebox",
+    "count": "npm-run-all count-all count-datebox",
     "docs": "npm-run-all build-docs build-jsdoc",
     "serve": "http-server doc_builder/dist",
     "start": "http-server doc_builder/dist",
