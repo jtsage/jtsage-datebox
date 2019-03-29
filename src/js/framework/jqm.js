@@ -40,6 +40,7 @@ mergeOpts({
 	theme_headerTheme  : "inherit",
 	theme_headerBtnCls : "a",
 	theme_headerBtnIcn : "delete",
+	theme_openButton   : false, // UN-USED
 
 	theme_cal_Today       : "b",
 	theme_cal_DayHigh     : "b",
@@ -157,7 +158,8 @@ JTSageDateBox.styleFunctions = {
 	 */
 	baseInputButton       : function ( icon, title ) {
 		return "<a href='javascript: return false;' " +
-			"class='ui-input-clear ui-btn ui-icon-" + icon + " ui-btn-icon-notext ui-corner-all' " +
+			"class='ui-input-clear ui-btn ui-icon-" + icon +
+			" ui-btn-icon-notext ui-corner-all' " +
 			"title='" + title + "'>" + title + "</a>";
 	},
 

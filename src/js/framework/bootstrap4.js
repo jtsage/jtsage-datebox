@@ -37,6 +37,7 @@ mergeOpts({
 	theme_headerTheme  : "bg-dark",
 	theme_headerBtnCls : "outline-secondary",
 	theme_headerBtnIcn : "cancel",
+	theme_openButton   : "secondary",
 
 	theme_cal_Today       : "info",
 	theme_cal_DayHigh     : "outline-warning",
@@ -166,11 +167,11 @@ JTSageDateBox.styleFunctions = {
 	 * @memberof JTSageDateBox.styleFunctions
 	 * @this JTSageDateBox
 	 */
-	baseInputButton       : function ( icon, title ) {
-		return "<div class='dbOpenButton input-group-append' title='" + title + "'>" +
-			"<div class='input-group-text'>" +
+	baseInputButton       : function ( icon, title, theme ) {
+		return "<div class='input-group-append' title='" + title + "'>" +
+			"<a href='#' class='dbOpenButton btn btn-" + theme + "'>" +
 			"<span>" + this.icons.getIcon( icon ) + "</span>" +
-			"</div></div>";
+			"</a></div>";
 	},
 
 	/**

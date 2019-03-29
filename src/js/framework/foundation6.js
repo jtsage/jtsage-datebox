@@ -35,9 +35,10 @@ mergeOpts({
 	theme_modalContainer : "card",
 	theme_inlineContainer : "card",
 
-	theme_headerTheme : "bg-dark",
+	theme_headerTheme  : "bg-dark",
 	theme_headerBtnCls : false, // UNUSED
 	theme_headerBtnIcn : "cancel",
+	theme_openButton   : "",
 
 	theme_cal_Today       : "primary",
 	theme_cal_DayHigh     : "warning",
@@ -155,10 +156,12 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Create the open button that is added to the input
 	 */
-	baseInputButton       : function ( icon, title ) {
-		return "<span title='" + title + "' class='input-group-label dbOpenButton'>" +
+	baseInputButton       : function ( icon, title, theme ) {
+		return "<div class='input-group-button'>" +
+			"<a href='#' style='line-height:2.3' role='button' title='" + title +
+			"' class='button " + theme + " dbOpenButton'>" +
 			this.icons.getIcon( icon ) +
-			"</span>";
+			"</a></div>";
 	},
 
 	/*

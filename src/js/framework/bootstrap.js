@@ -32,6 +32,7 @@ mergeOpts({
 	theme_headerTheme  : "navbar-default",
 	theme_headerBtnCls : "default",
 	theme_headerBtnIcn : "cancel",
+	theme_openButton   : "", // has-succes, has-warning, has-error
 
 	theme_cal_Today       : "info",
 	theme_cal_DayHigh     : "warning",
@@ -125,9 +126,9 @@ JTSageDateBox.styleFunctions = {
 			"<div style='width: 100%; padding: 5px;' class='" +  cls + "'>"
 		);
 	},
-	baseInputWrap         : function ( originalInput ) {
+	baseInputWrap         : function ( originalInput, buttonTheme ) {
 		/* Set up a wrap around the input for styling, and return it */
-		return originalInput.wrap("<div class='input-group'>").parent();
+		return originalInput.wrap("<div class='input-group " + buttonTheme + "'>").parent();
 	},
 	baseInputButton       : function ( iconClass, title ) {
 		return "<div class='input-group-addon' title='" + title + "'>" +

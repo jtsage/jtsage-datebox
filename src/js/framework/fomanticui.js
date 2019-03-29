@@ -40,6 +40,7 @@ mergeOpts({
 	theme_headerTheme  : "inverted borderless",
 	theme_headerBtnCls : false, // UN-USED
 	theme_headerBtnIcn : "cancel",
+	theme_openButton   : "basic",
 
 	theme_cal_Today       : "primary",
 	theme_cal_DayHigh     : "yellow",
@@ -143,8 +144,8 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Create the open button that is added to the input
 	 */
-	baseInputButton       : function ( icon, title ) {
-		return "<div class='ui button dbOpenButton' title='" + title + "'>" +
+	baseInputButton       : function ( icon, title, theme ) {
+		return "<div class='ui button " + theme + " dbOpenButton' title='" + title + "'>" +
 			this.icons.getIcon( icon ) + "</div>";
 	},
 

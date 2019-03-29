@@ -121,7 +121,7 @@ JTSageDateBox._create = function() {
 		w.d.input.val( w._formatter( w.__fmt(), w.theDate ) );
 	}
 
-	w.d.wrap = _sf.baseInputWrap.apply( w, [ w.d.input ] );
+	w.d.wrap = _sf.baseInputWrap.apply( w, [ w.d.input, o.theme_openButton ] );
 	
 	if ( o.mode !== false ) {
 		if ( o.buttonIcon === false ) {
@@ -134,7 +134,7 @@ JTSageDateBox._create = function() {
 	}
 
 	if ( o.useButton ) {
-		$( _sf.baseInputButton.apply( w, [ o.buttonIcon, w.__( "tooltip") ] ) )
+		$( _sf.baseInputButton.apply( w, [ o.buttonIcon, w.__( "tooltip"), o.theme_openButton ] ) )
 			.on(o.clickEvent, function( e ) {
 				e.preventDefault();
 				if ( o.useFocus ) {

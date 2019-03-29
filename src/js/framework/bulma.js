@@ -39,6 +39,7 @@ mergeOpts({
 	theme_headerTheme          : "is-dark",
 	theme_headerBtnCls         : "is-light",
 	theme_headerBtnIcn         : "cancel",
+	theme_openButton           : "is-primary",
 
 	theme_cal_Today       : "is-info",
 	theme_cal_DayHigh     : "is-warning",
@@ -146,8 +147,8 @@ JTSageDateBox.styleFunctions = {
 	/*
 	 * Create the open button that is added to the input
 	 */
-	baseInputButton       : function ( icon, title ) {
-		return "<div class=\"control\"><a title=\"" + title + "\" class=\"button is-primary\">" +
+	baseInputButton       : function ( icon, title, theme ) {
+		return "<div class=\"control\"><a title=\"" + title + "\" class=\"button " + theme + "\">" +
 			this.icons.getIcon( icon ) + "</a></div>";
 	},
 

@@ -2167,6 +2167,17 @@ opts :
     optdemo : true
     sample  : false
 
+  theme_openButton  :
+    short   : Open Button Theme
+    long    : Theme class used for the open button
+    modes   : *modeAll
+    cat     : Theme
+    type    : String
+    dynamic : false
+    default : "secondary"
+    optdemo : false
+    sample  : false
+
   theme_cal_Today :
     short   : Highlight for Today
     long    : Class used to highlight today's date when ___calHighToday___ is on
