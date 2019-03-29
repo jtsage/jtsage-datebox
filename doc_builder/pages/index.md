@@ -5,7 +5,7 @@ DateBox is a jQuery plugin that aims to make user interaction with dates and tim
 These demos use a good bit of pseduo-code - remember to look at the page source to get the whole story. Also, a few options are locked on for all of these demos, mainly the control displays “inline” - that is, as part of the page rather than a popup (the default behavior).  Note also these demos use the Bootstrap v4 version of DateBox, and the markup conventions of Bootstrap.
 
 ## Sample
-This sample is the most simple version of the "calbox" varient. Note that DateBox automatically enhances properlly tagged elements.  If you need a simple date input with no limits, logic, or customization, it is as simple as adding an input element. __Note the use of the data-role attribute__, which is what allows DateBox to auto enhance.  At least the mode option is required if your build includes more than one mode.
+This sample is the most simple version of the "calbox" varient. Note that DateBox automatically enhances properlly tagged elements.  If you need a simple date input with no limits, logic, or customization, it is as simple as adding an input element. __Note the use of the data-role attribute__, which is what allows DateBox to automaticaly enhance.  At least the mode option is required if your build includes more than one mode.
 
 <div class="form-group">
 	<label class="control-label"for="db1">CalBox style DateBox</label>
@@ -64,7 +64,9 @@ DateBox is extreamlly full featured.  Included are:
 
 ## Requirements
 
-DateBox requires the [Popper.js](https://popper.js.org/) and [jQueryUI](https://jqueryui.com/) library. Built versions of DateBox include both in their source files, unless the framework in use typically requires one already. (Example: the Bootstrap 4 build does not include popper.js, as Bootstrap already does).
+DateBox requires [jQuery](https://jquery.com), version 2 or 3, and will run fine with the "slim" builds of version 3.
+
+DateBox requires the [jQueryUI](https://jqueryui.com/) widget library. Built versions of DateBox include it in their source files, unless the framework in use typically has it already. (Example: jQM uses an altered, but API compatible version).
 
 ## Frameworks
 
@@ -74,7 +76,7 @@ DateBox is currently has builds for the following:
 
 ## Download or Link
 
-Downloading your own build of DateBox is the prefeerred method of installing DateBox. To build your own download, head to the [DateBox Download Builder](https://jtsage.dev/DateBox/builder/). Prebuilt versions are also available through [npm](https://www.npmjs.com/search?q=jtsage-datebox) and [Github](https://github.com/jtsage/datebox-builds).
+Downloading your own build of DateBox is the prefeerred method of installing DateBox. To build your own download, head to the [DateBox Download Builder](https://datebox.jtsage.dev/builder/). Prebuilt versions are also available through [npm](https://www.npmjs.com/search?q=jtsage-datebox) and [Github](https://github.com/jtsage/datebox-builds).
 
 ### CDN
 
