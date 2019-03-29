@@ -311,8 +311,8 @@ listen:
   displayChange :
     short    : The CalBox display has changed
     long     : |
-      This only fires for calbox mode, and means an offset event has occured (the offset listener
-      will still fire), but the selected date has not changed.
+      This only fires for calbox mode, and means an view change has occured (the offset listener
+      _may_ still fire), but the user selected date has not changed. The view __has__ changed
 
       In the payload is -
 
@@ -322,17 +322,33 @@ listen:
         method             : "displayChange",
 
         // The date that the user has selected, or the default, or today
-        selectedDate       : {object},
+        selectedDate       : [JavaScript Date Object],
 
         // The date that is shown (place where the calculations begin)
 
-        shownDate          : {object},
+        shownDate          : [JavaScript Date Object],
 
-        // Which part of the date to change: y,m,d,h,i,s,a
-        thisChange         : "y", 
+        // Which part of the date to change: y,m,d,h,i,s,a OR 'p' (a picker was used)
+        thisChange         : [char : y|m|d|i|s|a|p], 
 
-        // How much to change
-        thisChangeAmount   : 1,
+        // How much to change OR null (for pickers)
+        thisChangeAmount   : [integer]
+
+        // What is the date (object) where the grid starts? (ignores calOnlyMonth)
+        gridStart          : [JavaScript Date Object],
+
+        // What is the date (object) where the grid ends? (ignore calOnlyMonth)
+        gridEnd            : [JavaScript Date Object],
+
+        // Is the selected date in the grid / view (might be part of previous/next month)
+        selectedInGrid     : [boolean],
+
+        // Is the selected date in bound - so, must be in view, cannot be part of the previous or
+        // next month.  selectedInBounds cannot be true without selectedInGrid being true, hoever, 
+        // selectedInGrid may be true and selectedInBounds false.
+
+        // If you are using calOnlyMonth, isSelectedInBounds is a better test for visibility.
+        selectedInBounds   : [boolean]
       }
       ```
 

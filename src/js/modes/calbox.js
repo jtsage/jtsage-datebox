@@ -70,6 +70,18 @@ JTSageDateBox.isSelectedInCalGrid = function() {
 	);
 };
 
+JTSageDateBox.isSelectedInBounds = function() {
+	var w = this;
+
+	if ( w.firstOfMonth === false || w.lastOfMonth === false ) {
+		return false;
+	}
+	return (
+		w.firstOfMonth.comp() <= w.originalDate.comp() &&
+		w.originalDate.comp() <= w.lastOfMonth.comp()
+	);
+};
+
 /**  
  * Is the specified date in the visible calendar grid?
  * 
@@ -200,6 +212,8 @@ JTSageDateBox._build.calbox = function () {
 	// Set up some info to pull from calbox if needed.
 	w.firstOfGrid = date_firstOfGrid;
 	w.lastOfGrid  = date_lastOfGrid;
+	w.firstOfMonth = date_firstOfMonth;
+	w.lastOfMonth = date_lastOfMonth;
 	
 	// Clear internal widget HTML, if not already empty.
 	if ( typeof w.d.intHTML !== "boolean" ) {
@@ -264,6 +278,18 @@ JTSageDateBox._build.calbox = function () {
 			}
 			w.theDate.setD( 1, $( "#dbCalPickMonth" ).val() ); // Set choosen month
 			w.theDate.setD( 0, $( "#dbCalPickYear" ).val() ); // Set choosen year
+
+			w._t( {
+				method             : "displayChange",
+				selectedDate       : w.originalDate,
+				shownDate          : w.theDate,
+				thisChange         : "p",
+				thisChangeAmount   : null,
+				gridStart          : w.firstOfGrid,
+				gridEnd            : w.lastOfGrid,
+				selectedInGrid     : w.isSelectedInCalGrid(),
+				selectedInBounds   : w.isSelectedInBounds()
+			});
 
 			w.refresh();
 		});

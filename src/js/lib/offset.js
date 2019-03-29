@@ -139,6 +139,10 @@ JTSageDateBox._offset = function( oper, amount, update ) {
 			shownDate          : w.theDate,
 			thisChange         : oper,
 			thisChangeAmount   : amount,
+			gridStart          : w.getCalStartGrid(),
+			gridEnd            : w.getCalEndGrid(),
+			selectedInGrid     : w.isSelectedInCalGrid(),
+			selectedInBounds   : w.isSelectedInBounds()
 		});
 	}
 	
