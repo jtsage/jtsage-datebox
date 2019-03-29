@@ -50,6 +50,7 @@ JTSageDateBox.options = {
 	hideContainer           : false,
 
 	lockInput               : true,
+	safeEdit                : true,
 
 	controlWidth            : "290px",
 	/* Set to "!important" if the framework needs it */

@@ -161,33 +161,50 @@ JTSageDateBox._create = function() {
 			_sf.blurInput(w.d.input);
 		})
 		.on( "change.datebox", function() {
-			/* 
-			o.runOnBlur === function ( {oldDate, newDate, wasGoodDate} ) { 
-				return {didSomething(bool), newDate};
-			}
-			*/
-			if ( typeof o.runOnBlurCallback === "function" ) {
+			if ( o.runOnBlurCallback === false ) {
+				// No callback specified
+				if ( o.safeEdit === true ) {
+					runTmp = w._makeDate( w.d.input.val(), true );
+					if ( runTmp[1] === false ){
+						// Good date entered, do it.
+						w.theDate = runTmp[0];
+					} else {
+						// Bad date, set to when control was opened.
+						// In some cases, this will be today.
+						w.theDate = w.originalDate;
+						w._t( { method : "doset" } );
+					}
+				} else {
+					w.theDate = w._makeDate( w.d.input.val() );
+				}
+				
+			} else {
+				// Trap simple string reference
+				if ( ! $.isFunction( o.runOnBlurCallback ) ) {
+					if ( typeof window[ o.runOnBlurCallback ] === "function" ) {
+						o.runOnBlurCallback = window[ o.runOnBlurCallback ];
+					}
+				}
+				
 				runTmp = w._makeDate( w.d.input.val(), true );
 				ranTmp = o.runOnBlurCallback.apply( w, [{
-					oldDate     : w.theDate,
-					newDate     : runTmp[0],
-					wasGoodDate : !runTmp[1],
-					wasBadDate  : runTmp[1]
+					origDate : w.originalDate,
+					input    : w.d.input.val(),
+					oldDate  : w.theDate,
+					newDate  : runTmp[0],
+					isGood   : !runTmp[1],
+					isBad    : runTmp[1]
 				}]);
+
 				if ( typeof ranTmp !== "object" ) {
-					w.theDate = w._makeDate( w.d.input.val() );
-					w.refresh();
+					w.theDate = runTmp[0];
 				} else {
-					if ( ranTmp.didSomething === true ) {
-						w.d.input.val(ranTmp.newDate);
-					}
-					w.theDate = w._makeDate( w.d.input.val() );
-					w.refresh();
+					w.theDate = ranTmp;
+					w._t( { method : "doset" } );
 				}
-			} else {
-				w.theDate = w._makeDate( w.d.input.val() );
-				w.refresh();
 			}
+			w.originalDate = w.theDate.copy();
+			w.refresh();
 		})
 		.on( "datebox", w._event );
 
