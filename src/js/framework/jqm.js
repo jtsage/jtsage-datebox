@@ -98,7 +98,8 @@ mergeOpts({
 		bottom            : 0,
 		backgroundColor   : "rgba(0,0,0,.4)"
 	},
-	theme_headStyle : false,
+	theme_headStyle : " .center { text-align: center !important; } .p0 { padding: 0 !important; }" +
+		".m0 { margin: 0 !important; } w-100 { width: 100% !important; }",
 	theme_spanStyle : false,
 
 	buttonIconDate : "calendar",
@@ -132,9 +133,7 @@ JTSageDateBox.styleFunctions = {
 	 * Make a button group
 	 */
 	buttonGroup           : function ( ) {
-		var style = "style='margin: 0 .446em'";
-
-		return $("<div " + style + " class='ui-controlgroup-controls'>");
+		return $("<div style='margin: 0 .446em' class='ui-controlgroup-controls'>");
 	},
 
 	buttonGroupOutside    : function ( collapse, inner ) {
@@ -203,7 +202,7 @@ JTSageDateBox.styleFunctions = {
 	intHeader             : function ( text ) {
 		return $(
 			"<div class='dbHeader'>" +
-			"<h3 style='text-align:center'>" + text + "</h3>" +
+			"<h3 class='center'>" + text + "</h3>" +
 			"</div>"
 		);
 	},
@@ -251,7 +250,7 @@ JTSageDateBox.styleFunctions = {
 	 */
 	calGrid               : function () {
 		return $(
-			"<div><table class='dbCalGrid' style='width: 100%'></table></div>"
+			"<div><table class='dbCalGrid w-100'></table></div>"
 		);
 	},
 
@@ -266,13 +265,8 @@ JTSageDateBox.styleFunctions = {
 	 * Create a clickable box for each grid item in calbox.
 	 */
 	calButton             : function ( data, totalElements ) {
-		var styles_TD = [
-				"padding:0",
-				"margin:0",
-				"width:" + ( 100 / totalElements ) + "%"
-			],
+		var styles_TD = "width:" + ( 100 / totalElements ) + "%",
 			styles_A  = [
-				"margin:0",
 				"padding-right:0",
 				"padding-left:0"
 			],
@@ -280,13 +274,14 @@ JTSageDateBox.styleFunctions = {
 				"dbEvent",
 				"ui-btn",
 				"ui-mini",
+				"m0",
 				"ui-btn-" + data.theme,
 				( data.bad ? "ui-disabled" : "" )
 			],
 			disable   = ( data.bad ? "disabled='disabled'" : "");
 		
 		return $(
-			"<td style='" + styles_TD.join( ";" ) + "'>" +
+			"<td class='p0 m0' style='" + styles_TD + "'>" +
 			"<a style='" + styles_A.join( ";" ) +
 				"' class='" + class_A.join( " " ) + "' href='#' " + disable + ">" +
 			data.displayText +
@@ -299,14 +294,11 @@ JTSageDateBox.styleFunctions = {
 	 */
 	calNonButton          : function ( text, header, totalElements ) {
 		var styles = [
-			"text-align:center",
-			"padding:0",
-			"margin:0",
 			"width:" + ( 100 / totalElements ) + "%",
 			( header ) ? "font-weight:bold" : ""
 		];
 
-		return $("<td style='" + styles.join( ";" ) + "'>" + text + "</td>");
+		return $("<td class='p0 m0 center' style='" + styles.join( ";" ) + "'>" + text + "</td>");
 	},
 
 	/* Generic pickers */
@@ -314,7 +306,7 @@ JTSageDateBox.styleFunctions = {
 		var returnVal = "<div style='padding-bottom: 8px' class='" +
 			"ui-controlgroup ui-controlgroup-horizontal ui-corner-all ui-mini'>";
 
-		returnVal += "<div class='ui-controlgroup-controls' style='width:100%'>";
+		returnVal += "<div class='ui-controlgroup-controls w-100'>";
 
 		returnVal += "<div class='ui-select' style='width:60%'>";
 		returnVal += "<div id='" + ctlMonth + "-button' class='ui-btn-" + theme +
@@ -384,7 +376,7 @@ JTSageDateBox.styleFunctions = {
 	 * Make the datebox mode container.
 	 */
 	dboxContainer         : function () {
-		return $("<table style='width:100%'>");
+		return $("<table class='w-100'>");
 	},
 
 	/*
@@ -403,26 +395,25 @@ JTSageDateBox.styleFunctions = {
 		returnVal += "<td class='dbBox" + mainCls + "'>";
 
 		returnVal += "<a href='#' role='button' class='ui-corner-all ui-btn ui-mini ui-btn-";
-		returnVal += nextCls + " ui-icon-" + nextIcn + " ui-btn-icon-top dbBoxNext' ";
-		returnVal += "style='margin:0; padding-top:2.1em; border-bottom-left-radius:0;" +
+		returnVal += nextCls + " ui-icon-" + nextIcn + " ui-btn-icon-top dbBoxNext m0' ";
+		returnVal += "style='padding-top:2.1em; border-bottom-left-radius:0;" +
 			"border-bottom-right-radius:0;'>";
 		returnVal += "</a>";
 
 
 		if ( label !== null ) {
-			returnVal += "<div class='ui-input-text ui-body-inherit' " +
-				"style='height:auto; margin:0; padding: .3em 0; text-align:center'>" +
+			returnVal += "<div class='m0 center ui-input-text ui-body-inherit' " +
+				"style='height:auto; padding: .3em 0;'>" +
 				label + "</div>";
 		}
 
-		returnVal += "<div style='margin:0' " +
-			"class='ui-input-text ui-mini ui-body-" + inCls + "'>";
-		returnVal += "<input style='padding:0;text-align:center' type='text'></div>";
+		returnVal += "<div class='m0 ui-input-text ui-mini ui-body-" + inCls + "'>";
+		returnVal += "<input class='p0 center' type='text'></div>";
 
 		
 		returnVal += "<a href='#' role='button' class='ui-corner-all ui-btn ui-mini ui-btn-";
-		returnVal += prevCls + " ui-icon-" + prevIcn + " ui-btn-icon-top dbBoxPrev' ";
-		returnVal += "style='margin:0; padding-top:2.1em; border-top-left-radius:0;" +
+		returnVal += prevCls + " ui-icon-" + prevIcn + " ui-btn-icon-top dbBoxPrev m0' ";
+		returnVal += "style='padding-top:2.1em; border-top-left-radius:0;" +
 			"border-top-right-radius:0;'>";
 		returnVal += "</a>";
 
@@ -456,8 +447,8 @@ JTSageDateBox.styleFunctions = {
 	 */
 	fboxDurLabel          : function ( text, items ) {
 		return $(
-			"<div " +
-			"style='display:inline-block; text-align:center; width: " + ( 100 / items ) + "%'>" +
+			"<div class='center' " +
+			"style='display:inline-block; width: " + ( 100 / items ) + "%'>" +
 			text +
 			"</div>"
 		);
@@ -482,7 +473,7 @@ JTSageDateBox.styleFunctions = {
 	 */
 	fboxRollerChild       : function ( text, cls ) {
 		return $(
-			"<li style='height: 30px; line-height: 30px; text-align:center;' class='ui-body-" +
+			"<li style='height: 30px; line-height: 30px;' class='center ui-body-" +
 			cls + "'>" + text + "</li>"
 		);
 	},
@@ -536,7 +527,7 @@ JTSageDateBox.styleFunctions = {
 	 * Make the grid container for slidebox (usually a table)
 	 */
 	slideGrid               : function () {
-		return $( "<div><table class='dbSlideGrid' style='width:100%'></table></div>" );
+		return $( "<div><table class='dbSlideGrid w-100'></table></div>" );
 	},
 
 	/*
@@ -552,11 +543,11 @@ JTSageDateBox.styleFunctions = {
 	slideDateButton         : function ( data ) {
 		var style   = " style='width: " + ( ( 100 / 8 ) ) + "%'",
 			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls     = "class='dbEventS w-100 ui-btn ui-mini ui-btn-" +
+			cls     = "class='m0 dbEventS w-100 ui-btn ui-mini ui-btn-" +
 				data.theme + ( data.bad ? " disabled":"" ) + "'";
 
 		return $("<td class='m-0 p-0 text-center'" + style + ">" +
-			"<a style='margin:0;padding:.7em 0;' href='#' " + cls + " " + disable + ">" +
+			"<a style='padding:.7em 0;' href='#' " + cls + " " + disable + ">" +
 			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
 			"</small><br>" + data.dateObj.getDate() +
 			"</a>" + "</td>");
@@ -567,12 +558,12 @@ JTSageDateBox.styleFunctions = {
 	 */
 	slideMoveButton         : function ( eventCls, icon, theme ) {
 		var style = " style='width: " + ( ( 100 / 8 ) / 2 ) + "%'",
-			cls   = "class='ui-corner-all ui-btn ui-mini ui-btn-icon-notext ui-btn-" +
+			cls   = "class='m0 ui-corner-all ui-btn ui-mini ui-btn-icon-notext ui-btn-" +
 				theme + " " + eventCls + " ui-icon-" + icon + "'";
 
 		return $(
 			"<td " + style + ">" +
-			"<a style='margin:0' href='#' " + cls + "></a></td>"
+			"<a href='#' " + cls + "></a></td>"
 		);
 	},
 
