@@ -90,7 +90,7 @@ mergeOpts({
 		bottom            : 0,
 		backgroundColor   : "rgba(0,0,0,.4)"
 	},
-	theme_headStyle : false,
+	theme_headStyle : " .w-100 { width: 100%; }",
 	theme_spanStyle : false,
 
 	flipboxLensAdjust : 9,
@@ -123,7 +123,7 @@ JTSageDateBox.styleFunctions = {
 			"btn-group btn-group-vertical";
 
 		return $(
-			"<div style='width: 100%; padding: 5px;' class='" +  cls + "'>"
+			"<div style='padding: 5px;' class='w-100 " +  cls + "'>"
 		);
 	},
 	baseInputWrap         : function ( originalInput, buttonTheme ) {
@@ -148,10 +148,10 @@ JTSageDateBox.styleFunctions = {
 		return true;
 	},
 	widgetHeader          : function ( text, themeBar, themeIcon, iconClass ) {
-		return "<div class='navbar " + themeBar + "'><div class=\"navbar-header\">" +
-			"<span class=\"navbar-brand\">" + text + "</span>" +
-			"</div>" + "<ul class=\"nav navbar-nav navbar-right\">" +
-			"<li><a href=\"#\" class=\"closer\"><span>" + this.icons.getIcon(iconClass) +
+		return "<div class='navbar " + themeBar + "'><div class='navbar-header'>" +
+			"<span class='navbar-brand'>" + text + "</span>" +
+			"</div>" + "<ul class='nav navbar-nav navbar-right'>" +
+			"<li><a href='#' class='dbCloser'><span>" + this.icons.getIcon(iconClass) +
 			"</span>&nbsp;&nbsp;</a></li></ul></div>";
 	},
 	intHeader             : function ( text ) {
@@ -161,19 +161,20 @@ JTSageDateBox.styleFunctions = {
 			"</div>"
 		);
 	},
-	calHeader             : function ( txt, firstBtnIcn, firstBtnCls, secondBtnIcn, secondBtnCls ) {
+	
+	genHeader             : function ( txt, prevIcn, prevCls, nextIcn, nextCls, prevCtl, nextCtl ) {
 		var returnVal = $("<div style='padding-bottom: 5px;'>");
 
 
 		$( this.styleFunctions.button.apply(this, [
-			firstBtnCls + " pull-left dbCalPrev",
-			firstBtnIcn,
+			prevCls + " pull-left " + prevCtl,
+			prevIcn,
 			""
 		] ) ).appendTo( returnVal );
 
 		$( this.styleFunctions.button.apply( this, [
-			secondBtnCls + " pull-right dbCalNext",
-			secondBtnIcn,
+			nextCls + " pull-right " + nextCtl,
+			nextIcn,
 			""
 		] ) ).appendTo( returnVal );
 
@@ -182,10 +183,21 @@ JTSageDateBox.styleFunctions = {
 
 		return returnVal;
 	},
+	calHeader             : function ( txt, prevIcn, prevCls, nextIcn, nextCls ) {
+		return this.styleFunctions.genHeader.apply( this, [
+			txt,
+			prevIcn,
+			prevCls,
+			nextIcn,
+			nextCls,
+			"dbCalPrev",
+			"dbCalNext"
+		]);
+	},
 	calGrid               : function () {
 		return $(
 			"<div style='padding:5px; clear:both'>" +
-			"<table class='dbCalGrid' style='width:100%'>" +
+			"<table class='dbCalGrid w-100'>" +
 			"</table></div>"
 		);
 	},
@@ -198,11 +210,11 @@ JTSageDateBox.styleFunctions = {
 				""
 			),
 			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls = "class='dbEvent btn-sm btn btn-" +
+			cls = "class='w-100 dbEvent btn-sm btn btn-" +
 				data.theme + ( data.bad ? " disabled":"" ) + "'";
 
 		return $("<td class='text-center'" + style + ">" +
-			"<a href='#' style='width:100%' " + cls + " " + disable + ">" +
+			"<a href='#' " + cls + " " + disable + ">" +
 			data.displayText +
 			"</a>" + "</td>");
 	},
@@ -215,24 +227,31 @@ JTSageDateBox.styleFunctions = {
 
 		return $("<td class='text-center" + cls + "'" + style + ">" + text + "</td>");
 	},
-	calPickers            : function ( ranges ) {
+	genPickers            : function ( ranges, ctlMonth, ctlYear ) {
 		var returnVal = "";
 
 		returnVal += "<div style='padding:5px;'>";
 
 		returnVal += "<div class='col-sm-8' style='padding:0; margin:0'>";
-		returnVal += this._stdSel( ranges.month, "dbCalPickMonth", "form-control" );
+		returnVal += this._stdSel( ranges.month, ctlMonth, "form-control" );
 		returnVal += "</div>";
 
 		returnVal += "<div class='col-sm-4' style='padding:0; margin:0'>";
-		returnVal += this._stdSel( ranges.year, "dbCalPickYear", "form-control" );
+		returnVal += this._stdSel( ranges.year, ctlYear, "form-control" );
 		returnVal += "</div>";
 
 		returnVal += "</div>";
 
 		return $(returnVal);
 	},
-	calDateList           : function ( listLabel, list ) {
+	calPickers            : function ( ranges ) {
+		return this.styleFunctions.genPickers.apply( this, [
+			ranges,
+			"dbCalPickMonth",
+			"dbCalPickYear"
+		]);
+	},
+	genDateList           : function ( listLabel, list, ctl ) {
 		var returnVal = "",
 			newList = list.slice();
 
@@ -240,10 +259,17 @@ JTSageDateBox.styleFunctions = {
 		newList.unshift([false, listLabel, true]);
 
 		returnVal += "<div style='padding:5px'>";
-		returnVal += this._stdSel( newList, "dbCalPickList", "form-control" );
+		returnVal += this._stdSel( newList, ctl, "form-control" );
 		returnVal += "</div>";
 
 		return $(returnVal);
+	},
+	calDateList           : function ( listLabel, list ) {
+		return this.styleFunctions.genDateList.apply( this, [
+			listLabel,
+			list,
+			"dbCalPickList"
+		]);
 	},
 	dboxContainer         : function () {
 		return $("<table style='margin: 5px;'>");
@@ -320,62 +346,35 @@ JTSageDateBox.styleFunctions = {
 			"border: 1px solid black; height: 50px;'>"
 		);
 	},
-	slideHeader           : function ( txt, prevBtnIcn, prevBtnCls, nextBtnIcn, nextBtnCls ) {
-		var returnVal = $("<div style='padding-bottom: 5px;'>");
-
-
-		$( this.styleFunctions.button.apply( this, [
-			prevBtnCls + " pull-left dbSlidePrev",
-			prevBtnIcn,
-			""
-		] ) ).appendTo( returnVal );
-
-		$( this.styleFunctions.button.apply( this, [
-			nextBtnCls + " pull-right dbSlideNext",
-			nextBtnIcn,
-			""
-		] ) ).appendTo( returnVal );
-
-		$("<h4 class='text-center' style='line-height: 1.5'>" + txt + "</h4>")
-			.appendTo( returnVal );
-
-		return returnVal;
-
+	slideHeader           : function ( txt, prevIcn, prevCls, nextIcn, nextCls ) {
+		return this.styleFunctions.genHeader.apply( this, [
+			txt,
+			prevIcn,
+			prevCls,
+			nextIcn,
+			nextCls,
+			"dbSlidePrev",
+			"dbSlideNext"
+		]);
 	},
 	slidePickers            : function ( ranges ) {
-		var returnVal = "";
-
-		returnVal += "<div style='padding:5px;'>";
-
-		returnVal += "<div class='col-sm-8' style='padding:0; margin:0'>";
-		returnVal += this._stdSel( ranges.month, "dbSlidePickMonth", "form-control" );
-		returnVal += "</div>";
-
-		returnVal += "<div class='col-sm-4' style='padding:0; margin:0'>";
-		returnVal += this._stdSel( ranges.year, "dbSlidePickYear", "form-control" );
-		returnVal += "</div>";
-
-		returnVal += "</div>";
-
-		return $(returnVal);
+		return this.styleFunctions.genPickers.apply( this, [
+			ranges,
+			"dbSlidePickMonth",
+			"dbSlidePickYear"
+		]);
 	},
 	slideDateList           : function ( listLabel, list ) {
-		var returnVal = "",
-			newList   = list.slice();
-
-
-		newList.unshift([false, listLabel, true]);
-
-		returnVal += "<div style='padding:5px'>";
-		returnVal += this._stdSel( newList, "dbSlidePickList", "form-control" );
-		returnVal += "</div>";
-
-		return $(returnVal);
+		return this.styleFunctions.genDateList.apply( this, [
+			listLabel,
+			list,
+			"dbSlidePickList"
+		]);
 	},
 	slideGrid               : function () {
 		return $(
-			"<div style='padding-top:5px; padding-bottom:5px; clear:both'>" +
-			"<table class='dbSlideGrid' style='width:100%'>" +
+			"<div style='padding: 5px 0; clear: both;'>" +
+			"<table class='dbSlideGrid w-100'>" +
 			"</table></div>"
 		);
 	},
@@ -385,11 +384,11 @@ JTSageDateBox.styleFunctions = {
 	slideDateButton         : function ( data ) {
 		var style   = " style='width: " + ( ( 100 / 8 ) ) + "%'",
 			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls = "class='dbEventS btn-sm btn btn-" +
+			cls = "class='w-100 dbEventS btn-sm btn btn-" +
 				data.theme + ( data.bad ? " disabled":"" ) + "'";
 
 		return $("<td class='text-center'" + style + ">" +
-			"<a href='#' style='border-radius: 50%;width:100%' " + cls + " " + disable + ">" +
+			"<a href='#' style='border-radius: 50%;' " + cls + " " + disable + ">" +
 			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
 			"</small><br>" + data.dateObj.getDate() +
 			"</a>" + "</td>");
@@ -397,12 +396,12 @@ JTSageDateBox.styleFunctions = {
 	},
 	slideMoveButton         : function ( eventCls, icon, theme ) {
 		var style = " style='width: " + ( ( 100 / 8 ) / 2 ) + "%'",
-			cls   = "class='btn-sm btn btn-" +
+			cls   = "class='w-100 btn-sm btn btn-" +
 				theme + " " + eventCls + "'";
 
 		return $(
 			"<td class='m-0 p-1 text-center'" + style + ">" +
-			"<a href='#' style='border-radius: 50%; width:100%; padding:2px; margin:0;' " +
+			"<a href='#' style='border-radius: 50%; padding:2px; margin:0;' " +
 			cls + ">" + this.icons.getIcon(icon) + "</a></td>"
 		);
 
