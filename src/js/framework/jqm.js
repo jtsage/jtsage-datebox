@@ -106,7 +106,6 @@ mergeOpts({
 	buttonIconTime : "clock",
 
 	disabledState    : "ui-disabled",
-	flipSizeOverride : 30,
 
 	clickEvent : "vclick",
 	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",

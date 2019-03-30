@@ -100,7 +100,6 @@ mergeOpts({
 	theme_spanStyle : "card-section",
 
 	controlWidth : "320px",
-	flipSizeOverride : 23,
 
 	buttonIconDate : "calendar",
 	buttonIconTime : "clock",

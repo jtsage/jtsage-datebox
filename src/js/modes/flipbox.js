@@ -484,9 +484,10 @@ JTSageDateBox._drag.flipbox          = function () {
 					e.preventDefault();
 					e.stopPropagation();
 					g.tmp = g.target.closest( ".dbRollerC" );
-					eachItem = (o.flipSizeOverride !== false ) ?
+
+					eachItem = ( o.flipSizeOverride !== false ) ?
 						o.flipSizeOverride :
-						g.target.outerHeight();
+						g.target[0].getBoundingClientRect().height;
 					
 					w._offset(
 						g.tmp.data("field"),
@@ -503,7 +504,7 @@ JTSageDateBox._drag.flipbox          = function () {
 
 				eachItem = (o.flipSizeOverride !== false ) ?
 					o.flipSizeOverride :
-					g.target.outerHeight();
+					g.target[0].getBoundingClientRect().height;
 
 				delta = ( -( g.velocity * 0.8 ) * Math.exp( -g.elapsed / 325 ) * 8 ) * -1;
 
