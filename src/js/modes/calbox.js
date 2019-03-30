@@ -23,7 +23,7 @@ mergeOpts({
 	calYearPickMax      : 6,
 	calYearPickRelative : true,
 
-	calFormatter        : function(t) { return t.get(2); },
+	calFormatter        : false,
 	calBeforeAppendFunc : function(t) { return t; },
 	
 	highDays            : false,
@@ -149,7 +149,7 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 			// Allow only selected theme if specifly enabled.
 			if (
 				o.calSelectedOutOfBounds === true &&
-				w._ThemeDateCK.selected.apply( w, [ testDate] )
+				w._ThemeDateCK.selected.call( w, testDate )
 			) {
 				returnObject.theme = o.theme_cal_Selected;
 			}
@@ -157,7 +157,7 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 	}
 
 	for ( itt = 0; itt < dateThemes.length && !done; itt++ ) {
-		if ( w._ThemeDateCK[ dateThemes[ itt ][0] ].apply( w, [ testDate ] ) ) {
+		if ( w._ThemeDateCK[ dateThemes[ itt ][0] ].call( w, testDate ) ) {
 			returnObject.theme = o[ dateThemes[ itt ][1] ];
 			done = true;
 		}
@@ -338,8 +338,6 @@ JTSageDateBox._build.calbox = function () {
 	) {
 		o.calBeforeAppendFunc = window[ o.calBeforeAppendFunc ];
 	}
-
-	w.calDateVisible = false;
 	
 	/* Actually build and populate the calendar. One pass */
 	for ( cntlRow = 0; cntlRow < grid_Weeks; cntlRow++ ) {
@@ -363,7 +361,9 @@ JTSageDateBox._build.calbox = function () {
 			);
 
 			// Format the display date
-			cntlObj.displayText = o.calFormatter( cntlObj.dateObj );
+			cntlObj.displayText = ( !$.isFunction(o.calFormatter) ) ?
+				cntlObj.dateObj.get(2) :
+				o.calFormatter.call( w, cntlObj );
 
 			// Create HTML
 			//
@@ -375,7 +375,9 @@ JTSageDateBox._build.calbox = function () {
 			cntlObj.eventObj.data( cntlObj );
 
 			// Run the before append function
-			cntlObj = o.calBeforeAppendFunc( cntlObj );
+			if ( $.isFunction(o.calBeforeAppendFunc) ) {
+				cntlObj = o.calBeforeAppendFunc.call( w, cntlObj );
+			}
 
 			// Add to row control object
 			if ( o.calOnlyMonth === false || cntlObj.inBounds === true ) {
@@ -419,16 +421,16 @@ JTSageDateBox._build.calbox = function () {
 		calCntlRow = _sf.buttonGroup( o.useCollapsedBut );
 		
 		if ( o.useTodayButton ) {
-			calCntlRow.append( w._stdBtn.today.apply( w ) );
+			calCntlRow.append( w._stdBtn.today.call( w ) );
 		}
 		if ( o.useTomorrowButton ) {
-			calCntlRow.append( w._stdBtn.tomorrow.apply( w ) );
+			calCntlRow.append( w._stdBtn.tomorrow.call( w ) );
 		}
 		if ( o.useClearButton ) {
-			calCntlRow.append( w._stdBtn.clear.apply( w ) );
+			calCntlRow.append( w._stdBtn.clear.call( w ) );
 		}
 		if ( o.useCancelButton ) {
-			calCntlRow.append( w._stdBtn.cancel.apply( w ) );
+			calCntlRow.append( w._stdBtn.cancel.call( w ) );
 		}
 
 		if ( typeof _sf.buttonGroupOutside === "function" ) {

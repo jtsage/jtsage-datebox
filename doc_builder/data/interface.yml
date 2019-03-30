@@ -55,6 +55,8 @@ func :
       Return if the selected calbox date is visible.  Only valid for calbox, otherwise it will
       value is ambiguous.
 
+      Actually just an alias of isSelectedInCalGrid();
+
       ```js
       $(input).datebox( "dateVisible" );
       ```
@@ -179,8 +181,25 @@ func :
       
       If the calendar has not yet been open, or not in calbox, it'll return false.
 
+      If you are using calOnlyMonth, use isSelectedInBounds instead.
+
       ```js
       if ( $( "#datebox" ).datebox( "isSelectedInCalGrid" ) ) {
+        ...
+      }
+      ```
+  
+  isSelectedInBounds :
+    short   : Does selected date appear in visible CalBox month
+    returns : boolean
+    long    : |
+      Boolean if the selected date appears in the visible calendar month (not in previous / next
+      month underrun / overrun dates).
+      
+      If the calendar has not yet been open, or not in calbox, it'll return false.
+
+      ```js
+      if ( $( "#datebox" ).datebox( "isSelectedInBounds" ) ) {
         ...
       }
       ```

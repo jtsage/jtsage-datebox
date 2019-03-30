@@ -264,10 +264,12 @@ opts :
       There must be an element with the ".dbEvent" class, this is how clicks are triggered.  Additionally, that element should
       include the full object as it's $.data()
 
+      Note that the context of this function is the widget, same as for calFormatter.
+
     type    : String || Function
     modes   : 
       - calbox
-    default : function(obj) { return obj; }
+    default : false
     dynamic : true
     cat     : Callback
     optdemo : false
@@ -318,19 +320,45 @@ opts :
     long    : |
       This option allows for a function that should return the prefered text for the calendar grid date. Typically, it's just a number.
 
-      A single argument is passed to the function, the working date.
+      An object is passed to the function:
+      
+      ```js
+      {
+        // the theme class to be applied to the date
+        theme    : [String]
+
+        // The date is in the current month displayed.
+        inBounds : [boolean]
+
+        // True if the date is valid
+        good     : [boolean],
+
+        // True if the date is invalid
+        bad      : [boolean],
+
+        // Set to the rule that failed the date, or false
+        failrule : [boolean|String],
+
+        // Set to the rule that passed the date, or false.
+        // Note: both failrule and passrule may be empty if the date passed by default (not explicitly)
+        passrule : [boolean|String],
+
+        // The current date being processed.
+        dateObj  : [JavaScript Date Object]
+      }
+      ```
 
       The return value must be a string, but can contain HTML. For advanced formatting, consider using _calBeforeAppendFunc_ instead.
 
       Example function:
 
       ```js
-      window.redSingles = function( date ) {
+      window.redSingles = function( obj ) {
         // Make single digit dates red
-        if ( date.get(2) < 10 ) {
-          return "<span style='color:red'>" + date.get(2) + "</span>";
+        if ( obj.dateObj.get(2) < 10 ) {
+          return "<span style='color:red'>" + obj.dateObj.get(2) + "</span>";
         } else {
-          return date.get(2);
+          return obj.dateObj.get(2);
         }
       }
       ```
@@ -342,10 +370,18 @@ opts :
       ```
 
       When given a function, DateBox will run it.  When given a string, it will run window.stringContents
+
+      Note that this function is run with a context of the widget.  So you may call things like:
+
+      ```js
+      if ( this.isSelectedInCalGrid() ) { ... }
+      ```
+
+      Rather than having to go back to the DOM element.
     type    : Function
     modes   :
       - calbox
-    default : function( date ) { return date.get(2); }
+    default : false
     dynamic : true
     cat     : Callback
     optdemo : false

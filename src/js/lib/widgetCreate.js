@@ -81,7 +81,6 @@ JTSageDateBox._create = function() {
 	w.selectedInGrid = false;
 
 	w.cancelClose    = false;
-	w.calDateVisible = true;
 	w.disabled       = false;
 	w.runButton      = false;
 	w._date          = window.Date;
@@ -148,7 +147,7 @@ JTSageDateBox._create = function() {
 		_sf.baseInputNoButton(w.d.wrap);
 	}
 
-	if ( o.hideInput ) { _sf.hideInput.apply( this ); }
+	if ( o.hideInput ) { _sf.hideInput.call( this ); }
 
 	w.d.input
 		.on( "focus.datebox", function(){
@@ -187,14 +186,14 @@ JTSageDateBox._create = function() {
 				}
 				
 				runTmp = w._makeDate( w.d.input.val(), true );
-				ranTmp = o.runOnBlurCallback.apply( w, [{
+				ranTmp = o.runOnBlurCallback.call( w, {
 					origDate : w.originalDate,
 					input    : w.d.input.val(),
 					oldDate  : w.theDate,
 					newDate  : runTmp[0],
 					isGood   : !runTmp[1],
 					isBad    : runTmp[1]
-				}]);
+				} );
 
 				if ( typeof ranTmp !== "object" ) {
 					w.theDate = runTmp[0];

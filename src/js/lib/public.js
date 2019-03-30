@@ -41,7 +41,10 @@ JTSageDateBox.getLastDur = function() {
  * @return {boolean} True on date is visible
  */
 JTSageDateBox.dateVisible = function() {
-	return this.calDateVisible;
+	// Undefined trap is for builds that don't include calbox.  This function is
+	// calbox mode specific.
+	if ( typeof this.isSelectedInCalGrid === "undefined" ) { return true; }
+	return this.isSelectedInCalGrid();
 };
 
 /**
