@@ -118,8 +118,9 @@ JTSageDateBox._build.default = function () {
 	if ( this.d.intHTML !== false ) {
 		this.d.intHTML.remove().empty();
 	}
-	this.d.intHTML = $("<div style='width:100%'><h2 style='text-align:center;color:red;'" +
-		">Unknown Mode</h2></div>" );
+	this.d.intHTML = $(
+		"<div style='width:100%'><h2 style='text-align:center;color:red;'>Unknown Mode</h2></div>"
+	);
 };
 
 /**
