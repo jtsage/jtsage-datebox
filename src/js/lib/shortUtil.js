@@ -230,7 +230,7 @@ JTSageDateBox._btwn = function(value, low, high) {
  * 
  * @return {string} Label for DateBox
  */
-JTSageDateBox._grabLabel = function() {
+JTSageDateBox._grabLabel = function( deflt ) {
 	// Get the most reasonable label for this datebox.
 	// In order of preference - placeholder, title, label for=
 	var inputPlaceholder, inputTitle,
@@ -249,9 +249,31 @@ JTSageDateBox._grabLabel = function() {
 			return inputTitle;
 		}
 		tmp = $(document).find( "label[for='" + w.d.input.attr( "id" ) + "']" ).text();
-		return ( tmp === "" ) ? false : tmp;
+		return ( tmp === "" ) ? deflt : tmp;
 	}
 	return o.overrideDialogLabel;
+};
+
+/** 
+ * Get the appropriate filed order for the mode
+ * 
+ * @param {string} mode Mode of operation
+ * @return {array} Field order
+ */
+JTSageDateBox._getFldOrder = function( mode ) {
+	switch ( mode ) {
+		case "durationbox"     :
+		case "durationflipbox" :
+			return this.__( "durationOrder" );
+		case "timebox"         :
+		case "timeflipbox"     :
+			return this.__( "timeFieldOrder" );
+		case "datetimebox"     :
+		case "datetimeflipbox" :
+			return this.__( "datetimeFieldOrder" );
+		default :
+			return this.__( "dateFieldOrder" );
+	}
 };
 
 /**

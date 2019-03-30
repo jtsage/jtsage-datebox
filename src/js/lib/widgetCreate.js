@@ -69,12 +69,9 @@ JTSageDateBox._create = function() {
 	w.icons    = this.icons;
 
 	if ( o.usePlaceholder !== false ) {
-		if ( o.usePlaceholder === true && w._grabLabel() !== "" ) {
-			w.d.input.attr( "placeholder", w._grabLabel());
-		}
-		if ( typeof o.usePlaceholder === "string" ) {
-			w.d.input.attr( "placeholder", o.usePlaceholder );
-		}
+		w.d.input.attr( "placeholder", w._grabLabel(
+			( typeof o.usePlaceholder === "string" ) ? o.usePlaceholder : ""
+		) );
 	}
 
 	w.firstOfGrid    = false;

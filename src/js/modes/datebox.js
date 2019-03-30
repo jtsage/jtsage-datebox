@@ -101,8 +101,9 @@ JTSageDateBox._dbox_run_update = function(shortRun) {
  */
 JTSageDateBox._dbox_enter = function (item) {
 	var tmp,
-		w = this,
-		t = 0;
+		cleanVal = parseInt(item.val(), 10),
+		w        = this,
+		t        = 0;
 	
 	if ( item.data( "field" ) === "M" ) {
 		tmp = w.__( "monthsOfYearShort" ).indexOf( item.val() );
@@ -111,24 +112,24 @@ JTSageDateBox._dbox_enter = function (item) {
 	if ( item.val() !== "" && item.val().toString().search(/^[0-9]+$/) === 0 ) {
 		switch ( item.data( "field" ) ) {
 			case "y":
-				w.theDate.setD( 0, parseInt(item.val(),10)); break;
+				w.theDate.setD( 0, cleanVal); break;
 			case "m":
-				w.theDate.setD( 1, parseInt(item.val(),10)-1); break;
+				w.theDate.setD( 1, cleanVal-1); break;
 			case "d":
-				w.theDate.setD( 2, parseInt(item.val(),10));
-				t += (60*60*24) * parseInt(item.val(),10);
+				w.theDate.setD( 2, cleanVal);
+				t += (60*60*24) * cleanVal;
 				break;
 			case "h":
-				w.theDate.setD( 3, parseInt(item.val(),10));
-				t += (60*60) * parseInt(item.val(),10);
+				w.theDate.setD( 3, cleanVal);
+				t += (60*60) * cleanVal;
 				break;
 			case "i":
-				w.theDate.setD( 4, parseInt(item.val(),10));
-				t += (60) * parseInt(item.val(),10);
+				w.theDate.setD( 4, cleanVal);
+				t += (60) * cleanVal;
 				break;
 			case "s":
-				w.theDate.setD( 5, parseInt(item.val(),10));
-				t += parseInt(item.val(),10);
+				w.theDate.setD( 5, cleanVal);
+				t += cleanVal;
 				break;
 		}
 	}
@@ -183,32 +184,18 @@ JTSageDateBox._build.datebox = function () {
 	}
 	
 	// Select appropriate header text
-	w.d.headerText = ( ( w._grabLabel() !== false ) ?
-		w._grabLabel() :
-		( ( o.mode === "datebox" || o.mode === "datetimebox" ) ?
+	w.d.headerText = w._grabLabel (
+		( o.mode === "datebox" || o.mode === "datetimebox" ) ?
 			w.__( "titleDateDialogLabel" ) :
 			w.__( "titleTimeDialogLabel" )
-		)
 	);
+
 	w.d.intHTML = $( "<span>" );
 
-	if ( o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
+	w.d.intHTML.addClass( o.theme_spanStyle );
 	
 	// Select field order based on mode
-	switch ( o.mode ) {
-		case "durationbox" :
-			w.fldOrder = w.__( "durationOrder" );
-			break;
-		case "timebox" :
-			w.fldOrder = w.__( "timeFieldOrder" );
-			break;
-		case "datetimebox" :
-			w.fldOrder = w.__( "datetimeFieldOrder" );
-			break;
-		case "datebox" :
-			w.fldOrder = w.__( "dateFieldOrder" );
-			break;
-	}
+	w.fldOrder = w._getFldOrder( o.mode );
 
 	// If not in duration mode, check the date and reset the minute stepper
 	// If in duration mode, fix the duration stepper
@@ -271,49 +258,7 @@ JTSageDateBox._build.datebox = function () {
 	w._dbox_run_update( true );
 
 	// Do bottom buttons
-	if (
-		o.useSetButton      ||
-		o.useTodayButton    ||
-		o.useTomorrowButton ||
-		o.useClearButton    ||
-		o.useCancelButton
-	) {
-		ctrlContainer = _sf.buttonGroup( o.useCollapsedBut );
-		
-		if ( o.useSetButton ) {
-			switch (o.mode) {
-				case "timebox"     :
-					ctrlWrk = w.__( "setTimeButtonLabel" ); break;
-				case "durationbox" :
-					ctrlWrk = w.__( "setDurationButtonLabel" ); break;
-				case "datebox"     :
-				case "datetimebox" :
-					ctrlWrk = w.__( "setDateButtonLabel" ); break;
-			}
-			w.setBut = w._stdBtn.close.call( w, ctrlWrk );
-			w.setBut.appendTo( ctrlContainer );
-		}
-
-		if ( o.useTodayButton ) {
-			ctrlContainer.append( w._stdBtn.today.call( w ) );
-		}
-		if ( o.useTomorrowButton ) {
-			ctrlContainer.append( w._stdBtn.tomorrow.call( w ) );
-		}
-		if ( o.useClearButton ) {
-			ctrlContainer.append( w._stdBtn.clear.call( w ) );
-		}
-		if ( o.useCancelButton ) {
-			ctrlContainer.append( w._stdBtn.cancel.call( w ) );
-		}
-
-		if ( typeof _sf.buttonGroupOutside === "function" ) {
-			// Used if the framework requires an additional wrap to button
-			// groups.  Some do, notable jQM.
-			ctrlContainer = _sf.buttonGroupOutside( o.useCollapsedBut, ctrlContainer );
-		}
-		ctrlContainer.appendTo( w.d.intHTML );
-	}
+	w.d.intHTML.append( w._doBottomButtons.call( w, true ) );
 
 	// Set up events
 	w.d.intHTML

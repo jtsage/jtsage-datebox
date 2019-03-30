@@ -98,13 +98,11 @@ JTSageDateBox._build.slidebox = function () {
 	// slide dates are always ok, handle disabled set logic elsewhere
 	w.dateOK = true;
 	
-	w.d.headerText = ( ( w._grabLabel() !== false ) ?
-		w._grabLabel() :
-		w.__( "titleDateDialogLabel" )
-	);
+	w.d.headerText = w._grabLabel( w.__( "titleDateDialogLabel" ) );
+
 	w.d.intHTML = $( "<span>" );
 
-	if ( o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
+	w.d.intHTML.addClass( o.theme_spanStyle );
 
 	// Internal header (not the widget master header, a header for the calendar)
 	//
@@ -210,10 +208,11 @@ JTSageDateBox._build.slidebox = function () {
 			[ w.__( "calDateListLabel" ), o.slideDateList, o.theme_slide_DateList ]
 		).appendTo(w.d.intHTML);
 		w.d.intHTML.on( "change", "#dbSlidePickList", function() {
+			var iPut = $( this ).val().split( "-" );
 			w.theDate = new w._date(
-				$( this ).val().split( "-" )[0],
-				$( this ).val().split( "-" )[1] - 1,
-				$( this ).val().split( "-" )[2],
+				iPut[0],
+				iPut[1] - 1,
+				iPut[2],
 				12, 1, 1, 1
 			);
 			w._t( { method : "doset" } );
@@ -221,34 +220,7 @@ JTSageDateBox._build.slidebox = function () {
 	}
 
 	// Bottom Buttons
-	if (
-		o.useTodayButton    ||
-		o.useTomorrowButton ||
-		o.useClearButton    ||
-		o.useCancelButton
-	) {
-		calCntlRow = _sf.buttonGroup( o.useCollapsedBut );
-		
-		if ( o.useTodayButton ) {
-			calCntlRow.append( w._stdBtn.today.call( w ) );
-		}
-		if ( o.useTomorrowButton ) {
-			calCntlRow.append( w._stdBtn.tomorrow.call( w ) );
-		}
-		if ( o.useClearButton ) {
-			calCntlRow.append( w._stdBtn.clear.call( w ) );
-		}
-		if ( o.useCancelButton ) {
-			calCntlRow.append( w._stdBtn.cancel.call( w ) );
-		}
-
-		if ( typeof _sf.buttonGroupOutside === "function" ) {
-			// Used if the framework requires an additional wrap to button
-			// groups.  Some do, notable jQM.
-			calCntlRow = _sf.buttonGroupOutside( o.useCollapsedBut, calCntlRow );
-		}
-		calCntlRow.appendTo( w.d.intHTML );
-	}
+	w.d.intHTML.append( w._doBottomButtons.call( w, false ) );
 
 	// Each date event loop, swipe and mouse events.
 	w.d.intHTML

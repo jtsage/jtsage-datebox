@@ -222,14 +222,11 @@ JTSageDateBox._build.calbox = function () {
 	}
 	
 	// Attempt to grab associated label, fallback to i18n string if none found
-	w.d.headerText = ( ( w._grabLabel() !== false ) ?
-		w._grabLabel() :
-		w.__( "titleDateDialogLabel" )
-	);
+	w.d.headerText = w._grabLabel( w.__( "titleDateDialogLabel" ) );
 
 	w.d.intHTML = $( "<span>" );
 
-	if ( o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
+	w.d.intHTML.addClass( o.theme_spanStyle );
 
 	// Internal header (not the widget master header, a header for the calendar)
 	//
@@ -408,29 +405,7 @@ JTSageDateBox._build.calbox = function () {
 	}
 
 	// Bottom Buttons
-	if ( o.useTodayButton || o.useTomorrowButton || o.useClearButton || o.useCancelButton ){
-		calCntlRow = _sf.buttonGroup( o.useCollapsedBut );
-		
-		if ( o.useTodayButton ) {
-			calCntlRow.append( w._stdBtn.today.call( w ) );
-		}
-		if ( o.useTomorrowButton ) {
-			calCntlRow.append( w._stdBtn.tomorrow.call( w ) );
-		}
-		if ( o.useClearButton ) {
-			calCntlRow.append( w._stdBtn.clear.call( w ) );
-		}
-		if ( o.useCancelButton ) {
-			calCntlRow.append( w._stdBtn.cancel.call( w ) );
-		}
-
-		if ( typeof _sf.buttonGroupOutside === "function" ) {
-			// Used if the framework requires an additional wrap to button
-			// groups.  Some do, notable jQM.
-			calCntlRow = _sf.buttonGroupOutside( o.useCollapsedBut, calCntlRow );
-		}
-		calCntlRow.appendTo( w.d.intHTML );
-	}
+	w.d.intHTML.append( w._doBottomButtons.call( w, false ) );
 
 	// Each date event loop, swipe and mouse events.
 	w.d.intHTML

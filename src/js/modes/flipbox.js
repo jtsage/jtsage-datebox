@@ -223,7 +223,7 @@ JTSageDateBox._build.durationflipbox = function () { this._build.flipbox.call( t
  * @this JTSageDateBox
  */
 JTSageDateBox._build.flipbox         = function () {
-	var thisField, cntlFieldIdx, cntlRow, cntlWrk,
+	var thisField, cntlFieldIdx, cntlRow,
 		w           = this,
 		o           = this.options,
 		g           = this.drag,
@@ -246,32 +246,18 @@ JTSageDateBox._build.flipbox         = function () {
 	}
 
 	// Get apprpriate header text
-	w.d.headerText = ( ( w._grabLabel() !== false) ?
-		w._grabLabel() :
-		( (o.mode === "flipbox") ?
+	w.d.headerText = w._grabLabel (
+		( o.mode === "datebox" || o.mode === "datetimebox" ) ?
 			w.__( "titleDateDialogLabel" ) :
 			w.__( "titleTimeDialogLabel" )
-		)
 	);
+	
 	w.d.intHTML = $( "<span>" );
 
-	if ( o.theme_spanStyle !== false ) { w.d.intHTML.addClass( o.theme_spanStyle ); }
+	w.d.intHTML.addClass( o.theme_spanStyle );
 
 	// Choose the correct field order for the mode
-	switch ( o.mode ) {
-		case "durationflipbox" :
-			w.fldOrder = w.__( "durationOrder" );
-			break;
-		case "timeflipbox" :
-			w.fldOrder = w.__( "timeFieldOrder" );
-			break;
-		case "datetimeflipbox" :
-			w.fldOrder = w.__( "datetimeFieldOrder" );
-			break;
-		case "flipbox" :
-			w.fldOrder = w.__( "dateFieldOrder" );
-			break;
-	}
+	w.fldOrder = w._getFldOrder( o.mode );
 	
 	// If not in duration mode, check the date and reset the minute stepper
 	// If in duration mode, fix the duration stepper
@@ -352,49 +338,7 @@ JTSageDateBox._build.flipbox         = function () {
 
 
 	// Do bottom buttons
-	if (
-		o.useSetButton      ||
-		o.useTodayButton    ||
-		o.useTomorrowButton ||
-		o.useClearButton    ||
-		o.useCancelButton
-	) {
-		cntlContain = _sf.buttonGroup( o.useCollapsedBut );
-		
-		if ( o.useSetButton ) {
-			switch (o.mode) {
-				case "timeflipbox" :
-					cntlWrk = w.__( "setTimeButtonLabel" ); break;
-				case "durationflipbox" :
-					cntlWrk = w.__( "setDurationButtonLabel" ); break;
-				case "flipbox":
-				case "datetimeflipbox":
-					cntlWrk = w.__( "setDateButtonLabel" ); break;
-			}
-			w.setBut = w._stdBtn.close.call( w, cntlWrk );
-			w.setBut.appendTo( cntlContain );
-		}
-
-		if ( o.useTodayButton ) {
-			cntlContain.append( w._stdBtn.today.call( w ) );
-		}
-		if ( o.useTomorrowButton ) {
-			cntlContain.append( w._stdBtn.tomorrow.call( w ) );
-		}
-		if ( o.useClearButton ) {
-			cntlContain.append( w._stdBtn.clear.call( w ) );
-		}
-		if ( o.useCancelButton ) {
-			cntlContain.append( w._stdBtn.cancel.call( w ) );
-		}
-
-		if ( typeof _sf.buttonGroupOutside === "function" ) {
-			// Used if the framework requires an additional wrap to button
-			// groups.  Some do, notable jQM.
-			cntlContain = _sf.buttonGroupOutside( o.useCollapsedBut, cntlContain );
-		}
-		cntlContain.appendTo( w.d.intHTML );
-	}
+	w.d.intHTML.append( w._doBottomButtons.call( w, true ) );
 
 	// Attach events
 
@@ -502,7 +446,7 @@ JTSageDateBox._drag.flipbox          = function () {
 				g.end   = false;
 				g.tmp   = g.target.closest( ".dbRollerC" );
 
-				eachItem = (o.flipSizeOverride !== false ) ?
+				eachItem = ( o.flipSizeOverride !== false ) ?
 					o.flipSizeOverride :
 					g.target[0].getBoundingClientRect().height;
 

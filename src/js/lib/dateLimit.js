@@ -182,7 +182,7 @@ JTSageDateBox._newDateCheck = {
 
 		if ( testOption === false ) { return false; }
 
-		splitOption = this.options.minTime.split(":");
+		splitOption = this.options.minTime.split(":", 2);
 
 		// Hour is before allowed, fail
 		if ( testHour < splitOption[0] ) { return true; }
@@ -200,7 +200,7 @@ JTSageDateBox._newDateCheck = {
 
 		if ( testOption === false ) { return false; }
 
-		splitOption = this.options.maxTime.split(":");
+		splitOption = this.options.maxTime.split(":", 2);
 		// Hour is before allowed, pass
 		if ( testHour < splitOption[0] ) { return false; }
 		// Hour is after allowed, fail

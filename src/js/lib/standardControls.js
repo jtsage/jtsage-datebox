@@ -171,3 +171,64 @@ JTSageDateBox._stdBtn = {
 			});
 	},
 };
+
+/** 
+ * Actually apply the bottom buttons to the control
+ * 
+ * @param {boolean} useSet Allow the set button to be displayed
+ * @return {object} jQuery Object.
+ */
+JTSageDateBox._doBottomButtons = function ( useSet ) {
+	var w   = this,
+		o   = this.options,
+		_sf = this.styleFunctions,
+		ctrlContainer, ctrlWrk;
+
+	if ( ! (
+		( o.useSetButton && useSet )  ||
+		o.useTodayButton              ||
+		o.useTomorrowButton           ||
+		o.useClearButton              ||
+		o.useCancelButton
+	) ) {
+		return "";
+	}
+
+	ctrlContainer = _sf.buttonGroup( o.useCollapsedBut );
+	
+	if ( o.useSetButton && useSet ) {
+		switch (o.mode) {
+			case "timebox"         :
+			case "timeflipbox"     :
+				ctrlWrk = w.__( "setTimeButtonLabel" ); break;
+			case "durationbox"     :
+			case "duartionflipbox" :
+				ctrlWrk = w.__( "setDurationButtonLabel" ); break;
+			default  :
+				ctrlWrk = w.__( "setDateButtonLabel" ); break;
+		}
+		w.setBut = w._stdBtn.close.call( w, ctrlWrk );
+		w.setBut.appendTo( ctrlContainer );
+	}
+
+	if ( o.useTodayButton ) {
+		ctrlContainer.append( w._stdBtn.today.call( w ) );
+	}
+	if ( o.useTomorrowButton ) {
+		ctrlContainer.append( w._stdBtn.tomorrow.call( w ) );
+	}
+	if ( o.useClearButton ) {
+		ctrlContainer.append( w._stdBtn.clear.call( w ) );
+	}
+	if ( o.useCancelButton ) {
+		ctrlContainer.append( w._stdBtn.cancel.call( w ) );
+	}
+
+	if ( typeof _sf.buttonGroupOutside === "function" ) {
+		// Used if the framework requires an additional wrap to button
+		// groups.  Some do, notable jQM.
+		ctrlContainer = _sf.buttonGroupOutside( o.useCollapsedBut, ctrlContainer );
+	}
+	
+	return ctrlContainer;
+};
