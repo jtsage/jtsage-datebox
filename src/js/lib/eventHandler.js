@@ -71,7 +71,7 @@ JTSageDateBox._event = function(e, p) {
 			case "doset" :
 				tmp = "_" + w.options.mode + "DoSet";
 				if ( $.isFunction( w[ tmp ] ) ) {
-					w[ tmp ].apply( w, [] );
+					w[ tmp ].call( w );
 				} else {
 					w._t( {
 						method : "set",

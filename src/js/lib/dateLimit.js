@@ -287,7 +287,7 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 
 	// If "enableDates" is in use, no other checks are performed
 	if ( this.options.enableDates !== false ) {
-		if ( w._newDateCheck.whiteDate.apply( w, [ testDate ] ) ) {
+		if ( w._newDateCheck.whiteDate.call( w, testDate ) ) {
 			returnObject.passrule = "enableDates";
 		} else {
 			returnObject.bad      = true;
@@ -299,7 +299,7 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 
 	// If "validHours" is in use, no other checks are performed
 	if ( this.options.validHours !==  false ) {
-		if ( w._newDateCheck.validHours.apply( w, [ testDate] ) ) {
+		if ( w._newDateCheck.validHours.call( w, testDate ) ) {
 			returnObject.passrule = "validHours";
 		} else {
 			returnObject.bad      = true;
@@ -310,13 +310,13 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 	}
 
 	// If a date is "whiteDates", no other checks are performed
-	if ( w._newDateCheck.whiteDate.apply( w, [ testDate ] ) ) {
+	if ( w._newDateCheck.whiteDate.call( w, testDate ) ) {
 		returnObject.passrule = "whiteDates";
 		return returnObject;
 	}
 
 	for ( itt = 0; itt < badChecks.length && !done; itt++ ) {
-		if ( w._newDateCheck[ badChecks[ itt ] ].apply( w, [ testDate ] ) ) {
+		if ( w._newDateCheck[ badChecks[ itt ] ].call( w, testDate ) ) {
 			returnObject.bad      = true;
 			returnObject.good     = false;
 			returnObject.failrule = badChecks[ itt ];

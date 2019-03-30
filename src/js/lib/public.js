@@ -113,9 +113,9 @@ JTSageDateBox.refresh = function() {
 		o = this.options;
 	
 	if ( typeof w._build[ o.mode ] === "undefined" ) {
-		w._build[ "default" ].apply( w, [] );
+		w._build[ "default" ].call( w );
 	} else {
-		w._build[ o.mode ].apply( w, [] );
+		w._build[ o.mode ].call( w );
 	}
 	if ( w.__( "useArabicIndic" ) === true ) {
 		w._doIndic();

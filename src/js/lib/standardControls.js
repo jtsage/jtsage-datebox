@@ -98,7 +98,7 @@ JTSageDateBox._stdBtn = {
 		if ( typeof trigger === "undefined" ) { trigger = false; }
 
 		return $(
-			w.styleFunctions.button.apply( this, [
+			w.styleFunctions.button.apply( w, [
 				o.theme_closeBtnCls,
 				o.theme_closeBtnIcn,
 				txt

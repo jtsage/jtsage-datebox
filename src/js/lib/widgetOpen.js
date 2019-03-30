@@ -30,12 +30,12 @@ JTSageDateBox.open = function () {
 	w.d.input.blur();
 
 	if ( typeof w._build[ o.mode ] === "undefined" ) {
-		w._build[ "default" ].apply( w, [] );
+		w._build[ "default" ].call( w );
 	} else {
-		w._build[ o.mode ].apply( w, [] );
+		w._build[ o.mode ].call( w );
 	}
 	if ( typeof w._drag[ o.mode ] !== "undefined" ) {
-		w._drag[ o.mode ].apply( w, [] );
+		w._drag[ o.mode ].call( w );
 	}
 
 	w._t( { method : "refresh" } );
@@ -116,7 +116,7 @@ JTSageDateBox.open = function () {
 	switch ( o.displayMode ) {
 		case "inline":
 			if ( w.initDone ) { break; }
-			w.d.mainWrap.insertAfter( _sf.findAttachPoint.apply( w, [ true ] ) );
+			w.d.mainWrap.insertAfter( _sf.findAttachPoint.call( w, true ) );
 			w.d.mainWrap.addClass( o.theme_inlineContainer );
 			w.d.mainWrap.css( { zIndex : "auto" } );
 			switch ( o.displayInlinePosition ) {
@@ -140,7 +140,7 @@ JTSageDateBox.open = function () {
 				w.refresh();
 				w.d.mainWrap.slideDown();
 			} else {
-				w.d.mainWrap.insertAfter( _sf.findAttachPoint.apply( w, [ true ] ) );
+				w.d.mainWrap.insertAfter( _sf.findAttachPoint.call( w, true ) );
 				w.d.mainWrap.addClass( o.theme_inlineContainer );
 				w.d.mainWrap.css( { zIndex : "auto", display : "none" } );
 				switch ( o.displayInlinePosition ) {
@@ -164,7 +164,7 @@ JTSageDateBox.open = function () {
 			w.d.mainWrap
 				.show()
 				.css( "zIndex", ( o.zindex ) )
-				.appendTo( _sf.findAttachPoint.apply( w, [ false ] ) )
+				.appendTo( _sf.findAttachPoint.call( w, false ) )
 				.addClass( o.theme_modalContainer )
 				.one( o.tranDone, function() {
 					if ( w.d.mainWrap.is( ":visible" ) ) {
@@ -178,14 +178,14 @@ JTSageDateBox.open = function () {
 			w.d.backdrop = $("<div class='jtsage-datebox-backdrop-div'></div>")
 				.css( o.theme_backgroundMask )
 				.css( "zIndex", ( o.zindex - 1 ) )
-				.appendTo( _sf.findAttachPoint.apply( w, [ false ] ) )
+				.appendTo( _sf.findAttachPoint.call( w, false ) )
 				.on( o.clickEvent, function (e) {
 					e.preventDefault();
 					w._t( { method : "close", closeCancel : true } );
 				});
 
 			w.d.mainWrap.css(
-				w.getModalPosition.apply( this )
+				w.getModalPosition.call( w )
 			);
 			
 			break;
@@ -194,7 +194,7 @@ JTSageDateBox.open = function () {
 			w.d.mainWrap
 				.show()
 				.addClass( o.theme_dropdownContainer )
-				.appendTo( _sf.findAttachPoint.apply( w, [ false ] ) )
+				.appendTo( _sf.findAttachPoint.call( w, false ) )
 				.one( o.tranDone, function() {
 					if ( w.d.mainWrap.is( ":visible" ) ) {
 						basepop.afteropen.call();
@@ -214,7 +214,7 @@ JTSageDateBox.open = function () {
 				});
 			
 			w.d.mainWrap.css(
-				w.getDropPosition.apply( this, [ o.displayDropdownPosition ] )
+				w.getDropPosition.call( this, o.displayDropdownPosition )
 			);
 
 			break;
@@ -229,13 +229,13 @@ JTSageDateBox.open = function () {
 				break;
 			case "modal" :
 				this.d.mainWrap.css(
-					this.getModalPosition.apply( this )
+					this.getModalPosition.call( this )
 				);
 				break;
 			//case "dropdown" : // Note: dropdown is a true default, hence the drop-through
 			default :
 				this.d.mainWrap.css(
-					this.getDropPosition.apply( this, [ this.options.displayDropdownPosition ] )
+					this.getDropPosition.call( this, this.options.displayDropdownPosition )
 				);
 				break;
 		}

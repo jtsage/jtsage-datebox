@@ -45,7 +45,7 @@ JTSageDateBox._fbox_pos = function () {
 	// Allow this whole bit to be overridden by the loaded framework if need be.
 	// Note: this works most of the time, but sometimes that trap fails for some unknown reason.
 	if ( $.isFunction( w.styleFunctions.flipPosition ) ) {
-		w.styleFunctions.flipPosition.apply( w );
+		w.styleFunctions.flipPosition.call( w );
 		return true;
 	}
 
@@ -198,7 +198,7 @@ JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
  * @memberOf JTSageDateBox._build
  * @this JTSageDateBox
  */
-JTSageDateBox._build.timeflipbox     = function () { this._build.flipbox.apply( this ); };
+JTSageDateBox._build.timeflipbox     = function () { this._build.flipbox.call( this ); };
 
 /**
  * Build the datetimeflipbox
@@ -206,7 +206,7 @@ JTSageDateBox._build.timeflipbox     = function () { this._build.flipbox.apply( 
  * @memberOf JTSageDateBox._build
  * @this JTSageDateBox
  */
-JTSageDateBox._build.datetimeflipbox = function () { this._build.flipbox.apply( this ); };
+JTSageDateBox._build.datetimeflipbox = function () { this._build.flipbox.call( this ); };
 
 /**
  * Build the durationflipbox
@@ -214,7 +214,7 @@ JTSageDateBox._build.datetimeflipbox = function () { this._build.flipbox.apply( 
  * @memberOf JTSageDateBox._build
  * @this JTSageDateBox
  */
-JTSageDateBox._build.durationflipbox = function () { this._build.flipbox.apply( this ); };
+JTSageDateBox._build.durationflipbox = function () { this._build.flipbox.call( this ); };
 
 /**
  * Build the flipbox
@@ -371,21 +371,21 @@ JTSageDateBox._build.flipbox         = function () {
 				case "datetimeflipbox":
 					cntlWrk = w.__( "setDateButtonLabel" ); break;
 			}
-			w.setBut = w._stdBtn.close.apply( w, [ cntlWrk ] );
+			w.setBut = w._stdBtn.close.call( w, cntlWrk );
 			w.setBut.appendTo( cntlContain );
 		}
 
 		if ( o.useTodayButton ) {
-			cntlContain.append( w._stdBtn.today.apply( w ) );
+			cntlContain.append( w._stdBtn.today.call( w ) );
 		}
 		if ( o.useTomorrowButton ) {
-			cntlContain.append( w._stdBtn.tomorrow.apply( w ) );
+			cntlContain.append( w._stdBtn.tomorrow.call( w ) );
 		}
 		if ( o.useClearButton ) {
-			cntlContain.append( w._stdBtn.clear.apply( w ) );
+			cntlContain.append( w._stdBtn.clear.call( w ) );
 		}
 		if ( o.useCancelButton ) {
-			cntlContain.append( w._stdBtn.cancel.apply( w ) );
+			cntlContain.append( w._stdBtn.cancel.call( w ) );
 		}
 
 		if ( typeof _sf.buttonGroupOutside === "function" ) {
@@ -428,7 +428,7 @@ JTSageDateBox._build.flipbox         = function () {
  * @memberOf JTSageDateBox._drag
  * @this JTSageDateBox
  */
-JTSageDateBox._drag.timeflipbox     = function () { this._drag.flipbox.apply( this ); };
+JTSageDateBox._drag.timeflipbox     = function () { this._drag.flipbox.call( this ); };
 
 /**
  * Build datetimeflipbox drag events
@@ -436,7 +436,7 @@ JTSageDateBox._drag.timeflipbox     = function () { this._drag.flipbox.apply( th
  * @memberOf JTSageDateBox._drag
  * @this JTSageDateBox
  */
-JTSageDateBox._drag.datetimeflipbox = function () { this._drag.flipbox.apply( this ); };
+JTSageDateBox._drag.datetimeflipbox = function () { this._drag.flipbox.call( this ); };
 
 /**
  * Build durationflipbox drag events
@@ -444,7 +444,7 @@ JTSageDateBox._drag.datetimeflipbox = function () { this._drag.flipbox.apply( th
  * @memberOf JTSageDateBox._drag
  * @this JTSageDateBox
  */
-JTSageDateBox._drag.durationflipbox = function () { this._drag.flipbox.apply( this ); };
+JTSageDateBox._drag.durationflipbox = function () { this._drag.flipbox.call( this ); };
 
 /**
  * Build flipbox drag events

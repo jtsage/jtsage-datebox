@@ -80,7 +80,7 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 
 	// Run custom parser instead if it exists
 	if ( typeof w._parser[ o.mode ] !== "undefined" ) {
-		return w._parser[ o.mode ].apply( w, [ str ] );
+		return w._parser[ o.mode ].call( w,  str );
 	}
 
 	// Deal with duration mode.

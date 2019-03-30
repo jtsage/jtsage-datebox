@@ -144,7 +144,7 @@ JTSageDateBox._dbox_enter = function (item) {
  * @memberOf JTSageDateBox._build
  * @this JTSageDateBox
  */
-JTSageDateBox._build.timebox     = function () { this._build.datebox.apply( this, [] ); };
+JTSageDateBox._build.timebox     = function () { this._build.datebox.call( this ); };
 
 /**
  * Build the datetimebox
@@ -152,7 +152,7 @@ JTSageDateBox._build.timebox     = function () { this._build.datebox.apply( this
  * @memberOf JTSageDateBox._build
  * @this JTSageDateBox
  */
-JTSageDateBox._build.datetimebox = function () { this._build.datebox.apply( this, [] ); };
+JTSageDateBox._build.datetimebox = function () { this._build.datebox.call( this ); };
 
 /**
  * Build the durationbox
@@ -290,21 +290,21 @@ JTSageDateBox._build.datebox = function () {
 				case "datetimebox" :
 					ctrlWrk = w.__( "setDateButtonLabel" ); break;
 			}
-			w.setBut = w._stdBtn.close.apply( w, [ ctrlWrk ] );
+			w.setBut = w._stdBtn.close.call( w, ctrlWrk );
 			w.setBut.appendTo( ctrlContainer );
 		}
 
 		if ( o.useTodayButton ) {
-			ctrlContainer.append( w._stdBtn.today.apply( w ) );
+			ctrlContainer.append( w._stdBtn.today.call( w ) );
 		}
 		if ( o.useTomorrowButton ) {
-			ctrlContainer.append( w._stdBtn.tomorrow.apply( w ) );
+			ctrlContainer.append( w._stdBtn.tomorrow.call( w ) );
 		}
 		if ( o.useClearButton ) {
-			ctrlContainer.append( w._stdBtn.clear.apply( w ) );
+			ctrlContainer.append( w._stdBtn.clear.call( w ) );
 		}
 		if ( o.useCancelButton ) {
-			ctrlContainer.append( w._stdBtn.cancel.apply( w ) );
+			ctrlContainer.append( w._stdBtn.cancel.call( w ) );
 		}
 
 		if ( typeof _sf.buttonGroupOutside === "function" ) {

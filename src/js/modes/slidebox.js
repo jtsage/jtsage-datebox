@@ -57,7 +57,7 @@ JTSageDateBox._slide_ThemeDate = function( testDate ) {
 	w.realToday = new w._date();
 
 	for ( itt = 0; itt < dateThemes.length && !done; itt++ ) {
-		if ( w._ThemeDateCK[ dateThemes[ itt ][0] ].apply( w, [ testDate ] ) ) {
+		if ( w._ThemeDateCK[ dateThemes[ itt ][0] ].call( w, testDate ) ) {
 			returnObject.theme = o[ dateThemes[ itt ][1] ];
 			done = true;
 		}
@@ -176,7 +176,7 @@ JTSageDateBox._build.slidebox = function () {
 			w._slide_ThemeDate( date_working )
 		);
 
-		cntlObj.htmlObj = _sf.slideDateButton.apply( w, [ cntlObj ] );
+		cntlObj.htmlObj = _sf.slideDateButton.call( w, cntlObj );
 
 		// Add data object to event object
 		cntlObj.eventObj = cntlObj.htmlObj.find( ".dbEventS" ).first();
@@ -230,16 +230,16 @@ JTSageDateBox._build.slidebox = function () {
 		calCntlRow = _sf.buttonGroup( o.useCollapsedBut );
 		
 		if ( o.useTodayButton ) {
-			calCntlRow.append( w._stdBtn.today.apply( w ) );
+			calCntlRow.append( w._stdBtn.today.call( w ) );
 		}
 		if ( o.useTomorrowButton ) {
-			calCntlRow.append( w._stdBtn.tomorrow.apply( w ) );
+			calCntlRow.append( w._stdBtn.tomorrow.call( w ) );
 		}
 		if ( o.useClearButton ) {
-			calCntlRow.append( w._stdBtn.clear.apply( w ) );
+			calCntlRow.append( w._stdBtn.clear.call( w ) );
 		}
 		if ( o.useCancelButton ) {
-			calCntlRow.append( w._stdBtn.cancel.apply( w ) );
+			calCntlRow.append( w._stdBtn.cancel.call( w ) );
 		}
 
 		if ( typeof _sf.buttonGroupOutside === "function" ) {

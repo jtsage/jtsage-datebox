@@ -11,6 +11,18 @@ DateBox provides a number of callbacks that will run automatically, exports some
 
 This is a list of definable callbacks.  Generally, all callbacks can either be a function, or a string reference to a function defined in the window namespace (If you are unfamiliar with this term, it's somewhat analagous to the global object in a browser)
 
+Note: all callbacks are run with the widget as thier context.  So, inside a callback, you can use
+
+```js
+this.getTheDate();
+```
+
+rather than having to do:
+
+```js
+$(element).datebox('getTheDate');
+```
+
 {{run:apiGen.getCatCallbacks}}
 
 ### Public Functions
