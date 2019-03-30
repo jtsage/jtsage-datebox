@@ -28,21 +28,12 @@
  */
 JTSageDateBox._dur = function(ms) {
 	/* Break the duration value down into days/hrs/mins/secs */
-	var theDuration = [
-		ms / ( 60*60*1000*24 ),
-		ms / ( 60*60*1000) % 24,
-		ms / ( 60*1000) % 60,
-		ms / ( 1000 ) % 60,
+	return [
+		Math.max( 0, Math.floor( ms / ( 60*60*1000*24 ) ) ),
+		Math.max( 0, Math.floor( ms / ( 60*60*1000) % 24 ) ),
+		Math.max( 0, Math.floor( ms / ( 60*1000) % 60 ) ),
+		Math.max( 0, Math.floor( ms / ( 1000 ) % 60 ) ),
 	];
-
-	$.each(theDuration, function( index, value ){
-		if ( value < 0 ) {
-			theDuration[ index ] = 0;
-		} else {
-			theDuration[ index ] = Math.floor( value );
-		}
-	});
-	return theDuration;
 };
 
 /**
@@ -270,6 +261,22 @@ JTSageDateBox._grabLabel = function() {
  */
 JTSageDateBox._t = function ( obj ) {
 	this.d.input.trigger( "datebox", obj );
+};
+
+/** 
+ * Prep function, pull from global if needed
+ * 
+ * @param {mixed} Value of function option
+ * @return {mixe} Function, or false
+ * 
+ */
+JTSageDateBox._prepFunc = function ( func ) {
+	if ( func === false || typeof func === "function" ) { return func; }
+
+	if ( typeof window[ func ] === "function" ) {
+		return window[ func ];
+	}
+	return false;
 };
 
 /**

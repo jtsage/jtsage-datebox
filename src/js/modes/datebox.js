@@ -105,7 +105,7 @@ JTSageDateBox._dbox_enter = function (item) {
 		t = 0;
 	
 	if ( item.data( "field" ) === "M" ) {
-		tmp = $.inArray( item.val(), w.__( "monthsOfYearShort" ) );
+		tmp = w.__( "monthsOfYearShort" ).indexOf( item.val() );
 		if ( tmp > -1 ) { w.theDate.setMonth( tmp ); }
 	}
 	if ( item.val() !== "" && item.val().toString().search(/^[0-9]+$/) === 0 ) {
@@ -245,7 +245,7 @@ JTSageDateBox._build.datebox = function () {
 			o.theme_dbox_NextBtnIcn,
 			o.theme_dbox_NextBtnCls,
 			w.fldOrder[i],
-			( dur ) ? w.__( "durationLabel" )[ $.inArray( w.fldOrder[i], defDurOrder ) ] : null,
+			( dur ) ? w.__( "durationLabel" )[ defDurOrder.indexOf( w.fldOrder[i] ) ] : null,
 			o.theme_dbox_Inputs
 		] );
 		ctrlWrk.find( "input" ).data({

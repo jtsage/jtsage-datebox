@@ -63,13 +63,13 @@ JTSageDateBox._newDateCheck = {
 	/* NOTE: These return true if the test passes.  i.e., dobule negatives galore. */
 	enableDate : function ( testDate ) {
 		/* Return true if the date is whitelisted */
-		return ( $.inArray( testDate.iso(), this.options.enableDates) > -1 );
+		return ( this.options.enableDates.indexOf( testDate.iso ) > -1 );
 	},
 	whiteDate : function ( testDate ) {
 		/* Return true if the date is whitelisted */
 		if ( this.options.whiteDates === false ) { return false; }
 
-		return ( $.inArray( testDate.iso(), this.options.whiteDates) > -1 );
+		return ( this.options.whiteDates.indexOf( testDate.iso ) > -1 );
 	},
 	notToday : function ( testDate ) {
 		/* Return true if the date *is* today */
@@ -211,9 +211,7 @@ JTSageDateBox._newDateCheck = {
 	},
 	validHours : function ( testDate ) {
 		/* return true if the hour *IS VALID* */
-		var testOption = this.options.validHours;
-
-		return ( $.iArray( testDate.get(3), testOption ) > -1 );
+		return ( this.options.validHours.indexOf( testDate.get(3) ) > -1 );
 	},
 	blackDays : function ( testDate ) {
 		/* return true if the date matched blacked out days of the week */
@@ -221,7 +219,7 @@ JTSageDateBox._newDateCheck = {
 
 		if ( testOption === false ) { return false; }
 
-		return ( $.inArray( testDate.getDay(), testOption ) > -1 );
+		return ( testOption.indexOf( testDate.getDay() ) > -1 );
 	},
 	blackDates : function ( testDate ) {
 		/* return true if the date is blacklisted */
@@ -229,7 +227,7 @@ JTSageDateBox._newDateCheck = {
 
 		if ( testOption === false ) { return false; }
 
-		return ( $.inArray( testDate.iso(), testOption ) > -1 );
+		return ( testOption.indexOf( testDate.iso() ) > -1 );
 	},
 	blackDatesRec : function ( testDate ) {
 		/* return true if the date is blacklisted in the recurring dates */
@@ -401,21 +399,21 @@ JTSageDateBox._check = function() {
 JTSageDateBox._fixstepper = function( order ) {
 	// Turn back off steppers when displaying a less precise 
 	// unit in the same control.
-	var step = this.options.durationSteppers,
+	var step   = this.options.durationSteppers,
 		actual = this.options.durationStep;
 
-	if ( $.inArray( "d", order ) > -1 ) {
+	if ( order.indexOf( "d" ) > -1 ) {
 		step.d = actual;
 	}
-	if ( $.inArray( "h", order ) > -1 ) {
+	if ( order.indexOf( "h" ) > -1 ) {
 		step.d = 1;
 		step.h = actual;
 	}
-	if ( $.inArray( "i", order ) > -1 ) {
+	if ( order.indexOf( "i" ) > -1 ) {
 		step.h = 1;
 		step.i = actual;
 	}
-	if ( $.inArray( "s", order ) > -1 ) {
+	if ( order.indexOf( "s" ) > -1 ) {
 		step.i = 1;
 		step.s = actual;
 	}
@@ -456,7 +454,7 @@ JTSageDateBox._ThemeDateCK = {
 
 		if ( testOption === false ) { return false; }
 
-		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
+		if ( testOption.indexOf( testDate.iso() ) > -1 ) {
 			return true;
 		}
 		return false;
@@ -467,7 +465,7 @@ JTSageDateBox._ThemeDateCK = {
 
 		if ( testOption === false ) { return false; }
 
-		if ( $.inArray( testDate.iso(), testOption ) > -1 ) {
+		if ( testOption.indexOf( testDate.iso() ) > -1 ) {
 			return true;
 		}
 		return false;
@@ -493,7 +491,7 @@ JTSageDateBox._ThemeDateCK = {
 
 		if ( testOption === false ) { return false; }
 
-		if ( $.inArray( testDate.getDay(), testOption ) > -1 ) {
+		if ( testOption.indexOf( testDate.getDay() ) > -1 ) {
 			return true;
 		}
 		return false;

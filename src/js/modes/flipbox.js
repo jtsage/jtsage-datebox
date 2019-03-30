@@ -44,7 +44,7 @@ JTSageDateBox._fbox_pos = function () {
 
 	// Allow this whole bit to be overridden by the loaded framework if need be.
 	// Note: this works most of the time, but sometimes that trap fails for some unknown reason.
-	if ( $.isFunction( w.styleFunctions.flipPosition ) ) {
+	if ( typeof w.styleFunctions.flipPosition === "function" ) {
 		w.styleFunctions.flipPosition.call( w );
 		return true;
 	}
@@ -108,7 +108,7 @@ JTSageDateBox._fbox_do_dur_math = function ( term, offset, position ) {
 				break;
 		}
 	} else {
-		current = w.lastDurationA[ $.inArray( term, ["d","h","i","s"] ) ];
+		current = w.lastDurationA[ ["d","h","i","s"].indexOf( term ) ];
 		possibleReturn = current + offset;
 	}
 
@@ -296,7 +296,7 @@ JTSageDateBox._build.flipbox         = function () {
 		for ( cntlFieldIdx = 0; cntlFieldIdx < w.fldOrder.length; cntlFieldIdx++ ) {
 			thisField = w.fldOrder[ cntlFieldIdx ];
 			cntlContain.append( _sf.fboxDurLabel(
-				w.__( "durationLabel" )[ $.inArray( thisField, ["d","h","i","s"] ) ],
+				w.__( "durationLabel" )[ ["d","h","i","s"].indexOf( thisField ) ],
 				w.fldOrder.length
 			) );
 		}

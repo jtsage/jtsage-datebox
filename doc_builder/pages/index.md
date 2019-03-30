@@ -66,6 +66,8 @@ DateBox is extreamlly full featured.  Included are:
 
 DateBox requires [jQuery](https://jquery.com), version 2 or 3, and will run fine with the "slim" builds of version 3.
 
+DateBox requires a modern browser. IE8 is unsupported as of v5, but with a polyfill library loaded, will probably run.
+
 DateBox requires the [jQueryUI](https://jqueryui.com/) widget library. Built versions of DateBox include it in their source files, unless the framework in use typically has it already. (Example: jQM uses an altered, but API compatible version).
 
 ## Frameworks

@@ -19,20 +19,18 @@ JTSageDateBox.close = function() {
 
 	// Trigger the popup to close
 	// // Prepare close callback.
+
+	o.closeCallback = w._prepFunc( o.closeCallback );
+
 	if ( o.closeCallback !== false ) {
-		if ( ! $.isFunction( o.closeCallback ) ) {
-			if ( typeof window[ o.closeCallback ] === "function" ) {
-				o.closeCallback = window[ o.closeCallback ];
-			}
-		}
 		basepop.afterclose = function() {
-			o.closeCallback.apply( w, $.merge([{
+			o.closeCallback.apply( w, [{
 				custom      : w.customCurrent,
 				initDate    : w.initDate,
 				date        : w.theDate,
 				duration    : w.lastDuration,
 				cancelClose : w.cancelClose
-			}], o.closeCallbackArgs ) );
+			}].concat( o.closeCallbackArgs ) );
 		};
 	} else {
 		basepop.afterclose = function() {

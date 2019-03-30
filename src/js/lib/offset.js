@@ -24,7 +24,7 @@ JTSageDateBox._offset = function( oper, amount, update ) {
 	var testCurrent, condHigh, condLow, condMulti,
 		w               = this,
 		o               = w.options,
-		operNum         = $.inArray( oper, [ "y", "m", "d", "h", "i", "s" ] ),
+		operNum         = [ "y", "m", "d", "h", "i", "s" ].indexOf( oper ),
 		lastDate        = 32 - w.theDate.copy([0],[0,0,32,13]).getDate(),
 		thisYear        = [ // Only used when rollover prevented.
 			31, 32 - w.theDate.copy([0],[0,1,32,13]).getDate(), 31,

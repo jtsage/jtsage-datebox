@@ -29,12 +29,12 @@ JTSageDateBox.open = function () {
 	if ( w.d.input.val() === "" ) { w._startOffset( w.theDate ); }
 	w.d.input.blur();
 
-	if ( typeof w._build[ o.mode ] === "undefined" ) {
+	if ( typeof w._build[ o.mode ] !== "function" ) {
 		w._build[ "default" ].call( w );
 	} else {
 		w._build[ o.mode ].call( w );
 	}
-	if ( typeof w._drag[ o.mode ] !== "undefined" ) {
+	if ( typeof w._drag[ o.mode ] === "function" ) {
 		w._drag[ o.mode ].call( w );
 	}
 
@@ -67,20 +67,17 @@ JTSageDateBox.open = function () {
 
 	// Perpare open callback, if provided. Additionally, if this
 	// returns false then the open/update will stop.
+	o.openCallback = w._prepFunc( o.openCallback );
+
 	if ( o.openCallback !== false ) {
-		if ( ! $.isFunction( o.openCallback ) ) {
-			if ( typeof window[ o.openCallback ] === "function" ) {
-				o.openCallback = window[ o.openCallback ];
-			}
-		}
 		basepop.afteropen = function() {
 			w._t( { method : "postrefresh" } );
-			if ( o.openCallback.apply( w, $.merge([{
+			if ( o.openCallback.apply( w, [{
 				custom   : w.customCurrent,
 				initDate : w.initDate,
 				date     : w.theDate,
 				duration : w.lastDuration
-			}], o.openCallbackArgs ) ) === false ) {
+			}].contact( o.openCallbackArgs ) ) === false ) {
 
 				w._t( {method : "close"} );
 			}
@@ -93,21 +90,17 @@ JTSageDateBox.open = function () {
 
 	// Perpare BEFORE open callback, if provided. Additionally, if this
 	// returns false then the open/update will stop.
+	o.beforeOpenCallback = w._prepFunc( o.beforeOpenCallback );
+
 	if ( o.beforeOpenCallback !== false ) {
-		if ( ! $.isFunction( o.beforeOpenCallback ) ) {
-			if ( typeof window[ o.beforeOpenCallback ] === "function" ) {
-				o.beforeOpenCallback = window[ o.beforeOpenCallback ];
-			}
-		}
 		if ( o.beforeOpenCallback.apply(
 			w,
-			$.merge([{
+			[{
 				custom   : w.customCurrent,
 				initDate : w.initDate,
 				date     : w.theDate,
 				duration : w.lastDuration
-			}],
-			o.beforeOpenCallbackArgs ) ) === false
+			}].concat( o.beforeOpenCallbackArgs ) ) === false
 		) {
 			return false;
 		}
@@ -220,7 +213,7 @@ JTSageDateBox.open = function () {
 			break;
 	}
 
-	$( window ).on( "resize" + w.eventNamespace, $.proxy( function() {
+	$( window ).on( "resize" + w.eventNamespace, ( function() {
 		// For dropdown and modal modes , we need to handle resizing.
 		switch ( this.options.displayMode ) {
 			case "inline":
@@ -239,7 +232,7 @@ JTSageDateBox.open = function () {
 				);
 				break;
 		}
-	}, w ) );
+	} ).bind(w) );
 
 	window.setTimeout(function () {
 		w.d.mainWrap.addClass( "db-show" );

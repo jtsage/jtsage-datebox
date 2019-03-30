@@ -92,7 +92,7 @@ JTSageDateBox._formatter = function(format, date, allowArIn) {
 	format = format.replace(/%(D|X|0|-)*([1-9a-zA-Z])/g, function(match, pad, oper) {
 		// Deal with custom elements
 		if ( pad === "X" ) {
-			if ( typeof w._customformat[o.mode] !== "undefined" ) {
+			if ( typeof w._customformat[o.mode] === "function" ) {
 				return w._customformat[o.mode](oper, date, o);
 			}
 			return match;
@@ -157,7 +157,7 @@ JTSageDateBox._formatter = function(format, date, allowArIn) {
 			case "W":
 				return w._zPad( date.getDWeek(1), pad );
 			case "o": // Ordinals
-				if ( typeof w._ord[o.useLang] !== "undefined" ) {
+				if ( typeof w._ord[o.useLang] === "function" ) {
 					return w._ord[ o.useLang ]( date.getDate() );
 				}
 				return w._ord[ "default" ](date.getDate());

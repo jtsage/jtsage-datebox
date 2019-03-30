@@ -28,7 +28,7 @@
  * @param {string} p.type Field to offset
  */
 JTSageDateBox._event = function(e, p) {
-	var tmp,
+	var tmp, i,
 		w = $( this ).data( "jtsage-datebox" ),
 		o = $( this ).data( "jtsage-datebox" ).options;
 
@@ -58,11 +58,11 @@ JTSageDateBox._event = function(e, p) {
 							$( o.linkedField )
 								.val( w.callFormat( o.linkedFieldFormat, w.theDate, false ) );
 						} else {
-							$.each( o.linkedField, function( idx, thisField ) {
-								$( thisField.id ).val(
-									w.callFormat( thisField.format, w.theDate, false )
+							for ( i = 0; i < o.linkedField.length; i++ ) {
+								$( o.linkedField[i].id ).val(
+									w.callFormat( o.linkedField[i].format, w.theDate, false )
 								);
-							});
+							}
 						}
 					}
 					$( this ).trigger( "change" );
@@ -70,7 +70,7 @@ JTSageDateBox._event = function(e, p) {
 				break;
 			case "doset" :
 				tmp = "_" + w.options.mode + "DoSet";
-				if ( $.isFunction( w[ tmp ] ) ) {
+				if ( typeof w[ tmp ] === "function" ) {
 					w[ tmp ].call( w );
 				} else {
 					w._t( {

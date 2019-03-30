@@ -70,10 +70,10 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 	if ( typeof extd === "undefined" ) { extd = false; }
 	
 	// Convert indic numers t those we can deal with
-	str = $.trim( ( ( w.__( "useArabicIndic" ) === true && typeof str !== "undefined" ) ?
+	str = ( ( w.__( "useArabicIndic" ) === true && typeof str !== "undefined" ) ?
 		w._dRep( str, -1 ) :
 		str
-	) );
+	).trim();
 
 	// Do nothing if no mode loaded
 	if ( typeof o.mode === "undefined" ) { return date; }
@@ -181,7 +181,7 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 		if ( defVal !== false && defVal !== "" ) {
 			switch ( typeof defVal ) {
 				case "object":
-					if ( $.isFunction( defVal.getDay ) ) {
+					if ( typeof defVal.getDay === "function" ) {
 						date = defVal;
 					} else {
 						if ( defVal.length === 3 ) {
@@ -196,16 +196,10 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 					date =  new w._date( defVal * 1000 ); break;
 				case "string":
 					if ( o.mode.substr(0,4) === "time" ) {
-						exp_temp = $.extend(
-							[0,0,0],
-							defVal.split( ":" )
-						).slice( 0, 3 );
+						exp_temp = Object.assign([0,0,0], defVal.split(":",3));
 						date = w._pa( exp_temp, date );
 					} else {
-						exp_temp = $.extend(
-							[0,0,0],
-							defVal.split( "-" )
-						).slice( 0, 3 );
+						exp_temp = Object.assign([0,0,0], defVal.split("-",3));
 						exp_temp[1]--;
 						date = w._pa( exp_temp, false );
 					} break;
@@ -247,11 +241,11 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 					d.meri = ( grbg.test( w.__( "meridiem" )[0] ) ? -1 : 1 );
 					break;
 				case "b" :
-					exp_temp = $.inArray( exp_input[i], w.__( "monthsOfYearShort" ) );
+					exp_temp = w.__( "monthsOfYearShort" ).indexOf( exp_input[i] );
 					if ( exp_temp > -1 ) { d.mont = exp_temp; }
 					break;
 				case "B" :
-					exp_temp = $.inArray( exp_input[i], w.__( "monthsOfYear" ) );
+					exp_temp = w.__( "monthsOfYear" ).indexOf( exp_input[i] );
 					if ( exp_temp > -1 ) { d.mont = exp_temp; }
 					break;
 			}

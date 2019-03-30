@@ -16,7 +16,7 @@ JTSageDateBox._create = function() {
 	$( document ).trigger( "dateboxcreate" );
 
 	var w = this, runTmp, ranTmp,
-		o = $.extend(
+		o = Object.assign(
 			this.options,
 			this._getLongOptions( this.element ),
 			this.element.data( "options" )
@@ -48,7 +48,6 @@ JTSageDateBox._create = function() {
 				( ( o.theme_headStyle !== false ) ? o.theme_headStyle : "" ) +
 			"</style>",
 		evtid = ".datebox" + this.uuid,
-		touch = ( typeof window.ontouchstart !== "undefined" ),
 		drag = {
 			eStart : "touchstart" + evtid + " mousedown" + evtid,
 			eMove  : "touchmove"  + evtid + " mousemove" + evtid,
@@ -65,7 +64,9 @@ JTSageDateBox._create = function() {
 
 	$( "head" ).append( $( styleTag ) );
 
-	$.extend(w, { d : d, drag : drag, touch : touch, icons : this.icons } );
+	w.d        = d;
+	w.drag     = drag;
+	w.icons    = this.icons;
 
 	if ( o.usePlaceholder !== false ) {
 		if ( o.usePlaceholder === true && w._grabLabel() !== "" ) {
@@ -149,6 +150,8 @@ JTSageDateBox._create = function() {
 
 	if ( o.hideInput ) { _sf.hideInput.call( this ); }
 
+	o.runOnBlurCallback = w._prepFunc( o.runOnBlurCallback );
+
 	w.d.input
 		.on( "focus.datebox", function(){
 			_sf.focusInput(w.d.input);
@@ -178,13 +181,6 @@ JTSageDateBox._create = function() {
 				}
 				
 			} else {
-				// Trap simple string reference
-				if ( ! $.isFunction( o.runOnBlurCallback ) ) {
-					if ( typeof window[ o.runOnBlurCallback ] === "function" ) {
-						o.runOnBlurCallback = window[ o.runOnBlurCallback ];
-					}
-				}
-				
 				runTmp = w._makeDate( w.d.input.val(), true );
 				ranTmp = o.runOnBlurCallback.call( w, {
 					origDate : w.originalDate,

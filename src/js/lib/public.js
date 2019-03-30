@@ -112,7 +112,7 @@ JTSageDateBox.refresh = function() {
 	var w = this,
 		o = this.options;
 	
-	if ( typeof w._build[ o.mode ] === "undefined" ) {
+	if ( typeof w._build[ o.mode ] !== "function" ) {
 		w._build[ "default" ].call( w );
 	} else {
 		w._build[ o.mode ].call( w );

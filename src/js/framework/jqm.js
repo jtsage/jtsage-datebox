@@ -302,7 +302,8 @@ JTSageDateBox.styleFunctions = {
 
 	/* Generic pickers */
 	genPickers            : function ( ranges, theme, ctlMonth, ctlYear ) {
-		var returnVal = "<div style='padding-bottom: 8px' class='" +
+		var i         = 0,
+			returnVal = "<div style='padding-bottom: 8px' class='" +
 			"ui-controlgroup ui-controlgroup-horizontal ui-corner-all ui-mini'>";
 
 		returnVal += "<div class='ui-controlgroup-controls w-100'>";
@@ -310,22 +311,24 @@ JTSageDateBox.styleFunctions = {
 		returnVal += "<div class='ui-select' style='width:60%'>";
 		returnVal += "<div id='" + ctlMonth + "-button' class='ui-btn-" + theme +
 			" ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow ui-first-child'>";
-		$.each( ranges.month, function(idx, value) {
-			if ( value[2] === true ) {
-				returnVal += "<span>" + value[1] + "</span>";
+
+		for ( i = 0; i < ranges.month.length; i++ ) {
+			if ( ranges.month[i][2] === true ) {
+				returnVal += "<span>" + ranges.month[i][1] + "</span>";
 			}
-		});
+		}
 		returnVal += this._stdSel( ranges.month, ctlMonth, "" );
 		returnVal += "</div></div>";
 
 		returnVal += "<div class='ui-select' style='width:40%'>";
 		returnVal += "<div id='" + ctlYear + "-button' class='ui-btn-" + theme +
 			" ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow ui-last-child'>";
-		$.each( ranges.year, function(idx, value) {
-			if ( value[2] === true ) {
-				returnVal += "<span>" + value[1] + "</span>";
+
+		for ( i = 0; i < ranges.year.length; i++ ) {
+			if ( ranges.year[i][2] === true ) {
+				returnVal += "<span>" + ranges.year[i][1] + "</span>";
 			}
-		});
+		}
 		returnVal += this._stdSel( ranges.year, ctlYear, "" );
 		returnVal += "</div></div>";
 

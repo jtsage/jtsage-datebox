@@ -207,7 +207,7 @@ JTSageDateBox._build.calbox = function () {
 		// Control variables.
 		cntlRow, cntlCol, cntlObj = {},
 		// This holds the day of week display
-		weekdayControl    = $("");
+		weekdayControl    = "";
 
 	// Set up some info to pull from calbox if needed.
 	w.firstOfGrid = date_firstOfGrid;
@@ -323,21 +323,11 @@ JTSageDateBox._build.calbox = function () {
 
 	// if options.calFormatter is just a string, attempt to pull it as a function
 	// reference from the global namespace
-	if ( ! $.isFunction( o.calFormatter ) &&
-		o.calFormatter !== false &&
-		$.isFunction( window[ o.calFormatter ] )
-	) {
-		o.calFormatter = window[ o.calFormatter ];
-	}
+	o.calFormatter = w._prepFunc( o.calFormatter );
 
 	// if options.calBeforeAppendFunc is just a string, attempt to pull it as a
 	// function reference from the global namespace
-	if ( ! $.isFunction( o.calBeforeAppendFunc ) &&
-		o.calBeforeAppendFunc !== false &&
-		$.isFunction( window[ o.calBeforeAppendFunc ] )
-	) {
-		o.calBeforeAppendFunc = window[ o.calBeforeAppendFunc ];
-	}
+	o.calBeforeAppendFunc = w._prepFunc( o.calBeforeAppendFunc );
 	
 	/* Actually build and populate the calendar. One pass */
 	for ( cntlRow = 0; cntlRow < grid_Weeks; cntlRow++ ) {
@@ -361,7 +351,7 @@ JTSageDateBox._build.calbox = function () {
 			);
 
 			// Format the display date
-			cntlObj.displayText = ( !$.isFunction(o.calFormatter) ) ?
+			cntlObj.displayText = ( o.calFormatter === false ) ?
 				cntlObj.dateObj.get(2) :
 				o.calFormatter.call( w, cntlObj );
 
@@ -375,7 +365,7 @@ JTSageDateBox._build.calbox = function () {
 			cntlObj.eventObj.data( cntlObj );
 
 			// Run the before append function
-			if ( $.isFunction(o.calBeforeAppendFunc) ) {
+			if ( o.calBeforeAppendFunc !== false ) {
 				cntlObj = o.calBeforeAppendFunc.call( w, cntlObj );
 			}
 
@@ -406,10 +396,11 @@ JTSageDateBox._build.calbox = function () {
 			[ w.__( "calDateListLabel" ), o.calDateList, o.theme_cal_DateList ]
 		).appendTo(w.d.intHTML);
 		w.d.intHTML.on( "change", "#dbCalPickList", function() {
+			var iPut = $(this).val().split( "-" );
 			w.theDate = new w._date(
-				$( this ).val().split( "-" )[0],
-				$( this ).val().split( "-" )[1] - 1,
-				$( this ).val().split( "-" )[2],
+				iPut[0],
+				iPut[1] - 1,
+				iPut[2],
 				12, 1, 1, 1
 			);
 			w._t( { method : "doset" } );

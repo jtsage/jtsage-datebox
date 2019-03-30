@@ -25,8 +25,6 @@
 		return false;
 	}
 
-	$.ui = $.ui || {};
-
 	/*!
 	* jQuery UI Widget 1.12.1
 	* http://jqueryui.com
@@ -102,7 +100,7 @@
 		// inheriting from
 		basePrototype.options = $.widget.extend( {}, basePrototype.options );
 		$.each( prototype, function( prop, value ) {
-			if ( !$.isFunction( value ) ) {
+			if ( typeof value !== "function" ) {
 				proxiedPrototype[ prop ] = value;
 				return;
 			}
@@ -227,16 +225,14 @@
 						}
 
 						if ( !instance ) {
-							return $.error("x");
-							// "cannot call methods on " + name +
-							//" prior to initialization; " +
-							//"attempted to call method '" + options + "'" );
+							return false;
 						}
 
-						if ( !$.isFunction( instance[ options ] ) || options.charAt( 0 ) === "_" ) {
-							return $.error("X");
-							// "no such method '" + options + "' for " + name +
-							//" widget instance" );
+						if (
+							( typeof instance[ options ] !== "function" ) ||
+							options.charAt( 0 ) === "_"
+						) {
+							return false;
 						}
 
 						methodValue = instance[ options ].apply( instance, args );
@@ -451,7 +447,7 @@
 			}
 
 			this.element.trigger( event, data );
-			return !( $.isFunction( callback ) &&
+			return !( ( typeof callback === "function" ) &&
 				callback.apply( this.element[ 0 ], [ event ].concat( data ) ) === false ||
 				event.isDefaultPrevented() );
 		}

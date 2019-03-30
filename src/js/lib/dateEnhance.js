@@ -20,7 +20,7 @@
  */
 
 JTSageDateBox._enhanceDate = function() {
-	$.extend(this._date.prototype, {
+	Object.assign(this._date.prototype, {
 
 		/**
 		 * Return a copy of the date, not altering the original
@@ -36,8 +36,8 @@ JTSageDateBox._enhanceDate = function() {
 		 */
 		copy : function( adjust, override ) {
 			
-			adjust = $.extend( [0,0,0,0,0,0,0], adjust );
-			override = $.extend( [0,0,0,0,0,0,0], override );
+			adjust = Object.assign( [0,0,0,0,0,0,0], adjust );
+			override = Object.assign( [0,0,0,0,0,0,0], override );
 			return new Date(
 				( ( override[ 0 ] > 0 ) ? override[ 0 ] : this.get( 0 ) + adjust[ 0 ] ),
 				( ( override[ 1 ] > 0 ) ? override[ 1 ] : this.get( 1 ) + adjust[ 1 ] ),
