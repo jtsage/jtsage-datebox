@@ -182,6 +182,7 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 			switch ( typeof defVal ) {
 				case "object":
 					if ( typeof defVal.getDay === "function" ) {
+						// Default date import.  Need to class it up here for #456
 						date = defVal;
 					} else {
 						if ( defVal.length === 3 ) {

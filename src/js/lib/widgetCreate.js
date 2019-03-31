@@ -52,7 +52,8 @@ JTSageDateBox._create = function() {
 			eStart : "touchstart" + evtid + " mousedown" + evtid,
 			eMove  : "touchmove"  + evtid + " mousemove" + evtid,
 			eEnd   : "touchend"   + evtid + " mouseup"   + evtid,
-			eEndA  : [ "mouseup", "touchend", "touchcancel", "touchmove" ].join( evtid + " " ),
+			eEndA  : [ "mouseup", "touchend", "touchcancel", "touchmove" ]
+				.join( evtid + " " ) + evtid,
 			move   : false,
 			start  : false,
 			end    : false,
@@ -80,7 +81,6 @@ JTSageDateBox._create = function() {
 
 	w.cancelClose    = false;
 	w.disabled       = false;
-	w.runButton      = false;
 	w._date          = window.Date;
 	w._enhanceDate();
 
@@ -122,11 +122,9 @@ JTSageDateBox._create = function() {
 	
 	if ( o.mode !== false ) {
 		if ( o.buttonIcon === false ) {
-			if ( o.mode.substr( 0, 4 ) === "time" || o.mode.substr( 0 ,3 ) === "dur" ) {
-				o.buttonIcon = o.buttonIconTime;
-			} else {
-				o.buttonIcon = o.buttonIconDate;
-			}
+			o.buttonIcon = ( o.mode.substr( 0, 4 ) === "time" || o.mode.substr( 0 ,3 ) === "dur" ) ?
+				o.buttonIconTime :
+				o.buttonIconDate;
 		}
 	}
 
@@ -204,11 +202,6 @@ JTSageDateBox._create = function() {
 		w.d.input.attr( "readonly", "readonly" );
 	}
 
-	// Check if mousewheel plugin is loaded
-	if ( typeof $.event.special.mousewheel !== "undefined" ) {
-		w.wheelExists = true;
-	}
-
 	// Disable when done if element attribute disabled is true.
 	if ( w.d.input.is( ":disabled" ) ) {
 		w.disable();
@@ -217,7 +210,6 @@ JTSageDateBox._create = function() {
 	w.applyMinMax( false, false );
 
 	if ( o.displayMode === "inline" || o.displayMode === "blind" ) {
-		//o.useInline || o.useInlineBlind ) {
 		w.open();
 	}
 

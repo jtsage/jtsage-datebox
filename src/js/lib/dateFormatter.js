@@ -162,7 +162,7 @@ JTSageDateBox._formatter = function(format, date, allowArIn) {
 				}
 				return w._ord[ "default" ](date.getDate());
 			case "j":
-				tmp = new Date(date.getFullYear(),0,1);
+				tmp = new w._date(date.getFullYear(),0,1);
 				tmp = "000" + String(Math.ceil((date - tmp) / 86400000)+1);
 				return tmp.slice(-3);
 			case "J":

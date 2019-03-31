@@ -14,7 +14,7 @@
 JTSageDateBox._destroy = function() {
 	var w      = this,
 		o      = this.options,
-		button = w.d.wrap.find( "bdOpenButton" );
+		button = w.d.wrap.find( "dbOpenButton" );
 
 	if ( o.useButton === true ) {
 		button.remove();

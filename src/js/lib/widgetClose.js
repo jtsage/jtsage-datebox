@@ -25,7 +25,6 @@ JTSageDateBox.close = function() {
 	if ( o.closeCallback !== false ) {
 		basepop.afterclose = function() {
 			o.closeCallback.apply( w, [{
-				custom      : w.customCurrent,
 				initDate    : w.initDate,
 				date        : w.theDate,
 				duration    : w.lastDuration,
@@ -38,13 +37,11 @@ JTSageDateBox.close = function() {
 		};
 	}
 	
+	/* eslint-disable no-fallthrough */
 	switch ( o.displayMode ) {
-		case "inline" :
-			// Do Nothing.
-			basepop.afterclose.call();
-			return true;
 		case "blind" :
 			w.d.mainWrap.slideUp();
+		case "inline" :
 			basepop.afterclose.call();
 			return true;
 		//case "modal" :
@@ -57,6 +54,7 @@ JTSageDateBox.close = function() {
 			w.d.mainWrap.detach();
 			break;
 	}
+	/* eslint-enable no-fallthrough */
 
 	// Unbind all drag handlers, and the resize catch
 	$( document )

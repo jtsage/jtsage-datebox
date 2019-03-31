@@ -341,11 +341,11 @@ JTSageDateBox._getCleanDur = function() {
 	}
 
 	if ( o.minDur !== false && thisDuration < o.minDur ) {
-		w.theDate = new Date( w.initDate.getTime() + ( o.minDur * 1000 ) );
+		w.theDate = new w._date( w.initDate.getTime() + ( o.minDur * 1000 ) );
 		thisDuration = o.minDur;
 	}
 	if ( o.maxDur !== false && thisDuration > o.maxDur ) {
-		w.theDate = new Date( w.initDate.getTime() + ( o.maxDur * 1000 ) );
+		w.theDate = new w._date( w.initDate.getTime() + ( o.maxDur * 1000 ) );
 		thisDuration = o.maxDur;
 	}
 

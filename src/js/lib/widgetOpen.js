@@ -73,11 +73,10 @@ JTSageDateBox.open = function () {
 		basepop.afteropen = function() {
 			w._t( { method : "postrefresh" } );
 			if ( o.openCallback.apply( w, [{
-				custom   : w.customCurrent,
 				initDate : w.initDate,
 				date     : w.theDate,
 				duration : w.lastDuration
-			}].contact( o.openCallbackArgs ) ) === false ) {
+			}].concat( o.openCallbackArgs ) ) === false ) {
 
 				w._t( {method : "close"} );
 			}
@@ -96,7 +95,6 @@ JTSageDateBox.open = function () {
 		if ( o.beforeOpenCallback.apply(
 			w,
 			[{
-				custom   : w.customCurrent,
 				initDate : w.initDate,
 				date     : w.theDate,
 				duration : w.lastDuration
@@ -107,53 +105,29 @@ JTSageDateBox.open = function () {
 	}
 
 	switch ( o.displayMode ) {
-		case "inline":
-			if ( w.initDone ) { break; }
-			w.d.mainWrap.insertAfter( _sf.findAttachPoint.call( w, true ) );
-			w.d.mainWrap.addClass( o.theme_inlineContainer );
-			w.d.mainWrap.css( { zIndex : "auto" } );
-			switch ( o.displayInlinePosition ) {
-				case "right":
-					w.d.mainWrap.css( { marginRight : 0, marginLeft : "auto" } );
-					break;
-				case "left":
-					w.d.mainWrap.css( { marginLeft : 0, marginRight : "auto" } );
-					break;
-				//case "center":
-				//case "middle":
-				default:
-					w.d.mainWrap.css( { marginLeft : "auto", marginRight : "auto" } );
-					break;
-			}
-			w._t( { method : "postrefresh" } );
-			w.initDone = true;
-			break;
-		case "blind":
+		case "inline" :
+		case "blind"  :
 			if ( w.initDone ) {
-				w.refresh();
-				w.d.mainWrap.slideDown();
-			} else {
-				w.d.mainWrap.insertAfter( _sf.findAttachPoint.call( w, true ) );
-				w.d.mainWrap.addClass( o.theme_inlineContainer );
-				w.d.mainWrap.css( { zIndex : "auto", display : "none" } );
-				switch ( o.displayInlinePosition ) {
-					case "right":
-						w.d.mainWrap.css( { marginRight : 0, marginLeft : "auto" } );
-						break;
-					case "left":
-						w.d.mainWrap.css( { marginLeft : 0, marginRight : "auto" } );
-						break;
-					//case "center":
-					//case "middle":
-					default:
-						w.d.mainWrap.css( { marginLeft : "auto", marginRight : "auto" } );
-						break;
+				if ( o.displayMode === "blind" ) {
+					w.refresh();
+					w.d.mainWrap.slideDown();
 				}
+			} else {
+				w.d.mainWrap
+					.insertAfter( _sf.findAttachPoint.call( w, true ) )
+					.addClass( o.theme_inlineContainer )
+					.css( {
+						zIndex      : "auto",
+						marginRight : ( o.displayInlinePosition === "right" ) ? 0 : "auto",
+						marginLeft  : ( o.displayInlinePosition === "left"  ) ? 0 : "auto",
+					} );
 				w.initDone = true;
 			}
 			w._t( { method : "postrefresh" } );
 			break;
-		case "modal":
+		// case "modal"    :
+		// case "dropdown" :
+		default         :
 			w.d.mainWrap
 				.show()
 				.css( "zIndex", ( o.zindex ) )
@@ -171,66 +145,35 @@ JTSageDateBox.open = function () {
 			w.d.backdrop = $("<div class='jtsage-datebox-backdrop-div'></div>")
 				.css( o.theme_backgroundMask )
 				.css( "zIndex", ( o.zindex - 1 ) )
-				.appendTo( _sf.findAttachPoint.call( w, false ) )
+				.appendTo(
+					( o.displayMode === "modal" ) ?
+						_sf.findAttachPoint.call( w, false ) :
+						"body"
+				)
 				.on( o.clickEvent, function (e) {
 					e.preventDefault();
 					w._t( { method : "close", closeCancel : true } );
 				});
 
 			w.d.mainWrap.css(
-				w.getModalPosition.call( w )
+				( o.displayMode === "modal" ) ?
+					w.getModalPosition.call( w ) :
+					w.getDropPosition.call( this, o.displayDropdownPosition )
 			);
 			
-			break;
-		// case "dropdown":
-		default:
-			w.d.mainWrap
-				.show()
-				.addClass( o.theme_dropdownContainer )
-				.appendTo( _sf.findAttachPoint.call( w, false ) )
-				.one( o.tranDone, function() {
-					if ( w.d.mainWrap.is( ":visible" ) ) {
-						basepop.afteropen.call();
-					} else {
-						basepop.afterclose.call();
-						w.d.mainWrap.removeClass( "db-show" );
-					}
-				});
-
-			w.d.backdrop = $("<div class='jtsage-datebox-backdrop-div'></div>")
-				.css( o.theme_backgroundMask )
-				.css( "zIndex", ( o.zindex - 1 ) )
-				.appendTo( "body" )
-				.on( o.clickEvent, function (e) {
-					e.preventDefault();
-					w._t( { method : "close", closeCancel : true } );
-				});
-			
-			w.d.mainWrap.css(
-				w.getDropPosition.call( this, o.displayDropdownPosition )
-			);
-
 			break;
 	}
 
 	$( window ).on( "resize" + w.eventNamespace, ( function() {
+		var dMode = this.options.displayMode;
+
 		// For dropdown and modal modes , we need to handle resizing.
-		switch ( this.options.displayMode ) {
-			case "inline":
-			case "blind":
-				// Do Nothing
-				break;
-			case "modal" :
-				this.d.mainWrap.css(
-					this.getModalPosition.call( this )
-				);
-				break;
-			//case "dropdown" : // Note: dropdown is a true default, hence the drop-through
-			default :
-				this.d.mainWrap.css(
+		if ( dMode === "modal" || dMode === "blind" ) {
+			this.d.mainWarp.css(
+				( dMode === "modal" ) ?
+					this.getModalPosition.call( this ) :
 					this.getDropPosition.call( this, this.options.displayDropdownPosition )
-				);
-				break;
+			);
 		}
 	} ).bind(w) );
 
