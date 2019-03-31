@@ -30,8 +30,8 @@ JTSageDateBox._dur = function(ms) {
 	/* Break the duration value down into days/hrs/mins/secs */
 	return [
 		Math.max( 0, Math.floor( ms / ( 60*60*1000*24 ) ) ),
-		Math.max( 0, Math.floor( ms / ( 60*60*1000) % 24 ) ),
-		Math.max( 0, Math.floor( ms / ( 60*1000) % 60 ) ),
+		Math.max( 0, Math.floor( ms / ( 60*60*1000 ) % 24 ) ),
+		Math.max( 0, Math.floor( ms / ( 60*1000 ) % 60 ) ),
 		Math.max( 0, Math.floor( ms / ( 1000 ) % 60 ) ),
 	];
 };
@@ -61,7 +61,7 @@ JTSageDateBox.__ = function(val) {
 	if ( ( typeof mode !== "undefined" ) && ( typeof mode[ val ] !== "undefined" ) ) {
 		return mode[ val ];
 	}
-	if ( typeof o.lang[ "default" ][val] !== "undefined" ) {
+	if ( typeof o.lang[ "default" ][ val ] !== "undefined" ) {
 		return o.lang[ "default" ][ val ];
 	}
 	return "Err:NotFound";

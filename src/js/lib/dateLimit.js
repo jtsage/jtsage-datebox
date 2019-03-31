@@ -75,19 +75,7 @@ JTSageDateBox._newDateCheck = {
 		/* Return true if the date *is* today */
 		if ( this.options.notToday === false ) { return false; }
 
-		if (
-			this.realToday.get(0) === testDate.get(0) &&
-			this.realToday.get(1) === testDate.get(1) &&
-			this.realToday.get(2) === testDate.get(2)
-		) {
-
-			return true;
-
-		} else {
-
-			return false;
-
-		}
+		return ( this.realToday.comp() === testDate.comp() );
 	},
 	maxYear : function ( testDate ) {
 		/* return true if the date is beyond the max year */
@@ -189,8 +177,7 @@ JTSageDateBox._newDateCheck = {
 		// Hour is after allowed, pass
 		if ( testHour > splitOption[0] ) { return false; }
 		// Hour is the same, check minutes
-		if ( testDate.get(4) < splitOption[1] ) { return true; }
-		return false;
+		return ( testDate.get(4) < splitOption[1] );
 	},
 	maxTime : function ( testDate ) {
 		/* return true if the time is after the maximum allowed */
@@ -206,8 +193,7 @@ JTSageDateBox._newDateCheck = {
 		// Hour is after allowed, fail
 		if ( testHour > splitOption[0] ) { return true; }
 		// Hour is the same, check minutes
-		if ( testDate.get(4) > splitOption[1] ) { return true; }
-		return false;
+		return ( testDate.get(4) > splitOption[1] );
 	},
 	validHours : function ( testDate ) {
 		/* return true if the hour *IS VALID* */
@@ -438,15 +424,11 @@ JTSageDateBox._ThemeDateCK = {
 
 		if ( typeof this.originalDate === "undefined" ) { return false; }
 		
-		if ( this.originalDate.iso() === testDate.iso() ) {
-			return true;
-		}
-		return false;
+		return ( this.originalDate.iso() === testDate.iso() );
 	},
 	today : function ( testDate ) {
 		if ( this.options.slideHighToday === false ) { return false; }
-		if ( this.realToday.iso() === testDate.iso() ) { return true; }
-		return false;
+		return ( this.realToday.iso() === testDate.iso() );
 	},
 	highDates : function ( testDate ) {
 		/* Return true if found */
@@ -454,10 +436,7 @@ JTSageDateBox._ThemeDateCK = {
 
 		if ( testOption === false ) { return false; }
 
-		if ( testOption.indexOf( testDate.iso() ) > -1 ) {
-			return true;
-		}
-		return false;
+		return ( testOption.indexOf( testDate.iso() ) > -1 );
 	},
 	highDatesAlt : function ( testDate ) {
 		/* Return true if found */
@@ -465,10 +444,7 @@ JTSageDateBox._ThemeDateCK = {
 
 		if ( testOption === false ) { return false; }
 
-		if ( testOption.indexOf( testDate.iso() ) > -1 ) {
-			return true;
-		}
-		return false;
+		return ( testOption.indexOf( testDate.iso() ) > -1 );
 	},
 	highDatesRec : function ( testDate ) {
 		/* return true if the date is listed in the recurring dates */
@@ -491,9 +467,6 @@ JTSageDateBox._ThemeDateCK = {
 
 		if ( testOption === false ) { return false; }
 
-		if ( testOption.indexOf( testDate.getDay() ) > -1 ) {
-			return true;
-		}
-		return false;
+		return ( testOption.indexOf( testDate.getDay() ) > -1 );
 	}
 };
