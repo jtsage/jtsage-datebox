@@ -120,6 +120,12 @@ If you prefer to have the files elsewhere, complete (all modes) builds are avail
 <script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-jqm@{{cnf:version}}/jtsage-datebox.min.js" type="text/javascript"></script>
 ```
 
+##### UIKit
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-uikit@{{cnf:version}}/jtsage-datebox.min.js" type="text/javascript"></script>
+```
+
 ### Language / Localization
 
 You should (but are not required) to include at least one language file. The defaults in DateBox are sort of an international english, with a bent of following ISO-8601. To find the most appropriate language, browse the list on the [i18n CDN](https://cdn.jsdelivr.net/npm/jtsage-datebox-i18n/). It is also possible to serve the ".lang" file and leverage the ___useLang___ option (discussed later).
