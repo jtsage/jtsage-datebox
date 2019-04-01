@@ -51,7 +51,7 @@ JTSageDateBox.open = function () {
 			.append( $( w.style_mainHead(
 				w.d.headerText,
 				o.theme_headerTheme,
-				o.theme_headerBtn,
+				o.theme_headerBtn
 			) ) )
 			.find( ".dbCloser" ).on( o.clickEvent, function( e ) {
 				e.preventDefault();

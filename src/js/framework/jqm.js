@@ -187,7 +187,7 @@ JTSageDateBox.style_btnGrpOut = function ( collapse, inner ) {
  * @param  {string} Theme class
  * @return {object} jQuery object now wrapped with some sort of div
  */
-JTSageDateBox.style_inWrap = function ( originalInput, /* theme */ ) {
+JTSageDateBox.style_inWrap = function ( originalInput ) {
 	return originalInput.parent().addClass("ui-input-has-clear");
 };
 
@@ -200,7 +200,7 @@ JTSageDateBox.style_inWrap = function ( originalInput, /* theme */ ) {
  * @param  {string} title Hover text for the button
  * @return {string} Rendered HTML of the open button
  */
-JTSageDateBox.style_inBtn = function ( icon, title, /* theme */ ) {
+JTSageDateBox.style_inBtn = function ( icon, title ) {
 	return "<a href='javascript: return false;' " +
 			"class='ui-input-clear ui-btn ui-icon-" + icon +
 			" ui-btn-icon-notext ui-corner-all' " +

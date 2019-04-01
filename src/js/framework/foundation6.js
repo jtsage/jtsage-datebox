@@ -172,7 +172,7 @@ JTSageDateBox.style_btnGrp = function ( collapse ) {
  * @param  {string} Theme class
  * @return {object} jQuery object now wrapped with some sort of div
  */
-JTSageDateBox.style_inWrap = function ( originalInput, /* theme */ ) {
+JTSageDateBox.style_inWrap = function ( originalInput ) {
 	originalInput.addClass("input-group-field");
 	return originalInput.wrap("<div class='input-group'>").parent();
 };
@@ -199,7 +199,7 @@ JTSageDateBox.style_inBtn = function ( icon, title, theme ) {
  * 
  * @param  {object} originalInputWrap jQuery object
  */
-JTSageDateBox.style_inNoBtn = function ( /* originalInputWrap */ ) {
+JTSageDateBox.style_inNoBtn = function ( ) {
 	return true;
 };
 
@@ -450,7 +450,7 @@ JTSageDateBox.style_dboxRow = function () {
  * @param {string} inTheme Theme for inputs
  * @returns {object} jQuery Object
  */
-JTSageDateBox.style_dboxCtrl = function ( prevBtn, nextBtn, mainCls, label, /* inTheme */ ) {
+JTSageDateBox.style_dboxCtrl = function ( prevBtn, nextBtn, mainCls, label ) {
 	var returnVal = "";
 
 	returnVal += "<td class='dbBox" + mainCls + "'>";

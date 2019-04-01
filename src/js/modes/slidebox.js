@@ -164,7 +164,7 @@ JTSageDateBox._build.slidebox = function () {
 
 	calCntlRow.append( w.style_slideCtrl(
 		"dbSlideWkPrev",
-		o.theme_slide_PrevDateBtn,
+		o.theme_slide_PrevDateBtn
 	) );
 
 	for ( cntlCol = -3; cntlCol <= 3; cntlCol++ ) {
@@ -188,7 +188,7 @@ JTSageDateBox._build.slidebox = function () {
 
 	calCntlRow.append( w.style_slideCtrl(
 		"dbSlideWkNext",
-		o.theme_slide_NextDateBtn,
+		o.theme_slide_NextDateBtn
 	) );
 	
 	// Deal with RTL languages (flex is easiest)

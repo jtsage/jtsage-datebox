@@ -157,7 +157,7 @@ JTSageDateBox.style_btnGrp = function ( collapse ) {
  * @param  {string} theme Theme class
  * @return {object} jQuery object now wrapped with some sort of div
  */
-JTSageDateBox.style_inWrap = function ( originalInput, /* theme */ ) {
+JTSageDateBox.style_inWrap = function ( originalInput ) {
 	return originalInput.wrap("<div class='input-group'>").parent();
 };
 
@@ -435,7 +435,7 @@ JTSageDateBox.style_dboxRow = function () {
  * @param {string} inTheme Theme for inputs
  * @returns {object} jQuery Object
  */
-JTSageDateBox.style_dboxCtrl = function ( prevBtn, nextBtn, mainCls, label, /* inTheme */ ) {
+JTSageDateBox.style_dboxCtrl = function ( prevBtn, nextBtn, mainCls, label ) {
 	var returnVal = "";
 
 	returnVal += "<div class='btn-group-vertical flex-fill dbBox" + mainCls + "'>";
@@ -598,7 +598,7 @@ JTSageDateBox.style_fboxDurLbl = function ( text, items ) {
  * @param {number} total Number of items
  * @returns {object} jQuery Object
  */
-JTSageDateBox.style_fboxRollCtr = function ( /* total */ ) {
+JTSageDateBox.style_fboxRollCtr = function () {
 	return $( "<div class='flex-fill'>" );
 };
 

@@ -172,7 +172,7 @@ JTSageDateBox.style_inWrap = function ( originalInput, theme ) {
  * @param  {string} title Hover text for the button
  * @return {string} Rendered HTML of the open button
  */
-JTSageDateBox.style_inBtn = function ( icon, title, /* theme */ ) {
+JTSageDateBox.style_inBtn = function ( icon, title ) {
 	return "<div class='input-group-addon dbOpenButton' title='" + title + "'>" +
 		"<span>" + this.icons.getIcon(icon) + "</span>" +
 		"</div>";
@@ -429,7 +429,7 @@ JTSageDateBox.style_dboxRow = function () {
  * @param {string} inTheme Theme for inputs
  * @returns {object} jQuery Object
  */
-JTSageDateBox.style_dboxCtrl = function ( prevBtn, nextBtn, mainCls, label, /* inTheme */ ) {
+JTSageDateBox.style_dboxCtrl = function ( prevBtn, nextBtn, mainCls, label ) {
 	var returnVal = "";
 
 	returnVal += "<td><div class='btn-group-vertical dbBox" + mainCls + "'>";
