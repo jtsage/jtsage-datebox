@@ -18,28 +18,18 @@
  */
 
 mergeOpts({
-	theme_clearBtnCls : "a",
-	theme_clearBtnIcn : "recycle",
-
-	theme_closeBtnCls : "a",
-	theme_closeBtnIcn : "check",
-
-	theme_cancelBtnCls : "a",
-	theme_cancelBtnIcn : "delete",
-
-	theme_tomorrowBtnCls : "a",
-	theme_tomorrowBtnIcn : "action",
-
-	theme_todayBtnCls : "a",
-	theme_todayBtnIcn : "action",
+	theme_clearBtn       : [ "recycle", "a" ],
+	theme_closeBtn       : [ "check",   "a" ],
+	theme_cancelBtn      : [ "delete",  "a" ],
+	theme_tomorrowBtn    : [ "action",  "a" ],
+	theme_todayBtn       : [ "action",  "a" ],
 
 	theme_dropdownContainer : "ui-body-a",
 	theme_modalContainer    : "ui-body-a",
 	theme_inlineContainer   : "ui-body-a",
 
 	theme_headerTheme  : "inherit",
-	theme_headerBtnCls : "a",
-	theme_headerBtnIcn : "delete",
+	theme_headerBtn    : [ "delete", "a" ],
 	theme_openButton   : false, // UN-USED
 
 	theme_cal_Today       : "b",
@@ -51,18 +41,14 @@ mergeOpts({
 	theme_cal_Default     : "a",
 	theme_cal_OutOfBounds : "a",
 
-	theme_cal_NextBtnIcn : "plus",
-	theme_cal_NextBtnCls : "a",
-	theme_cal_PrevBtnIcn : "minus",
-	theme_cal_PrevBtnCls : "a",
+	theme_cal_NextBtn : [ "plus",  "a" ],
+	theme_cal_PrevBtn : [ "minus", "a" ],
 
 	theme_cal_Pickers  : "a",
 	theme_cal_DateList : "a",
 
-	theme_dbox_NextBtnIcn : "plus",
-	theme_dbox_NextBtnCls : "outline-dark",
-	theme_dbox_PrevBtnIcn : "minus",
-	theme_dbox_PrevBtnCls : "outline-dark",
+	theme_dbox_NextBtn    : [ "plus",  "a" ],
+	theme_dbox_PrevBtn    : [ "minus", "a" ],
 	theme_dbox_Inputs     : "inherit",
 
 	theme_fbox_Selected   : "a ui-flipswitch-active",
@@ -78,14 +64,10 @@ mergeOpts({
 	theme_slide_DateHighRec : "b",
 	theme_slide_Default     : "a",
 
-	theme_slide_NextBtnIcn     : "plus",
-	theme_slide_NextBtnCls     : "a",
-	theme_slide_PrevBtnIcn     : "minus",
-	theme_slide_PrevBtnCls     : "a",
-	theme_slide_NextDateBtnIcn : "carat-r",
-	theme_slide_NextDateBtnCls : "a",
-	theme_slide_PrevDateBtnIcn : "carat-l",
-	theme_slide_PrevDateBtnCls : "a",
+	theme_slide_NextBtn     : [ "plus",    "a" ],
+	theme_slide_PrevBtn     : [ "minus",   "a" ],
+	theme_slide_NextDateBtn : [ "carat-r", "a" ],
+	theme_slide_PrevDateBtn : [ "carat-l", "a" ],
 
 	theme_slide_Pickers  : "a",
 	theme_slide_DateList : "a",
@@ -99,7 +81,7 @@ mergeOpts({
 		backgroundColor   : "rgba(0,0,0,.4)"
 	},
 	theme_headStyle : " .center { text-align: center !important; } .p0 { padding: 0 !important; }" +
-		".m0 { margin: 0 !important; } w-100 { width: 100% !important; }",
+		".m0 { margin: 0 !important; } .w-100 { width: 100% !important; }",
 	theme_spanStyle : false,
 
 	buttonIconDate : "calendar",
@@ -111,546 +93,622 @@ mergeOpts({
 	tranDone   : "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
 });
 
-JTSageDateBox.baseMode = "jqm";
 
-JTSageDateBox.styleFunctions = {
-	/*
-     * Make a button
-     */
-	button                : function( themeClass, icon, contents ) {
-		var retty;
 
-		retty  = "<a href='#' role='button' class='ui-btn ui-mini ui-btn-" + themeClass + "";
-		retty += ( icon !== false ) ? " ui-icon-" + icon : "";
-		retty += ( contents === "" ) ? " ui-corner-all ui-btn-icon-notext" : " ui-btn-icon-left";
-		retty += "'>" + contents + "</a>";
+/*
+ * Find the attacment point for the control
+ * 
+ * @param {boolean} isInline control is being inlined
+ * @returns {object} jQuery attachment point
+ */
+JTSageDateBox.style_attach = function( isInline ) {
+	var w               = this,
+		possibleAttach  = w.d.wrap.parent(),
+		hardAttachPoint = $( "body" ).find( "#" + w.baseID + "-dbAttach" );
+		
 
-		return retty;
-	},
+	// If [id]-dbAttach exists, that's the attachment point, always.
+	if ( hardAttachPoint.length === 1 ) { return hardAttachPoint; }
 
-	/*
-	 * Make a button group
-	 */
-	buttonGroup           : function ( ) {
-		return $("<div style='margin: 0 .446em' class='ui-controlgroup-controls'>");
-	},
+	// Not inline, either modal or popup
+	if ( !isInline ) {
+		possibleAttach = $( ".ui-page-active" );
+		if ( possibleAttach.length === 1 ) { return possibleAttach; }
+		
+		possibleAttach = w.d.input.closest( "[data-role='page']");
+		if ( possibleAttach.length === 1 ) { return possibleAttach; }
+		
+		return $( "body" );
+	}
 
-	buttonGroupOutside    : function ( collapse, inner ) {
-		// DOES NOT WORK YET.
-		var cls = ( collapse === true ) ? "ui-controlgroup-horizontal" : "ui-controlgroup-vertical";
+	// Inline or blind
+	if ( possibleAttach.hasClass( "ui-field-contain" ) ) {
+		return possibleAttach;
+	} else {
+		return w.d.wrap;
+	}
+};
 
-		inner.find( ".ui-btn" ).last().addClass( "ui-last-child" );
-		return $("<div class='ui-controlgroup " + cls + "'>").append( inner );
-	},
+/*
+ * Make a button
+ * 
+ * @param  {array} theme Theme class and icon for the button
+ * @param  {string} contents Text contents of the button (if any)
+ * @return {string} Created button
+ */
 
-	/*
-	 * Wrap the original input in a div so we can add a button to it (not really in this mode.)
-	 */
-	baseInputWrap         : function ( originalInput ) {
-		/* Set up a wrap around the input for styling, and return it */
-		return originalInput.parent().addClass("ui-input-has-clear");
-	},
+JTSageDateBox.style_btn = function( theme, contents ) {
+	var retty;
 
-	/*
-	 * Create the open button that is added to the input
-	 */
-	baseInputButton       : function ( icon, title ) {
-		return "<a href='javascript: return false;' " +
+	contents = ( typeof contents === "undefined" ) ? "" : contents;
+
+	retty  = "<a href='#' role='button' class='ui-btn ui-mini ui-btn-" + theme[1] + "";
+	retty += ( theme[0] !== false ) ? " ui-icon-" + theme[0] : "";
+	retty += ( contents === "" ) ? " ui-corner-all ui-btn-icon-notext" : " ui-btn-icon-left";
+	retty += "'>" + contents + "</a>";
+
+	return retty;
+};
+
+/*
+ * Make a button group
+ * 
+ * @param  {boolean} collapse Attempt to display buttons on one line
+ * @return {object} jQuery object of a button group that buttons can be appended to
+ */
+JTSageDateBox.style_btnGrp = function ( collapse ) {
+	var style = ( collapse ) ?
+		"margin: 0 auto;" :
+		"margin: 0 .446em";
+
+	return $("<div style='" + style + "' class='ui-controlgroup-controls'>");
+};
+
+/*
+ * Make a button group, outside wrapper (optional!!)
+ * 
+ * @param {boolean} collapse Collapse to one line
+ * @param {object} inner Inner HTML (jQuery)
+ * @return {object} jQuery
+ */
+JTSageDateBox.style_btnGrpOut = function ( collapse, inner ) {
+	var cls = ( collapse === true ) ? "ui-controlgroup-horizontal" : "ui-controlgroup-vertical",
+		style = ( collapse === true ) ? "style='text-align:center'" : "";
+
+	inner.find( ".ui-btn" ).last().addClass( "ui-last-child" );
+	inner.find( ".ui-btn" ).first().addClass( "ui-first-child" );
+	return $("<div " + style + " class='ui-controlgroup " + cls + "'>").append( inner );
+},
+
+/*
+ * Wrap the original input in a div so we can add a button to it
+ * 
+ * @param  {object} originalInput Original input element, jQuery object
+ * @param  {string} Theme class
+ * @return {object} jQuery object now wrapped with some sort of div
+ */
+JTSageDateBox.style_inWrap = function ( originalInput, /* theme */ ) {
+	return originalInput.parent().addClass("ui-input-has-clear");
+};
+
+/*
+ * Create the open button that is added to the input
+ * 
+ * MUST contain dbOpenButton class. (outer)
+ * 
+ * @param  {string} icon Icon to use (name or SVG)
+ * @param  {string} title Hover text for the button
+ * @return {string} Rendered HTML of the open button
+ */
+JTSageDateBox.style_inBtn = function ( icon, title, /* theme */ ) {
+	return "<a href='javascript: return false;' " +
 			"class='ui-input-clear ui-btn ui-icon-" + icon +
 			" ui-btn-icon-notext ui-corner-all' " +
 			"title='" + title + "'>" + title + "</a>";
-	},
-
-	/*
-	 * When not using the open button, we may need to alter the wrap class differently
-	 */
-	baseInputNoButton     : function ( originalInputWrap ) {
-		originalInputWrap.parent().removeClass( "ui-has-clear" );
-	},
-
-	/*
-	 * Run when the input is focused
-	 */
-	focusInput            : function ( ) {
-		return true;
-	},
-
-	/*
-	 * Run when the input is un-focused
-	 */
-	blurInput             : function ( ) {
-		return true;
-	},
-
-	/*
-	 * Make the header for every mode
-	 */
-	widgetHeader          : function ( text, themeBar, themeIcon, icon ) {
-		return "<div class='ui-header ui-bar-" + themeBar + "'>" +
-			"<h1 class='ui-title'>" + text + "</h5>" +
-			this.styleFunctions.button.apply(
-				this,
-				[ themeIcon + " dbCloser ui-btn-right", icon, "" ]
-			) +
-			"</div>";
-	},
-
-	/*
-	 * Make an internal header ( datebox & flipbox )
-	 */
-	intHeader             : function ( text ) {
-		return $(
-			"<div class='dbHeader'>" +
-			"<h3 class='center'>" + text + "</h3>" +
-			"</div>"
-		);
-	},
-
-	/*
-	 * Make the header for something (month, year, prev/next buttons)
-	 */
-	genHeader             : function ( txt, icn1, cls1, icn2, cls2, ctl1, ctl2 ) {
-		var returnVal = $("<div class='ui-header' style='border:0; padding: 0 3px 8px;'>");
-
-		$( this.styleFunctions.button.apply( this, [
-			cls1 + " ui-btn-left " + ctl1,
-			icn1,
-			""
-		] ) ).appendTo( returnVal );
-
-		$("<h1 class='ui-title' style='margin: 0 15%'>" + txt + "</h1>").appendTo( returnVal );
-
-		$( this.styleFunctions.button.apply( this, [
-			cls2 + " ui-btn-right " + ctl2,
-			icn2,
-			""
-		] ) ).appendTo( returnVal );
-
-		return returnVal;
-	},
-
-	/*
-	 * Make the header for calbox (month, year, prev/next buttons)
-	 */
-	calHeader             : function ( txt, prevIcn, prevCls, nextIcn, nextCls ) {
-		return this.styleFunctions.genHeader.apply( this, [
-			txt,
-			prevIcn,
-			prevCls,
-			nextIcn,
-			nextCls,
-			"dbCalPrev",
-			"dbCalNext"
-		] );
-	},
-
-	/*
-	 * Create the calbox grid container.  Probably a table
-	 */
-	calGrid               : function () {
-		return $(
-			"<div><table class='dbCalGrid w-100'></table></div>"
-		);
-	},
-
-	/*
-	 * Create a calbox grid row.  Probably a tr
-	 */
-	calRow                : function () {
-		return $( "<tr>" );
-	},
-
-	/*
-	 * Create a clickable box for each grid item in calbox.
-	 */
-	calButton             : function ( data, totalElements ) {
-		var styles_TD = "width:" + ( 100 / totalElements ) + "%",
-			styles_A  = [
-				"padding-right:0",
-				"padding-left:0"
-			],
-			class_A   = [
-				"dbEvent",
-				"ui-btn",
-				"ui-mini",
-				"m0",
-				"ui-btn-" + data.theme,
-				( data.bad ? "ui-disabled" : "" )
-			],
-			disable   = ( data.bad ? "disabled='disabled'" : "");
-		
-		return $(
-			"<td class='p0 m0' style='" + styles_TD + "'>" +
-			"<a style='" + styles_A.join( ";" ) +
-				"' class='" + class_A.join( " " ) + "' href='#' " + disable + ">" +
-			data.displayText +
-			"</a></td>"
-		);
-	},
-
-	/*
-	 * Create a non-button calbox grid box
-	 */
-	calNonButton          : function ( text, header, totalElements ) {
-		var styles = [
-			"width:" + ( 100 / totalElements ) + "%",
-			( header ) ? "font-weight:bold" : ""
-		];
-
-		return $("<td class='p0 m0 center' style='" + styles.join( ";" ) + "'>" + text + "</td>");
-	},
-
-	/* Generic pickers */
-	genPickers            : function ( ranges, theme, ctlMonth, ctlYear ) {
-		var i         = 0,
-			returnVal = "<div style='padding-bottom: 8px' class='" +
-			"ui-controlgroup ui-controlgroup-horizontal ui-corner-all ui-mini'>";
-
-		returnVal += "<div class='ui-controlgroup-controls w-100'>";
-
-		returnVal += "<div class='ui-select' style='width:60%'>";
-		returnVal += "<div id='" + ctlMonth + "-button' class='ui-btn-" + theme +
-			" ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow ui-first-child'>";
-
-		for ( i = 0; i < ranges.month.length; i++ ) {
-			if ( ranges.month[i][2] === true ) {
-				returnVal += "<span>" + ranges.month[i][1] + "</span>";
-			}
-		}
-		returnVal += this._stdSel( ranges.month, ctlMonth, "" );
-		returnVal += "</div></div>";
-
-		returnVal += "<div class='ui-select' style='width:40%'>";
-		returnVal += "<div id='" + ctlYear + "-button' class='ui-btn-" + theme +
-			" ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow ui-last-child'>";
-
-		for ( i = 0; i < ranges.year.length; i++ ) {
-			if ( ranges.year[i][2] === true ) {
-				returnVal += "<span>" + ranges.year[i][1] + "</span>";
-			}
-		}
-		returnVal += this._stdSel( ranges.year, ctlYear, "" );
-		returnVal += "</div></div>";
-
-		returnVal += "</div></div>";
-
-		return $(returnVal);
-	},
-
-	/*
-	 * Create the year and month picker for calbox.
-	 */
-	calPickers            : function ( ranges, theme ) {
-		return this.styleFunctions.genPickers.apply(
-			this,
-			[ ranges, theme, "dbCalPickMonth", "dbCalPickYear" ]
-		);
-	},
-
-	/*
-	 * Make the calendar drop down quick pick list.
-	 */
-	genDateList           : function ( listLabel, list, theme, ctl ) {
-		var returnVal = "",
-			newList = list.slice();
-
-		newList.unshift([false, listLabel, true]);
-
-		returnVal += "<div class='ui-select'>";
-		returnVal += "<div id='" + ctl + "-button' style='margin: 0 .446em 8px;' class='" +
-			"ui-mini ui-btn ui-icon-carat-d ui-btn-" + theme + " ui-btn-icon-right ui-corner-all'>";
-		
-		returnVal += "<span>" + listLabel + "</span>";
-		returnVal += this._stdSel( newList, ctl, "" );
-		returnVal += "</div></div>";
-
-		return $(returnVal);
-	},
-
-	calDateList           : function ( listLabel, list, theme ) {
-		return this.styleFunctions.genDateList.apply(
-			this,
-			[ listLabel, list, theme, "dbCalPickList" ]
-		);
-	},
-
-	/*
-	 * Make the datebox mode container.
-	 */
-	dboxContainer         : function () {
-		return $("<table class='w-100'>");
-	},
-
-	/*
-	 * Make the datebox control row
-	 */
-	dboxRow               : function () {
-		return $("<tr>");
-	},
-
-	/*
-	 * Make a datebox +/-/input control
-	 */
-	dboxControl           : function ( prevIcn, prevCls, nextIcn, nextCls, mainCls, label, inCls ) {
-		var returnVal = "";
-
-		returnVal += "<td class='dbBox" + mainCls + "'>";
-
-		returnVal += "<a href='#' role='button' class='ui-corner-all ui-btn ui-mini ui-btn-";
-		returnVal += nextCls + " ui-icon-" + nextIcn + " ui-btn-icon-top dbBoxNext m0' ";
-		returnVal += "style='padding-top:2.1em; border-bottom-left-radius:0;" +
-			"border-bottom-right-radius:0;'>";
-		returnVal += "</a>";
-
-
-		if ( label !== null ) {
-			returnVal += "<div class='m0 center ui-input-text ui-body-inherit' " +
-				"style='height:auto; padding: .3em 0;'>" +
-				label + "</div>";
-		}
-
-		returnVal += "<div class='m0 ui-input-text ui-mini ui-body-" + inCls + "'>";
-		returnVal += "<input class='p0 center' type='text'></div>";
-
-		
-		returnVal += "<a href='#' role='button' class='ui-corner-all ui-btn ui-mini ui-btn-";
-		returnVal += prevCls + " ui-icon-" + prevIcn + " ui-btn-icon-top dbBoxPrev m0' ";
-		returnVal += "style='padding-top:2.1em; border-top-left-radius:0;" +
-			"border-top-right-radius:0;'>";
-		returnVal += "</a>";
-
-		returnVal += "</div>";
-
-		return $(returnVal);
-	},
-
-	/*
-	 * Make the container for the flipbox
-	 */
-	fboxContainer         : function ( size ) {
-		return $(
-			"<div style='margin: 0 5px 8px; height: " +
-			size +
-			"; overflow: hidden'>"
-		);
-	},
-
-	/*
-	 * Make a container for flipbox labels
-	 */
-	fboxDurLabels         : function ( ) {
-		return $(
-			"<div style='margin: 5px;'>"
-		);
-	},
-
-	/*
-	 * Make a flibox label
-	 */
-	fboxDurLabel          : function ( text, items ) {
-		return $(
-			"<div class='center' " +
-			"style='display:inline-block; width: " + ( 100 / items ) + "%'>" +
-			text +
-			"</div>"
-		);
-	},
-
-	/*
-	 * Make a flipbox roller container (outermost)
-	 */
-	fboxRollerContain     : function ( totalItems ) {
-		return $( "<div style='float:left; width:" + ( 100 / totalItems ) + "%'>" );
-	},
-
-	/*
-	 * Make a flipbox roller container (middle) - usually a UL
-	 */	
-	fboxRollerParent      : function () {
-		return $( "<ul style='list-style-type: none; display: inline;'>" );
-	},
-
-	/*
-	 * Make a flipbox element (innermost) - usually a LI
-	 */
-	fboxRollerChild       : function ( text, cls ) {
-		return $(
-			"<li style='height: 30px; line-height: 30px;' class='center ui-body-" +
-			cls + "'>" + text + "</li>"
-		);
-	},
-
-	/*
-	 * Make the flipbox lens
-	 */
-	fboxLens              : function () {
-		return $(
-			"<div style='width: 96%; height: 40px; border: 1px solid #eee; margin: 0 1.5%;' " +
-			"class='ui-overlay-shadow'>"
-		);
-	},
-
-	/*
-	 * Make the header for slidebox
-	 */
-	slideHeader           : function ( txt, prevBtnIcn, prevBtnCls, nextBtnIcn, nextBtnCls ) {
-		return this.styleFunctions.genHeader.apply( this, [
-			txt,
-			prevBtnIcn,
-			prevBtnCls,
-			nextBtnIcn,
-			nextBtnCls,
-			"dbSlidePrev",
-			"dbSlideNext"
-		] );
-	},
-
-	/*
-	 * Create the year and month picker for slide.
-	 */
-	slidePickers            : function ( ranges, theme ) {
-		return this.styleFunctions.genPickers.apply(
-			this,
-			[ ranges, theme, "dbSlidePickMonth", "dbSlidePickYear" ]
-		);
-	},
-
-	/*
-	 * Make the slidebox drop down quick pick list.
-	 */
-	slideDateList           : function ( listLabel, list, theme ) {
-		return this.styleFunctions.genDateList.apply(
-			this,
-			[ listLabel, list, theme, "dbSlidePickList" ]
-		);
-	},
-
-	/*
-	 * Make the grid container for slidebox (usually a table)
-	 */
-	slideGrid               : function () {
-		return $( "<div><table class='dbSlideGrid w-100'></table></div>" );
-	},
-
-	/*
-	 * Make the grid for for slidebox (usually a TR)
-	 */
-	slideRow                : function () {
-		return $( "<tr>" );
-	},
-
-	/*
-	 * Create a clickable box for each grid date in slidebox.
-	 */
-	slideDateButton         : function ( data ) {
-		var style   = " style='width: " + ( ( 100 / 8 ) ) + "%'",
-			disable = ( data.bad ? "disabled='disabled'" : ""),
-			cls     = "class='m0 dbEventS w-100 ui-btn ui-mini ui-btn-" +
-				data.theme + ( data.bad ? " disabled":"" ) + "'";
-
-		return $("<td class='m-0 p-0 text-center'" + style + ">" +
-			"<a style='padding:.7em 0;' href='#' " + cls + " " + disable + ">" +
-			"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
-			"</small><br>" + data.dateObj.getDate() +
-			"</a>" + "</td>");
-	},
-
-	/*
-	 * Create next/prev week buttons for slidebox
-	 */
-	slideMoveButton         : function ( eventCls, icon, theme ) {
-		var style = " style='width: " + ( ( 100 / 8 ) / 2 ) + "%'",
-			cls   = "class='m0 ui-corner-all ui-btn ui-mini ui-btn-icon-notext ui-btn-" +
-				theme + " " + eventCls + " ui-icon-" + icon + "'";
-
-		return $(
-			"<td " + style + ">" +
-			"<a href='#' " + cls + "></a></td>"
-		);
-	},
-
-	/*
-	 * Position the flip elements.  Overrides the base function if it exists
-	 */
-	flipPosition            : function () {
-		var fullRoller, firstItem, height_Roller, intended_Top,
-			w                 = this,
-			o                 = this.options,
-			height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight(),
-			theLens           = w.d.intHTML.find( ".dbLens" ).first(),
-			height_Lens       = theLens.outerHeight();
-		
-		// Lens top:
-		// Negative Half the parent height is center.
-		// Add Negative half the lens height.
-		intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
-		theLens.css( {
-			top          : intended_Top + -3,
-			marginBottom : -1 * height_Lens
-		} );
-		
-		w.d.intHTML.find( ".dbRoller" ).each( function() {
-			fullRoller    = $(this);
-			firstItem     = fullRoller.children().first();
-
-			// No RE-DO's, if it has a style, it's probably right.
-			if ( firstItem.css( "marginTop" ) === "0px" ) {
-					
-				height_Roller = (fullRoller.children().length + 1 ) * firstItem.outerHeight();
-
-				// Negative Half the height of the roller ( gets center to top border of view)
-				// Add half of the view container height.
-				intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Outside / 2 );
-
-				if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
-
-				firstItem.css("margin-top", intended_Top);
-			}
-		});
-	},
-
-	/*
-	 * Find the attacment point for the control
-	 */
-	findAttachPoint : function( isInline ) {
-		var w               = this,
-			possibleAttach  = w.d.wrap.parent(),
-			hardAttachPoint = $( "body" ).find( "#" + w.baseID + "-dbAttach" );
-			
-
-		// If [id]-dbAttach exists, that's the attachment point, always.
-		if ( hardAttachPoint.length === 1 ) { return hardAttachPoint; }
-
-		// Not inline, either modal or popup
-		if ( !isInline ) {
-			possibleAttach = $( ".ui-page-active" );
-			if ( possibleAttach.length === 1 ) { return possibleAttach; }
-			
-			possibleAttach = w.d.input.closest( "[data-role='page']");
-			if ( possibleAttach.length === 1 ) { return possibleAttach; }
-			
-			return $( "body" );
-		}
-
-		// Inline or blind
-		if ( possibleAttach.hasClass( "ui-field-contain" ) ) {
-			return possibleAttach;
-		} else {
-			return w.d.wrap;
-		}
-	},
-
-	/*
-	 * Hide the input element completely.
-	 */
-	hideInput : function() {
-		var w = this,
-			hideMe = w.d.wrap.parent();
-
-		if ( hideMe.hasClass("ui-field-contain") ) {
-			hideMe.hide();
-		} else {
-			w.d.wrap.hide();
-		}
+};
+
+/*
+ * When not using the open button, we may need to alter the wrap class differently
+ * 
+ * @param  {object} originalInputWrap jQuery object
+ */
+JTSageDateBox.style_inNoBtn = function ( originalInputWrap ) {
+	originalInputWrap.parent().removeClass( "ui-has-clear" );
+};
+
+/*
+ * Hide the input element completely.
+ */
+JTSageDateBox.style_inHide = function() {
+	var w      = this,
+		hideMe = w.d.wrap.parent();
+
+	if ( hideMe.hasClass( "ui-field-contain" ) ) {
+		hideMe.hide();
+	} else {
+		w.d.wrap.hide();
 	}
 };
+
+/*
+ * Make the header for every mode
+ * 
+ * Close button MUST include the "dbCloser" class.
+ * 
+ * @param  {string} text Text of the header
+ * @param  {string} themeBar Theme class for the header
+ * @param  {string} themeButton Icon & Theme for the close button
+ * @return {string} Rendered HTML
+ */
+JTSageDateBox.style_mainHead = function ( text, themeBar, themeButton ) {
+	return "<div class='ui-header ui-bar-" + themeBar + "'>" +
+		"<h1 class='ui-title'>" + text + "</h5>" +
+		this.style_btn( [
+			themeButton[0],
+			themeButton[1] + " dbCloser ui-btn-right"
+		] ) +
+		"</div>";
+},
+
+/*
+ * Make an internal header ( datebox & flipbox )
+ * 
+ * MUST have the "dbHeader" class
+ * 
+ * @param  {string} text Text to display
+ * @return {object} jQuery object
+ */
+JTSageDateBox.style_subHead =  function ( text ) {
+	return $(
+		"<div class='dbHeader'>" +
+		"<h3 class='center'>" + text + "</h3>" +
+		"</div>"
+	);
+},
+
+/*
+ * Make the header for calbox / slidebox
+ * 
+ * @param  {string} txt Text to display
+ * @param  {string} prevBtn Previous button icon (name or SVG) & class
+ * @param  {string} nextBtn Next button icon (name or SVG) & class
+ * @param  {string} prevCtl Control class for previous button
+ * @param  {string} nextCtl Control class for next button
+ * @return {object} jQuery Object
+ */
+JTSageDateBox.style_pnHead = function ( txt, prevBtn, nextBtn, prevCtl, nextCtl ) {
+	var returnVal = $("<div class='ui-header' style='border:0; padding: 0 3px 8px;'>");
+
+	$( this.style_btn( [
+		prevBtn[0],
+		prevBtn[1] + " ui-btn-left " + prevCtl
+	] ) ).appendTo( returnVal );
+
+	$("<h1 class='ui-title' style='margin: 0 15%'>" + txt + "</h1>").appendTo( returnVal );
+
+	$( this.style_btn( [
+		nextBtn[0],
+		nextBtn[1] + " ui-btn-right " + nextCtl
+	] ) ).appendTo( returnVal );
+
+	return returnVal;
+};
+
+/*
+ * Create the year and month picker for calbox / slidebox
+ * 
+ * @param {object} ranges Year and Month arrays
+ * @param {array} ranges.year Containing arrays of [ value, text, selected (boolean) ]
+ * @param {array} ranges.month Containing arrays of [ value, text, selected (boolean) ]
+ * @param {string} theme Theme class for controls
+ * @param {string} monthCtl Control class for month picker
+ * @param {string} yearCtl Control class for year picker
+ * @return {object} jQuery Object
+ */
+JTSageDateBox.style_picker =  function ( ranges, theme, monthCtl, yearCtl ) {
+	var i         = 0,
+		returnVal = "<div style='padding-bottom: 8px' class='" +
+		"ui-controlgroup ui-controlgroup-horizontal ui-corner-all ui-mini'>";
+
+	returnVal += "<div class='ui-controlgroup-controls w-100'>";
+
+	returnVal += "<div class='ui-select' style='width:60%'>";
+	returnVal += "<div id='" + monthCtl + "-button' class='ui-btn-" + theme +
+		" ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow ui-first-child'>";
+
+	for ( i = 0; i < ranges.month.length; i++ ) {
+		if ( ranges.month[i][2] === true ) {
+			returnVal += "<span>" + ranges.month[i][1] + "</span>";
+		}
+	}
+	returnVal += this._stdSel( ranges.month, monthCtl, "" );
+	returnVal += "</div></div>";
+
+	returnVal += "<div class='ui-select' style='width:40%'>";
+	returnVal += "<div id='" + yearCtl + "-button' class='ui-btn-" + theme +
+		" ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow ui-last-child'>";
+
+	for ( i = 0; i < ranges.year.length; i++ ) {
+		if ( ranges.year[i][2] === true ) {
+			returnVal += "<span>" + ranges.year[i][1] + "</span>";
+		}
+	}
+	returnVal += this._stdSel( ranges.year, yearCtl, "" );
+	returnVal += "</div></div>";
+
+	returnVal += "</div></div>";
+
+	return $(returnVal);
+};
+
+/*
+ * Make the calbox/slidebox drop down quick pick list.
+ * 
+ * Consider using {@link JTSageDateBox.html#._stdSel__anchor|_stdSel()}
+ *
+ * @param {string} listLabel Label for the list
+ * @param {array} list Containing arrays of [ value, text, selected (boolean) ]
+ * @param {string} theme Theme class
+ * @param {string} ctlCls Control class for select
+ * @return {object} jQuery Object
+ */
+JTSageDateBox.style_dateList = function ( listLabel, list, theme, ctlCls ) {
+	var returnVal = "",
+		newList = list.slice();
+
+	newList.unshift([false, listLabel, true]);
+
+	returnVal += "<div class='ui-select'>";
+	returnVal += "<div id='" + ctlCls + "-button' style='margin: 0 .446em 8px;' class='" +
+		"ui-mini ui-btn ui-icon-carat-d ui-btn-" + theme + " ui-btn-icon-right ui-corner-all'>";
+	
+	returnVal += "<span>" + listLabel + "</span>";
+	returnVal += this._stdSel( newList, ctlCls, "" );
+	returnVal += "</div></div>";
+
+	return $(returnVal);
+};
+
+
+/* CalBox Specific */
+
+
+/*
+ * Create the calbox grid container.  Probably a table
+ * 
+ * @return {object} jQuery object
+ */
+JTSageDateBox.style_calGrid = function () {
+	return $( "<div><table class='dbCalGrid w-100'></table></div>" );
+};
+
+/*
+ * Create a calbox grid row.  Probably a tr
+ * 
+ * @return {object} jQuery object
+ */
+JTSageDateBox.style_calRow = function () {
+	return $( "<tr>" );
+};
+
+/*
+ * Create a clickable box for each grid item in calbox.
+ * 
+ * MUST have the "dbEvent" class
+ * 
+ * @param {object}  data             Date information object
+ * @param {boolean} data.bad         True if the date is invalid
+ * @param {boolean} data.good        True if the date is valid
+ * @param {string}  data.theme       Theme class for the button
+ * @param {string}  data.displayText Text of the date
+ * @param {object}  data.dateObj     Date object
+ * 
+ * @param  {number} totalElements Number of elements in the row ( 7 or 8 )
+ * @return {object} jQuery Object
+ */
+JTSageDateBox.style_calBtn =  function ( data, totalElements ) {
+	var styles_TD = "width:" + ( 100 / totalElements ) + "%",
+		styles_A  = [
+			"padding-right:0",
+			"padding-left:0"
+		],
+		class_A   = [
+			"dbEvent",
+			"ui-btn",
+			"ui-mini",
+			"m0",
+			"ui-btn-" + data.theme,
+			( data.bad ? "ui-disabled" : "" )
+		],
+		disable   = ( data.bad ? "disabled='disabled'" : "");
+	
+	return $(
+		"<td class='p0 m0' style='" + styles_TD + "'>" +
+		"<a style='" + styles_A.join( ";" ) +
+			"' class='" + class_A.join( " " ) + "' href='#' " + disable + ">" +
+		data.displayText +
+		"</a></td>"
+	);
+};
+
+/*
+ * Create a non-button calbox grid box
+ * 
+ * @param  {string} text Text to display
+ * @param  {boolean} header Is this a header (bold?)
+ * @param  {number} totalElements Number of elements in the row ( 7 or 8 )
+ * @return {object} jQuery object
+ * @memberof JTSageDateBox.styleFunctions
+ * @this JTSageDateBox.styleFunctions
+ */
+JTSageDateBox.style_calTxt = function ( text, header, totalElements ) {
+	var styles = [
+		"width:" + ( 100 / totalElements ) + "%",
+		( header ) ? "font-weight:bold" : ""
+	];
+
+	return $("<td class='p0 m0 center' style='" + styles.join( ";" ) + "'>" + text + "</td>");
+};
+
+
+/* DateBox Specific */
+
+/*
+ * Make the datebox mode container.
+ *
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_dboxCtr = function () {
+	return $( "<table class='w-100'>" );
+};
+
+/*
+ * Make the datebox control row
+ *
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_dboxRow = function () {
+	return $( "<tr>" );
+};
+
+/*
+ * Make a datebox +/-/input control
+ * 
+ * Next button MUST have "dbBoxNext" class
+ * Previous button MUST have "dbBoxPrev" class
+ * Container must have "mainCls"
+ *
+ * @param {string} prevBtn Previous button icon (name or SVG) & class
+ * @param {string} nextBtn Next button icon (name of SVG) & class
+ * @param {string} mainCls Class for the control (input type)
+ * @param {string} label Label, if needed
+ * @param {string} inTheme Theme for inputs
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_dboxCtrl = function ( prevBtn, nextBtn, mainCls, label, inTheme ) {
+	var returnVal = "";
+
+	returnVal += "<td class='dbBox" + mainCls + "'>";
+
+	returnVal += "<a href='#' role='button' class='ui-corner-all ui-btn ui-mini ui-btn-";
+	returnVal += nextBtn[1] + " ui-icon-" + nextBtn[0] + " ui-btn-icon-top dbBoxNext m0' ";
+	returnVal += "style='padding-top:2.1em; border-bottom-left-radius:0;" +
+		"border-bottom-right-radius:0;'>";
+	returnVal += "</a>";
+
+
+	if ( label !== null ) {
+		returnVal += "<div class='m0 center ui-input-text ui-body-inherit' " +
+			"style='height:auto; padding: .3em 0;'>" +
+			label + "</div>";
+	}
+
+	returnVal += "<div class='m0 ui-input-text ui-mini ui-body-" + inTheme + "'>";
+	returnVal += "<input class='p0 center' type='text'></div>";
+
+	
+	returnVal += "<a href='#' role='button' class='ui-corner-all ui-btn ui-mini ui-btn-";
+	returnVal += prevBtn[1] + " ui-icon-" + prevBtn[0] + " ui-btn-icon-top dbBoxPrev m0' ";
+	returnVal += "style='padding-top:2.1em; border-top-left-radius:0;" +
+		"border-top-right-radius:0;'>";
+	returnVal += "</a>";
+
+	returnVal += "</div>";
+
+	return $(returnVal);
+};
+
+
+/* SlideBox Specific */
+
+/*
+ * Make the grid container for slidebox (usually a table)
+ *
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_slideGrid = function () {
+	return $( "<div><table class='dbSlideGrid w-100'></table></div>" );
+};
+
+/*
+ * Make the grid for for slidebox (usually a TR)
+ *
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_slideRow = function () {
+	return $( "<tr>" );
+};
+
+/*
+ * Create a clickable box for each grid date in slidebox.
+ * 
+ * MUST have the "dbEventS" class
+ * 
+ * @param {object} data Date information object
+ * @param {boolean} data.bad True if the date is invalid
+ * @param {boolean} data.good True if the date is valid
+ * @param {string} data.theme Theme class for the button
+ * @param {object} data.dateObj Date object
+ * 
+ * @return {object} jQuery Object
+ */
+JTSageDateBox.style_slideBtn = function ( data ) {
+	var style   = " style='width: " + ( ( 100 / 8 ) ) + "%'",
+		disable = ( data.bad ? "disabled='disabled'" : ""),
+		cls     = "class='m0 dbEventS w-100 ui-btn ui-mini ui-btn-" +
+			data.theme + ( data.bad ? " disabled":"" ) + "'";
+
+	return $("<td class='m-0 p-0 text-center'" + style + ">" +
+		"<a style='padding:.7em 0;' href='#' " + cls + " " + disable + ">" +
+		"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
+		"</small><br>" + data.dateObj.getDate() +
+		"</a>" + "</td>");
+};
+
+/*
+ * Create next/prev week buttons for slidebox
+ *
+ * @param {string} eventCls The event class.  Should be placed on the button
+ * @param {string} theme Icon to use for button ( name or SVG ) & theme
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_slideCtrl = function ( eventCls, theme ) {
+	var style = " style='width: " + ( ( 100 / 8 ) / 2 ) + "%'",
+		cls   = "class='m0 ui-corner-all ui-btn ui-mini ui-btn-icon-notext ui-btn-" +
+			theme[1] + " " + eventCls + " ui-icon-" + theme[0] + "'";
+
+	return $(
+		"<td " + style + ">" +
+		"<a href='#' " + cls + "></a></td>"
+	);
+};
+
+
+/* FlipBox Specific */
+
+
+
+/*
+ * Make the container for the flipbox
+ *
+ * @param {number} size Height CSS property
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_fboxCtr = function ( size ) {
+	return $(
+		"<div style='margin: 0 5px 8px; height: " + size + "; overflow: hidden'>"
+	);
+};
+
+/*
+ * Make a container for flipbox labels
+ *
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_fboxDurLbls = function ( ) {
+	return $( "<div style='margin: 5px;'>" );
+};
+
+/*
+ * Make a flibox label
+ *
+ * @param {string} text Text of the label
+ * @param {number} items Total number of items
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_fboxDurLbl = function ( text, items ) {
+	return $(
+		"<div class='center' " +
+		"style='display:inline-block; width: " + ( 100 / items ) + "%'>" +
+		text +
+		"</div>"
+	);
+};
+
+/*
+ * Make a flipbox roller container (outermost)
+ *
+ * @param {number} total Number of items
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_fboxRollCtr = function ( total ) {
+	return $( "<div style='float:left; width:" + ( 100 / total ) + "%'>" );
+};
+
+/*
+ * Make a flipbox roller container (middle) - usually a UL
+ *
+ * @returns {object} jQuery Object
+ */	
+JTSageDateBox.style_fboxRollPrt = function () {
+	return $( "<ul style='list-style-type: none; display: inline;'>" );
+};
+
+/*
+ * Make a flipbox element (innermost) - usually a LI
+ *
+ * @param {string} text
+ * @param {string} cls
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_fboxRollCld = function ( text, cls ) {
+	return $(
+		"<li style='height: 30px; line-height: 30px;' class='center ui-body-" +
+		cls + "'>" + text + "</li>"
+	);
+};
+
+/*
+ * Make the flipbox lens
+ *
+ * @returns {object} jQuery Object
+ */
+JTSageDateBox.style_fboxLens = function () {
+	return $(
+		"<div style='width: 96%; height: 40px; border: 1px solid #eee; margin: 0 1.5%;' " +
+		"class='ui-overlay-shadow'>"
+	);
+};
+
+
+/*
+ * Position the flip elements.  Overrides the base function if it exists
+ */
+JTSageDateBox.style_fboxPos = function () {
+	var fullRoller, firstItem, height_Roller, intended_Top,
+		w                 = this,
+		o                 = this.options,
+		height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight(),
+		theLens           = w.d.intHTML.find( ".dbLens" ).first(),
+		height_Lens       = theLens.outerHeight();
+	
+	// Lens top:
+	// Negative Half the parent height is center.
+	// Add Negative half the lens height.
+	intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
+	theLens.css( {
+		top          : intended_Top + -3,
+		marginBottom : -1 * height_Lens
+	} );
+	
+	w.d.intHTML.find( ".dbRoller" ).each( function() {
+		fullRoller    = $(this);
+		firstItem     = fullRoller.children().first();
+
+		// No RE-DO's, if it has a style, it's probably right.
+		if ( firstItem.css( "marginTop" ) === "0px" ) {
+				
+			height_Roller = (fullRoller.children().length + 1 ) * firstItem.outerHeight();
+
+			// Negative Half the height of the roller ( gets center to top border of view)
+			// Add half of the view container height.
+			intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Outside / 2 );
+
+			if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
+
+			firstItem.css("margin-top", intended_Top);
+		}
+	});
+};
+
+
