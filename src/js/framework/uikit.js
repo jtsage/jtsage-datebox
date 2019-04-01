@@ -48,9 +48,9 @@ mergeOpts({
 	theme_dbox_PrevBtn : [ "minus", "default" ],
 	theme_dbox_Inputs     : false, //UNUSED
 
-	theme_fbox_Selected   : "success",
-	theme_fbox_Default    : "light",
-	theme_fbox_Forbidden  : "danger",
+	theme_fbox_Selected   : "primary",
+	theme_fbox_Default    : "default",
+	theme_fbox_Forbidden  : "secondary",
 	theme_fbox_RollHeight : "135px",
 
 	theme_slide_Today       : "secondary",
@@ -170,7 +170,7 @@ JTSageDateBox.style_btnGrpOut = function ( collapse, inner ) {
  * @return {object} jQuery object now wrapped with some sort of div
  */
 JTSageDateBox.style_inWrap = function ( originalInput ) {
-	return originalInput.wrap("<div class='input-group'>").parent();
+	return originalInput.wrap("<div class='uk-inline uk-width-1-1'>").parent();
 };
 
 /**
@@ -182,11 +182,12 @@ JTSageDateBox.style_inWrap = function ( originalInput ) {
  * @param  {string} title Hover text for the button
  * @return {string} Rendered HTML of the open button
  */
-JTSageDateBox.style_inBtn = function ( icon, title, theme ) {
-	return "<div class='input-group-append' title='" + title + "'>" +
-		"<a href='#' class='dbOpenButton btn btn-" + theme + "'>" +
-		"<span>" + this.icons.getIcon( icon ) + "</span>" +
-		"</a></div>";
+JTSageDateBox.style_inBtn = function ( icon, title ) {
+	this.d.wrap.prepend(
+		"<a href='#' title='" + title + "' class='dbOpenButton uk-form-icon uk-form-icon-flip'>" +
+		this.icons.getIcon( icon ) + "</a>"
+	);
+	return "";
 };
 
 /**
@@ -194,8 +195,8 @@ JTSageDateBox.style_inBtn = function ( icon, title, theme ) {
  * 
  * @param  {object} originalInputWrap jQuery object
  */
-JTSageDateBox.style_inNoBtn = function ( originalInputWrap ) {
-	originalInputWrap.addClass( "w-100" );
+JTSageDateBox.style_inNoBtn = function ( ) {
+	return true;
 };
 
 /*
@@ -589,7 +590,7 @@ JTSageDateBox.style_slideCtrl = function ( eventCls, theme ) {
  */
 JTSageDateBox.style_fboxCtr = function ( size ) {
 	return $(
-		"<div class='d-flex border-top border-bottom m-2' style='height: " +
+		"<div class='uk-margin' style='height: " +
 		size +
 		"; overflow: hidden'>"
 	);
@@ -602,7 +603,7 @@ JTSageDateBox.style_fboxCtr = function ( size ) {
  */
 JTSageDateBox.style_fboxDurLbls = function ( ) {
 	return $(
-		"<div class='d-flex mx-2 mt-2' style='margin-bottom: -8px;'>"
+		"<div class='' style='margin-bottom: -8px;'>"
 	);
 };
 
@@ -615,7 +616,8 @@ JTSageDateBox.style_fboxDurLbls = function ( ) {
  */
 JTSageDateBox.style_fboxDurLbl = function ( text, items ) {
 	return $(
-		"<div class='text-center' style='width: " + ( 100 / items ) + "%'>" +
+		"<div class='uk-text-center uk-display-inline-block' " +
+		"style='width: " + ( 100 / items ) + "%'>" +
 		text +
 		"</div>"
 	);
@@ -627,8 +629,12 @@ JTSageDateBox.style_fboxDurLbl = function ( text, items ) {
  * @param {number} total Number of items
  * @returns {object} jQuery Object
  */
-JTSageDateBox.style_fboxRollCtr = function () {
-	return $( "<div class='flex-fill'>" );
+JTSageDateBox.style_fboxRollCtr = function ( total ) {
+	var style = [
+		"width: " + ( 100 / total ) + "%",
+		"float: left"
+	];
+	return $( "<div style='" + style.join( ";" ) + "'>" );
 };
 
 /**
@@ -637,7 +643,7 @@ JTSageDateBox.style_fboxRollCtr = function () {
  * @returns {object} jQuery Object
  */	
 JTSageDateBox.style_fboxRollPrt = function () {
-	return $( "<ul class='list-group'>" );
+	return $( "<ul class='uk-list'>" );
 };
 
 /**
@@ -649,7 +655,8 @@ JTSageDateBox.style_fboxRollPrt = function () {
  */
 JTSageDateBox.style_fboxRollCld = function ( text, cls ) {
 	return $(
-		"<li class='list-group-item p-1 text-center list-group-item-" + cls + "'>" +
+		"<li style='margin-top:0; margin-bottom:0; padding:4px 0;' " +
+		"class='uk-text-center uk-background-" + cls + "'>" +
 		text +
 		"</li>"
 	);
@@ -661,7 +668,10 @@ JTSageDateBox.style_fboxRollCld = function ( text, cls ) {
  * @returns {object} jQuery Object
  */
 JTSageDateBox.style_fboxLens = function () {
-	return $( "<div class='p-4 border border-dark shadow mx-1'>" );
+	return $(
+		"<div class='uk-width-1-1 uk-box-shadow-small' " +
+		"style='height:40px; border: 1px solid rgba(0,0,0,.2);'>"
+	);
 };
 
 
@@ -672,21 +682,20 @@ JTSageDateBox.style_fboxPos = function () {
 	var fullRoller, firstItem, height_Roller, intended_Top,
 		w                 = this,
 		o                 = this.options,
-		height_Container  = w.d.intHTML.find( ".dbRollerC" ).height(),
-		height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight( true ),
+		height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight(),
 		theLens           = w.d.intHTML.find( ".dbLens" ).first(),
-		height_Lens       = theLens.outerHeight();
-
+		height_Lens       = theLens.outerHeight(true),
+		single            = w.d.intHTML.find( ".dbRoller" ).first().children().first();
 
 	// Trap for run too early.
-	if ( height_Container < 1 ) { return true; }
+	if ( single.height() < 5 ) { return true; }
 
 	// Lens top:
 	// Negative Half the parent height is center.
 	// Add Negative half the lens height.
 	intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
 	theLens.css( {
-		top          : intended_Top,
+		top          : intended_Top - 12,
 		marginBottom : -1 * height_Lens
 	} );
 	
@@ -695,17 +704,18 @@ JTSageDateBox.style_fboxPos = function () {
 		firstItem     = fullRoller.children().first();
 
 		// No RE-DO's, if it has a style, it's probably right.
-		if ( typeof firstItem.attr( "style" ) === "undefined" ) {
+		if ( firstItem.css( "marginTop" ) === "0px" ) {
 				
-			height_Roller = fullRoller.outerHeight(false);
+			height_Roller = (fullRoller.children().length - 0.5 ) * firstItem.outerHeight();
 
 			// Negative Half the height of the roller ( gets center to top border of view)
 			// Add half of the view container height.
-			intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Container / 2 );
+			intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Outside / 2 );
 
 			if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
 
 			firstItem.css("margin-top", intended_Top);
+			
 		}
 	});
 };
