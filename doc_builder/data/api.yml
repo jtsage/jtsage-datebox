@@ -2027,113 +2027,73 @@ opts :
     optdemo : false
     sample  : false
 
-  theme_clearBtnCls :
+  theme_clearBtn :
     short   : Clear Button Theme
-    long    : Theme class string added to the clear button
+    long    : |
+      Array of
+       * Icon used on the clear button,
+       * Theme class string added to the clear button
     modes   : *modeAll
     cat     : Theme
     type    : String
     dynamic : true
-    default : "outline-secondary"
+    default : "[ \"eraser\", \"outline-secondary\" ]"
     optdemo : true
     sample  : false
 
-  theme_clearBtnIcn :
-    short   : Clear Button Icon
-    long    : Icon class used on the clear button
-    modes   : *modeAll
-    cat     : Theme
-    type    : String
-    dynamic : true
-    default : "eraser"
-    optdemo : true
-    sample  : false
-
-  theme_closeBtnCls :
+  theme_closeBtn :
     short   : Close Button Theme
-    long    : Theme class string added to the close button
+    long    : |
+      Array of
+       * Icon class used on the close button,
+       * Theme class string added to the close button
     modes   : *modeAll
     cat     : Theme
     type    : String
     dynamic : true
-    default : "outline-secondary"
+    default : "[ \"check\", \"outline-secondary\" ]"
     optdemo : true
     sample  : false
 
-  theme_closeBtnIcn :
-    short   : Close Button Icon
-    long    : Icon class used on the close button
-    modes   : *modeAll
-    cat     : Theme
-    type    : String
-    dynamic : true
-    default : "check"
-    optdemo : true
-    sample  : false
-
-  theme_cancelBtnCls :
+  theme_cancelBtn :
     short   : Cancel Button Theme
-    long    : Theme class string added to the cancel button
+    long    : |
+      Array of
+       * Icon class used on the cancel button
+       * Theme class string added to the cancel button
     modes   : *modeAll
     cat     : Theme
     type    : String
     dynamic : true
-    default : "outline-secondary"
+    default : "[ \"times\", \"outline-secondary\" ]"
     optdemo : true
     sample  : false
 
-  theme_cancelBtnIcn :
-    short   : Cancel Button Icon
-    long    : Icon class used on the cancel button
-    modes   : *modeAll
-    cat     : Theme
-    type    : String
-    dynamic : true
-    default : "times"
-    optdemo : true
-    sample  : false
-
-  theme_tomorrowBtnCls :
+  theme_tomorrowBtn :
     short   : Tomorrow Button Theme
-    long    : Theme class string added to the tomorrow button
+    long    : |
+      Array of
+       * Icon class used on the tomorrow button
+       * Theme class string added to the tomorrow button
     modes   : *modeAll
     cat     : Theme
     type    : String
     dynamic : true
-    default : "outline-secondary"
+    default : "[ \"fast-forward\", \"outline-secondary\" ]"
     optdemo : true
     sample  : false
 
-  theme_tomorrowBtnIcn :
-    short   : Tomorrow Button Icon
-    long    : Icon class used on the tomorrow button
-    modes   : *modeAll
-    cat     : Theme
-    type    : String
-    dynamic : true
-    default : "fast-forward"
-    optdemo : true
-    sample  : false
-
-  theme_todayBtnCls :
+  theme_todayBtn :
     short   : Today Button Theme
-    long    : Theme class string added to the today button
+    long    : | 
+      Array of
+       * Icon class used on the today button
+       * Theme class string added to the today button
     modes   : *modeAll
     cat     : Theme
     type    : String
     dynamic : true
-    default : "outline-secondary"
-    optdemo : true
-    sample  : false
-
-  theme_todayBtnIcn :
-    short   : Today Button Icon
-    long    : Icon class used on the today button
-    modes   : *modeAll
-    cat     : Theme
-    type    : String
-    dynamic : true
-    default : "step-forward"
+    default : "[ \"step-forward\", \"outline-secondary\" ]"
     optdemo : true
     sample  : false
 
@@ -2181,25 +2141,17 @@ opts :
     optdemo : true
     sample  : false
 
-  theme_headerBtnCls :
+  theme_headerBtn :
     short   : Header (Close) Button Theme
-    long    : Theme class added to the control header close button
+    long    : |
+      Array of
+       * Icon class used for the control header close button
+       * Theme class added to the control header close button
     modes   : *modeAll
     cat     : Theme
     type    : String
     dynamic : true
-    default : "outline-secondary"
-    optdemo : true
-    sample  : false
-
-  theme_headerBtnIcn :
-    short   : Header (Close) Button Icon
-    long    : Icon class used for the control header close button
-    modes   : *modeAll
-    cat     : Theme
-    type    : String
-    dynamic : true
-    default : "times"
+    default : "[ \"times\", \"outline-secondary\" ]"
     optdemo : true
     sample  : false
 
@@ -2310,51 +2262,33 @@ opts :
     optdemo : true
     sample  : false
 
-  theme_cal_NextBtnIcn :
-    short   : Next Month Button Icon
-    long    : Icon class used for next month button
+  theme_cal_NextBtn :
+    short   : Next Month Button Theme (calbox)
+    long    : |
+      Array of
+       * Icon class used for next month button
+       * Theme class added to the next month button
     modes   :
       - calbox
     cat     : Theme
     type    : String
     dynamic : true
-    default : "plus"
+    default : "[ \"plus\", \"outline-dark\" ]"
     optdemo : true
     sample  : false
 
-  theme_cal_NextBtnCls :
-    short   : Next Month Button Theme
-    long    : Theme class added to the next month button
+  theme_cal_PrevBtn :
+    short   : Previous Month Button Theme (calbox)
+    long    : |
+      Array of
+       * Icon class used for previous month button
+       * Theme class added to the previous month button
     modes   :
       - calbox
     cat     : Theme
     type    : String
     dynamic : true
-    default : "outline-dark"
-    optdemo : true
-    sample  : false
-
-  theme_cal_PrevBtnIcn :
-    short   : Previous Month Button Icon
-    long    : Icon class used for previous month button
-    modes   :
-      - calbox
-    cat     : Theme
-    type    : String
-    dynamic : true
-    default : "minus"
-    optdemo : true
-    sample  : false
-
-  theme_cal_PrevBtnCls :
-    short   : Previous Month Button Theme
-    long    : Theme class added to the previous month button
-    modes   :
-      - calbox
-    cat     : Theme
-    type    : String
-    dynamic : true
-    default : "outline-dark"
+    default : "[ \"minus\", \"outline-dark\" ]"
     optdemo : true
     sample  : false
 
@@ -2382,9 +2316,12 @@ opts :
     optdemo : true
     sample  : false
 
-  theme_dbox_NextBtnIcn :
-    short   : Next Button Icon
-    long    : Icon class used for the next button
+  theme_dbox_NextBtn :
+    short   : Next Button Theme (datebox)
+    long    : |
+      Array of
+       * Icon class used for the next button
+       * Theme class added to the next button
     modes   :
       - datebox
       - timebox
@@ -2393,13 +2330,16 @@ opts :
     cat     : Theme
     type    : String
     dynamic : true
-    default : "plus"
+    default : "[ \"plus\", \"outline-dark\" ]"
     optdemo : true
     sample  : false
 
-  theme_dbox_NextBtnCls :
-    short   : Next Button Theme
-    long    : Theme class added to the next button
+  theme_dbox_PrevBtn :
+    short   : Previous Button Theme (datebox)
+    long    : |
+      Array of
+       * Icon class used for the previous button
+       * Theme class added to the previous button
     modes   :
       - datebox
       - timebox
@@ -2408,37 +2348,7 @@ opts :
     cat     : Theme
     type    : String
     dynamic : true
-    default : "outline-dark"
-    optdemo : true
-    sample  : false
-
-  theme_dbox_PrevBtnIcn :
-    short   : Previous Button Icon
-    long    : Icon class used for the previous button
-    modes   :
-      - datebox
-      - timebox
-      - datetimebox
-      - durationbox
-    cat     : Theme
-    type    : String
-    dynamic : true
-    default : "minus"
-    optdemo : true
-    sample  : false
-
-  theme_dbox_PrevBtnCls :
-    short   : Previous Button Theme
-    long    : Theme class added to the previous button
-    modes   :
-      - datebox
-      - timebox
-      - datetimebox
-      - durationbox
-    cat     : Theme
-    type    : String
-    dynamic : true
-    default : "outline-dark"
+    default : "[ \"minus\", \"outline-dark\" ]"
     optdemo : true
     sample  : false
 
@@ -2597,10 +2507,12 @@ opts :
     optdemo : true
     sample  : false
 
-
-  theme_slide_NextBtnIcn :
-    short   : Next Month Button Icon
-    long    : Icon class used for next month button
+  theme_slide_NextBtn :
+    short   : Next Month Button Theme (slidebox)
+    long    : |
+      Array of
+       * Icon class used for next month button
+       * Theme class added to the next month button
     modes   :
       - slide
     cat     : Theme
@@ -2608,11 +2520,14 @@ opts :
     dynamic : true
     optdemo : true
     sample  : false
-    default : "plus"
+    default : "[ \"plus\", \"outline-dark border-0\" ]"
 
-  theme_slide_NextBtnCls :
-    short   : Next Month Button Theme
-    long    : Theme class added to the next month button
+  theme_slide_PrevBtn :
+    short   : Previous Month Button Theme (slidebox)
+    long    : |
+      Array of
+       * Icon class used for previous month button
+       * Theme class added to the previous month button
     modes   :
       - slidebox
     cat     : Theme
@@ -2620,11 +2535,14 @@ opts :
     dynamic : true
     optdemo : true
     sample  : false
-    default : "outline-dark border-0"
+    default : "[ \"minus\", \"outline-dark border-0\" ]"
 
-  theme_slide_PrevBtnIcn :
-    short   : Previous Month Button Icon
-    long    : Icon class used for previous month button
+  theme_slide_NextDateBtn :
+    short   : Next Week Button Theme (slidebox)
+    long    : |
+      Array of
+       * Icon class used for next week button
+       * Theme class added to the next week button
     modes   :
       - slidebox
     cat     : Theme
@@ -2632,11 +2550,14 @@ opts :
     dynamic : true
     optdemo : true
     sample  : false
-    default : "minus"
+    default : "[ \"next\", \"outline-dark border-0\" ]"
 
-  theme_slide_PrevBtnCls :
-    short   : Previous Month Button Theme
-    long    : Theme class added to the previous month button
+  theme_slide_PrevDateBtn :
+    short   : Previous Week Button Theme (slidebox)
+    long    : |
+      Array of
+       * Icon class used for previous week button
+       * Theme class added to the previous week button
     modes   :
       - slidebox
     cat     : Theme
@@ -2644,55 +2565,7 @@ opts :
     dynamic : true
     optdemo : true
     sample  : false
-    default : "outline-dark border-0"
-
-  theme_slide_NextDateBtnIcn :
-    short   : Next Week Button Icon
-    long    : Icon class used for next week button
-    modes   :
-      - slidebox
-    cat     : Theme
-    type    : String
-    dynamic : true
-    optdemo : true
-    sample  : false
-    default : "next"
-
-  theme_slide_NextDateBtnCls :
-    short   : Next Week Button Theme
-    long    : Theme class added to the next week button
-    modes   :
-      - slidebox
-    cat     : Theme
-    type    : String
-    dynamic : true
-    optdemo : true
-    sample  : false
-    default : "outline-dark border-0"
-
-  theme_slide_PrevDateBtnIcn :
-    short   : Previous Week Button Icon
-    long    : Icon class used for previous week button
-    modes   :
-      - slidebox
-    cat     : Theme
-    type    : String
-    dynamic : true
-    optdemo : true
-    sample  : false
-    default : "prev"
-
-  theme_slide_PrevDateBtnCls :
-    short   : Previous Week Button Theme
-    long    : Theme class added to the previous week button
-    modes   :
-      - slidebox
-    cat     : Theme
-    type    : String
-    dynamic : true
-    optdemo : true
-    sample  : false
-    default : "outline-dark border-0"
+    default : "[ \"prev\", \"outline-dark border-0\" ]"
 
   theme_slide_Pickers  :
     short   : SlideBox Pickers theme
