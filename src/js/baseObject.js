@@ -47,7 +47,6 @@ JTSageDateBox.options = {
 	mode                    : false,
 
 	hideInput               : false,
-	hideContainer           : false,
 
 	lockInput               : true,
 	safeEdit                : true,
