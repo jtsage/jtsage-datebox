@@ -9,7 +9,8 @@
     "zurb-foundation": "6.5.3",
     "bulma": "0.7.4",
     "jquery-mobile": "1.4.5",
-    "fomantic-ui": "2.7.2"
+    "fomantic-ui": "2.7.2",
+    "uikit": "3.0.3"
   },
   "supportMap": {
     "bootstrap": "bootstrap-v3",
@@ -17,7 +18,8 @@
     "foundation6": "zurb-foundation",
     "bulma": "bulma",
     "jqm": "jquery-mobile",
-    "fomanticui": "fomantic-ui"
+    "fomanticui": "fomantic-ui",
+    "uikit": "uikit"
   },
   "prettyMap": {
     "bootstrap": "Twitter Bootstrap",
@@ -25,7 +27,8 @@
     "foundation6": "Zurb Foundation",
     "bulma": "Bulma.io",
     "jqm": "jQueryMobile",
-    "fomanticui": "FomanticUI"
+    "fomanticui": "FomanticUI",
+    "uikit": "UIKit"
   },
   "prettyMapMode": {
     "calbox": "CalBox",
