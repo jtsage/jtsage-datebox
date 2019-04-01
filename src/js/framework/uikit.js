@@ -343,7 +343,9 @@ JTSageDateBox.style_dateList = function ( listLabel, list, theme, ctlCls ) {
  * @return {object} jQuery object
  */
 JTSageDateBox.style_calGrid = function () {
-	return $( "<div class='uk-width-1-1'><table class='dbCalGrid uk-width-1-1'></table></div>" );
+	return $(
+		"<div class='uk-width-1-1 uk-margin'><table class='dbCalGrid uk-width-1-1'></table></div>"
+	);
 };
 
 /**
@@ -432,7 +434,7 @@ JTSageDateBox.style_calTxt = function ( text, header, totalElements ) {
  * @returns {object} jQuery Object
  */
 JTSageDateBox.style_dboxCtr = function () {
-	return $( "<div>" );
+	return $( "<table class='uk-width-1-1'>" );
 };
 
 /**
@@ -441,7 +443,7 @@ JTSageDateBox.style_dboxCtr = function () {
  * @returns {object} jQuery Object
  */
 JTSageDateBox.style_dboxRow = function () {
-	return $( "<div class='d-flex p-1'>" );
+	return $( "<tr>" );
 };
 
 /**
@@ -461,18 +463,24 @@ JTSageDateBox.style_dboxRow = function () {
 JTSageDateBox.style_dboxCtrl = function ( prevBtn, nextBtn, mainCls, label ) {
 	var returnVal = "";
 
-	returnVal += "<div class='btn-group-vertical flex-fill dbBox" + mainCls + "'>";
+	returnVal += "<td class='dbBox" + mainCls + "'>";
 
-	returnVal += this.style_btn( [ nextBtn[0], nextBtn[1] + " dbBoxNext" ] );
+	returnVal += this.style_btn( [
+		nextBtn[0],
+		nextBtn[1] + " dbBoxNext uk-padding-remove uk-width-1-1"
+	] );
 
 	if ( label !== null ) {
-		returnVal += "<div class='w-100 form-control rounded-0 p-0 text-center' " +
+		returnVal += "<div class='uk-text-center' " +
 			"style='height:auto'>" + label + "</div>";
 	}
 	returnVal += "<input type='text' ";
-	returnVal += "class='form-control form-control-sm text-center px-0 rounded-0'>";
+	returnVal += "class='uk-input uk-padding-remove uk-text-center'>";
 
-	returnVal += this.style_btn( [ prevBtn[0], prevBtn[1] + " dbBoxPrev" ] );
+	returnVal += this.style_btn( [
+		prevBtn[0],
+		prevBtn[1] + " dbBoxPrev uk-padding-remove uk-width-1-1"
+	] );
 
 	returnVal += "</div>";
 
