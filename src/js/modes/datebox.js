@@ -173,8 +173,7 @@ JTSageDateBox._build.datebox = function () {
 	var offAmount, i, ctrlWrk, ctrlRow,
 		w             = this,
 		o             = this.options,
-		_sf           = this.styleFunctions,
-		ctrlContainer = _sf.dboxContainer(),
+		ctrlContainer = w.style_dboxCtr(),
 		dur           = ( o.mode === "durationbox" ? true : false ),
 		defDurOrder   = ["d","h","i","s"];
 	
@@ -209,11 +208,11 @@ JTSageDateBox._build.datebox = function () {
 	
 	// Create a header for datebox and datetimebox modes
 	if ( o.mode === "datebox" || o.mode === "datetimebox" ) {
-		_sf.intHeader( w._formatter( w.__( "headerFormat" ), w.theDate ) )
+		w.style_subHead( w._formatter( w.__( "headerFormat" ), w.theDate ) )
 			.appendTo( w.d.intHTML );
 	}
 	
-	ctrlRow = _sf.dboxRow();
+	ctrlRow = w.style_dboxRow();
 
 	// Build the controls
 	for ( i = 0; i < w.fldOrder.length; i++ ) {
@@ -226,15 +225,13 @@ JTSageDateBox._build.datebox = function () {
 			offAmount = ( w.fldOrder[i] === "i" ) ? o.minuteStep: 1;
 		}
 
-		ctrlWrk = _sf.dboxControl.apply( w, [
-			o.theme_dbox_PrevBtnIcn,
-			o.theme_dbox_PrevBtnCls,
-			o.theme_dbox_NextBtnIcn,
-			o.theme_dbox_NextBtnCls,
+		ctrlWrk = w.style_dboxCtrl(
+			o.theme_dbox_PrevBtn,
+			o.theme_dbox_NextBtn,
 			w.fldOrder[i],
 			( dur ) ? w.__( "durationLabel" )[ defDurOrder.indexOf( w.fldOrder[i] ) ] : null,
 			o.theme_dbox_Inputs
-		] );
+		);
 		ctrlWrk.find( "input" ).data({
 			field  : w.fldOrder[i],
 			amount : offAmount

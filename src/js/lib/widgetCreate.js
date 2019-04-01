@@ -21,7 +21,6 @@ JTSageDateBox._create = function() {
 			this._getLongOptions( this.element ),
 			this.element.data( "options" )
 		),
-		_sf = this.styleFunctions,
 		/**
 		 * Display elements
 		 * @type {Object}
@@ -118,7 +117,7 @@ JTSageDateBox._create = function() {
 		w.d.input.val( w._formatter( w.__fmt(), w.theDate ) );
 	}
 
-	w.d.wrap = _sf.baseInputWrap.apply( w, [ w.d.input, o.theme_openButton ] );
+	w.d.wrap = w.style_inWrap( w.d.input, o.theme_openButton );
 	
 	if ( o.mode !== false ) {
 		if ( o.buttonIcon === false ) {
@@ -129,7 +128,7 @@ JTSageDateBox._create = function() {
 	}
 
 	if ( o.useButton ) {
-		$( _sf.baseInputButton.apply( w, [ o.buttonIcon, w.__( "tooltip"), o.theme_openButton ] ) )
+		$( w.style_inBtn( o.buttonIcon, w.__( "tooltip" ), o.theme_openButton ) )
 			.on(o.clickEvent, function( e ) {
 				e.preventDefault();
 				if ( o.useFocus ) {
@@ -138,24 +137,20 @@ JTSageDateBox._create = function() {
 					if ( !w.disabled ) { w._t( { method : "open" } ); }
 				}
 			})
-			.appendTo(w.d.wrap);
+			.appendTo( w.d.wrap );
 	} else {
-		_sf.baseInputNoButton(w.d.wrap);
+		w.style_inNoBtn( w.d.wrap );
 	}
 
-	if ( o.hideInput ) { _sf.hideInput.call( this ); }
+	if ( o.hideInput ) { w.style_inHide(); }
 
 	o.runOnBlurCallback = w._prepFunc( o.runOnBlurCallback );
 
 	w.d.input
 		.on( "focus.datebox", function(){
-			_sf.focusInput(w.d.input);
 			if ( w.disabled === false && o.useFocus ) {
 				w._t( { method : "open" } );
 			}
-		})
-		.on( "blur.datebox", function() {
-			_sf.blurInput(w.d.input);
 		})
 		.on( "change.datebox", function() {
 			if ( o.runOnBlurCallback === false ) {

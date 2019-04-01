@@ -27,59 +27,6 @@ mergeOpts({
 });
 
 /**
- * Calculate position of the rollers and the lens
- */
-JTSageDateBox._fbox_pos = function () {
-	// Position the lens and the reels on widget open and 
-	// when they are changed
-	var fullRoller, firstItem, height_Roller, intended_Top,
-		w                 = this,
-		o                 = this.options,
-		height_Container1 = w.d.intHTML.find( ".dbRollerC" ).height(),
-		height_Outside    = w.d.intHTML.find( ".dbRollerV" ).outerHeight( true ),
-		height_Container2 = w.d.intHTML.find( ".dbRollerV" ).height(),
-		theLens           = w.d.intHTML.find( ".dbLens" ).first(),
-		height_Lens       = theLens.outerHeight(),
-		height_Container  = ( height_Container1 > 1000 ) ? height_Container2 : height_Container1;
-
-	// Allow this whole bit to be overridden by the loaded framework if need be.
-	// Note: this works most of the time, but sometimes that trap fails for some unknown reason.
-	if ( typeof w.styleFunctions.flipPosition === "function" ) {
-		w.styleFunctions.flipPosition.call( w );
-		return true;
-	}
-
-	// Trap for run too early.
-	if ( height_Container < 1 ) { return true; }
-
-	// Lens top:
-	// Negative Half the parent height is center.
-	// Add Negative half the lens height.
-	intended_Top = -1 * ( ( height_Outside / 2 ) + ( height_Lens / 2 ) );
-	theLens.css( {
-		top          : intended_Top,
-		marginBottom : -1 * height_Lens
-	} );
-
-	w.d.intHTML.find( ".dbRoller" ).each( function() {
-		fullRoller    = $(this);
-		firstItem     = fullRoller.children().first();
-		height_Roller = fullRoller.outerHeight(true);
-
-		if ( typeof firstItem.attr( "style" ) === "undefined" ) {
-
-			// Negative Half the height of the roller ( gets center to top border of view)
-			// Add half of the view container height.
-			intended_Top  = ( -1 * ( height_Roller / 2 ) ) + ( height_Container / 2 );
-
-			if ( o.flipboxLensAdjust !== false ) { intended_Top += o.flipboxLensAdjust; }
-
-			firstItem.attr( "style", "margin-top: " + intended_Top + "px !important" );
-		}
-	});
-};
-
-/**
  * Get the numbers for duration box, also deal with breaks on 24 hrs, 60 min, 60 sec.
  * 
  * @param  {string} term Field we are working on: d,h,i,s
@@ -227,8 +174,7 @@ JTSageDateBox._build.flipbox         = function () {
 		w           = this,
 		o           = this.options,
 		g           = this.drag,
-		_sf         = this.styleFunctions,
-		flipContent = _sf.fboxContainer( o.theme_fbox_RollHeight ).addClass( "dbRollerV "),
+		flipContent = w.style_fboxCtr( o.theme_fbox_RollHeight ).addClass( "dbRollerV "),
 		cntlContain = "",
 		cntlRoller  = "",
 		dur         = ( o.mode === "durationflipbox" ? true : false );
@@ -240,7 +186,7 @@ JTSageDateBox._build.flipbox         = function () {
 	} else {
 		w.d.input.on( "datebox", function (e,p) {
 			if ( p.method === "postrefresh" ) {
-				w._fbox_pos();
+				w.style_fboxPos();
 			}
 		});
 	}
@@ -272,16 +218,16 @@ JTSageDateBox._build.flipbox         = function () {
 
 	// Create a header for flipbox and datetimeflipbox modes
 	if ( o.mode === "flipbox" || o.mode === "datetimeflipbox" ) {
-		_sf.intHeader( w._formatter( w.__( "headerFormat" ), w.theDate ) )
+		w.style_subHead( w._formatter( w.__( "headerFormat" ), w.theDate ) )
 			.appendTo( w.d.intHTML );
 	}
 
 	// For duration mode, create labels
 	if ( dur ) {
-		cntlContain = _sf.fboxDurLabels();
+		cntlContain = w.style_fboxDurLbls();
 		for ( cntlFieldIdx = 0; cntlFieldIdx < w.fldOrder.length; cntlFieldIdx++ ) {
 			thisField = w.fldOrder[ cntlFieldIdx ];
-			cntlContain.append( _sf.fboxDurLabel(
+			cntlContain.append( w.style_fboxDurLbl(
 				w.__( "durationLabel" )[ ["d","h","i","s"].indexOf( thisField ) ],
 				w.fldOrder.length
 			) );
@@ -293,8 +239,8 @@ JTSageDateBox._build.flipbox         = function () {
 	for ( cntlFieldIdx = 0; cntlFieldIdx < w.fldOrder.length; cntlFieldIdx++ ) {
 		thisField = w.fldOrder[ cntlFieldIdx ];
 
-		cntlContain = _sf.fboxRollerContain( w.fldOrder.length ).addClass( "dbRollerC" );
-		cntlRoller  = _sf.fboxRollerParent().addClass( "dbRoller" );
+		cntlContain = w.style_fboxRollCtr( w.fldOrder.length ).addClass( "dbRollerC" );
+		cntlRoller  = w.style_fboxRollPrt().addClass( "dbRoller" );
 
 		cntlContain.data({
 			field  : thisField,
@@ -306,14 +252,14 @@ JTSageDateBox._build.flipbox         = function () {
 		for ( cntlRow = -1 * o.flen[thisField]; cntlRow < ( o.flen[thisField] + 1 ); cntlRow++ ) {
 
 			if ( !dur ) {
-				cntlRoller.append( _sf.fboxRollerChild(
+				cntlRoller.append( w.style_fboxRollCld(
 					w._fbox_do_roll_math( thisField, cntlRow ),
 					( cntlRow === 0 ) ?
 						( ( w.dateOK ) ? o.theme_fbox_Selected : o.theme_fbox_Forbidden ) :
 						o.theme_fbox_Default
 				) );
 			} else {
-				cntlRoller.append( _sf.fboxRollerChild(
+				cntlRoller.append( w.style_fboxRollCld(
 					w._fbox_do_dur_math( thisField, cntlRow, cntlFieldIdx ),
 					( cntlRow === 0 ) ?
 						o.theme_fbox_Selected :
@@ -331,7 +277,7 @@ JTSageDateBox._build.flipbox         = function () {
 	w.d.intHTML.append( flipContent );
 	
 	// Add the lens
-	_sf.fboxLens()
+	w.style_fboxLens()
 		.addClass( "dbLens" )
 		.css( { "pointerEvents" : "none", "position" : "relative" } )
 		.appendTo( w.d.intHTML );

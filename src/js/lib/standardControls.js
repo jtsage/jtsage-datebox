@@ -48,11 +48,10 @@ JTSageDateBox._stdBtn = {
 			o = this.options;
 
 		return $(
-			w.styleFunctions.button.apply( w, [
-				o.theme_cancelBtnCls,
-				o.theme_cancelBtnIcn,
+			w.style_btn(
+				o.theme_cancelBtn,
 				w.__( "cancelButton" )
-			] ) )
+			) )
 			.on( o.clickEvent, function ( e ) {
 				e.preventDefault();
 				w._t({ method : "close", closeCancel : true });
@@ -70,11 +69,10 @@ JTSageDateBox._stdBtn = {
 			o = this.options;
 
 		return $(
-			w.styleFunctions.button.apply( w, [
-				o.theme_clearBtnCls,
-				o.theme_clearBtnIcn,
+			w.style_btn(
+				o.theme_clearBtn,
 				w.__( "clearButton" )
-			] ) )
+			) )
 			.on( o.clickEvent, function( e ) {
 				e.preventDefault();
 				w.d.input.val( "" );
@@ -98,11 +96,10 @@ JTSageDateBox._stdBtn = {
 		if ( typeof trigger === "undefined" ) { trigger = false; }
 
 		return $(
-			w.styleFunctions.button.apply( w, [
-				o.theme_closeBtnCls,
-				o.theme_closeBtnIcn,
+			w.style_btn(
+				o.theme_closeBtn,
 				txt
-			] ) )
+			) )
 			.addClass( "" +
 				( ( w.dateOK === true ) ? "" : "disabled" )
 			)
@@ -134,11 +131,10 @@ JTSageDateBox._stdBtn = {
 		var w = this,
 			o = this.options;
 		return $(
-			w.styleFunctions.button.apply( w, [
-				o.theme_todayBtnCls,
-				o.theme_todayBtnIcn,
+			w.style_btn(
+				o.theme_todayBtn,
 				w.__( "todayButtonLabel" )
-			] ) )
+			) )
 			.on( o.clickEvent, function( e ) {
 				e.preventDefault();
 				w.theDate = w._pa( [ 0, 0, 0 ], new w._date() );
@@ -158,11 +154,10 @@ JTSageDateBox._stdBtn = {
 			o = this.options;
 
 		return $(
-			w.styleFunctions.button.apply( w, [
-				o.theme_tomorrowBtnCls,
-				o.theme_tomorrowBtnIcn,
+			w.style_btn(
+				o.theme_tomorrowBtn,
 				w.__( "tomorrowButtonLabel" )
-			] ) )
+			) )
 			.on( o.clickEvent, function( e ) {
 				e.preventDefault();
 				w.theDate = w._pa( [ 0, 0, 0 ], new w._date() ).adj( 2, 1 );
@@ -181,7 +176,6 @@ JTSageDateBox._stdBtn = {
 JTSageDateBox._doBottomButtons = function ( useSet ) {
 	var w   = this,
 		o   = this.options,
-		_sf = this.styleFunctions,
 		ctrlContainer, ctrlWrk;
 
 	if ( ! (
@@ -194,7 +188,7 @@ JTSageDateBox._doBottomButtons = function ( useSet ) {
 		return "";
 	}
 
-	ctrlContainer = _sf.buttonGroup( o.useCollapsedBut );
+	ctrlContainer = w.style_btnGrp( o.useCollapsedBut );
 	
 	if ( o.useSetButton && useSet ) {
 		switch (o.mode) {
@@ -224,10 +218,10 @@ JTSageDateBox._doBottomButtons = function ( useSet ) {
 		ctrlContainer.append( w._stdBtn.cancel.call( w ) );
 	}
 
-	if ( typeof _sf.buttonGroupOutside === "function" ) {
+	if ( typeof w.style_btnGrpOut === "function" ) {
 		// Used if the framework requires an additional wrap to button
 		// groups.  Some do, notable jQM.
-		ctrlContainer = _sf.buttonGroupOutside( o.useCollapsedBut, ctrlContainer );
+		ctrlContainer = w.style_btnGrpOut( o.useCollapsedBut, ctrlContainer );
 	}
 	
 	return ctrlContainer;

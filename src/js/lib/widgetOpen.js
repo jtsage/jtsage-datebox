@@ -15,7 +15,6 @@ JTSageDateBox.open = function () {
 	// PUBLIC function to open the control
 	var w             = this,
 		o             = this.options,
-		_sf           = this.styleFunctions,
 		basepop       = {};
 
 	if ( o.useFocus && w.fastReopen === true ) {
@@ -49,12 +48,11 @@ JTSageDateBox.open = function () {
 
 	if ( o.useHeader ) {
 		w.d.mainWrap
-			.append( $( _sf.widgetHeader.apply( w, [
+			.append( $( w.style_mainHead(
 				w.d.headerText,
 				o.theme_headerTheme,
-				o.theme_headerBtnCls,
-				o.theme_headerBtnIcn
-			] ) ) )
+				o.theme_headerBtn,
+			) ) )
 			.find( ".dbCloser" ).on( o.clickEvent, function( e ) {
 				e.preventDefault();
 				w._t( { method : "close", closeCancel : true } );
@@ -114,13 +112,14 @@ JTSageDateBox.open = function () {
 				}
 			} else {
 				w.d.mainWrap
-					.insertAfter( _sf.findAttachPoint.call( w, true ) )
+					.insertAfter( w.style_attach( true ) )
 					.addClass( o.theme_inlineContainer )
 					.css( {
 						zIndex      : "auto",
 						marginRight : ( o.displayInlinePosition === "right" ) ? 0 : "auto",
 						marginLeft  : ( o.displayInlinePosition === "left"  ) ? 0 : "auto",
 					} );
+				if ( o.displayMode === "blind" ) { w.d.mainWrap.hide(); }
 				w.initDone = true;
 			}
 			w._t( { method : "postrefresh" } );
@@ -131,7 +130,7 @@ JTSageDateBox.open = function () {
 			w.d.mainWrap
 				.show()
 				.css( "zIndex", ( o.zindex ) )
-				.appendTo( _sf.findAttachPoint.call( w, false ) )
+				.appendTo( w.style_attach( false ) )
 				.addClass( o.theme_modalContainer )
 				.one( o.tranDone, function() {
 					if ( w.d.mainWrap.is( ":visible" ) ) {
@@ -147,7 +146,7 @@ JTSageDateBox.open = function () {
 				.css( "zIndex", ( o.zindex - 1 ) )
 				.appendTo(
 					( o.displayMode === "modal" ) ?
-						_sf.findAttachPoint.call( w, false ) :
+						w.style_attach( false ) :
 						"body"
 				)
 				.on( o.clickEvent, function (e) {

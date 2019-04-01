@@ -175,7 +175,6 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 JTSageDateBox._build.calbox = function () {
 	var w                 = this, i,
 		o                 = this.options,
-		_sf               = this.styleFunctions,
 		// Today's real date, not based on selection
 		date_realToday    = new w._date(),
 		// First day of the displayed month
@@ -232,13 +231,14 @@ JTSageDateBox._build.calbox = function () {
 	//
 	// Expects a ".dbCalNext" and ".dbCalPrev" for prev/next button events.
 	if ( o.calNoHeader === false ) {
-		_sf.calHeader.apply( w, [
+		w.style_pnHead(
 			w._formatter( w.__( "calHeaderFormat"), w.theDate ),
-			o.theme_cal_PrevBtnIcn,
-			o.theme_cal_PrevBtnCls,
-			o.theme_cal_NextBtnIcn,
-			o.theme_cal_NextBtnCls,
-		] ).appendTo( w.d.intHTML );
+			o.theme_cal_PrevBtn,
+			o.theme_cal_NextBtn,
+			"dbCalPrev",
+			"dbCalNext"
+		).appendTo( w.d.intHTML );
+
 		w.d.intHTML
 			.on( o.clickEvent, ".dbCalNext", function(e) {
 				e.preventDefault();
@@ -259,14 +259,16 @@ JTSageDateBox._build.calbox = function () {
 	// Picker controls, if enabled.
 
 	if ( o.calUsePickers === true ) {
-		_sf.calPickers.apply(
-			this,
-			[ w._pickRanges(
+		w.style_picker(
+			w._pickRanges(
 				date_displayMonth,
 				date_displayYear,
 				date_realToday.get(0),
 				o.calYearPickRelative
-			), o.theme_cal_Pickers ]
+			),
+			o.theme_cal_Pickers,
+			"dbCalPickMonth",
+			"dbCalPickYear"
 		).appendTo( w.d.intHTML );
 
 		w.d.intHTML.on( "change", "#dbCalPickMonth, #dbCalPickYear", function() {
@@ -293,19 +295,19 @@ JTSageDateBox._build.calbox = function () {
 	}
 
 	// The actual grid system.
-	calContent = $( _sf.calGrid() ).appendTo( w.d.intHTML ).find( ".dbCalGrid" ).first();
+	calContent = $( w.style_calGrid() ).appendTo( w.d.intHTML ).find( ".dbCalGrid" ).first();
 	
 	if ( o.calShowDays ) {
 		w._cal_days = w.__( "daysOfWeekShort").concat( w.__( "daysOfWeekShort" ) );
 
-		weekdayControl = _sf.calRow();
+		weekdayControl = w.style_calRow();
 
 		if ( o.calShowWeek ) {
-			weekdayControl.append( _sf.calNonButton( "&nbsp", false ) );
+			weekdayControl.append( w.style_calTxt( "&nbsp", false, 8 ) );
 		}
 
 		for ( i=0; i<=6;i++ ) {
-			weekdayControl.append( _sf.calNonButton(
+			weekdayControl.append( w.style_calTxt(
 				w._cal_days[ ( i + w.__( "calStartDay") ) % 7 ],
 				true,
 				grid_Cols
@@ -330,11 +332,11 @@ JTSageDateBox._build.calbox = function () {
 	for ( cntlRow = 0; cntlRow < grid_Weeks; cntlRow++ ) {
 
 		// Begin:: ROW
-		calCntlRow = _sf.calRow();
+		calCntlRow = w.style_calRow();
 
 		// Show week numbers
 		if ( o.calShowWeek ) {
-			calCntlRow.append( _sf.calNonButton( date_working.getDWeek(4), false ) );
+			calCntlRow.append( w.style_calTxt( date_working.getDWeek(4), false, 8 ) );
 		}
 		
 		for ( cntlCol = 0; cntlCol < 7; cntlCol++ ) {
@@ -355,7 +357,7 @@ JTSageDateBox._build.calbox = function () {
 			// Create HTML
 			//
 			// Event "button" MUST have the class of ".dbEvent"
-			cntlObj.htmlObj = _sf.calButton( cntlObj, grid_Cols );
+			cntlObj.htmlObj = w.style_calBtn( cntlObj, grid_Cols );
 
 			// Add data object to event object
 			cntlObj.eventObj = cntlObj.htmlObj.find( ".dbEvent" ).first();
@@ -370,7 +372,7 @@ JTSageDateBox._build.calbox = function () {
 			if ( o.calOnlyMonth === false || cntlObj.inBounds === true ) {
 				calCntlRow.append( cntlObj.htmlObj );
 			} else {
-				calCntlRow.append( _sf.calNonButton( "&nbsp", false ) );
+				calCntlRow.append( w.style_calTxt( "&nbsp", false, grid_Cols ) );
 			}
 
 			//Add ONE day
@@ -388,9 +390,11 @@ JTSageDateBox._build.calbox = function () {
 
 	// Quick Date Picker if turned on.
 	if ( o.calShowDateList === true && o.calDateList !== false ) {
-		_sf.calDateList.apply(
-			this,
-			[ w.__( "calDateListLabel" ), o.calDateList, o.theme_cal_DateList ]
+		w.style_dateList(
+			w.__( "calDateListLabel" ),
+			o.calDateList,
+			o.theme_cal_DateList,
+			"dbCalPickList"
 		).appendTo(w.d.intHTML);
 		w.d.intHTML.on( "change", "#dbCalPickList", function() {
 			var iPut = $(this).val().split( "-" );

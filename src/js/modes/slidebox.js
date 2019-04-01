@@ -75,7 +75,6 @@ JTSageDateBox._slide_ThemeDate = function( testDate ) {
 JTSageDateBox._build.slidebox = function () {
 	var w                 = this,
 		o                 = this.options,
-		_sf               = this.styleFunctions,
 		// Today's real date, not based on selection
 		date_realToday    = new w._date(),
 		// The month ( of the middle date )
@@ -106,15 +105,15 @@ JTSageDateBox._build.slidebox = function () {
 
 	// Internal header (not the widget master header, a header for the calendar)
 	//
-	// Expects a ".dbCalNext" and ".dbCalPrev" for prev/next button events.
+	// Expects a ".dbSlideNext" and ".dbSlidePrev" for prev/next button events.
 	if ( o.slideNoHeader === false ) {
-		_sf.slideHeader.apply( w, [
+		w.style_pnHead(
 			w._formatter( w.__( "calHeaderFormat"), w.theDate ),
-			o.theme_slide_PrevBtnIcn,
-			o.theme_slide_PrevBtnCls,
-			o.theme_slide_NextBtnIcn,
-			o.theme_slide_NextBtnCls
-		] ).appendTo( w.d.intHTML );
+			o.theme_slide_PrevBtn,
+			o.theme_slide_NextBtn,
+			"dbSlidePrev",
+			"dbSlideNext"
+		).appendTo( w.d.intHTML );
 		w.d.intHTML
 			.on( o.clickEvent, ".dbSlideNext", function(e) {
 				e.preventDefault();
@@ -135,14 +134,16 @@ JTSageDateBox._build.slidebox = function () {
 	// Picker controls, if enabled.
 
 	if ( o.slideUsePickers === true ) {
-		_sf.slidePickers.apply(
-			this,
-			[ w._pickRanges(
+		w.style_picker(
+			w._pickRanges(
 				date_displayMonth,
 				date_displayYear,
 				date_realToday.get(0),
 				o.slideYearPickRelative
-			), o.theme_slide_Pickers ]
+			),
+			o.theme_slide_Pickers,
+			"dbSlidePickMonth",
+			"dbSlidePickYear"
 		).appendTo( w.d.intHTML );
 
 		w.d.intHTML.on( "change", "#dbSlidePickMonth, #dbSlidePickYear", function() {
@@ -157,15 +158,14 @@ JTSageDateBox._build.slidebox = function () {
 	}
 
 	// The actual grid system.
-	calContent = $( _sf.slideGrid() ).appendTo( w.d.intHTML ).find( ".dbSlideGrid" ).first();
+	calContent = $( w.style_slideGrid() ).appendTo( w.d.intHTML ).find( ".dbSlideGrid" ).first();
 
-	calCntlRow = _sf.slideRow();
+	calCntlRow = w.style_slideRow();
 
-	calCntlRow.append( _sf.slideMoveButton.apply( w, [
+	calCntlRow.append( w.style_slideCtrl(
 		"dbSlideWkPrev",
-		o.theme_slide_PrevDateBtnIcn,
-		o.theme_slide_PrevDateBtnCls
-	] ) );
+		o.theme_slide_PrevDateBtn,
+	) );
 
 	for ( cntlCol = -3; cntlCol <= 3; cntlCol++ ) {
 
@@ -174,7 +174,7 @@ JTSageDateBox._build.slidebox = function () {
 			w._slide_ThemeDate( date_working )
 		);
 
-		cntlObj.htmlObj = _sf.slideDateButton.call( w, cntlObj );
+		cntlObj.htmlObj = w.style_slideBtn( cntlObj );
 
 		// Add data object to event object
 		cntlObj.eventObj = cntlObj.htmlObj.find( ".dbEventS" ).first();
@@ -186,11 +186,10 @@ JTSageDateBox._build.slidebox = function () {
 
 	}
 
-	calCntlRow.append( _sf.slideMoveButton.apply( this, [
+	calCntlRow.append( w.style_slideCtrl(
 		"dbSlideWkNext",
-		o.theme_slide_NextDateBtnIcn,
-		o.theme_slide_NextDateBtnCls
-	] ) );
+		o.theme_slide_NextDateBtn,
+	) );
 	
 	// Deal with RTL languages (flex is easiest)
 	if ( w.__( "isRTL" ) === true ) {
@@ -203,9 +202,11 @@ JTSageDateBox._build.slidebox = function () {
 
 	// Quick Date Picker if turned on.
 	if ( o.slideShowDateList === true && o.slideDateList !== false ) {
-		_sf.slideDateList.apply(
-			this,
-			[ w.__( "calDateListLabel" ), o.slideDateList, o.theme_slide_DateList ]
+		w.style_dateList(
+			w.__( "calDateListLabel" ),
+			o.slideDateList,
+			o.theme_slide_DateList,
+			"dbSlidePickList"
 		).appendTo(w.d.intHTML);
 		w.d.intHTML.on( "change", "#dbSlidePickList", function() {
 			var iPut = $( this ).val().split( "-" );
