@@ -1,0 +1,89 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>JTSage-DateBox (UIKit)</title>
+	
+	<!-- NOTE: Script load order is significant! -->
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/css/uikit.min.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit-icons.min.js"></script>
+
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/external/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/{{cnf:version}}/jtsage-datebox.uikit.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.jtsage.com/jtsage-datebox/i18n/jtsage-datebox.lang.utf8.js"></script>
+	
+	<script type="text/javascript">
+		jQuery.extend(jQuery.jtsage.datebox.prototype.options, {
+			highDays          : [ 0, 6 ],
+
+			calDateList       : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			calShowDateList   : true,
+
+			slideDateList     : [ ["1980-04-25", "JT's Date of Birth"], ["1809-02-12", "Lincoln's Birthday"] ],
+			slideShowDateList : true,
+
+			calUsePickers     : true,
+			slideUsePickers   : true,
+			useCancelButton   : true,
+			useClearButton    : true,
+			useTodayButton    : true,
+			useCollapsedBut   : true,
+		});
+	</script>
+	
+</head>
+<body>
+	<div class="uk-container" role="main">
+		<h1>DateBox <small>UIKit Samples</small></h1>
+
+		<p><strong><a href="https://getuikit.com/">UIKit</a></strong> A lightweight and modular front-end framework for developing fast and powerful web interfaces.</p>
+
+		<form class="uk-form-horizontal">
+
+		<div>
+			<label class="uk-form-label" for="username">Sample Input</label>
+			<div class="uk-form-controls">
+				<input type="text" name="username" id="username" class="uk-input" autocomplete="off">
+			</div>
+		</div>
+
+		<div>
+			<label class="uk-form-label"for="db1">DateBox</label>
+			<div class="uk-form-controls">
+				<input class="uk-input" name="db1" type="text" data-datebox-mode="datebox" data-role="datebox" id="db1" />
+			</div>
+		</div>
+
+		<div>
+			<label class="uk-form-label"for="db2">CalBox</label>
+			<div class="uk-form-controls">
+				<input class="uk-input" name="db2" type="text" data-datebox-mode="calbpx" data-role="datebox" id="db2" />
+			</div>
+		</div>
+
+		<div>
+			<label class="uk-form-label"for="db3">SlideBox</label>
+			<div class="uk-form-controls">
+				<input class="uk-input" name="db3" type="text" data-datebox-mode="slidebox" data-role="datebox" id="db3" />
+			</div>
+		</div>
+
+		<div>
+			<label class="uk-form-label"for="db4">DateTimeFlipBox</label>
+			<div class="uk-form-controls">
+				<input class="uk-input" name="db4" type="text" data-datebox-mode="datetimeflipbox" data-role="datebox" id="db4" />
+			</div>
+		</div>
+
+		</form>
+
+	</div>
+
+</html>

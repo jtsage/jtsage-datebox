@@ -56,6 +56,9 @@ sample :
   - name : "- jQueryMobile"
     url  : "/samples/jqm/"
 
+  - name : "- UIKit"
+    url  : "/samples/uikit/"
+
 demo :
   - name : Option Demos
     url  : "/optDemo/"
