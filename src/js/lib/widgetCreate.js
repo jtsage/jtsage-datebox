@@ -129,15 +129,16 @@ JTSageDateBox._create = function() {
 
 	if ( o.useButton ) {
 		$( w.style_inBtn( o.buttonIcon, w.__( "tooltip" ), o.theme_openButton ) )
-			.on(o.clickEvent, function( e ) {
-				e.preventDefault();
-				if ( o.useFocus ) {
-					w.d.input.focus();
-				} else {
-					if ( !w.disabled ) { w._t( { method : "open" } ); }
-				}
-			})
 			.appendTo( w.d.wrap );
+
+		w.d.wrap.on(o.clickEvent, ".dbOpenButton", function( e ) {
+			e.preventDefault();
+			if ( o.useFocus ) {
+				w.d.input.focus();
+			} else {
+				if ( !w.disabled ) { w._t( { method : "open" } ); }
+			}
+		});
 	} else {
 		w.style_inNoBtn( w.d.wrap );
 	}

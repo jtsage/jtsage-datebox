@@ -202,7 +202,7 @@ JTSageDateBox.style_inWrap = function ( originalInput ) {
  */
 JTSageDateBox.style_inBtn = function ( icon, title ) {
 	return "<a href='javascript: return false;' " +
-			"class='ui-input-clear ui-btn ui-icon-" + icon +
+			"class='dbOpenButton ui-input-clear ui-btn ui-icon-" + icon +
 			" ui-btn-icon-notext ui-corner-all' " +
 			"title='" + title + "'>" + title + "</a>";
 };
