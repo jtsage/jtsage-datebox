@@ -20,7 +20,7 @@ const config     = require( "../package.json"),
 	UglifyJS     = require( "uglify-js" ),
 	pretty       = require( "js-object-pretty-print" ).pretty,
 	form         = require( "./builderForm.js" ),
-	PORT         = 8086,
+	PORT         = 8023,
 	runasUID     = "www-data",
 	runasGID     = "www-data";
 
