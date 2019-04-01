@@ -233,7 +233,7 @@ JTSageDateBox.style_mainHead = function ( text, themeBar, themeButton ) {
 		"<ul class=\"uk-navbar-nav\"><li class=\"uk-active\">" +
 		"<div class=\"uk-navbar-item uk-logo\">" + text + "</div></li></ul>" +
 		"</div><div class='uk-navbar-right'>" +
-		"<ul class=\"uk-navbar-nav\"><li><a href='#' class='dbcloser'>" +
+		"<ul class=\"uk-navbar-nav\"><li><a href='#' class='dbCloser'>" +
 		this.icons.getIcon( themeButton[0] ) + "</a></li></ul>" +
 		"</div></div>";
 },
