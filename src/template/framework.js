@@ -140,9 +140,10 @@ JTSageDateBox.style_btnGrpOut = function ( collapse, inner ) {
  * Wrap the original input in a div so we can add a button to it
  * 
  * @param  {object} originalInput Original input element, jQuery object
+ * @param  {string} Theme class
  * @return {object} jQuery object now wrapped with some sort of div
  */
-JTSageDateBox.style_inWrap = function ( originalInput ) {
+JTSageDateBox.style_inWrap = function ( originalInput, theme ) {
 	
 };
 

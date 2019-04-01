@@ -154,9 +154,10 @@ JTSageDateBox.style_btnGrp = function ( collapse ) {
  * Wrap the original input in a div so we can add a button to it
  * 
  * @param  {object} originalInput Original input element, jQuery object
+ * @param  {string} theme Theme class
  * @return {object} jQuery object now wrapped with some sort of div
  */
-JTSageDateBox.style_inWrap = function ( originalInput ) {
+JTSageDateBox.style_inWrap = function ( originalInput, /* theme */ ) {
 	return originalInput.wrap("<div class='input-group'>").parent();
 };
 
