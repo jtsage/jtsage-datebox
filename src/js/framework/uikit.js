@@ -53,18 +53,18 @@ mergeOpts({
 	theme_fbox_Forbidden  : "danger",
 	theme_fbox_RollHeight : "135px",
 
-	theme_slide_Today       : "outline-info",
-	theme_slide_DayHigh     : "outline-warning",
-	theme_slide_Selected    : "outline-success",
-	theme_slide_DateHigh    : "outline-warning",
-	theme_slide_DateHighAlt : "outline-danger",
-	theme_slide_DateHighRec : "outline-warning",
-	theme_slide_Default     : "outline-primary",
+	theme_slide_Today       : "secondary",
+	theme_slide_DayHigh     : "danger",
+	theme_slide_Selected    : "primary",
+	theme_slide_DateHigh    : "danger",
+	theme_slide_DateHighAlt : "danger",
+	theme_slide_DateHighRec : "danger",
+	theme_slide_Default     : "default",
 
-	theme_slide_NextBtn     : [ "plus",  "default" ],
-	theme_slide_PrevBtn     : [ "minus", "default" ],
-	theme_slide_NextDateBtn : [ "next",  "default" ],
-	theme_slide_PrevDateBtn : [ "prev",  "default" ],
+	theme_slide_NextBtn     : [ "plus",  "text" ],
+	theme_slide_PrevBtn     : [ "minus", "text" ],
+	theme_slide_NextDateBtn : [ "next",  "text" ],
+	theme_slide_PrevDateBtn : [ "prev",  "text" ],
 
 	theme_slide_Pickers  : false, // UNUSED
 	theme_slide_DateList : false, // UNUSED
@@ -496,7 +496,7 @@ JTSageDateBox.style_dboxCtrl = function ( prevBtn, nextBtn, mainCls, label ) {
  * @returns {object} jQuery Object
  */
 JTSageDateBox.style_slideGrid = function () {
-	return $( "<div class='w-100 py-1'><table class='dbSlideGrid w-100'></table></div>" );
+	return $( "<div class='uk-margin'><table class='dbSlideGrid uk-width-1-1'></table></div>" );
 };
 
 /**
@@ -524,17 +524,16 @@ JTSageDateBox.style_slideRow = function () {
 JTSageDateBox.style_slideBtn = function ( data ) {
 	var styles_TD = "width: " + ( 100 / 8 ) + "%",
 		class_TD = [
-			"m-0",
-			"p-0",
-			"text-center"
+			"uk-margin-remove",
+			"uk-padding-remove",
+			"uk-text-center"
 		],
 		class_A = [
 			"dbEventS",
-			"w-100",
-			"rounded-circle",
-			"btn-sm",
-			"btn",
-			"btn-" + data.theme,
+			"uk-button",
+			"uk-width-1-1",
+			"uk-padding-remove",
+			"uk-button-" + data.theme,
 			( data.bad ? "disabled" : "" )
 		],
 		disable = ( data.bad ? "disabled='disabled'" : "");
@@ -542,7 +541,8 @@ JTSageDateBox.style_slideBtn = function ( data ) {
 	return $(
 		"<td class='" + class_TD.join( " " ) + "' style='" + styles_TD + "'>" +
 		"<a href='#' class='" + class_A.join( " " ) + "' " + disable + ">" +
-		"<small>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] + "</small>" +
+		"<span class='uk-text-small'>" + this.__( "daysOfWeekShort")[data.dateObj.getDay()] +
+		"</span>" +
 		"<br>" + data.dateObj.getDate() +
 		"</a></td>");
 };
@@ -557,17 +557,15 @@ JTSageDateBox.style_slideBtn = function ( data ) {
 JTSageDateBox.style_slideCtrl = function ( eventCls, theme ) {
 	var styles_TD = "width: " + ( ( 100 / 8 ) / 2 ) + "%",
 		class_TD = [
-			"m-0",
-			"p-0",
-			"text-center"
+			"uk-margin-remove",
+			"uk-padding-remove",
+			"uk-text-center"
 		],
 		class_A = [
-			"w-100",
-			"p-1",
-			"rounded-circle",
-			"btn-sm",
-			"btn",
-			"btn-" + theme[1],
+			"uk-width-1-1",
+			"uk-padding-remove",
+			"uk-button",
+			"uk-button-" + theme[1],
 			eventCls
 		];
 
