@@ -74,6 +74,8 @@ JTSageDateBox._create = function() {
 		) );
 	}
 
+	w.wheelEvent = ( typeof $.event.special.mousewheel !== "undefined" ) ? "mousewheel" : "wheel";
+
 	w.firstOfGrid    = false;
 	w.lastOfGrid     = false;
 	w.selectedInGrid = false;

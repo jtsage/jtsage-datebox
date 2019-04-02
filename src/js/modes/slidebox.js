@@ -249,15 +249,11 @@ JTSageDateBox._build.slidebox = function () {
 			w._offset( "d", -7 );
 			return false;
 		})
-		.on( "swipeleft",  function() { w._offset( "d", 7 ); } )
-		.on( "swiperight", function() { w._offset( "d", -7 ); } )
-		.on( "mousewheel", function(e,d) {
+		.on( w.wheelEvent, function(e,d) {
 			e.preventDefault();
-			if ( d > 0 ) {
-				w._offset( "d", 7 );
-			}
-			if ( d < 0 ) {
-				w._offset( "d", -7 );
-			}
+			d = ( typeof d === "undefined" ) ? Math.sign(e.originalEvent.wheelDelta) : d;
+			
+			w._offset( "d", ( d > 0 ) ? 7 : -7 );
+			
 		});
 };

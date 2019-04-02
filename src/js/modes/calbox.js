@@ -425,17 +425,11 @@ JTSageDateBox._build.calbox = function () {
 				w._t( { method : "close" } );
 			}
 		})
-		.on( "swipeleft",  function() { w._offset( "m", 1  ); } )
-		.on( "swiperight", function() { w._offset( "m", -1 ); } )
-		.on( "mousewheel", function(e,d) {
+		.on( w.wheelEvent, function(e,d) {
 			e.preventDefault();
-			if ( d > 0 ) {
-				w.theDate.setD( 2, 1 );
-				w._offset( "m", 1 );
-			}
-			if ( d < 0 ) {
-				w.theDate.setD( 2, 1 );
-				w._offset( "m", -1 );
-			}
+			d = ( typeof d === "undefined" ) ? Math.sign(e.originalEvent.wheelDelta) : d;
+			
+			w.theDate.setD( 2, 1 );
+			w._offset( "m", ( d > 0 ) ? 1 : -1 );
 		});
 };

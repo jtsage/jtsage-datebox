@@ -289,10 +289,6 @@ JTSageDateBox._build.flipbox         = function () {
 	// Attach events
 
 	w.d.intHTML
-		.on( "mousewheel", ".ui-overlay-shadow", function(e,d) {
-			e.preventDefault();
-			w._offset($(this).data("field"), ((d<0)?1:-1)*$(this).data("amount"));
-		})
 		.on(g.eStart, ".dbRoller", function(e,f) {
 			if ( !g.move ) {
 				if ( typeof f !== "undefined" ) { e = f; }

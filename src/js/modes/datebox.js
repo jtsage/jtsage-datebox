@@ -271,8 +271,9 @@ JTSageDateBox._build.datebox = function () {
 				w._t( { method : "close" } );
 			}
 		})
-		.on( "mousewheel", "input", function( e, d ) {
+		.on( w.wheelEvent, "input", function( e, d ) {
 			e.preventDefault();
+			d = ( typeof d === "undefined" ) ? Math.sign(e.originalEvent.wheelDelta) : d;
 			w._offset(
 				$( this ).data( "field" ),
 				( ( d < 0 ) ? -1 : 1 ) * $( this ).data( "amount" )
