@@ -1290,6 +1290,26 @@ opts :
     optdemo : true
     sample  : "[ 0, 6 ]"
 
+  iconFactory :
+    short   : Provide an icon factory to override internal icons
+    long    : |
+      This provides an convient way to override the built in icons.  It recieves a single argument, 
+      which it the value of the icon portion of the theme setting.
+
+      ##### Example - FontAwesome
+      ```js
+      iconFactory : function ( icnName ) {
+        return "<i class=\"fa fa-" + icnName + "\"></i>";
+      }
+      ```
+    modes   : *modeAll
+    cat     : Callback
+    default : false
+    type    : Function
+    dynamic : true
+    optdemo : false
+    sample  : false
+
   isRTL :
     short   : Language runs Right-to-Left
     long    : |

@@ -131,7 +131,7 @@ JTSageDateBox.style_btn = function( theme, contents ) {
 	retty  = "<a href='#' role='button' class='btn btn-sm btn-" + theme[1] + "'>";
 	retty += ( theme[0] !== false ) ?
 		"<span style='top: 3px; display: inline-block; position: relative;'>" +
-		this.icons.getIcon(theme[0]) + "</span> " :
+		this.icons.getIcon.call( this, theme[0] ) + "</span> " :
 		"";
 	retty += contents + "</a>";
 	return retty;
@@ -174,7 +174,7 @@ JTSageDateBox.style_inWrap = function ( originalInput, theme ) {
  */
 JTSageDateBox.style_inBtn = function ( icon, title ) {
 	return "<div class='input-group-addon dbOpenButton' title='" + title + "'>" +
-		"<span>" + this.icons.getIcon(icon) + "</span>" +
+		"<span>" + this.icons.getIcon.call( this, icon ) + "</span>" +
 		"</div>";
 };
 
@@ -215,7 +215,7 @@ JTSageDateBox.style_mainHead = function ( text, themeBar, themeButton ) {
 	return "<div class='navbar " + themeBar + "'><div class='navbar-header'>" +
 		"<span class='navbar-brand'>" + text + "</span>" +
 		"</div>" + "<ul class='nav navbar-nav navbar-right'>" +
-		"<li><a href='#' class='dbCloser'><span>" + this.icons.getIcon(themeButton[0]) +
+		"<li><a href='#' class='dbCloser'><span>" + this.icons.getIcon.call( this, themeButton[0]) +
 		"</span>&nbsp;&nbsp;</a></li></ul></div>";
 },
 
@@ -523,7 +523,7 @@ JTSageDateBox.style_slideCtrl = function ( eventCls, theme ) {
 	return $(
 		"<td class='m-0 p-1 text-center'" + style + ">" +
 		"<a href='#' style='border-radius: 50%; padding:2px; margin:0;' " +
-		cls + ">" + this.icons.getIcon(theme[0]) + "</a></td>"
+		cls + ">" + this.icons.getIcon.call( theme[0] ) + "</a></td>"
 	);
 };
 

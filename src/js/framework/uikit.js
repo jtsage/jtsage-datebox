@@ -135,7 +135,9 @@ JTSageDateBox.style_btn = function( theme, contents ) {
 	contents = ( typeof contents === "undefined" ) ? "" : contents;
 
 	retty  = "<a href='#' role='button' class='uk-button uk-button-" + theme[1] + "'>";
-	retty += ( theme[0] !== false ) ? "<span>" + this.icons.getIcon(theme[0]) + "</span> " : "";
+	retty += ( theme[0] !== false ) ?
+		"<span>" + this.icons.getIcon.call( this, theme[0] ) + "</span> " :
+		"";
 	retty += contents + "</a>";
 
 	return retty;
@@ -185,7 +187,7 @@ JTSageDateBox.style_inWrap = function ( originalInput ) {
 JTSageDateBox.style_inBtn = function ( icon, title ) {
 	this.d.wrap.prepend(
 		"<a href='#' title='" + title + "' class='dbOpenButton uk-form-icon uk-form-icon-flip'>" +
-		this.icons.getIcon( icon ) + "</a>"
+		this.icons.getIcon.call( this, icon ) + "</a>"
 	);
 	return "";
 };
@@ -234,7 +236,7 @@ JTSageDateBox.style_mainHead = function ( text, themeBar, themeButton ) {
 		"<div class=\"uk-navbar-item uk-logo\">" + text + "</div></li></ul>" +
 		"</div><div class='uk-navbar-right'>" +
 		"<ul class=\"uk-navbar-nav\"><li><a href='#' class='dbCloser'>" +
-		this.icons.getIcon( themeButton[0] ) + "</a></li></ul>" +
+		this.icons.getIcon.call( this, themeButton[0] ) + "</a></li></ul>" +
 		"</div></div>";
 },
 
@@ -573,7 +575,7 @@ JTSageDateBox.style_slideCtrl = function ( eventCls, theme ) {
 	return $(
 		"<td class='" +  class_TD.join( " " ) + "' style='" + styles_TD + "'>" +
 		"<a href='#' class='" + class_A.join( " " ) + "'>" +
-		this.icons.getIcon( theme[0] )  + "</a></td>"
+		this.icons.getIcon.call( this, theme[0] )  + "</a></td>"
 	);
 };
 

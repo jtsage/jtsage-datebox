@@ -220,15 +220,23 @@ JTSageDateBox.options = {
  */
 JTSageDateBox.icons = {
 	getIcon  : function ( name ) {
+		var w    = this,
+			icnF = w.options.iconFactory;
+		// Empty argument?  Do nothing.
 		// If the icon name starts with a tag, it's svg.
+		// However, if o.iconFactory is a function, return that instead.
 
 		if ( name === false ) { return false; }
 
+		if ( typeof icnF === "function" ) {
+			return icnF.call( w, name );
+		}
+
 		if ( name.substr(0,4) === "<svg" ) { return name; }
 
-		if ( typeof this[name] !== "undefined" ) { return this[name]; }
+		if ( typeof w.icons[name] !== "undefined" ) { return w.icons[name]; }
 
-		return this.cancel;
+		return w.icons.cancel;
 	},
 	next     : '<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M9.8 6L4 11.8l-1.8-1.7L6.6 6 2.2 2 4 .1 9.8 6z" clip-rule="evenodd" fill-rule="evenodd"/></svg>',
 	prev     : '<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M2.2 6L8 .2l1.8 1.7L5.4 6l4.4 4L8 11.9 2.2 6z" clip-rule="evenodd" fill-rule="evenodd"/></svg>',
