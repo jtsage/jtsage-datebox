@@ -12,6 +12,13 @@ This document explains how to change the version of DateBox.
   "version" : "SemVer"
 }
 ```
+___OR___
+
+```sh
+# npm version [<new verson>|major|minor|patch]
+```
+
+__THEN__
 
 ```sh
 # npm run prerelease
