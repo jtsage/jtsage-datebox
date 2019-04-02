@@ -49,8 +49,8 @@ function makeDemoIn( rec ) {
 		retHtml += "</select>";
 	} else {
 		retHtml += "<input class=\"form-control demopick\" data-link=\"db\" data-opt=\"" +
-			rec.name + "\" value=\"" + rec.default +
-			"\" placeholder=\"" + rec.default + "\"/>";
+			rec.name + "\" value='" + rec.default +
+			"' placeholder='" + rec.default + "'/>";
 	}
 	retHtml += "<small class=\"form-text text-muted\">" + rec.short +
 		(( rec.sample !== false ) ? "<br /><strong>Sample: </strong>" + rec.sample : "") +
