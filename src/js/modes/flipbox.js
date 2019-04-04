@@ -124,7 +124,7 @@ JTSageDateBox._fbox_do_roll_math = function ( term, offset ) {
 			testDate = w.theDate.copy( [ 0, 0, 0, offset ] );
 			return ( ( w.__("timeFormat") === 12 ) ? testDate.get12hr() : testDate.get(3) );
 		case "i" :
-			return w._zPad( ( w.theDate.copy( [ 0, 0, 0, 0, offset ] )).get(4) );
+			return w._zPad( ( w.theDate.copy( [ 0, 0, 0, 0, offset * o.minuteStep ] )).get(4) );
 		case "s" :
 			return w._zPad( ( w.theDate.copy( [ 0, 0, 0, 0, 0, offset ] )).get(5) );
 		case "a" :
