@@ -12,19 +12,24 @@ This document explains how to change the version of DateBox.
   "version" : "SemVer"
 }
 ```
+___OR___
 
 ```sh
-# npm run prerelease
+# npm version [<new verson>|major|minor|patch]
 ```
 
---> commit and tag here
+__THEN__
 
 ```sh
 # npm run latest
 # npm run release
 ```
 
+--> __COMMIT AND TAG POINT ARE HERE__
+
 --> __RESTART THE BUILDER SERVER, IF IT'S RUNNING!__
+
+ - The builderServer caches the source files - for the length of it's runtime. If you don't restart it, you will still be building old versions.
 
 
 ## To up a version of a framework:
@@ -49,3 +54,5 @@ This document explains how to change the version of DateBox.
     "filename-without-extension-in-modes-folder" : "Pretty Name of Framework"
   }
 ```
+
+
