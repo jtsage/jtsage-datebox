@@ -23,7 +23,8 @@ mergeOpts({
 		"h" : 1,
 		"i" : 1,
 		"s" : 1
-	}
+	},
+	fboxNatural      : "default",
 });
 
 /**
@@ -216,6 +217,11 @@ JTSageDateBox._build.flipbox         = function () {
 		w._fixstepper( w.fldOrder );
 	}
 
+	o.fboxNatural = ( o.fboxNatural === "default" ) ?
+		( ( dur ) ? true : false ) :
+		o.fboxNatural;
+	
+
 	// Create a header for flipbox and datetimeflipbox modes
 	if ( o.mode === "flipbox" || o.mode === "datetimeflipbox" ) {
 		w.style_subHead( w._formatter( w.__( "headerFormat" ), w.theDate ) )
@@ -267,6 +273,11 @@ JTSageDateBox._build.flipbox         = function () {
 				) );
 			}
 		}
+		if ( o.fboxNatural ) {
+			cntlRoller.children().each( function( i, item ) {
+				cntlRoller.prepend( item );
+			} );
+		}
 
 		cntlContain.append( cntlRoller );
 
@@ -299,7 +310,7 @@ JTSageDateBox._build.flipbox         = function () {
 					e.originalEvent.changedTouches[0].pageY :
 					e.pageY;
 				g.end = false;
-				g.direc = 1; //( dur ) ? 1 : -1;
+				g.direc = o.fboxNatural ? -1 : 1; //( dur ) ? 1 : -1;
 				g.velocity = 0;
 				g.time = Date.now();
 				e.stopPropagation();

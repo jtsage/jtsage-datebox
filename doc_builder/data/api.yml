@@ -1166,6 +1166,28 @@ opts :
     optdemo : false
     sample  : false
 
+  fboxNatural :
+    short   : Use "natural" sort for flipbox
+    long    : |
+      Natural sort is the backwards one. Sliding the roller down adds to the control, up subtracts.
+
+      Natural sort makes a good bit of sense for duration modes, less so for dates, but it's very much
+      a personal preference.
+
+      The default is the string "default" - which will turn it on for duration, off for everything
+      else.  Setting to __true__ will force it on, __false__ will force it off.
+    modes   : 
+      - flipbox
+      - timeflipbox
+      - datetimeflipbox
+      - durationflipbox
+    cat     : Display-Control
+    default : "default"
+    type    : String | Boolean
+    dynamic : true
+    optdemo : true
+    sample  : "[ \"default\" | true | false ]"
+
   headerFormat :
     short   : Format for header
     long    : |
