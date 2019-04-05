@@ -1007,6 +1007,19 @@ opts :
     optdemo : false
     sample  : false
 
+  dismissOnEscape :
+    short   : Pressing escape will close the control
+    long    : |
+      When true, pressing the escape while a control is open will close it.  Applies
+      to modal and dropdown display methods only.
+    modes   : *modeAll
+    cat     : Display-Control
+    type    : Boolean
+    dynamic : true
+    default : true
+    optdemo : false
+    sample  : false
+
   durationDays :
     short   : Name of day/days for duration
     long    : |

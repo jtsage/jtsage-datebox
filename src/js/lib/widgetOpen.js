@@ -15,6 +15,7 @@ JTSageDateBox.open = function () {
 	// PUBLIC function to open the control
 	var w             = this,
 		o             = this.options,
+		dMode         = o.displayMode,
 		basepop       = {};
 
 	if ( o.useFocus && w.fastReopen === true ) {
@@ -165,18 +166,30 @@ JTSageDateBox.open = function () {
 			break;
 	}
 
-	$( window ).on( "resize" + w.eventNamespace, ( function() {
-		var dMode = this.options.displayMode;
+	if ( dMode === "modal" || dMode === "dropdown" ) {
 
-		// For dropdown and modal modes , we need to handle resizing.
-		if ( dMode === "modal" || dMode === "blind" ) {
+		$( document ).on( "resize" + w.eventNamespace, ( function() {
 			this.d.mainWarp.css(
 				( dMode === "modal" ) ?
 					this.getModalPosition.call( this ) :
 					this.getDropPosition.call( this, this.options.displayDropdownPosition )
 			);
+		} ).bind(w) );
+
+		if ( o.dismissOnEscape ) {
+			$( document ).on( "keydown" + w.eventNamespace, ( function( e ) {
+				var isEscape = false;
+				if ("key" in e) {
+					isEscape = (e.key === "Escape" || e.key === "Esc");
+				} else {
+					isEscape = (e.keyCode === 27);
+				}
+				if (isEscape) {
+					this._t( { method : "close", closeCancel : true } );
+				}
+			} ).bind(w) );
 		}
-	} ).bind(w) );
+	}
 
 	window.setTimeout(function () {
 		w.d.mainWrap.addClass( "db-show" );

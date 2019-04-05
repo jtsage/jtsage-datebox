@@ -61,7 +61,8 @@ JTSageDateBox.close = function() {
 		.off( w.drag.eMove )
 		.off( w.drag.eEnd  )
 		.off( w.drag.eEndA )
-		.off( "resize" + w.eventNamespace );
+		.off( "resize"  + w.eventNamespace )
+		.off( "keydown" + w.eventNamespace );
 
 	if ( o.useFocus ) {
 		w.fastReopen = true;

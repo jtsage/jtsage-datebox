@@ -81,6 +81,7 @@ JTSageDateBox.options = {
 	displayInlinePosition   : "center",
 
 	dismissOutsideClick     : true,
+	dismissOnEscape         : false,
 
 	useHeader               : true,
 	useImmediate            : false,
