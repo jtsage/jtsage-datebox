@@ -80,6 +80,8 @@ JTSageDateBox._create = function() {
 	w.lastOfGrid     = false;
 	w.selectedInGrid = false;
 
+	w.skipChange     = false;
+
 	w.cancelClose    = false;
 	w.disabled       = false;
 	w._date          = window.Date;
@@ -156,6 +158,10 @@ JTSageDateBox._create = function() {
 			}
 		})
 		.on( "change.datebox", function() {
+			if ( w.skipChange ) {
+				w.skipChange = false;
+				return true;
+			}
 			if ( o.runOnBlurCallback === false ) {
 				// No callback specified
 				if ( o.safeEdit === true ) {

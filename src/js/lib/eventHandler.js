@@ -65,6 +65,7 @@ JTSageDateBox._event = function(e, p) {
 							}
 						}
 					}
+					w.skipChange = true;
 					$( this ).trigger( "change" );
 				}
 				break;
