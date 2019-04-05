@@ -238,6 +238,9 @@ JTSageDateBox._build.flipbox         = function () {
 				w.fldOrder.length
 			) );
 		}
+		if ( ( w.__( "isRTL" ) === true ) ) {
+			cntlContain.css({ direction : "rtl" });
+		}
 		w.d.intHTML.append( cntlContain );
 	}
 
@@ -281,9 +284,14 @@ JTSageDateBox._build.flipbox         = function () {
 
 		cntlContain.append( cntlRoller );
 
-		flipContent.append( cntlContain );
+		if ( w.__( "isRTL" ) === true ) {
+			flipContent.prepend( cntlContain );
+		} else {
+			flipContent.append( cntlContain );
+		}
 
 	}
+
 
 	w.d.intHTML.append( flipContent );
 	
