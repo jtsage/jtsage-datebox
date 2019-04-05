@@ -25,8 +25,16 @@ JTSageDateBox._posZero = function ( test ) {
  */
 JTSageDateBox.getModalPosition = function ( ) {
 	var w      = this,
+		fixed  = this.options.displayForcePosition,
 		widget = w.d.mainWrap[ 0 ].getBoundingClientRect();
 
+	if ( fixed !== false ) {
+		return {
+			position : "absolute",
+			top      : fixed[0],
+			left     : fixed[1]
+		};
+	}
 	return {
 		position        : "fixed",
 		top             : "50%",
@@ -46,6 +54,7 @@ JTSageDateBox.getModalPosition = function ( ) {
 JTSageDateBox.getDropPosition = function ( placement ) {
 	var w         = this, compd,
 		o         = this.options,
+		fixed     = this.options.displayForcePosition,
 		rect      = w.d.wrap[0].getBoundingClientRect(),
 		widget    = w.d.mainWrap[0].getBoundingClientRect(),
 		tOff      = window.pageYOffset,
@@ -98,6 +107,14 @@ JTSageDateBox.getDropPosition = function ( placement ) {
 		placement = "bottomRight";
 	}
 	
+	if ( fixed !== false ) {
+		return {
+			position : "absolute",
+			top      : fixed[0],
+			left     : fixed[1]
+		};
+	}
+
 	return {
 		position : "absolute",
 		top      : compd[placement].top,

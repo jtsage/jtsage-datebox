@@ -994,6 +994,19 @@ opts :
     optdemo : false
     sample  : false
 
+  displayForcePosition :
+    short   : Force position of modal or dropdown
+    long    : |
+      Takes an array of [ top, left ], expected in px, or any value that the jQuery .css() function
+      will accept.
+    modes   : *modeAll
+    cat     : Theme
+    type    : Array
+    dynamic : true
+    default : false
+    optdemo : false
+    sample  : false
+
   dismissOutsideClick :
     short   : Clicking outside the control will close it
     long    : |

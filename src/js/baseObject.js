@@ -80,6 +80,9 @@ JTSageDateBox.options = {
 	/* For inline display   : left, right, center (defaults center) */
 	displayInlinePosition   : "center",
 
+	/* Expects [ top, left ] in px */
+	displayForcePosition    : false,
+
 	dismissOutsideClick     : true,
 	dismissOnEscape         : false,
 
