@@ -231,13 +231,21 @@ JTSageDateBox._build.calbox = function () {
 	//
 	// Expects a ".dbCalNext" and ".dbCalPrev" for prev/next button events.
 	if ( o.calNoHeader === false ) {
-		w.style_pnHead(
+		calContent = w.style_pnHead(
 			w._formatter( w.__( "calHeaderFormat"), w.theDate ),
-			o.theme_cal_PrevBtn,
-			o.theme_cal_NextBtn,
+			( w.__( "isRTL" ) === true ) ? o.theme_cal_NextBtn : o.theme_cal_PrevBtn,
+			( w.__( "isRTL" ) === true ) ? o.theme_cal_PrevBtn : o.theme_cal_NextBtn,
 			"dbCalPrev",
 			"dbCalNext"
-		).appendTo( w.d.intHTML );
+		);
+
+		if ( w.__( "isRTL" ) === true ) {
+			calContent.children().each( function( i, item ) {
+				calContent.prepend( item );
+			});
+		}
+		
+		calContent.appendTo( w.d.intHTML );
 
 		w.d.intHTML
 			.on( o.clickEvent, ".dbCalNext", function(e) {
@@ -259,7 +267,7 @@ JTSageDateBox._build.calbox = function () {
 	// Picker controls, if enabled.
 
 	if ( o.calUsePickers === true ) {
-		w.style_picker(
+		calContent = w.style_picker(
 			w._pickRanges(
 				date_displayMonth,
 				date_displayYear,
@@ -269,7 +277,15 @@ JTSageDateBox._build.calbox = function () {
 			o.theme_cal_Pickers,
 			"dbCalPickMonth",
 			"dbCalPickYear"
-		).appendTo( w.d.intHTML );
+		);
+
+		if ( w.__( "isRTL" ) === true ) {
+			calContent.children().each( function( i, item ) {
+				calContent.prepend( item );
+			});
+		}
+		
+		calContent.appendTo( w.d.intHTML );
 
 		w.d.intHTML.on( "change", "#dbCalPickMonth, #dbCalPickYear", function() {
 			if ( w.theDate.get(2) > 28 ) {
@@ -316,7 +332,9 @@ JTSageDateBox._build.calbox = function () {
 		weekdayControl.appendTo( calContent );
 
 		if ( w.__( "isRTL" ) === true ) {
-			weekdayControl.css( { display : "flex", flexDirection : "row-reverse" } );
+			weekdayControl.children().each( function( i, item ) {
+				weekdayControl.prepend( item );
+			} );
 		}
 	}
 
@@ -381,7 +399,9 @@ JTSageDateBox._build.calbox = function () {
 
 		// Deal with RTL languages (flex is easiest)
 		if ( w.__( "isRTL" ) === true ) {
-			calCntlRow.css( { display : "flex", flexDirection : "row-reverse" } );
+			calCntlRow.children().each( function( i, item ) {
+				calCntlRow.prepend( item );
+			});
 		}
 
 		// Add row to grid.
