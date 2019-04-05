@@ -994,6 +994,19 @@ opts :
     optdemo : false
     sample  : false
 
+  dismissOutsideClick :
+    short   : Clicking outside the control will close it
+    long    : |
+      When true, clicking on the greyed out background around the control will close it.  Applies
+      to modal and dropdown display methods only.
+    modes   : *modeAll
+    cat     : Display-Control
+    type    : Boolean
+    dynamic : true
+    default : true
+    optdemo : false
+    sample  : false
+
   durationDays :
     short   : Name of day/days for duration
     long    : |

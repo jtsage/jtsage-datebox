@@ -151,7 +151,9 @@ JTSageDateBox.open = function () {
 				)
 				.on( o.clickEvent, function (e) {
 					e.preventDefault();
-					w._t( { method : "close", closeCancel : true } );
+					if ( o.dismissOutsideClick ) {
+						w._t( { method : "close", closeCancel : true } );
+					}
 				});
 
 			w.d.mainWrap.css(
