@@ -248,6 +248,12 @@ JTSageDateBox._build.datebox = function () {
 		ctrlRow.append( ctrlWrk );
 	}
 
+	if ( w.__( "isRTL" ) === true ) {
+		ctrlRow.children().each( function( i, item ) {
+			ctrlRow.prepend( item );
+		} );
+	}
+
 	ctrlContainer.append( ctrlRow );
 	ctrlContainer.appendTo( w.d.intHTML );
 
