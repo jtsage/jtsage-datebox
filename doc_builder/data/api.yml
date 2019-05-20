@@ -931,6 +931,17 @@ opts :
     optdemo : false
     sample  : false
 
+  disableWheel :
+    short   : Disable mousewheel events
+    long    : Set to true to not bind the to the mousewheel
+    modes   : *modeAll
+    cat     : Operation
+    default : false
+    type    : Boolean
+    dynamic : true
+    optdemo : false
+    sample  : false
+
   disabledState :
     short   : Disabled Class
     long    : Class to add to disabled buttons

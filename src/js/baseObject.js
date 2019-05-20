@@ -57,6 +57,7 @@ JTSageDateBox.options = {
 	breakpointWidth         : "567px",
 	zindex                  : "1100",
 	clickEvent              : "click",
+	disableWheel            : false,
 
 	useKinetic              : true,
 	flipSizeOverride        : false,
