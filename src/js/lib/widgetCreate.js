@@ -74,7 +74,7 @@ JTSageDateBox._create = function() {
 		) );
 	}
 
-	w.wheelEvent = ( o.disableWheel ? 
+	w.wheelEvent = ( o.disableWheel ?
 		"nonsenseEvent" :
 		( typeof $.event.special.mousewheel !== "undefined" ) ? "mousewheel" : "wheel"
 	);

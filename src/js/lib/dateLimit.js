@@ -130,21 +130,25 @@ JTSageDateBox._newDateCheck = {
 
 		return ( testDate > this.realToday );
 	},
-	minDays : function ( testDate ) {
+	minmaxDays : function ( testDate ) {
 		/* return true if the date is invalid (too many days before today) */
-		var testOption = this.options.minDays;
+		var testOption1 = this.options.minDays,
+			testOption2 = this.options.maxDays,
+			validMin, validMax;
 
-		if ( testOption === false ) { return false; }
+		if ( testOption1 === false && testOption2 === false ) {
+			return false;
+		}
 
-		return ( this.realToday.getEpochDays() - testOption < testDate.getEpochDays() );
-	},
-	maxDays : function ( testDate ) {
-		/* return true if the date is invalid (too many days after today) */
-		var testOption = this.options.maxDays;
+		validMin = ( testOption1 === false ) ?
+			true :
+			( this.realToday.getEpochDays() - ( testOption1 + 1 ) < testDate.getEpochDays() );
 
-		if ( testOption === false ) { return false; }
+		validMax = ( testOption2 === false ) ?
+			true :
+			( this.realToday.getEpochDays() + ( testOption2 + 1 ) > testDate.getEpochDays() );
 
-		return ( this.realToday.getEpochDays() + testOption > testDate.getEpochDays() );
+		return ! ( validMin && validMax );
 	},
 	minHour : function ( testDate ) {
 		/* return true if the time is invalid (hour before allowed) */
@@ -263,7 +267,7 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 		badChecks = [
 			"blackDays", "blackDates", "blackDatesRec",
 			"notToday", "maxYear", "minYear", "afterToday", "beforeToday",
-			"maxDate", "minDate", "minDays", "maxDays",
+			"maxDate", "minDate", "minmaxDays",
 			"minHour", "maxHour", "minTime", "maxTime"
 		];
 
