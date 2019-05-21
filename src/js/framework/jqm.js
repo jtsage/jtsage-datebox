@@ -188,6 +188,7 @@ JTSageDateBox.style_btnGrpOut = function ( collapse, inner ) {
  * @return {object} jQuery object now wrapped with some sort of div
  */
 JTSageDateBox.style_inWrap = function ( originalInput ) {
+	originalInput.parent().enhanceWithin();
 	return originalInput.parent().addClass("ui-input-has-clear");
 };
 
