@@ -133,7 +133,7 @@ JTSageDateBox._build.slidebox = function () {
 
 	// Picker controls, if enabled.
 
-	if ( o.slideUsePickers === true ) {
+	if ( o.slideUsePickers !== false ) {
 		w.style_picker(
 			w._pickRanges(
 				date_displayMonth,
@@ -203,7 +203,7 @@ JTSageDateBox._build.slidebox = function () {
 
 
 	// Quick Date Picker if turned on.
-	if ( o.slideShowDateList === true && o.slideDateList !== false ) {
+	if ( o.slideShowDateList !== false && o.slideDateList !== false ) {
 		w.style_dateList(
 			w.__( "calDateListLabel" ),
 			o.slideDateList,

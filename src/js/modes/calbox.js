@@ -143,12 +143,12 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 	if ( testDate.get(1) !== dispMonth ) {
 		returnObject.inBounds = false;
 
-		if ( o.calHighOutOfBounds === true ) {
+		if ( o.calHighOutOfBounds !== false ) {
 			returnObject.theme = o.theme_cal_OutOfBounds;
 			done = true;
 			// Allow only selected theme if specifly enabled.
 			if (
-				o.calSelectedOutOfBounds === true &&
+				o.calSelectedOutOfBounds !== false &&
 				w._ThemeDateCK.selected.call( w, testDate )
 			) {
 				returnObject.theme = o.theme_cal_Selected;
@@ -266,7 +266,7 @@ JTSageDateBox._build.calbox = function () {
 
 	// Picker controls, if enabled.
 
-	if ( o.calUsePickers === true ) {
+	if ( o.calUsePickers !== false ) {
 		calContent = w.style_picker(
 			w._pickRanges(
 				date_displayMonth,
@@ -409,7 +409,7 @@ JTSageDateBox._build.calbox = function () {
 	}
 
 	// Quick Date Picker if turned on.
-	if ( o.calShowDateList === true && o.calDateList !== false ) {
+	if ( o.calShowDateList !== false && o.calDateList !== false ) {
 		w.style_dateList(
 			w.__( "calDateListLabel" ),
 			o.calDateList,

@@ -139,7 +139,7 @@ JTSageDateBox._stdBtn = {
 				e.preventDefault();
 				w.theDate = w._pa( [ 0, 0, 0 ], new w._date() );
 				w._t( { method : "doset" } );
-				if ( o.closeTodayButton === true ) { w._t( { method : "close" } ); }
+				if ( o.closeTodayButton !== false ) { w._t( { method : "close" } ); }
 			});
 	},
 
@@ -162,7 +162,7 @@ JTSageDateBox._stdBtn = {
 				e.preventDefault();
 				w.theDate = w._pa( [ 0, 0, 0 ], new w._date() ).adj( 2, 1 );
 				w._t( { method : "doset" } );
-				if ( o.closeTomorrowButton === true ) { w._t( { method : "close" } ); }
+				if ( o.closeTomorrowButton !== false ) { w._t( { method : "close" } ); }
 			});
 	},
 };
