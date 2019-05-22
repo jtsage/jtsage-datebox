@@ -285,7 +285,7 @@ JTSageDateBox.style_pnHead = function ( txt, prevBtn, nextBtn, prevCtl, nextCtl 
 		prevBtn[1] + " ui-btn-left " + prevCtl
 	] ) ).appendTo( returnVal );
 
-	$("<h1 class='ui-title' style='margin: 0 15%'>" + txt + "</h1>").appendTo( returnVal );
+	$("<h3 class='ui-title' style='margin: 0 15%'>" + txt + "</h3>").appendTo( returnVal );
 
 	$( this.style_btn( [
 		nextBtn[0],
