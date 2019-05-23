@@ -135,6 +135,6 @@ You should (but are not required) to include at least one language file. The def
 <script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-i18n/jquery.mobile.datebox.i18n.en_US.utf8.js" type="text/javascript" ></script>
 ```
 
-## Upgradeing
+## Upgrading
 
 Upgrading from version 4?  Most things will work as-is.  Check out the UPGRADEING.md document in the repository for details.
