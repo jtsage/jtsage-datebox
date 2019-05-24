@@ -243,7 +243,7 @@ JTSageDateBox.style_inHide = function() {
  */
 JTSageDateBox.style_mainHead = function ( text, themeBar, themeButton ) {
 	return "<div class='ui-header ui-bar-" + themeBar + "'>" +
-		"<h1 class='ui-title'>" + text + "</h5>" +
+		"<h1 class='ui-title'>" + text + "</h1>" +
 		this.style_btn( [
 			themeButton[0],
 			themeButton[1] + " dbCloser ui-btn-right"
