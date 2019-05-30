@@ -10,7 +10,8 @@
     "bulma": "0.7.4",
     "jquery-mobile": "1.4.5",
     "fomantic-ui": "2.7.2",
-    "uikit": "3.0.3"
+    "uikit": "3.0.3",
+    "noframe": "0.0.1"
   },
   "supportMap": {
     "bootstrap": "bootstrap-v3",
@@ -19,7 +20,8 @@
     "bulma": "bulma",
     "jqm": "jquery-mobile",
     "fomanticui": "fomantic-ui",
-    "uikit": "uikit"
+    "uikit": "uikit",
+    "noframe": "no-framework"
   },
   "prettyMap": {
     "bootstrap": "Twitter Bootstrap",
@@ -28,7 +30,8 @@
     "bulma": "Bulma.io",
     "jqm": "jQueryMobile",
     "fomanticui": "FomanticUI",
-    "uikit": "UIKit"
+    "uikit": "UIKit",
+    "noframe": "No Framework"
   },
   "prettyMapMode": {
     "calbox": "CalBox",
