@@ -21,11 +21,13 @@ const config    = require( "../package.json" ),
 	glob        = require( "glob" ),
 	rimraf      = require( "rimraf" ),
 
+	polyFill    = [ "jqm" ],
 	dontBundle  = [ "jqm" ];
 
 var frameName, inCode, outCodeFull, outCodeMin, outCodeObj,
 	today = new Date(),
 	externalLibsJS = "",
+	polyFillLibsJS = "",
 	dbModeLibsJS = "",
 	buildFiles = [],
 	buildMode = ( typeof process.argv[2] !== "undefined" ) ? process.argv[2] : "latest",
@@ -35,6 +37,7 @@ var frameName, inCode, outCodeFull, outCodeMin, outCodeObj,
 
 	baseObjectJS = fs.readFileSync("src/js/baseObject.js"),
 	externalLibs = glob.sync("src/js/external/*.js"),
+	polyFillLibs = glob.sync("src/js/polyfill/*.js"),
 	frameWorks   = glob.sync("src/js/framework/*.js"),
 	modes        = glob.sync("src/js/modes/*.js"),
 	internalLibs = glob.sync("src/js/lib/*.js"),
@@ -82,7 +85,20 @@ for ( var i = 0, len = externalLibs.length; i < len; i++ ) {
 	externalLibsJS += fs.readFileSync( externalLibs[i] );
 }
 
+for ( var j = 0, lan = polyFillLibs.length; j < lan; j++ ) {
+	polyFillLibsJS += fs.readFileSync( polyFillLibs[j] );
+}
+
 externalLibsJS = UglifyJS.minify( externalLibsJS, {
+	mangle   : false,
+	compress : false,
+	output   : {
+		code     : true,
+		beautify : true
+	}
+} );
+
+polyFillLibsJS = UglifyJS.minify( polyFillLibsJS, {
 	mangle   : false,
 	compress : false,
 	output   : {
@@ -139,6 +155,7 @@ buildFiles.forEach( function( fileObj ) {
 		preamble.long( fileObj.name ) +
 		"\n\n" +
 		( ( dontBundle.includes( fileObj.name ) ) ? "" : externalLibsJS.code ) +
+		( ( polyFill.includes( fileObj.name ) ) ? polyFillLibsJS.code : "" ) +
 		"\n\n" +
 		outCodeObj.code;
 
