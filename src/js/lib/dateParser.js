@@ -69,10 +69,11 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 	// Set a default, no extended data
 	if ( typeof extd === "undefined" ) { extd = false; }
 	
-	// Convert indic numers t those we can deal with
-	str = ( ( w.__( "useArabicIndic" ) === true && typeof str !== "undefined" ) ?
-		w._dRep( str, -1 ) :
-		str
+	// Convert indic numers t those we can deal with, also handle empty string.
+	str = ( typeof str === "undefined" ) ? "" : (
+		( w.__( "useArabicIndic" ) === true ) ?
+			w._dRep( str, -1 ) :
+			str
 	).trim();
 
 	// Do nothing if no mode loaded
@@ -196,13 +197,19 @@ JTSageDateBox._makeDate = function ( str, extd ) {
 				case "number":
 					date =  new w._date( defVal * 1000 ); break;
 				case "string":
-					if ( o.mode.substr(0,4) === "time" ) {
-						exp_temp = Object.assign([0,0,0], defVal.split(":",3));
-						date = w._pa( exp_temp, date );
+					if ( defVal.substr(0,1) === "+" ) {
+						date = new w._date().adj(5, parseInt(defVal.substr(1),10) );
+					} else if ( defVal.substr(0,1) === "-" ) {
+						date = new w._date().adj(5, -1 * parseInt(defVal.substr(1),10) );
 					} else {
-						exp_temp = Object.assign([0,0,0], defVal.split("-",3));
-						exp_temp[1]--;
-						date = w._pa( exp_temp, false );
+						if ( o.mode.substr(0,4) === "time" ) {
+							exp_temp = Object.assign([0,0,0], defVal.split(":",3));
+							date = w._pa( exp_temp, date );
+						} else {
+							exp_temp = Object.assign([0,0,0], defVal.split("-",3));
+							exp_temp[1]--;
+							date = w._pa( exp_temp, false );
+						}
 					} break;
 			}
 		}

@@ -56,7 +56,7 @@ JTSageDateBox._enhanceDate = function() {
 		 * @memberOf JTSageDateBox._enhanceDate
 		 */
 		adj : function (type, amount) {
-			// Adjust the date.  Yes, this is chainable 
+			// Adjust the date.  Yes, this is chainable
 			if ( typeof amount !== "number" || typeof type !== "number" ) {
 				throw new Error( "Invalid Arguments" );
 			}
