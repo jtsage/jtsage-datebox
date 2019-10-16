@@ -69,10 +69,10 @@ JTSageDateBox._create = function() {
 	w.icons    = this.icons;
 
 	if ( o.usePlaceholder !== false ) {
-		w.d.input.attr( "placeholder", w._grabLabel(
-			( typeof o.usePlaceholder === "string" ) ? o.usePlaceholder : "",
-			true
-		) );
+		w.d.input.attr( "placeholder", ( typeof o.usePlaceholder === "string" ) ?
+			o.usePlaceholder :
+			w._grabLabel( "", true )
+		);
 	}
 
 	w.wheelEvent = ( o.disableWheel ?
