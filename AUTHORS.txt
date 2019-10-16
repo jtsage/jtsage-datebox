@@ -1,54 +1,55 @@
-1475 J.T.Sage                       <jtsage+datebox@gmail.com>
-  15 Jonas Nyrup                    <jnyrup@gmail.com>
-  10 Eduardo Malpeli                <tchatcho66@hotmail.com>
-   7 J.T. Sage                      <jtsage+datebox@gmail.com>
-   6 Ville Salonen                  <ville.salonen@iki.fi>
-   6 Matthieu Chase Heimer          <chase@osdev.org>
-   6 Brian Oley                     <brian.oley@gmail.com>
-   5 frietsch                       <oliver.frietsch@web.de>
-   5 Thiago Barreto                 <tbarretoc@gmail.com>
-   5 Michael Pisarski               <mspisars@gmail.com>
-   4 Robin Heggelund Hansen         <skinneyz89@gmail.com>
-   4 Ali Ok                         <aliok@aliok.com.tr>
-   3 unknown                        <cnelson@API8498.api-wi.com>
-   3 dtao                           <daniel.tao@gmail.com>
-   3 Tadas Šubonis                  <tadas.subonis@affecto.com>
-   3 Rodrigo Alves Vieira           <rodrigo@atela.com.br>
-   3 Josh Runge                     <joshrunge@gmail.com>
-   3 Forrest Zeisler                <forrest@getjobber.com>
-   3 Evgeny Neumerzhitskiy          <evgenyneu@gmail.com>
-   3 Anne-Gaelle Colom              <coloma@wmin.ac.uk>
-   2 jnyrup                         <jnyrup@gmail.com>
-   2 Marin                          <mcorkalo@gmail.com>
-   2 Brandon Johnson                <bjohn465@gmail.com>
-   2 Alexander Zolotko              <alexander.zolotko@ainstainer.com>
-   2 Alexander Volle                <alexander.volle@hotmail.com>
-   1 unknown                        <marin@.(none)>
-   1 marinn                         <marinn@users.noreply.github.com>
-   1 josher19                       <josher19@gmail.com>
-   1 defacto133                     <defacto133@gmail.com>
-   1 ceblanda                       <christine.blanda@jenzabar.net>
-   1 begmandev                      <joel.bagley@gmail.com>
-   1 Zbigniew Motyka                <zbigniewmotyka@o2.pl>
-   1 Volker Krebs                   <vk@abas.de>
-   1 Tobias Jost                    <tobias.jost@spinweb.de>
-   1 ShirtlessKirk                  <jim@shirtlesskirk.com>
-   1 Serhii Polishchuk              <spolischook@gmail.com>
-   1 Saurabh Odhyan                 <saurabh.odhyan@yahoo.com>
-   1 Ondřej Škrabánek               <ondrej.skrabanek@hotmail.com>
-   1 Marko Manojlovic               <manmar984@gmail.com>
-   1 Luis Carlos Sanchez Gonzalez   <AddaxT@users.noreply.github.com>
-   1 Kevin Webb                     <kpwebb@gmail.com>
-   1 Kevin G                        <kevin@myplaceonline.com>
-   1 Jacob Gable                    <jacob.gable@gmail.com>
-   1 Greg Stroup                    <gstroup@gmail>
-   1 Giles Alexander                <giles.alexander@gmail.com>
-   1 Gert Hengeveld                 <info@ghengeveld.nl>
-   1 Ethan Romba                    <EthanRomba@u.northwestern.edu>
-   1 Chris P. Vigelius              <me@cv.gd>
-   1 Carsten Otto                   <carsten.otto@andrena.de>
-   1 Brandon Johnson                <bjohnson@.mainman.dcs>
-   1 Brad Tippett                   <brad@bradtippett.com>
-   1 Binay Devkota                  <themightydeity@users.noreply.github.com>
-   1 Baraa Basata                   <bbasata@decisiv.net>
-   1 Adrian Pillinger               <adrian.pillinger@scisys.co.uk>
+   1480 J.T.Sage                       <jtsage+datebox@gmail.com>
+     15 Jonas Nyrup                    <jnyrup@gmail.com>
+     10 Eduardo Malpeli                <tchatcho66@hotmail.com>
+      8 J.T. Sage                      <jtsage+datebox@gmail.com>
+      6 Ville Salonen                  <ville.salonen@iki.fi>
+      6 Matthieu Chase Heimer          <chase@osdev.org>
+      6 Brian Oley                     <brian.oley@gmail.com>
+      5 Thiago Barreto                 <tbarretoc@gmail.com>
+      5 Michael Pisarski               <mspisars@gmail.com>
+      5 frietsch                       <oliver.frietsch@web.de>
+      4 Robin Heggelund Hansen         <skinneyz89@gmail.com>
+      4 Ali Ok                         <aliok@aliok.com.tr>
+      3 unknown                        <cnelson@API8498.api-wi.com>
+      3 Tadas Šubonis                  <tadas.subonis@affecto.com>
+      3 Rodrigo Alves Vieira           <rodrigo@atela.com.br>
+      3 Josh Runge                     <joshrunge@gmail.com>
+      3 Forrest Zeisler                <forrest@getjobber.com>
+      3 Evgeny Neumerzhitskiy          <evgenyneu@gmail.com>
+      3 dtao                           <daniel.tao@gmail.com>
+      3 Anne-Gaelle Colom              <coloma@wmin.ac.uk>
+      2 Marin                          <mcorkalo@gmail.com>
+      2 jnyrup                         <jnyrup@gmail.com>
+      2 Brandon Johnson                <bjohn465@gmail.com>
+      2 Alexander Zolotko              <alexander.zolotko@ainstainer.com>
+      2 Alexander Volle                <alexander.volle@hotmail.com>
+      1 Zbigniew Motyka                <zbigniewmotyka@o2.pl>
+      1 Volker Krebs                   <vk@abas.de>
+      1 unknown                        <marin@.(none)>
+      1 Tobias Jost                    <tobias.jost@spinweb.de>
+      1 ShirtlessKirk                  <jim@shirtlesskirk.com>
+      1 Serhii Polishchuk              <spolischook@gmail.com>
+      1 Saurabh Odhyan                 <saurabh.odhyan@yahoo.com>
+      1 Ondřej Škrabánek               <ondrej.skrabanek@hotmail.com>
+      1 Marko Manojlovic               <manmar984@gmail.com>
+      1 marinn                         <marinn@users.noreply.github.com>
+      1 Luis Carlos Sanchez Gonzalez   <AddaxT@users.noreply.github.com>
+      1 Kevin Webb                     <kpwebb@gmail.com>
+      1 Kevin G                        <kevin@myplaceonline.com>
+      1 josher19                       <josher19@gmail.com>
+      1 Jacob Gable                    <jacob.gable@gmail.com>
+      1 Greg Stroup                    <gstroup@gmail>
+      1 Giles Alexander                <giles.alexander@gmail.com>
+      1 Gert Hengeveld                 <info@ghengeveld.nl>
+      1 Ethan Romba                    <EthanRomba@u.northwestern.edu>
+      1 dependabot[bot]                <49699333+dependabot[bot]@users.noreply.github.com>
+      1 defacto133                     <defacto133@gmail.com>
+      1 Chris P. Vigelius              <me@cv.gd>
+      1 ceblanda                       <christine.blanda@jenzabar.net>
+      1 Carsten Otto                   <carsten.otto@andrena.de>
+      1 Brandon Johnson                <bjohnson@.mainman.dcs>
+      1 Brad Tippett                   <brad@bradtippett.com>
+      1 Binay Devkota                  <themightydeity@users.noreply.github.com>
+      1 begmandev                      <joel.bagley@gmail.com>
+      1 Baraa Basata                   <bbasata@decisiv.net>
+      1 Adrian Pillinger               <adrian.pillinger@scisys.co.uk>
