@@ -1240,6 +1240,60 @@ opts :
     optdemo : true
     sample  : "[ \"default\" | true | false ]"
 
+  headerFollowsLabel :
+    short   : Widget header follows the HTML label text
+    long    : |
+      When true, allow the widget header to be replaced by the label text.  Precedence is
+
+       * options.overrideDialogLabel
+       * &lt;input> placeholder attr (_headerFollowsPlaceholder_)
+       * &lt;input> title attr (_headerFollowsTitle_)
+       * &lt;label> text (with proper __for__ attr) (_headerFollowsLabel_)
+       * i18n.titleDateDialogLabel / i18n.titleTimeDialogLabel (mode dependant)
+    modes   : *modeAll
+    cat     : Display-Control
+    default : true
+    type    : Boolean
+    dynamic : false
+    optdemo : false
+    sample  : false
+
+  headerFollowsPlaceholder :
+    short   : Widget header follows the HTML label text
+    long    : |
+      When true, allow the widget header to be replaced by the placeholder attribute.  Precedence is
+
+       * options.overrideDialogLabel
+       * &lt;input> placeholder attr (_headerFollowsPlaceholder_)
+       * &lt;input> title attr (_headerFollowsTitle_)
+       * &lt;label> text (with proper __for__ attr) (_headerFollowsLabel_)
+       * i18n.titleDateDialogLabel / i18n.titleTimeDialogLabel (mode dependant)
+    modes   : *modeAll
+    cat     : Display-Control
+    default : true
+    type    : Boolean
+    dynamic : false
+    optdemo : false
+    sample  : false
+
+  headerFollowsTitle :
+    short   : Widget header follows the HTML label text
+    long    : |
+      When true, allow the widget header to be replaced by the title attribute.  Precedence is
+
+       * options.overrideDialogLabel
+       * &lt;input> placeholder attr (_headerFollowsPlaceholder_)
+       * &lt;input> title attr (_headerFollowsTitle_)
+       * &lt;label> text (with proper __for__ attr) (_headerFollowsLabel_)
+       * i18n.titleDateDialogLabel / i18n.titleTimeDialogLabel (mode dependant)
+    modes   : *modeAll
+    cat     : Display-Control
+    default : true
+    type    : Boolean
+    dynamic : false
+    optdemo : false
+    sample  : false
+
   headerFormat :
     short   : Format for header
     long    : |
