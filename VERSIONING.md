@@ -21,7 +21,7 @@ ___OR___
 __THEN__
 
 ```sh
-# npm run latest
+# npm run build-latest
 # npm run release
 ```
 

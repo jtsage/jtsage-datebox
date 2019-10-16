@@ -138,8 +138,11 @@ JTSageDateBox._stdBtn = {
 			.on( o.clickEvent, function( e ) {
 				e.preventDefault();
 				w.theDate = w._pa( [ 0, 0, 0 ], new w._date() );
-				w._t( { method : "doset" } );
-				if ( o.closeTodayButton !== false ) { w._t( { method : "close" } ); }
+				w._t( { method : "dorefresh" } );
+				if ( o.closeTodayButton !== false ) {
+					w._t( { method : "doset" } );
+					w._t( { method : "close" } );
+				}
 			});
 	},
 
@@ -161,8 +164,11 @@ JTSageDateBox._stdBtn = {
 			.on( o.clickEvent, function( e ) {
 				e.preventDefault();
 				w.theDate = w._pa( [ 0, 0, 0 ], new w._date() ).adj( 2, 1 );
-				w._t( { method : "doset" } );
-				if ( o.closeTomorrowButton !== false ) { w._t( { method : "close" } ); }
+				w._t( { method : "dorefresh" } );
+				if ( o.closeTomorrowButton !== false ) {
+					w._t( { method : "doset" } );
+					w._t( { method : "close" } );
+				}
 			});
 	},
 };

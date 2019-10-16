@@ -217,7 +217,7 @@ JTSageDateBox.style_mainHead = function ( text, themeBar, themeButton ) {
 		"<h5 class='text-white'>" + text + "</h5>" +
 		this.style_btn( [ themeButton[0], themeButton[1] + " dbCloser" ] ) +
 		"</div>";
-},
+};
 
 /**
  * Make an internal header ( datebox & flipbox )
@@ -231,7 +231,7 @@ JTSageDateBox.style_subHead =  function ( text ) {
 	return $(
 		"<div class='my-2 text-center dbHeader'><h5>" + text + "</h5></div>"
 	);
-},
+};
 
 /**
  * Make the header for calbox / slidebox

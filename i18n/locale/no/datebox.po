@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: jquery-mobile-datebox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-06 16:10-0500\n"
-"PO-Revision-Date: 2017-11-30 14:47-0500\n"
-"Last-Translator: jtsage <Jtsage@gmail.com>\n"
+"PO-Revision-Date: 2019-07-15 16:25\n"
+"Last-Translator: J.T.Sage (jtsage)\n"
 "Language-Team: Norwegian\n"
 "Language: no_NO\n"
 "MIME-Version: 1.0\n"
@@ -286,7 +286,7 @@ msgstr "false"
 #. Set to the start day of the calendar (0=Sunday)
 #: generate-i18n.py:42
 msgid "0"
-msgstr "0"
+msgstr "1"
 
 #: generate-i18n.py:43
 msgid "Clear"

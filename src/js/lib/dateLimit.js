@@ -335,7 +335,7 @@ JTSageDateBox._newDateChecker = function( testDate ) {
  */
 JTSageDateBox._getCleanDur = function() {
 	var w            = this,
-		o            = this,
+		o            = this.options,
 		thisDuration = w.theDate.getEpoch() - w.initDate.getEpoch();
 
 	// Check for less than zero. (and fix it)

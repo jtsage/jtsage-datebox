@@ -12,6 +12,7 @@ Set the default date value, or time value.  Many options exist for supplying the
 defaultValue: new Date(2001,0,1,0,0,0,0); // Date Object (Jan 1, 2001)
 defaultValue: [2001,0,1];   // Array (Jan 1, 2001)
 defaultValue: "2001-01-01"; // ISO Date String (Jan 1, 2001)
+defaultValue: "+86400";     // Offset (+ or -) a number of SECONDS from today (86400 == 1 day)
 defaultValue: 978307200;    // Number (Epoch) (Jan 1, 2001 GMT !SEE NOTE1!)
 ```
 
@@ -22,6 +23,7 @@ defaultValue: new Date(2001,0,1,15,30,0,0); // Date Object (3:30:00 PM)
 defaultValue: [15,30,0];  // Array (3:30:00 PM)
 defaultValue: "15:30";    // String (3:30:00 PM)
 defaultValue: "15:30:00"; // String with Seconds (3:30:00 PM)
+defaultValue: "+86400";   // Offset (+ or -) a number of SECONDS from today (86400 == 1 day)
 defaultValue: 55800;      // Number (Epoch) (3:30:00 PM GMT, !SEE NOTE1!)
 ```
 
