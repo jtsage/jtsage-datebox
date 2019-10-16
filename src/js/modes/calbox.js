@@ -442,6 +442,7 @@ JTSageDateBox._build.calbox = function () {
 					value  : w._formatter( w.__fmt(),w.theDate ),
 					date   : w.theDate
 				} );
+				if ( o.displayMode === "inline" ) { w._t( { method : "dorefresh" } ); }
 				w._t( { method : "close" } );
 			}
 		})
