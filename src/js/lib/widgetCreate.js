@@ -70,7 +70,8 @@ JTSageDateBox._create = function() {
 
 	if ( o.usePlaceholder !== false ) {
 		w.d.input.attr( "placeholder", w._grabLabel(
-			( typeof o.usePlaceholder === "string" ) ? o.usePlaceholder : ""
+			( typeof o.usePlaceholder === "string" ) ? o.usePlaceholder : "",
+			true
 		) );
 	}
 

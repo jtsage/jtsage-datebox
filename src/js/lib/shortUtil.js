@@ -230,7 +230,7 @@ JTSageDateBox._btwn = function(value, low, high) {
  * 
  * @return {string} Label for DateBox
  */
-JTSageDateBox._grabLabel = function( deflt ) {
+JTSageDateBox._grabLabel = function( deflt, isPlaceholder ) {
 	// Get the most reasonable label for this datebox.
 	// In order of preference - placeholder, title, label for=
 	var inputPlaceholder, inputTitle,
@@ -238,18 +238,31 @@ JTSageDateBox._grabLabel = function( deflt ) {
 		o = this.options,
 		tmp = false;
 
+	if ( typeof isPlaceholder === "undefined" ) {
+		isPlaceholder = false;
+	}
+
 	if ( typeof o.overrideDialogLabel === "undefined" ) {
 		inputPlaceholder = w.d.input.attr( "placeholder" );
 		inputTitle = w.d.input.attr( "title" );
 		
 		if ( typeof inputPlaceholder !== "undefined" ) {
-			return inputPlaceholder;
+			if ( isPlaceholder || o.headerFollowsPlaceholder ) {
+				return inputPlaceholder;
+			}
 		}
 		if ( typeof inputTitle !== "undefined" ) {
-			return inputTitle;
+			if ( isPlaceholder || o.headerFollowsTitle ) {
+				return inputTitle;
+			}
 		}
 		tmp = $(document).find( "label[for='" + w.d.input.attr( "id" ) + "']" ).text();
-		return ( tmp === "" ) ? deflt : tmp;
+		
+		if ( isPlaceholder || o.headerFollowsLabel ) {
+			return ( tmp === "" ) ? deflt : tmp;
+		} else {
+			return deflt;
+		}
 	}
 	return o.overrideDialogLabel;
 };

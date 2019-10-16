@@ -103,7 +103,10 @@ JTSageDateBox.options = {
 	useClearButton          : false,
 	useCollapsedBut         : false,
 	
-	usePlaceholder          : false,
+	usePlaceholder           : false,
+	headerFollowsPlaceholder : true,
+	headerFollowsTitle       : true,
+	headerFollowsLabel       : true,
 
 	beforeOpenCallback      : false,
 	beforeOpenCallbackArgs  : [],
