@@ -239,6 +239,9 @@ JTSageDateBox._build.slidebox = function () {
 					date   : w.theDate
 				} );
 				w._t( { method : "close" } );
+				if ( o.displayMode === "inline" ) {
+					w._t( { method : "dorefresh" } );
+				}
 			}
 		})
 		.on( o.clickEvent, ".dbSlideWkNext", function(e) {
