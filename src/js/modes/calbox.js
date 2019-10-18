@@ -425,6 +425,8 @@ JTSageDateBox._build.calbox = function () {
 				12, 1, 1, 1
 			);
 			w._t( { method : "doset" } );
+			w._t( { method : "dorefresh" } );
+			w._t( { method : "close" } );
 		});
 	}
 
