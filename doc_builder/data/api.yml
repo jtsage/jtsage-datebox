@@ -1259,7 +1259,7 @@ opts :
     sample  : false
 
   headerFollowsPlaceholder :
-    short   : Widget header follows the HTML label text
+    short   : Widget header follows the INPUT placeholder text
     long    : |
       When true, allow the widget header to be replaced by the placeholder attribute.  Precedence is
 
@@ -1277,7 +1277,7 @@ opts :
     sample  : false
 
   headerFollowsTitle :
-    short   : Widget header follows the HTML label text
+    short   : Widget header follows the INPUT title text
     long    : |
       When true, allow the widget header to be replaced by the title attribute.  Precedence is
 
