@@ -29,6 +29,7 @@ mergeOpts({
 	highDays            : false,
 	highDates           : false,
 	highDatesRec        : false,
+	highDatesPeriod     : false,
 	highDatesAlt        : false,
 	enableDates         : false,
 	calDateList         : false,
@@ -129,12 +130,13 @@ JTSageDateBox._cal_ThemeDate = function( testDate, dispMonth ) {
 			inBounds : true
 		},
 		dateThemes = [
-			[ "selected",     "theme_cal_Selected" ],
-			[ "today" ,       "theme_cal_Today" ],
-			[ "highDates",    "theme_cal_DateHigh" ],
-			[ "highDatesAlt", "theme_cal_DateHighAlt" ],
-			[ "highDatesRec", "theme_cal_DateHighRec" ],
-			[ "highDays",     "theme_cal_DayHigh" ]
+			[ "selected",        "theme_cal_Selected" ],
+			[ "today" ,          "theme_cal_Today" ],
+			[ "highDates",       "theme_cal_DateHigh" ],
+			[ "highDatesAlt",    "theme_cal_DateHighAlt" ],
+			[ "highDatesRec",    "theme_cal_DateHighRec" ],
+			[ "highDatesPeriod", "theme_cal_DateHighRec" ],
+			[ "highDays",        "theme_cal_DayHigh" ]
 		];
 
 	w.realToday = new w._date();
