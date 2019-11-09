@@ -465,6 +465,24 @@ JTSageDateBox._ThemeDateCK = {
 		}
 		return false;
 	},
+	highDatesPeriod : function ( testDate ) {
+		/* return true if the date is in the period */
+		var i, j, k, testOption = this.options.highDatesPeriod;
+
+		if ( testOption === false ) { return false; }
+
+		i = testOption[0].split("-");
+		j = new Date(i[0], i[1]-1, i[2], 12, 1, 1, 1);
+		k = Math.floor(
+			( testDate.getTime() - j.getTime() ) / ( 1000 * 3600 * 24 )
+		);
+
+		if ( ( k % testOption[1] ) === 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	},
 	highDays : function ( testDate ) {
 		/* return true if the date matched blacked out days of the week */
 		var testOption = this.options.highDays;
