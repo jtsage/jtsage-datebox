@@ -58,6 +58,7 @@ JTSageDateBox._minStepFix = function() {
  * @property {function} blackDays Day is in blackDays option
  * @property {function} blackDates Date is in blackDates
  * @property {function} blackDatesRec Date is in blackDatesRec
+ * @property {function} blackDatesPeriod Date is in blackDatesPeriod
  */
 JTSageDateBox._newDateCheck = {
 	/* NOTE: These return true if the test passes.  i.e., dobule negatives galore. */
@@ -233,6 +234,24 @@ JTSageDateBox._newDateCheck = {
 			) { return true ;}
 		}
 		return false;
+	},
+	blackDatesPeriod : function ( testDate ) {
+		/* return true if the date is blacklisted in the period */
+		var i, j, k, testOption = this.options.blackDatesPeriod;
+
+		if ( testOption === false ) { return false; }
+
+		i = testOption[0].split("-");
+		j = new Date(i[0], i[1]-1, i[2], 12, 1, 1, 1);
+		k = Math.floor(
+			( testDate.getTime() - j.getTime() ) / ( 1000 * 3600 * 24 )
+		);
+
+		if ( ( k % testOption[1] ) === 0 ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 };
 
@@ -265,7 +284,7 @@ JTSageDateBox._newDateChecker = function( testDate ) {
 			dateObj  : testDate.copy()
 		},
 		badChecks = [
-			"blackDays", "blackDates", "blackDatesRec",
+			"blackDays", "blackDates", "blackDatesRec", "blackDatesPeriod",
 			"notToday", "maxYear", "minYear", "afterToday", "beforeToday",
 			"maxDate", "minDate", "minmaxDays",
 			"minHour", "maxHour", "minTime", "maxTime"
@@ -420,6 +439,7 @@ JTSageDateBox._fixstepper = function( order ) {
  * @property {function} highDates Date is in the highDates array
  * @property {function} highDatesAlt Date is in the highDatesAlt array
  * @property {function} highDatesRec Date is referenced in the highDatesRec option
+ * @property {function} highDatesPeriod Date is referenced in the highDatesPeriod option
  * @property {function} highDays Day is in the highDays array
  */
 JTSageDateBox._ThemeDateCK = {
