@@ -104,38 +104,47 @@ JTSageDateBox._dbox_enter = function (item) {
 		cleanVal = parseInt(item.val(), 10),
 		w        = this,
 		t        = 0;
-	
-	if ( item.data( "field" ) === "M" ) {
-		tmp = w.__( "monthsOfYearShort" ).indexOf( item.val() );
-		if ( tmp > -1 ) { w.theDate.setMonth( tmp ); }
-	}
-	if ( item.val() !== "" && item.val().toString().search(/^[0-9]+$/) === 0 ) {
-		switch ( item.data( "field" ) ) {
-			case "y":
-				w.theDate.setD( 0, cleanVal); break;
-			case "m":
-				w.theDate.setD( 1, cleanVal-1); break;
-			case "d":
-				w.theDate.setD( 2, cleanVal);
-				t += (60*60*24) * cleanVal;
-				break;
-			case "h":
-				w.theDate.setD( 3, cleanVal);
-				t += (60*60) * cleanVal;
-				break;
-			case "i":
-				w.theDate.setD( 4, cleanVal);
-				t += (60) * cleanVal;
-				break;
-			case "s":
-				w.theDate.setD( 5, cleanVal);
-				t += cleanVal;
-				break;
+
+	if ( this.options.mode === "durationbox" ) {
+		w.d.intHTML.find( "input" ).each( function() {
+			cleanVal = parseInt($(this).val(), 10);
+			switch ( $(this).data( "field" ) ) {
+				case "d":
+					t += (60*60*24) * cleanVal; break;
+				case "h":
+					t += (60*60) * cleanVal;    break;
+				case "i":
+					t += (60) * cleanVal;       break;
+				case "s":
+					t += cleanVal;              break;
+			}
+		});
+
+		w.theDate.setTime( w.initDate.getTime() + ( t * 1000 ) );
+
+	} else {
+		if ( item.data( "field" ) === "M" ) {
+			tmp = w.__( "monthsOfYearShort" ).indexOf( item.val() );
+			if ( tmp > -1 ) { w.theDate.setMonth( tmp ); }
+		}
+		if ( item.val() !== "" && item.val().toString().search(/^[0-9]+$/) === 0 ) {
+			switch ( item.data( "field" ) ) {
+				case "y":
+					w.theDate.setD( 0, cleanVal);   break;
+				case "m":
+					w.theDate.setD( 1, cleanVal-1); break;
+				case "d":
+					w.theDate.setD( 2, cleanVal);   break;
+				case "h":
+					w.theDate.setD( 3, cleanVal);   break;
+				case "i":
+					w.theDate.setD( 4, cleanVal);   break;
+				case "s":
+					w.theDate.setD( 5, cleanVal);   break;
+			}
 		}
 	}
-	if ( this.options.mode === "durationbox" ) {
-		w.theDate.setTime( w.initDate.getTime() + ( t * 1000 ) );
-	}
+
 	setTimeout(function() { w.refresh(); }, 150);
 };
 
