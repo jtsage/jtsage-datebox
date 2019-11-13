@@ -130,6 +130,7 @@ JTSageDateBox.options = {
 	minYear                 : false,
 	blackDates              : false,
 	blackDatesRec           : false,
+	blackDatesPeriod        : false,
 	blackDays               : false,
 	whiteDates              : false,
 	enableDates             : false,
