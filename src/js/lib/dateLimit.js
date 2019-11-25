@@ -243,7 +243,7 @@ JTSageDateBox._newDateCheck = {
 
 		i = testOption[0].split("-");
 		j = new Date(i[0], i[1]-1, i[2], 12, 1, 1, 1);
-		k = Math.floor(
+		k = Math.round(
 			( testDate.getTime() - j.getTime() ) / ( 1000 * 3600 * 24 )
 		);
 
@@ -493,7 +493,7 @@ JTSageDateBox._ThemeDateCK = {
 
 		i = testOption[0].split("-");
 		j = new Date(i[0], i[1]-1, i[2], 12, 1, 1, 1);
-		k = Math.floor(
+		k = Math.round(
 			( testDate.getTime() - j.getTime() ) / ( 1000 * 3600 * 24 )
 		);
 
